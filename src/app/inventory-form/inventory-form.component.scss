@@ -1,0 +1,39 @@
+div.container1{
+    padding: 5px;
+    margin-top: 50px;
+    margin-left:auto;
+    margin-right: auto;
+    width:98%;
+    box-shadow: 1px 1px 15px -1px ;
+    background-color: lightsteelblue;
+    overflow: hidden;
+      
+  }
+mat-grid-tile{
+    width: 98px;
+    margin:auto;
+}
+mat-form-field{
+    padding-right: 20px;
+    padding-left: 20px;
+    
+}
+
+.col{
+    margin: auto;
+    float:left;
+    width: 25%;
+    padding:1%;
+  
+}
+
+.row2{
+    width:100%;
+    align-items: center;
+    clear:both;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+
+

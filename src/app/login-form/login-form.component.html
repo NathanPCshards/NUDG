@@ -1,0 +1,25 @@
+<div [formGroup] ="loginForm">
+  <form  class="login-form" (ngSubmit)="onFormSubmit()" novalidate></form>
+  <div  class=container1>  
+      
+        <p id="title" style="font-size: 40px; margin-bottom: 5%;margin-left: 35%;"> User Login</p>
+        
+      
+      <form class="UsernameBox">
+        <mat-form-field appearance="outline" color="primary" style="width: 90%;">
+          <mat-label >Username</mat-label>
+          <input matInput placeholder="Username">
+          </mat-form-field>
+
+          <br>
+          <mat-form-field color="primary" appearance="outline" id="PasswordBox" style="width: 90%;">
+          
+          <mat-label>Password</mat-label>
+          <input matInput placeholder="Password" >
+        </mat-form-field>
+          <button mat-raised-button  (click) = "onFormSubmit()"  type="Submit" color="primary" style ="width: 90px; margin: 8px;">Submit</button>
+          
+      </form>
+    </div>
+</div>
+

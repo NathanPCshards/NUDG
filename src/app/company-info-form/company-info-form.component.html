@@ -1,0 +1,107 @@
+
+<div [formGroup] ="companyInfoForm">
+    <form  class="inventory-form" (ngSubmit)="onFormSubmit()" novalidate>
+
+    <div class="container1">
+        <h2>
+            Company Info
+        </h2>
+
+        <mat-divider style="padding-top: 2%; padding-bottom: 2%;"></mat-divider>
+          <!--  <div class = InputContainer>--> 
+                <div class = "row">
+                    <div class ="col">
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Company Information" style="padding-left: 2px;">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Company Name">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "DBA">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Phone">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Website">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Public"> 
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Address"> <!--Make look nicer (multiple fields)-->
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Logo">
+                        </mat-form-field>
+                    </div>
+
+                    <div class ="col">
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Primary Point of Contact">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Description">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "SBA Certified"> <!--Radio button-->
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Business Type">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Technical POC Information"> <!--THIS TOO-->
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "DUNS Number">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "CAGE Code">
+                        </mat-form-field>
+                    </div>
+
+                    <div class ="col">
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "CMMC Audit Agency">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "CMMC Auditor Information">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "CMMC Auditor Agency">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "CMMC Audit Agency">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "NIST Audit Agency"> 
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "NIST Audit Auditor Information">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "NIST Audit Date">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Number">
+                        </mat-form-field>
+
+                
+                    </div>
+
+
+                </div>
+                
+          <!--  </div>--> 
+    
+            <div class = "row2">
+                <mat-divider style="padding-top: 2%; padding-bottom: 2%;"></mat-divider>
+
+                <button mat-raised-button (click) = "onFormSubmit()"   style = "margin-left:47%; " type ="Submit" color="primary"  >Submit</button>
+                <button mat-raised-button (click) = "onFormReset()"   type="Reset" color="primary"  >Reset</button>
+            </div>
+        </div>
+    </form>
+    
+</div>

@@ -1,0 +1,105 @@
+div.container1{
+    margin-top: 50px;
+    margin-left: 2%;
+    margin-right: 2%;
+    align-content: center;
+    padding: 20px 20px;
+    box-shadow: 1px 1px 15px -1px ;
+    overflow:hidden;
+        
+}
+
+.col1{
+    float:left;
+    padding:10px;
+    background-color:#aaa;
+    width:48%;
+}
+.col2{
+    float:right;
+    padding:10px;
+    width:48%;
+    background-color:#bbb;
+}
+.toprow{
+    margin-bottom: 2%;
+    background-color: #ccc;
+    height:50%
+}
+.botrow{
+    background-color: #ddd;
+    height:50%
+}
+
+#Weaknesses {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#Weaknesses td, #Weaknesses th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#Weaknesses tr:nth-child(even){background-color: #f2f2f2;}
+
+#Weaknesses tr:hover {background-color: #ddd;}
+
+#Weaknesses th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+
+#Controls {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#Controls td, #Controls th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#Controls tr:nth-child(even){background-color: #f2f2f2;}
+
+#Controls tr:hover {background-color: #ddd;}
+
+#Controls th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #e0a421;
+    color: white;
+}
+
+
+
+
+#Standards {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#Standards td, #Standards th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#Standards tr:nth-child(even){background-color: #f2f2f2;}
+
+#Standards tr:hover {background-color: #ddd;}
+
+#Standards th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #00aeff;
+    color: white;
+}

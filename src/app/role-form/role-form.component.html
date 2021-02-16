@@ -1,0 +1,41 @@
+
+<div [formGroup] ="roleForm">
+    <form  class="role-form" (ngSubmit)="onFormSubmit()" novalidate>
+
+    <div class="container1">
+        <h2>
+            Roles
+        </h2>
+
+        <mat-divider style="padding-top: 2%; padding-bottom: 2%;"></mat-divider>
+          <!--  <div class = InputContainer>--> 
+                <div class = "row">
+                    <div class ="col">
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Role" style="padding-left: 2px;">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Role Type">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Description">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Users">
+                        </mat-form-field>
+
+                    </div>
+                </div>
+                
+          <!--  </div>--> 
+    
+            <div class = "row2">
+                <mat-divider style="padding-top: 2%; padding-bottom: 2%;"></mat-divider>
+
+                <button mat-raised-button (click) = "onFormSubmit()"   style = "margin-left:47%; " type ="Submit" color="primary"  >Submit</button>
+                <button mat-raised-button (click) = "onFormReset()"   type="Reset" color="primary"  >Reset</button>
+            </div>
+        </div>
+    </form>
+    
+</div>

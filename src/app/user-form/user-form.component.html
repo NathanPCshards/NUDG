@@ -1,0 +1,92 @@
+
+<div [formGroup] ="UserForm">
+    <form  class="user-form" (ngSubmit)="onFormSubmit()" novalidate>
+
+    <div class="container1">
+        <h2>
+            Users
+        </h2>
+
+        <mat-divider style="padding-top: 2%; padding-bottom: 2%;"></mat-divider>
+          <!--  <div class = InputContainer>--> 
+                <div class = "row">
+                    <div class ="col">
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "First Name" style="padding-left: 2px;">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Last Name">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Employee Number">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "EmployeeType">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Job Title">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Job Role">
+                        </mat-form-field>
+                    </div>
+
+                    <div class ="col">
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Hire Date">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Logon Hours">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Doc Upload">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Email Address">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Phone">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Address">
+                        </mat-form-field>
+                    </div>
+
+                    <div class ="col">
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Company Name">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "User id">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "CUI Data">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Remote User">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Groups">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Roles">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Asset Identifier">
+                        </mat-form-field>
+
+                    </div>
+                </div>
+                
+          <!--  </div>--> 
+    
+            <div class = "row2">
+                <mat-divider style="padding-top: 2%; padding-bottom: 2%;"></mat-divider>
+
+                <button mat-raised-button (click) = "onFormSubmit()"   style = "margin-left:47%; " type ="Submit" color="primary"  >Submit</button>
+                <button mat-raised-button (click) = "onFormReset()"   type="Reset" color="primary"  >Reset</button>
+            </div>
+        </div>
+    </form>
+    
+</div>

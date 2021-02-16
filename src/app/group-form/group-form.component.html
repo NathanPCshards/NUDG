@@ -1,0 +1,52 @@
+
+<div [formGroup] ="groupForm">
+    <form  class="group-form" (ngSubmit)="onFormSubmit()" novalidate>
+
+    <div class="container1">
+        <h2>
+            Group
+        </h2>
+
+        <mat-divider style="padding-top: 2%; padding-bottom: 2%;"></mat-divider>
+          <!--  <div class = InputContainer>--> 
+                <div class = "row">
+                    <div class ="col">
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Group Names" style="padding-left: 2px;">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Group Description">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Creation Date">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "UCI Access">
+                        </mat-form-field>
+                    </div>
+
+                    <div class ="col">
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Users">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Network Shares - Read Access">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline">
+                            <input matInput placeholder = "Network Shares - Write Access">
+                        </mat-form-field>
+                    </div>
+                </div>
+                
+          <!--  </div>--> 
+    
+            <div class = "row2">
+                <mat-divider style="padding-top: 2%; padding-bottom: 2%;"></mat-divider>
+
+                <button mat-raised-button (click) = "onFormSubmit()"   style = "margin-left:47%; " type ="Submit" color="primary"  >Submit</button>
+                <button mat-raised-button (click) = "onFormReset()"   type="Reset" color="primary"  >Reset</button>
+            </div>
+        </div>
+    </form>
+    
+</div>

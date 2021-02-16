@@ -1,0 +1,26 @@
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+      <p>Auto-resizing sidenav</p>
+      <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+      <button (click)="showFiller = !showFiller" mat-raised-button>
+        Toggle extra text
+      </button>
+    </mat-drawer>
+  
+    <div class="example-sidenav-content">
+      <button type="button" mat-button (click)="drawer.toggle()">
+        Toggle sidenav
+      </button>
+    </div>
+  
+  </mat-drawer-container>
+  
+  <!--
+Idea for Dashboard...
+
+you have the toggle sidenav thing, and in the side bar you list different graphs to display or
+a calander or whatever. 
+
+Let them choose like 3 maximum or something, and toggle the css settings to turn on the correct graphs
+
+  -->
