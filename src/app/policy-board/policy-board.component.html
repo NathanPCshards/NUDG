@@ -18,93 +18,45 @@
 
       </mat-expansion-panel-header>
 
-      <mat-toolbar>
-        <span style="margin-left: 1%;">Id</span>
-        <span style ="margin-left:17%;">Subtitle</span>
-        <span style="margin-left: 38%;">Status</span>
-        <span style="margin-left: 28%;">Filters</span>
-        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-            <mat-icon>menu</mat-icon>
-          </button>
-      </mat-toolbar>
 
 
 
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+      
+        <!-- Position Column -->
+        <ng-container matColumnDef="Title">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element"> {{element.Title}} </td>
+        </ng-container>
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="Subtitle">
+          <th mat-header-cell *matHeaderCellDef> Subtitle </th>
+          <td mat-cell *matCellDef="let element"> {{element.Subtitle}} </td>
+        </ng-container>
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="Status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let element"> {{element.Status}} </td>
+        </ng-container>
+ 
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row (click)="onRowClicked(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      
+      
       <mat-expansion-panel (opened)="panelOpenState = true"
       (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
+       
 
 
-                <mat-panel-title>
-                  AC-N.01
-                </mat-panel-title>
-
-
-                <mat-panel-description>
-                    Account Management
-                </mat-panel-description>
-
-
-                <mat-panel-description>
-                    Implemented
-                </mat-panel-description>
-
-
-            </mat-expansion-panel-header>
-
-
-            <app-identifier-page></app-identifier-page>
         </mat-expansion-panel>
-
-
-
-
-
-
-            <mat-expansion-panel (opened)="panelOpenState = true"
-            (closed)="panelOpenState = false">
-                  <mat-expansion-panel-header>
-                  <mat-panel-title>
-                   AC-N.02
-                  </mat-panel-title>
-                  <mat-panel-description>
-                   Access Enforcement
-                  </mat-panel-description>
-                  <mat-panel-description>
-                    Not Implemented
-                </mat-panel-description>
-                  </mat-expansion-panel-header>
-                  <app-identifier-page></app-identifier-page>
-
-
-                  </mat-expansion-panel>
-
-                <mat-expansion-panel (opened)="panelOpenState = true"
-                (closed)="panelOpenState = false">
-                    <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        AC-N.03
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        Use of External Information Systems
-                    </mat-panel-description>
-                    <mat-panel-description>
-                        Implemented
-                    </mat-panel-description>
-                    </mat-expansion-panel-header>
-                    <app-identifier-page></app-identifier-page>
-                </mat-expansion-panel>
-            
-
     </mat-expansion-panel>
-
-
-
-
-
-
-
-
 
 
 
@@ -122,11 +74,58 @@
           Asset Management
         </mat-panel-title>
         <mat-panel-description>
-          8/10 Implemented
+          0/15 Implemented
         </mat-panel-description>
+
+
+
+
+
+
       </mat-expansion-panel-header>
-      <p>I'm visible because I am open</p>
+
+
+
+
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+      
+        <!-- Position Column -->
+        <ng-container matColumnDef="Title">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element"> {{element.Title}} </td>
+        </ng-container>
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="Subtitle">
+          <th mat-header-cell *matHeaderCellDef> Subtitle </th>
+          <td mat-cell *matCellDef="let element"> {{element.Subtitle}} </td>
+        </ng-container>
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="Status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let element"> {{element.Status}} </td>
+        </ng-container>
+ 
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row (click)="onRowClicked(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      
+      
+      <mat-expansion-panel (opened)="panelOpenState = true"
+      (closed)="panelOpenState = false">
+       
+
+
+        </mat-expansion-panel>
     </mat-expansion-panel>
+
+
+
 
 
     <mat-expansion-panel (opened)="panelOpenState = true"
