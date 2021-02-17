@@ -5,7 +5,7 @@ div.container1{
     margin-right: auto;
     width:98%;
     box-shadow: 1px 1px 15px -1px ;
-    background-color: lightsteelblue;
+    background-color: rgb(255, 255, 255);
     overflow: hidden;
       
   }
@@ -14,15 +14,32 @@ mat-grid-tile{
     margin:auto;
 }
 mat-form-field{
-    padding-right: 20px;
-    padding-left: 20px;
-    
+    margin-left: 1%;
+}
+
+.card1{
+    margin-left: 1%;
+    display:inline-block;
+    width:34.5%;
+
+}
+.card2{
+    margin-left: 1.5%;
+    display:inline-block;
+    width:34%;
+}
+.card3{
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: small;
+    margin-left: 1.5%;
+    display:inline-block;
+    width:34%;
 }
 
 .col{
-    margin: auto;
     float:left;
-    width: 25%;
+    width: 33.3%;
     padding:1%;
   
 }
@@ -35,5 +52,6 @@ mat-form-field{
     padding-right: 2px;
 }
 
-
-
+//width for column objects is 70% for entire 'row'
+//35% to have 2 objects on 1 row
+//except radio buttons/cards, those are weird

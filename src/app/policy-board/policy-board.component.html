@@ -1,4 +1,6 @@
-<mat-accordion>
+
+
+<mat-accordion class ="accordion">
 
       
     <mat-expansion-panel (opened)="panelOpenState = true"
@@ -7,7 +9,7 @@
         <mat-panel-title>
           Access Control
         </mat-panel-title>
-        <mat-panel-description>
+        <mat-panel-description class="description">
           13/13 Implemented
         </mat-panel-description>
 
@@ -43,7 +45,7 @@
           <th mat-header-cell *matHeaderCellDef> Status </th>
           <td mat-cell *matCellDef="let element"> {{element.Status}} </td>
         </ng-container>
- 
+
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row (click)="onRowClicked(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -73,7 +75,7 @@
         <mat-panel-title>
           Asset Management
         </mat-panel-title>
-        <mat-panel-description>
+        <mat-panel-description class="description" override>
           0/15 Implemented
         </mat-panel-description>
 
@@ -134,7 +136,7 @@
 <mat-panel-title>
 Audit and Accountability
 </mat-panel-title>
-<mat-panel-description>
+<mat-panel-description class="description">
 0/10 Implemented
 </mat-panel-description>
 </mat-expansion-panel-header>
@@ -147,7 +149,7 @@ Audit and Accountability
 <mat-panel-title>
 Awareness and Training
 </mat-panel-title>
-<mat-panel-description>
+<mat-panel-description class="description">
 0/10 Implemented
 </mat-panel-description>
 </mat-expansion-panel-header>
@@ -160,7 +162,7 @@ Awareness and Training
 <mat-panel-title>
 Configuration Management
 </mat-panel-title>
-<mat-panel-description>
+<mat-panel-description class="description">
 0/10 Implemented
 </mat-panel-description>
 </mat-expansion-panel-header>
@@ -173,7 +175,7 @@ Configuration Management
 <mat-panel-title>
 Identification and Authentication
 </mat-panel-title>
-<mat-panel-description>
+<mat-panel-description class="description">
 0/10 Implemented
 </mat-panel-description>
 </mat-expansion-panel-header>
@@ -186,7 +188,7 @@ Identification and Authentication
 <mat-panel-title>
 Incident Response
 </mat-panel-title>
-<mat-panel-description>
+<mat-panel-description class="description">
 0/10 Implemented
 </mat-panel-description>
 </mat-expansion-panel-header>
@@ -199,7 +201,7 @@ Incident Response
 <mat-panel-title>
 Maintenance
 </mat-panel-title>
-<mat-panel-description>
+<mat-panel-description class="description">
 0/10 Implemented
 </mat-panel-description>
 </mat-expansion-panel-header>
@@ -212,7 +214,7 @@ Maintenance
 <mat-panel-title>
 Media Protection
 </mat-panel-title>
-<mat-panel-description>
+<mat-panel-description class="description">
 0/10 Implemented
 </mat-panel-description>
 </mat-expansion-panel-header>
@@ -225,7 +227,7 @@ Media Protection
 <mat-panel-title>
 Personal Security 
 </mat-panel-title>
-<mat-panel-description>
+<mat-panel-description class="description">
 0/10 Implemented
 </mat-panel-description>
 </mat-expansion-panel-header>
@@ -238,7 +240,7 @@ Personal Security
 <mat-panel-title>
  Physical Protection
 </mat-panel-title>
-<mat-panel-description>
+<mat-panel-description class="description">
 0/10 Implemented
 </mat-panel-description>
 </mat-expansion-panel-header>
@@ -251,7 +253,7 @@ Personal Security
 <mat-panel-title>
  Recovery
 </mat-panel-title>
-<mat-panel-description>
+<mat-panel-description class="description">
 0/10 Implemented
 </mat-panel-description>
 </mat-expansion-panel-header>
@@ -264,7 +266,7 @@ Personal Security
 <mat-panel-title>
 Risk Management
 </mat-panel-title>
-<mat-panel-description>
+<mat-panel-description class="description">
 0/10 Implemented
 </mat-panel-description>
 </mat-expansion-panel-header>
@@ -277,7 +279,7 @@ Risk Management
 <mat-panel-title>
 Security Assessment
 </mat-panel-title>
-<mat-panel-description>
+<mat-panel-description class="description">
 0/10 Implemented
 </mat-panel-description>
 </mat-expansion-panel-header>
@@ -290,7 +292,7 @@ Security Assessment
 <mat-panel-title>
 Situational Awareness
 </mat-panel-title>
-<mat-panel-description>
+<mat-panel-description class="description">
 0/10 Implemented
 </mat-panel-description>
 </mat-expansion-panel-header>
@@ -303,7 +305,7 @@ Situational Awareness
 <mat-panel-title>
 System and Communication
 </mat-panel-title>
-<mat-panel-description>
+<mat-panel-description class="description">
 0/10 Implemented
 </mat-panel-description>
 </mat-expansion-panel-header>
@@ -316,7 +318,7 @@ System and Communication
 <mat-panel-title>
 System Development
 </mat-panel-title>
-<mat-panel-description>
+<mat-panel-description class="description">
 0/10 Implemented
 </mat-panel-description>
 </mat-expansion-panel-header>
@@ -329,7 +331,7 @@ System Development
 <mat-panel-title>
 System and Information Integrity (SI)
 </mat-panel-title>
-<mat-panel-description>
+<mat-panel-description class="description">
 0/10 Implemented
 </mat-panel-description>
 </mat-expansion-panel-header>

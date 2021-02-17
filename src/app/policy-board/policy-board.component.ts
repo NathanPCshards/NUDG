@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 //delete this trash later
 export interface PeriodicElement {
   Subtitle: string;
@@ -38,15 +38,30 @@ export class PolicyBoardComponent implements OnInit {
   panelOpenState = false;
   displayedColumns: string[] = ['Title', 'Subtitle', 'Status'];
   dataSource = ELEMENT_DATA;
-  constructor() { }
+  rowSelected = false;
+  name: any;
 
-  ngOnInit(): void{
 
+  constructor(private route: ActivatedRoute) { 
+    
+  }
+
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.name = params['name'];
+    });
   }
   onRowClicked(row): void {
     console.log("Row clicked: ", row);
-  }
+    this.rowSelected = true;
+    var configUrl = 'http://localhost:4200' + "/" + row.Title;
+    console.log(configUrl)
+   // this.router.navigate(configUrl.concat("/",row.Title))
 
+
+
+
+  }
 }
 
 //to setup a service between backend and table

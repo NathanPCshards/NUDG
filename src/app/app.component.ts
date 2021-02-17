@@ -17,7 +17,7 @@ export class AppComponent {
 
   // Code for when "Create user" button is pressed. Example for page routing
   post(){
-     this.http.post<any>('http://localhost:4200/users', {username : 'temp username' , password : 'temp password'})
+     this.http.post<any>('http://localhost:4200/Policies', {username : 'temp username' , password : 'temp password'})
     .subscribe(next=> console.log(next));
   }
 

@@ -50,6 +50,13 @@ import { RoleFormComponent } from './role-form/role-form.component';
 import { IdentifierPageComponent } from './identifier-page/identifier-page.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PolicyBoardComponent } from './policy-board/policy-board.component';
+import { ActivatedRoute, RouterModule, Routes } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
+import { NotfoundComponent } from './notfound/notfound.component';
+
+
+
+
 
 
 @NgModule({
@@ -63,7 +70,8 @@ import { PolicyBoardComponent } from './policy-board/policy-board.component';
     RoleFormComponent,
     IdentifierPageComponent,
     DashboardComponent,
-    PolicyBoardComponent
+    PolicyBoardComponent,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +83,7 @@ import { PolicyBoardComponent } from './policy-board/policy-board.component';
 
     //Connections
     HttpClientModule,
+    AppRoutingModule,
 
     //All Material modules
     MatInputModule,

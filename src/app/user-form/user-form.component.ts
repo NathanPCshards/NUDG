@@ -10,7 +10,7 @@ import { tap } from 'rxjs/operators';
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent implements OnInit {
-
+  picker;
   submitted = false;
   UserForm;
   results;// = res.json();
@@ -43,7 +43,6 @@ export class UserFormComponent implements OnInit {
 
 
  public onFormReset() {
-  console.log("FORM WAS RESET");
   this.submitted = false;
 }
 

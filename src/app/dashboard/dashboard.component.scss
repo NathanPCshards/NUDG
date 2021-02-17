@@ -1,0 +1,39 @@
+.container1{
+    position: relative;
+    height: 100vh;
+   
+      
+  }
+
+  .sidnav {
+      position: relative;
+      width: 10vw;
+      
+     
+  }
+
+  .fam1 {
+      position: relative;
+      top: 10px;
+      margin-left: 10px;
+
+  }
+
+  .famcontent {
+      position: relative;
+  }
+
+  .sidenavbutton {
+      height: 100%;
+
+
+      
+  }
+
+  .mat-row:nth-child(even){
+    background-color: #bbb;
+}
+        
+.mat-row:nth-child(odd){
+    background-color: #aaa;
+}

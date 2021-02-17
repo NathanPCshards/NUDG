@@ -1,104 +1,22 @@
+
 <mat-toolbar color="primary">
     <mat-toolbar-row>
-        <span> NUDG 3.0 </span>
-        <span style="margin-left: 65%;"> link 1 </span>
-        <span style="margin-left: 2%;"> link 2 </span>
-        <span style="margin-left: 2%;"> link 3 </span>
-        <span style="margin-left: 2%;"> link 4 </span>
-        <span style="margin-left: 2%;"> link 5 </span>
-        <span style="margin-left: 2%;"> link 6 </span>
+        <span routerLink="" routerLinkActive="active"> NUDG 3.0 </span>
+        <span routerLink="/Dashboard" routerLinkActive="active" style="margin-left: 50%;"> Dashboard</span>
+        <span routerLink="/Policies" routerLinkActive="active" style="margin-left: 2%;">Policies</span>
+        <span routerLink="/Users" routerLinkActive="active"style="margin-left: 2%;"> Users</span>
+        <span routerLink="/Inventory" routerLinkActive="active" style="margin-left: 2%;"> Inventory </span>
+        <span routerLink="/CompanyInfo" routerLinkActive="active" style="margin-left: 2%;"> Company Info </span>
+        <span routerLink="/Roles" routerLinkActive="active" style="margin-left: 2%;"> Roles</span>
+        <span routerLink="/Groups" routerLinkActive="active" style="margin-left: 2%;"> Groups</span>
+        <span routerLink="/Policy" routerLinkActive="active" style="margin-left: 2%;"> Policy</span>
+
     </mat-toolbar-row>
     
 </mat-toolbar>
 
-<!--
-<button (click)="post()">Create User</button>
--->
-
-<!--
-    <app-login-form> 
-
-</app-login-form>
-
-
--->
+<!-- The routed views render in the <router-outlet>-->
+<router-outlet></router-outlet>
 
 
 
-
-<!--
-    <app-user-form></app-user-form>
-
--->
-
-
-
-
-<!--
-
-    <app-inventory-form>
-
-</app-inventory-form>
--->
-
-
-
-
-
-<!--
-<app-company-info-form>
-
-</app-company-info-form>
--->
-
-
-
-
-<!--
-<app-role-form>
-
-</app-role-form>
-
-
--->
-
-
-
-<!--
-<app-group-form>
-
-</app-group-form>
-
--->
-
-
-
-
-<!--
-<app-identifier-page>
-
-</app-identifier-page>
--->
-
-
-
-
-
-
-<!--
-<app-dashboard></app-dashboard>
-
--->
-
-
-
-
-
-<!--
-
--->
-
-
-<app-policy-board>
-
-</app-policy-board>

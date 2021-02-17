@@ -22,3 +22,10 @@ table{
 .mat-row:nth-child(odd){
     background-color: #aaa;
 }
+
+.description{
+    position:fixed;
+    margin-left: 25%;
+}
+
+//https://stackoverflow.com/questions/40178041/overriding-the-encapsulated-css-of-external-component

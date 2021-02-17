@@ -5,7 +5,7 @@ div.container1{
     margin-right: auto;
     width:98%;
     box-shadow: 1px 1px 15px -1px ;
-    background-color: lightsteelblue;
+    background-color: rgb(255, 255, 255);
     overflow: hidden;
       
   }
@@ -14,7 +14,7 @@ mat-grid-tile{
     margin:auto;
 }
 mat-form-field{
-    padding:30px;
+    margin-left: 1%;
 }
 
 .col{
@@ -31,6 +31,4 @@ mat-form-field{
     padding-left: 2px;
     padding-right: 2px;
 }
-
-
 
