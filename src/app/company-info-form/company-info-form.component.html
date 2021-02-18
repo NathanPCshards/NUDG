@@ -1,107 +1,153 @@
+<mat-accordion class ="accordion">
 
-<div [formGroup] ="companyInfoForm">
-    <form  class="inventory-form" (ngSubmit)="onFormSubmit()" novalidate>
-
-    <div class="container1">
-        <h2>
-            Company Info
-        </h2>
-
-        <mat-divider style="padding-top: 2%; padding-bottom: 2%;"></mat-divider>
-          <!--  <div class = InputContainer>--> 
-                <div class = "row">
-                    <div class ="col">
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Company Information" style="padding-left: 2px;">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Company Name">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "DBA">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Phone">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Website">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Public"> 
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Address"> <!--Make look nicer (multiple fields)-->
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Logo">
-                        </mat-form-field>
+      
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Add a Company
+        </mat-panel-title>
+        <mat-panel-description class="description">
+         Open panel to add a Company
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div [formGroup] ="companyInfoForm">
+        <form  class="inventory-form" (ngSubmit)="onFormSubmit()" novalidate>
+    
+        <div class="container1">
+            <h2>
+                Company Info
+            </h2>
+    
+            <mat-divider style="padding-top: 3px; padding-bottom: 3px;"></mat-divider>
+              <!--  <div class = InputContainer>--> 
+                    <div class = "row">
+                        <div class ="col">
+                            <h1>Info</h1>
+                            <mat-form-field appearance = "outline" style="width:70%">
+                                <input matInput placeholder = "Company Information" style="padding-left: 2px;">
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "Company Name">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance = "outline" >
+                                <input matInput placeholder = "Phone">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance = "outline" style="width:70%">
+                                <input matInput placeholder = "DBA">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance = "outline" style="width:70%">
+                                <input matInput placeholder = "Website">
+                            </mat-form-field>
+    
+                            <h1 style="margin-left: 1%;">Address</h1>
+    
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "Address Line 1">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "Address Line 1">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "City">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "State">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "Zip Code">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "Country">
+                            </mat-form-field>
+                            <div class="fileInput" style="margin-left: 1%;">
+                                <input  class="ng-hide" id="input-file-id" multiple type="file" />
+                                <label for="input-file-id" class="md-button md-raised md-primary"> Upload Image</label>
+                            </div>
+                        </div>
+    
+                        <div class ="col">
+                            <mat-form-field appearance = "outline" style="width:70%; padding-top: 46px;">
+                                <input matInput placeholder = "Primary Point of Contact">
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline" style="width:70%">
+                                <input matInput placeholder = "Description">
+                            </mat-form-field>
+                            <mat-card class ="card1">
+                                <mat-card-header style="margin-left: 27%;" >SBA Certified</mat-card-header>
+                                <mat-radio-group class="radio-groupCertified" appearance = "outline" aria-label="Select an option">
+                                    <mat-radio-button style="margin-left: 1%;" value="1">Yes</mat-radio-button>
+                                    <mat-radio-button style="margin-left: 70%;" value="2">No</mat-radio-button>
+                                </mat-radio-group>
+                            </mat-card>
+                            <mat-form-field appearance = "outline" style="width:70%">
+                                <input matInput placeholder = "Business Type">
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline" style="width:70%">
+                                <input matInput placeholder = "Technical POC Information"> <!--THIS TOO-->
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "DUNS Number">
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "CAGE Code">
+                            </mat-form-field>
+                        </div>
+    
+                        <div class ="col">
+                            <h1 style="margin-left: 1%;">Audit Information</h1>
+                            <mat-form-field appearance = "outline" style="width:70%;">
+                                <input matInput placeholder = "CMMC Audit Agency" >
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline" style="width:70%;">
+                                <input matInput placeholder = "CMMC Auditor Information">
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline" style="width:70%;">
+                                <input matInput placeholder = "CMMC Auditor Date">
+                            </mat-form-field>
+         
+                            <mat-form-field appearance = "outline" style="width:70%;">
+                                <input matInput placeholder = "NIST Audit Agency"> 
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline" style="width:70%;">
+                                <input matInput placeholder = "NIST Audit Auditor Information">
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline" style="width:70%;">
+                                <input matInput placeholder = "NIST Audit Date">
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline" style="width:70%;">
+                                <input matInput placeholder = "Number">
+                            </mat-form-field>
+    
+                    
+                        </div>
+    
+    
                     </div>
-
-                    <div class ="col">
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Primary Point of Contact">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Description">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "SBA Certified"> <!--Radio button-->
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Business Type">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Technical POC Information"> <!--THIS TOO-->
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "DUNS Number">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "CAGE Code">
-                        </mat-form-field>
-                    </div>
-
-                    <div class ="col">
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "CMMC Audit Agency">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "CMMC Auditor Information">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "CMMC Auditor Agency">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "CMMC Audit Agency">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "NIST Audit Agency"> 
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "NIST Audit Auditor Information">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "NIST Audit Date">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Number">
-                        </mat-form-field>
-
-                
-                    </div>
-
-
+                    
+              <!--  </div>--> 
+        
+                <div class = "row2">
+                    <mat-divider style="padding-top: 3px; padding-bottom: 3px;"></mat-divider>
+    
+                    <button mat-raised-button (click) = "onFormSubmit()"   style = "margin-left:47%; " type ="Submit" color="primary"  >Submit</button>
+                    <button mat-raised-button (click) = "onFormReset()" style="margin-left: 1%;" type="Reset" color="primary"  >Reset</button>
                 </div>
-                
-          <!--  </div>--> 
-    
-            <div class = "row2">
-                <mat-divider style="padding-top: 2%; padding-bottom: 2%;"></mat-divider>
-
-                <button mat-raised-button (click) = "onFormSubmit()"   style = "margin-left:47%; " type ="Submit" color="primary"  >Submit</button>
-                <button mat-raised-button (click) = "onFormReset()"   type="Reset" color="primary"  >Reset</button>
             </div>
-        </div>
-    </form>
-    
-</div>
+        </form>
+        
+
+        
+    </div>
+    </mat-expansion-panel>
+
+  </mat-accordion>
+  

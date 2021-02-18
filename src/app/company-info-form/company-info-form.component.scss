@@ -5,7 +5,7 @@ div.container1{
     margin-right: auto;
     width:98%;
     box-shadow: 1px 1px 15px -1px ;
-    background-color: lightsteelblue;
+    background-color: rgb(255, 255, 255);
     overflow: hidden;
       
   }
@@ -14,15 +14,12 @@ mat-grid-tile{
     margin:auto;
 }
 mat-form-field{
-    padding-right: 20px;
-    padding-left: 20px;
-    
+    margin-left: 1%;
 }
 
 .col{
-    margin: auto;
     float:left;
-    width: 33.3333%;
+    width: 30%;
     padding:1%;
   
 }
@@ -35,5 +32,20 @@ mat-form-field{
     padding-right: 2px;
 }
 
+.card1{
+    margin-left: 1%;
+    display:inline-block;
+    width:70%;
+    margin-bottom: 1%;
 
-
+}
+.mat-raised-button{
+    margin-bottom: 15px;
+}
+.mat-divider {
+    display: block;
+    margin: 0;
+    border-top-width: 1px;
+    border-top-style: solid;
+    margin-bottom: 15px;
+ }

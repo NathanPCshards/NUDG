@@ -12,6 +12,7 @@ export class CompanyInfoFormComponent {
   submitted = false;
   companyInfoForm;
   results; 
+  panelOpenState;
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder
    

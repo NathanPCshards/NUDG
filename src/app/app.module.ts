@@ -50,9 +50,7 @@ import { RoleFormComponent } from './role-form/role-form.component';
 import { IdentifierPageComponent } from './identifier-page/identifier-page.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PolicyBoardComponent } from './policy-board/policy-board.component';
-import { ActivatedRoute, RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-import { NotfoundComponent } from './notfound/notfound.component';
 
 
 
@@ -70,8 +68,7 @@ import { NotfoundComponent } from './notfound/notfound.component';
     RoleFormComponent,
     IdentifierPageComponent,
     DashboardComponent,
-    PolicyBoardComponent,
-    NotfoundComponent
+    PolicyBoardComponent
   ],
   imports: [
     BrowserModule,

@@ -9,22 +9,28 @@ div.container1{
     overflow: hidden;
       
   }
-mat-grid-tile{
+  mat-grid-tile{
     width: 98px;
     margin:auto;
 }
 mat-form-field{
-    padding-right: 20px;
-    padding-left: 20px;
-    
+    margin-left: 1%;
 }
 
 .col{
-    margin: auto;
     float:left;
-    width: 50%;
-    padding:1%;
+    width: 60%;
+    padding-left: 2%;
+    padding-right: 1%;
+
   
+}
+.col2{
+    padding-left: 20px;
+    float: left;
+    width: 29%;
+    padding-right: 1%;
+    padding-bottom: 1%;
 }
 
 .row2{
@@ -35,5 +41,14 @@ mat-form-field{
     padding-right: 2px;
 }
 
-
+.mat-divider {
+    display: block;
+    margin: 0;
+    border-top-width: 1px;
+    border-top-style: solid;
+    margin-bottom: 15px;
+ }
+ .mat-raised-button{
+    margin-bottom: 15px;
+}
 

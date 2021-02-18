@@ -1,188 +1,212 @@
 
-<div [formGroup] ="inventoryForm">
-    <form  class="inventory-form" (ngSubmit)="onFormSubmit()" novalidate>
+<mat-accordion class ="accordion">
 
-    <div class="container1">
-        <h2>
-            Inventory
-        </h2>
-
-        <mat-divider style="padding-top: 3px; padding-bottom: 3px;"></mat-divider>
-          <!--  <div class = InputContainer>--> 
-                <div class = "row">
-                    <div class ="col">
-                        <h1>Network</h1>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Users" style="padding-left: 2px;">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Asset Identifier">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "IPv4 or IPv6 Address">
-                        </mat-form-field>
-
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "MAC Adress">
-                        </mat-form-field>
-
-                        <mat-form-field appearance = "outline" style="width:70%">
-                            <input matInput placeholder = "Subnet ID/ Network ID">
-                        </mat-form-field>
+      
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false"
+                         >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Add a Inventory Item
+        </mat-panel-title>
+        <mat-panel-description class="description">
+         Open panel to add a Inventory Item
+        </mat-panel-description>
 
 
 
-                          
-
-                   
-                        <mat-card class ="card1">
-                            <mat-card-header style="margin-left: 18%;" >Public</mat-card-header>
-                            <mat-radio-group class="radio-groupPublic" appearance = "outline" aria-label="Select an option">
-                                <mat-radio-button style="margin-left: 1%;" value="1">Yes</mat-radio-button>
-                                <mat-radio-button style="margin-left: 40%;" value="2">No</mat-radio-button>
-                            </mat-radio-group>
-                        </mat-card>
+     
 
 
-                        <mat-card class="card2">
-                           <mat-card-header style="margin-left: 18%;">Virtual</mat-card-header>
-
-                            <mat-radio-group class="radio-groupVirtual" appearance = "outline" aria-label="Select an option">
-                                <mat-radio-button style="margin-left: 1%;" value="1">Yes</mat-radio-button>
-                                <mat-radio-button style="margin-left: 40%;" value="2">No</mat-radio-button>
-                            </mat-radio-group>
-                        </mat-card>
-
-
-                        <mat-form-field style="padding-top: 15px;" appearance = "outline">
-                            <input matInput placeholder = "System Administrator">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Application Admin/Owner">
-                        </mat-form-field>
-
-
-                        <mat-form-field appearance = "outline" style="width: 70%;">
-                            <input matInput placeholder = "DNS Name or URL">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Logon Hours">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "NetBIOS Name">
-                        </mat-form-field>
-
-
+      </mat-expansion-panel-header>
+      <div [formGroup] ="inventoryForm">
+        <form  class="inventory-form" (ngSubmit)="onFormSubmit()" novalidate>
+    
+        <div class="container1">
+            <h2>
+                Inventory
+            </h2>
+    
+            <mat-divider style="padding-top: 3px; padding-bottom: 3px;"></mat-divider>
+              <!--  <div class = InputContainer>--> 
+                    <div class = "row">
+                        <div class ="col">
+                            <h1>Network</h1>
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "Users" style="padding-left: 2px;">
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "Asset Identifier">
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "IPv4 or IPv6 Address">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "MAC Adress">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance = "outline" style="width:70%">
+                                <input matInput placeholder = "Subnet ID/ Network ID">
+                            </mat-form-field>
+    
+    
+    
+                              
+    
+                       
+                            <mat-card class ="card1">
+                                <mat-card-header style="margin-left: 18%;" >Public</mat-card-header>
+                                <mat-radio-group class="radio-groupPublic" appearance = "outline" aria-label="Select an option">
+                                    <mat-radio-button style="margin-left: 1%;" value="1">Yes</mat-radio-button>
+                                    <mat-radio-button style="margin-left: 40%;" value="2">No</mat-radio-button>
+                                </mat-radio-group>
+                            </mat-card>
+    
+    
+                            <mat-card class="card2">
+                               <mat-card-header style="margin-left: 18%;">Virtual</mat-card-header>
+    
+                                <mat-radio-group class="radio-groupVirtual" appearance = "outline" aria-label="Select an option">
+                                    <mat-radio-button style="margin-left: 1%;" value="1">Yes</mat-radio-button>
+                                    <mat-radio-button style="margin-left: 40%;" value="2">No</mat-radio-button>
+                                </mat-radio-group>
+                            </mat-card>
+    
+    
+                            <mat-form-field style="padding-top: 15px;" appearance = "outline">
+                                <input matInput placeholder = "System Administrator">
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "Application Admin/Owner">
+                            </mat-form-field>
+    
+    
+                            <mat-form-field appearance = "outline" style="width: 70%;">
+                                <input matInput placeholder = "DNS Name or URL">
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "Logon Hours">
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "NetBIOS Name">
+                            </mat-form-field>
+    
+    
+                        </div>
+    
+                        <div class = "col">
+    
+                            <mat-form-field style="padding-top: 46px; width:70%" appearance = "outline">
+                                <input matInput placeholder = "Software/Database Name">
+                            </mat-form-field>
+    
+                            
+                            <mat-form-field style="width:70%;"appearance = "outline">
+                                <input matInput placeholder = "Baseline Configuration Name">
+                            </mat-form-field>
+    
+    
+    
+    
+    
+    
+                            <mat-form-field  appearance = "outline">
+                                <input matInput placeholder = "Software Approval List - Software Name">
+                            </mat-form-field>
+                            
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "Cost">
+                            </mat-form-field>
+     
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "Patch Level">
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "Function">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "VLAN/Identifier">
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "Serial#/Asset Tag#">
+                            </mat-form-field>
+    
+    
+                            <mat-card class="card3">
+                                <mat-card-header >In Latest Scan</mat-card-header>
+     
+                                 <mat-radio-group class="radio-groupScan" appearance = "outline" aria-label="Select an option">
+                                     <mat-radio-button style="margin-left: 1%;" value="1">Yes</mat-radio-button>
+                                     <mat-radio-button style="margin-left: 40%;" value="2">No</mat-radio-button>
+                                 </mat-radio-group>
+                             </mat-card>
+    
+                             <mat-card class="card3">
+                                <mat-card-header >Authenticatied Scan</mat-card-header>
+     
+                                 <mat-radio-group class="radio-groupScan" appearance = "outline" aria-label="Select an option">
+                                     <mat-radio-button style="margin-left: 1%;" value="1">Yes</mat-radio-button>
+                                     <mat-radio-button style="margin-left: 40%;" value="2">No</mat-radio-button>
+                                 </mat-radio-group>
+                             </mat-card>
+    
+    
+                             <mat-form-field style="width:70%; margin-top: 1%;" appearance = "outline">
+                                <input matInput placeholder = "Comments">
+                            </mat-form-field>
+    
+                        </div>
+    
+    
+                        <div class ="col">
+                            <mat-form-field appearance = "outline" style = "padding-top: 46px;">
+                                <input matInput placeholder = "OS Name and Version">
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "Physical Location">
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "Asset Type">
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "Hardware Make/ Model">
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "Date of Receipt">
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline">
+                                <input matInput placeholder = "Hardware/Software Vendor">
+                            </mat-form-field>
+                            <mat-form-field style= "width:70%" appearance = "outline">
+                                <input matInput placeholder = "Supplier Information">
+                            </mat-form-field>
+    
+    
+                     
+    
+    
+                        </div>
+    
+    
+    
+    
                     </div>
-
-                    <div class = "col">
-
-                        <mat-form-field style="padding-top: 46px; width:70%" appearance = "outline">
-                            <input matInput placeholder = "Software/Database Name">
-                        </mat-form-field>
-
-                        
-                        <mat-form-field style="width:70%;"appearance = "outline">
-                            <input matInput placeholder = "Baseline Configuration Name">
-                        </mat-form-field>
-
-
-
-
-
-
-                        <mat-form-field  appearance = "outline">
-                            <input matInput placeholder = "Software Approval List - Software Name">
-                        </mat-form-field>
-                        
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Cost">
-                        </mat-form-field>
- 
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Patch Level">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Function">
-                        </mat-form-field>
-
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "VLAN/Identifier">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Serial#/Asset Tag#">
-                        </mat-form-field>
-
-
-                        <mat-card class="card3">
-                            <mat-card-header >In Latest Scan</mat-card-header>
- 
-                             <mat-radio-group class="radio-groupScan" appearance = "outline" aria-label="Select an option">
-                                 <mat-radio-button style="margin-left: 1%;" value="1">Yes</mat-radio-button>
-                                 <mat-radio-button style="margin-left: 40%;" value="2">No</mat-radio-button>
-                             </mat-radio-group>
-                         </mat-card>
-
-                         <mat-card class="card3">
-                            <mat-card-header >Authenticatied Scan</mat-card-header>
- 
-                             <mat-radio-group class="radio-groupScan" appearance = "outline" aria-label="Select an option">
-                                 <mat-radio-button style="margin-left: 1%;" value="1">Yes</mat-radio-button>
-                                 <mat-radio-button style="margin-left: 40%;" value="2">No</mat-radio-button>
-                             </mat-radio-group>
-                         </mat-card>
-
-
-                         <mat-form-field style="width:70%" appearance = "outline">
-                            <input matInput placeholder = "Comments">
-                        </mat-form-field>
-
-                    </div>
-
-
-                    <div class ="col">
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "OS Name and Version">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Physical Location">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Asset Type">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Hardware Make/ Model">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Date of Receipt">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Hardware/Software Vendor">
-                        </mat-form-field>
-                        <mat-form-field style= "width:70%" appearance = "outline">
-                            <input matInput placeholder = "Supplier Information">
-                        </mat-form-field>
-
-
-                 
-
-
-                    </div>
-
-
-
-
+                    
+              <!--  </div>--> 
+        
+                <div class = "row2">
+                    <mat-divider style="padding-top: 3px; padding-bottom: 3px;"></mat-divider>
+    
+                    <button mat-raised-button (click) = "onFormSubmit()"   style = "margin-left:47%; " type ="Submit" color="primary"  >Submit</button>
+                    <button mat-raised-button (click) = "onFormReset()"   style="margin-left:1%; " type="Reset" color="primary"  >Reset</button>
                 </div>
-                
-          <!--  </div>--> 
-    
-            <div class = "row2">
-                <mat-divider style="padding-top: 3px; padding-bottom: 3px;"></mat-divider>
-
-                <button mat-raised-button (click) = "onFormSubmit()"   style = "margin-left:47%; " type ="Submit" color="primary"  >Submit</button>
-                <button mat-raised-button (click) = "onFormReset()"   type="Reset" color="primary"  >Reset</button>
             </div>
-        </div>
-    </form>
-    
-</div>
+        </form>
+        
+    </div>
+    </mat-expansion-panel>
+
+  </mat-accordion>
+  

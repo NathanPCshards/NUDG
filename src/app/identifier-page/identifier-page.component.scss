@@ -13,13 +13,28 @@ div.container2{
     margin-top: 50px;
     margin-left: 2%;
     margin-right: 2%;
-    align-content: center;
     padding: 20px 20px;
     box-shadow: 1px 1px 15px -1px ;
     overflow:hidden;
+    
+    
+}
+.cards{
+    box-shadow: 1px 1px 15px -1px;
+
+  }
+  
+div.row1{
+    display: flex;
+    
 }
 div.item2{
     overflow: hidden;
+    text-align: center;
+}
+
+.dditems{
+    text-align: left;
 }
 .col1{
     float:left;
@@ -115,3 +130,10 @@ div.item2{
     background-color: #00aeff;
     color: white;
 }
+.nistInfo.mat-expansion-indicator{
+    color:white;
+    background-color: white;
+    border-color: white;
+}
+
+//https://stackoverflow.com/questions/46540080/change-default-expansion-panel-arrow-colour-for-angular-material

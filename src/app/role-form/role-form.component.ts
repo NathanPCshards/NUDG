@@ -10,9 +10,11 @@ import { tap } from 'rxjs/operators';
 })
 export class RoleFormComponent implements OnInit {
 
-  submitted = false;
+  roleSubmitted = false;
   roleForm;
+  value;
   results;
+  panelOpenState = false;
 
 
 
@@ -23,22 +25,37 @@ export class RoleFormComponent implements OnInit {
       //initialize some stuff here
     });
   }
-  public onFormSubmit() {
-    console.log("FORM WAS SUBMITTED");
-    this.submitted = true;
-    const configUrl = 'http://localhost:4200/home'; 
-    this.http.post(configUrl,this.roleForm.value)
-    .pipe(
-      tap(
-        data => console.log(configUrl, data),
-        error => console.log(configUrl, error)
+  public onFormSubmit(value) {
+    this.value = value;
+    if (value == "roleForm"){
+
+      console.log("Role form submitted, value: " + value);
+      this.roleSubmitted = true;
+      const configUrl = 'http://localhost:4200/home'; 
+      this.http.post(configUrl,this.roleForm.value)
+      .pipe(
+        tap(
+          data => console.log(configUrl, data),
+          error => console.log(configUrl, error)
+        )
       )
-    )
-    .subscribe(results => this.results = results);
+      .subscribe(results => this.results = results);
+
+    }
+
+   
+
  }
 
- public onFormReset() {
+ public onFormReset(value) {
+   console.log("Reset role form, value : " + value);
+   console.log(value == "roleForm");
+  if (value == "roleForm"){
+    this.roleSubmitted = false;
+  }
 
 }
 
 }
+
+

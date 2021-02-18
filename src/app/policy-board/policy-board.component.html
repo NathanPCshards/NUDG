@@ -1,12 +1,10 @@
-
-
-<mat-accordion class ="accordion">
+<mat-accordion class ="accordion" >
 
       
     <mat-expansion-panel (opened)="panelOpenState = true"
                          (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
-        <mat-panel-title>
+        <mat-panel-title >
           Access Control
         </mat-panel-title>
         <mat-panel-description class="description">
@@ -34,13 +32,13 @@
           <td mat-cell *matCellDef="let element"> {{element.Title}} </td>
         </ng-container>
       
-        <!-- Name Column -->
+        <!-- Subtitle Column -->
         <ng-container matColumnDef="Subtitle">
           <th mat-header-cell *matHeaderCellDef> Subtitle </th>
           <td mat-cell *matCellDef="let element"> {{element.Subtitle}} </td>
         </ng-container>
       
-        <!-- Weight Column -->
+        <!-- Status Column -->
         <ng-container matColumnDef="Status">
           <th mat-header-cell *matHeaderCellDef> Status </th>
           <td mat-cell *matCellDef="let element"> {{element.Status}} </td>

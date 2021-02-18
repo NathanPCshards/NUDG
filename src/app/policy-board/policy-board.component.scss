@@ -1,8 +1,47 @@
+table{
+    width: 100%;
+
+   }
+.mat-header-cell{
+    background-color: rgb(63,81,181) ;
+    color:white;
+}
+
+.mat-row:nth-child(even){
+    background-color: rgb(225, 225, 225);
+}
+        
+.mat-row:nth-child(odd){
+    background-color: rgb(240, 240, 240);
+}
+
+
+.mat-expansion-panel:nth-child(even){
+    background-color: rgb(225, 225, 225);
+   
+}
+.mat-expansion-panel:nth-child(odd){
+    background-color: rgb(240, 240, 240);
+}
+
+
+.description{
+    display: flex;
+    flex-grow: 0;
+    justify-content: flex-end;
+    margin-left: 25%;
+}
+.mat-panel-title{
+    width:30px;
+}
+
 .mat-form-field + .mat-form-field {
     margin-left: 8px;
   }
 
- .mat-expansion-panel-header{
+ .mat-expansion-panel-header-title{
+     flex-grow: 0; //flex is turned of to align title/descriptions
+     width: 400px;
      justify-content: flex-start;
  }
  .mat-expansion-panel{
@@ -10,22 +49,11 @@
     justify-content: flex-start;
 }
 
-
-table{
-    width: 100%;
-   }
-   
-   .mat-row:nth-child(even){
-    background-color: #bbb;
-}
-        
-.mat-row:nth-child(odd){
-    background-color: #aaa;
+.accordion{
+    //background-color: red;
+    color: red;
+    background-color: red;
+    background: red;
 }
 
-.description{
-    position:fixed;
-    margin-left: 25%;
-}
 
-//https://stackoverflow.com/questions/40178041/overriding-the-encapsulated-css-of-external-component

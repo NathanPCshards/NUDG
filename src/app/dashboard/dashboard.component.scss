@@ -8,8 +8,7 @@
   .sidnav {
       position: relative;
       width: 10vw;
-      
-     
+
   }
 
   .fam1 {
@@ -25,15 +24,20 @@
 
   .sidenavbutton {
       height: 100%;
-
-
-      
+ 
   }
 
   .mat-row:nth-child(even){
-    background-color: #bbb;
+    background-color: rgb(215, 215, 215);
 }
         
 .mat-row:nth-child(odd){
-    background-color: #aaa;
+    background-color: rgb(230, 230, 230);
 }
+
+.mat-raised-button{
+    background-color: rgb(63,81,181) ;
+    color:white;
+    border-radius: 0; //this removes the rounded edges of button
+}
+

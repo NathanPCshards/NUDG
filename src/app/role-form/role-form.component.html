@@ -1,41 +1,80 @@
 
-<div [formGroup] ="roleForm">
-    <form  class="role-form" (ngSubmit)="onFormSubmit()" novalidate>
 
-    <div class="container1">
-        <h2>
-            Roles
-        </h2>
 
-        <mat-divider style="padding-top: 2%; padding-bottom: 2%;"></mat-divider>
-          <!--  <div class = InputContainer>--> 
-                <div class = "row">
-                    <div class ="col">
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Role" style="padding-left: 2px;">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Role Type">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Description">
-                        </mat-form-field>
-                        <mat-form-field appearance = "outline">
-                            <input matInput placeholder = "Users">
-                        </mat-form-field>
 
-                    </div>
-                </div>
+
+<mat-accordion class ="accordion">
+
+      
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Add a Role or Group
+        </mat-panel-title>
+        <mat-panel-description class="description">
+         Open panel to add roles or groups.
+        </mat-panel-description>
+
+
+
+
+        
+
+      </mat-expansion-panel-header>
+   
+      <div [formGroup] ="roleForm">
+        <form  class="roleForm" (ngSubmit)="onFormSubmit('roleForm')" novalidate>
+    
+        <div class="container1">
+            <h2 style="margin-left: 1%">
+                Roles and Groups
+            </h2>
+    
+              <!--  <div class = InputContainer>--> 
+                    <div class = "row">
+                        
+                        <div class ="col">
+                            <mat-divider style="padding-top: 3px; padding-bottom: 3px; "></mat-divider>
+    
+                            <h1 style="margin-left: 1%;">Roles</h1>
+                            <mat-form-field  appearance = "outline" style="width:70%">
+                                <input matInput placeholder = "Role">
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline" style="width:70%">
+                                <input matInput placeholder = "Role Type">
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline" style="width:70%">
+                                <input matInput placeholder = "Description" >
+                            </mat-form-field>
+                            <mat-form-field appearance = "outline" style="width:70%">
+                                <input matInput placeholder = "Users">
+                            </mat-form-field>
+                            <div class = "row2">
+                                <mat-divider style="padding-top: 3px; padding-bottom: 3px;"></mat-divider>
                 
-          <!--  </div>--> 
+                                <button mat-raised-button (click) = "onFormSubmit('roleForm')" value="roleForm"  style = "margin-left:47%; " type ="Submit" color="primary"  >Submit</button>
+                                <button mat-raised-button (click) = "onFormReset('roleForm')" value="roleForm" style="margin-left: 1%;"  type="Reset" color="primary"  >Reset</button>
+                            </div>
+                        </div>
+                        <div class = "colDivider">
+                            <mat-divider class="vertDivider" [vertical]="true"></mat-divider>
     
-            <div class = "row2">
-                <mat-divider style="padding-top: 2%; padding-bottom: 2%;"></mat-divider>
-
-                <button mat-raised-button (click) = "onFormSubmit()"   style = "margin-left:47%; " type ="Submit" color="primary"  >Submit</button>
-                <button mat-raised-button (click) = "onFormReset()"   type="Reset" color="primary"  >Reset</button>
+                        </div>
+    
+                        
+                        
+                        <div class ="col2">
+                            <app-group-form>
+    
+                            </app-group-form>
+                        </div>
+                        
+                    </div>
             </div>
-        </div>
-    </form>
-    
-</div>
+        </form>
+    </div>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+  

@@ -12,6 +12,7 @@ export class IdentifierPageComponent implements OnInit {
   submitted = false;
   idPage;
   results;
+  panelOpenState;
 
 
 

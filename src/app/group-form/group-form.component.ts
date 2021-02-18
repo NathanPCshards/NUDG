@@ -10,9 +10,11 @@ import { tap } from 'rxjs/operators';
 })
 export class GroupFormComponent implements OnInit {
 
-  submitted = false;
+  groupSubmitted = false;
   groupForm;
   results;
+  value;
+  
 
 
 
@@ -23,22 +25,37 @@ export class GroupFormComponent implements OnInit {
       //initialize some stuff here
     });
   }
-  public onFormSubmit() {
-    console.log("FORM WAS SUBMITTED");
-    this.submitted = true;
-    const configUrl = 'http://localhost:4200/home'; 
-    this.http.post(configUrl,this.groupForm.value)
-    .pipe(
-      tap(
-        data => console.log(configUrl, data),
-        error => console.log(configUrl, error)
+
+  
+  public onFormSubmit(value) {
+    this.value = value;
+    if (value == "groupForm"){
+
+      console.log("Group form submitted, value: " + value)
+      this.groupSubmitted = true;
+      const configUrl = 'http://localhost:4200/home'; 
+      this.http.post(configUrl,this.groupForm.value)
+      .pipe(
+        tap(
+          data => console.log(configUrl, data),
+          error => console.log(configUrl, error)
+        )
       )
-    )
-    .subscribe(results => this.results = results);
+      .subscribe(results => this.results = results);
+
+    }
+
  }
 
- public onFormReset() {
+ public onFormReset(value) {
+   console.log("group form reset. value  " + value);
+   console.log(value == "groupForm");
+  if (value == "groupForm"){
+    this.groupSubmitted = false;
+  }
 
 }
-
+  
 }
+  
+

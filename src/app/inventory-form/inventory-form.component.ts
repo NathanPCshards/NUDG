@@ -12,6 +12,7 @@ export class InventoryFormComponent implements OnInit {
   submitted = false;
   inventoryForm;
   results;
+  panelOpenState;
 
 
 
@@ -37,6 +38,7 @@ export class InventoryFormComponent implements OnInit {
  }
 
  public onFormReset() {
+   this.submitted = false;
 
 }
 

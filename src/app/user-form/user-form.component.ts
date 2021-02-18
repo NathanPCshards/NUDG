@@ -14,6 +14,7 @@ export class UserFormComponent implements OnInit {
   submitted = false;
   UserForm;
   results;// = res.json();
+  panelOpenState = false;
   
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder){
