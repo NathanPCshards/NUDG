@@ -16,8 +16,34 @@ div.container2{
     padding: 20px 20px;
     box-shadow: 1px 1px 15px -1px ;
     overflow:hidden;
+}
+
+.mat-expansion-panel {
+    margin: 1%;
+}
+.NistTable{
+ 
+    width:100vw;
+}
+
+//:host limits ng deep to this component
+:host ::ng-deep .mat-expansion-panel-header:focus{
+    background-color: rgb(63,81,181) !important;
+}
+:host ::ng-deep .mat-expansion-panel-header{
+    background-color: rgb(63,81,181);
     
-    
+}
+:host ::ng-deep .mat-expansion-panel:hover{
+    background-color: rgb(116, 128, 196) !important ;
+
+}
+:host ::ng-deep .mat-expansion-panel-body{
+
+    background-color:rgb(230, 230, 230);
+    margin: 0%;
+    padding-left: 0;
+    padding-bottom: 0;
 }
 .cards{
     box-shadow: 1px 1px 15px -1px;
@@ -31,6 +57,7 @@ div.row1{
 div.item2{
     overflow: hidden;
     text-align: center;
+    margin: 1%;
 }
 
 .dditems{
@@ -130,10 +157,11 @@ div.item2{
     background-color: #00aeff;
     color: white;
 }
-.nistInfo.mat-expansion-indicator{
+
+//adding ':after' will change the arrow to a diamond
+::ng-deep .mat-expansion-indicator{
     color:white;
-    background-color: white;
-    border-color: white;
+    //background-color: white;
+    //border-color: white;
 }
 
-//https://stackoverflow.com/questions/46540080/change-default-expansion-panel-arrow-colour-for-angular-material

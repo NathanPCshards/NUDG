@@ -24,11 +24,16 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {Title: "AC-N.15", Subtitle: 'System Use Notification', Status: "Not Implemented"},
 ];
 
+
+
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
+
 export class DashboardComponent implements OnInit {
   showFiller = false;
   panelOpenState = false;
@@ -38,7 +43,9 @@ export class DashboardComponent implements OnInit {
   name: any;
   constructor() { }
 
-  ngOnInit() {
+  
+  ngOnInit() { 
+
     
   }
   onRowClicked(row): void {
@@ -53,5 +60,6 @@ export class DashboardComponent implements OnInit {
 
   }
 }
+
 
 

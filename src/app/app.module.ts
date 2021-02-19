@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-//import { AppRoutingModule } from './routes';
 import { AppComponent } from './app.component';
 
 //Forms
@@ -52,8 +50,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PolicyBoardComponent } from './policy-board/policy-board.component';
 import { AppRoutingModule } from './app-routing.module';
 
-
-
+//Charts
+import { ChartsModule } from 'ng2-charts';
+import { MyLineChartComponent } from './my-line-chart/my-line-chart.component';
+ 
 
 
 
@@ -68,11 +68,13 @@ import { AppRoutingModule } from './app-routing.module';
     RoleFormComponent,
     IdentifierPageComponent,
     DashboardComponent,
-    PolicyBoardComponent
+    PolicyBoardComponent,
+    MyLineChartComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+
 
     //Forms
     FormsModule,
@@ -113,7 +115,11 @@ import { AppRoutingModule } from './app-routing.module';
     MatSortModule,
     MatPaginatorModule,
     MatInputModule,
+
+    //charts
+    ChartsModule,
   ],
+
   providers: [],
   bootstrap: [AppComponent],
 })

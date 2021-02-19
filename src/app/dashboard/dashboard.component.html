@@ -4,32 +4,20 @@
       <!-- Access Control -->
       
       <app-policy-board class="pBoard"></app-policy-board>
-      
+
     
 
       </mat-drawer>
         <button mat-raised-button type="button" class="sidenavbutton" (click)="drawer.toggle()">
           Families
           </button>
- 
 
-      
 
- 
+<!-- To generate graphs ng generate ng2-charts-schematics:line my-line-chart -->
 
-  
-    
   
   </mat-drawer-container>
 
-  
-  
-  <!--
-Idea for Dashboard...
-
-you have the toggle sidenav thing, and in the side bar you list different graphs to display or
-a calander or whatever. 
-
-Let them choose like 3 maximum or something, and toggle the css settings to turn on the correct graphs
-
-  -->
+  <app-my-line-chart>
+    
+  </app-my-line-chart>

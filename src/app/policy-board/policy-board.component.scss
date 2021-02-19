@@ -30,6 +30,7 @@ table{
     flex-grow: 0;
     justify-content: flex-end;
     margin-left: 25%;
+   
 }
 .mat-panel-title{
     width:30px;
@@ -40,20 +41,30 @@ table{
   }
 
  .mat-expansion-panel-header-title{
-     flex-grow: 0; //flex is turned of to align title/descriptions
+     flex-grow: 0; //flex is turned off to align title/descriptions
      width: 400px;
      justify-content: flex-start;
  }
  .mat-expansion-panel{
     overflow: hidden;
     justify-content: flex-start;
+
+    
 }
 
 .accordion{
-    //background-color: red;
+    //color doesnt exists here i guess
     color: red;
     background-color: red;
     background: red;
 }
 
-
+.ui-accordion .ui-accordion-content{
+    border-top: 0 none;
+    margin-bottom: 2px;
+    margin-top: -2px;
+    overflow: auto;
+    padding: 0;
+    position: relative;
+    top: 1px;
+}

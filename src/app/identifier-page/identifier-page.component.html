@@ -18,19 +18,17 @@
       </div>
       
     </div>
+    <br>
 
-    <div class="row1"style="margin-top: 1%">
-      <div class="item2" style="flex: 1; ">
 
-        <mat-accordion >
           <mat-expansion-panel>
-            <mat-expansion-panel-header style="box-shadow: 1px 1px 15px -1px;">
-              <mat-panel-title>
+            <mat-expansion-panel-header>
+              <mat-panel-title style="color: white;">
                 CMMC Information 
               </mat-panel-title>
               
             </mat-expansion-panel-header>
-            <p class="dditems">CMMC Number</p>
+            <p style="margin-top: 1%;" class="dditems">CMMC Number</p>
             <br>
             <p class="dditems">Capability Name</p>
             <br>
@@ -41,39 +39,102 @@
             <p class="dditems">Clarification</p>
           </mat-expansion-panel>
           
-        </mat-accordion>
       
+  
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title style="color: white;">
+              NIST Information 
+            </mat-panel-title>
+            
 
-      </div>
-      <div class="item2" style="flex: 1; ">
+          </mat-expansion-panel-header>
 
-        <mat-accordion>
-          <mat-expansion-panel style="color: whit;">
-            <mat-expansion-panel-header style="background-color: rgb(63,81,181);">
-              <mat-panel-title class="nistInfo" style="color: white;">
-                NIST Information 
-              </mat-panel-title>
-              
-            </mat-expansion-panel-header>
-            <p class="dditems">NIST Mapping</p>
-            <br>
-            <p class="dditems">Discussion</p>
-            <br>
-           
-          </mat-expansion-panel>
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <table mat-table [dataSource]="dataSource" class="NistTable">
+
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
           
-        </mat-accordion>
+            <!-- Position Column -->
+            <ng-container matColumnDef="Title" style="display: none;">
+              <th mat-header-cell *matHeaderCellDef> no </th>
+              <td mat-cell *matCellDef="let element"> {{element.Title}} </td>
+            </ng-container>
+          
+            <!-- Name Column -->
+            <ng-container matColumnDef="Subtitle">
+              <th mat-header-cell *matHeaderCellDef> Subtitle </th>
+              <td mat-cell *matCellDef="let element"> {{element.Subtitle}} </td>
+            </ng-container>
+          
+            <!-- Weight Column -->
+            <ng-container matColumnDef="Status">
+              <th mat-header-cell *matHeaderCellDef> Status </th>
+              <td mat-cell *matCellDef="let element"> {{element.Status}} </td>
+            </ng-container>
+     
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row (click)="onRowClicked(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
 
-      </div>    
-      <div class="item2" style="flex: 1; ">
 
-        <p id="title" style="font-size: 20px;color: #06d6a0;">Status</p>
 
-      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </mat-expansion-panel>
       
-    </div>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title style="color: white;">
+              Reference
+            </mat-panel-title>
+            
+          </mat-expansion-panel-header>
+          <p style="margin-top: 1%;" class="dditems">CMMC Number</p>
+          <br>
+          <p class="dditems">Capability Name</p>
+          <br>
+          <p class="dditems">Capability Number</p>
+          <br>
+          <p class="dditems">Practice</p>
+          <br>
+          <p class="dditems">Clarification</p>
+        </mat-expansion-panel>
+        
+    
+
+    
 
   </div>
+      
   
   <div  class=container1> 
        
