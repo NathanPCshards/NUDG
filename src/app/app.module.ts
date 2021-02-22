@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { CompanyInfoFormComponent } from './company-info-form/company-info-form.component';
 import { InventoryFormComponent } from './inventory-form/inventory-form.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 //Connections
 import { HttpClientModule } from '@angular/common/http'
@@ -41,19 +42,21 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import { UserFormComponent } from './user-form/user-form.component';
+import { DialogElementsExampleDialog, UserFormComponent } from './user-form/user-form.component';
 import { MatButtonModule } from '@angular/material/button';
 import { GroupFormComponent } from './group-form/group-form.component';
-import { RoleFormComponent } from './role-form/role-form.component';
+import { roleDialog, RoleFormComponent } from './role-form/role-form.component';
 import { IdentifierPageComponent } from './identifier-page/identifier-page.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PolicyBoardComponent } from './policy-board/policy-board.component';
 import { AppRoutingModule } from './app-routing.module';
 
 //Charts
-import { ChartsModule } from 'ng2-charts';
+import { ChartsModule} from 'ng2-charts';
 import { MyLineChartComponent } from './my-line-chart/my-line-chart.component';
- 
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -69,7 +72,13 @@ import { MyLineChartComponent } from './my-line-chart/my-line-chart.component';
     IdentifierPageComponent,
     DashboardComponent,
     PolicyBoardComponent,
-    MyLineChartComponent
+    MyLineChartComponent,
+    DialogElementsExampleDialog,
+    NotfoundComponent,
+    roleDialog
+
+    
+    
   ],
   imports: [
     BrowserModule,
@@ -115,9 +124,17 @@ import { MyLineChartComponent } from './my-line-chart/my-line-chart.component';
     MatSortModule,
     MatPaginatorModule,
     MatInputModule,
+    MatCheckboxModule,
+ 
 
     //charts
     ChartsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
+    
+
   ],
 
   providers: [],

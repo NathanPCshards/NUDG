@@ -13,45 +13,49 @@ div.container1{
  
 mat-grid-tile{
     width: 98px;
-    margin:auto;
+    
 }
 mat-form-field{
     margin-left: 1%;
+    
+    
 }
 
-.card1{
-    margin-left: 1%;
-    display:inline-block;
-    width:30%;
+div.cards{
+   
+    display: block;
+    width: 60%;  
+    
+    
+    
+    
 
 }
-.card2{
-    margin-left: 1.5%;
-    display:inline-block;
-    width:30%;
+
+.qs {
+ margin-left: 3%;
+    
+    
+
 }
-.card3{
-    white-space: nowrap;
-    overflow: hidden;
-    font-size: small;
-    margin-left: 1.5%;
-    display:inline-block;
-    width:30%;
-}
+
+
+
 
 .col{
     float:left;
-    width: 31%;
+    width: 30%;
     padding:1%;
   
 }
 
 .row2{
-    width:100%;
-    align-items: center;
+    width:100%;    
     clear:both;
-    padding-left: 2px;
-    padding-right: 2px;
+    
+    
+    
+    
 }
 .mat-divider {
     display: block;
@@ -66,4 +70,5 @@ mat-form-field{
 //except radio buttons/cards, those are weird
 .mat-raised-button{
     margin-bottom: 15px;
+    width: 10%;
 }

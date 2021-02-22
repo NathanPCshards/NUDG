@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { CalendarView } from 'angular-calendar';
 import { PolicyBoardComponent} from '../policy-board/policy-board.component'
+
+
 export interface PeriodicElement {
   Subtitle: string;
   Title: string;
@@ -41,6 +44,10 @@ export class DashboardComponent implements OnInit {
   dataSource = ELEMENT_DATA;
   rowSelected = false;
   name: any;
+  viewDate: Date = new Date();
+
+  view: CalendarView = CalendarView.Month;
+  CalendarView = CalendarView;
   constructor() { }
 
   

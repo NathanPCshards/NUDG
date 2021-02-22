@@ -1,0 +1,178 @@
+
+<style>
+div.container1{
+    padding: 5px;
+    margin-top: 50px;
+    margin-left:auto;
+    margin-right: auto;
+    width:98%;
+    box-shadow: 1px 1px 15px -1px ;
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+      
+  }
+mat-grid-tile{
+    width: 98px;
+    margin:auto;
+}
+mat-form-field{
+    margin-left: 1%;
+}
+
+.col{
+    float:left;
+    width: 33%;
+    padding:1%;
+  
+}
+
+.row2{
+    width:100%;
+    align-items: center;
+    clear:both;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.mat-raised-button{
+    margin-top: 1%;
+    margin-bottom: 15px;
+}
+
+.mat-toolbar{
+    padding: 0px;
+}
+
+</style>
+
+<div [formGroup] ="UserForm"></div>
+    <form  class="user-form" (ngSubmit)="onFormSubmit()" novalidate>
+
+
+
+        <h2 style="margin-left: 1%; margin-top: 1%; font-size: 32px;">
+            Users
+        </h2>
+
+
+        <mat-divider style="padding-top: 3px; padding-bottom: 3px;"></mat-divider>
+            <div class = InputContainer>
+                <div class = "row">
+                    <div class ="col">
+                        <h1 style="margin-left: 1%;">Info</h1>
+                        <mat-form-field  appearance = "outline" style="width:34.5%">
+                            <input matInput placeholder = "First Name">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline" style="width:34.5%">
+                            <input matInput placeholder = "Last Name">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline" style="width:70%">
+                            <input matInput placeholder = "Employee Number" >
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline" style="width:34.5%">
+                            <input matInput placeholder = "EmployeeType">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline" style="width:34.5%">
+                            <input matInput placeholder = "Job Title">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline" style="width:34.5%">
+                            <input matInput placeholder = "Job Role">
+                        </mat-form-field>
+
+                        <mat-form-field appearance = "outline" style="width:34.5%">
+                            <input matInput placeholder = "Hire Date">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline"  style="width:70%">
+                            <input matInput placeholder = "Logon Hours">
+                        </mat-form-field>
+                        <div class="fileInput" style="margin-left: 1%;">
+                            <input  class="ng-hide" id="input-file-id" multiple type="file" />
+                            <label for="input-file-id" class="md-button md-raised md-primary"></label>
+                        </div>
+                                    </div>
+
+                    <div class ="col">
+                        <h1 style="margin-left: 1%;"> Contact</h1>
+                        <mat-form-field appearance = "outline" style="width:70%">
+                            <input matInput placeholder = "Email Address">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline" style="width:34.5%" >
+                            <input matInput placeholder = "Business Phone">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline" style="width:34.5%" >
+                            <input matInput placeholder = "Cell Phone">
+                        </mat-form-field>
+
+
+
+
+                        <h1 style="margin-left: 1%;">Address</h1>
+
+                        <mat-form-field appearance = "outline" style="width:34.5%">
+                            <input matInput placeholder = "Address Line 1">
+                        </mat-form-field>
+
+                        <mat-form-field appearance = "outline" style="width:34.5%">
+                            <input matInput placeholder = "Address Line 1">
+                        </mat-form-field>
+
+                        <mat-form-field appearance = "outline" style="width:34.5%">
+                            <input matInput placeholder = "City">
+                        </mat-form-field>
+
+                        <mat-form-field appearance = "outline" style="width:34.5%">
+                            <input matInput placeholder = "State">
+                        </mat-form-field>
+
+                        <mat-form-field appearance = "outline" style="width:34.5%">
+                            <input matInput placeholder = "Zip Code">
+                        </mat-form-field>
+
+                        <mat-form-field appearance = "outline" style="width:34.5%">
+                            <input matInput placeholder = "Country">
+                        </mat-form-field>
+
+
+
+
+
+
+
+
+                        <mat-form-field appearance = "outline"  style="width:70%">
+                            <input matInput placeholder = "Company Name">
+                        </mat-form-field>
+                    </div>
+
+                    <div class ="col">
+                        <h1 style="margin-left: 1%;">Assignments</h1>
+    
+                        <mat-form-field appearance = "outline" style="width:70%">
+                            <input matInput placeholder = "User id">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline" style="width:34.5%">
+                            <input matInput placeholder = "CUI Data">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline" style="width:34.5%">
+                            <input matInput placeholder = "Remote User">
+                        </mat-form-field>
+                        <h1>Relationships</h1>
+                        <mat-form-field appearance = "outline" style="width:70%">
+                            <input matInput placeholder = "Groups">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline" style="width:70%">
+                            <input matInput placeholder = "Roles">
+                        </mat-form-field>
+                        <mat-form-field appearance = "outline" style="width:70%">
+                            <input matInput placeholder = "Asset Identifier">
+                        </mat-form-field>
+
+                    </div>
+                </div>
+                    
+            <div class = "row2">
+                <mat-divider style="padding-top: 3px; padding-bottom: 3px;"></mat-divider>
+
+                <button mat-raised-button [mat-dialog-close]="true" (click)="onFormSubmit();"  style = "margin-left:47%; " color="primary"  >Submit</button>
+                <button mat-raised-button  (click)="onFormReset();" style="margin-left: 1%;" type="reset"  color="primary"  >Reset</button>
+            </div>
+        </div>

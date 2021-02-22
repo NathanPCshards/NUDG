@@ -27,6 +27,7 @@ const routes: Routes = [
   { path: 'Policy', component: IdentifierPageComponent },
   { path: '404', component: NotfoundComponent},
   { path: '**', redirectTo: '/404'},
+  
 
 ];
 

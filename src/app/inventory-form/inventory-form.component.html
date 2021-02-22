@@ -23,26 +23,26 @@
         <form  class="inventory-form" (ngSubmit)="onFormSubmit()" novalidate>
     
         <div class="container1">
-            <h2>
+            <h2 style="margin-top: 1%; margin-left: 1%; font-size: 36px;">
                 Inventory
             </h2>
     
-            <mat-divider style="padding-top: 3px; padding-bottom: 3px;"></mat-divider>
+            <mat-divider style="margin-top:0px; padding-bottom: 3px;"></mat-divider>
               <!--  <div class = InputContainer>--> 
                     <div class = "row">
                         <div class ="col">
-                            <h1>Network</h1>
-                            <mat-form-field appearance = "outline">
+                            <h1 style="font-size: 28px;">Network</h1>
+                            <mat-form-field appearance = "outline" style="width:34.5%">
                                 <input matInput placeholder = "Users" style="padding-left: 2px;">
                             </mat-form-field>
-                            <mat-form-field appearance = "outline">
+                            <mat-form-field appearance = "outline" style="width:34.5%">
                                 <input matInput placeholder = "Asset Identifier">
                             </mat-form-field>
-                            <mat-form-field appearance = "outline">
+                            <mat-form-field appearance = "outline" style="width:34.5%">
                                 <input matInput placeholder = "IPv4 or IPv6 Address">
                             </mat-form-field>
     
-                            <mat-form-field appearance = "outline">
+                            <mat-form-field appearance = "outline" style="width:34.5%">
                                 <input matInput placeholder = "MAC Adress">
                             </mat-form-field>
     
@@ -55,29 +55,32 @@
                               
     
                        
-                            <mat-card class ="card1">
-                                <mat-card-header style="margin-left: 18%;" >Public</mat-card-header>
+                            <div class="cards" style="margin-bottom: 15px;">
+                                <h1 style="margin:0px;font-size: 20px;">Virtual</h1>
+                                <mat-divider style="margin-top:0px; padding-bottom: 3px;"></mat-divider>
                                 <mat-radio-group class="radio-groupPublic" appearance = "outline" aria-label="Select an option">
-                                    <mat-radio-button style="margin-left: 1%;" value="1">Yes</mat-radio-button>
-                                    <mat-radio-button style="margin-left: 40%;" value="2">No</mat-radio-button>
+                                    <mat-radio-button class="qs" value="1">Yes</mat-radio-button>
+                                    <mat-radio-button class="qs" value="2">No</mat-radio-button>
                                 </mat-radio-group>
-                            </mat-card>
+                            </div>
     
     
-                            <mat-card class="card2">
-                               <mat-card-header style="margin-left: 18%;">Virtual</mat-card-header>
-    
-                                <mat-radio-group class="radio-groupVirtual" appearance = "outline" aria-label="Select an option">
-                                    <mat-radio-button style="margin-left: 1%;" value="1">Yes</mat-radio-button>
-                                    <mat-radio-button style="margin-left: 40%;" value="2">No</mat-radio-button>
+                            
+                            <div class="cards" style="margin-bottom: 40px;">
+                                <h1 style="margin: 0px; font-size: 20px;">Public</h1>
+                                <mat-divider style="margin-top:0px; padding-bottom: 3px;"></mat-divider>
+                                <mat-radio-group class="radio-groupVirtual"  appearance = "outline" aria-label="Select an option">
+                                    <mat-radio-button class="qs"  value="1">Yes</mat-radio-button>
+                                    <mat-radio-button class="qs" value="2">No</mat-radio-button>
                                 </mat-radio-group>
-                            </mat-card>
+                            </div>
+                            
     
     
-                            <mat-form-field style="padding-top: 15px;" appearance = "outline">
+                            <mat-form-field style="padding-top: 15px;" appearance = "outline" style="width:34.5%">
                                 <input matInput placeholder = "System Administrator">
                             </mat-form-field>
-                            <mat-form-field appearance = "outline">
+                            <mat-form-field appearance = "outline" style="width:34.5%">
                                 <input matInput placeholder = "Application Admin/Owner">
                             </mat-form-field>
     
@@ -134,23 +137,27 @@
                             </mat-form-field>
     
     
-                            <mat-card class="card3">
-                                <mat-card-header >In Latest Scan</mat-card-header>
-     
-                                 <mat-radio-group class="radio-groupScan" appearance = "outline" aria-label="Select an option">
-                                     <mat-radio-button style="margin-left: 1%;" value="1">Yes</mat-radio-button>
-                                     <mat-radio-button style="margin-left: 40%;" value="2">No</mat-radio-button>
-                                 </mat-radio-group>
-                             </mat-card>
+                            
+
+                             <div class="cards" style="margin-bottom: 15px;">
+                                <h1 style="margin:0px; font-size: 20px;">In Latest Scan</h1>
+                                <mat-divider style="margin-top:0px; padding-bottom: 3px;"></mat-divider>
+                                <mat-radio-group class="radio-groupPublic" appearance = "outline" aria-label="Select an option">
+                                    <mat-radio-button class="qs" value="1">Yes</mat-radio-button>
+                                    <mat-radio-button class="qs" value="2">No</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
     
-                             <mat-card class="card3">
-                                <mat-card-header >Authenticatied Scan</mat-card-header>
-     
-                                 <mat-radio-group class="radio-groupScan" appearance = "outline" aria-label="Select an option">
-                                     <mat-radio-button style="margin-left: 1%;" value="1">Yes</mat-radio-button>
-                                     <mat-radio-button style="margin-left: 40%;" value="2">No</mat-radio-button>
-                                 </mat-radio-group>
-                             </mat-card>
+    
+                            
+                            <div class="cards" style="margin-bottom: 10px;">
+                                <h1 style="margin: 0px; font-size:20px">Authenticatied Scan</h1>
+                                <mat-divider style="margin-top:0px; padding-bottom: 3px;"></mat-divider>
+                                <mat-radio-group class="radio-groupVirtual"  appearance = "outline" aria-label="Select an option">
+                                    <mat-radio-button class="qs"  value="1">Yes</mat-radio-button>
+                                    <mat-radio-button class="qs" value="2">No</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
     
     
                              <mat-form-field style="width:70%; margin-top: 1%;" appearance = "outline">

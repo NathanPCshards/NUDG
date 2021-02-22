@@ -1,5 +1,5 @@
 @import 'themes';
-
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
 @import '~@nebular/theme/styles/globals';
 
 @include nb-install() {
