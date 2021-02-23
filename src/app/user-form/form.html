@@ -1,14 +1,9 @@
 
 <style>
 div.container1{
-    padding: 5px;
-    margin-top: 50px;
-    margin-left:auto;
-    margin-right: auto;
-    width:98%;
-    box-shadow: 1px 1px 15px -1px ;
-    background-color: rgb(255, 255, 255);
-    overflow: hidden;
+  
+    background: linear-gradient(to bottom, rgb(63,81,181) 8%, white 0%);
+    overflow:hidden;
       
   }
 mat-grid-tile{
@@ -41,47 +36,52 @@ mat-form-field{
 .mat-toolbar{
     padding: 0px;
 }
+::ng-deep.mat-dialog-container {
+    padding: 0px !important;
+    margin-bottom: 0px;
+}
+
 
 </style>
-
-<div [formGroup] ="UserForm"></div>
+<div class="container1" style="margin:0px;padding: 0px;">
+<div [formGroup] ="UserForm" style="margin:0px;padding: 0px;"></div>
     <form  class="user-form" (ngSubmit)="onFormSubmit()" novalidate>
 
 
 
-        <h2 style="margin-left: 1%; margin-top: 1%; font-size: 32px;">
+        <h2 style="margin-left: 1%; margin-top: 1%; font-size: 32px;color: white;">
             Users
         </h2>
 
 
-        <mat-divider style="padding-top: 3px; padding-bottom: 3px;"></mat-divider>
+        
             <div class = InputContainer>
                 <div class = "row">
                     <div class ="col">
                         <h1 style="margin-left: 1%;">Info</h1>
-                        <mat-form-field  appearance = "outline" style="width:34.5%">
+                        <mat-form-field  appearance = "legacy" style="width:40%">
                             <input matInput placeholder = "First Name">
                         </mat-form-field>
-                        <mat-form-field appearance = "outline" style="width:34.5%">
+                        <mat-form-field appearance = "legacy" style="width:40%">
                             <input matInput placeholder = "Last Name">
                         </mat-form-field>
-                        <mat-form-field appearance = "outline" style="width:70%">
+                        <mat-form-field appearance = "legacy" style="width:80%">
                             <input matInput placeholder = "Employee Number" >
                         </mat-form-field>
-                        <mat-form-field appearance = "outline" style="width:34.5%">
+                        <mat-form-field appearance = "legacy" style="width:40%">
                             <input matInput placeholder = "EmployeeType">
                         </mat-form-field>
-                        <mat-form-field appearance = "outline" style="width:34.5%">
+                        <mat-form-field appearance = "legacy" style="width:40%">
                             <input matInput placeholder = "Job Title">
                         </mat-form-field>
-                        <mat-form-field appearance = "outline" style="width:34.5%">
+                        <mat-form-field appearance = "legacy" style="width:40%">
                             <input matInput placeholder = "Job Role">
                         </mat-form-field>
 
-                        <mat-form-field appearance = "outline" style="width:34.5%">
+                        <mat-form-field appearance = "legacy" style="width:40%">
                             <input matInput placeholder = "Hire Date">
                         </mat-form-field>
-                        <mat-form-field appearance = "outline"  style="width:70%">
+                        <mat-form-field appearance = "legacy"  style="width:80%">
                             <input matInput placeholder = "Logon Hours">
                         </mat-form-field>
                         <div class="fileInput" style="margin-left: 1%;">
@@ -92,13 +92,13 @@ mat-form-field{
 
                     <div class ="col">
                         <h1 style="margin-left: 1%;"> Contact</h1>
-                        <mat-form-field appearance = "outline" style="width:70%">
+                        <mat-form-field appearance = "legacy" style="width:80%">
                             <input matInput placeholder = "Email Address">
                         </mat-form-field>
-                        <mat-form-field appearance = "outline" style="width:34.5%" >
+                        <mat-form-field appearance = "legacy" style="width:40%" >
                             <input matInput placeholder = "Business Phone">
                         </mat-form-field>
-                        <mat-form-field appearance = "outline" style="width:34.5%" >
+                        <mat-form-field appearance = "legacy" style="width:40%" >
                             <input matInput placeholder = "Cell Phone">
                         </mat-form-field>
 
@@ -107,27 +107,27 @@ mat-form-field{
 
                         <h1 style="margin-left: 1%;">Address</h1>
 
-                        <mat-form-field appearance = "outline" style="width:34.5%">
+                        <mat-form-field appearance = "legacy" style="width:40%">
                             <input matInput placeholder = "Address Line 1">
                         </mat-form-field>
 
-                        <mat-form-field appearance = "outline" style="width:34.5%">
+                        <mat-form-field appearance = "legacy" style="width:40%">
                             <input matInput placeholder = "Address Line 1">
                         </mat-form-field>
 
-                        <mat-form-field appearance = "outline" style="width:34.5%">
+                        <mat-form-field appearance = "legacy" style="width:40%">
                             <input matInput placeholder = "City">
                         </mat-form-field>
 
-                        <mat-form-field appearance = "outline" style="width:34.5%">
+                        <mat-form-field appearance = "legacy" style="width:40%">
                             <input matInput placeholder = "State">
                         </mat-form-field>
 
-                        <mat-form-field appearance = "outline" style="width:34.5%">
+                        <mat-form-field appearance = "legacy" style="width:40%">
                             <input matInput placeholder = "Zip Code">
                         </mat-form-field>
 
-                        <mat-form-field appearance = "outline" style="width:34.5%">
+                        <mat-form-field appearance = "legacy" style="width:40%">
                             <input matInput placeholder = "Country">
                         </mat-form-field>
 
@@ -138,7 +138,7 @@ mat-form-field{
 
 
 
-                        <mat-form-field appearance = "outline"  style="width:70%">
+                        <mat-form-field appearance = "legacy"  style="width:80%">
                             <input matInput placeholder = "Company Name">
                         </mat-form-field>
                     </div>
@@ -146,23 +146,23 @@ mat-form-field{
                     <div class ="col">
                         <h1 style="margin-left: 1%;">Assignments</h1>
     
-                        <mat-form-field appearance = "outline" style="width:70%">
+                        <mat-form-field appearance = "legacy" style="width:80%">
                             <input matInput placeholder = "User id">
                         </mat-form-field>
-                        <mat-form-field appearance = "outline" style="width:34.5%">
+                        <mat-form-field appearance = "legacy" style="width:40%">
                             <input matInput placeholder = "CUI Data">
                         </mat-form-field>
-                        <mat-form-field appearance = "outline" style="width:34.5%">
+                        <mat-form-field appearance = "legacy" style="width:40%">
                             <input matInput placeholder = "Remote User">
                         </mat-form-field>
                         <h1>Relationships</h1>
-                        <mat-form-field appearance = "outline" style="width:70%">
+                        <mat-form-field appearance = "legacy" style="width:80%">
                             <input matInput placeholder = "Groups">
                         </mat-form-field>
-                        <mat-form-field appearance = "outline" style="width:70%">
+                        <mat-form-field appearance = "legacy" style="width:80%">
                             <input matInput placeholder = "Roles">
                         </mat-form-field>
-                        <mat-form-field appearance = "outline" style="width:70%">
+                        <mat-form-field appearance = "legacy" style="width:80%">
                             <input matInput placeholder = "Asset Identifier">
                         </mat-form-field>
 
@@ -170,9 +170,11 @@ mat-form-field{
                 </div>
                     
             <div class = "row2">
-                <mat-divider style="padding-top: 3px; padding-bottom: 3px;"></mat-divider>
+                <mat-divider style="padding-top: 3px;"></mat-divider>
 
-                <button mat-raised-button [mat-dialog-close]="true" (click)="onFormSubmit();"  style = "margin-left:47%; " color="primary"  >Submit</button>
-                <button mat-raised-button  (click)="onFormReset();" style="margin-left: 1%;" type="reset"  color="primary"  >Reset</button>
+                <button mat-raised-button [mat-dialog-close]="true" (click)="onFormSubmit();"  style="margin-left: 30%;width:30vw;height: 4vh;" color="primary"  >Submit</button>
+                <br>
+                <button mat-raised-button  (click)="onFormReset();" style="margin-left: 30%;width:30vw;height: 4vh;" type="reset"  color="primary"  >Reset</button>
             </div>
         </div>
+    

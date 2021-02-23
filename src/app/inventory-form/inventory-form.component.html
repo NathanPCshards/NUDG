@@ -1,4 +1,6 @@
 
+
+
 <mat-accordion class ="accordion">
 
       
@@ -23,75 +25,70 @@
         <form  class="inventory-form" (ngSubmit)="onFormSubmit()" novalidate>
     
         <div class="container1">
-            <h2 style="margin-top: 1%; margin-left: 1%; font-size: 36px;">
+            <h2 style="margin-top: 1%; margin-left: 1%; font-size: 36px;color: white;">
                 Inventory
             </h2>
     
-            <mat-divider style="margin-top:0px; padding-bottom: 3px;"></mat-divider>
+            
               <!--  <div class = InputContainer>--> 
                     <div class = "row">
                         <div class ="col">
                             <h1 style="font-size: 28px;">Network</h1>
-                            <mat-form-field appearance = "outline" style="width:34.5%">
-                                <input matInput placeholder = "Users" style="padding-left: 2px;">
+                            <mat-form-field appearance = "legacy" style="width: 40%;" >
+                                <input matInput placeholder = "Users" style="padding-left: 5px;">
                             </mat-form-field>
-                            <mat-form-field appearance = "outline" style="width:34.5%">
+                            <mat-form-field appearance = "legacy" style="width: 40%;" >
                                 <input matInput placeholder = "Asset Identifier">
                             </mat-form-field>
-                            <mat-form-field appearance = "outline" style="width:34.5%">
+                            <mat-form-field appearance = "legacy" style="width: 40%;" >
                                 <input matInput placeholder = "IPv4 or IPv6 Address">
                             </mat-form-field>
     
-                            <mat-form-field appearance = "outline" style="width:34.5%">
+                            <mat-form-field appearance = "legacy" style="width: 40%;" >
                                 <input matInput placeholder = "MAC Adress">
                             </mat-form-field>
     
-                            <mat-form-field appearance = "outline" style="width:70%">
+                            <mat-form-field appearance = "legacy" style="width: 40%;" >
                                 <input matInput placeholder = "Subnet ID/ Network ID">
                             </mat-form-field>
-    
+                
     
     
                               
     
                        
-                            <div class="cards" style="margin-bottom: 15px;">
-                                <h1 style="margin:0px;font-size: 20px;">Virtual</h1>
-                                <mat-divider style="margin-top:0px; padding-bottom: 3px;"></mat-divider>
-                                <mat-radio-group class="radio-groupPublic" appearance = "outline" aria-label="Select an option">
-                                    <mat-radio-button class="qs" value="1">Yes</mat-radio-button>
+                            <div class="cards">
+                                <h1 style="margin:0px;font-size: 15px;">Virtual</h1>                                
+                                <mat-radio-group class="radio-groupPublic" appearance = "legacy" aria-label="Select an option">
+                                    <mat-radio-button color="primary" class="qs" value="1">Yes</mat-radio-button>
+                                    <mat-radio-button  class="qs" value="2">No</mat-radio-button>
+                                </mat-radio-group>                                             
+                                <h1 style="margin: 0px; font-size: 15px;">Public</h1>                                
+                                <mat-radio-group class="radio-groupVirtual"  appearance = "legacy" aria-label="Select an option">
+                                    <mat-radio-button color="primary" class="qs"  value="1">Yes</mat-radio-button>
                                     <mat-radio-button class="qs" value="2">No</mat-radio-button>
                                 </mat-radio-group>
                             </div>
-    
-    
+                                <br>
                             
-                            <div class="cards" style="margin-bottom: 40px;">
-                                <h1 style="margin: 0px; font-size: 20px;">Public</h1>
-                                <mat-divider style="margin-top:0px; padding-bottom: 3px;"></mat-divider>
-                                <mat-radio-group class="radio-groupVirtual"  appearance = "outline" aria-label="Select an option">
-                                    <mat-radio-button class="qs"  value="1">Yes</mat-radio-button>
-                                    <mat-radio-button class="qs" value="2">No</mat-radio-button>
-                                </mat-radio-group>
-                            </div>
                             
     
     
-                            <mat-form-field style="padding-top: 15px;" appearance = "outline" style="width:34.5%">
+                            <mat-form-field style="padding-top: 15px;" appearance = "legacy" style="width: 40%;" >
                                 <input matInput placeholder = "System Administrator">
                             </mat-form-field>
-                            <mat-form-field appearance = "outline" style="width:34.5%">
+                            <mat-form-field appearance = "legacy" style="width: 40%;" >
                                 <input matInput placeholder = "Application Admin/Owner">
                             </mat-form-field>
     
     
-                            <mat-form-field appearance = "outline" style="width: 70%;">
+                            <mat-form-field appearance = "legacy" style="width: 80%;">
                                 <input matInput placeholder = "DNS Name or URL">
                             </mat-form-field>
-                            <mat-form-field appearance = "outline">
+                            <mat-form-field appearance = "legacy" style="width: 40%;">
                                 <input matInput placeholder = "Logon Hours">
                             </mat-form-field>
-                            <mat-form-field appearance = "outline">
+                            <mat-form-field appearance = "legacy" style="width: 40%;">
                                 <input matInput placeholder = "NetBIOS Name">
                             </mat-form-field>
     
@@ -100,12 +97,12 @@
     
                         <div class = "col">
     
-                            <mat-form-field style="padding-top: 46px; width:70%" appearance = "outline">
+                            <mat-form-field style="padding-top: 46px; width:80%" appearance = "legacy">
                                 <input matInput placeholder = "Software/Database Name">
                             </mat-form-field>
     
                             
-                            <mat-form-field style="width:70%;"appearance = "outline">
+                            <mat-form-field style="width:80%;"appearance = "legacy">
                                 <input matInput placeholder = "Baseline Configuration Name">
                             </mat-form-field>
     
@@ -114,25 +111,25 @@
     
     
     
-                            <mat-form-field  appearance = "outline">
+                            <mat-form-field  appearance = "legacy" style="width: 80%;">
                                 <input matInput placeholder = "Software Approval List - Software Name">
                             </mat-form-field>
                             
-                            <mat-form-field appearance = "outline">
+                            <mat-form-field appearance = "legacy"style="width: 40%;">
                                 <input matInput placeholder = "Cost">
                             </mat-form-field>
      
-                            <mat-form-field appearance = "outline">
+                            <mat-form-field appearance = "legacy">
                                 <input matInput placeholder = "Patch Level">
                             </mat-form-field>
-                            <mat-form-field appearance = "outline">
+                            <mat-form-field appearance = "legacy" style="width: 80%;">
                                 <input matInput placeholder = "Function">
                             </mat-form-field>
     
-                            <mat-form-field appearance = "outline">
+                            <mat-form-field appearance = "legacy" style="width: 80%;">
                                 <input matInput placeholder = "VLAN/Identifier">
                             </mat-form-field>
-                            <mat-form-field appearance = "outline">
+                            <mat-form-field appearance = "legacy" style="width: 80%;">
                                 <input matInput placeholder = "Serial#/Asset Tag#">
                             </mat-form-field>
     
@@ -140,10 +137,10 @@
                             
 
                              <div class="cards" style="margin-bottom: 15px;">
-                                <h1 style="margin:0px; font-size: 20px;">In Latest Scan</h1>
-                                <mat-divider style="margin-top:0px; padding-bottom: 3px;"></mat-divider>
-                                <mat-radio-group class="radio-groupPublic" appearance = "outline" aria-label="Select an option">
-                                    <mat-radio-button class="qs" value="1">Yes</mat-radio-button>
+                                <h1 style="margin:0px; font-size: 15px;">In Latest Scan</h1>
+                                
+                                <mat-radio-group class="radio-groupPublic" appearance = "legacy" aria-label="Select an option">
+                                    <mat-radio-button color="primary" class="qs" value="1">Yes</mat-radio-button>
                                     <mat-radio-button class="qs" value="2">No</mat-radio-button>
                                 </mat-radio-group>
                             </div>
@@ -151,16 +148,16 @@
     
                             
                             <div class="cards" style="margin-bottom: 10px;">
-                                <h1 style="margin: 0px; font-size:20px">Authenticatied Scan</h1>
-                                <mat-divider style="margin-top:0px; padding-bottom: 3px;"></mat-divider>
-                                <mat-radio-group class="radio-groupVirtual"  appearance = "outline" aria-label="Select an option">
-                                    <mat-radio-button class="qs"  value="1">Yes</mat-radio-button>
-                                    <mat-radio-button class="qs" value="2">No</mat-radio-button>
+                                <h1 style="margin: 0px; font-size:15px">Authenticatied Scan</h1>
+                               
+                                <mat-radio-group class="radio-groupVirtual"  appearance = "legacy" aria-label="Select an option">
+                                    <mat-radio-button color="primary" class="qs"  value="1">Yes</mat-radio-button>
+                                    <mat-radio-button class="qs" value="2">No</mat-radio-button> 
                                 </mat-radio-group>
                             </div>
     
     
-                             <mat-form-field style="width:70%; margin-top: 1%;" appearance = "outline">
+                             <mat-form-field style="width:80%; margin-top: 1%;" appearance = "legacy">
                                 <input matInput placeholder = "Comments">
                             </mat-form-field>
     
@@ -168,25 +165,25 @@
     
     
                         <div class ="col">
-                            <mat-form-field appearance = "outline" style = "padding-top: 46px;">
+                            <mat-form-field appearance = "legacy" style = "padding-top: 46px; width: 80%;">
                                 <input matInput placeholder = "OS Name and Version">
                             </mat-form-field>
-                            <mat-form-field appearance = "outline">
+                            <mat-form-field appearance = "legacy" style="width: 80%;">
                                 <input matInput placeholder = "Physical Location">
                             </mat-form-field>
-                            <mat-form-field appearance = "outline">
+                            <mat-form-field appearance = "legacy" style="width: 40%;">
                                 <input matInput placeholder = "Asset Type">
                             </mat-form-field>
-                            <mat-form-field appearance = "outline">
-                                <input matInput placeholder = "Hardware Make/ Model">
+                            <mat-form-field appearance = "legacy">
+                                <input matInput placeholder = "Hardware Make/ Model" style="width: 40%;">
                             </mat-form-field>
-                            <mat-form-field appearance = "outline">
+                            <mat-form-field appearance = "legacy" style="width: 80%;">
                                 <input matInput placeholder = "Date of Receipt">
                             </mat-form-field>
-                            <mat-form-field appearance = "outline">
+                            <mat-form-field appearance = "legacy" style="width: 80%;">
                                 <input matInput placeholder = "Hardware/Software Vendor">
                             </mat-form-field>
-                            <mat-form-field style= "width:70%" appearance = "outline">
+                            <mat-form-field style= "width:80%" appearance = "legacy" style="width: 80%;">
                                 <input matInput placeholder = "Supplier Information">
                             </mat-form-field>
     
@@ -204,10 +201,11 @@
               <!--  </div>--> 
         
                 <div class = "row2">
-                    <mat-divider style="padding-top: 3px; padding-bottom: 3px;"></mat-divider>
+                    <mat-divider style="padding-top: 3px; padding-bottom: 3px; "></mat-divider>
     
-                    <button mat-raised-button (click) = "onFormSubmit()"   style = "margin-left:47%; " type ="Submit" color="primary"  >Submit</button>
-                    <button mat-raised-button (click) = "onFormReset()"   style="margin-left:1%; " type="Reset" color="primary"  >Reset</button>
+                    <button mat-raised-button (click) = "onFormSubmit()" style="margin-left: 30%;width:30vw;height: 4vh;"   type ="Submit" color="primary"  >Submit</button>
+                    <br>
+                    <button mat-raised-button (click) = "onFormReset()"  style="margin-left: 30%;width:30vw;height: 4vh;"  type="Reset" color="primary"  >Reset</button>
                 </div>
             </div>
         </form>

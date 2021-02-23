@@ -1,9 +1,65 @@
+<style>
+    div.container1{
+    padding: 5px;
+    margin-top: 50px;
+    margin-left:auto;
+    margin-right: auto;
+    width:98%;
+    box-shadow: 1px 1px 15px -1px ;
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+      
+  }
+mat-grid-tile{
+    width: 98px;
+    margin:auto;
+}
+mat-form-field{
+    margin-left: 1%;
+}
 
-<!--
+.col{
+    margin-left: 1%;
+    float:left;
+    width: 41%;
+  
+}
+.col2{
+    float: left;
+    width: 49%;
+
+}
+.colDivider{
+    width: 0%;
+    float:left;    
+}
+.vertDivider{
+    height:382px;
+}
+
+.row2{
+    width:100%;
+    align-items: center;
+    clear:both;
+    padding-left: 2px;
+    padding-right: 2px;
+
+}
+
+.mat-divider {
+    display: block;
+    margin: 0;
+    border-top-width: 1px;
+    border-top-style: solid;
+    margin-bottom: 15px;
+ }
+ .mat-raised-button{
+     margin-bottom: 15px;
+ }
+</style>
+
 <div [formGroup] ="roleForm">
-    <form  class="roleForm" (ngSubmit)="onFormSubmit('roleForm')" novalidate>
-
-    <div class="container1">
+    <form  class="roleForm" (ngSubmit)="onFormSubmit()" novalidate>
         <h2 style="margin-left: 1%">
             Roles and Groups
         </h2>
@@ -48,11 +104,8 @@
                 </div>
                 
             </div>
-    </div>
 
 </div>
-
--->
 
 
 

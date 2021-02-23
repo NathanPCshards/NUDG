@@ -25,6 +25,49 @@ div.container2{
  
     width:100vw;
 }
+.standardTable{
+    border:black;
+    border-radius: 2px;
+}
+.tableCard{
+    box-shadow: 1px 1px 15px -1px ;
+
+}
+
+
+//uncomment colors to see how everything lines up.
+.wrapper {
+   // background-color: salmon;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+  }
+
+//NOTICE - this can be done with several divs in column format, BUT this is a grid.
+//if nathan wants this changed. I will be working on something else - alex. 
+
+
+  .one {
+   // background-color: orange;
+    grid-column: 3 / 5;
+    grid-row: 1;
+  }
+
+  .three {
+    //background-color: palegreen;
+    grid-column: 2 / 4;
+    grid-row: 2 / 5;
+  }
+  .four {
+    //background-color: plum;
+    grid-column: 4 / 6;
+    grid-row: 2/5;
+  }
+.mat-table{
+    padding: 1%;
+    width:100%;
+}
 
 //:host limits ng deep to this component
 :host ::ng-deep .mat-expansion-panel-header:focus{
@@ -163,5 +206,11 @@ div.item2{
     color:white;
     //background-color: white;
     //border-color: white;
+}
+
+:host:ng-deep .test{
+    background-color: aqua;
+    color: red;
+
 }
 

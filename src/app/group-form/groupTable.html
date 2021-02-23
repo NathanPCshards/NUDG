@@ -1,29 +1,4 @@
-
-
-
-<mat-toolbar color="accent" class="tools">
-
-    <mat-toolbar-row>
-        <mat-form-field style="width: 15%; height: 70%;">
-            <mat-label>Search</mat-label>
-        <input matInput (keyup)="applyFilter($event)" #input>
-        </mat-form-field>
-        <span (click)="toggleRoles()" style="margin-left: 35%;"> Toggle Roles</span>
-        <span (click)="toggleGroups()" style="margin-left: 3%;"> Toggle Groups</span>
-        <span (click)="openDialog()" style="margin-left: 3%;"> Add</span>
-        <span (click)="removeSelectedRows()" style="margin-left: 3%;"> Delete Selected</span>
-        <span  style="margin-left: 3%;"> Import </span>
-        <span  style="margin-left: 3%;"> Export </span>
-
-
-    </mat-toolbar-row>
-
-</mat-toolbar>
-
-
-
-
-  <table mat-table id="roleTable" [dataSource]="dataSource" matSort class="roleTable" style="width:100%; display:table">
+<table mat-table id="groupTable" [dataSource]="dataSource" matSort class="groupTable" style="display:table; width:100%">
 
     <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
@@ -112,11 +87,3 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row (click)="onRowClicked(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-
-  <groupTable>
-
-  </groupTable>
-
-
-<mat-dialog-content class="dialog">
-</mat-dialog-content>

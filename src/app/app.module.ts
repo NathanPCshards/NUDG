@@ -44,9 +44,9 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { DialogElementsExampleDialog, UserFormComponent } from './user-form/user-form.component';
 import { MatButtonModule } from '@angular/material/button';
-import { GroupFormComponent } from './group-form/group-form.component';
+import { GroupFormComponent, groupTable } from './group-form/group-form.component';
 import { roleDialog, RoleFormComponent } from './role-form/role-form.component';
-import { IdentifierPageComponent } from './identifier-page/identifier-page.component';
+import { controlTable, IdentifierPageComponent, standardTable, weaknessTable } from './identifier-page/identifier-page.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PolicyBoardComponent } from './policy-board/policy-board.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -62,6 +62,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
+    //Components
     AppComponent,
     LoginFormComponent,
     CompanyInfoFormComponent,
@@ -75,7 +76,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MyLineChartComponent,
     DialogElementsExampleDialog,
     NotfoundComponent,
-    roleDialog
+    roleDialog,
+    groupTable,
+    weaknessTable,
+    controlTable,
+    standardTable,
 
     
     

@@ -71,7 +71,8 @@ export class UserFormComponent implements OnInit {
     
   }
   public openDialog() {
-    this.dialog.open(DialogElementsExampleDialog, {height:'80%', width:"80%"});
+    this.dialog.open(DialogElementsExampleDialog, {height:'70%', width:"80%",});
+
   }
 
   ngAfterViewInit(){
