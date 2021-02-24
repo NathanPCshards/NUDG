@@ -8,6 +8,7 @@
   .sidnav {
       position: relative;
       width: 10vw;
+      background-color: yellowgreen;
 
   }
 
@@ -24,9 +25,11 @@
 
   .sidenavbutton {
       height: 100%;
- 
+      position: fixed;
+        overflow: hidden;
+        width: 90px;
   }
-
+//https://angular-calendar.com/#/kitchen-sink
   .mat-row:nth-child(even){
     background-color: rgb(215, 215, 215);
 }
@@ -39,5 +42,34 @@
     background-color: rgb(63,81,181) ;
     color:white;
     border-radius: 0; //this removes the rounded edges of button
+}
+
+
+.chartContainer{
+   // background-color: grey;
+    margin:auto;
+    width: 95.5%;
+    height: 80%;
+    float:right;
+}
+.dashmain{
+    display: flex;
+    justify-content: center;
+    
+    
+}
+
+.tabs {
+    align-items: center;
+}
+
+.cmmcinfo {
+    display: flex;
+
+}
+
+.cmmcitem {
+    flex-grow: 1;
+    justify-content: center;
 }
 

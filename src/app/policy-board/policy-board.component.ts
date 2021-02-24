@@ -42,21 +42,22 @@ export class PolicyBoardComponent implements OnInit {
   name: any;
 
 
-  constructor(private route: ActivatedRoute) { 
+  constructor(private route: Router) { 
     
   }
 
   ngOnInit() {
+    /* 
     this.route.queryParams.subscribe(params => {
       this.name = params['name'];
-    });
+    });*/
   }
   onRowClicked(row): void {
     console.log("Row clicked: ", row);
     this.rowSelected = true;
-    var configUrl = 'http://localhost:4200' + "/" + row.Title;
+    var configUrl = ["/" + row.Title];
     console.log(configUrl)
-   // this.router.navigate(configUrl.concat("/",row.Title))
+     this.route.navigate(configUrl);
 
 
 

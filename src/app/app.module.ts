@@ -2,15 +2,22 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 
-//Forms
+//Forms and components
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { CompanyInfoFormComponent } from './company-info-form/company-info-form.component';
 import { InventoryFormComponent } from './inventory-form/inventory-form.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { GroupFormComponent, groupTable } from './group-form/group-form.component';
+import { roleDialog, RoleFormComponent } from './role-form/role-form.component';
+import { controlTable, IdentifierPageComponent, standardTable, weaknessTable } from './identifier-page/identifier-page.component';
+import { Bar3dDatasetComponent, calendarComponent, chartSimple, DashboardComponent } from './dashboard/dashboard.component';
+import { PolicyBoardComponent } from './policy-board/policy-board.component';
+import { DialogElementsExampleDialog, UserFormComponent } from './user-form/user-form.component';
 
 //Connections
 import { HttpClientModule } from '@angular/common/http'
+import { AppRoutingModule } from './app-routing.module';
 
 //Angular Material Components
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -42,21 +49,17 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import { DialogElementsExampleDialog, UserFormComponent } from './user-form/user-form.component';
 import { MatButtonModule } from '@angular/material/button';
-import { GroupFormComponent, groupTable } from './group-form/group-form.component';
-import { roleDialog, RoleFormComponent } from './role-form/role-form.component';
-import { controlTable, IdentifierPageComponent, standardTable, weaknessTable } from './identifier-page/identifier-page.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { PolicyBoardComponent } from './policy-board/policy-board.component';
-import { AppRoutingModule } from './app-routing.module';
 
-//Charts
-import { ChartsModule} from 'ng2-charts';
-import { MyLineChartComponent } from './my-line-chart/my-line-chart.component';
+
+
+//Charts and calendars
 import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { FlatpickrModule } from 'angularx-flatpickr';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { NgxEchartsModule } from 'ngx-echarts';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -73,7 +76,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     IdentifierPageComponent,
     DashboardComponent,
     PolicyBoardComponent,
-    MyLineChartComponent,
     DialogElementsExampleDialog,
     NotfoundComponent,
     roleDialog,
@@ -81,6 +83,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     weaknessTable,
     controlTable,
     standardTable,
+    chartSimple,
+    Bar3dDatasetComponent,
+    calendarComponent,
 
     
     
@@ -88,7 +93,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-
+    NgbModalModule,
 
     //Forms
     FormsModule,
@@ -130,15 +135,20 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatPaginatorModule,
     MatInputModule,
     MatCheckboxModule,
- 
-
+    
     //charts
-    ChartsModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    }),
+    
+    //calendar
+    FlatpickrModule.forRoot(),
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
     
+ 
 
   ],
 

@@ -1,28 +1,52 @@
-<mat-drawer-container class="container1" autosize>
-    <mat-drawer #drawer class="sidenav" mode="side">
-      
-      <!-- Access Control -->
-      
-      <app-policy-board class="pBoard"></app-policy-board>
 
+ <div style="text-align:center;">
+  <img src="https://pcshards.com/wp-content/uploads/2019/08/pcshards-logo-1wrd-300.png">
+  <h1> NUDG Completion Staticistscs</h1>
+</div> 
+
+<div class="tabs">
+<mat-tab-group>
+  <mat-tab label="CMMC Information"> 
+    
+    <chart-simple></chart-simple>
+    
+    <mat-card>
+    <div class="cmmcinfo">
+
+      <div class="cmmcitem">
+        <h1 style="margin-bottom: 0px;">Total CMMC Practices</h1>
+        <mat-divider style="width: 20%;"></mat-divider>
+        <h2> xxx </h2>
+
+      </div>
+      <div class="cmmcitem">
+        <h1 style="margin-bottom: 0px;">Completeded CMMC Practices</h1>
+        <mat-divider style="width: 20%;"></mat-divider>
+        <h2>xxx </h2>
+      </div>
+
+
+    </div>
+    </mat-card>
     
 
-      </mat-drawer>
-        <button mat-raised-button type="button" class="sidenavbutton" (click)="drawer.toggle()">
-          Families
-          </button>
 
+  </mat-tab>
+  <mat-tab label="NIST Information"> NIST Information </mat-tab>
+  <mat-tab label="General Information"> General Information </mat-tab>
+</mat-tab-group>
+</div>
 
-<!-- To generate graphs ng generate ng2-charts-schematics:line my-line-chart -->
 
   
-  </mat-drawer-container>
-<!--
+  
+  
+  
+  <div class="items" >
+     <dash-calendar></dash-calendar> 
 
-  <app-my-line-chart></app-my-line-chart>
+  </div>
 
--->
-<app-my-line-chart></app-my-line-chart>
- 
-  <mwl-calendar-week-view style="width:30%; height: 30%;">
-  </mwl-calendar-week-view>
+
+
+

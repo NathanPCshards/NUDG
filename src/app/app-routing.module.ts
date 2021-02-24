@@ -25,8 +25,10 @@ const routes: Routes = [
   { path: 'Roles', component: RoleFormComponent },
   { path: 'Groups', component: GroupFormComponent },
   { path: 'Policy', component: IdentifierPageComponent },
+  { path: 'AC-N.01', component: IdentifierPageComponent },
+
   { path: '404', component: NotfoundComponent},
-  { path: '**', redirectTo: '/404'},
+  /*{ path: '**', redirectTo: '/404'},*/
   
 
 ];

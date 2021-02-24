@@ -3,7 +3,7 @@ div.container1{
     margin-top: 10px;
     margin-left:auto;
     margin-right: auto;
-    width:80%;
+    width:70%;
     height: 50%;
 
     box-shadow: 1px 1px 15px -1px ;
@@ -59,6 +59,7 @@ div.cards{
 .row2{
     width:100%;    
     clear:both;
+    display: flexbox;
     
     
     
@@ -78,4 +79,14 @@ div.cards{
 .mat-raised-button{
     margin-bottom: 15px;
     width: 10%;
+}
+.mat-header-cell{ 
+    background-color: rgb(63,81,181) ;
+    color: white;
+}
+.mat-checkbox-inner-container {
+    color: white;
+}
+.mat-checkbox {
+    color: white;
 }
