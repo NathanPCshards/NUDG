@@ -1,0 +1,118 @@
+
+    <style>
+        div.container1{
+          
+            background: linear-gradient(to bottom, rgb(63,81,181) 8%, white 0%);
+            overflow:hidden;
+              
+          }
+        mat-grid-tile{
+            width: 98px;
+            margin:auto;
+        }
+        mat-form-field{
+            margin-left: 1%;
+        }
+        
+        .col{
+            float:left;
+            width: 33%;
+            padding:1%;
+          
+        }
+        
+        .row2{
+            width:100%;
+            align-items: center;
+            display: flexbox;
+            clear:both;
+            padding-left: 2px;
+            padding-right: 2px;
+        }
+        .mat-raised-button{
+            margin-top: 1%;
+            margin-bottom: 15px;
+        }
+        
+        .mat-toolbar{
+            padding: 0px;
+        }
+        ::ng-deep.mat-dialog-container {
+            padding: 0px !important;
+            margin-bottom: 0px;
+        }
+        
+        
+        </style>
+        <div class="container1" style="margin:0px;padding: 0px;">
+        <div [formGroup] ="cuiForm" style="margin:0px;padding: 0px;"></div>
+            <form  class="cui-form" (ngSubmit)="onFormSubmit()" novalidate>
+        
+        
+        
+                <h2 style="margin-left: 1%; margin-top: 1%; font-size: 32px;color: white;">
+                    CUI Contracts
+                </h2>
+        
+        
+                
+                    <div class = InputContainer>
+                        <div class = "row">
+                            <div class ="col">
+                                <h1 style="margin-left: 1%;">Info</h1>
+                                <mat-form-field  appearance = "legacy" style="width:40%">
+                                    <input matInput placeholder = "Contract ID">
+                                </mat-form-field>
+                                <mat-form-field appearance = "legacy" style="width:40%">
+                                    <input matInput placeholder = "Contract Name">
+                                </mat-form-field>
+                                <mat-form-field appearance = "legacy" style="width:80%">
+                                    <input matInput placeholder = "Contract Number" >
+                                </mat-form-field>
+                                <mat-form-field appearance = "legacy" style="width:40%">
+                                    <input matInput placeholder = "Contract Start Date">
+                                </mat-form-field>
+                                <mat-form-field appearance = "legacy" style="width:40%">
+                                    <input matInput placeholder = "Contract End Date">
+                                </mat-form-field>
+                                <mat-form-field appearance = "legacy" style="width:40%">
+                                    <input matInput placeholder = "Description">
+                                </mat-form-field>
+        
+                                <mat-form-field appearance = "legacy" style="width:40%">
+                                    <input matInput placeholder = "Primary Asset Relation">
+                                </mat-form-field>
+                                <mat-form-field appearance = "legacy"  style="width:80%">
+                                    <input matInput placeholder = "Supplier Relation">
+                                </mat-form-field>
+                                <div class="fileInput" style="margin-left: 1%;">
+                                    <input  class="ng-hide" id="input-file-id" multiple type="file" />
+                                    <label for="input-file-id" class="md-button md-raised md-primary"></label>
+                                </div>
+                                            </div>
+        
+                            <div class ="col">
+                                <h1 style="margin-left: 1%;"> Contact</h1>
+                                <mat-form-field appearance = "legacy" style="width:80%">
+                                    <input matInput placeholder = "Vendor Relaton">
+                                </mat-form-field>
+                                <mat-form-field appearance = "legacy" style="width:40%" >
+                                    <input matInput placeholder = "Business Phone">
+                                </mat-form-field>
+                                <mat-form-field appearance = "legacy" style="width:40%" >
+                                    <input matInput placeholder = "Cell Phone">
+                                </mat-form-field>
+        
+        
+    
+                            
+                    <div class = "row2">
+                        <mat-divider style="padding-top: 3px;"></mat-divider>
+        
+                        <button mat-raised-button [mat-dialog-close]="true" (click)="onFormSubmit();"  style="margin-left: 15%;width:20vw;height: 5vh; float: left;" color="primary"  >Submit</button>
+                        
+                        <button mat-raised-button  (click)="onFormReset();" style="margin-right: 15%;width:20vw;height: 5vh;float: right;" type="reset"  color="primary"  >Reset</button>
+                    </div>
+                </div>
+            
+    

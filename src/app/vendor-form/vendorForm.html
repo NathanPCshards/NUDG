@@ -1,22 +1,10 @@
-<mat-accordion class ="accordion">
 
-      
-    <mat-expansion-panel (opened)="panelOpenState = true"
-                         (closed)="panelOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Add a Company
-        </mat-panel-title>
-        <mat-panel-description class="description">
-         Open panel to add a Company
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div [formGroup] ="companyInfoForm">
-        <form  class="inventory-form" (ngSubmit)="onFormSubmit()" novalidate>
+      <div [formGroup] ="vendorform">
+        <form  class="vendorform" (ngSubmit)="onFormSubmit()" novalidate>
     
         <div class="container1">
             <h2>
-                Company Info
+                Vendors
             </h2>
     
             <mat-divider style="padding-top: 3px; padding-bottom: 3px;"></mat-divider>
@@ -25,23 +13,20 @@
                         <div class ="col">
                             <h1>Info</h1>
                             <mat-form-field appearance = "legacy" style="width:80%">
-                                <input matInput placeholder = "Company Information" style="padding-left: 2px;">
+                                <input matInput placeholder = "Vendor Name" style="padding-left: 2px;">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input matInput placeholder = "Company Name">
+                                <input matInput placeholder = "Vendor Product">
                             </mat-form-field>
     
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input matInput placeholder = "Phone">
+                                <input matInput placeholder = "Vendor Website">
                             </mat-form-field>
     
                             <mat-form-field appearance = "legacy" style="width:80%">
-                                <input matInput placeholder = "DBA">
+                                <input matInput placeholder = "Technical POC Information">
                             </mat-form-field>
     
-                            <mat-form-field appearance = "legacy" style="width:80%">
-                                <input matInput placeholder = "Website">
-                            </mat-form-field>
     
                             <h1 style="margin-left: 1%;">Address</h1>
     
@@ -81,24 +66,23 @@
                             <mat-form-field appearance = "legacy" style="width:80%">
                                 <input matInput placeholder = "Description">
                             </mat-form-field>
-                            <mat-card class ="card1" style="width:40%; align-content: center;" >
-                                <mat-card-header  style="margin-left: 15%;">SBA Certified</mat-card-header>
-                                <mat-radio-group class="radio-groupCertified" appearance = "legacy" aria-label="Select an option">
-                                    <mat-radio-button style="float: left" value="1">Yes</mat-radio-button>
-                                    <mat-radio-button style="float:right" value="2">No</mat-radio-button>
-                                </mat-radio-group>
-                            </mat-card>
-                            <mat-form-field appearance = "legacy" style="margin-top: 20px;">
+                            <div class="cards">
+                                <h1 style="margin:0px;font-size: 15px; width:100%">SBA Certified</h1>                                
+                                <mat-radio-group class="radio-groupPublic" appearance = "legacy" aria-label="Select an option">
+                                    <mat-radio-button color="primary" class="qs" value="1">Yes</mat-radio-button>
+                                    <mat-radio-button style="margin-left: 5%;" class="qs" value="2">No</mat-radio-button>
+                                </mat-radio-group>  
+                                </div>     
+                            <mat-form-field appearance = "legacy" style="width:80%">
                                 <input matInput placeholder = "Business Type">
                             </mat-form-field>
- 
-                            <h3 style="margin-top: 10px;">Technical POC Info</h3>
-                            <textarea id="techPOC" style="text-align: left; margin-bottom: 20px;" rows="4" cols="55"></textarea>
-            
+                            <mat-form-field appearance = "legacy" style="width:80%">
+                                <input matInput placeholder = "Technical POC Information"> <!--THIS TOO-->
+                            </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:40%">
                                 <input matInput placeholder = "DUNS Number">
                             </mat-form-field>
-                            <mat-form-field appearance = "legacy" style="width:40%; margin-bottom: 10px;">
+                            <mat-form-field appearance = "legacy" style="width:40%">
                                 <input matInput placeholder = "CAGE Code">
                             </mat-form-field>
                         </div>
@@ -147,7 +131,4 @@
 
         
     </div>
-    </mat-expansion-panel>
 
-  </mat-accordion>
-  

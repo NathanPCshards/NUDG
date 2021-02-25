@@ -39,6 +39,7 @@
     "flatpickr": "^4.6.9",
     "g": "^2.0.1",
     "gulp": "^4.0.2",
+    "ng-zorro-antd": "^11.1.0",
     "ng2-charts": "^2.4.2",
     "ngx-echarts": "^6.0.0",
     "rxjs": "~6.6.0",

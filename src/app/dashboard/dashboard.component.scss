@@ -65,11 +65,58 @@
 
 .cmmcinfo {
     display: flex;
+    align-content: space-between;
+    flex-wrap: wrap;
 
 }
 
 .cmmcitem {
-    flex-grow: 1;
+    
+    flex: 1 0 25% ;
     justify-content: center;
+    
+    margin: 2%;
+    
+    
 }
 
+.nistinfo {
+    display: flex;
+    align-content: space-between;
+    flex-wrap: wrap;
+
+}
+
+.nistitem {
+    
+    flex: 2 1 25%;
+    justify-content: center;
+    
+    margin: 2%;
+
+}
+    
+    
+
+.itemheader {
+    background-color: rgb(63,81,181);
+    color: white;
+    padding: 2%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.itembody {
+    padding: 2%;
+    
+}
+
+.mat-card {
+    margin: 5%px;
+    padding: 0px;
+    
+    border-radius: 5px;
+}
+.calendaritem {
+    padding: 2%;
+}

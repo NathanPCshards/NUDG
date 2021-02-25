@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+
+
 // table stuff for examples -->
 export interface PeriodicElement {
   name: string;
@@ -95,7 +97,7 @@ export class chartSimple implements OnInit {
 
     this.options = {
       title: {
-        text:'CMMC Graph Example',
+        text:'Graph Example',
         left:'center',
         top: 20,
 
@@ -226,12 +228,14 @@ function validateToken(token: string) {
 @Component({
   selector: 'dash-calendar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./dashboard.component.scss'],
+ // flatpickr/dist/flatpickr.css
+  styleUrls: ['./dashboard.component.scss','../../../node_modules/flatpickr/dist/flatpickr.css'],
+
   templateUrl: 'calendar.html',
 })
 export class calendarComponent {
   @ViewChild('modalContent', { static: true }) modalContent!: TemplateRef<any> ;
-
+  mwlFlatPicker;
   view: CalendarView = CalendarView.Month;
 
   colors: any = {
@@ -293,19 +297,6 @@ export class calendarComponent {
       draggable: true,
     },
     {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: this.colors.yellow,
-      actions: this.actions,
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: this.colors.blue,
-      allDay: true,
-    },
-    {
       start: addHours(startOfDay(new Date()), 2),
       end: addHours(new Date(), 2),
       title: 'A draggable and resizable event',
@@ -319,7 +310,7 @@ export class calendarComponent {
     },
   ];
 
-  activeDayIsOpen: boolean = true;
+  activeDayIsOpen: boolean = false;
 
   constructor(private modal: NgbModal) {
 

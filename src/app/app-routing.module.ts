@@ -12,6 +12,10 @@ import { GroupFormComponent } from './group-form/group-form.component';
 import { RoleFormComponent } from './role-form/role-form.component';
 import { IdentifierPageComponent } from './identifier-page/identifier-page.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { CuiContractsFormComponent } from './cui-contracts-form/cui-contracts-form.component';
+import { SupplierFormComponent } from './supplier-form/supplier-form.component';
+import { VendorFormComponent } from './vendor-form/vendor-form.component';
+import { TasksComponent } from './tasks/tasks.component';
 //https://angular.io/guide/router
 
 const routes: Routes = [
@@ -26,9 +30,16 @@ const routes: Routes = [
   { path: 'Groups', component: GroupFormComponent },
   { path: 'Policy', component: IdentifierPageComponent },
   { path: 'AC-N.01', component: IdentifierPageComponent },
+  { path: 'CUIcontracts', component: CuiContractsFormComponent },
+  { path: 'Suppliers', component: SupplierFormComponent },
+  { path: 'Vendors', component: VendorFormComponent },
+  { path: 'Tasks', component: TasksComponent },
+
+
+
 
   { path: '404', component: NotfoundComponent},
-  /*{ path: '**', redirectTo: '/404'},*/
+  { path: '**', redirectTo: '/404'},
   
 
 ];

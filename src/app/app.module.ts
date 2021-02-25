@@ -14,6 +14,10 @@ import { controlTable, IdentifierPageComponent, standardTable, weaknessTable } f
 import { Bar3dDatasetComponent, calendarComponent, chartSimple, DashboardComponent } from './dashboard/dashboard.component';
 import { PolicyBoardComponent } from './policy-board/policy-board.component';
 import { DialogElementsExampleDialog, UserFormComponent } from './user-form/user-form.component';
+import { DialogVendor, VendorFormComponent } from './vendor-form/vendor-form.component';
+import { DialogSupplier, SupplierFormComponent } from './supplier-form/supplier-form.component';
+import { CuiContractsFormComponent, DialogCUIForm } from './cui-contracts-form/cui-contracts-form.component';
+
 
 //Connections
 import { HttpClientModule } from '@angular/common/http'
@@ -60,6 +64,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { TasksComponent } from './tasks/tasks.component';
+
 
 
 
@@ -86,6 +92,19 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     chartSimple,
     Bar3dDatasetComponent,
     calendarComponent,
+    VendorFormComponent,
+    SupplierFormComponent,
+    CuiContractsFormComponent,
+    DialogCUIForm,
+    SupplierFormComponent,
+    DialogSupplier,
+    VendorFormComponent,
+    DialogVendor,
+    TasksComponent,
+    
+    
+    
+    
 
     
     
@@ -135,6 +154,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     MatPaginatorModule,
     MatInputModule,
     MatCheckboxModule,
+    
     
     //charts
     NgxEchartsModule.forRoot({

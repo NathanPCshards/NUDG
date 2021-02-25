@@ -1,17 +1,4 @@
 <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-
 
 <div class="row text-center">
     <div class="col-md-4">
@@ -110,7 +97,7 @@
   <br /><br /><br />
   
   <h3>
-    Edit events
+
     <button class="btn btn-primary float-right" (click)="addEvent()">
       Add new
     </button>
@@ -155,34 +142,14 @@
             />
           </td>
           <td>
-            <input
-              class="form-control"
-              type="text"
-              mwlFlatpickr
-              [(ngModel)]="event.start"
-              (ngModelChange)="refresh.next()"
-              [altInput]="true"
-              [convertModelValue]="true"
-              [enableTime]="true"
-              dateFormat="Y-m-dTH:i"
-              altFormat="F j, Y H:i"
-              placeholder="Not set"
-            />
+            <span >
+            {{event?.start}}
+            </span>
           </td>
           <td>
-            <input
-              class="form-control"
-              type="text"
-              mwlFlatpickr
-              [(ngModel)]="event.end"
-              (ngModelChange)="refresh.next()"
-              [altInput]="true"
-              [convertModelValue]="true"
-              [enableTime]="true"
-              dateFormat="Y-m-dTH:i"
-              altFormat="F j, Y H:i"
-              placeholder="Not set"
-            />
+            <span >
+              {{event?.end}}
+              </span>
           </td>
           <td>
             <button class="btn btn-danger" (click)="deleteEvent(event)">
@@ -195,6 +162,7 @@
   </div>
   
   <!--This is the 'dialog' box that shows after clicking a event-->
+  <!--
   <ng-template #modalContent let-close="close">
     <div class="modal-header">
       <h5 class="modal-title">Event action occurred</h5>
@@ -218,4 +186,7 @@
       </button>
     </div>
   </ng-template>
-  
+
+
+
+  -->
