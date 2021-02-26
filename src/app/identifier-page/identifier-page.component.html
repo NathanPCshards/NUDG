@@ -1,26 +1,30 @@
-  <div class="container2">
-    <div class="row1">
-      <div class="item2" style="flex: 1; ">
 
-        <p id="title" style="font-size: 28px;"> AC-N.01</p>
-      
+  <div class="wrapper">
 
-      </div>
-      <div class="item2" style="flex: 1; ">
+      <div class="policy">
+      <mat-card id='card' style="height:500px; overflow:-moz-hidden-unscrollable">
+     
+        <div class="row1">
+          <div class="item2" style="flex: 1; ">
+    
+            <p id="title" style="font-size: 28px;"> AC-N.01</p>
+          
+    
+          </div>
+          <div class="item2" style="flex: 1; ">
+    
+            <p id="title" style="font-size: 20px;"> Subtitle</p>
+    
+          </div>    
+          <div class="item2" style="flex: 1; ">
+    
+            <p id="title" style="font-size: 20px;color: #06d6a0;">Status</p>
+    
+          </div>
+          
+        </div>
 
-        <p id="title" style="font-size: 20px;"> Subtitle</p>
-
-      </div>    
-      <div class="item2" style="flex: 1; ">
-
-        <p id="title" style="font-size: 20px;color: #06d6a0;">Status</p>
-
-      </div>
-      
-    </div>
-    <br>
-
-
+        <mat-accordion [multi] ='false'>
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title style="color: white;">
@@ -40,7 +44,6 @@
           </mat-expansion-panel>
           
       
-  
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title style="color: white;">
@@ -49,18 +52,6 @@
             
 
           </mat-expansion-panel-header>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
           <table mat-table [dataSource]="dataSource" class="NistTable">
@@ -110,45 +101,53 @@
           <br>
           <p class="dditems">Clarification</p>
         </mat-expansion-panel>
-        
+        </mat-accordion>
+              
     
-
-    
-
-  </div>
-      
-<div class="container2">
-  <div class="wrapper">
-    <div class="one">
-      <mat-card class="tableCard">
+          </mat-card>
+        </div>
+     
+    <div class="standard">
+      <mat-card class="tableCard" style="height:405px">
         <standardTable>
         </standardTable>
       </mat-card>
-
-
     </div>
 
-    <div class="three">   
-      <mat-card class="tableCard">
-        <weaknessTable>
-        </weaknessTable> 
-      </mat-card>
- 
+<div class ="editBar">
+  <mat-toolbar style="color: white;background-color: rgb(68, 72, 78)">
+    <mat-toolbar-row>
+        <span routerLink="/Controls" routerLinkActive="active" style="margin-left: 12%;"> Add Control</span>
+        <span routerLink="/Tasks" routerLinkActive="active" style="margin-left: 12%;">Tasks</span>
+        <span routerLink="/Guidelines" routerLinkActive="active" style="margin-left: 12%;"> Guidelines</span>
+        <span routerLink="/Weaknesses" routerLinkActive="active" style="margin-left: 12%;"> Add Weakness </span>
+        <span routerLink="/GapAssessment" routerLinkActive="active"style="margin-left: 12%; margin-right: 12%"> GAP Assessments </span>
 
+
+    </mat-toolbar-row>
+    
+  </mat-toolbar>
+</div>
+
+
+
+    <div class="weakness">   
+  <mat-card class="tableCard" style="height:405px">
+    <weaknessTable>
+    </weaknessTable> 
+  </mat-card>
    </div>
 
-    <div class="four">      
-      <mat-card class="tableCard">
+    <div class="control">      
+      <mat-card class="tableCard" style="height:405px">
         <controlTable>
         </controlTable>
-    
       </mat-card>
 
  
   </div>
-
   </div>
-</div>
+
 
   
 

@@ -54,7 +54,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
-
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 
 //Charts and calendars
@@ -65,6 +65,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { TasksComponent } from './tasks/tasks.component';
+import { GapAssessmentPageComponent, GapForm } from './gap-assessment-page/gap-assessment-page.component';
+import { GuidelinesPageComponent } from './guidelines-page/guidelines-page.component';
 
 
 
@@ -101,6 +103,9 @@ import { TasksComponent } from './tasks/tasks.component';
     VendorFormComponent,
     DialogVendor,
     TasksComponent,
+    GapAssessmentPageComponent,
+    GuidelinesPageComponent,
+    GapForm,
     
     
     
@@ -117,6 +122,7 @@ import { TasksComponent } from './tasks/tasks.component';
     //Forms
     FormsModule,
     ReactiveFormsModule,
+    ScrollingModule,
 
     //Connections
     HttpClientModule,

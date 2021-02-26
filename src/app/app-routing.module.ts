@@ -10,12 +10,14 @@ import { InventoryFormComponent } from './inventory-form/inventory-form.componen
 import { CompanyInfoFormComponent } from './company-info-form/company-info-form.component';
 import { GroupFormComponent } from './group-form/group-form.component';
 import { RoleFormComponent } from './role-form/role-form.component';
-import { IdentifierPageComponent } from './identifier-page/identifier-page.component';
+import { controlTable, IdentifierPageComponent, weaknessTable } from './identifier-page/identifier-page.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { CuiContractsFormComponent } from './cui-contracts-form/cui-contracts-form.component';
 import { SupplierFormComponent } from './supplier-form/supplier-form.component';
 import { VendorFormComponent } from './vendor-form/vendor-form.component';
 import { TasksComponent } from './tasks/tasks.component';
+import { GuidelinesPageComponent } from './guidelines-page/guidelines-page.component';
+import { GapAssessmentPageComponent, GapForm } from './gap-assessment-page/gap-assessment-page.component';
 //https://angular.io/guide/router
 
 const routes: Routes = [
@@ -34,6 +36,13 @@ const routes: Routes = [
   { path: 'Suppliers', component: SupplierFormComponent },
   { path: 'Vendors', component: VendorFormComponent },
   { path: 'Tasks', component: TasksComponent },
+  { path: 'Controls', component: controlTable },
+  { path: 'Guidelines', component: GuidelinesPageComponent },
+  { path: 'Weaknesses', component: weaknessTable },
+  { path: 'GapAssessment', component: GapAssessmentPageComponent },
+  { path: 'GapForm', component: GapForm },
+
+
 
 
 

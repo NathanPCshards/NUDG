@@ -9,7 +9,8 @@ import { HttpClient } from '@angular/common/http'
 })
 export class AppComponent {
   title = 'nudg';
-
+  toolbar = document.getElementById("toolbar");
+  height;
 
   constructor(private http: HttpClient){
 
@@ -20,5 +21,12 @@ export class AppComponent {
      this.http.post<any>('http://localhost:4200/Policies', {username : 'temp username' , password : 'temp password'})
     .subscribe(next=> console.log(next));
   }
-
+  toolbarMouseover(){
+    console.log("MOUSE OVER");
+    this.height = 40;
+  }
+  toolbarMouseleave(){
+    console.log('mouse leave');
+    this.height = 1;
+  }
 }

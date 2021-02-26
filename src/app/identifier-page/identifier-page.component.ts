@@ -34,7 +34,18 @@ export interface tableEntry {
 }
 
 const example_weakness: tableEntry[] = [
-  {position: 1, id: "W1", desc: 'Onboarding and Offboarding process created, written documentation on the handling of added or removed users.'},
+  {position: 1, id: "W1", desc: 'Onboarding and Offboarding process created, written documentation on the handling of added or removed users test test test test test test test test .'},
+  {position: 2, id: "W2", desc: 'Placeholder'},
+  {position: 3, id: "W3", desc: 'Placeholder'},
+  {position: 2, id: "W2", desc: 'Placeholder'},
+  {position: 3, id: "W3", desc: 'Placeholder'},
+  {position: 2, id: "W2", desc: 'Placeholder'},
+  {position: 3, id: "W3", desc: 'Placeholder'},
+  {position: 2, id: "W2", desc: 'Placeholder'},
+  {position: 3, id: "W3", desc: 'Placeholder'},
+  {position: 2, id: "W2", desc: 'Placeholder'},
+  {position: 3, id: "W3", desc: 'Placeholder'},
+
   {position: 2, id: "W2", desc: 'Placeholder'},
   {position: 3, id: "W3", desc: 'Placeholder'},
 ];
@@ -42,14 +53,38 @@ const example_weakness: tableEntry[] = [
 const example_control: tableEntry[] = [
   {position: 1, id: "C1", desc: 'Users, Groups, and roles documented and assigned'},
   {position: 2, id: "C2", desc: 'Placeholder'},
-  {position: 3, id: "C3", desc: 'Placeholder'},
-  {position: 3, id: "C4", desc: 'Placeholder'},
+
+  {position: 2, id: "C2", desc: 'Placeholder'},
+  {position: 2, id: "C2", desc: 'Placeholder'},
+  {position: 2, id: "C2", desc: 'Placeholder'},
+  {position: 2, id: "C2", desc: 'Placeholder'},
+  {position: 2, id: "C2", desc: 'Placeholder'},
+  
+  {position: 2, id: "C2", desc: 'Placeholder'},
+  {position: 2, id: "C2", desc: 'Placeholder'},
+  {position: 2, id: "C2", desc: 'Placeholder'},
+  {position: 2, id: "C2", desc: 'Placeholder'},
+  {position: 2, id: "C2", desc: 'Placeholder'},
+  
+  {position: 2, id: "C2", desc: 'Placeholder'},
+  {position: 2, id: "C2", desc: 'Placeholder'},
+  {position: 2, id: "C2", desc: 'Placeholder'},
+  {position: 2, id: "C2", desc: 'Placeholder'},
+
 
 ];
 
 const example_standard: tableEntry[] = [
   {position: 1, id: "S1", desc: 'Define and document the types of accounts authorized to access resources'},
   {position: 2, id: "S2", desc: 'Placeholder'},
+  {position: 3, id: "S3", desc: 'Placeholder'},
+  {position: 4, id: "S4", desc: 'Placeholder'},
+  {position: 5, id: "S5", desc: 'Placeholder'},
+  {position: 2, id: "S2", desc: 'Placeholder'},
+  {position: 3, id: "S3", desc: 'Placeholder'},
+  {position: 4, id: "S4", desc: 'Placeholder'},
+  {position: 5, id: "S5", desc: 'Placeholder'},
+    {position: 2, id: "S2", desc: 'Placeholder'},
   {position: 3, id: "S3", desc: 'Placeholder'},
   {position: 4, id: "S4", desc: 'Placeholder'},
   {position: 5, id: "S5", desc: 'Placeholder'},
