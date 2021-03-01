@@ -1,88 +1,37 @@
-//import * as express from 'express';
-import { routes } from "./routes";
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
+const app = express();
+const db = require("../src/app/models");
+db.sequelize.sync();
 
-//Connecting to the database -----------------------------------------------------
-const cors = require('cors'); //cross-origin requests
-const bodyParser = require('body-parser'); 
-const mysql = require('mysql')
-const events = require('events');
-const express = require('express');
+var corsOptions = {
+  origin: "http://localhost:4200"
+};
 
-const connection = mysql.createConnection({
-    host     : 'nudg.database.windows.net',
-    user     : 'pcshardsadmin',
-    password : 'Pcshards&7', 
-    database : 'NudgDatabase',
-  });
+app.use(cors(corsOptions));
 
-  
- // let temp = connection.connect();
+// parse requests of content-type - application/json
+app.use(bodyParser.json());
 
- // console.log("attempting to connect to port " +port);
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
 
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to the backend application." });
+});
 
-connection.connect(function(err) {
-  if (err) throw err;
-  console.log("Connected!");
+// set port, listen for requests
+const PORT = process.env.PORT || 4200;
+app.listen(PORT, () => {
+  console.log(`\n\n * * * Server is listening on port ${PORT}. * * * \n\n`);
 });
 
 
 
-const app = express()
-.use(cors())
-.use(bodyParser.json())
-.use(events(connection));
-
-
-
-app.use((req,res,next) =>{
-  res.header('Access-Control-Allow-Origin' , '*')
-  res.header('Access-Control-Allow-Headers' , 'Origin, X-Requested-With, Content-Type, Accept')
-  res.header('Access-Control-Allow-Methods' , 'OPTIONS, GET, POST, PUT, DELETE')
-  if('OPTIONS' == req.method){
-      res.sendStatus(200);
-  }else {
-      console.log('${req.ip} ${req.method} ${req.url}');
-      next();
-  }
-})
-
-//defualt port localhost:4200
-
-const port = process.env.PORT || 4200;
-app.use(express.json());
-app.listen(port, () => {
-    console.log(`Express server listening on port ${port}`);
-  });
-
-
-
-  //-------------------------------------------------------------------------------
-
-//LoginForm Connection -----------------------------------------------------
-/*
-app.post("/",(req,res)=>{
-  var username = req.body.username;
-  var password = req.body.password;
-  connection.getConnection().then(conn => {
-    console.log("connection was made?")
-    conn.query("INSERT INTO `Users` (username,password) values (?,?);",[username,password],function(err, rows) {
-      if (err) throw err;
-      console.log('The solution is: ', rows[0].solution);
-      });
-  });
-  //connection.end();
+/* //to drop existing tables and re sync
+db.sequelize.sync({ force: true }).then(() => {
+  console.log("Drop and re-sync db.");
 });*/
-//-------------------------------------------------------------------------------
-
-
-
-
-
-
-
-app.use('/',routes);
-
-
-

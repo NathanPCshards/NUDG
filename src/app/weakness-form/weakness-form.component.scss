@@ -3,12 +3,18 @@ div.container1{
     margin-top: 50px;
     margin-left:auto;
     margin-right: auto;
-    width:98%;
+    width:100%;
     box-shadow: 1px 1px 15px -1px ;
     background: linear-gradient(to bottom, rgb(63,81,181) 8%, white 0%);
     overflow: hidden;
       
   }
+div.milestones{
+    margin-top: 2%;
+    height:300px;
+
+    overflow:scroll;
+}
 mat-grid-tile{
     width: 98px;
     margin:auto;
@@ -51,8 +57,25 @@ mat-form-field{
     margin: 0px;
 }
 
-.mat-header-cell{
-    color:black;
-    
-    font-size: 15px;
+#milestones {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#milestones td, #milestones th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#milestones tr:nth-child(even){background-color: #f2f2f2;}
+
+#milestones tr:hover {background-color: #ddd;}
+
+#milestones th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
 }

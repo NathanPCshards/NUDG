@@ -2,17 +2,17 @@
 <mat-toolbar  class="tools" style="height: 8vh;">
 
         <mat-toolbar-row>
-            <mat-form-field style="width: 15%; height: 70%;">
+            <mat-form-field style="width: 15%; height: 70%; margin-bottom: 20px;">
                 <mat-label>Search</mat-label>
             <input matInput (keyup)="applyFilter($event)" #input>
             </mat-form-field>
-
-            <button mat-raised-button (click)="openDialog()" style="margin-left: 35%;margin-top: 20px;"> Add Users</button>
-            <button mat-raised-button (click)="removeSelectedRows()" style="margin-left: 3%;"> Delete Selected</button>
-            <button mat-raised-button style="margin-left: 3%;"> Import </button>
-            <button mat-raised-button style="margin-left: 3%;"> Export </button>
-
-
+            
+           
+            <button mat-raised-button (click)="openDialog()" style="margin-left: 35%;margin-top: 30px;"> Add Users</button>
+            <button mat-raised-button (click)="removeSelectedRows()" style="margin-left: 3%;margin-top: 30px;"> Delete Selected</button>
+            <button mat-raised-button style="margin-left: 3%;margin-top: 30px;"> Import </button>
+            <button mat-raised-button style="margin-left: 3%;margin-top: 30px;"> Export </button>
+            
         </mat-toolbar-row>
 
 </mat-toolbar>

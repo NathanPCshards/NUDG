@@ -18,6 +18,8 @@ import { VendorFormComponent } from './vendor-form/vendor-form.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { GuidelinesPageComponent } from './guidelines-page/guidelines-page.component';
 import { GapAssessmentPageComponent, GapForm } from './gap-assessment-page/gap-assessment-page.component';
+import { weaknessDialog, WeaknessFormComponent } from './weakness-form/weakness-form.component';
+import { controlDialog, ControlFormComponent } from './control-form/control-form.component';
 //https://angular.io/guide/router
 
 const routes: Routes = [
@@ -36,11 +38,15 @@ const routes: Routes = [
   { path: 'Suppliers', component: SupplierFormComponent },
   { path: 'Vendors', component: VendorFormComponent },
   { path: 'Tasks', component: TasksComponent },
-  { path: 'Controls', component: controlTable },
+  { path: 'Controls', component: ControlFormComponent },
   { path: 'Guidelines', component: GuidelinesPageComponent },
-  { path: 'Weaknesses', component: weaknessTable },
+  { path: 'Weaknesses', component: WeaknessFormComponent },
   { path: 'GapAssessment', component: GapAssessmentPageComponent },
   { path: 'GapForm', component: GapForm },
+  { path: 'ControlForm', component: controlDialog },
+  { path: 'WeaknessForm', component: weaknessDialog },
+
+
 
 
 
