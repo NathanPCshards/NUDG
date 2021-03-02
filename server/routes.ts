@@ -1,7 +1,8 @@
 
-
-import * as express from 'express';
+/*
+const express = require("express");
 const app = express.Router();
+
 
 export {app as routes};
 
@@ -91,3 +92,4 @@ function createRouter(db) {
 
 module.exports = createRouter;
 
+*/

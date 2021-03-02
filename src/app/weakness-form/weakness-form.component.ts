@@ -81,6 +81,8 @@ const User_Data: userTable[] = [
   styleUrls: ['./weakness-form.component.scss']
 })
 export class WeaknessFormComponent /*implements OnInit*/ {
+
+
   /*
   picker;
 
@@ -101,14 +103,13 @@ export class WeaknessFormComponent /*implements OnInit*/ {
  exampleDatabase: actorTable;
   isRateLimitReached
   resultsLength
-
+*/
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog, public _sharedService : SharedService){
-    this.dataSource = new MatTableDataSource(actorTable);
     console.log('constructing');
     
   }
-
+/*
   
 
   public openDialog() {
@@ -147,11 +148,11 @@ getTableEntries(){
 
 
   }
-
+*/
   ngOnInit(){
-    this.getTableEntries();
+    this._sharedService.sendMessage("Hello IO  - sent from weakness form")
   }
-
+/*
 onRowClicked(row): void {
   console.log("Row clicked: ", row);
   this.rowSelected = true;
