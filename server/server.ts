@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const app = express();
+var actor = require('../src/app/controllers/actor');
 const db = require("../src/app/models");
 db.sequelize.sync();
 
@@ -19,7 +20,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // simple route
-app.get("/", (req, res) => {
+app.get("/Weaknesses", (req, res) => {
   res.json({ message: "Welcome to the backend application." });
 });
 

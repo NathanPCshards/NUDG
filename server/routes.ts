@@ -1,4 +1,4 @@
-/*
+
 
 import * as express from 'express';
 const app = express.Router();
@@ -21,6 +21,7 @@ function createRouter(db) {
   // the routes are defined here
 
   router.post('/event', (req, res, next) => {
+    console.log("Router Post request in routes.ts")
     db.query(
       'INSERT INTO events (owner, name, description, date) VALUES (?,?,?,?)',
       [owner, req.body.name, req.body.description, new Date(req.body.date)],
@@ -36,6 +37,8 @@ function createRouter(db) {
   });
 
   router.get('/event', function (req, res, next) {
+    console.log("Router Get request in routes.ts")
+
     db.query(
       'SELECT id, name, description, date FROM events WHERE owner=? ORDER BY date LIMIT 10 OFFSET ?',
       [owner, 10*(Number(req.params.page) || 0)],
@@ -51,6 +54,8 @@ function createRouter(db) {
   });
 
   router.put('/event/:id', function (req, res, next) {
+    console.log("Router Put request in routes.ts")
+
     db.query(
       'UPDATE events SET name=?, description=?, date=? WHERE id=? AND owner=?',
       [req.body.name, req.body.description, new Date(req.body.date), req.params.id, owner],
@@ -65,6 +70,8 @@ function createRouter(db) {
   });
 
   router.delete('/event/:id', function (req, res, next) {
+    console.log("Router Delete request in routes.ts")
+
     db.query(
       'DELETE FROM events WHERE id=? AND owner=?',
       [req.params.id, owner],
@@ -84,6 +91,3 @@ function createRouter(db) {
 
 module.exports = createRouter;
 
-
-
-*/

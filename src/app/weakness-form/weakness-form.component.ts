@@ -10,6 +10,7 @@ import {merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import { SharedService } from '../services/Shared';
 
+
 import { actorTable } from '../models/sequelize.model.js' 
 
 
@@ -85,7 +86,7 @@ export class WeaknessFormComponent implements OnInit {
   submitted = false;
   results;// = res.json();
   panelOpenState = false;
- displayedColumns: String[] = ['actor_id'];
+  displayedColumns: String[] = ['actor_id', 'first_name', 'last_name'];
   rowSelected = false;
   name: any;
  
@@ -96,15 +97,19 @@ export class WeaknessFormComponent implements OnInit {
 
   //Database variables
   isLoadingResults = false;
-  exampleDatabase: actorTable | null;
+ exampleDatabase: actorTable;
   isRateLimitReached
   resultsLength
 
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog, public _sharedService : SharedService){
     this.dataSource = new MatTableDataSource(actorTable);
+    console.log('constructing');
     
   }
+
+  
+
   public openDialog() {
     this.dialog.open(weaknessDialog, {height:'90%', width:"80%",});
 
@@ -113,18 +118,24 @@ export class WeaknessFormComponent implements OnInit {
     
     this._sharedService.getAll().subscribe(res => {
       this.dataSource.data = res as actorTable[],
-      console.log("FAILED TO GET TABLE ENTRIES"),
-
+      console.log(res),
       response => console.log('Success!',response),
               error => console.error('Error!',error);
-              console.log(this.dataSource.data);     
+              console.log(this.dataSource.data);  
+              
+                
     })
   }
 
   ngAfterViewInit(){
+    console.log('intilazing');
+    
     this.dataSource.sort = this.sort;
 
-    this.exampleDatabase = new actorTable(this.http);
+    
+
+ //   this.dataSource = new actorTable(this.sort)
+  this.exampleDatabase = new actorTable(this.http);
 
 
   }

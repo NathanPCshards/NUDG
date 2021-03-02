@@ -19,6 +19,6 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.tutorials = require("./sequelize.model.js")(sequelize, Sequelize);
+db.actorTable = require("./sequelize.model.js")(sequelize, Sequelize);
 
 module.exports = db;
