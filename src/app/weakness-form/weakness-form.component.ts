@@ -114,6 +114,7 @@ export class WeaknessFormComponent implements OnInit {
     this.dialog.open(weaknessDialog, {height:'90%', width:"80%",});
 
   }
+  
   public getTableEntries = () => {
     
     this._sharedService.getAll().subscribe(res => {
@@ -127,8 +128,14 @@ export class WeaknessFormComponent implements OnInit {
     })
   }
 
+/*
+getTableEntries(){
+  this._sharedService.getAll()
+  .subscribe( )
+}
+*/
   ngAfterViewInit(){
-    console.log('intilazing');
+  console.log('intilazing');
     
     this.dataSource.sort = this.sort;
 

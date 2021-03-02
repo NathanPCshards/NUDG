@@ -1,12 +1,12 @@
 
-/*
+
 module.exports = (sequelize, Sequelize, DataTypes) => {
-    const actorTable = sequelize.define('actorTable', {
+    const actorTable = sequelize.define('actor', {
       
       
       actor_id: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        
        // field: 'actor_id'
       },
       first_name: {
@@ -29,7 +29,8 @@ module.exports = (sequelize, Sequelize, DataTypes) => {
 
  // const { Sequelize, DataTypes } = require('sequelize');
 
-*/
+
+/*
 console.log('sequelize model');
 module.exports = (sequelize, DataTypes)=> {
   
@@ -45,3 +46,4 @@ module.exports = (sequelize, DataTypes)=> {
   };
   return actorTable;
 }
+*/
