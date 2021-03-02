@@ -54,6 +54,12 @@ public filterSubject = new BehaviorSubject(0);
   findByTitle(title): Observable<any> {
     return this.http.get(`${baseUrl}?title=${title}`);
   }
+
+
+
+
+
+  
 sendClickEvent() {
   this.subject.next();
 }

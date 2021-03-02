@@ -11,7 +11,7 @@ import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import { SharedService } from '../services/Shared';
 
 
-import { actorTable } from '../models/sequelize.model.js' 
+//import { actorTable } from '../models/sequelize.model.js' 
 
 
 import { tableEntry } from '../identifier-page/identifier-page.component';
@@ -80,7 +80,8 @@ const User_Data: userTable[] = [
   templateUrl: './weakness-form.component.html',
   styleUrls: ['./weakness-form.component.scss']
 })
-export class WeaknessFormComponent implements OnInit {
+export class WeaknessFormComponent /*implements OnInit*/ {
+  /*
   picker;
 
   submitted = false;
@@ -133,16 +134,16 @@ getTableEntries(){
   this._sharedService.getAll()
   .subscribe( )
 }
-*/
+
   ngAfterViewInit(){
   console.log('intilazing');
     
-    this.dataSource.sort = this.sort;
+  //  this.dataSource.sort = this.sort;
 
     
 
  //   this.dataSource = new actorTable(this.sort)
-  this.exampleDatabase = new actorTable(this.http);
+ // this.exampleDatabase = new actorTable(this.http);
 
 
   }
@@ -172,14 +173,12 @@ isAllSelected() {
   return numSelected === numRows;
 }
 
-/** Selects all rows if they are not all selected; otherwise clear selection. */
 masterToggle() {
   this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
 }
 
-/** The label for the checkbox on the passed row */
 checkboxLabel(row?: userTable): string {
   if (!row) {
     return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
@@ -198,7 +197,7 @@ removeSelectedRows() {
    });
    this.selection = new SelectionModel<userTable>(true, []);
 }
-
+*/
 }
 
 
