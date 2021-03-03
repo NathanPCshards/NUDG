@@ -7,7 +7,7 @@ div.container1{
     height: 50%;
 
     box-shadow: 1px 1px 15px -1px ;
-    background: linear-gradient(to bottom, rgb(63,81,181) 8%, white 0%);
+    background: linear-gradient(to bottom, #212121 8%, white 0%);
     overflow: hidden;
     border-radius: 3px;
     
@@ -81,7 +81,7 @@ div.cards{
     width: 10%;
 }
 .mat-header-cell{ 
-    background-color: rgb(63,81,181) ;
+    background-color: #212121 ;
     color: white;
 }
 .mat-checkbox-inner-container {

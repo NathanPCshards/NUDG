@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-
+import { io } from "socket.io-client";
 
 @Component({
   selector: 'app-root',
@@ -11,9 +11,10 @@ export class AppComponent {
   title = 'nudg';
   toolbar = document.getElementById("toolbar");
   height;
+ 
 
   constructor(private http: HttpClient){
-
+    // client-side
   }
 
   // Code for when "Create user" button is pressed. Example for page routing
@@ -30,3 +31,5 @@ export class AppComponent {
     this.height = 1;
   }
 }
+
+

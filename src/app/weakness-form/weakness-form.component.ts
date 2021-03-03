@@ -10,11 +10,11 @@ import {merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import { SharedService } from '../services/Shared';
 
-
-//import { actorTable } from '../models/sequelize.model.js' 
-
+import { io } from "socket.io-client";
 
 import { tableEntry } from '../identifier-page/identifier-page.component';
+
+var Sio = io();
 
 const example_weakness: tableEntry[] = [
   {position: 1, id: "W1", desc: 'Onboarding and Offboarding process created, written documentation on the handling of added or removed users test test test test test test test test .'},
@@ -33,9 +33,7 @@ const example_weakness: tableEntry[] = [
   {position: 3, id: "W3", desc: 'Placeholder'},
 ];
 
-// tableEntry ---> TableTest
 
-//exampleWeakness ???
 
 export interface userTable {
   position: number;
@@ -80,8 +78,7 @@ const User_Data: userTable[] = [
   templateUrl: './weakness-form.component.html',
   styleUrls: ['./weakness-form.component.scss']
 })
-export class WeaknessFormComponent /*implements OnInit*/ {
-
+export class WeaknessFormComponent implements OnInit {
 
   /*
   picker;
@@ -107,7 +104,16 @@ export class WeaknessFormComponent /*implements OnInit*/ {
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog, public _sharedService : SharedService){
     console.log('constructing');
-    
+
+  }
+
+
+  ngAfterViewInit(){
+    console.log("after init reached")
+    Sio.on('ToClient' , data => {
+      console.log("Message recieved")
+    })
+
   }
 /*
   
@@ -150,7 +156,7 @@ getTableEntries(){
   }
 */
   ngOnInit(){
-    this._sharedService.sendMessage("Hello IO  - sent from weakness form")
+    //this._sharedService.sendMessage("Hello IO  - sent from weakness form")
   }
 /*
 onRowClicked(row): void {

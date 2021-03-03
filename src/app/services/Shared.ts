@@ -9,17 +9,18 @@ import {io} from 'socket.io-client'
   providedIn: 'root'
 })
 export class SharedService {
-private socketUrl = "http://localhost:3000"
-private socket;
+//private socketUrl = "http://localhost:4200"
+//private socket;
 private subject = new Subject<any>();
 public filterSubject = new BehaviorSubject(0);   
     
   constructor(private http: HttpClient) { 
-    this.socket = io(this.socketUrl);
+ //   this.socket = io(this.socketUrl);
   }
 
 sendMessage(message){
-  this.socket.emit('ServiceMessage', message)
+  //console.log("ServiceMessage socket id : " , this.socket.id);
+  //this.socket.emit('ServiceMessage', message)
 }
 
 sendClickEvent() {
