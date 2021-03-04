@@ -1,18 +1,18 @@
 
-<!--
+
 
 <mat-toolbar  class="tools" style="height: 8vh;">
 
     <mat-toolbar-row>
-        <mat-form-field style="width: 15%; height: 70%;">
-            <mat-label>Search</mat-label>
+        <mat-form-field style="width: 15%; height: 70%; margin-bottom: 10px;">
+            <mat-label >Search</mat-label>
         <input matInput (keyup)="applyFilter($event)" #input>
         </mat-form-field>
 
-        <button mat-raised-button (click)="openDialog()" style="margin-left: 35%;margin-top: 20px;"> Add Weakness</button>
-        <button mat-raised-button (click)="removeSelectedRows()" style="margin-left: 3%;"> Delete Selected</button>
-        <button mat-raised-button style="margin-left: 3%;"> Import </button>
-        <button mat-raised-button style="margin-left: 3%;"> Export </button>
+        <button mat-raised-button (click)="openDialog()" style="margin-left: 30%;margin-top: 30px;"> Add Weakness</button>
+        <button mat-raised-button (click)="removeSelectedRows()" style="margin-left: 4%; margin-top: 30px;"> Delete Selected</button>
+        <button mat-raised-button style="margin-left: 4%;margin-top: 30px;"> Import </button>
+        <button mat-raised-button style="margin-left: 4%;margin-top: 30px;"> Export </button>
 
 
     </mat-toolbar-row>
@@ -41,20 +41,17 @@
         </td>
     </ng-container>
 
-    <ng-container matColumnDef="actor_id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> actor_id </th>
-      <td mat-cell *matCellDef="let element"> {{element.actor_id}} </td>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
   
-    <ng-container matColumnDef="first_name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> first_name </th>
-      <td mat-cell *matCellDef="let element"> {{element.first_name}} </td>
+    <ng-container matColumnDef="desc">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+      <td mat-cell *matCellDef="let element"> {{element.desc}} </td>
     </ng-container>
   
-    <ng-container matColumnDef="last_name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> last_name </th>
-      <td mat-cell *matCellDef="let element"> {{element.last_name}} </td>
-    </ng-container>
+ 
 
     
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -67,6 +64,4 @@
 
 
 
-
-
--->
+<button (click)="refresh()">refresh</button>

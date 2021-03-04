@@ -1,28 +1,42 @@
+<script>
+  var socket = io();
+  $(document).ready(function(){
+    
+    $('#login-form').submit(function(){
+        socket.emit('message', $('#Input').val());
+        //socket.emit('message', "Input");
+        //$('#Input').val('');
+        return false;
+      });
+    });
+  
+</script>
+<div style="justify-content: center;display: flex;">
 <div class="container1">
-<div [formGroup] ="loginForm">
-  <form  class="login-form" (ngSubmit)="onFormSubmit()" novalidate></form>
-  <div style="justify-content: center;">  
-      
-        <p id="title" style="font-size: 40px; margin-bottom: 40px;margin-left: 25%;color: white;margin-top: 10px;"> User Login</p>
+  <div [formGroup] ="loginForm">
+    <form  class="login-form" (ngSubmit)="onFormSubmit()" novalidate></form>
+    <div style="justify-content: center;">  
         
-        <img src="https://pcshards.com/wp-content/uploads/2019/08/pcshards-logo-1wrd-300.png">
-      
-      <form class="UsernameBox">
-        <mat-form-field appearance="outline" color="primary" style="width: 90%;">
-          <mat-label >Username</mat-label>
-          <input matInput placeholder="Username">
-          </mat-form-field>
-
-          <br>
-          <mat-form-field color="primary" appearance="outline" id="PasswordBox" style="width: 90%;">
+          <p id="title" style="font-size: 40px; margin-bottom: 40px;margin-left: 25%;color: white;margin-top: 20px;font-weight: bold"> User Login</p>
           
-          <mat-label>Password</mat-label>
-          <input matInput placeholder="Password" >
-        </mat-form-field>
-          <button mat-raised-button  (click) = "onFormSubmit()"  type="Submit" color="primary" style ="width: 90px; margin: 8px;">Submit</button>
-          <button mat-raised-button routerLink="/Dashboard" routerLinkActive="active" color="primary" style ="width: 90px; margin: 8px;">Skip Login</button>
-      </form>
-    </div>
+          <img src="https://pcshards.com/wp-content/uploads/2019/08/pcshards-logo-1wrd-300.png">
+        
+        <form class="UsernameBox">
+          <mat-form-field appearance="outline" color="primary" style="width: 90%;">
+            <mat-label >Username</mat-label>
+            <input matInput id="Input" placeholder="Username">
+            </mat-form-field>
+  
+            <br>
+            <mat-form-field color="primary" appearance="outline" id="PasswordBox" style="width: 90%;">
+            
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Password" >
+          </mat-form-field>
+            <button mat-raised-button  (click) = "onFormSubmit()"  type="Submit" color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Submit</button>
+            <button mat-raised-button routerLink="/Dashboard" routerLinkActive="active" color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Skip Login</button>
+        </form>
+      </div>
+  </div>
+  </div>
 </div>
-</div>
-

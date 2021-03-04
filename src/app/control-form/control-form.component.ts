@@ -6,7 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { tap } from 'rxjs/operators';
-
+import { controlTable } from '../identifier-page/identifier-page.component';
+import { SharedService } from '../services/Shared';
 
 
 
@@ -19,55 +20,54 @@ export interface tableEntry {
   description: string;
 }
 
+
 const example_procedure: tableEntry[] = [
-  {position: 1, procedure: "W1", status: 'None', status_date:'Today', description: 'Onboarding and Offboarding process created, written documentation on the handling of added or removed users test test test test test test test test .'},
-  {position: 2, procedure: "W2", status: 'None', status_date:'Today', description: 'Placeholder'},
-  {position: 3, procedure: "W3", status: 'None', status_date:'Today', description: 'Placeholder'},
-  {position: 2, procedure: "W2", status: 'None', status_date:'Today', description: 'Placeholder'},
-  {position: 3, procedure: "W3", status: 'None', status_date:'Today', description: 'Placeholder'},
-  {position: 2, procedure: "W2",status: 'None', status_date:'Today',  description: 'Placeholder'},
-  {position: 3, procedure: "W3",status: 'None', status_date:'Today',  description: 'Placeholder'},
+  {position: 1, procedure: "P1", status: 'None', status_date:'Today', description: 'Onboarding and Offboarding process created, written documentation on the handling of added or removed users test test test test test test test test .'},
+  {position: 2, procedure: "P2", status: 'None', status_date:'Today', description: 'Placeholder'},
+  {position: 3, procedure: "P3", status: 'None', status_date:'Today', description: 'Placeholder'},
+  {position: 2, procedure: "P2", status: 'None', status_date:'Today', description: 'Placeholder'},
+  {position: 3, procedure: "P3", status: 'None', status_date:'Today', description: 'Placeholder'},
+  {position: 2, procedure: "P2",status: 'None', status_date:'Today',  description: 'Placeholder'},
+  {position: 3, procedure: "P3",status: 'None', status_date:'Today',  description: 'Placeholder'},
 
 ];
 
 
 
-export interface userTable {
-  position: number;
-  name: string,
-  employeeNumber : string,
-  jobTitle: string,
-  jobRole: string,
-  employeeType : string,
-  department : string,
-  hireDate : string,
-  logonHours : string,
-  emailAddress : string,
-  phone : string,
-  address : string,
-  CUIdata : string,
+export interface controlTemplate {
+  position: number,
+
+  controlID: string,
+  description: string,
+  date: string,
+  procedure: string
 }
 
-const User_Data: userTable[] = [
-  {position: 1, name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-  department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
+class control implements controlTemplate{
+  position: -1;
 
-  {position:2,name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-    department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
+  controlID: 'Placeholder';
+  description: 'Placeholder';
+  date: 'Placeholder';
+  procedure: 'Placeholder';
 
-    {position: 3,name : "Different" ,employeeNumber : "Text",jobTitle : "Control",jobRole : "Test",employeeType: "Test",
-    department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
+  constructor(position, controlID, description, date, procedure){
+    this.position= position;
+    this.controlID = controlID;
+    this.description = description;
+    this.date = date;
+    this.procedure = procedure;
+  }
+}
 
-    {position: 4,name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-      department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
+const controlData: controlTemplate[] = [
+  {position: 1,controlID: "C1", description:"This is a test", date: "3/4/2020" , procedure: "none"},
+  {position: 2,controlID: "C2", description:"Second Test", date: "2/3/2020" , procedure: "Placeholder"},
+  {position: 3,controlID: "C3", description:"Third", date: "1/3/2020" , procedure: "none"},
 
-      {position: 5,name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-      department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
 
-      {position: 6,name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-        department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
 ];
-
+let globalControlData = new MatTableDataSource(controlData);
 
 @Component({
   selector: 'app-control-form',
@@ -80,24 +80,29 @@ export class ControlFormComponent implements OnInit {
   submitted = false;
   results;// = res.json();
   panelOpenState = false;
-  displayedColumns: string[] = ['select','name', 'employeeNumber', 'jobTitle', 'jobRole', 'employeeType',
-   'department', 'hireDate', 'logonHours','emailAddress', 'phone', 'address', 'CUIdata'];
+  displayedColumns: string[] = ['select','controlID', 'description', 'date', 'procedure'];
   rowSelected = false;
   name: any;
  
-  dataSource: MatTableDataSource<userTable>;
-  selection = new SelectionModel<userTable>(true, []);
+  dataSource: MatTableDataSource<controlTemplate>;
+  selection = new SelectionModel<controlTemplate>(true, []);
   @ViewChild(MatSort) sort;
 
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog){
-    this.dataSource = new MatTableDataSource(User_Data);
+  constructor(private http: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog, private sharedService: SharedService){
+    this.dataSource = new MatTableDataSource(controlData);
+    globalControlData.data = this.dataSource.data;
     
   }
   public openDialog() {
     this.dialog.open(controlDialog, {height: '80%', width:"85%",});
 
   }
+
+  public refresh(){
+    this.dataSource.data = globalControlData.data;
+  }
+
 
   ngAfterViewInit(){
     this.dataSource.sort = this.sort;
@@ -137,7 +142,7 @@ masterToggle() {
 }
 
 /** The label for the checkbox on the passed row */
-checkboxLabel(row?: userTable): string {
+checkboxLabel(row?: controlTemplate): string {
   if (!row) {
     return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
   }
@@ -146,14 +151,14 @@ checkboxLabel(row?: userTable): string {
 
 
 removeSelectedRows() {
-  let data = Object.assign(User_Data)
+  let data = Object.assign(controlData)
   this.selection.selected.forEach(item => {
      let index: number = data.findIndex(d => d === item);
      console.log(data.findIndex(d => d === item));
      data.splice(index,1)
-     this.dataSource = new MatTableDataSource<userTable>(data);
+     this.dataSource = new MatTableDataSource<controlTemplate>(data);
    });
-   this.selection = new SelectionModel<userTable>(true, []);
+   this.selection = new SelectionModel<controlTemplate>(true, []);
 }
 
 }
@@ -243,11 +248,18 @@ export class procedureForm {
 })
 export class controlDialog {
 controlForm;
+control_id;
+description;
+inpDate;
+position;
+procedure;
 submitted= false;
-  constructor(private http:HttpClient, private formBuilder: FormBuilder) { }
+  constructor(private http:HttpClient, private formBuilder: FormBuilder, private sharedService: SharedService) { }
 
 ngOnInit(){
+  this.position = 3;
   this.controlForm = this.formBuilder.group({
+   
     //initialize stuff to be null or whatever, here
 
   });
@@ -256,15 +268,16 @@ public onFormSubmit() {
   console.log("FORM WAS SUBMITTED");
   this.submitted = true;
   const configUrl = 'http://localhost:4200/home'; 
-  /*
-  this.http.post(configUrl,this.UserForm.value)
-  .pipe(
-    tap(
-      data => console.log(configUrl, data),
-      error => console.log(configUrl, error)
-    )
-  )
-  .subscribe(results => this.results = results);*/
+ 
+
+  const modal: controlTemplate = new control(this.position,this.control_id,this.description,this.inpDate,this.procedure);
+
+
+  const temp = (globalControlData.data);
+  temp.push(modal)
+  globalControlData.data = temp;
+
+ 
 }
 
 

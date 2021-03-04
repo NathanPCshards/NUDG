@@ -13,16 +13,16 @@
                     <div class = "row">
                         <div class ="col">
                             <mat-form-field  appearance = "legacy" style="width:40%">
-                                <input matInput placeholder = "NUDG Identifiers">
+                                <input  matInput placeholder = "NUDG Identifiers">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input matInput placeholder = "Control ID">
+                                <input [(ngModel)]="control_id"matInput placeholder = "Control ID" [ngModelOptions]="{standalone: true}">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:80%">
                                 <input matInput placeholder = "Standards" >
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input matInput placeholder = "Control">
+                                <input [(ngModel)]="description" matInput placeholder = "Control" [ngModelOptions]="{standalone: true}">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:40%">
                                 <input matInput placeholder = "Overview">
@@ -33,7 +33,7 @@
     
                         <div class ="col">
                             <mat-form-field appearance = "legacy" style="width:80%">
-                                <input matInput placeholder = "Issue Date">
+                                <input [(ngModel)]="inpDate" matInput placeholder = "Issue Date" [ngModelOptions]="{standalone: true}">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:40%" >
                                 <input matInput placeholder = "Shared Resources">

@@ -1,21 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { io } from "socket.io-client";
+import { WebsocketService } from './websocket.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'nudg';
   toolbar = document.getElementById("toolbar");
   height;
+
+
+  constructor(private http: HttpClient, private webSocketService: WebsocketService ){
+    // client-side
+    
+  }
+  //socket stuff
+
+  ngOnInit(){
+    //here we want to connect to socket.io server
+    this.webSocketService.listen('test event').subscribe((data) => {
+      console.log(data);
+    })
+
+  }
  
 
-  constructor(private http: HttpClient){
-    // client-side
-  }
+ 
 
   // Code for when "Create user" button is pressed. Example for page routing
   post(){

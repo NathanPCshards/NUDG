@@ -117,10 +117,10 @@
 <div class ="editBar">
   <mat-toolbar style="color: white;background-color: rgb(68, 72, 78)">
     <mat-toolbar-row>
-        <span routerLink="/Controls" routerLinkActive="active" style="margin-left: 12%;"> Edit Controls</span>
+        <span routerLink="/Weaknesses" routerLinkActive="active" style="margin-left: 12%;"> Edit Weaknesses</span>
         <span routerLink="/Tasks" routerLinkActive="active" style="margin-left: 12%;">Tasks</span>
         <span routerLink="/Guidelines" routerLinkActive="active" style="margin-left: 12%;"> Guidelines</span>
-        <span routerLink="/Weaknesses" routerLinkActive="active" style="margin-left: 12%;"> Edit Weaknesses </span>
+        <span routerLink="/Controls" routerLinkActive="active" style="margin-left: 12%;"> Edit Controls </span>
         <span routerLink="/GapAssessment" routerLinkActive="active"style="margin-left: 12%; margin-right: 12%"> GAP Assessments </span>
 
 
@@ -141,15 +141,16 @@
 
   -->  
 
-  <weaknessTable>
-  </weaknessTable> 
+  <app-weakness-form>
+  </app-weakness-form> 
   </mat-card>
    </div>
 
     <div class="control">      
       <mat-card class="tableCard" style="height:405px">
-        <controlTable>
-        </controlTable>
+        <app-control-form>
+          
+        </app-control-form>
       </mat-card>
 
  

@@ -64,7 +64,7 @@
                                 <input matInput placeholder = "NUDG Identifiers">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input matInput placeholder = "Weakness ID">
+                                <input [(ngModel)]="id" [ngModelOptions]="{standalone: true}" matInput placeholder = "Weakness ID">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:80%">
                                 <input matInput placeholder = "Weakness Name" >
@@ -161,7 +161,7 @@
                         <div class ="col">
         
                             <mat-form-field appearance = "legacy" style="width:80%">
-                                <input matInput placeholder = "Weakness Description">
+                                <input [(ngModel)]="desc" [ngModelOptions]="{standalone: true}" matInput placeholder = "Weakness Description">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:40%">
                                 <input matInput placeholder = "Last Vendor Contact Date">
@@ -212,10 +212,13 @@
             </div>
 
 
-<div id="milestones" style="float:left; width:100%; ">
+
+<div id="milestones" style="float:left; width:100%; margin-top: 2%;">
     <milestoneForm>
 
     </milestoneForm>
     
 </div>
+
+
 

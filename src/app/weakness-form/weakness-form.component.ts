@@ -5,32 +5,42 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
 import {merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import { SharedService } from '../services/Shared';
 
-import { io } from "socket.io-client";
-
 import { tableEntry } from '../identifier-page/identifier-page.component';
 
-var Sio = io();
 
-const example_weakness: tableEntry[] = [
-  {position: 1, id: "W1", desc: 'Onboarding and Offboarding process created, written documentation on the handling of added or removed users test test test test test test test test .'},
-  {position: 2, id: "W2", desc: 'Placeholder'},
-  {position: 3, id: "W3", desc: 'Placeholder'},
-  {position: 2, id: "W2", desc: 'Placeholder'},
-  {position: 3, id: "W3", desc: 'Placeholder'},
-  {position: 2, id: "W2", desc: 'Placeholder'},
-  {position: 3, id: "W3", desc: 'Placeholder'},
-  {position: 2, id: "W2", desc: 'Placeholder'},
-  {position: 3, id: "W3", desc: 'Placeholder'},
-  {position: 2, id: "W2", desc: 'Placeholder'},
-  {position: 3, id: "W3", desc: 'Placeholder'},
 
-  {position: 2, id: "W2", desc: 'Placeholder'},
-  {position: 3, id: "W3", desc: 'Placeholder'},
+export interface weaknessTable {
+  position: number,
+  id: string,
+  desc: string,
+  milestones: string,
+}
+
+class weakness implements weaknessTable {
+  position: -1;
+  id: 'Placeholder';
+  desc: 'Placeholder';
+  milestones: 'Placeholder';
+
+  constructor (position, id, desc, milestones ){
+    this.position=position;
+    this.id = id;
+    this.desc = desc;
+    this.milestones = milestones;
+  }
+}
+
+
+const weaknessData: weaknessTable[] = [
+  {position: 1,id: "W1", desc:"This is a test", milestones : "temp" },
+  {position: 2,id: "W2", desc:"Second Test",milestones : " temp"},
+  {position: 3,id: "W3", desc:"Description would go here", milestones  : "temp"},
+
+
 ];
 
 
@@ -71,7 +81,7 @@ const User_Data: userTable[] = [
         department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
 ];
 
-
+let globalWeaknessData = new MatTableDataSource(weaknessData);
 
 @Component({
   selector: 'app-weakness-form',
@@ -80,85 +90,49 @@ const User_Data: userTable[] = [
 })
 export class WeaknessFormComponent implements OnInit {
 
-  /*
+  
   picker;
 
   submitted = false;
   results;// = res.json();
   panelOpenState = false;
-  displayedColumns: String[] = ['actor_id', 'first_name', 'last_name'];
+  displayedColumns: String[] = ['select','id', 'desc'];
   rowSelected = false;
   name: any;
  
-  dataSource: MatTableDataSource<actorTable>;
-  selection = new SelectionModel<actorTable>(true, []);
+  dataSource!: MatTableDataSource<weaknessTable>;
+  selection = new SelectionModel<weaknessTable>(true, []);
   @ViewChild(MatSort) sort;
 
 
   //Database variables
   isLoadingResults = false;
- exampleDatabase: actorTable;
   isRateLimitReached
   resultsLength
-*/
+
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog, public _sharedService : SharedService){
-    console.log('constructing');
+    this.dataSource = new MatTableDataSource(weaknessData);
+    globalWeaknessData.data = this.dataSource.data;
 
   }
-
-
-  ngAfterViewInit(){
-    console.log("after init reached")
-    Sio.on('ToClient' , data => {
-      console.log("Message recieved")
-    })
-
-  }
-/*
-  
-
   public openDialog() {
     this.dialog.open(weaknessDialog, {height:'90%', width:"80%",});
 
   }
+  public refresh(){
+    this.dataSource.data = globalWeaknessData.data;
+  }
   
-  public getTableEntries = () => {
-    
-    this._sharedService.getAll().subscribe(res => {
-      this.dataSource.data = res as actorTable[],
-      console.log(res),
-      response => console.log('Success!',response),
-              error => console.error('Error!',error);
-              console.log(this.dataSource.data);  
-              
-                
-    })
-  }
-
-/*
-getTableEntries(){
-  this._sharedService.getAll()
-  .subscribe( )
-}
-
   ngAfterViewInit(){
-  console.log('intilazing');
-    
-  //  this.dataSource.sort = this.sort;
 
-    
-
- //   this.dataSource = new actorTable(this.sort)
- // this.exampleDatabase = new actorTable(this.http);
-
+    this.dataSource.sort = this.sort;
 
   }
-*/
+
   ngOnInit(){
-    //this._sharedService.sendMessage("Hello IO  - sent from weakness form")
   }
-/*
+
 onRowClicked(row): void {
   console.log("Row clicked: ", row);
   this.rowSelected = true;
@@ -186,7 +160,7 @@ masterToggle() {
       this.dataSource.data.forEach(row => this.selection.select(row));
 }
 
-checkboxLabel(row?: userTable): string {
+checkboxLabel(row?: weaknessTable): string {
   if (!row) {
     return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
   }
@@ -195,90 +169,19 @@ checkboxLabel(row?: userTable): string {
 
 
 removeSelectedRows() {
-  let data = Object.assign(User_Data)
+  let data = Object.assign(weaknessData)
   this.selection.selected.forEach(item => {
      let index: number = data.findIndex(d => d === item);
      console.log(data.findIndex(d => d === item));
      data.splice(index,1)
-     this.dataSource = new MatTableDataSource<userTable>(data);
+     this.dataSource = new MatTableDataSource<weaknessTable>(data);
    });
-   this.selection = new SelectionModel<userTable>(true, []);
-}
-*/
+   this.selection = new SelectionModel<weaknessTable>(true, []);
 }
 
-
-@Component({
-  selector: 'milestoneForm',
-  templateUrl: 'milestoneForm.html',
-  styleUrls: ['./weakness-form.component.scss']
-
-})
-export class milestoneForm {
-  dataSource: MatTableDataSource<tableEntry>;
-  selection = new SelectionModel<tableEntry>(true, []);
-  @ViewChild(MatSort) sort;
-  
-  clickEventsubscription;
-  displayedColumns: string[] = ['id', 'desc'];
-  
-  rowSelected = false;
-  
-    constructor(private http:HttpClient, private formBuilder: FormBuilder) { 
-      this.dataSource = new MatTableDataSource(example_weakness);
-
-    }
-  
-  ngOnInit(){
-  
-  }
-  ngAfterViewInit(){
-    this.dataSource.sort = this.sort;
-  
-  }
-  
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-  
-    /** Selects all rows if they are not all selected; otherwise clear selection. */
-    masterToggle() {
-      this.isAllSelected() ?
-          this.selection.clear() :
-          this.dataSource.data.forEach(row => this.selection.select(row));
-    }
-    
-    /** The label for the checkbox on the passed row */
-    checkboxLabel(row?: tableEntry): string {
-      if (!row) {
-        return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-      }
-      return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-    }
-    
-    
-    removeSelectedRows() {
-      console.log("delete rows called in group")
-        let data = Object.assign(example_weakness)
-        this.selection.selected.forEach(item => {
-           let index: number = data.findIndex(d => d === item);
-           console.log(data.findIndex(d => d === item));
-           data.splice(index,1)
-           this.dataSource = new MatTableDataSource<tableEntry>(data);
-         });
-         this.selection = new SelectionModel<tableEntry>(true, []);
-      
-    }
-    onRowClicked(row): void {
-      console.log("Row clicked: ", row);
-      this.rowSelected = true;
-      var configUrl = 'http://localhost:4200' + "/" + row.Title;
-      console.log(configUrl)
-     // this.router.navigate(configUrl.concat("/",row.Title))
-    }
 }
+
+
 
 @Component({
   selector: 'weakness-dialog',
@@ -288,6 +191,10 @@ export class milestoneForm {
 })
 export class weaknessDialog {
 weaknessForm;
+position;
+id;
+desc;
+milestones;
 submitted= false;
   constructor(private http:HttpClient, private formBuilder: FormBuilder) { }
 
@@ -301,15 +208,13 @@ public onFormSubmit() {
   console.log("FORM WAS SUBMITTED");
   this.submitted = true;
   const configUrl = 'http://localhost:4200/home'; 
-  /*
-  this.http.post(configUrl,this.UserForm.value)
-  .pipe(
-    tap(
-      data => console.log(configUrl, data),
-      error => console.log(configUrl, error)
-    )
-  )
-  .subscribe(results => this.results = results);*/
+
+  const modal: weaknessTable = new weakness(this.position,this.id,this.desc,this.milestones);
+
+
+  const temp = (globalWeaknessData.data);
+  temp.push(modal)
+  globalWeaknessData.data = temp;
 }
 
 

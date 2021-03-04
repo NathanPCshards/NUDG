@@ -1,11 +1,9 @@
 module.exports = (sequelize, Sequelize) => {
-    const Actor = sequelize.define("actor", {
-      actor_id: {
-        type: Sequelize.INTEGER
-      },
-     
-    });
-  
-    return Actor;
-  };
+  const Test = sequelize.define("test", {
+    idOrgWeaknesses: {
+      type: Sequelize.INTERGER
+    }
+  });
 
+  return Test;
+};
