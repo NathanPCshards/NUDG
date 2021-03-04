@@ -1,9 +1,7 @@
 <mat-toolbar  class="tools" style="height: 8vh;">
 
     <mat-toolbar-row>
-
-
-        <button mat-raised-button (click)="openDialog()" style="margin-left: 23%;margin-top: 30px;"> Add Milestones</button>
+        <button mat-raised-button (click)="openDialog($event);" style="margin-left: 23%;margin-top: 30px;"> Add Milestones</button>
         <button mat-raised-button (click)="removeSelectedRows()" style="margin-left: 37%; margin-top: 30px;"> Delete Selected</button>
 
     </mat-toolbar-row>
@@ -38,9 +36,15 @@
       
         <!-- Weight Column -->
         <ng-container matColumnDef="desc">
-          <th mat-header-cell *matHeaderCellDef>  </th>
+          <th mat-header-cell *matHeaderCellDef> Description </th>
           <td mat-cell *matCellDef="let element"> {{element.desc}} </td>
         </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+            </ng-container>
     
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></tr>

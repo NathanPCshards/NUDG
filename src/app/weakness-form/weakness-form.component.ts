@@ -204,17 +204,20 @@ ngOnInit(){
 
   });
 }
-public onFormSubmit() {
-  console.log("FORM WAS SUBMITTED");
-  this.submitted = true;
-  const configUrl = 'http://localhost:4200/home'; 
+public onFormSubmit(value) {
+  if(value == "weaknessForm"){
+    console.log(value);
+    this.submitted = true;
+    const configUrl = 'http://localhost:4200/home'; 
+  
+    const modal: weaknessTable = new weakness(this.position,this.id,this.desc,this.milestones);
+  
+  
+    const temp = (globalWeaknessData.data);
+    temp.push(modal)
+    globalWeaknessData.data = temp;
+  }
 
-  const modal: weaknessTable = new weakness(this.position,this.id,this.desc,this.milestones);
-
-
-  const temp = (globalWeaknessData.data);
-  temp.push(modal)
-  globalWeaknessData.data = temp;
 }
 
 
@@ -225,23 +228,6 @@ this.submitted = false;
 
 }
 }   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // If the user changes the sort order, reset back to the first page.

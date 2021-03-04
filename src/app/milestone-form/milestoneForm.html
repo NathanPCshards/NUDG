@@ -1,33 +1,32 @@
 <div style="justify-content: center;display: flex;">
     <div class="container1">
       <div [formGroup] ="milestoneForm">
-        <form  class="milestone-form" (ngSubmit)="milestoneSubmit()" novalidate></form>
+        <form  class="milestone-form" (ngSubmit)="milestoneSubmit('value')" novalidate></form>
         <div style="justify-content: center;">  
             
-              <p id="title" style="font-size: 40px; margin-bottom: 40px;margin-left: 25%;color: white;margin-top: 20px;font-weight: bold"> User Login</p>
+              <p id="title" style="font-size: 40px; margin-bottom: 40px;margin-left: 25%;color: white;margin-top: 20px;font-weight: bold"> Milestones</p>
               
 
             <form class="UsernameBox">
               <mat-form-field appearance="outline" color="primary" style="width: 90%;">
                 <mat-label >Milestone ID</mat-label>
-                <input matInput id="Input" placeholder="Milestone ID">
+                <input matInput [(ngModel)]="id" [ngModelOptions]="{standalone: true}" id="Input" placeholder="Milestone ID">
                 </mat-form-field>
       
                 <br>
                 <mat-form-field color="primary" appearance="outline" id="descriptionBox" style="width: 90%;">
                 
                 <mat-label>Milestone Description</mat-label>
-                <input matInput placeholder="Milestone Description" >
+                <input matInput [(ngModel)]="desc" [ngModelOptions]="{standalone: true}" placeholder="Milestone Description" >
               </mat-form-field>
 
               <mat-form-field color="primary" appearance="outline" id="PasswordBox" style="width: 90%;">
                 
                 <mat-label>Milestone Date</mat-label>
-                <input matInput placeholder="Date" >
+                <input matInput  [(ngModel)]="date" [ngModelOptions]="{standalone: true}" placeholder="Date" >
               </mat-form-field>
 
-                <button mat-raised-button  (click) = "milestoneSubmit()" color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Submit</button>
-                <button mat-raised-button routerLink="/Dashboard" routerLinkActive="active" color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Skip Login</button>
+                <button mat-raised-button  (click) = "milestoneSubmit('milestoneForm')" color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Submit</button>
             </form>
           </div>
       </div>

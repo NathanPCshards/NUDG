@@ -13,23 +13,25 @@ export interface milestoneTable {
   position: number,
   id: string,
   desc: string,
-
+  date: string,
 }
 
 class milestone implements milestoneTable {
   position: -1;
   id: 'Placeholder';
   desc: 'Placeholder';
+  date: 'Placeholder';
 
-  constructor (position, id, desc ){
+  constructor (position, id, desc, date){
     this.position=position;
     this.id = id;
     this.desc = desc;
+    this.date = date;
   }
 }
 const milestoneData: milestoneTable[] = [
-  {position: 1, id: "W1", desc: 'Onboarding and Offboarding process created, written documentation on the handling of added or removed users test test test test test test test test .'},
-  {position: 2, id: "W2", desc: 'Placeholder'},
+  {position: 1, id: "W1", desc: 'Onboarding and Offboarding process created, written documentation on the handling of added or removed users.', date:'3/4/2020'},
+  {position: 2, id: "W2", desc: 'Placeholder', date:'3/4/2020'},
 
 ];
 let globalMilestoneData = new MatTableDataSource(milestoneData)
@@ -45,7 +47,7 @@ export class MilestoneFormComponent implements OnInit {
   @ViewChild(MatSort) sort;
   
   clickEventsubscription;
-  displayedColumns: string[] = ['select', 'id', 'desc'];
+  displayedColumns: string[] = ['select', 'id', 'desc', 'date'];
   
   rowSelected = false;
   
@@ -54,9 +56,9 @@ export class MilestoneFormComponent implements OnInit {
       globalMilestoneData.data = this.dataSource.data;
 
     }
-    public openDialog() {
+    public openDialog(event) {
       this.dialog.open(milestoneDialog, {height:'40%', width:"40%",});
-  
+     // event.stopPropagation();  
     }
     public refresh(){
       this.dataSource.data = globalMilestoneData.data;
@@ -84,7 +86,7 @@ export class MilestoneFormComponent implements OnInit {
     }
     
     /** The label for the checkbox on the passed row */
-    checkboxLabel(row?: tableEntry): string {
+    checkboxLabel(row?: milestoneTable): string {
       if (!row) {
         return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
       }
@@ -129,11 +131,16 @@ export class MilestoneFormComponent implements OnInit {
 
 })
 export class milestoneDialog {
-  milestoneForm;
+value;
+milestoneForm;
 position;
 id;
 desc;
+date;
 milestones;
+displayedColumns: String[] = ['select','id', 'desc','date'];
+
+
 submitted= false;
   constructor(private http:HttpClient, private formBuilder: FormBuilder) { }
 
@@ -143,17 +150,19 @@ ngOnInit(){
 
   });
 }
-public milestoneSubmit() {
-  console.log("FORM WAS SUBMITTED");
-  this.submitted = true;
-  const configUrl = 'http://localhost:4200/home'; 
+public milestoneSubmit(value) {
+  if (value =="milestone"){
+    console.log("milestone WAS SUBMITTED");
+    this.submitted = true;
+  
+    const modal: milestoneTable = new milestone(this.position,this.id,this.desc, this.date);
+  
+  
+    const temp = (globalMilestoneData.data);
+    temp.push(modal)
+    globalMilestoneData.data = temp;
+  }
 
-  const modal: milestoneTable = new milestone(this.position,this.id,this.desc);
-
-
-  const temp = (globalMilestoneData.data);
-  temp.push(modal)
-  globalMilestoneData.data = temp;
 }
 
 
