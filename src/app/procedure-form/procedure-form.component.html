@@ -1,7 +1,7 @@
 <mat-toolbar  class="tools" style="height: 8vh;">
 
     <mat-toolbar-row>
-        <button mat-raised-button (click)="openDialog($event);" style="margin-left: 23%;margin-top: 30px;"> Add Procedure</button>
+        <button mat-raised-button (click)="openDialog($event);" style="margin-left: 23%;margin-top: 30px;"> Add Milestones</button>
         <button mat-raised-button (click)="removeSelectedRows()" style="margin-left: 37%; margin-top: 30px;"> Delete Selected</button>
 
     </mat-toolbar-row>
@@ -9,8 +9,9 @@
 </mat-toolbar>
 
 
-<div id="milestones" class="milestones" style="width:100%">
-    <table mat-table [dataSource]="dataSource" class="milestoneTable" style="width:100% ;height:100%">
+
+<div id="procedures" class="procedures" style="width:100%">
+    <table mat-table [dataSource]="dataSource" class="procedureTable" style="width:100% ;height:100%">
         <ng-container matColumnDef="select">
             <th mat-header-cell *matHeaderCellDef>
             <mat-checkbox (change)="$event ? masterToggle() : null"
@@ -27,40 +28,40 @@
             </mat-checkbox>
             </td>
         </ng-container>
-        <!-- Position Column -->
-        <ng-container matColumnDef="id" >
-          <th mat-header-cell *matHeaderCellDef> Milestones</th>
-          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-        </ng-container>
-    
-      
-        <!-- Weight Column -->
-        <ng-container matColumnDef="desc">
-          <th mat-header-cell *matHeaderCellDef> Description </th>
-          <td mat-cell *matCellDef="let element"> {{element.desc}} </td>
-        </ng-container>
+    <ng-container matColumnDef="procedure">
+        <th mat-header-cell *matHeaderCellDef> Procedures </th>
+        <td mat-cell *matCellDef="let element"> {{element.procedure}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Procedure ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
 
-        <!-- Weight Column -->
-        <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef>Date</th>
-            <td mat-cell *matCellDef="let element"> {{element.date}} </td>
-            </ng-container>
-    
-      
-        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></tr>
-        <tr mat-row (click)="onRowClicked(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-</div>
+      <ng-container matColumnDef="desc">
+        <th mat-header-cell *matHeaderCellDef> Description  </th>
+        <td mat-cell *matCellDef="let element"> {{element.desc}} </td>
+      </ng-container>
 
-<mat-dialog-content class="dialog" >
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Date</th>
+        <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></tr>
+      <tr mat-row (click)="onRowClicked(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+<mat-dialog-content class="dialog">
+
 </mat-dialog-content>
 <button (click)="refresh()">refresh</button>
 
+<!-- Use div.milestones height to change table size on dialog popout-->
 
   <style>
-
-div.milestones{
-    height:270px;
+div.procedures{
+    height:420px;
     width:100%;
     overflow:scroll;
 }
@@ -106,7 +107,7 @@ mat-form-field{
     margin: 0px;
 }
 
-#milestones {
+#procedures {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;

@@ -67,9 +67,10 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { TasksComponent } from './tasks/tasks.component';
 import { GapAssessmentPageComponent, GapForm } from './gap-assessment-page/gap-assessment-page.component';
 import { GuidelinesPageComponent } from './guidelines-page/guidelines-page.component';
-import { controlDialog, ControlFormComponent, procedureForm } from './control-form/control-form.component';
+import { controlDialog, ControlFormComponent } from './control-form/control-form.component';
 import {weaknessDialog, WeaknessFormComponent } from './weakness-form/weakness-form.component';
 import { milestoneDialog, MilestoneFormComponent } from './milestone-form/milestone-form.component';
+import { procedureDialog, ProcedureFormComponent } from './procedure-form/procedure-form.component';
 
 
 
@@ -114,9 +115,10 @@ import { milestoneDialog, MilestoneFormComponent } from './milestone-form/milest
     weaknessDialog,
     controlDialog,
     ControlFormComponent,
-    procedureForm,
     MilestoneFormComponent,
     milestoneDialog,
+    ProcedureFormComponent,
+    procedureDialog,
     
     
 
