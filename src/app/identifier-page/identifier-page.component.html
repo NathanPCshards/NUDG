@@ -2,7 +2,7 @@
   <div class="wrapper">
 
       <div class="policy">
-      <mat-card id='card' style="height:500px; overflow:-moz-hidden-unscrollable">
+      <!-- <mat-card id='card' style="height:500px; overflow:-moz-hidden-unscrollable"> -->
      
         <div class="row1">
           <div class="item2" style="flex: 1; ">
@@ -24,14 +24,8 @@
           
         </div>
 
-        <mat-accordion [multi] ='false'>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title style="color: white;">
-                CMMC Information 
-              </mat-panel-title>
-              
-            </mat-expansion-panel-header>
+        <mat-tab-group>
+          <mat-tab label="CMMC Information">
             <p style="margin-top: 1%;" class="dditems">CMMC Number</p>
             <br>
             <p class="dditems">Capability Name</p>
@@ -41,77 +35,25 @@
             <p class="dditems">Practice</p>
             <br>
             <p class="dditems">Clarification</p>
-          </mat-expansion-panel>
-          
-      
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title style="color: white;">
-              NIST Information 
-            </mat-panel-title>
-            
+          </mat-tab>
 
-          </mat-expansion-panel-header>
+          <mat-tab label="NIST Information">NIST Information</mat-tab>
+          <mat-tab label="References">References</mat-tab>
+          <mat-tab label="Guidelines">Guidelines</mat-tab>
+        </mat-tab-group>
 
 
-          <table mat-table [dataSource]="dataSource" class="NistTable">
-
-            <!--- Note that these columns can be defined in any order.
-                  The actual rendered columns are set as a property on the row definition" -->
-          
-            <!-- Position Column -->
-            <ng-container matColumnDef="Title" style="display: none;">
-              <th mat-header-cell *matHeaderCellDef>  </th>
-              <td mat-cell *matCellDef="let element"> {{element.Title}} </td>
-            </ng-container>
-
-            <!-- Name Column -->
-            <ng-container matColumnDef="Subtitle">
-              <th mat-header-cell *matHeaderCellDef>  </th>
-              <td mat-cell *matCellDef="let element"> {{element.Subtitle}} </td>
-            </ng-container>
-          
-            <!-- Weight Column -->
-            <ng-container matColumnDef="Status">
-              <th mat-header-cell *matHeaderCellDef>  </th>
-              <td mat-cell *matCellDef="let element"> {{element.Status}} </td>
-            </ng-container>
-     
-          
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row (click)="onRowClicked(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
-        </mat-expansion-panel>
-      
-
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title style="color: white;">
-              Reference
-            </mat-panel-title>
-            
-          </mat-expansion-panel-header>
-          <p style="margin-top: 1%;" class="dditems">CMMC Number</p>
-          <br>
-          <p class="dditems">Capability Name</p>
-          <br>
-          <p class="dditems">Capability Number</p>
-          <br>
-          <p class="dditems">Practice</p>
-          <br>
-          <p class="dditems">Clarification</p>
-        </mat-expansion-panel>
-        </mat-accordion>
+       
               
     
-          </mat-card>
+         <!-- </mat-card> -->
         </div>
-     
+      
     <div class="standard">
-      <mat-card class="tableCard" style="height:405px">
+     <!-- <mat-card class="tableCard" style="height:405px"> -->
         <standardTable>
         </standardTable>
-      </mat-card>
+    <!-- </mat-card> -->
     </div>
 
 <div class ="editBar">
@@ -121,7 +63,7 @@
         <span routerLink="/Tasks" routerLinkActive="active" style="margin-left: 12%;">Tasks</span>
         <span routerLink="/Guidelines" routerLinkActive="active" style="margin-left: 12%;"> Guidelines</span>
         <span routerLink="/Controls" routerLinkActive="active" style="margin-left: 12%;"> Edit Controls </span>
-        <span routerLink="/GapAssessment" routerLinkActive="active"style="margin-left: 12%; margin-right: 12%"> GAP Assessments </span>
+        <span routerLink="/GapForm" routerLinkActive="active"style="margin-left: 12%; margin-right: 12%"> GAP Assessments </span>
 
 
     </mat-toolbar-row>
@@ -132,8 +74,8 @@
 
 
     <div class="weakness">   
-  <mat-card class="tableCard" style="height:405px">
-  <!--
+ <!-- <mat-card class="tableCard" style="height:405px">
+  
   <app-weakness-form>
 
   </app-weakness-form>
@@ -143,15 +85,15 @@
 
   <app-weakness-form>
   </app-weakness-form> 
-  </mat-card>
+ <!-- </mat-card> -->
    </div>
 
     <div class="control">      
-      <mat-card class="tableCard" style="height:405px">
+      <!-- <mat-card class="tableCard" style="height:405px"> -->
         <app-control-form>
           
         </app-control-form>
-      </mat-card>
+     <!-- </mat-card> -->
 
  
   </div>

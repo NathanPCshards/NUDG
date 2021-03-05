@@ -204,9 +204,7 @@ ngOnInit(){
 
   });
 }
-public onFormSubmit(value) {
-  if(value == "weaknessForm"){
-    console.log(value);
+public onFormSubmit() {
     this.submitted = true;
     const configUrl = 'http://localhost:4200/home'; 
   
@@ -216,7 +214,7 @@ public onFormSubmit(value) {
     const temp = (globalWeaknessData.data);
     temp.push(modal)
     globalWeaknessData.data = temp;
-  }
+  
 
 }
 
