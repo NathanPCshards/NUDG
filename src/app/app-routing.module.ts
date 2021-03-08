@@ -16,10 +16,14 @@ import { CuiContractsFormComponent } from './cui-contracts-form/cui-contracts-fo
 import { SupplierFormComponent } from './supplier-form/supplier-form.component';
 import { VendorFormComponent } from './vendor-form/vendor-form.component';
 import { TasksComponent } from './tasks/tasks.component';
-import { GuidelinesPageComponent } from './guidelines-page/guidelines-page.component';
+import { GuidelinesForm, GuidelinesPageComponent } from './guidelines-page/guidelines-page.component';
 import { GapAssessmentPageComponent, GapForm } from './gap-assessment-page/gap-assessment-page.component';
 import { weaknessDialog, WeaknessFormComponent } from './weakness-form/weakness-form.component';
 import { controlDialog, ControlFormComponent } from './control-form/control-form.component';
+import { NetworkSharesFormComponent } from './network-shares-form/network-shares-form.component';
+import { SoftwareApprovalFormComponent } from './software-approval-form/software-approval-form.component';
+import { SharedResourcesFormComponent } from './shared-resources-form/shared-resources-form.component';
+import { SecurityLogFormComponent } from './security-log-form/security-log-form.component';
 //https://angular.io/guide/router
 
 const routes: Routes = [
@@ -39,12 +43,20 @@ const routes: Routes = [
   { path: 'Vendors', component: VendorFormComponent },
   { path: 'Tasks', component: TasksComponent },
   { path: 'Controls', component: ControlFormComponent },
-  { path: 'Guidelines', component: GuidelinesPageComponent },
+  { path: 'GuidelinesForm', component: GuidelinesPageComponent },
+  { path: 'GuidelinesPage', component: GuidelinesForm },
+  
   { path: 'Weaknesses', component: WeaknessFormComponent },
   { path: 'GapAssessment', component: GapAssessmentPageComponent },
   { path: 'GapForm', component: GapForm },
   { path: 'ControlForm', component: controlDialog },
   { path: 'WeaknessForm', component: weaknessDialog },
+  { path: 'NetworkShareForm', component: NetworkSharesFormComponent },
+  { path: 'SoftwareApprovalForm', component: SoftwareApprovalFormComponent },
+  { path: 'SharedResourceForm', component: SharedResourcesFormComponent},
+  { path: 'SecurityLogForm', component: SecurityLogFormComponent},
+
+
 
 
 

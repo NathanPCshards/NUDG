@@ -1,0 +1,32 @@
+
+
+<form class="example-form">
+    <input  style ="width: 85%" type="text"
+           placeholder="Search Pages"
+           [formControl]="myControl"
+           [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option id="options" *ngFor="let page of filteredPages | async" [value]="page" routerLink="{{page}}" (keydown)="handleKeyDown($event, page)" routerLinkActive="active">
+        {{page}}
+      </mat-option>
+    </mat-autocomplete>
+  </form>
+  
+<!--
+  <input placeholder="Enter some text" name="name"/>
+<p id="values"></p>
+
+
+
+<script>
+const input = document.querySelector('input');
+const log = document.getElementById('values');
+
+input.addEventListener('input', updateValue);
+
+function updateValue(e) {
+  log.textContent = e.target.value;
+  console.log(log.textContent)
+}
+</script>
+-->

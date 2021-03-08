@@ -1,0 +1,116 @@
+
+
+<div class="container1" style="margin:0px;padding: 0px;">
+    <div [formGroup] ="UserForm" style="margin:0px;padding: 0px;"></div>
+        <form  class="user-form" (ngSubmit)="onFormSubmit()" novalidate>
+    
+    
+    
+            <h2 style="margin-left: 1%; margin-top: 1%; font-size: 32px;color: white;">
+                Software Approval List
+            </h2>
+                    <div class = "row">
+                        <div class="col">
+                            <h1 style="margin-left: 1%;">Info</h1>
+                            <mat-form-field  appearance = "legacy" style="width:40%">
+                                <input matInput placeholder = "Software Name">
+                            </mat-form-field>
+                            <mat-form-field appearance = "legacy" style="width:40%">
+                                <input matInput placeholder = "Software Vendor">
+                            </mat-form-field>
+
+                            <h3 style="margin-left: 8px;">Supplier Information</h3>
+                            <textarea id="comments" style="text-align: left; align-content: left; margin-left: 1%; " rows="2" cols="58"></textarea>
+
+                            <h3 style="margin-left: 8px;">Description/Purpose</h3>
+                            <textarea id="comments" style="text-align: left; align-content: left; margin-left: 1%; " rows="2" cols="58"></textarea>
+
+                            <h3 style="margin-left: 8px;">Install Path</h3>
+                            <textarea id="comments" style="text-align: left; align-content: left; margin-left: 1%; " rows="2" cols="58"></textarea>
+
+
+                            <mat-form-field appearance = "legacy" style="width:40%">
+                                <input matInput placeholder = "Install Date">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance = "legacy" style="width:40%">
+                                <input matInput placeholder = "Software Type">
+                            </mat-form-field>
+                            <mat-form-field appearance = "legacy"  style="width:40%">
+                                <input matInput placeholder = "Platform">
+                            </mat-form-field>
+                        </div>
+    
+                        <div class ="col">
+                            <mat-form-field appearance = "legacy" style="margin-top:8%; width:80%">
+                                <input matInput placeholder = "Version">
+                            </mat-form-field>
+                            <mat-form-field appearance = "legacy" style="width:40%" >
+                                <input matInput placeholder = "Patch #">
+                            </mat-form-field>
+                            <mat-form-field appearance = "legacy" style="width:40%" >
+                                <input matInput placeholder = "Update Schedule">
+                            </mat-form-field>
+    
+
+                            <mat-form-field appearance = "legacy" style="width:40%">
+                                <input matInput placeholder = "Manual Review Date">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance = "legacy" style="width:40%">
+                                <input matInput placeholder = "Automatic Update">
+                            </mat-form-field>
+    
+                            <div class="cards">
+                                <h1 style="margin-top: 1%;margin:0px;font-size: 15px;">Internet Access Required</h1>                                
+                                <mat-radio-group style="margin-top: 1%;" class="radio-groupPublic" appearance = "legacy" aria-label="Select an option">
+                                    <mat-radio-button color="primary" class="qs" value="1">Yes</mat-radio-button>
+                                    <mat-radio-button  class="qs" value="2">No</mat-radio-button>
+                                </mat-radio-group>    
+
+                                <h1 style="margin-top: 1%;margin: 0px; font-size: 15px;">Legacy</h1>                                
+                                <mat-radio-group style="margin-top: 1%;" class="radio-groupVirtual"  appearance = "legacy" aria-label="Select an option">
+                                    <mat-radio-button color="primary" class="qs"  value="1">Yes</mat-radio-button>
+                                    <mat-radio-button class="qs" value="2">No</mat-radio-button>
+                                </mat-radio-group>
+
+                                <h1 style="margin-top: 1%; margin: 0px; font-size: 15px;">Elevated Privileges Required</h1>                                
+                                <mat-radio-group style="margin-top: 1%;" class="radio-groupVirtual"  appearance = "legacy" aria-label="Select an option">
+                                    <mat-radio-button color="primary" class="qs"  value="1">Yes</mat-radio-button>
+                                    <mat-radio-button class="qs" value="2">No</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+    
+                            <h3 style="margin-left: 8px; margin-top: 1%;">Vulnerabilities</h3>
+                            <textarea id="comments" style="text-align: left; align-content: left; margin-left: 1%; " rows="2" cols="58"></textarea>
+
+                        </div>
+    
+                        <div class ="col">
+
+        
+                            <mat-form-field appearance = "legacy" style="margin-top: 8%; width:80%">
+                                <input matInput placeholder = "Users">
+                            </mat-form-field>
+                            <mat-form-field appearance = "legacy" style="width:40%">
+                                <input matInput placeholder = "Groups">
+                            </mat-form-field>
+                            <mat-form-field appearance = "legacy" style="width:40%">
+                                <input matInput placeholder = "Roles">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance = "legacy" style="width:80%">
+                                <input matInput placeholder = "Asset Identifier">
+                            </mat-form-field>
+
+    
+                        </div>
+                    </div>
+                        
+                <div class = "row2">
+                    <mat-divider style="padding-top: 3px;"></mat-divider>
+    
+                    <button mat-raised-button [mat-dialog-close]="true" (click)="onFormSubmit();"  style="margin-left: 15%;width:20vw;height: 5vh; float: left;" color="primary"  >Submit</button>
+                    
+                    <button mat-raised-button  (click)="onFormReset();" style="margin-right: 15%;width:20vw;height: 5vh;float: right;" type="reset"  color="primary"  >Reset</button>
+                </div>

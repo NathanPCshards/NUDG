@@ -10,8 +10,6 @@
 .tableCard{
     box-shadow: 1px 1px 15px -1px ;
     overflow:scroll;
-
-
 }
 
 
@@ -28,18 +26,14 @@
      //height: auto;
   }
 
-//NOTICE - this can be done with several divs in column format, BUT this is a grid.
-//if nathan wants this changed. I will be working on something else - alex. 
-
-
   .policy {
       margin: 10px;
       padding: 20px;
-   background-color:white;
+    background-color:white;
     grid-column: 1 / 4;
     grid-row: 1;
     height:400px;
-   // overflow:scroll;
+    //overflow:scroll;
    // box-shadow: 1px 1px 15px -1px ;
 
   }
@@ -78,6 +72,7 @@
     width:100%;
 }
 
+/*
 //:host limits ng deep to this component
 :host ::ng-deep .mat-expansion-panel-header:focus{
     background-color: #212121 !important;
@@ -89,7 +84,7 @@
 :host ::ng-deep .mat-expansion-panel:hover{
     background-color: #212121 !important ;
 
-}
+}*/
 :host ::ng-deep .mat-expansion-panel-body{
 
     background-color:rgb(230, 230, 230);

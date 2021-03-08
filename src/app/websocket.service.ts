@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class WebsocketService {
-
+/*
   socket: any;
   readonly url: string = "http://localhost:3000";
 
@@ -30,5 +30,5 @@ export class WebsocketService {
     this.socket.emit(eventName, data);
   }
 
-
+*/
 }

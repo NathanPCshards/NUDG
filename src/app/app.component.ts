@@ -22,9 +22,10 @@ export class AppComponent implements OnInit {
 
   ngOnInit(){
     //here we want to connect to socket.io server
+    /*
     this.webSocketService.listen('test event').subscribe((data) => {
       console.log(data);
-    })
+    })*/
 
   }
  

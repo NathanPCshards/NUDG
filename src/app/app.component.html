@@ -7,44 +7,12 @@
 
 
         <span style="margin-left: 1%;"> NUDG 3.0 </span>
-        
-        
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item>
-                <span routerLink="" routerLinkActive="active">Login Form</span>
-              </button>
-            <button mat-menu-item>
-              <span routerLink="/CUIcontracts" routerLinkActive="active">CUI Contracts</span>
-            </button>
-            <button mat-menu-item>
-              <span routerLink="/Vendors" routerLinkActive="active">Vendors</span>
-            </button>
-            <button mat-menu-item>
-              <span routerLink="/Suppliers" routerLinkActive="active">Suppliers</span>
-            </button>
-            <button mat-menu-item>
-                <span routerLink="/Tasks" routerLinkActive="active">Tasks</span>
-              </button>
 
-              <button mat-menu-item>
-                <span routerLink="/GapForm" routerLinkActive="active">Gap Form</span>
-              </button>
+        <app-page-search style="margin-left: 3%;">
 
-              <button mat-menu-item>
-                <span routerLink="/WeaknessForm" routerLinkActive="active">Weakness Form</span>
-              </button>
+        </app-page-search>
 
-              <button mat-menu-item>
-                <span routerLink="/ControlForm" routerLinkActive="active">Control Form</span>
-              </button>
-          </mat-menu>
-        
-
-
-        <span routerLink="/Dashboard" routerLinkActive="active" style="margin-left: 45%;"> Dashboard</span>
+        <span routerLink="/Dashboard" routerLinkActive="active" style="margin-left: 30%;"> Dashboard</span>
         <span routerLink="/Policies" routerLinkActive="active" style="margin-left: 2%; ">Policies</span>
         <span routerLink="/Users" routerLinkActive="active"style="margin-left: 2%; "> Users</span>
         <span routerLink="/Inventory" routerLinkActive="active" style="margin-left: 2%; "> Inventory </span>

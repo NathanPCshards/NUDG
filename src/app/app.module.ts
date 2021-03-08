@@ -17,6 +17,7 @@ import { DialogElementsExampleDialog, UserFormComponent } from './user-form/user
 import { DialogVendor, VendorFormComponent } from './vendor-form/vendor-form.component';
 import { DialogSupplier, SupplierFormComponent } from './supplier-form/supplier-form.component';
 import { CuiContractsFormComponent, DialogCUIForm } from './cui-contracts-form/cui-contracts-form.component';
+import { PageSearchComponent } from './page-search/page-search.component';
 
 
 //Connections
@@ -66,11 +67,15 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { TasksComponent } from './tasks/tasks.component';
 import { GapAssessmentPageComponent, GapForm } from './gap-assessment-page/gap-assessment-page.component';
-import { GuidelinesPageComponent } from './guidelines-page/guidelines-page.component';
+import { GuidelinesForm, GuidelinesPageComponent } from './guidelines-page/guidelines-page.component';
 import { controlDialog, ControlFormComponent } from './control-form/control-form.component';
 import {weaknessDialog, WeaknessFormComponent } from './weakness-form/weakness-form.component';
 import { milestoneDialog, MilestoneFormComponent } from './milestone-form/milestone-form.component';
 import { procedureDialog, ProcedureFormComponent } from './procedure-form/procedure-form.component';
+import { NetworkSharesFormComponent } from './network-shares-form/network-shares-form.component';
+import { SoftwareApprovalFormComponent } from './software-approval-form/software-approval-form.component';
+import { SharedResourcesFormComponent } from './shared-resources-form/shared-resources-form.component';
+import { SecurityLogFormComponent } from './security-log-form/security-log-form.component';
 
 
 
@@ -119,6 +124,14 @@ import { procedureDialog, ProcedureFormComponent } from './procedure-form/proced
     milestoneDialog,
     ProcedureFormComponent,
     procedureDialog,
+    PageSearchComponent,
+    NetworkSharesFormComponent,
+    SoftwareApprovalFormComponent,
+    SharedResourcesFormComponent,
+    SecurityLogFormComponent,
+    GuidelinesForm,
+    GuidelinesPageComponent,
+
     
     
 
