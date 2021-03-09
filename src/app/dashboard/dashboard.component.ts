@@ -229,13 +229,13 @@ function validateToken(token: string) {
   selector: 'dash-calendar',
   changeDetection: ChangeDetectionStrategy.OnPush,
  // flatpickr/dist/flatpickr.css
-  styleUrls: ['./dashboard.component.scss','../../../node_modules/flatpickr/dist/flatpickr.css'],
+  styleUrls: ['./dashboard.component.scss'],
 
   templateUrl: 'calendar.html',
 })
 export class calendarComponent {
   @ViewChild('modalContent', { static: true }) modalContent!: TemplateRef<any> ;
-  mwlFlatPicker;
+  mwlFlatPicker: any;
   view: CalendarView = CalendarView.Month;
 
   colors: any = {

@@ -18,6 +18,19 @@ import { DialogVendor, VendorFormComponent } from './vendor-form/vendor-form.com
 import { DialogSupplier, SupplierFormComponent } from './supplier-form/supplier-form.component';
 import { CuiContractsFormComponent, DialogCUIForm } from './cui-contracts-form/cui-contracts-form.component';
 import { PageSearchComponent } from './page-search/page-search.component';
+import { TasksComponent } from './tasks/tasks.component';
+import { GapAssessmentPageComponent, GapForm } from './gap-assessment-page/gap-assessment-page.component';
+import { GuidelinesForm, GuidelinesPageComponent } from './guidelines-page/guidelines-page.component';
+import { controlDialog, ControlFormComponent } from './control-form/control-form.component';
+import {weaknessDialog, WeaknessFormComponent } from './weakness-form/weakness-form.component';
+import { milestoneDialog, MilestoneFormComponent } from './milestone-form/milestone-form.component';
+import { procedureDialog, ProcedureFormComponent } from './procedure-form/procedure-form.component';
+import { NetworkSharesFormComponent, networkSharesPage } from './network-shares-form/network-shares-form.component';
+import { SoftwareApprovalFormComponent } from './software-approval-form/software-approval-form.component';
+import { SharedResourcesFormComponent } from './shared-resources-form/shared-resources-form.component';
+import { SecurityLogFormComponent } from './security-log-form/security-log-form.component';
+import { HelpCenterComponent, helpCenterForm } from './help-center/help-center.component';
+
 
 
 //Connections
@@ -65,19 +78,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { TasksComponent } from './tasks/tasks.component';
-import { GapAssessmentPageComponent, GapForm } from './gap-assessment-page/gap-assessment-page.component';
-import { GuidelinesForm, GuidelinesPageComponent } from './guidelines-page/guidelines-page.component';
-import { controlDialog, ControlFormComponent } from './control-form/control-form.component';
-import {weaknessDialog, WeaknessFormComponent } from './weakness-form/weakness-form.component';
-import { milestoneDialog, MilestoneFormComponent } from './milestone-form/milestone-form.component';
-import { procedureDialog, ProcedureFormComponent } from './procedure-form/procedure-form.component';
-import { NetworkSharesFormComponent, networkSharesPage } from './network-shares-form/network-shares-form.component';
-import { SoftwareApprovalFormComponent } from './software-approval-form/software-approval-form.component';
-import { SharedResourcesFormComponent } from './shared-resources-form/shared-resources-form.component';
-import { SecurityLogFormComponent } from './security-log-form/security-log-form.component';
-import { HelpCenterComponent, helpCenterForm } from './help-center/help-center.component';
-
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 
@@ -162,6 +163,7 @@ import { HelpCenterComponent, helpCenterForm } from './help-center/help-center.c
     MatButtonModule,
     MatAutocompleteModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatFormFieldModule,
     MatRadioModule,
     MatSelectModule,
@@ -207,7 +209,7 @@ import { HelpCenterComponent, helpCenterForm } from './help-center/help-center.c
 
   ],
 
-  providers: [],
+  providers: [MatDatepickerModule],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
