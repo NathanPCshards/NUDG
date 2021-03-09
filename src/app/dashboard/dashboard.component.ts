@@ -4,6 +4,7 @@ import { PolicyBoardComponent} from '../policy-board/policy-board.component'
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import * as moment from 'moment';
 
 
 
@@ -228,13 +229,15 @@ function validateToken(token: string) {
 @Component({
   selector: 'dash-calendar',
   changeDetection: ChangeDetectionStrategy.OnPush,
- // flatpickr/dist/flatpickr.css
   styleUrls: ['./dashboard.component.scss'],
 
   templateUrl: 'calendar.html',
 })
 export class calendarComponent {
   @ViewChild('modalContent', { static: true }) modalContent!: TemplateRef<any> ;
+
+  
+  
   mwlFlatPicker: any;
   view: CalendarView = CalendarView.Month;
 
@@ -381,5 +384,14 @@ export class calendarComponent {
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
   }
+
+
+
+  debugEvent(){
+    this.events.forEach(event => console.log(event));
+  }
+
+
+
 }
 

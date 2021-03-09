@@ -44,6 +44,10 @@
     border-radius: 0; //this removes the rounded edges of button
 }
 
+::ng-deep .mat-datepicker-content .mat-calendar .datepicker1 {
+    width: 229px!important;
+    height: 300px!important;
+}
 
 .chartContainer{
    // background-color: grey;

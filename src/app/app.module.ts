@@ -79,9 +79,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatNativeDateModule } from '@angular/material/core';
-
-
-
+import { MatTimepickerModule } from 'mat-timepicker';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 @NgModule({
   declarations: [
     //Components
@@ -191,7 +190,10 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatPaginatorModule,
     MatInputModule,
     MatCheckboxModule,
-    
+    MatTimepickerModule,
+    NgxMaterialTimepickerModule,
+
+
     
     //charts
     NgxEchartsModule.forRoot({
