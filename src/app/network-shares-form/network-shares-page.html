@@ -1,56 +1,26 @@
 <mat-accordion class ="accordion">
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false"
+                         >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Add a Network Share Item
+        </mat-panel-title>
+        <mat-panel-description class="description">
+         Open panel to add a Network Share Item
+        </mat-panel-description>
 
-      
-  <mat-expansion-panel (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false"
-                       >
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Add a Supplier 
-      </mat-panel-title>
-      <mat-panel-description class="description">
-       Open panel to add a Supplier 
-      </mat-panel-description>
+      </mat-expansion-panel-header>
 
+        <app-network-shares-form>
 
+        </app-network-shares-form>
 
-   
+    </mat-expansion-panel>
 
+  </mat-accordion>
 
-    </mat-expansion-panel-header>
-    <supplierForm>
-
-    </supplierForm>
-  </mat-expansion-panel>
-
-</mat-accordion>
-
-<!--
-<mat-toolbar  class="tools" style="height: 8vh;">
-
-    <mat-toolbar-row>
-        <mat-form-field style="width: 15%; height: 70%;">
-            <mat-label>Search</mat-label>
-        <input matInput (keyup)="applyFilter($event)" #input>
-        </mat-form-field>
-
-        <button mat-raised-button (click)="openDialog()" style="margin-left: 35%;margin-top: 20px;"> Add Supplier</button>
-        <button mat-raised-button (click)="removeSelectedRows()" style="margin-left: 3%;"> Delete Selected</button>
-        <button mat-raised-button style="margin-left: 3%;"> Import </button>
-        <button mat-raised-button style="margin-left: 3%;"> Export </button>
-
-
-    </mat-toolbar-row>
-
-</mat-toolbar>
-
-
-
--->
-
-
-
-  <table mat-table [dataSource]="dataSource" matSort class="userTable" style="width:100%">
+  <table mat-table [dataSource]="dataSource" matSort class="inventoryTable" style="width:100%" >
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
@@ -146,9 +116,4 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row (click)="onRowClicked(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-
-
-<mat-dialog-content class="dialog" >
-</mat-dialog-content>
-
-
+  

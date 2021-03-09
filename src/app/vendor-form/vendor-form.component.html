@@ -1,3 +1,31 @@
+<mat-accordion class ="accordion">
+
+      
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false"
+                       >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Add a Vendor 
+      </mat-panel-title>
+      <mat-panel-description class="description">
+       Open panel to add a Vendor 
+      </mat-panel-description>
+
+
+
+   
+
+
+    </mat-expansion-panel-header>
+    <vendorForm>
+
+    </vendorForm>
+  </mat-expansion-panel>
+
+</mat-accordion>
+
+<!--
 
 <mat-toolbar  class="tools" style="height: 8vh;">
 
@@ -18,6 +46,8 @@
 </mat-toolbar>
 
 
+
+-->
 
 
   <table mat-table [dataSource]="dataSource" matSort class="userTable" style="width:100%">

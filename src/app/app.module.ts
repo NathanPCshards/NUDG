@@ -72,10 +72,11 @@ import { controlDialog, ControlFormComponent } from './control-form/control-form
 import {weaknessDialog, WeaknessFormComponent } from './weakness-form/weakness-form.component';
 import { milestoneDialog, MilestoneFormComponent } from './milestone-form/milestone-form.component';
 import { procedureDialog, ProcedureFormComponent } from './procedure-form/procedure-form.component';
-import { NetworkSharesFormComponent } from './network-shares-form/network-shares-form.component';
+import { NetworkSharesFormComponent, networkSharesPage } from './network-shares-form/network-shares-form.component';
 import { SoftwareApprovalFormComponent } from './software-approval-form/software-approval-form.component';
 import { SharedResourcesFormComponent } from './shared-resources-form/shared-resources-form.component';
 import { SecurityLogFormComponent } from './security-log-form/security-log-form.component';
+import { HelpCenterComponent, helpCenterForm } from './help-center/help-center.component';
 
 
 
@@ -131,6 +132,10 @@ import { SecurityLogFormComponent } from './security-log-form/security-log-form.
     SecurityLogFormComponent,
     GuidelinesForm,
     GuidelinesPageComponent,
+    HelpCenterComponent,
+    helpCenterForm,
+    networkSharesPage,
+    
 
     
     

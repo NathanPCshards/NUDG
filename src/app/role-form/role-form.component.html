@@ -1,5 +1,32 @@
 
 
+<mat-accordion class ="accordion">
+
+      
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false"
+                       >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Add a Role
+      </mat-panel-title>
+      <mat-panel-description class="description">
+       Open panel to add a Role 
+      </mat-panel-description>
+
+
+
+   
+
+
+    </mat-expansion-panel-header>
+    <RoleGroupForms>
+      </RoleGroupForms>
+      
+  </mat-expansion-panel>
+
+</mat-accordion>
+<!--
 
 <mat-toolbar color="accent" class="tools">
 
@@ -19,6 +46,8 @@
     </mat-toolbar-row>
 
 </mat-toolbar>
+-->
+
 
 
 
@@ -113,9 +142,14 @@
     <tr mat-row (click)="onRowClicked(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
+
+  <!--
   <groupTable>
 
   </groupTable>
+
+
+  -->
 
 
 <mat-dialog-content class="dialog">

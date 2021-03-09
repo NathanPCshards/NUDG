@@ -1,5 +1,32 @@
 
-<mat-toolbar  class="tools" style="height: 8vh;">
+<mat-accordion class ="accordion">
+
+      
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false"
+                       >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Add a User
+      </mat-panel-title>
+      <mat-panel-description class="description">
+       Open panel to add a User Item
+      </mat-panel-description>
+
+
+
+   
+
+
+    </mat-expansion-panel-header>
+    <userForm>
+      </userForm>
+  </mat-expansion-panel>
+
+</mat-accordion>
+
+<!--
+<mat-toolbar  class="tools" style="height: 4vh;">
 
         <mat-toolbar-row>
             <mat-form-field style="width: 15%; height: 70%; margin-bottom: 20px;">
@@ -16,6 +43,10 @@
         </mat-toolbar-row>
 
 </mat-toolbar>
+
+
+
+-->
 
 
 

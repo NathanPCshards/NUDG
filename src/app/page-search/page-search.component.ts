@@ -23,16 +23,22 @@ export class PageSearchComponent implements OnInit {
   //your good to go.
   
   options: string[] = [
-  'CUIcontracts', 'home', 'Policies',
+  'CUIcontracts', 'Home', 'Policies',
   'Dashboard', 'Users', 'Inventory',
   'CompanyInfo', 'Roles', 
   'Suppliers', 'Vendors', 'Tasks',
   'Controls', 'GuidelinesPage', 'Weaknesses',
   'GapAssessment', 'GapForm', 'ControlForm',
   'WeaknessForm', 'NetworkShareForm', 'SoftwareApprovalForm',
-  'SharedResourceForm', 'SecurityLogForm', 'GuidelinesForm'];
+  'SharedResourceForm', 'SecurityLogForm', 'GuidelinesForm',
+  'HelpCenterForm', 'GroupsPage', 'GroupsForm',
+  'NetworkSharePage',];
+
+  
   constructor(private route : ActivatedRoute, private router:Router) {
     //this.input.addEventListener('input', this.updateValue);
+    this.options.sort();
+
     this.myControl = new FormControl();
     this.filteredPages = this.myControl.valueChanges
       .pipe(

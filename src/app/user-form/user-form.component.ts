@@ -138,7 +138,7 @@ removeSelectedRows() {
 
 
 @Component({
-  selector: 'dialog-elements-example-dialog',
+  selector: 'userForm',
   templateUrl: 'form.html',
 })
 export class DialogElementsExampleDialog {

@@ -1,3 +1,34 @@
+
+
+
+<mat-accordion class ="accordion">
+
+      
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false"
+                       >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Add a Group Entry
+      </mat-panel-title>
+      <mat-panel-description class="description">
+       Open panel to add a Inventory Item
+      </mat-panel-description>
+
+
+
+   
+
+
+    </mat-expansion-panel-header>
+   <app-group-form>
+
+   </app-group-form>
+  </mat-expansion-panel>
+
+</mat-accordion>
+
+
 <table mat-table id="groupTable" [dataSource]="dataSource" matSort class="groupTable" style="display:table; width:100%">
 
     <ng-container matColumnDef="select">

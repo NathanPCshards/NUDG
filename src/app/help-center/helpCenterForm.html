@@ -1,0 +1,39 @@
+<div style="justify-content: center;display: flex;">
+    <div class="container1">
+      <div [formGroup] ="helpCenterForm">
+        <form  class="helpCenter-form" (ngSubmit)="submit()" novalidate></form>
+        <div style="justify-content: center;">  
+            
+              <p id="title" style="font-size: 40px; margin-bottom: 40px;margin-left: 25%;color: white;margin-top: 20px;font-weight: bold"> Help Center</p>
+              
+
+            <form class="UsernameBox">
+              <mat-form-field appearance="outline" color="primary" style="width: 90%;">
+                <mat-label >Title</mat-label>
+                <input matInput [(ngModel)]="id" [ngModelOptions]="{standalone: true}" id="Input" placeholder="Title">
+                </mat-form-field>
+      
+                <br>
+                <mat-form-field color="primary" appearance="outline" id="descriptionBox" style="width: 90%;">
+                <mat-label>Sub Title</mat-label>
+                <input matInput [(ngModel)]="desc" [ngModelOptions]="{standalone: true}" placeholder="Milestone Description" >
+              </mat-form-field>
+
+              <mat-form-field color="primary" appearance="outline" id="PasswordBox" style="width: 90%;">
+                <mat-label>Hyperlink</mat-label>
+                <input matInput  [(ngModel)]="date" [ngModelOptions]="{standalone: true}" placeholder="Date" >
+              </mat-form-field>
+
+              <mat-form-field color="primary" appearance="outline" id="PasswordBox" style="width: 90%;">
+                <mat-label>Priority</mat-label>
+                <input matInput   placeholder="Priority" >
+              </mat-form-field>
+
+
+
+                <button mat-raised-button  (click) = "submit()" color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Submit</button>
+            </form>
+          </div>
+      </div>
+      </div>
+    </div>

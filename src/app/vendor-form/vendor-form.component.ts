@@ -148,7 +148,7 @@ removeSelectedRows() {
 
 }
 @Component({
-  selector: 'dialog-elements-example-dialog',
+  selector: 'vendorForm',
   templateUrl: 'vendorForm.html',
 })
 export class DialogVendor {

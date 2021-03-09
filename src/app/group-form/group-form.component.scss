@@ -1,21 +1,4 @@
-div.container1{
-    padding: 5px;
-    margin-top: 50px;
-    margin-left:auto;
-    margin-right: auto;
-    width:98%;
-    box-shadow: 1px 1px 15px -1px ;
-    background-color: lightsteelblue;
-    overflow: hidden;
-      
-  }
-  mat-grid-tile{
-    width: 98px;
-    margin:auto;
-}
-mat-form-field{
-    margin-left: 1%;
-}
+
 
 .col{
     float:left;
@@ -48,7 +31,97 @@ mat-form-field{
     border-top-style: solid;
     margin-bottom: 15px;
  }
- .mat-raised-button{
-    margin-bottom: 15px;
+
+
+div.container1{
+    padding: 5px;
+    margin-top: 10px;
+    margin-left:auto;
+    margin-right: auto;
+    width:70%;
+    height: 50%;
+
+    box-shadow: 1px 1px 15px -1px ;
+    background: linear-gradient(to bottom, #212121 8%, white 0%);
+    overflow: hidden;
+    border-radius: 3px;
+    
+    
+      
+  }
+
+ 
+mat-grid-tile{
+    width: 98px;
+    
+}
+mat-form-field{
+    margin-left: 1%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    
+    
 }
 
+div.cards{
+   
+    display: flexbox;
+     
+    
+    
+    
+    
+
+}
+
+.qs {
+ margin-left: 3%;
+    
+    
+
+}
+
+
+
+
+.col{
+    float:left;
+    width: 31%;
+    padding:1%;
+  
+}
+
+.row2{
+    width:100%;    
+    clear:both;
+    display: flexbox;
+    
+    
+    
+    
+}
+.mat-divider {
+    display: block;
+    margin: 0;
+    border-top-width: 1px;
+    border-top-style: solid;
+    margin-bottom: 15px;
+ }
+
+//width for column objects is 70% for entire 'row'
+//35% to have 2 objects on 1 row
+//except radio buttons/cards, those are weird
+.mat-raised-button{
+    margin-bottom: 15px;
+    width: 10%;
+}
+.mat-header-cell{ 
+    background-color: #212121 ;
+    color: white;
+}
+.mat-checkbox-inner-container {
+    color: white;
+}
+.mat-checkbox {
+    color: white;
+}

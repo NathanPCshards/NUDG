@@ -20,7 +20,7 @@
     display: grid;
     position: relative;
     grid-template-columns: repeat(6, 1fr);
-    gap: 8px;
+    gap: 4px;
     grid-auto-rows: repeat(3, 1fr);
 
      //height: auto;
@@ -33,15 +33,14 @@
     grid-column: 1 / 4;
     grid-row: 1;
     height:400px;
-    //overflow:scroll;
    // box-shadow: 1px 1px 15px -1px ;
 
   }
   .standard{
     grid-column: 4 / 7;
     grid-row: 1;
-    
-    
+    height:100%;
+    overflow:scroll;
   }
   .editBar{
     grid-column: 1 / 7;
@@ -53,19 +52,19 @@
   .weakness {
     //background-color: palegreen;
     height: 100%;
-
+    //overflow:scroll;
     box-sizing: border-box;
     position: relative;
     grid-column: 1 / 4;
-    grid-row: 3;
+    grid-row: 2 / 4;
   }
   .control {
     height: 100%;
- 
+    //overflow:scroll;
     box-sizing: border-box;
     position: relative;
     grid-column: 4 / 7;
-    grid-row: 3;
+    grid-row: 2 / 3;
   }
 .mat-table{
     padding: 1%;
@@ -233,7 +232,7 @@ div.standard {
 
 div.weakness{
     margin: 10px;
-  
+    height: 400px;
       
 }
 

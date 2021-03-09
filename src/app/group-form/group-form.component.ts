@@ -51,9 +51,6 @@ export class GroupFormComponent implements OnInit {
   groupForm;
   results;
   value;
-  displayedColumns: string[] = ['select','name', 'employeeNumber', 'jobTitle', 'jobRole', 'employeeType',
-  'department', 'hireDate', 'logonHours','emailAddress', 'phone', 'address', 'CUIdata'];
-
 
 
 
@@ -102,12 +99,14 @@ export class GroupFormComponent implements OnInit {
 @Component({
   selector: 'groupTable',
   templateUrl: 'groupTable.html',
+  styleUrls: ['./group-form.component.scss']
+
 })
 export class groupTable {
 dataSource: MatTableDataSource<userTable>;
 selection = new SelectionModel<userTable>(true, []);
 @ViewChild(MatSort) sort;
-
+panelOpenState;
 clickEventsubscription;
 
 displayedColumns: string[] = ['select','name', 'employeeNumber', 'jobTitle', 'jobRole', 'employeeType',
