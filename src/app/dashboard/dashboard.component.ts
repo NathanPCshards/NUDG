@@ -195,7 +195,6 @@ export class Bar3dDatasetComponent implements OnInit {
   }
 }
 
-
 import {
   ChangeDetectionStrategy,
   ViewChild,
@@ -220,11 +219,19 @@ import {
 } from 'angular-calendar';
 
 
+
 function validateToken(token: string) {
   console.log("checking token")
   return token;
 }
+/*
+TODO: 
+  The time component on the calendar does not get saved to the events because there is no 
+  field for it. I (alex) tried extending the interface and added time but the functions
+  are too set in stone to work w/ a new interface....
 
+  Try writing the event to the database, then writing the time to the same table
+*/
 
 @Component({
   selector: 'dash-calendar',
@@ -257,7 +264,7 @@ export class calendarComponent {
   };
 
   CalendarView = CalendarView;
-
+  time;
   viewDate: Date = new Date();
 
   modalData!: {
@@ -388,7 +395,11 @@ export class calendarComponent {
 
 
   debugEvent(){
-    this.events.forEach(event => console.log(event));
+    console.log("test")
+    this.events.forEach(event => console.log(event.end));
+    this.events.forEach(event=> event.end?.setHours(7))
+    this.events.forEach(event => console.log(event.end));
+    console.log("datepicker: " , )
   }
 
 

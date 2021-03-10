@@ -44,11 +44,12 @@
     border-radius: 0; //this removes the rounded edges of button
 }
 
-::ng-deep .mat-datepicker-content .mat-calendar .datepicker1 {
+/*
+::ng-deep .mat-datepicker-content .mat-calendar #datepicker1 .toggleTimepickerSTART .datepicker2 .toggleTimepickerEND{
     width: 229px!important;
     height: 300px!important;
 }
-
+*/
 .chartContainer{
    // background-color: grey;
     margin:auto;
@@ -123,5 +124,12 @@
 }
 .calendaritem {
     padding: 2%;
+
+}
+
+:host ::ng-deep #timepicker1 .mat-form-field-wrapper {
+    height: 100% !important;
+    float:right;
+    //background-color: red;
 
 }

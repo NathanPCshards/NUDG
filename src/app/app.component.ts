@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { io } from "socket.io-client";
-import { WebsocketService } from './websocket.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +12,7 @@ export class AppComponent implements OnInit {
   height;
 
 
-  constructor(private http: HttpClient, private webSocketService: WebsocketService ){
+  constructor(private http: HttpClient){
     // client-side
     
   }

@@ -6,6 +6,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { tap } from 'rxjs/operators';
 import {SelectionModel} from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
+import { UserServiceService } from '../services/user-service.service';
+import { Observable } from 'rxjs';
+import { Users } from '../models/users';
+
 
 export interface userTable {
   position: number;
@@ -52,6 +56,7 @@ const User_Data: userTable[] = [
 })
 export class UserFormComponent implements OnInit {
   picker;
+  users$: Observable<Users[]>;
 
   submitted = false;
   results;// = res.json();
@@ -66,7 +71,9 @@ export class UserFormComponent implements OnInit {
   @ViewChild(MatSort) sort;
 
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog){
+  constructor(private http: HttpClient, private formBuilder: FormBuilder, 
+              public dialog: MatDialog, private userService: UserServiceService,
+            ){
     this.dataSource = new MatTableDataSource(User_Data);
     
   }
@@ -81,8 +88,95 @@ export class UserFormComponent implements OnInit {
   }
 
   ngOnInit(){
+    this.users$ = this.fetchAll();
+    console.log("trace1");
+   
+  }
+
+  fetchAll(): Observable<Users[]> {
+    return this.userService.fetchAll();
+  }
+
+
+
+
+
+
+
+
+
+  post(userItem: Partial<Users>): void {
+    const uname = (<string>userItem).trim();
+    if (!uname) return;
+
+    this.users$ = this.userService
+      .post({ uname })
+      .pipe(tap(() => (this.users$ = this.fetchAll())));
+  }
+
+
+
+
+
+
+
+
+
+
+
+  update(iduseru: number, userItem: Partial<Users>): void {
+    
+    const uname = (<any>userItem).trim();
+    if (!uname) return;
+
+    const newUsers: Users = {
+      iduseru,
+      uname
+
+    };
+
+    this.users$ = this.userService
+      .update(newUsers)
+      .pipe(tap(() => (this.users$ = this.fetchAll())));
 
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  delete(id: any): void {
+    /*
+    this.users$ = this.userService
+      .delete(id)
+      .pipe(tap(() => (this.users$ = this.fetchAll())));
+      */
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 onRowClicked(row): void {
   console.log("Row clicked: ", row);
