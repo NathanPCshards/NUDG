@@ -1,7 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { companyInfo } from '../models/companyInfo';
+import { CompanyInfoService } from '../services/company-info.service';
 
 @Component({
   selector: 'app-company-info-form',
@@ -13,31 +18,75 @@ export class CompanyInfoFormComponent {
   companyInfoForm;
   results; 
   panelOpenState;
+  companies$: Observable<companyInfo[]>;
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder
+  resultsLength = 0;
+  isLoadingResults = false;
+  isRateLimitReached = false;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  constructor(private http: HttpClient, private formBuilder: FormBuilder,
+              private companyInfoService: CompanyInfoService
    
 
   ) { }
 
   ngOnInit(){
+    this.companies$ = this.fetchAll();
+
     this.companyInfoForm = this.formBuilder.group({
       //initialize stuff to be null or whatever, here
     });
   }
 
+  fetchAll(): Observable<companyInfo[]> {
+    return this.companyInfoService.fetchAll();
+  }
+
+  post(companyItem: Partial<companyInfo>): void {
+    const name = (<string>companyItem).trim();
+    if (!name) return;
+
+    this.companies$ = this.companyInfoService
+      .post({ name })
+      .pipe(tap(() => (this.companies$ = this.fetchAll())));
+  }
+
+
+  update(id: number, companyItem: Partial<companyInfo>): void {
+    const name = (<any>companyItem).trim();
+    
+    if (!name) return;
+
+    const newUsers: companyInfo = {
+      id,
+      name
+
+    };
+
+    this.companies$ = this.companyInfoService
+      .update(newUsers)
+      .pipe(tap(() => (this.companies$ = this.fetchAll())));
+  }
+
+
+  delete(idusersu: any): void {
+    console.log("attempting to delete id : " , idusersu)
+   // iduseru = 15
+   // console.log("attempting to delete id : " , iduseru)
+
+    this.companies$ = this.companyInfoService
+      .delete(idusersu)
+      .pipe(tap(() => (this.companies$ = this.fetchAll())));
+      
+  }
 
   public onFormSubmit() {
     console.log("FORM WAS SUBMITTED");
     this.submitted = true;
     const configUrl = 'http://localhost:4200/home'; 
-    this.http.post(configUrl,this.companyInfoForm.value)
-    .pipe(
-      tap(
-        data => console.log(configUrl, data),
-        error => console.log(configUrl, error)
-      )
-    )
-    .subscribe(results => this.results = results);
+      //post here
  }
 
  public onFormReset() {
