@@ -4,6 +4,6 @@ export interface Users {
    // Phone: string;
    // Email: string;
    // Password: string;
-    iduseru?:number;
+    idusersu?:number; 
     uname?:string;
 }

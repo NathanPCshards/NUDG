@@ -45,6 +45,7 @@ httpOptions: { headers: HttpHeaders } = {
 
   delete(idusersu: number): Observable<any> {
     const url = `http://localhost:3000/users/${idusersu}`;
+   //const url = `http://localhost:3000/users`;
 
     return this.http
       .delete<Users>(url, this.httpOptions)

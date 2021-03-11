@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UserServiceService } from '../services/user-service.service';
 import { Observable } from 'rxjs';
 import { Users } from '../models/users';
+import { MatPaginator } from '@angular/material/paginator';
 
 
 export interface userTable {
@@ -55,55 +56,41 @@ const User_Data: userTable[] = [
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent implements OnInit {
-  picker;
+ // exampleDatabase: ExampleHttpDatabase | null;
+  //filteredAndPagedIssues: Observable<GithubIssue[]>;
   users$: Observable<Users[]>;
 
-  submitted = false;
-  results;// = res.json();
-  panelOpenState = false;
-  displayedColumns: string[] = ['select','name', 'employeeNumber', 'jobTitle', 'jobRole', 'employeeType',
-   'department', 'hireDate', 'logonHours','emailAddress', 'phone', 'address', 'CUIdata'];
-  rowSelected = false;
-  name: any;
+  resultsLength = 0;
+  isLoadingResults = false;
+  isRateLimitReached = false;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
  
-  dataSource: MatTableDataSource<userTable>;
-  selection = new SelectionModel<userTable>(true, []);
-  @ViewChild(MatSort) sort;
+  displayedColumns: string[] = ['idusersu','uname']
 
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder, 
-              public dialog: MatDialog, private userService: UserServiceService,
-            ){
-    this.dataSource = new MatTableDataSource(User_Data);
-    
-  }
-  public openDialog() {
-    this.dialog.open(DialogElementsExampleDialog, {height:'65%', width:"80%",});
+ 
 
-  }
 
-  ngAfterViewInit(){
-    this.dataSource.sort = this.sort;
+  constructor(private _httpClient: HttpClient, private formBuilder: FormBuilder, 
+              public dialog: MatDialog, private userService: UserServiceService,){  }
+ 
 
-  }
+
 
   ngOnInit(){
     this.users$ = this.fetchAll();
     console.log("trace1");
    
   }
+  ngAfterViewInit(){
+  //  this.exampleDatabase = new ExampleHttpDatabase(this._httpClient);
+  }
 
   fetchAll(): Observable<Users[]> {
     return this.userService.fetchAll();
   }
-
-
-
-
-
-
-
-
 
   post(userItem: Partial<Users>): void {
     const uname = (<string>userItem).trim();
@@ -115,22 +102,13 @@ export class UserFormComponent implements OnInit {
   }
 
 
-
-
-
-
-
-
-
-
-
-  update(iduseru: number, userItem: Partial<Users>): void {
-    
+  update(idusersu: number, userItem: Partial<Users>): void {
     const uname = (<any>userItem).trim();
+    
     if (!uname) return;
 
     const newUsers: Users = {
-      iduseru,
+      idusersu,
       uname
 
     };
@@ -138,97 +116,22 @@ export class UserFormComponent implements OnInit {
     this.users$ = this.userService
       .update(newUsers)
       .pipe(tap(() => (this.users$ = this.fetchAll())));
-
   }
 
 
+  delete(idusersu: any): void {
+    console.log("attempting to delete id : " , idusersu)
+   // iduseru = 15
+   // console.log("attempting to delete id : " , iduseru)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  delete(id: any): void {
-    /*
     this.users$ = this.userService
-      .delete(id)
+      .delete(idusersu)
       .pipe(tap(() => (this.users$ = this.fetchAll())));
-      */
+      
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-onRowClicked(row): void {
-  console.log("Row clicked: ", row);
-  this.rowSelected = true;
-  var configUrl = 'http://localhost:4200' + "/" + row.Title;
-  console.log(configUrl)
- // this.router.navigate(configUrl.concat("/",row.Title))
 }
-applyFilter(event: Event) {
-  const filterValue = (event.target as HTMLInputElement).value;
-  this.dataSource.filter = filterValue.trim().toLowerCase();
-
-
-}
-
-
-isAllSelected() {
-  const numSelected = this.selection.selected.length;
-  const numRows = this.dataSource.data.length;
-  return numSelected === numRows;
-}
-
-/** Selects all rows if they are not all selected; otherwise clear selection. */
-masterToggle() {
-  this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
-}
-
-/** The label for the checkbox on the passed row */
-checkboxLabel(row?: userTable): string {
-  if (!row) {
-    return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-  }
-  return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-}
-
-
-removeSelectedRows() {
-  let data = Object.assign(User_Data)
-  this.selection.selected.forEach(item => {
-     let index: number = data.findIndex(d => d === item);
-     console.log(data.findIndex(d => d === item));
-     data.splice(index,1)
-     this.dataSource = new MatTableDataSource<userTable>(data);
-   });
-   this.selection = new SelectionModel<userTable>(true, []);
-}
-
-}
-
-
 
 
 @Component({
@@ -269,3 +172,89 @@ this.submitted = false;
 
 }
 }
+
+/** An example database that the data source uses to retrieve data for the table.
+ * 
+ * 
+ * export class ExampleHttpDatabase {
+  constructor(private _httpClient: HttpClient) {}
+
+  getRepoIssues(sort: string, order: string, page: number): Observable<GithubApi> {
+    const href = 'https://api.github.com/search/issues';
+    const requestUrl =
+        `${href}?q=repo:angular/components&sort=${sort}&order=${order}&page=${page + 1}`;
+
+    return this._httpClient.get<GithubApi>(requestUrl);
+  }
+}
+ * 
+ * 
+ * 
+ */
+
+
+
+
+
+/* functions from old table
+
+ panelOpenState = false;
+  displayedColumns: string[] = ['select','name', 'employeeNumber', 'jobTitle', 'jobRole', 'employeeType',
+   'department', 'hireDate', 'logonHours','emailAddress', 'phone', 'address', 'CUIdata'];
+
+
+
+
+ public openDialog() {
+    this.dialog.open(DialogElementsExampleDialog, {height:'65%', width:"80%",});
+
+  }
+
+onRowClicked(row): void {
+  console.log("Row clicked: ", row);
+  this.rowSelected = true;
+  var configUrl = 'http://localhost:4200' + "/" + row.Title;
+  console.log(configUrl)
+ // this.router.navigate(configUrl.concat("/",row.Title))
+}
+applyFilter(event: Event) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.dataSource.filter = filterValue.trim().toLowerCase();
+
+
+}
+
+isAllSelected() {
+  const numSelected = this.selection.selected.length;
+  const numRows = this.dataSource.data.length;
+  return numSelected === numRows;
+}
+
+masterToggle() {
+  this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+}
+
+checkboxLabel(row?: userTable): string {
+  if (!row) {
+    return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+  }
+  return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+}
+
+
+removeSelectedRows() {
+  let data = Object.assign(User_Data)
+  this.selection.selected.forEach(item => {
+     let index: number = data.findIndex(d => d === item);
+     console.log(data.findIndex(d => d === item));
+     data.splice(index,1)
+     this.dataSource = new MatTableDataSource<userTable>(data);
+   });
+   this.selection = new SelectionModel<userTable>(true, []);
+}
+
+
+
+*/
