@@ -12,46 +12,66 @@
 
 
 <div id="milestones" class="milestones" style="width:100%">
-    <table mat-table [dataSource]="dataSource" class="milestoneTable" style="width:100% ;height:100%">
-        <ng-container matColumnDef="select">
-            <th mat-header-cell *matHeaderCellDef>
-            <mat-checkbox (change)="$event ? masterToggle() : null"
-                            [checked]="selection.hasValue() && isAllSelected()"
-                            [indeterminate]="selection.hasValue() && !isAllSelected()"
-                            [aria-label]="checkboxLabel()">
-            </mat-checkbox>
-            </th>
-            <td mat-cell *matCellDef="let row">
-            <mat-checkbox (click)="$event.stopPropagation()"
-                            (change)="$event ? selection.toggle(row) : null"
-                            [checked]="selection.isSelected(row)"
-                            [aria-label]="checkboxLabel(row)">
-            </mat-checkbox>
-            </td>
-        </ng-container>
-        <!-- Position Column -->
-        <ng-container matColumnDef="id" >
-          <th mat-header-cell *matHeaderCellDef> Milestones</th>
-          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-        </ng-container>
+    <button
+    (click)="post(userInput.value)"
+    mat-fab
+    color="primary"
+    style="float: right;"
+    >
+    <mat-icon>add</mat-icon>
+    </button>
+    <mat-form-field style="width: 100%;">
+    <mat-label>User item</mat-label>
+    <input #userInput matInput placeholder="Ex. Rice" />
+    </mat-form-field>
+    
+    <mat-list>
+      <div class="flexContainer">
+        <mat-list-item class="headerRow">
+          <span>
+            ID
+          </span>
+          <span style="margin-left: 6.5%;">
+            Name
+          </span>
+        </mat-list-item>
+      </div>
+    
+      <mat-list-item *ngFor="let milestone of milestones$ | async">
+        <div class="flexContainer">
+        <span class="listSpan" style="font-weight: bold;"
+          >{{ milestone.id }}    </span
+        >
+        <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
+          {{milestone.name}}
+        </span>
+        </div>
+    
+    
+       <span style="position: absolute; right: 0;">
+          <button mat-icon-button>
+            <mat-icon
+              (click)="update(milestone.id, userInput.value)"
+              color="primary"
+            >
+              edit
+            </mat-icon>
+          </button>
     
       
-        <!-- Weight Column -->
-        <ng-container matColumnDef="desc">
-          <th mat-header-cell *matHeaderCellDef> Description </th>
-          <td mat-cell *matCellDef="let element"> {{element.desc}} </td>
-        </ng-container>
-
-        <!-- Weight Column -->
-        <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef>Date</th>
-            <td mat-cell *matCellDef="let element"> {{element.date}} </td>
-            </ng-container>
+          <button mat-icon-button>
+            <mat-icon (click)="delete(milestone.id)" color="warn">
+              delete
+            </mat-icon>
+          </button>
+        </span> 
+      </mat-list-item>
+    </mat-list>
     
-      
-        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></tr>
-        <tr mat-row (click)="onRowClicked(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
+    
+    
+    
+    
 </div>
 
 <mat-dialog-content class="dialog" >

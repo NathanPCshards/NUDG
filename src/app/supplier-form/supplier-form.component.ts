@@ -5,44 +5,11 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { suppliers } from '../models/suppliers';
+import { SuppliersService } from '../services/suppliers.service';
 
-
-
-export interface userTable {
-  position: number;
-  name: string,
-  employeeNumber : string,
-  jobTitle: string,
-  jobRole: string,
-  employeeType : string,
-  department : string,
-  hireDate : string,
-  logonHours : string,
-  emailAddress : string,
-  phone : string,
-  address : string,
-  CUIdata : string,
-}
-
-const User_Data: userTable[] = [
-  {position: 1, name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-  department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-
-  {position:2,name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-    department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-
-    {position: 3,name : "Placeholder" ,employeeNumber : "Placeholder",jobTitle : "Placeholder",jobRole : "Test",employeeType: "Test",
-    department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-
-    {position: 4,name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-      department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-
-      {position: 5,name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-      department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-
-      {position: 6,name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-        department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-];
 
 
 @Component({
@@ -56,18 +23,14 @@ export class SupplierFormComponent implements OnInit {
   submitted = false;
   results;// = res.json();
   panelOpenState = false;
-  displayedColumns: string[] = ['select','name', 'employeeNumber', 'jobTitle', 'jobRole', 'employeeType',
-   'department', 'hireDate', 'logonHours','emailAddress', 'phone', 'address', 'CUIdata'];
-  rowSelected = false;
+
   name: any;
- 
-  dataSource: MatTableDataSource<userTable>;
-  selection = new SelectionModel<userTable>(true, []);
-  @ViewChild(MatSort) sort;
+  suppliers$: Observable<suppliers[]>;
 
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog){
-    this.dataSource = new MatTableDataSource(User_Data);
+
+  constructor(private http: HttpClient, private formBuilder: FormBuilder,
+     public dialog: MatDialog, public suppliersService : SuppliersService){
     
   }
   public openDialog() {
@@ -75,75 +38,62 @@ export class SupplierFormComponent implements OnInit {
 
   }
 
-  ngAfterViewInit(){
-    this.dataSource.sort = this.sort;
 
-  }
 
   ngOnInit(){
+    this.suppliers$ = this.fetchAll();
 
   }
 
-onRowClicked(row): void {
-  console.log("Row clicked: ", row);
-  this.rowSelected = true;
-  var configUrl = 'http://localhost:4200' + "/" + row.Title;
-  console.log(configUrl)
- // this.router.navigate(configUrl.concat("/",row.Title))
-}
-applyFilter(event: Event) {
-  const filterValue = (event.target as HTMLInputElement).value;
-  this.dataSource.filter = filterValue.trim().toLowerCase();
-
-
-}
-
-
-isAllSelected() {
-  const numSelected = this.selection.selected.length;
-  const numRows = this.dataSource.data.length;
-  return numSelected === numRows;
-}
-
-/** Selects all rows if they are not all selected; otherwise clear selection. */
-masterToggle() {
-  this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
-}
-
-/** The label for the checkbox on the passed row */
-checkboxLabel(row?: userTable): string {
-  if (!row) {
-    return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+  fetchAll(): Observable<suppliers[]> {
+    return this.suppliersService.fetchAll();
   }
-  return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  
+  post(inventoryItem: Partial<suppliers>): void {
+    const name = (<string>inventoryItem).trim();
+    if (!name) return;
+  
+    this.suppliers$ = this.suppliersService
+      .post({ name })
+      .pipe(tap(() => (this.suppliers$ = this.fetchAll())));
+  }
+  
+  
+  update(id: number, inventoryItem: Partial<suppliers>): void {
+    const name = (<any>inventoryItem).trim();
+    
+    if (!name) return;
+  
+    const newUsers: suppliers = {
+      id,
+      name
+  
+    };
+  
+    this.suppliers$ = this.suppliersService
+      .update(newUsers)
+      .pipe(tap(() => (this.suppliers$ = this.fetchAll())));
+  }
+  
+  
+  delete(id: any): void {
+    console.log("attempting to delete id : " , id)
+   // iduseru = 15
+   // console.log("attempting to delete id : " , iduseru)
+  
+    this.suppliers$ = this.suppliersService
+      .delete(id)
+      .pipe(tap(() => (this.suppliers$ = this.fetchAll())));
+      
+  }
+  
 }
 
 
-removeSelectedRows() {
-  let data = Object.assign(User_Data)
-  this.selection.selected.forEach(item => {
-     let index: number = data.findIndex(d => d === item);
-     console.log(data.findIndex(d => d === item));
-     data.splice(index,1)
-     this.dataSource = new MatTableDataSource<userTable>(data);
-   });
-   this.selection = new SelectionModel<userTable>(true, []);
-}
 
 
 
 
-
-
-
-
-
-
-
-
-}
 @Component({
   selector: 'supplierForm',
   templateUrl: 'supplierForm.html',
@@ -182,3 +132,56 @@ this.submitted = false;
 
 }
 }
+
+
+/* old functions for table
+
+onRowClicked(row): void {
+  console.log("Row clicked: ", row);
+  this.rowSelected = true;
+  var configUrl = 'http://localhost:4200' + "/" + row.Title;
+  console.log(configUrl)
+ // this.router.navigate(configUrl.concat("/",row.Title))
+}
+applyFilter(event: Event) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.dataSource.filter = filterValue.trim().toLowerCase();
+
+
+}
+
+
+isAllSelected() {
+  const numSelected = this.selection.selected.length;
+  const numRows = this.dataSource.data.length;
+  return numSelected === numRows;
+}
+
+masterToggle() {
+  this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+}
+
+checkboxLabel(row?: userTable): string {
+  if (!row) {
+    return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+  }
+  return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+}
+
+
+removeSelectedRows() {
+  let data = Object.assign(User_Data)
+  this.selection.selected.forEach(item => {
+     let index: number = data.findIndex(d => d === item);
+     console.log(data.findIndex(d => d === item));
+     data.splice(index,1)
+     this.dataSource = new MatTableDataSource<userTable>(data);
+   });
+   this.selection = new SelectionModel<userTable>(true, []);
+}
+
+
+
+*/

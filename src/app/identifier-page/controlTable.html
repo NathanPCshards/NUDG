@@ -1,22 +1,57 @@
-<table mat-table [dataSource]="dataSource" class="controlTable" style="border-width: 3px;">
 
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-  
-    <!-- ID Column -->
-    <ng-container  matColumnDef="id" style="display: none;">
+
+  <button
+  (click)="post(userInput.value)"
+  mat-fab
+  color="primary"
+  style="float: right;"
+>
+  <mat-icon>add</mat-icon>
+</button>
+<mat-form-field style="width: 100%;">
+  <mat-label>Control item</mat-label>
+  <input #userInput matInput placeholder="Ex. Rice" />
+</mat-form-field>
+
+  <mat-list>
+    <div class="flexContainer">
+      <mat-list-item class="headerRow">
+        <span>
+          ID
+        </span>
+        <span style="margin-left: 6.5%;">
+          Name
+        </span>
+      </mat-list-item>
+    </div>
+
+    <mat-list-item *ngFor="let control of controls$ | async">
+      <div class="flexContainer">
+      <span class="listSpan" style="font-weight: bold;"
+        >{{ control.id }}    </span
+      >
+      <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
+        {{control.name}}
+      </span>
+      </div>
+
+
+     <span style="position: absolute; right: 0;">
+        <button mat-icon-button>
+          <mat-icon
+            (click)="update(control.id, userInput.value)"
+            color="primary"
+          >
+            edit
+          </mat-icon>
+        </button>
+
     
-      <th mat-header-cell *matHeaderCellDef > Control Id </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
-
-    <!-- Description Column -->
-    <ng-container matColumnDef="desc">
-      <th mat-header-cell *matHeaderCellDef>  </th>
-      <td mat-cell *matCellDef="let element"> {{element.desc}} </td>
-    </ng-container>
-  
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></tr>
-    <tr mat-row (click)="onRowClicked(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+        <button mat-icon-button>
+          <mat-icon (click)="delete(control.id)" color="warn">
+            delete
+          </mat-icon>
+        </button>
+      </span> 
+    </mat-list-item>
+  </mat-list>

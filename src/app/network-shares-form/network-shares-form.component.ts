@@ -3,43 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-
-export interface inventoryTable {
-  position: number;
-  name: string,
-  employeeNumber : string,
-  jobTitle: string,
-  jobRole: string,
-  employeeType : string,
-  department : string,
-  hireDate : string,
-  logonHours : string,
-  emailAddress : string,
-  phone : string,
-  address : string,
-  CUIdata : string,
-}
-
-const Inv_Data: inventoryTable[] = [
-  {position: 1, name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-  department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-
-  {position:2,name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-    department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-
-    {position: 3,name : "Placeholder" ,employeeNumber : "Placeholder",jobTitle : "Placeholder",jobRole : "Test",employeeType: "Test",
-    department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-
-    {position: 4,name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-      department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-
-      {position: 5,name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-      department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-
-      {position: 6,name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-        department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-];
+import { networkshares } from '../models/networkshares';
+import { NetworksharesService } from '../services/networkshares.service';
 
 
 @Component({
@@ -96,19 +63,16 @@ export class networkSharesPage implements OnInit {
   results;
   panelOpenState;
   rowSelected = false;
- 
-  dataSource: MatTableDataSource<inventoryTable>;
-  selection = new SelectionModel<inventoryTable>(true, []);
-  displayedColumns: string[] = ['select','name', 'employeeNumber', 'jobTitle', 'jobRole', 'employeeType',
-   'department', 'hireDate', 'logonHours','emailAddress', 'phone', 'address', 'CUIdata'];
 
+  networkshares$: Observable<networkshares[]>;
 
-
-  constructor(private http:HttpClient, private formBuilder: FormBuilder, ) {
-    this.dataSource = new MatTableDataSource(Inv_Data);
+  constructor(private http:HttpClient, private formBuilder: FormBuilder, 
+    private networksharesService : NetworksharesService ) {
    }
 
   ngOnInit(){
+    this.networkshares$ = this.fetchAll();
+
     this.inventoryForm = this.formBuilder.group({
       //initialize some stuff here
     });
@@ -131,6 +95,62 @@ export class networkSharesPage implements OnInit {
    this.submitted = false;
 
 }
+
+
+
+fetchAll(): Observable<networkshares[]> {
+  return this.networksharesService.fetchAll();
+}
+
+post(inventoryItem: Partial<networkshares>): void {
+  const name = (<string>inventoryItem).trim();
+  if (!name) return;
+
+  this.networkshares$ = this.networksharesService
+    .post({ name })
+    .pipe(tap(() => (this.networkshares$ = this.fetchAll())));
+}
+
+
+update(id: number, inventoryItem: Partial<networkshares>): void {
+  const name = (<any>inventoryItem).trim();
+  
+  if (!name) return;
+
+  const newUsers: networkshares = {
+    id,
+    name
+
+  };
+
+  this.networkshares$ = this.networksharesService
+    .update(newUsers)
+    .pipe(tap(() => (this.networkshares$ = this.fetchAll())));
+}
+
+
+delete(id: any): void {
+  console.log("attempting to delete id : " , id)
+ // iduseru = 15
+ // console.log("attempting to delete id : " , iduseru)
+
+  this.networkshares$ = this.networksharesService
+    .delete(id)
+    .pipe(tap(() => (this.networkshares$ = this.fetchAll())));
+    
+}
+
+
+
+
+}
+
+
+
+
+
+/*old table functions
+
 isAllSelected() {
   const numSelected = this.selection.selected.length;
   const numRows = this.dataSource.data.length;
@@ -142,7 +162,6 @@ masterToggle() {
       this.dataSource.data.forEach(row => this.selection.select(row));
 }
 
-/** The label for the checkbox on the passed row */
 checkboxLabel(row?: inventoryTable): string {
   if (!row) {
     return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
@@ -169,8 +188,5 @@ onRowClicked(row): void {
  // this.router.navigate(configUrl.concat("/",row.Title))
 }
 
-}
 
-
-
-
+*/

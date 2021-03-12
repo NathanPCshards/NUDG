@@ -9,9 +9,12 @@ import {merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import { SharedService } from '../services/Shared';
 
-import { tableEntry } from '../identifier-page/identifier-page.component';
 
-
+export interface tableEntry {
+  position: number;
+  desc: string;
+  id: string;
+}
 
 export interface weaknessTable {
   position: number,

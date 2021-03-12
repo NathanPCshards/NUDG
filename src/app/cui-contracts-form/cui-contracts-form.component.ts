@@ -5,43 +5,10 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
-
-export interface userTable {
-  position: number;
-  name: string,
-  employeeNumber : string,
-  jobTitle: string,
-  jobRole: string,
-  employeeType : string,
-  department : string,
-  hireDate : string,
-  logonHours : string,
-  emailAddress : string,
-  phone : string,
-  address : string,
-  CUIdata : string,
-}
-
-const User_Data: userTable[] = [
-  {position: 1, name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-  department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-
-  {position:2,name : "CUI" ,employeeNumber : "Contracts",jobTitle : "Would",jobRole : "Go",employeeType: "Here",
-    department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-
-    {position: 3,name : "Placeholder" ,employeeNumber : "Placeholder",jobTitle : "Placeholder",jobRole : "Test",employeeType: "Test",
-    department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-
-    {position: 4,name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-      department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-
-      {position: 5,name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-      department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-
-      {position: 6,name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-        department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-];
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { cuicontracts } from '../models/cuicontracts';
+import { CuicontractsService } from '../services/cuicontracts.service';
 
 
 @Component({
@@ -52,6 +19,7 @@ const User_Data: userTable[] = [
 export class CuiContractsFormComponent implements OnInit {
 
   picker;
+  cuicontracts$: Observable<cuicontracts[]>;
 
   submitted = false;
   results;// = res.json();
@@ -61,76 +29,70 @@ export class CuiContractsFormComponent implements OnInit {
   rowSelected = false;
   name: any;
  
-  dataSource: MatTableDataSource<userTable>;
-  selection = new SelectionModel<userTable>(true, []);
-  @ViewChild(MatSort) sort;
 
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog){
-    this.dataSource = new MatTableDataSource(User_Data);
+
+  constructor(private http: HttpClient, private formBuilder: FormBuilder,
+     public dialog: MatDialog, private cuicontractsService : CuicontractsService){
     
   }
+  
   public openDialog() {
     this.dialog.open(DialogCUIForm, {height:'65%', width:"80%",});
 
   }
 
   ngAfterViewInit(){
-    this.dataSource.sort = this.sort;
 
   }
 
   ngOnInit(){
+    this.cuicontracts$ = this.fetchAll();
 
   }
 
-onRowClicked(row): void {
-  console.log("Row clicked: ", row);
-  this.rowSelected = true;
-  var configUrl = 'http://localhost:4200' + "/" + row.Title;
-  console.log(configUrl)
- // this.router.navigate(configUrl.concat("/",row.Title))
-}
-applyFilter(event: Event) {
-  const filterValue = (event.target as HTMLInputElement).value;
-  this.dataSource.filter = filterValue.trim().toLowerCase();
-
-
-}
-
-
-isAllSelected() {
-  const numSelected = this.selection.selected.length;
-  const numRows = this.dataSource.data.length;
-  return numSelected === numRows;
-}
-
-/** Selects all rows if they are not all selected; otherwise clear selection. */
-masterToggle() {
-  this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
-}
-
-/** The label for the checkbox on the passed row */
-checkboxLabel(row?: userTable): string {
-  if (!row) {
-    return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+  fetchAll(): Observable<cuicontracts[]> {
+    return this.cuicontractsService.fetchAll();
   }
-  return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-}
+  
+  post(inventoryItem: Partial<cuicontracts>): void {
+    const name = (<string>inventoryItem).trim();
+    if (!name) return;
+  
+    this.cuicontracts$ = this.cuicontractsService
+      .post({ name })
+      .pipe(tap(() => (this.cuicontracts$ = this.fetchAll())));
+  }
+  
+  
+  update(id: number, inventoryItem: Partial<cuicontracts>): void {
+    const name = (<any>inventoryItem).trim();
+    
+    if (!name) return;
+  
+    const newUsers: cuicontracts = {
+      id,
+      name
+  
+    };
+  
+    this.cuicontracts$ = this.cuicontractsService
+      .update(newUsers)
+      .pipe(tap(() => (this.cuicontracts$ = this.fetchAll())));
+  }
+  
+  
+  delete(id: any): void {
+    console.log("attempting to delete id : " , id)
+   // iduseru = 15
+   // console.log("attempting to delete id : " , iduseru)
+  
+    this.cuicontracts$ = this.cuicontractsService
+      .delete(id)
+      .pipe(tap(() => (this.cuicontracts$ = this.fetchAll())));
+      
+  }
 
-
-removeSelectedRows() {
-  let data = Object.assign(User_Data)
-  this.selection.selected.forEach(item => {
-     let index: number = data.findIndex(d => d === item);
-     console.log(data.findIndex(d => d === item));
-     data.splice(index,1)
-     this.dataSource = new MatTableDataSource<userTable>(data);
-   });
-   this.selection = new SelectionModel<userTable>(true, []);
-}
 }
 
 
@@ -171,3 +133,56 @@ this.submitted = false;
 
 }
 }
+
+
+
+
+/* old table functions
+
+onRowClicked(row): void {
+  console.log("Row clicked: ", row);
+  this.rowSelected = true;
+  var configUrl = 'http://localhost:4200' + "/" + row.Title;
+  console.log(configUrl)
+ // this.router.navigate(configUrl.concat("/",row.Title))
+}
+applyFilter(event: Event) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.dataSource.filter = filterValue.trim().toLowerCase();
+
+
+}
+
+
+isAllSelected() {
+  const numSelected = this.selection.selected.length;
+  const numRows = this.dataSource.data.length;
+  return numSelected === numRows;
+}
+
+masterToggle() {
+  this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+}
+
+checkboxLabel(row?: userTable): string {
+  if (!row) {
+    return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+  }
+  return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+}
+
+
+removeSelectedRows() {
+  let data = Object.assign(User_Data)
+  this.selection.selected.forEach(item => {
+     let index: number = data.findIndex(d => d === item);
+     console.log(data.findIndex(d => d === item));
+     data.splice(index,1)
+     this.dataSource = new MatTableDataSource<userTable>(data);
+   });
+   this.selection = new SelectionModel<userTable>(true, []);
+}
+
+*/

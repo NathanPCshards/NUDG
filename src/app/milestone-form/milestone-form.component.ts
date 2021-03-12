@@ -5,36 +5,11 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { milestones } from '../models/milestones';
+import { Observable } from 'rxjs';
+import { MilestonesService } from '../services/milestones.service';
+import { tap } from 'rxjs/operators';
 
-
-import { tableEntry } from '../identifier-page/identifier-page.component';
-
-export interface milestoneTable {
-  position: number,
-  id: string,
-  desc: string,
-  date: string,
-}
-
-class milestone implements milestoneTable {
-  position: -1;
-  id: 'Placeholder';
-  desc: 'Placeholder';
-  date: 'Placeholder';
-
-  constructor (position, id, desc, date){
-    this.position=position;
-    this.id = id;
-    this.desc = desc;
-    this.date = date;
-  }
-}
-const milestoneData: milestoneTable[] = [
-  {position: 1, id: "W1", desc: 'Onboarding and Offboarding process created, written documentation on the handling of added or removed users.', date:'3/4/2020'},
-  {position: 2, id: "W2", desc: 'Placeholder', date:'3/4/2020'},
-
-];
-let globalMilestoneData = new MatTableDataSource(milestoneData)
 
 @Component({
   selector: 'milestoneForm',
@@ -42,18 +17,17 @@ let globalMilestoneData = new MatTableDataSource(milestoneData)
   styleUrls: ['./milestone-form.component.scss']
 })
 export class MilestoneFormComponent implements OnInit {
-  dataSource: MatTableDataSource<milestoneTable>;
-  selection = new SelectionModel<milestoneTable>(true, []);
-  @ViewChild(MatSort) sort;
-  
+
+  milestones$: Observable<milestones[]>;
+
   clickEventsubscription;
   displayedColumns: string[] = ['select', 'id', 'desc', 'date'];
   
   rowSelected = false;
   
-    constructor(private http:HttpClient, private formBuilder: FormBuilder,  public dialog: MatDialog) { 
-      this.dataSource = new MatTableDataSource(milestoneData);
-      globalMilestoneData.data = this.dataSource.data;
+    constructor(private http:HttpClient, private formBuilder: FormBuilder,  
+      public dialog: MatDialog, private milestonesService : MilestonesService) { 
+
 
     }
     public openDialog(event) {
@@ -61,31 +35,136 @@ export class MilestoneFormComponent implements OnInit {
      // event.stopPropagation();  
     }
     public refresh(){
-      this.dataSource.data = globalMilestoneData.data;
+     // this.dataSource.data = globalMilestoneData.data;
     }
   
   ngOnInit(){
-  
+    this.milestones$ = this.fetchAll();
+
   }
   ngAfterViewInit(){
-    this.dataSource.sort = this.sort;
   
   }
   
+fetchAll(): Observable<milestones[]> {
+  return this.milestonesService.fetchAll();
+}
+
+post(inventoryItem: Partial<milestones>): void {
+  const name = (<string>inventoryItem).trim();
+  if (!name) return;
+
+  this.milestones$ = this.milestonesService
+    .post({ name })
+    .pipe(tap(() => (this.milestones$ = this.fetchAll())));
+}
+
+
+update(id: number, inventoryItem: Partial<milestones>): void {
+  const name = (<any>inventoryItem).trim();
+  
+  if (!name) return;
+
+  const newUsers: milestones = {
+    id,
+    name
+
+  };
+
+  this.milestones$ = this.milestonesService
+    .update(newUsers)
+    .pipe(tap(() => (this.milestones$ = this.fetchAll())));
+}
+
+
+delete(id: any): void {
+  console.log("attempting to delete id : " , id)
+ // iduseru = 15
+ // console.log("attempting to delete id : " , iduseru)
+
+  this.milestones$ = this.milestonesService
+    .delete(id)
+    .pipe(tap(() => (this.milestones$ = this.fetchAll())));
+    
+}
+
+
+
+}
+
+
+
+
+@Component({
+  selector: 'milestone-dialog',
+  templateUrl: 'milestoneForm.html',
+  styleUrls: ['./milestone-form.component.scss']
+
+})
+export class milestoneDialog {
+value;
+milestoneForm;
+position;
+id;
+desc;
+date;
+milestones;
+displayedColumns: String[] = ['select','id', 'desc','date'];
+
+
+submitted= false;
+  constructor(private http:HttpClient, private formBuilder: FormBuilder) { }
+
+ngOnInit(){
+  this.milestoneForm = this.formBuilder.group({
+    //initialize stuff to be null or whatever, here
+
+  });
+}
+public milestoneSubmit(value) {
+  /*
+  console.log("milestone submit reached value : " , value)
+  if (value =="milestoneForm"){
+    console.log("milestone WAS SUBMITTED");
+    this.submitted = true;
+  
+    const modal: milestoneTable = new milestone(this.position,this.id,this.desc, this.date);
+  
+  
+    const temp = (globalMilestoneData.data);
+    temp.push(modal)
+    globalMilestoneData.data = temp;
+  }*/
+
+}
+
+
+public onFormReset() {
+  console.log("FORM WAS Reset");
+
+this.submitted = false;
+
+}
+}   
+
+
+
+
+/* old table functions
+
+
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
   
-    /** Selects all rows if they are not all selected; otherwise clear selection. */
     masterToggle() {
       this.isAllSelected() ?
           this.selection.clear() :
           this.dataSource.data.forEach(row => this.selection.select(row));
     }
     
-    /** The label for the checkbox on the passed row */
     checkboxLabel(row?: milestoneTable): string {
       if (!row) {
         return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
@@ -119,58 +198,7 @@ export class MilestoneFormComponent implements OnInit {
     
     
     }
-}
 
 
 
-
-@Component({
-  selector: 'milestone-dialog',
-  templateUrl: 'milestoneForm.html',
-  styleUrls: ['./milestone-form.component.scss']
-
-})
-export class milestoneDialog {
-value;
-milestoneForm;
-position;
-id;
-desc;
-date;
-milestones;
-displayedColumns: String[] = ['select','id', 'desc','date'];
-
-
-submitted= false;
-  constructor(private http:HttpClient, private formBuilder: FormBuilder) { }
-
-ngOnInit(){
-  this.milestoneForm = this.formBuilder.group({
-    //initialize stuff to be null or whatever, here
-
-  });
-}
-public milestoneSubmit(value) {
-  console.log("milestone submit reached value : " , value)
-  if (value =="milestoneForm"){
-    console.log("milestone WAS SUBMITTED");
-    this.submitted = true;
-  
-    const modal: milestoneTable = new milestone(this.position,this.id,this.desc, this.date);
-  
-  
-    const temp = (globalMilestoneData.data);
-    temp.push(modal)
-    globalMilestoneData.data = temp;
-  }
-
-}
-
-
-public onFormReset() {
-  console.log("FORM WAS Reset");
-
-this.submitted = false;
-
-}
-}   
+*/

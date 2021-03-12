@@ -3,24 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-
-export interface entry {
-id: string,
-desc: string,
-position: number
+import { guidelines } from '../models/guidelines';
+import { GuidelinesService } from '../services/guidelines.service';
 
 
-}
-
-const exampleData: entry[] = [
-  {position: 1, id: "first", desc: "Dont share your password"},
-  {position: 2, id: "second", desc: "Dont share your username"},
-  {position: 3, id: "third", desc: "Just dont use computers in general."},
-
-
-
-];
 
 @Component({
   selector: 'guidelines-form',
@@ -32,7 +20,6 @@ export class GuidelinesPageComponent implements OnInit {
   id;
   desc;
 
-  displayedColumns: String[] = ['select','id', 'desc'];
   
   
   submitted= false;
@@ -67,26 +54,73 @@ export class GuidelinesPageComponent implements OnInit {
   styleUrls: ['./guidelines-page.component.scss']
 })
 export class GuidelinesForm implements OnInit {
-  dataSource: MatTableDataSource<entry>;
-  selection = new SelectionModel<entry>(true, []);
-  displayedColumns: string[] = ['id', 'desc'];
   panelOpenState = false;
   rowSelected;
 
+  guidelines$: Observable<guidelines[]>;
 
 
-  constructor(private http:HttpClient, private formBuilder: FormBuilder, ) {
-    this.dataSource = new MatTableDataSource(exampleData);
+  constructor(private http:HttpClient, private formBuilder: FormBuilder, private guidelinesService : GuidelinesService ) {
    }
 
   ngOnInit(){
+    this.guidelines$ = this.fetchAll();
 
   }
-
+  fetchAll(): Observable<guidelines[]> {
+    return this.guidelinesService.fetchAll();
+  }
+  
+  post(inventoryItem: Partial<guidelines>): void {
+    const name = (<string>inventoryItem).trim();
+    if (!name) return;
+  
+    this.guidelines$ = this.guidelinesService
+      .post({ name })
+      .pipe(tap(() => (this.guidelines$ = this.fetchAll())));
+  }
+  
+  
+  update(id: number, inventoryItem: Partial<guidelines>): void {
+    const name = (<any>inventoryItem).trim();
+    
+    if (!name) return;
+  
+    const newUsers: guidelines = {
+      id,
+      name
+  
+    };
+  
+    this.guidelines$ = this.guidelinesService
+      .update(newUsers)
+      .pipe(tap(() => (this.guidelines$ = this.fetchAll())));
+  }
+  
+  
+  delete(id: any): void {
+    console.log("attempting to delete id : " , id)
+   // iduseru = 15
+   // console.log("attempting to delete id : " , iduseru)
+  
+    this.guidelines$ = this.guidelinesService
+      .delete(id)
+      .pipe(tap(() => (this.guidelines$ = this.fetchAll())));
+      
+  }
+  
   public onFormSubmit() {
 
 
 }
+}
+  
+
+
+
+/*  old guidelines page
+
+
 isAllSelected() {
   const numSelected = this.selection.selected.length;
   const numRows = this.dataSource.data.length;
@@ -98,7 +132,6 @@ masterToggle() {
       this.dataSource.data.forEach(row => this.selection.select(row));
 }
 
-/** The label for the checkbox on the passed row */
 checkboxLabel(row?: entry): string {
   if (!row) {
     return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
@@ -124,6 +157,6 @@ onRowClicked(row): void {
   console.log(configUrl)
  // this.router.navigate(configUrl.concat("/",row.Title))
 }
-}
-  
 
+
+*/

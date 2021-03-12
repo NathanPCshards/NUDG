@@ -32,7 +32,7 @@ export class PageSearchComponent implements OnInit {
   'WeaknessForm', 'NetworkShareForm', 'SoftwareApprovalForm',
   'SharedResourceForm', 'SecurityLogForm', 'GuidelinesForm',
   'HelpCenterForm', 'GroupsPage', 'GroupsForm',
-  'NetworkSharePage',];
+  'NetworkSharePage','MilestonePage', 'ProcedurePage'];
 
   
   constructor(private route : ActivatedRoute, private router:Router) {

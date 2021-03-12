@@ -5,6 +5,10 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Observable } from 'rxjs';
+import { procedures } from '../models/procedures';
+import { ProceduresService } from '../services/procedures.service';
+import { tap } from 'rxjs/operators';
 
 
 
@@ -42,50 +46,149 @@ let globalProcedureData = new MatTableDataSource(procedureData)
   styleUrls: ['./procedure-form.component.scss']
 })
 export class ProcedureFormComponent implements OnInit {
- dataSource: MatTableDataSource<procedureTable>;
-  selection = new SelectionModel<procedureTable>(true, []);
-  @ViewChild(MatSort) sort;
-  
-  clickEventsubscription;
+  procedures$: Observable<procedures[]>;
+
   displayedColumns: string[] = ['select', 'id', 'desc', 'date'];
   
   rowSelected = false;
   
-    constructor(private http:HttpClient, private formBuilder: FormBuilder,  public dialog: MatDialog) { 
-      this.dataSource = new MatTableDataSource(procedureData);
-      globalProcedureData.data = this.dataSource.data;
-
+    constructor(private http:HttpClient, private formBuilder: FormBuilder,  
+      public dialog: MatDialog, private proceduresService : ProceduresService) { 
+   
     }
     public openDialog(event) {
       this.dialog.open(procedureDialog, {height:'40%', width:"40%",});
      // event.stopPropagation();  
     }
     public refresh(){
-      this.dataSource.data = globalProcedureData.data;
+    //  this.dataSource.data = globalProcedureData.data;
     }
   
   ngOnInit(){
-  
+    this.procedures$ = this.fetchAll();
+
   }
   ngAfterViewInit(){
-    this.dataSource.sort = this.sort;
   
   }
   
+fetchAll(): Observable<procedures[]> {
+  return this.proceduresService.fetchAll();
+}
+
+post(inventoryItem: Partial<procedures>): void {
+  const name = (<string>inventoryItem).trim();
+  if (!name) return;
+
+  this.procedures$ = this.proceduresService
+    .post({ name })
+    .pipe(tap(() => (this.procedures$ = this.fetchAll())));
+}
+
+
+update(id: number, inventoryItem: Partial<procedures>): void {
+  const name = (<any>inventoryItem).trim();
+  
+  if (!name) return;
+
+  const newUsers: procedures = {
+    id,
+    name
+
+  };
+
+  this.procedures$ = this.proceduresService
+    .update(newUsers)
+    .pipe(tap(() => (this.procedures$ = this.fetchAll())));
+}
+
+
+delete(id: any): void {
+  console.log("attempting to delete id : " , id)
+ // iduseru = 15
+ // console.log("attempting to delete id : " , iduseru)
+
+  this.procedures$ = this.proceduresService
+    .delete(id)
+    .pipe(tap(() => (this.procedures$ = this.fetchAll())));
+    
+}
+
+}
+
+
+
+
+@Component({
+  selector: 'procedure-dialog',
+  templateUrl: 'procedure.html',
+  styleUrls: ['./procedure-form.component.scss']
+
+})
+export class procedureDialog {
+value;
+procedureForm;
+position;
+id;
+desc;
+date;
+milestones;
+displayedColumns: String[] = ['select','id', 'desc','date'];
+
+
+submitted= false;
+  constructor(private http:HttpClient, private formBuilder: FormBuilder) { }
+
+ngOnInit(){
+  this.procedureForm = this.formBuilder.group({
+    //initialize stuff to be null or whatever, here
+
+  });
+}
+public procedureSubmit(value) {
+  /*
+  console.log("procedure submit reached value : " , value)
+  if (value =="procedureForm"){
+    console.log("procedure WAS SUBMITTED");
+    this.submitted = true;
+  
+    const modal: procedureTable = new procedure(this.position,this.id,this.desc, this.date);
+  
+  
+    const temp = (globalProcedureData.data);
+    temp.push(modal)
+    globalProcedureData.data = temp;
+  }
+*/
+
+}
+
+
+public onFormReset() {
+  console.log("FORM WAS Reset");
+
+this.submitted = false;
+
+}
+}   
+
+
+
+
+/* old table functions
+
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
   
-    /** Selects all rows if they are not all selected; otherwise clear selection. */
     masterToggle() {
       this.isAllSelected() ?
           this.selection.clear() :
           this.dataSource.data.forEach(row => this.selection.select(row));
     }
     
-    /** The label for the checkbox on the passed row */
     checkboxLabel(row?: procedureTable): string {
       if (!row) {
         return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
@@ -119,58 +222,5 @@ export class ProcedureFormComponent implements OnInit {
     
     
     }
-}
 
-
-
-
-@Component({
-  selector: 'procedure-dialog',
-  templateUrl: 'procedure.html',
-  styleUrls: ['./procedure-form.component.scss']
-
-})
-export class procedureDialog {
-value;
-procedureForm;
-position;
-id;
-desc;
-date;
-milestones;
-displayedColumns: String[] = ['select','id', 'desc','date'];
-
-
-submitted= false;
-  constructor(private http:HttpClient, private formBuilder: FormBuilder) { }
-
-ngOnInit(){
-  this.procedureForm = this.formBuilder.group({
-    //initialize stuff to be null or whatever, here
-
-  });
-}
-public procedureSubmit(value) {
-  console.log("procedure submit reached value : " , value)
-  if (value =="procedureForm"){
-    console.log("procedure WAS SUBMITTED");
-    this.submitted = true;
-  
-    const modal: procedureTable = new procedure(this.position,this.id,this.desc, this.date);
-  
-  
-    const temp = (globalProcedureData.data);
-    temp.push(modal)
-    globalProcedureData.data = temp;
-  }
-
-}
-
-
-public onFormReset() {
-  console.log("FORM WAS Reset");
-
-this.submitted = false;
-
-}
-}   
+*/

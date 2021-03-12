@@ -8,9 +8,9 @@ import { ErrorHandlerService } from "./error-handler.service";
 @Injectable({
   providedIn: 'root'
 })
-export class RolesService {
+export class GroupsService {
 //url must match route in the app.use(...) in index.js
-private url = "http://localhost:3000/roles"
+private url = "http://localhost:3000/groups"
 
 httpOptions: { headers: HttpHeaders } = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -23,7 +23,7 @@ httpOptions: { headers: HttpHeaders } = {
     return this.http
       .get<roles[]>(this.url, { responseType: "json" })
       .pipe(
-        tap((_) => console.log("fetched roles")),
+        tap((_) => console.log("fetched groups")),
         catchError(
           this.errorHandlerService.handleError<roles[]>("fetchAll", [])
         )
@@ -43,8 +43,7 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   delete(id: number): Observable<any> {
-    const url = `http://localhost:3000/roles/${id}`;
-   //const url = `http://localhost:3000/users`;
+    const url = `http://localhost:3000/groups/${id}`;
 
     return this.http
       .delete<roles>(url, this.httpOptions)

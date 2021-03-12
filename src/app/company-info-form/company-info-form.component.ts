@@ -71,13 +71,13 @@ export class CompanyInfoFormComponent {
   }
 
 
-  delete(idusersu: any): void {
-    console.log("attempting to delete id : " , idusersu)
+  delete(id: any): void {
+    console.log("attempting to delete id : " , id)
    // iduseru = 15
    // console.log("attempting to delete id : " , iduseru)
 
     this.companies$ = this.companyInfoService
-      .delete(idusersu)
+      .delete(id)
       .pipe(tap(() => (this.companies$ = this.fetchAll())));
       
   }

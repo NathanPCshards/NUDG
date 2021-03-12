@@ -4,92 +4,16 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { controls } from '../models/controls';
+import { standards } from '../models/standards';
+import { weaknesses } from '../models/weaknesses';
+import { ControlsService } from '../services/controls.service';
 import { SharedService } from '../services/Shared';
+import { StandardsService } from '../services/standards.service';
+import { WeaknessesService } from '../services/weaknesses.service';
 import { userTable } from '../user-form/user-form.component';
-
-
-
-
-
-
-export interface PeriodicElement {
-  position: number;
-  Subtitle: string;
-  Title: string;
-  Status: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, Title: "NIST Mapping", Subtitle: 'Account Management', Status: "Implemented"},
-  {position: 2, Title: "AC-N.02", Subtitle: 'Access Enforcement', Status: "Implemented", },
-  {position: 3, Title: "AC-N.03", Subtitle: 'Use of External Information Systems', Status: "Implemented"},
-  {position: 4, Title: "AC-N.15", Subtitle: 'System Use Notification', Status: "Not Implemented"},
-];
-
-export interface tableEntry {
-  position: number;
-  desc: string;
-  id: string;
-}
-
-const example_weakness: tableEntry[] = [
-  {position: 1, id: "W1", desc: 'Onboarding and Offboarding process created, written documentation on the handling of added or removed users test test test test test test test test .'},
-  {position: 2, id: "W2", desc: 'Placeholder'},
-  {position: 3, id: "W3", desc: 'Placeholder'},
-  {position: 2, id: "W2", desc: 'Placeholder'},
-  {position: 3, id: "W3", desc: 'Placeholder'},
-  {position: 2, id: "W2", desc: 'Placeholder'},
-  {position: 3, id: "W3", desc: 'Placeholder'},
-  {position: 2, id: "W2", desc: 'Placeholder'},
-  {position: 3, id: "W3", desc: 'Placeholder'},
-  {position: 2, id: "W2", desc: 'Placeholder'},
-  {position: 3, id: "W3", desc: 'Placeholder'},
-
-  {position: 2, id: "W2", desc: 'Placeholder'},
-  {position: 3, id: "W3", desc: 'Placeholder'},
-];
-
-const example_control: tableEntry[] = [
-  {position: 1, id: "C1", desc: 'Users, Groups, and roles documented and assigned'},
-  {position: 2, id: "C2", desc: 'Placeholder'},
-
-  {position: 2, id: "C2", desc: 'Placeholder'},
-  {position: 2, id: "C2", desc: 'Placeholder'},
-  {position: 2, id: "C2", desc: 'Placeholder'},
-  {position: 2, id: "C2", desc: 'Placeholder'},
-  {position: 2, id: "C2", desc: 'Placeholder'},
-  
-  {position: 2, id: "C2", desc: 'Placeholder'},
-  {position: 2, id: "C2", desc: 'Placeholder'},
-  {position: 2, id: "C2", desc: 'Placeholder'},
-  {position: 2, id: "C2", desc: 'Placeholder'},
-  {position: 2, id: "C2", desc: 'Placeholder'},
-  
-  {position: 2, id: "C2", desc: 'Placeholder'},
-  {position: 2, id: "C2", desc: 'Placeholder'},
-  {position: 2, id: "C2", desc: 'Placeholder'},
-  {position: 2, id: "C2", desc: 'Placeholder'},
-
-
-];
-
-const example_standard: tableEntry[] = [
-  {position: 1, id: "S1", desc: 'Define and document the types of accounts authorized to access resources'},
-  {position: 2, id: "S2", desc: 'Placeholder'},
-  {position: 3, id: "S3", desc: 'Placeholder'},
-  {position: 4, id: "S4", desc: 'Placeholder'},
-  {position: 5, id: "S5", desc: 'Placeholder'},
-  {position: 2, id: "S2", desc: 'Placeholder'},
-  {position: 3, id: "S3", desc: 'Placeholder'},
-  {position: 4, id: "S4", desc: 'Placeholder'},
-  {position: 5, id: "S5", desc: 'Placeholder'},
-    {position: 2, id: "S2", desc: 'Placeholder'},
-  {position: 3, id: "S3", desc: 'Placeholder'},
-  {position: 4, id: "S4", desc: 'Placeholder'},
-  {position: 5, id: "S5", desc: 'Placeholder'},
-];
-
 
 
 
@@ -106,7 +30,6 @@ export class IdentifierPageComponent implements OnInit {
   results;
   panelOpenState;
   displayedColumns: string[] = ['Title', 'Subtitle', 'Status'];
-  dataSource = ELEMENT_DATA;
   rowSelected = false;
   name: any;
 
@@ -147,8 +70,8 @@ export class IdentifierPageComponent implements OnInit {
 
 })
 export class weaknessTable {
-dataSource: MatTableDataSource<tableEntry>;
-selection = new SelectionModel<tableEntry>(true, []);
+  weaknesses$: Observable<weaknesses[]>;
+
 @ViewChild(MatSort) sort;
 
 clickEventsubscription;
@@ -156,65 +79,64 @@ displayedColumns: string[] = ['id', 'desc'];
 
 rowSelected = false;
 
-  constructor(private http:HttpClient, private formBuilder: FormBuilder, private sharedService: SharedService) { 
-    this.dataSource = new MatTableDataSource(example_weakness);
-
+  constructor(private http:HttpClient, private formBuilder: FormBuilder, 
+    private sharedService: SharedService, private weaknessService:WeaknessesService) { 
+/*
     this.clickEventsubscription = this.sharedService.getClickEvent().subscribe(()=>{
       this.removeSelectedRows();
-      })
+      })*/
 
   }
 
 ngOnInit(){
+  this.weaknesses$ = this.fetchAll();
 
 }
 ngAfterViewInit(){
-  this.dataSource.sort = this.sort;
 
 }
-
-isAllSelected() {
-  const numSelected = this.selection.selected.length;
-  const numRows = this.dataSource.data.length;
-  return numSelected === numRows;
+fetchAll(): Observable<weaknesses[]> {
+  return this.weaknessService.fetchAll();
 }
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
-  }
+post(inventoryItem: Partial<weaknesses>): void {
+  const name = (<string>inventoryItem).trim();
+  if (!name) return;
+
+  this.weaknesses$ = this.weaknessService
+    .post({ name })
+    .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));
+}
+
+
+update(id: number, inventoryItem: Partial<weaknesses>): void {
+  const name = (<any>inventoryItem).trim();
   
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: tableEntry): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-  }
-  
-  
-  removeSelectedRows() {
-    console.log("delete rows called in group")
-    if (document.getElementById("groupTable")!.style.display == "table"){
-      let data = Object.assign(ELEMENT_DATA)
-      this.selection.selected.forEach(item => {
-         let index: number = data.findIndex(d => d === item);
-         console.log(data.findIndex(d => d === item));
-         data.splice(index,1)
-         this.dataSource = new MatTableDataSource<tableEntry>(data);
-       });
-       this.selection = new SelectionModel<tableEntry>(true, []);
-    }
-  }
-  onRowClicked(row): void {
-    console.log("Row clicked: ", row);
-    this.rowSelected = true;
-    var configUrl = 'http://localhost:4200' + "/" + row.Title;
-    console.log(configUrl)
-   // this.router.navigate(configUrl.concat("/",row.Title))
-  }
+  if (!name) return;
+
+  const newWeakness: weaknesses = {
+    id,
+    name
+
+  };
+
+  this.weaknesses$ = this.weaknessService
+    .update(newWeakness)
+    .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));
+}
+
+
+delete(id: any): void {
+  console.log("attempting to delete id : " , id)
+ // iduseru = 15
+ // console.log("attempting to delete id : " , iduseru)
+
+  this.weaknesses$ = this.weaknessService
+    .delete(id)
+    .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));
+    
+}
+
 
 }
 
@@ -225,78 +147,72 @@ isAllSelected() {
 
 })
 export class controlTable {
-dataSource: MatTableDataSource<tableEntry>;
-selection = new SelectionModel<tableEntry>(true, []);
+
+controls$: Observable<controls[]>;
+
 @ViewChild(MatSort) sort;
 
 clickEventsubscription;
-displayedColumns: string[] = ['id', 'desc'];
 
 rowSelected = false;
 
-  constructor(private http:HttpClient, private formBuilder: FormBuilder, private sharedService: SharedService) { 
-    this.dataSource = new MatTableDataSource(example_control);
-
+  constructor(private http:HttpClient, private formBuilder: FormBuilder, 
+    private sharedService: SharedService, private controlsService : ControlsService) { 
+/*
     this.clickEventsubscription = this.sharedService.getClickEvent().subscribe(()=>{
       this.removeSelectedRows();
-      })
+      })*/
 
   }
 
 ngOnInit(){
+  this.controls$ = this.fetchAll();
 
 }
 ngAfterViewInit(){
-  this.dataSource.sort = this.sort;
-
 }
 
-isAllSelected() {
-  const numSelected = this.selection.selected.length;
-  const numRows = this.dataSource.data.length;
-  return numSelected === numRows;
-}
-applyFilter() {
-
+fetchAll(): Observable<controls[]> {
+  return this.controlsService.fetchAll();
 }
 
+post(inventoryItem: Partial<controls>): void {
+  const name = (<string>inventoryItem).trim();
+  if (!name) return;
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
-  }
+  this.controls$ = this.controlsService
+    .post({ name })
+    .pipe(tap(() => (this.controls$ = this.fetchAll())));
+}
+
+
+update(id: number, inventoryItem: Partial<controls>): void {
+  const name = (<any>inventoryItem).trim();
   
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: tableEntry): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-  }
-  
-  
-  removeSelectedRows() {
-    console.log("delete rows called in group")
-    if (document.getElementById("groupTable")!.style.display == "table"){
-      let data = Object.assign(ELEMENT_DATA)
-      this.selection.selected.forEach(item => {
-         let index: number = data.findIndex(d => d === item);
-         console.log(data.findIndex(d => d === item));
-         data.splice(index,1)
-         this.dataSource = new MatTableDataSource<tableEntry>(data);
-       });
-       this.selection = new SelectionModel<tableEntry>(true, []);
-    }
-  }
-  onRowClicked(row): void {
-    console.log("Row clicked: ", row);
-    this.rowSelected = true;
-    var configUrl = 'http://localhost:4200' + "/" + row.Title;
-    console.log(configUrl)
-   // this.router.navigate(configUrl.concat("/",row.Title))
-  }
+  if (!name) return;
+
+  const newUsers: controls = {
+    id,
+    name
+
+  };
+
+  this.controls$ = this.controlsService
+    .update(newUsers)
+    .pipe(tap(() => (this.controls$ = this.fetchAll())));
+}
+
+
+delete(id: any): void {
+  console.log("attempting to delete id : " , id)
+ // iduseru = 15
+ // console.log("attempting to delete id : " , iduseru)
+
+  this.controls$ = this.controlsService
+    .delete(id)
+    .pipe(tap(() => (this.controls$ = this.fetchAll())));
+    
+}
 
 }
 
@@ -307,31 +223,94 @@ applyFilter() {
 
 })
 export class standardTable {
-dataSource: MatTableDataSource<tableEntry>;
-selection = new SelectionModel<tableEntry>(true, []);
-@ViewChild(MatSort) sort;
 
-clickEventsubscription;
-displayedColumns: string[] = ['id', 'desc'];
+@ViewChild(MatSort) sort;
+standards$: Observable<standards[]>;
+
+//clickEventsubscription;
+//displayedColumns: string[] = ['id', 'desc'];
 
 rowSelected = false;
 
-  constructor(private http:HttpClient, private formBuilder: FormBuilder, private sharedService: SharedService) { 
-    this.dataSource = new MatTableDataSource(example_standard);
-
+  constructor(private http:HttpClient, private formBuilder: FormBuilder, 
+    private sharedService: SharedService, private standardsService : StandardsService) { 
+/*
     this.clickEventsubscription = this.sharedService.getClickEvent().subscribe(()=>{
       this.removeSelectedRows();
-      })
+      })*/
 
   }
 
 ngOnInit(){
+  this.standards$ = this.fetchAll();
 
 }
 ngAfterViewInit(){
-  this.dataSource.sort = this.sort;
 
 }
+fetchAll(): Observable<standards[]> {
+  return this.standardsService.fetchAll();
+}
+
+post(inventoryItem: Partial<standards>): void {
+  const name = (<string>inventoryItem).trim();
+  if (!name) return;
+
+  this.standards$ = this.standardsService
+    .post({ name })
+    .pipe(tap(() => (this.standards$ = this.fetchAll())));
+}
+
+
+update(id: number, inventoryItem: Partial<standards>): void {
+  const name = (<any>inventoryItem).trim();
+  
+  if (!name) return;
+
+  const newUsers: standards = {
+    id,
+    name
+
+  };
+
+  this.standards$ = this.standardsService
+    .update(newUsers)
+    .pipe(tap(() => (this.standards$ = this.fetchAll())));
+}
+
+
+delete(id: any): void {
+  console.log("attempting to delete id : " , id)
+ // iduseru = 15
+ // console.log("attempting to delete id : " , iduseru)
+
+  this.standards$ = this.standardsService
+    .delete(id)
+    .pipe(tap(() => (this.standards$ = this.fetchAll())));
+    
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* old standard table functions
+
 
 isAllSelected() {
   const numSelected = this.selection.selected.length;
@@ -343,14 +322,60 @@ applyFilter() {
 }
 
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
     this.isAllSelected() ?
         this.selection.clear() :
         this.dataSource.data.forEach(row => this.selection.select(row));
   }
   
-  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: tableEntry): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  }
+  
+  
+  removeSelectedRows() {
+    console.log("delete rows called in group")
+    if (document.getElementById("groupTable")!.style.display == "table"){
+      let data = Object.assign(ELEMENT_DATA)
+      this.selection.selected.forEach(item => {
+         let index: number = data.findIndex(d => d === item);
+         console.log(data.findIndex(d => d === item));
+         data.splice(index,1)
+         this.dataSource = new MatTableDataSource<tableEntry>(data);
+       });
+       this.selection = new SelectionModel<tableEntry>(true, []);
+    }
+  }
+  onRowClicked(row): void {
+    console.log("Row clicked: ", row);
+    this.rowSelected = true;
+    var configUrl = 'http://localhost:4200' + "/" + row.Title;
+    console.log(configUrl)
+   // this.router.navigate(configUrl.concat("/",row.Title))
+  }
+*/
+
+/* old control table functions
+
+isAllSelected() {
+  const numSelected = this.selection.selected.length;
+  const numRows = this.dataSource.data.length;
+  return numSelected === numRows;
+}
+applyFilter() {
+
+}
+
+
+  masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+  
   checkboxLabel(row?: tableEntry): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
@@ -380,7 +405,50 @@ applyFilter() {
    // this.router.navigate(configUrl.concat("/",row.Title))
   }
 
+*/
+
+/* old weakness table functions 
+
+
+isAllSelected() {
+  const numSelected = this.selection.selected.length;
+  const numRows = this.dataSource.data.length;
+  return numSelected === numRows;
 }
 
+  masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+  
+  checkboxLabel(row?: tableEntry): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  }
+  
+  
+  removeSelectedRows() {
+    console.log("delete rows called in group")
+    if (document.getElementById("groupTable")!.style.display == "table"){
+      let data = Object.assign(ELEMENT_DATA)
+      this.selection.selected.forEach(item => {
+         let index: number = data.findIndex(d => d === item);
+         console.log(data.findIndex(d => d === item));
+         data.splice(index,1)
+         this.dataSource = new MatTableDataSource<tableEntry>(data);
+       });
+       this.selection = new SelectionModel<tableEntry>(true, []);
+    }
+  }
+  onRowClicked(row): void {
+    console.log("Row clicked: ", row);
+    this.rowSelected = true;
+    var configUrl = 'http://localhost:4200' + "/" + row.Title;
+    console.log(configUrl)
+   // this.router.navigate(configUrl.concat("/",row.Title))
+  }
 
-
+*/

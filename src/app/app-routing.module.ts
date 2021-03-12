@@ -25,6 +25,8 @@ import { SoftwareApprovalFormComponent } from './software-approval-form/software
 import { SharedResourcesFormComponent } from './shared-resources-form/shared-resources-form.component';
 import { SecurityLogFormComponent } from './security-log-form/security-log-form.component';
 import { helpCenterForm } from './help-center/help-center.component';
+import { ProcedureFormComponent } from './procedure-form/procedure-form.component';
+import { MilestoneFormComponent } from './milestone-form/milestone-form.component';
 //https://angular.io/guide/router
 
 const routes: Routes = [
@@ -61,6 +63,10 @@ const routes: Routes = [
   { path: 'SharedResourceForm', component: SharedResourcesFormComponent},
   { path: 'SecurityLogForm', component: SecurityLogFormComponent},
   { path: 'HelpCenterForm', component: helpCenterForm},
+
+  { path: 'MilestonePage', component: MilestoneFormComponent},
+  { path: 'ProcedurePage', component: ProcedureFormComponent},
+
 
 
 

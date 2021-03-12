@@ -125,3 +125,32 @@ div.cards{
 .mat-checkbox {
     color: white;
 }
+
+
+
+//CSS for LIST
+.flexContainer{
+    display:flexbox;
+}
+.listSpan {
+    position:fixed;
+    float:1;
+}
+.headerRow {
+    position:relative;
+}
+
+.mat-list >  .mat-list-item:nth-child(2n+1){
+
+    background-color:white;
+  }
+  .mat-list >  .mat-list-item:nth-child(2n){
+
+    background-color:rgb(230, 228, 228);
+  }
+
+  .mat-list > .mat-list-item{
+    border: 1px solid black;
+    justify-content: center;
+
+  }

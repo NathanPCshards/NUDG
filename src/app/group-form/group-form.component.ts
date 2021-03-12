@@ -4,40 +4,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { groups } from '../models/groups';
+import { inventories } from '../models/inventory';
+import { GroupsService } from '../services/groups.service';
 import { SharedService } from '../services/Shared';
 
 
-export interface userTable {
-  position: number;
-  name: string,
-  employeeNumber : string,
-  jobTitle: string,
-  jobRole: string,
-  employeeType : string,
-  department : string,
-  hireDate : string,
-  logonHours : string,
-  emailAddress : string,
-  phone : string,
-  address : string,
-  CUIdata : string,
-}
-
-
-
-
-const Group_Data: userTable[] = [
-  
-  {position: 4,name : "Test" ,employeeNumber : "Test",jobTitle : "GROUP",jobRole : "GROUP",employeeType: "Test",
-  department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-
-  {position: 5,name : "GROUP" ,employeeNumber : "monkey",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-  department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "GROUP", phone: "Test", address: "Test", CUIdata: "Test",},
-
-  {position: 6,name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-    department: "GROUP", hireDate: "GROUP",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",}
-]
 
 
 @Component({
@@ -103,22 +77,24 @@ export class GroupFormComponent implements OnInit {
 
 })
 export class groupTable {
-dataSource: MatTableDataSource<userTable>;
-selection = new SelectionModel<userTable>(true, []);
-@ViewChild(MatSort) sort;
+submitted = false;
+inventoryForm;
 panelOpenState;
+groups$: Observable<groups[]>;
+
 clickEventsubscription;
 
 displayedColumns: string[] = ['select','name', 'employeeNumber', 'jobTitle', 'jobRole', 'employeeType',
   'department', 'hireDate', 'logonHours','emailAddress', 'phone', 'address', 'CUIdata'];
 rowSelected = false;
 
-  constructor(private http:HttpClient, private formBuilder: FormBuilder, private sharedService: SharedService) { 
-    this.dataSource = new MatTableDataSource(Group_Data);
+  constructor(private http:HttpClient, private formBuilder: FormBuilder,
+     private sharedService: SharedService, private groupsService : GroupsService) { 
 
+      /*
     this.clickEventsubscription = this.sharedService.getClickEvent().subscribe(()=>{
       this.removeSelectedRows();
-      })
+      })*/
 
   }
 
@@ -126,9 +102,56 @@ ngOnInit(){
 
 }
 ngAfterViewInit(){
-  this.dataSource.sort = this.sort;
+  this.groups$ = this.fetchAll();
 
 }
+fetchAll(): Observable<inventories[]> {
+  return this.groupsService.fetchAll();
+}
+
+post(inventoryItem: Partial<inventories>): void {
+  const name = (<string>inventoryItem).trim();
+  if (!name) return;
+
+  this.groups$ = this.groupsService
+    .post({ name })
+    .pipe(tap(() => (this.groups$ = this.fetchAll())));
+}
+
+
+update(id: number, inventoryItem: Partial<inventories>): void {
+  const name = (<any>inventoryItem).trim();
+  
+  if (!name) return;
+
+  const newUsers: inventories = {
+    id,
+    name
+
+  };
+
+  this.groups$ = this.groupsService
+    .update(newUsers)
+    .pipe(tap(() => (this.groups$ = this.fetchAll())));
+}
+
+
+delete(id: any): void {
+  console.log("attempting to delete id : " , id)
+ // iduseru = 15
+ // console.log("attempting to delete id : " , iduseru)
+
+  this.groups$ = this.groupsService
+    .delete(id)
+    .pipe(tap(() => (this.groups$ = this.fetchAll())));
+    
+}
+
+}
+
+
+
+/*  Old group table functions
 
 isAllSelected() {
   const numSelected = this.selection.selected.length;
@@ -140,11 +163,11 @@ applyFilter() {
   //probably need to make another service event
   // -- or a injectable?
 
-  /*
+  
   this.sharedService.filterSubject.subscribe({
     next: (v) => console.log(v)
   });
-*/
+
 
 
 
@@ -155,41 +178,41 @@ applyFilter() {
 }
 
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
-  }
-  
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: userTable): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-  }
-  
-  
-  removeSelectedRows() {
-    console.log("delete rows called in group")
-    if (document.getElementById("groupTable")!.style.display == "table"){
-      let data = Object.assign(Group_Data)
-      this.selection.selected.forEach(item => {
-         let index: number = data.findIndex(d => d === item);
-         console.log(data.findIndex(d => d === item));
-         data.splice(index,1)
-         this.dataSource = new MatTableDataSource<userTable>(data);
-       });
-       this.selection = new SelectionModel<userTable>(true, []);
-    }
-  }
-  onRowClicked(row): void {
-    console.log("Row clicked: ", row);
-    this.rowSelected = true;
-    var configUrl = 'http://localhost:4200' + "/" + row.Title;
-    console.log(configUrl)
-   // this.router.navigate(configUrl.concat("/",row.Title))
-  }
-
+masterToggle() {
+  this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
 }
+
+checkboxLabel(row?: userTable): string {
+  if (!row) {
+    return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+  }
+  return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+}
+
+
+removeSelectedRows() {
+  console.log("delete rows called in group")
+  if (document.getElementById("groupTable")!.style.display == "table"){
+    let data = Object.assign(Group_Data)
+    this.selection.selected.forEach(item => {
+       let index: number = data.findIndex(d => d === item);
+       console.log(data.findIndex(d => d === item));
+       data.splice(index,1)
+       this.dataSource = new MatTableDataSource<userTable>(data);
+     });
+     this.selection = new SelectionModel<userTable>(true, []);
+  }
+}
+onRowClicked(row): void {
+  console.log("Row clicked: ", row);
+  this.rowSelected = true;
+  var configUrl = 'http://localhost:4200' + "/" + row.Title;
+  console.log(configUrl)
+ // this.router.navigate(configUrl.concat("/",row.Title))
+}
+
+
+
+*/
