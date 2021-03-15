@@ -36,10 +36,10 @@ export class InventoryFormComponent implements OnInit {
   post(inventoryItem: Partial<inventories>): void {
     const name = (<string>inventoryItem).trim();
     if (!name) return;
-
+/*
     this.inventories$ = this.inventoryService
       .post({ name })
-      .pipe(tap(() => (this.inventories$ = this.fetchAll())));
+      .pipe(tap(() => (this.inventories$ = this.fetchAll())));*/
   }
 
 
@@ -47,7 +47,7 @@ export class InventoryFormComponent implements OnInit {
     const name = (<any>inventoryItem).trim();
     
     if (!name) return;
-
+    /*
     const newUsers: inventories = {
       id,
       name
@@ -56,7 +56,7 @@ export class InventoryFormComponent implements OnInit {
 
     this.inventories$ = this.inventoryService
       .update(newUsers)
-      .pipe(tap(() => (this.inventories$ = this.fetchAll())));
+      .pipe(tap(() => (this.inventories$ = this.fetchAll())));*/
   }
 
 

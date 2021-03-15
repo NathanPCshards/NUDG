@@ -1,9 +1,12 @@
 export interface cuicontracts {
-    // Fname: string;
-    // Lname: string;
-    // Phone: string;
-    // Email: string;
-    // Password: string;
-     id?:number; 
-     name?:string;
+    idCUIcontracts : number;
+    CCname : string;
+    CCnum :number;
+    CCstartDate : Date;
+    CCendDate : Date;
+    CCdescription : string;
+    CCprimaryAssetRElation : number;
+    CCaccountManager : number;
+    CCsupplierRelation : number;
+    CCvendorRelation : number;
  }

@@ -30,6 +30,7 @@ import { SoftwareApprovalFormComponent } from './software-approval-form/software
 import { SharedResourcesFormComponent } from './shared-resources-form/shared-resources-form.component';
 import { SecurityLogFormComponent } from './security-log-form/security-log-form.component';
 import { HelpCenterComponent, helpCenterForm } from './help-center/help-center.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 
 
@@ -135,6 +136,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     HelpCenterComponent,
     helpCenterForm,
     networkSharesPage,
+    AdminPanelComponent,
     
 
     

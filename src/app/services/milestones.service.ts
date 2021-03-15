@@ -3,6 +3,7 @@ import { ErrorHandler, Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { catchError, publish, tap } from "rxjs/operators";
 import { inventories } from "../models/inventory";
+import { milestones } from "../models/milestones";
 import { ErrorHandlerService } from "./error-handler.service";
 
 
@@ -20,26 +21,26 @@ httpOptions: { headers: HttpHeaders } = {
   constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient) {
    }
 
-   fetchAll(): Observable<inventories[]> {
+   fetchAll(): Observable<milestones[]> {
     return this.http
-      .get<inventories[]>(this.url, { responseType: "json" })
+      .get<milestones[]>(this.url, { responseType: "json" })
       .pipe(
         tap((_) => console.log("fetched users")),
         catchError(
-          this.errorHandlerService.handleError<inventories[]>("fetchAll", [])
+          this.errorHandlerService.handleError<milestones[]>("fetchAll", [])
         )
       );
   }
 
-  post(item: Partial<inventories>): Observable<any> {
+  post(item: Partial<milestones>): Observable<any> {
     return this.http
-      .post<Partial<inventories>>(this.url, item, this.httpOptions)
+      .post<Partial<milestones>>(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
-  update(inventory: inventories): Observable<any> {
+  update(inventory: milestones): Observable<any> {
     return this.http
-      .put<inventories>(this.url, inventory, this.httpOptions)
+      .put<milestones>(this.url, inventory, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
   }
 

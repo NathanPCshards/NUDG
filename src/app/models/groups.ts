@@ -1,9 +1,10 @@
 export interface groups {
-    // Fname: string;
-    // Lname: string;
-    // Phone: string;
-    // Email: string;
-    // Password: string;
-     id?:number; 
-     name?:string;
+    idOrgGroups : number;
+    Gname : string;
+    Gdescription : string;
+    GcreationDate : Date;
+    GCUIaccess : string;
+    UGRusers : number;
+    GNSra : number;
+    GNSwa : number;
  }

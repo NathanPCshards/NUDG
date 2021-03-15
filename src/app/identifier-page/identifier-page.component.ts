@@ -180,9 +180,9 @@ post(inventoryItem: Partial<controls>): void {
   const name = (<string>inventoryItem).trim();
   if (!name) return;
 
-  this.controls$ = this.controlsService
-    .post({ name })
-    .pipe(tap(() => (this.controls$ = this.fetchAll())));
+///  this.controls$ = this.controlsService
+  //  .post({ name })
+ //   .pipe(tap(() => (this.controls$ = this.fetchAll())));
 }
 
 
@@ -191,15 +191,15 @@ update(id: number, inventoryItem: Partial<controls>): void {
   
   if (!name) return;
 
-  const newUsers: controls = {
-    id,
-    name
+ // const newUsers: controls = {
+ //   id,
+  //  name
 
-  };
+ // };
 
-  this.controls$ = this.controlsService
-    .update(newUsers)
-    .pipe(tap(() => (this.controls$ = this.fetchAll())));
+  //this.controls$ = this.controlsService
+   // .update(newUsers)
+  //  .pipe(tap(() => (this.controls$ = this.fetchAll())));
 }
 
 

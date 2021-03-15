@@ -33,6 +33,7 @@
     grid-column: 1 / 4;
     grid-row: 1;
     height:400px;
+    overflow:scroll;
    // box-shadow: 1px 1px 15px -1px ;
 
   }
@@ -250,7 +251,7 @@ div.control {
     display:flexbox;
 }
 .listSpan {
-    position:fixed;
+    position:relative;
     float:1;
 }
 .headerRow {

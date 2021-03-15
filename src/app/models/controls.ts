@@ -1,9 +1,11 @@
 export interface controls {
-    // Fname: string;
-    // Lname: string;
-    // Phone: string;
-    // Email: string;
-    // Password: string;
-     id?:number; 
-     name?:string;
+    idOrgControls : number;
+    Nid : string;
+    idStandards : number;
+    Cname : string;
+    Coverview : string;
+    Cissuedate : Date;
+    Csharedresources : number;
+    Curl : string;
+    CProcedure : number;
  }

@@ -32,6 +32,7 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   post(item: Partial<inventories>): Observable<any> {
+    console.log("testing inventory : " , item)
     return this.http
       .post<Partial<inventories>>(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));

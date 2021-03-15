@@ -4,7 +4,11 @@
    
       
   }
-
+ 
+  ::ng-deep .mat-tab-list .mat-tab-labels {
+    color: white;
+    
+  }
   .sidnav {
       position: relative;
       width: 10vw;

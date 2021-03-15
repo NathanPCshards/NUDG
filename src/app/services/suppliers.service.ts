@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders} from "@angular/common/http";
 import { ErrorHandler, Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { catchError, publish, tap } from "rxjs/operators";
-import { inventories } from "../models/inventory";
+import { suppliers } from "../models/suppliers";
 import { ErrorHandlerService } from "./error-handler.service";
 
 
@@ -20,26 +20,26 @@ httpOptions: { headers: HttpHeaders } = {
   constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient) {
    }
 
-   fetchAll(): Observable<inventories[]> {
+   fetchAll(): Observable<suppliers[]> {
     return this.http
-      .get<inventories[]>(this.url, { responseType: "json" })
+      .get<suppliers[]>(this.url, { responseType: "json" })
       .pipe(
         tap((_) => console.log("fetched users")),
         catchError(
-          this.errorHandlerService.handleError<inventories[]>("fetchAll", [])
+          this.errorHandlerService.handleError<suppliers[]>("fetchAll", [])
         )
       );
   }
 
-  post(item: Partial<inventories>): Observable<any> {
+  post(item: Partial<suppliers>): Observable<any> {
     return this.http
-      .post<Partial<inventories>>(this.url, item, this.httpOptions)
+      .post<Partial<suppliers>>(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
-  update(inventory: inventories): Observable<any> {
+  update(inventory: suppliers): Observable<any> {
     return this.http
-      .put<inventories>(this.url, inventory, this.httpOptions)
+      .put<suppliers>(this.url, inventory, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
   }
 
@@ -48,7 +48,7 @@ httpOptions: { headers: HttpHeaders } = {
    //const url = `http://localhost:3000/users`;
 
     return this.http
-      .delete<inventories>(url, this.httpOptions)
+      .delete<suppliers>(url, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("delete")));
   }
 

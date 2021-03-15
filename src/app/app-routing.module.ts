@@ -27,6 +27,7 @@ import { SecurityLogFormComponent } from './security-log-form/security-log-form.
 import { helpCenterForm } from './help-center/help-center.component';
 import { ProcedureFormComponent } from './procedure-form/procedure-form.component';
 import { MilestoneFormComponent } from './milestone-form/milestone-form.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 //https://angular.io/guide/router
 
 const routes: Routes = [
@@ -40,6 +41,7 @@ const routes: Routes = [
   { path: 'Roles', component: RoleFormComponent },
   { path: 'GroupsForm', component: GroupFormComponent },
   { path: 'GroupsPage', component: groupTable },
+  { path: 'AdminPanel', component: AdminPanelComponent },
 
   { path: 'Policy', component: IdentifierPageComponent },
   { path: 'AC-N.01', component: IdentifierPageComponent },

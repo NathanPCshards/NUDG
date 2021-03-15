@@ -53,15 +53,17 @@ export class CuiContractsFormComponent implements OnInit {
 
   fetchAll(): Observable<cuicontracts[]> {
     return this.cuicontractsService.fetchAll();
+
   }
   
   post(inventoryItem: Partial<cuicontracts>): void {
     const name = (<string>inventoryItem).trim();
     if (!name) return;
   
+    /*
     this.cuicontracts$ = this.cuicontractsService
       .post({ name })
-      .pipe(tap(() => (this.cuicontracts$ = this.fetchAll())));
+      .pipe(tap(() => (this.cuicontracts$ = this.fetchAll())));*/
   }
   
   
@@ -69,7 +71,7 @@ export class CuiContractsFormComponent implements OnInit {
     const name = (<any>inventoryItem).trim();
     
     if (!name) return;
-  
+  /*
     const newUsers: cuicontracts = {
       id,
       name
@@ -78,7 +80,7 @@ export class CuiContractsFormComponent implements OnInit {
   
     this.cuicontracts$ = this.cuicontractsService
       .update(newUsers)
-      .pipe(tap(() => (this.cuicontracts$ = this.fetchAll())));
+      .pipe(tap(() => (this.cuicontracts$ = this.fetchAll())));*/
   }
   
   

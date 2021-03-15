@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { number } from 'echarts';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { companyInfo } from '../models/companyInfo';
@@ -45,23 +46,49 @@ export class CompanyInfoFormComponent {
   }
 
   post(companyItem: Partial<companyInfo>): void {
-    const name = (<string>companyItem).trim();
-    if (!name) return;
+    const CIcompanyinformation = (<string>companyItem);
+    if (!CIcompanyinformation) return;
 
     this.companies$ = this.companyInfoService
-      .post({ name })
+      .post({ CIcompanyinformation })
       .pipe(tap(() => (this.companies$ = this.fetchAll())));
   }
 
 
-  update(id: number, companyItem: Partial<companyInfo>): void {
-    const name = (<any>companyItem).trim();
+  update(idCompInfo, compInfo,    desc, 
+         compname,   dba,         phone,
+         website,    address,     ppoc, 
+         busType,    tpoc,        duns, 
+         cage,       cmmcAgency,  cmmcInfo,
+         cmmcDate,   nistAgency,  nistDate,
+         num,        sba): void {
+    //const name = (<any>companyItem).trim();
     
-    if (!name) return;
+    //if (!name) return;
 
     const newUsers: companyInfo = {
-      id,
-      name
+     
+      idCompanyInfo : idCompInfo,
+      CIcompanyinformation : compInfo,
+      CIdescription : desc,
+      CIname : compname,
+      CIDBA : dba ,
+
+      CIphone : phone,
+      CIwebsite  : website, 
+      CIaddress : address,
+      CIprimaryPoC : ppoc,
+      CISBAcertified : sba,
+      CIbusinessType : busType,
+      CItechnicalPOCinformation : tpoc ,
+      CIDUNSnum : duns,
+      CIcagecode : cage,
+      CIcmmcAuditAgency : cmmcAgency,
+      CIcmmcAuditorInfo: cmmcInfo,
+      CIcmmcAuditDate: cmmcDate,
+      CIcmmcNISTauditAgency: nistAgency,
+      CINISTauditorDate: nistDate,
+      CInumber: num, 
 
     };
 
@@ -71,13 +98,12 @@ export class CompanyInfoFormComponent {
   }
 
 
-  delete(id: any): void {
-    console.log("attempting to delete id : " , id)
-   // iduseru = 15
-   // console.log("attempting to delete id : " , iduseru)
+  delete(idCompanyInfo: any): void {
+    console.log("attempting to delete id : " , idCompanyInfo)
+
 
     this.companies$ = this.companyInfoService
-      .delete(id)
+      .delete(idCompanyInfo)
       .pipe(tap(() => (this.companies$ = this.fetchAll())));
       
   }

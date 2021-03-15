@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders} from "@angular/common/http";
 import { ErrorHandler, Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { catchError, publish, tap } from "rxjs/operators";
-import { inventories } from "../models/inventory";
+import { vendors } from "../models/vendors";
 import { ErrorHandlerService } from "./error-handler.service";
 
 
@@ -20,26 +20,26 @@ httpOptions: { headers: HttpHeaders } = {
   constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient) {
    }
 
-   fetchAll(): Observable<inventories[]> {
+   fetchAll(): Observable<vendors[]> {
     return this.http
-      .get<inventories[]>(this.url, { responseType: "json" })
+      .get<vendors[]>(this.url, { responseType: "json" })
       .pipe(
         tap((_) => console.log("fetched users")),
         catchError(
-          this.errorHandlerService.handleError<inventories[]>("fetchAll", [])
+          this.errorHandlerService.handleError<vendors[]>("fetchAll", [])
         )
       );
   }
 
-  post(item: Partial<inventories>): Observable<any> {
+  post(item: Partial<vendors>): Observable<any> {
     return this.http
-      .post<Partial<inventories>>(this.url, item, this.httpOptions)
+      .post<Partial<vendors>>(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
-  update(inventory: inventories): Observable<any> {
+  update(inventory: vendors): Observable<any> {
     return this.http
-      .put<inventories>(this.url, inventory, this.httpOptions)
+      .put<vendors>(this.url, inventory, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
   }
 
@@ -48,7 +48,7 @@ httpOptions: { headers: HttpHeaders } = {
    //const url = `http://localhost:3000/users`;
 
     return this.http
-      .delete<inventories>(url, this.httpOptions)
+      .delete<vendors>(url, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("delete")));
   }
 

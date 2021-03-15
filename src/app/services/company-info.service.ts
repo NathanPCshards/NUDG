@@ -37,9 +37,11 @@ httpOptions: { headers: HttpHeaders } = {
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
-  update(inventory: companyInfo): Observable<any> {
+  update(item: companyInfo): Observable<any> {
+    console.log("attempting to update : " , item)
+
     return this.http
-      .put<companyInfo>(this.url, inventory, this.httpOptions)
+      .put<companyInfo>(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
   }
 

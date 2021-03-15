@@ -25,28 +25,34 @@
                         <div class ="col">
                             <h1>Info</h1>
                             <mat-form-field appearance = "legacy" style="width:80%">
-                                <input matInput placeholder = "Company Information" style="padding-left: 2px;">
+                                <input #CIcompanyinformation id="companyinformation" matInput placeholder = "Company Information" style="padding-left: 2px;">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input matInput placeholder = "Company Name">
+                                <input #CIname id="name" matInput placeholder = "Company Name">
                             </mat-form-field>
     
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input matInput placeholder = "Phone">
+                                <input #CIphone id="phone" matInput placeholder = "Phone">
                             </mat-form-field>
     
                             <mat-form-field appearance = "legacy" style="width:80%">
-                                <input matInput placeholder = "DBA">
+                                <input #CIDBA id="dba" matInput placeholder = "DBA">
                             </mat-form-field>
     
                             <mat-form-field appearance = "legacy" style="width:80%">
-                                <input matInput placeholder = "Website">
+                                <input #CIwebsite id="website" matInput placeholder = "Website">
                             </mat-form-field>
     
+
+
+                            <mat-form-field appearance = "legacy" style="width:40%">
+                              <input matInput placeholder = "Business Type">
+                          </mat-form-field>
+
                             <h1 style="margin-left: 1%;">Address</h1>
     
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input matInput placeholder = "Address Line 1">
+                                <input #CIaddress id="address" matInput placeholder = "Address Line 1">
                             </mat-form-field>
     
                             <mat-form-field appearance = "legacy" style="width:40%">
@@ -60,8 +66,7 @@
                             <mat-form-field appearance = "legacy" style="width:40%">
                                 <input matInput placeholder = "State">
                             </mat-form-field>
-    
-                            <mat-form-field appearance = "legacy" style="width:40%">
+                 <mat-form-field appearance = "legacy" style="width:40%">
                                 <input matInput placeholder = "Zip Code">
                             </mat-form-field>
     
@@ -76,56 +81,56 @@
     
                         <div class ="col">
                             <mat-form-field appearance = "legacy" style="width:80%; padding-top: 46px;">
-                                <input matInput placeholder = "Primary Point of Contact">
+                                <input #CIprimaryPoC id="ppoc" matInput placeholder = "Primary Point of Contact">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:80%">
-                                <input matInput placeholder = "Description">
+                                <input #CIdescription matInput placeholder = "Description">
                             </mat-form-field>
                             <mat-card class ="card1" style="width:40%; align-content: center;" >
                                 <mat-card-header  style="margin-left: 15%;">SBA Certified</mat-card-header>
-                                <mat-radio-group class="radio-groupCertified" appearance = "legacy" aria-label="Select an option">
-                                    <mat-radio-button style="float: left" value="1">Yes</mat-radio-button>
-                                    <mat-radio-button style="float:right" value="2">No</mat-radio-button>
+                                <mat-radio-group  name="SBAbutton"class="radio-groupCertified" appearance = "legacy" aria-label="Select an option">
+                                    <mat-radio-button #CISBAcertified style="float: left" value="1">Yes</mat-radio-button>
+                                    <mat-radio-button #CISBAcertified value="2">No</mat-radio-button>
                                 </mat-radio-group>
                             </mat-card>
                             <mat-form-field appearance = "legacy" style="margin-top: 20px;">
-                                <input matInput placeholder = "Business Type">
+                                <input #CIbusinessType matInput placeholder = "Business Type">
                             </mat-form-field>
  
                             <h3 style="margin-top: 10px;">Technical POC Info</h3>
-                            <textarea id="techPOC" style="text-align: left; margin-bottom: 20px;" rows="4" cols="55"></textarea>
+                            <textarea #CItechnicalPOCinformation id="techPOC" style="text-align: left; margin-bottom: 20px;" rows="4" cols="55"></textarea>
             
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input matInput placeholder = "DUNS Number">
+                                <input #CIDUNSnum id="duns" matInput placeholder = "DUNS Number">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:40%; margin-bottom: 10px;">
-                                <input matInput placeholder = "CAGE Code">
+                                <input #CIcagecode id="cage" matInput placeholder = "CAGE Code">
                             </mat-form-field>
                         </div>
     
                         <div class ="col">
                             <h1 style="margin-left: 1%;">Audit Information</h1>
                             <mat-form-field appearance = "legacy" style="width:80%;">
-                                <input matInput placeholder = "CMMC Audit Agency" >
+                                <input #CIcmmcAuditAgency id="cmmcAgency" matInput placeholder = "CMMC Audit Agency" >
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:80%;">
-                                <input matInput placeholder = "CMMC Auditor Information">
+                                <input #CIcmmcAuditorInfo id= "cmmcInfo" matInput placeholder = "CMMC Auditor Information">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:80%;">
-                                <input matInput placeholder = "CMMC Auditor Date">
+                                <input #CIcmmcAuditDate id="cmmcDate" matInput placeholder = "CMMC Auditor Date">
                             </mat-form-field>
          
                             <mat-form-field appearance = "legacy" style="width:80%;">
-                                <input matInput placeholder = "NIST Audit Agency"> 
+                                <input #CIcmmcNISTauditAgency id="nistAgency" matInput placeholder = "NIST Audit Agency"> 
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:80%;">
-                                <input matInput placeholder = "NIST Audit Auditor Information">
+                                <input #CINIST id="nistInfo" matInput placeholder = "NIST Audit Auditor Information">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:80%;">
-                                <input matInput placeholder = "NIST Audit Date">
+                                <input #CINISTauditorDate id="nistDate" matInput placeholder = "NIST Audit Date">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:80%;">
-                                <input matInput placeholder = "Number">
+                                <input #CInumber id="num" matInput placeholder = "Number">
                             </mat-form-field>
     
                     
@@ -180,10 +185,19 @@
     <mat-list-item *ngFor="let company of companies$ | async">
       <div class="flexContainer">
       <span class="listSpan" style="font-weight: bold;"
-        >{{ company.id }}    </span
+        >{{ company.idCompanyInfo }}    </span
       >
       <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
-        {{company.name}}
+        {{company.CIname}}
+      </span>
+      <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
+        {{company.CIcompanyinformation}}
+      </span>
+      <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
+        {{company.CIdescription}}
+      </span>
+      <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
+        {{company.CIphone}}
       </span>
       </div>
 
@@ -191,7 +205,14 @@
      <span style="position: absolute; right: 0;">
         <button mat-icon-button>
           <mat-icon
-            (click)="update(company.id, userInput.value)"
+            (click)="update(
+            company.idCompanyInfo, CIcompanyinformation.value,      CIdescription.value, 
+            CIname.value,          CIDBA.value,                     CIphone.value, 
+            CIwebsite.value,       CIaddress.value,                 CIprimaryPoC.value,
+            CIbusinessType.value,  CItechnicalPOCinformation.value, CIDUNSnum.value, 
+            CIcagecode.value,      CIcmmcAuditAgency.value,         CIcmmcAuditorInfo.value, 
+            CIcmmcAuditDate.value, CIcmmcNISTauditAgency.value,     CINISTauditorDate.value, 
+            CInumber.value,        CISBAcertified.value,            userInput.value)"
             color="primary"
           >
             edit
@@ -200,7 +221,7 @@
 
     
         <button mat-icon-button>
-          <mat-icon (click)="delete(company.id)" color="warn">
+          <mat-icon (click)="delete(company.idCompanyInfo)" color="warn">
             delete
           </mat-icon>
         </button>

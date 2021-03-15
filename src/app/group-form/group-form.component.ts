@@ -105,25 +105,25 @@ ngAfterViewInit(){
   this.groups$ = this.fetchAll();
 
 }
-fetchAll(): Observable<inventories[]> {
+fetchAll(): Observable<groups[]> {
   return this.groupsService.fetchAll();
 }
 
-post(inventoryItem: Partial<inventories>): void {
+post(inventoryItem: Partial<groups>): void {
   const name = (<string>inventoryItem).trim();
   if (!name) return;
-
+/*
   this.groups$ = this.groupsService
     .post({ name })
-    .pipe(tap(() => (this.groups$ = this.fetchAll())));
+    .pipe(tap(() => (this.groups$ = this.fetchAll())));*/
 }
 
 
-update(id: number, inventoryItem: Partial<inventories>): void {
+update(id: number, inventoryItem: Partial<groups>): void {
   const name = (<any>inventoryItem).trim();
   
   if (!name) return;
-
+/*
   const newUsers: inventories = {
     id,
     name
@@ -132,7 +132,7 @@ update(id: number, inventoryItem: Partial<inventories>): void {
 
   this.groups$ = this.groupsService
     .update(newUsers)
-    .pipe(tap(() => (this.groups$ = this.fetchAll())));
+    .pipe(tap(() => (this.groups$ = this.fetchAll())));*/
 }
 
 
