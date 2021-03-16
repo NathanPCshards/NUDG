@@ -41,10 +41,10 @@
       <mat-list-item *ngFor="let procedure of procedures$ | async">
         <div class="flexContainer">
         <span class="listSpan" style="font-weight: bold;"
-          >{{ procedure.id }}    </span
+          >{{ procedure.idOrgProcedure }}    </span
         >
         <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
-          {{procedure.name}}
+          {{procedure.PProcedure}}
         </span>
         </div>
     
@@ -52,7 +52,7 @@
        <span style="position: absolute; right: 0;">
           <button mat-icon-button>
             <mat-icon
-              (click)="update(procedure.id, userInput.value)"
+              (click)="update(procedure.idOrgProcedure, userInput.value)"
               color="primary"
             >
               edit
@@ -61,7 +61,7 @@
     
       
           <button mat-icon-button>
-            <mat-icon (click)="delete(procedure.id)" color="warn">
+            <mat-icon (click)="delete(procedure.idOrgProcedure)" color="warn">
               delete
             </mat-icon>
           </button>

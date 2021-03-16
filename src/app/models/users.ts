@@ -1,9 +1,29 @@
 export interface Users {
-   // Fname: string;
-   // Lname: string;
-   // Phone: string;
-   // Email: string;
-   // Password: string;
-    idusersu?:number; 
-    uname?:string;
+    idOrgUsers : number;
+    Ufname : string;
+    Ulname : string;
+    Uempid : string;
+    Uemptype : string;
+    Ujobtitle : string;
+    Ujobrole : string;
+    Udepartment: string;
+    Uhiredate : Date;
+    Ulogonhours : string;
+    Uadditionalinfo : string;
+    Udocumentupload : string;
+    Uemail : string;
+    Ubusinessphone : string;
+    Ucellphone : string;
+    Uaddress : string;
+    Ucity : string;
+    Ustate : string;
+    Upostal : string;
+    Ucountry : string;
+    Ucompany : string;
+    Uuserid : string;
+    Ucuidata : string;
+    Uremoteuser : string;
+    UGRgroups : number;
+    UGRroles : number;
+    Iassetidentifier : number; 
 }

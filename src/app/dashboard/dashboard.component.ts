@@ -97,10 +97,13 @@ export class chartSimple implements OnInit {
     }
 
     this.options = {
+      
       title: {
         text:'Graph Example',
         left:'center',
         top: 20,
+        
+        
 
       },
       legend: {

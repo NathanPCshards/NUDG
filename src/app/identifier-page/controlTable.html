@@ -28,10 +28,10 @@
     <mat-list-item *ngFor="let control of controls$ | async">
       <div class="flexContainer">
       <span class="listSpan" style="font-weight: bold;"
-        >{{ control.id }}    </span
+        >{{ control.idOrgControls }}    </span
       >
       <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
-        {{control.name}}
+        {{control.Cname}}
       </span>
       </div>
 
@@ -39,7 +39,7 @@
      <span style="position: absolute; right: 0;">
         <button mat-icon-button>
           <mat-icon
-            (click)="update(control.id, userInput.value)"
+            (click)="update(control.idOrgControls, userInput.value)"
             color="primary"
           >
             edit
@@ -48,7 +48,7 @@
 
     
         <button mat-icon-button>
-          <mat-icon (click)="delete(control.id)" color="warn">
+          <mat-icon (click)="delete(control.idOrgControls)" color="warn">
             delete
           </mat-icon>
         </button>

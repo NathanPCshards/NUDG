@@ -79,10 +79,10 @@ fetchAll(): Observable<procedures[]> {
 post(inventoryItem: Partial<procedures>): void {
   const name = (<string>inventoryItem).trim();
   if (!name) return;
-
+/*
   this.procedures$ = this.proceduresService
     .post({ name })
-    .pipe(tap(() => (this.procedures$ = this.fetchAll())));
+    .pipe(tap(() => (this.procedures$ = this.fetchAll())));*/
 }
 
 
@@ -90,7 +90,7 @@ update(id: number, inventoryItem: Partial<procedures>): void {
   const name = (<any>inventoryItem).trim();
   
   if (!name) return;
-
+/*
   const newUsers: procedures = {
     id,
     name
@@ -99,7 +99,7 @@ update(id: number, inventoryItem: Partial<procedures>): void {
 
   this.procedures$ = this.proceduresService
     .update(newUsers)
-    .pipe(tap(() => (this.procedures$ = this.fetchAll())));
+    .pipe(tap(() => (this.procedures$ = this.fetchAll())));*/
 }
 
 

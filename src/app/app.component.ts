@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +12,12 @@ export class AppComponent implements OnInit {
   toolbar = document.getElementById("toolbar");
   height;
 
+  btnClick= function ()  {
+    this.router.navigateByUrl('/Roles')
+    
+  }
 
-  constructor(private http: HttpClient){
+  constructor(private http: HttpClient, private router: Router){
     // client-side
     
   }
@@ -43,6 +48,7 @@ export class AppComponent implements OnInit {
     console.log('mouse leave');
     this.height = 1;
   }
+
 }
 
 

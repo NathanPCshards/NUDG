@@ -48,10 +48,10 @@
     <mat-list-item *ngFor="let networkshare of networkshares$ | async">
       <div class="flexContainer">
       <span class="listSpan" style="font-weight: bold;"
-        >{{ networkshare.id }}    </span
+        >{{ networkshare.idOrgNetworkShares }}    </span
       >
       <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
-        {{networkshare.name}}
+        {{networkshare.NSshareName}}
       </span>
       </div>
   
@@ -59,7 +59,7 @@
      <span style="position: absolute; right: 0;">
         <button mat-icon-button>
           <mat-icon
-            (click)="update(networkshare.id, userInput.value)"
+            (click)="update(networkshare.idOrgNetworkShares, userInput.value)"
             color="primary"
           >
             edit
@@ -68,7 +68,7 @@
   
     
         <button mat-icon-button>
-          <mat-icon (click)="delete(networkshare.id)" color="warn">
+          <mat-icon (click)="delete(networkshare.idOrgNetworkShares)" color="warn">
             delete
           </mat-icon>
         </button>

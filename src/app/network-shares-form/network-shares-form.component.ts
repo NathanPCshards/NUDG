@@ -105,10 +105,10 @@ fetchAll(): Observable<networkshares[]> {
 post(inventoryItem: Partial<networkshares>): void {
   const name = (<string>inventoryItem).trim();
   if (!name) return;
-
+/*
   this.networkshares$ = this.networksharesService
     .post({ name })
-    .pipe(tap(() => (this.networkshares$ = this.fetchAll())));
+    .pipe(tap(() => (this.networkshares$ = this.fetchAll())));*/
 }
 
 
@@ -116,7 +116,7 @@ update(id: number, inventoryItem: Partial<networkshares>): void {
   const name = (<any>inventoryItem).trim();
   
   if (!name) return;
-
+/*
   const newUsers: networkshares = {
     id,
     name
@@ -125,7 +125,7 @@ update(id: number, inventoryItem: Partial<networkshares>): void {
 
   this.networkshares$ = this.networksharesService
     .update(newUsers)
-    .pipe(tap(() => (this.networkshares$ = this.fetchAll())));
+    .pipe(tap(() => (this.networkshares$ = this.fetchAll())));*/
 }
 
 

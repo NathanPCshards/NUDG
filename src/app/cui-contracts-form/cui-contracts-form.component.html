@@ -79,10 +79,10 @@ style="float: right;"
   <mat-list-item *ngFor="let contract of cuicontracts$ | async">
     <div class="flexContainer">
     <span class="listSpan" style="font-weight: bold;"
-      >{{ contract.id }}    </span
+      >{{ contract.idCUIcontracts }}    </span
     >
     <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
-      {{contract.name}}
+      {{contract.CCname}}
     </span>
     </div>
 
@@ -90,7 +90,7 @@ style="float: right;"
    <span style="position: absolute; right: 0;">
       <button mat-icon-button>
         <mat-icon
-          (click)="update(contract.id, userInput.value)"
+          (click)="update(contract.idCUIcontracts, userInput.value)"
           color="primary"
         >
           edit
@@ -99,7 +99,7 @@ style="float: right;"
 
   
       <button mat-icon-button>
-        <mat-icon (click)="delete(contract.id)" color="warn">
+        <mat-icon (click)="delete(contract.idCUIcontracts)" color="warn">
           delete
         </mat-icon>
       </button>

@@ -55,10 +55,11 @@ export class VendorFormComponent implements OnInit {
   post(inventoryItem: Partial<vendors>): void {
     const name = (<string>inventoryItem).trim();
     if (!name) return;
-  
+  /*
     this.vendors$ = this.vendorsService
       .post({ name })
       .pipe(tap(() => (this.vendors$ = this.fetchAll())));
+      */
   }
   
   
@@ -66,7 +67,7 @@ export class VendorFormComponent implements OnInit {
     const name = (<any>inventoryItem).trim();
     
     if (!name) return;
-  
+  /*
     const newUsers: vendors = {
       id,
       name
@@ -75,7 +76,7 @@ export class VendorFormComponent implements OnInit {
   
     this.vendors$ = this.vendorsService
       .update(newUsers)
-      .pipe(tap(() => (this.vendors$ = this.fetchAll())));
+      .pipe(tap(() => (this.vendors$ = this.fetchAll())));*/
   }
   
   

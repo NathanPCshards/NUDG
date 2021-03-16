@@ -74,10 +74,10 @@ export class GuidelinesForm implements OnInit {
   post(inventoryItem: Partial<guidelines>): void {
     const name = (<string>inventoryItem).trim();
     if (!name) return;
-  
+  /*
     this.guidelines$ = this.guidelinesService
       .post({ name })
-      .pipe(tap(() => (this.guidelines$ = this.fetchAll())));
+      .pipe(tap(() => (this.guidelines$ = this.fetchAll())));*/
   }
   
   
@@ -85,7 +85,7 @@ export class GuidelinesForm implements OnInit {
     const name = (<any>inventoryItem).trim();
     
     if (!name) return;
-  
+  /*
     const newUsers: guidelines = {
       id,
       name
@@ -94,7 +94,7 @@ export class GuidelinesForm implements OnInit {
   
     this.guidelines$ = this.guidelinesService
       .update(newUsers)
-      .pipe(tap(() => (this.guidelines$ = this.fetchAll())));
+      .pipe(tap(() => (this.guidelines$ = this.fetchAll())));*/
   }
   
   

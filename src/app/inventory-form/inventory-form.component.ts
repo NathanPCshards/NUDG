@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { inventories } from '../models/inventory';
 import { inventoryService } from '../services/inventory.service';
@@ -19,14 +19,41 @@ export class InventoryFormComponent implements OnInit {
   panelOpenState;
   inventories$: Observable<inventories[]>;
 
+  
 
-  constructor(private http:HttpClient, private formBuilder: FormBuilder, private inventoryService:inventoryService) {
-   }
+
+  constructor(private http:HttpClient, private fb: FormBuilder, private inventoryService:inventoryService) {
+    this.inventoryForm = this.fb.group({
+      idOrgInventory : ['number'],
+      IassetIdentifier : [''],
+      Iaddress : ['addr'],
+      InetworkID : ['test'],
+      Ivirtual : [''],
+      Ipublic : [''],
+      Idnsname : [''],
+      InetbiosName : [''],
+      Imacaddress : [''],
+      IauthenticatedScan : [''],
+      IosNameAndVersion : [''],
+      IphysicalLocation :[''],
+      IhardwareSoftwareVendor :[''],
+      IdateOfReceipt : ['DATE'],
+      Icost : [''],
+      IsoftwareDatabase : [''],
+      Ipatchlevel : [''],
+      Ifunction : [''],
+      Icomments : [''],
+      Iserial: [''],
+      Ivlan : [''],
+      IsystemAdmin : [''],
+      Iapplication : [''],
+      IsoftwareApproval : [''],
+
+    });
+  }
 
   ngOnInit(){
     this.inventories$ = this.fetchAll();
-
-    this.inventoryForm = this.formBuilder.group({});
   }
 
   fetchAll(): Observable<inventories[]> {
@@ -34,12 +61,18 @@ export class InventoryFormComponent implements OnInit {
   }
 
   post(inventoryItem: Partial<inventories>): void {
-    const name = (<string>inventoryItem).trim();
-    if (!name) return;
-/*
+    const idOrgInventory = (<number>inventoryItem);
+    if (!idOrgInventory) return;
+
+    var formData: any = new FormData();
+    formData.append("IassetIdentifier", this.inventoryForm.get('IassetIdentifier').value);
+    formData.append("Iaddress", this.inventoryForm.get('Iaddress').value);
+
+    console.log("form data in inventory : " , formData.get("IassetIdentifier"))
+
     this.inventories$ = this.inventoryService
-      .post({ name })
-      .pipe(tap(() => (this.inventories$ = this.fetchAll())));*/
+      .post({ formData })
+      .pipe(tap(() => (this.inventories$ = this.fetchAll())));
   }
 
 
@@ -62,8 +95,6 @@ export class InventoryFormComponent implements OnInit {
 
   delete(id: any): void {
     console.log("attempting to delete id : " , id)
-   // iduseru = 15
-   // console.log("attempting to delete id : " , iduseru)
 
     this.inventories$ = this.inventoryService
       .delete(id)
@@ -74,8 +105,12 @@ export class InventoryFormComponent implements OnInit {
     console.log("FORM WAS SUBMITTED");
     this.submitted = true;
     const configUrl = 'http://localhost:4200/home'; 
-    //make post here
-  
+
+   // const formData:Partial<inventories>[] = [{idOrgInventory: 1}];
+/*
+    this.inventories$ = this.inventoryService
+      .post({ formData })
+      .pipe(tap(() => (this.inventories$ = this.fetchAll())));*/
  }
 
  public onFormReset() {

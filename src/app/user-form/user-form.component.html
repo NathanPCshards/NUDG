@@ -9,17 +9,146 @@
       <mat-panel-description class="description">
        Open panel to add a User Item
       </mat-panel-description>
-
+  
     </mat-expansion-panel-header>
-    <userForm>
-      </userForm>
+
+      <div [formGroup] ="UserForm" style="margin:0px;padding: 0px;"></div>
+          <form  class="user-form" (ngSubmit)="onFormSubmit()" novalidate>
+      
+      
+      
+              <h2 style="margin-left: 1%; margin-top: 1%; font-size: 32px;color: white;">
+                  Users
+              </h2>
+      
+      
+              
+                  <div class = InputContainer>
+                      <div class = "row">
+                          <div class ="col">
+                              <h1 style="margin-left: 1%;">Info</h1>
+                              <mat-form-field  appearance = "legacy" style="width:40%">
+                                  <input #Ufname matInput placeholder = "First Name">
+                              </mat-form-field>
+                              <mat-form-field appearance = "legacy" style="width:40%">
+                                  <input #Ulname matInput placeholder = "Last Name">
+                              </mat-form-field>
+                              <mat-form-field appearance = "legacy" style="width:80%">
+                                  <input #Uempid matInput placeholder = "Employee Number" >
+                              </mat-form-field>
+                              <mat-form-field appearance = "legacy" style="width:40%">
+                                  <input #Uemptype matInput placeholder = "EmployeeType">
+                              </mat-form-field>
+                              <mat-form-field appearance = "legacy" style="width:40%">
+                                  <input #Ujobtitle matInput placeholder = "Job Title">
+                              </mat-form-field>
+                              <mat-form-field appearance = "legacy" style="width:40%">
+                                  <input #Ujobrole matInput placeholder = "Job Role">
+                              </mat-form-field>
+      
+                              <mat-form-field appearance = "legacy" style="width:40%">
+                                  <input #Uhiredate matInput placeholder = "Hire Date">
+                              </mat-form-field>
+                              <mat-form-field appearance = "legacy"  style="width:80%">
+                                  <input #Ulogonhours matInput placeholder = "Logon Hours">
+                              </mat-form-field>
+                              <div class="fileInput" style="margin-left: 1%;">
+                                  <input  class="ng-hide" id="input-file-id" multiple type="file" />
+                                  <label for="input-file-id" class="md-button md-raised md-primary"></label>
+                              </div>
+                          </div>
+      
+                          <div class ="col">
+                              <h1 style="margin-left: 1%;"> Contact</h1>
+                              <mat-form-field appearance = "legacy" style="width:80%">
+                                  <input #Uemail matInput placeholder = "Email Address">
+                              </mat-form-field>
+                              <mat-form-field appearance = "legacy" style="width:40%" >
+                                  <input #Ubusinessphone matInput placeholder = "Business Phone">
+                              </mat-form-field>
+                              <mat-form-field appearance = "legacy" style="width:40%" >
+                                  <input #Ucellphone matInput placeholder = "Cell Phone">
+                              </mat-form-field>
+      
+      
+      
+      
+                              <h1 style="margin-left: 1%;">Address</h1>
+      
+                              <mat-form-field appearance = "legacy" style="width:80%">
+                                  <input #Uaddress matInput placeholder = "Address">
+                              </mat-form-field>
+      
+                              <mat-form-field  appearance = "legacy" style="width:40%">
+                                  <input #Ucity matInput placeholder = "City">
+                              </mat-form-field>
+      
+                              <mat-form-field appearance = "legacy" style="width:40%">
+                                  <input #Ustate  matInput placeholder = "State">
+                              </mat-form-field>
+      
+                              <mat-form-field appearance = "legacy" style="width:40%">
+                                  <input #Upostal matInput placeholder = "Zip Code">
+                              </mat-form-field>
+      
+                              <mat-form-field  appearance = "legacy" style="width:40%">
+                                  <input #Ucountry matInput placeholder = "Country">
+                              </mat-form-field>
+      
+      
+      
+      
+      
+      
+      
+      
+                              <mat-form-field appearance = "legacy"  style="width:80%">
+                                  <input #Ucompany matInput placeholder = "Company Name">
+                              </mat-form-field>
+                          </div>
+      
+                          <div class ="col">
+                              <h1 style="margin-left: 1%;">Assignments</h1>
+          
+                              <mat-form-field appearance = "legacy" style="width:80%">
+                                  <input #Uuserid matInput placeholder = "User id">
+                              </mat-form-field>
+                              <mat-form-field appearance = "legacy" style="width:40%">
+                                  <input #Ucuidata matInput placeholder = "CUI Data">
+                              </mat-form-field>
+                              <mat-form-field appearance = "legacy" style="width:40%">
+                                  <input #Uremoteuser matInput placeholder = "Remote User">
+                              </mat-form-field>
+                              <h1>Relationships</h1>
+                              <mat-form-field appearance = "legacy" style="width:80%">
+                                  <input matInput placeholder = "Groups">
+                              </mat-form-field>
+                              <mat-form-field appearance = "legacy" style="width:80%">
+                                  <input matInput placeholder = "Roles">
+                              </mat-form-field>
+                              <mat-form-field appearance = "legacy" style="width:80%">
+                                  <input matInput placeholder = "Asset Identifier">
+                              </mat-form-field>
+      
+                          </div>
+                      </div>
+                          
+                  <div class = "row2">
+                      <mat-divider style="padding-top: 3px;"></mat-divider>
+      
+                      <button mat-raised-button [mat-dialog-close]="true" (click)="onFormSubmit();"  style="margin-left: 15%;width:20vw;height: 5vh; float: left;" color="primary"  >Submit</button>
+                      
+                      <button mat-raised-button  (click)="onFormReset();" style="margin-right: 15%;width:20vw;height: 5vh;float: right;" type="reset"  color="primary"  >Reset</button>
+                  </div>
+              </div>
+              </form>
+
   </mat-expansion-panel>
 
 </mat-accordion>
 
 
-  <mat-dialog-content class="dialog" >
-  </mat-dialog-content>
+
 
   <!--
   <mat-toolbar  class="tools" style="height: 4vh;">
@@ -69,10 +198,13 @@ style="float: right;"
     <div class="flexContainer">
       <mat-list-item class="headerRow">
         <span>
-          ID
+          First Name
         </span>
         <span style="margin-left: 6.5%;">
-          Name
+          Last Name
+        </span>
+        <span style="margin-left: 6.5%;">
+          User Id
         </span>
       </mat-list-item>
     </div>
@@ -80,10 +212,13 @@ style="float: right;"
     <mat-list-item *ngFor="let user of users$ | async">
       <div class="flexContainer">
       <span class="listSpan" style="font-weight: bold;"
-        >{{ user.idusersu }}    </span
+        >{{ user.Ufname }}    </span
       >
       <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
-        {{user.uname}}
+        {{user.Ulname }}
+      </span>
+      <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
+        {{user.idOrgUsers }}
       </span>
       </div>
 
@@ -91,7 +226,7 @@ style="float: right;"
      <span style="position: absolute; right: 0;">
         <button mat-icon-button>
           <mat-icon
-            (click)="update(user.idusersu, userInput.value)"
+            (click)="update(user.idOrgUsers, userInput.value)"
             color="primary"
           >
             edit
@@ -100,7 +235,7 @@ style="float: right;"
 
     
         <button mat-icon-button>
-          <mat-icon (click)="delete(user.idusersu)" color="warn">
+          <mat-icon (click)="delete(user.idOrgUsers)" color="warn">
             delete
           </mat-icon>
         </button>

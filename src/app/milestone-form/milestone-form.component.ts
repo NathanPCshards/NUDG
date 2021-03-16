@@ -53,10 +53,10 @@ fetchAll(): Observable<milestones[]> {
 post(inventoryItem: Partial<milestones>): void {
   const name = (<string>inventoryItem).trim();
   if (!name) return;
-
+/*
   this.milestones$ = this.milestonesService
     .post({ name })
-    .pipe(tap(() => (this.milestones$ = this.fetchAll())));
+    .pipe(tap(() => (this.milestones$ = this.fetchAll())));*/
 }
 
 
@@ -64,7 +64,7 @@ update(id: number, inventoryItem: Partial<milestones>): void {
   const name = (<any>inventoryItem).trim();
   
   if (!name) return;
-
+/*
   const newUsers: milestones = {
     id,
     name
@@ -73,7 +73,7 @@ update(id: number, inventoryItem: Partial<milestones>): void {
 
   this.milestones$ = this.milestonesService
     .update(newUsers)
-    .pipe(tap(() => (this.milestones$ = this.fetchAll())));
+    .pipe(tap(() => (this.milestones$ = this.fetchAll())));*/
 }
 
 

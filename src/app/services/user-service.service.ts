@@ -11,7 +11,7 @@ import { ErrorHandlerService } from "./error-handler.service";
 })
 export class UserServiceService {
 //url must match route in the app.use(...) in index.js
-private url = "http://localhost:3000/users"
+private url = "http://localhost:3000/orgusers"
 
 httpOptions: { headers: HttpHeaders } = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -43,8 +43,8 @@ httpOptions: { headers: HttpHeaders } = {
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
   }
 
-  delete(idusersu: number): Observable<any> {
-    const url = `http://localhost:3000/users/${idusersu}`;
+  delete(idOrgUsers: number): Observable<any> {
+    const url = `http://localhost:3000/orgusers/${idOrgUsers}`;
    //const url = `http://localhost:3000/users`;
 
     return this.http

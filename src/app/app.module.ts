@@ -13,7 +13,7 @@ import { roleDialog, RoleFormComponent } from './role-form/role-form.component';
 import { controlTable, IdentifierPageComponent, standardTable, weaknessTable } from './identifier-page/identifier-page.component';
 import { Bar3dDatasetComponent, calendarComponent, chartSimple, DashboardComponent } from './dashboard/dashboard.component';
 import { PolicyBoardComponent } from './policy-board/policy-board.component';
-import { DialogElementsExampleDialog, UserFormComponent } from './user-form/user-form.component';
+import { UserFormComponent } from './user-form/user-form.component';
 import { DialogVendor, VendorFormComponent } from './vendor-form/vendor-form.component';
 import { DialogSupplier, SupplierFormComponent } from './supplier-form/supplier-form.component';
 import { CuiContractsFormComponent, DialogCUIForm } from './cui-contracts-form/cui-contracts-form.component';
@@ -95,7 +95,6 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     IdentifierPageComponent,
     DashboardComponent,
     PolicyBoardComponent,
-    DialogElementsExampleDialog,
     NotfoundComponent,
     roleDialog,
     groupTable,

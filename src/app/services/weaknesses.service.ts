@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders} from "@angular/common/http";
 import { ErrorHandler, Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { catchError, publish, tap } from "rxjs/operators";
-import { roles } from "../models/roles"
+import { weaknesses } from "../models/weaknesses";
 import { ErrorHandlerService } from "./error-handler.service";
 
 @Injectable({
@@ -19,26 +19,26 @@ httpOptions: { headers: HttpHeaders } = {
   constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient) {
    }
 
-   fetchAll(): Observable<roles[]> {
+   fetchAll(): Observable<weaknesses[]> {
     return this.http
-      .get<roles[]>(this.url, { responseType: "json" })
+      .get<weaknesses[]>(this.url, { responseType: "json" })
       .pipe(
         tap((_) => console.log("fetched weaknesses")),
         catchError(
-          this.errorHandlerService.handleError<roles[]>("fetchAll", [])
+          this.errorHandlerService.handleError<weaknesses[]>("fetchAll", [])
         )
       );
   }
 
-  post(item: Partial<roles>): Observable<any> {
+  post(item: Partial<weaknesses>): Observable<any> {
     return this.http
-      .post<Partial<roles>>(this.url, item, this.httpOptions)
+      .post<Partial<weaknesses>>(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
-  update(user: roles): Observable<any> {
+  update(user: weaknesses): Observable<any> {
     return this.http
-      .put<roles>(this.url, user, this.httpOptions)
+      .put<weaknesses>(this.url, user, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
   }
 
@@ -46,7 +46,7 @@ httpOptions: { headers: HttpHeaders } = {
     const url = `http://localhost:3000/weaknesses/${id}`;
 
     return this.http
-      .delete<roles>(url, this.httpOptions)
+      .delete<weaknesses>(url, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("delete")));
   }
 

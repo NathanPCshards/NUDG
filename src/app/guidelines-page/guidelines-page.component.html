@@ -26,10 +26,10 @@ style="float: right;"
   <mat-list-item *ngFor="let guideline of guidelines$ | async">
     <div class="flexContainer">
     <span class="listSpan" style="font-weight: bold;"
-      >{{ guideline.id }}    </span
+      >{{ guideline.idGuidelines }}    </span
     >
     <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
-      {{guideline.name}}
+      {{guideline.Guidelines}}
     </span>
     </div>
 
@@ -37,7 +37,7 @@ style="float: right;"
    <span style="position: absolute; right: 0;">
       <button mat-icon-button>
         <mat-icon
-          (click)="update(guideline.id, userInput.value)"
+          (click)="update(guideline.idGuidelines, userInput.value)"
           color="primary"
         >
           edit
@@ -46,7 +46,7 @@ style="float: right;"
 
   
       <button mat-icon-button>
-        <mat-icon (click)="delete(guideline.id)" color="warn">
+        <mat-icon (click)="delete(guideline.idGuidelines)" color="warn">
           delete
         </mat-icon>
       </button>

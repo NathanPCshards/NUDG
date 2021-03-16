@@ -28,10 +28,10 @@
     <mat-list-item *ngFor="let standard of standards$ | async">
       <div class="flexContainer">
       <span class="listSpan" style="font-weight: bold;"
-        >{{ standard.id }}    </span
+        >{{ standard.idStandards }}    </span
       >
       <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
-        {{standard.name}}
+        {{standard.Standard}}
       </span>
       </div>
 
@@ -48,7 +48,7 @@
 
     
         <button mat-icon-button>
-          <mat-icon (click)="delete(standard.id)" color="warn">
+          <mat-icon (click)="delete(standard.idStandards)" color="warn">
             delete
           </mat-icon>
         </button>

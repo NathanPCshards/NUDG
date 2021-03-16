@@ -73,7 +73,9 @@ div.cards{
     margin-bottom: 15px;
  }
 
-
+//width for column objects is 70% for entire 'row'
+//35% to have 2 objects on 1 row
+//except radio buttons/cards, those are weird
 .mat-raised-button{
     margin-bottom: 15px;
     width: 10%;
@@ -88,13 +90,6 @@ div.cards{
 .mat-checkbox {
     color: white;
 }
-
-
-
-
-
-
-
 
 
 

@@ -52,10 +52,10 @@ export class SupplierFormComponent implements OnInit {
   post(inventoryItem: Partial<suppliers>): void {
     const name = (<string>inventoryItem).trim();
     if (!name) return;
-  
+  /*
     this.suppliers$ = this.suppliersService
       .post({ name })
-      .pipe(tap(() => (this.suppliers$ = this.fetchAll())));
+      .pipe(tap(() => (this.suppliers$ = this.fetchAll())));*/
   }
   
   
@@ -63,7 +63,7 @@ export class SupplierFormComponent implements OnInit {
     const name = (<any>inventoryItem).trim();
     
     if (!name) return;
-  
+  /*
     const newUsers: suppliers = {
       id,
       name
@@ -72,7 +72,7 @@ export class SupplierFormComponent implements OnInit {
   
     this.suppliers$ = this.suppliersService
       .update(newUsers)
-      .pipe(tap(() => (this.suppliers$ = this.fetchAll())));
+      .pipe(tap(() => (this.suppliers$ = this.fetchAll())));*/
   }
   
   

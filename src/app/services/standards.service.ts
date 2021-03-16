@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders} from "@angular/common/http";
 import { ErrorHandler, Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { catchError, publish, tap } from "rxjs/operators";
-import { roles } from "../models/roles"
+import { standards } from "../models/standards";
 import { ErrorHandlerService } from "./error-handler.service";
 
 @Injectable({
@@ -19,26 +19,26 @@ httpOptions: { headers: HttpHeaders } = {
   constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient) {
    }
 
-   fetchAll(): Observable<roles[]> {
+   fetchAll(): Observable<standards[]> {
     return this.http
-      .get<roles[]>(this.url, { responseType: "json" })
+      .get<standards[]>(this.url, { responseType: "json" })
       .pipe(
         tap((_) => console.log("fetched standards")),
         catchError(
-          this.errorHandlerService.handleError<roles[]>("fetchAll", [])
+          this.errorHandlerService.handleError<standards[]>("fetchAll", [])
         )
       );
   }
 
-  post(item: Partial<roles>): Observable<any> {
+  post(item: Partial<standards>): Observable<any> {
     return this.http
-      .post<Partial<roles>>(this.url, item, this.httpOptions)
+      .post<Partial<standards>>(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
-  update(user: roles): Observable<any> {
+  update(user: standards): Observable<any> {
     return this.http
-      .put<roles>(this.url, user, this.httpOptions)
+      .put<standards>(this.url, user, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
   }
 
@@ -46,7 +46,7 @@ httpOptions: { headers: HttpHeaders } = {
     const url = `http://localhost:3000/standards/${id}`;
 
     return this.http
-      .delete<roles>(url, this.httpOptions)
+      .delete<standards>(url, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("delete")));
   }
 

@@ -55,10 +55,10 @@ export class RoleFormComponent implements OnInit {
   post(userItem: Partial<roles>): void {
     const name = (<string>userItem).trim();
     if (!name) return;
-
+/*
     this.roles$ = this.roleservice
       .post({ name })
-      .pipe(tap(() => (this.roles$ = this.fetchAll())));
+      .pipe(tap(() => (this.roles$ = this.fetchAll())));*/
   }
 
 
@@ -66,7 +66,7 @@ export class RoleFormComponent implements OnInit {
     const name = (<any>userItem).trim();
     
     if (!name) return;
-
+/*
     const newroles: roles = {
       id,
       name
@@ -75,7 +75,7 @@ export class RoleFormComponent implements OnInit {
 
     this.roles$ = this.roleservice
       .update(newroles)
-      .pipe(tap(() => (this.roles$ = this.fetchAll())));
+      .pipe(tap(() => (this.roles$ = this.fetchAll())));*/
   }
 
 

@@ -40,10 +40,10 @@
       <mat-list-item *ngFor="let milestone of milestones$ | async">
         <div class="flexContainer">
         <span class="listSpan" style="font-weight: bold;"
-          >{{ milestone.id }}    </span
+          >{{ milestone.idMilestones }}    </span
         >
         <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
-          {{milestone.name}}
+          {{milestone.Milestones}}
         </span>
         </div>
     
@@ -51,7 +51,7 @@
        <span style="position: absolute; right: 0;">
           <button mat-icon-button>
             <mat-icon
-              (click)="update(milestone.id, userInput.value)"
+              (click)="update(milestone.idMilestones, userInput.value)"
               color="primary"
             >
               edit
@@ -60,7 +60,7 @@
     
       
           <button mat-icon-button>
-            <mat-icon (click)="delete(milestone.id)" color="warn">
+            <mat-icon (click)="delete(milestone.idMilestones)" color="warn">
               delete
             </mat-icon>
           </button>

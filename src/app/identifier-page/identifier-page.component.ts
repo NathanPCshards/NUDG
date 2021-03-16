@@ -102,10 +102,10 @@ fetchAll(): Observable<weaknesses[]> {
 post(inventoryItem: Partial<weaknesses>): void {
   const name = (<string>inventoryItem).trim();
   if (!name) return;
-
+/*
   this.weaknesses$ = this.weaknessService
     .post({ name })
-    .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));
+    .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));*/
 }
 
 
@@ -113,7 +113,7 @@ update(id: number, inventoryItem: Partial<weaknesses>): void {
   const name = (<any>inventoryItem).trim();
   
   if (!name) return;
-
+/*
   const newWeakness: weaknesses = {
     id,
     name
@@ -122,7 +122,7 @@ update(id: number, inventoryItem: Partial<weaknesses>): void {
 
   this.weaknesses$ = this.weaknessService
     .update(newWeakness)
-    .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));
+    .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));*/
 }
 
 
@@ -252,12 +252,12 @@ fetchAll(): Observable<standards[]> {
   return this.standardsService.fetchAll();
 }
 
-post(inventoryItem: Partial<standards>): void {
-  const name = (<string>inventoryItem).trim();
-  if (!name) return;
+post(standardEntry: Partial<standards>): void {
+  const Standard = (<string>standardEntry).trim();
+  if (!Standard) return;
 
   this.standards$ = this.standardsService
-    .post({ name })
+    .post({ Standard })
     .pipe(tap(() => (this.standards$ = this.fetchAll())));
 }
 
@@ -266,7 +266,7 @@ update(id: number, inventoryItem: Partial<standards>): void {
   const name = (<any>inventoryItem).trim();
   
   if (!name) return;
-
+/*
   const newUsers: standards = {
     id,
     name
@@ -275,7 +275,7 @@ update(id: number, inventoryItem: Partial<standards>): void {
 
   this.standards$ = this.standardsService
     .update(newUsers)
-    .pipe(tap(() => (this.standards$ = this.fetchAll())));
+    .pipe(tap(() => (this.standards$ = this.fetchAll())));*/
 }
 
 

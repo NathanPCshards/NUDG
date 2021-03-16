@@ -59,11 +59,12 @@ export class UserFormComponent implements OnInit {
  // exampleDatabase: ExampleHttpDatabase | null;
   //filteredAndPagedIssues: Observable<GithubIssue[]>;
   users$: Observable<Users[]>;
-
+  submitted= false;
   resultsLength = 0;
   isLoadingResults = false;
   isRateLimitReached = false;
-
+  UserForm;
+  panelOpenState =false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
  
@@ -93,11 +94,11 @@ export class UserFormComponent implements OnInit {
   }
 
   post(userItem: Partial<Users>): void {
-    const uname = (<string>userItem).trim();
-    if (!uname) return;
+    const Uuserid = (<string>userItem).trim();
+    if (!Uuserid) return;
 
     this.users$ = this.userService
-      .post({ uname })
+      .post({ Uuserid })
       .pipe(tap(() => (this.users$ = this.fetchAll())));
   }
 
@@ -106,7 +107,7 @@ export class UserFormComponent implements OnInit {
     const uname = (<any>userItem).trim();
     
     if (!uname) return;
-
+/*
     const newUsers: Users = {
       idusersu,
       uname
@@ -115,85 +116,43 @@ export class UserFormComponent implements OnInit {
 
     this.users$ = this.userService
       .update(newUsers)
-      .pipe(tap(() => (this.users$ = this.fetchAll())));
+      .pipe(tap(() => (this.users$ = this.fetchAll())));*/
   }
 
 
-  delete(idusersu: any): void {
-    console.log("attempting to delete id : " , idusersu)
+  delete(Uuserid: any): void {
+    console.log("attempting to delete id : " , Uuserid)
    // iduseru = 15
    // console.log("attempting to delete id : " , iduseru)
 
     this.users$ = this.userService
-      .delete(idusersu)
+      .delete(Uuserid)
       .pipe(tap(() => (this.users$ = this.fetchAll())));
       
   }
-
-
-}
-
-
-@Component({
-  selector: 'userForm',
-  templateUrl: 'form.html',
-})
-export class DialogElementsExampleDialog {
-UserForm;
-submitted= false;
-  constructor(private http:HttpClient, private formBuilder: FormBuilder) { }
-
-ngOnInit(){
-  this.UserForm = this.formBuilder.group({
-    //initialize stuff to be null or whatever, here
-
-  });
-}
-public onFormSubmit() {
-  console.log("FORM WAS SUBMITTED");
-  this.submitted = true;
-  const configUrl = 'http://localhost:4200/home'; 
-  /*
-  this.http.post(configUrl,this.UserForm.value)
-  .pipe(
-    tap(
-      data => console.log(configUrl, data),
-      error => console.log(configUrl, error)
+  public onFormSubmit() {
+    console.log("FORM WAS SUBMITTED");
+    this.submitted = true;
+    const configUrl = 'http://localhost:4200/home'; 
+    /*
+    this.http.post(configUrl,this.UserForm.value)
+    .pipe(
+      tap(
+        data => console.log(configUrl, data),
+        error => console.log(configUrl, error)
+      )
     )
-  )
-  .subscribe(results => this.results = results);*/
-}
-
-
-public onFormReset() {
-  console.log("FORM WAS Reset");
-
-this.submitted = false;
-
-}
-}
-
-/** An example database that the data source uses to retrieve data for the table.
- * 
- * 
- * export class ExampleHttpDatabase {
-  constructor(private _httpClient: HttpClient) {}
-
-  getRepoIssues(sort: string, order: string, page: number): Observable<GithubApi> {
-    const href = 'https://api.github.com/search/issues';
-    const requestUrl =
-        `${href}?q=repo:angular/components&sort=${sort}&order=${order}&page=${page + 1}`;
-
-    return this._httpClient.get<GithubApi>(requestUrl);
+    .subscribe(results => this.results = results);*/
   }
-}
- * 
- * 
- * 
- */
-
-
-
+  
+  
+  public onFormReset() {
+    console.log("FORM WAS Reset");
+  
+  this.submitted = false;
+  
+  }
+  }
 
 
 /* functions from old table
