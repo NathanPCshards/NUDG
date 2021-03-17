@@ -38,9 +38,9 @@ httpOptions: { headers: HttpHeaders } = {
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
-  update(inventory: inventories): Observable<any> {
+  update(item: any): Observable<any> {
     return this.http
-      .put<inventories>(this.url, inventory, this.httpOptions)
+      .put(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
   }
 

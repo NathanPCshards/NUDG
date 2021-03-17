@@ -12,8 +12,33 @@ export class AppComponent implements OnInit {
   toolbar = document.getElementById("toolbar");
   height;
 
-  btnClick= function ()  {
+  rtroles= function ()  {
     this.router.navigateByUrl('/Roles')
+    
+  }
+  rtpol= function ()  {
+    this.router.navigateByUrl('/Policies')
+    
+  }
+  rtusers= function ()  {
+    this.router.navigateByUrl('/Users')
+    
+  }
+  rtinven= function ()  {
+    this.router.navigateByUrl('/Inventory')
+    
+  }
+  rtcompany= function ()  {
+    this.router.navigateByUrl('/CompanyInfo')
+    
+  }
+  rtpolic= function ()  {
+    this.router.navigateByUrl('/Policy')
+    
+  }
+
+  rtdash= function ()  {
+    this.router.navigateByUrl('/Dashboard')
     
   }
 

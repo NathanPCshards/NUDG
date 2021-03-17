@@ -1,12 +1,15 @@
 
 
 <form class="example-form">
-    <input  style ="width: 85%" type="text"
+  
+    <input  type="text"  style ="width: 85%;color: white; background: transparent; border-top: transparent;border-left: transparent; border-right: transparent; border-bottom: 1px solid white;"
            placeholder="Search Pages"
+           
            [formControl]="myControl"
            [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option id="options" *ngFor="let page of filteredPages | async" [value]="page" routerLink="{{page}}" (keydown)="handleKeyDown($event, page)" routerLinkActive="active">
+      
+    <mat-autocomplete #auto="matAutocomplete" >
+      <mat-option  id="options" *ngFor="let page of filteredPages | async" [value]="page" routerLink="{{page}}" (keydown)="handleKeyDown($event, page)" routerLinkActive="active">
         {{page}}
       </mat-option>
     </mat-autocomplete>

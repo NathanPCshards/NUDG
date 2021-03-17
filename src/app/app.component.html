@@ -11,17 +11,25 @@
         <app-page-search style="margin-left: 3%;">
 
         </app-page-search>
-
-        <button type="button" class="btn btn-primary-outline pull-right" (click)="btnClick();"><i class="fa fa-plus"></i> Add</button>    
-
-        <span routerLink="/Dashboard" routerLinkActive="active" style="margin-left: 30%;"> Dashboard</span>
+        
+        <div class="routes">
+        <button mat-raised-button type="button" style="color: white;margin-left:80%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtdash();"><i class="fa fa-plus"></i> Dashboard</button>    
+        <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtroles();"><i class="fa fa-plus"></i>Roles</button>
+        <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtpol();"><i class="fa fa-plus"></i>Policies</button>    
+        <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtusers();"><i class="fa fa-plus"></i>Users</button>    
+        <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtinven();"><i class="fa fa-plus"></i>Inventory</button>    
+        <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtcompany();"><i class="fa fa-plus"></i>Company Info</button>    
+        <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtpolic();"><i class="fa fa-plus"></i> Policy</button>    
+        </div>
+        <!--
+        <span routerLink="/Dashboard" routerLinkActive="active" style="margin-left: 30%;border: transparent;"> Dashboard</span>
         <span routerLink="/Policies" routerLinkActive="active" style="margin-left: 2%; ">Policies</span>
         <span routerLink="/Users" routerLinkActive="active"style="margin-left: 2%; "> Users</span>
         <span routerLink="/Inventory" routerLinkActive="active" style="margin-left: 2%; "> Inventory </span>
         <span routerLink="/CompanyInfo" routerLinkActive="active" style="margin-left: 2%; "> Company Info </span>
         <span routerLink="/Roles" routerLinkActive="active" style="margin-left: 2%; "> Roles</span>
         <span routerLink="/Policy" routerLinkActive="active" style="margin-left: 2%; "> Policy</span>
-
+    -->
     </mat-toolbar-row>
     
 </mat-toolbar>

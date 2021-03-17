@@ -61,7 +61,7 @@
                     <div class = "row">
                         <div class ="col">
                             <mat-form-field  appearance = "legacy" style="width:40%">
-                                <input matInput placeholder = "NUDG Identifiers">
+                                <input #Nid matInput placeholder = "NUDG Identifiers">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:40%">
                                 <input [(ngModel)]="id" [ngModelOptions]="{standalone: true}" matInput placeholder = "Weakness ID">
@@ -205,7 +205,7 @@
                 <div class = "row2">
                     <mat-divider style="padding-top: 3px;"></mat-divider>
     
-                    <button mat-raised-button [mat-dialog-close]="true" (click)="onFormSubmit();" style="margin-left: 15%;width:20vw;height: 3vh; float: left;" color="primary"  >Submit</button>
+                    <button mat-raised-button [mat-dialog-close]="true" (click)="post(Nid.value)" style="margin-left: 15%;width:20vw;height: 3vh; float: left;" color="primary"  >Submit</button>
                     
                     <button mat-raised-button  (click)="onFormReset();" style="margin-right: 15%;width:20vw;height: 3vh;float: right;" type="reset"  color="primary"  >Reset</button>
                 </div>

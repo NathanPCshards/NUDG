@@ -4,7 +4,7 @@ export interface controls {
     idStandards : number;
     Cname : string;
     Coverview : string;
-    Cissuedate : Date;
+    Cissuedate : string;
     Csharedresources : number;
     Curl : string;
     CProcedure : number;

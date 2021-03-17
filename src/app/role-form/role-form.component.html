@@ -1,16 +1,16 @@
 
 
-<mat-accordion class ="accordion">
+<mat-accordion class ="accordion" style="background-image: radial-gradient(circle, #809299, #728890, #637d88, #557380, #476978);">
 
       
   <mat-expansion-panel (opened)="panelOpenState = true"
                        (closed)="panelOpenState = false"
-                       >
+                       style="background-image: radial-gradient(circle, #809299, #728890, #637d88, #557380, #476978);">
     <mat-expansion-panel-header>
-      <mat-panel-title>
+      <mat-panel-title style="color: black;">
         Add a Role
       </mat-panel-title>
-      <mat-panel-description class="description">
+      <mat-panel-description  style="color: black;" class="description">
        Open panel to add a Role 
       </mat-panel-description>
 
@@ -20,8 +20,10 @@
 
 
     </mat-expansion-panel-header>
+    <mat-card>
     <RoleGroupForms>
       </RoleGroupForms>
+    </mat-card>
       
   </mat-expansion-panel>
 
@@ -105,7 +107,7 @@ style="float: right;"
    <span style="position: absolute; right: 0;">
       <button mat-icon-button>
         <mat-icon
-          (click)="update(role.idOrgRoles, roleInput.value)"
+          (click)="update(role.idOrgRoles, userInput.value)"
           color="primary"
         >
           edit

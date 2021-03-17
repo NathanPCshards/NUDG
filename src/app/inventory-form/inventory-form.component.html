@@ -182,11 +182,7 @@
                             </mat-form-field>
                                 <h3>Comments</h3>
                             <textarea #Icomments id="comments" style="text-align: left; align-content: left; margin-left: 1%; " rows="4" cols="38"></textarea>
-    
-    
-                     
-    
-    
+ 
                         </div>
     
     
@@ -199,7 +195,10 @@
                 <div class = "row2">
                     <mat-divider style="padding-top: 3px; padding-bottom: 3px; "></mat-divider>
     
-                    <button mat-raised-button (click) = "onFormSubmit()" style="width:20vw;height: 5vh; float: left;margin-left: 15%;"   type ="Submit" color="primary"  >Submit</button>
+                    <button mat-raised-button (click)="post(IassetIdentifier.value, Iaddress.value, InetworkID.value, Ivirtual.value, Ipublic.value, Idnsname.value,
+                    InetbiosName.value, Imacaddress.value, IauthenticatedScan.value, IbaselineConfigName.value, IosNameAndVersion.value, IphysicalLocation.value, 
+                    IhardwareSoftwareVendor.value, IdateOfReceipt.value, Icost.value, IsoftwareDatabase.value, Ipatchlevel.value, Ifunction.value, Icomments.value,
+                    Iserial.value, Ivlan.value, IsystemAdmin.value, Iapplication.value, IsoftwareApproval.value)" style="width:20vw;height: 5vh; float: left;margin-left: 15%;"   type ="Submit" color="primary"  >Submit</button>
                     
                     <button mat-raised-button (click) = "onFormReset()"  style="width:20vw;height: 5vh; float: right;margin-right: 15%;"  type="Reset" color="primary"  >Reset</button>
                 </div>
@@ -213,7 +212,10 @@
 
 
   <button
-  (click)="post(userInput.value)"
+  (click)="post(IassetIdentifier.value, Iaddress.value, InetworkID.value, Ivirtual.value, Ipublic.value, Idnsname.value,
+  InetbiosName.value, Imacaddress.value, IauthenticatedScan.value, IbaselineConfigName.value, IosNameAndVersion.value, IphysicalLocation.value, 
+  IhardwareSoftwareVendor.value, IdateOfReceipt.value, Icost.value, IsoftwareDatabase.value, Ipatchlevel.value, Ifunction.value, Icomments.value,
+  Iserial.value, Ivlan.value, IsystemAdmin.value, Iapplication.value, IsoftwareApproval.value)"
   mat-fab
   color="primary"
   style="float: right;"
@@ -243,7 +245,7 @@
         >{{ inventory.idOrgInventory }}    </span
       >
       <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
-        {{inventory.Idnsname}}
+        {{inventory.Iaddress}}
       </span>
       </div>
 
@@ -251,7 +253,10 @@
      <span style="position: absolute; right: 0;">
         <button mat-icon-button>
           <mat-icon
-            (click)="update(inventory.idOrgInventory, userInput.value)"
+            (click)="update(IassetIdentifier.value, Iaddress.value, InetworkID.value, Ivirtual.value, Ipublic.value, Idnsname.value,
+            InetbiosName.value, Imacaddress.value, IauthenticatedScan.value, IbaselineConfigName.value, IosNameAndVersion.value, IphysicalLocation.value, 
+            IhardwareSoftwareVendor.value, IdateOfReceipt.value, Icost.value, IsoftwareDatabase.value, Ipatchlevel.value, Ifunction.value, Icomments.value,
+            Iserial.value, Ivlan.value, IsystemAdmin.value, Iapplication.value, IsoftwareApproval.value, inventory.idOrgInventory)"
             color="primary"
           >
             edit

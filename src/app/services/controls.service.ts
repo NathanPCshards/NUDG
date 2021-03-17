@@ -30,9 +30,10 @@ httpOptions: { headers: HttpHeaders } = {
       );
   }
 
-  post(item: Partial<controls>): Observable<any> {
+  post(item: any): Observable<any> {
+    console.log("this is the control:", item, "caught it")
     return this.http
-      .post<Partial<controls>>(this.url, item, this.httpOptions)
+      .post(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 

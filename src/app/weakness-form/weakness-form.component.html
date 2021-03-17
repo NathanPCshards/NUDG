@@ -20,48 +20,59 @@
 </mat-toolbar>
 
 
+<button (click)="post(Nid.value)"
+mat-fab
+color="primary"
+style="float: right;"
+>
+<mat-icon>add</mat-icon>
+</button >
+<mat-form-field style="width: 100%;">
+<mat-label>User item</mat-label>
+<input #userInput matInput placeholder="Ex. Rice" />
+</mat-form-field>
+
+<mat-list>
+  <div class="flexContainer">
+    <mat-list-item class="headerRow">
+      <span>
+        ID
+      </span>
+      <span style="margin-left: 6.5%;">
+        Name
+      </span>
+    </mat-list-item>
+  </div>
+
+  <mat-list-item *ngFor="let weakness of weaknesses$ | async">
+    <div class="flexContainer">
+    <span class="listSpan" style="font-weight: bold;"
+      >{{ weakness.Nid }}    </span
+    >
+
+    </div>
 
 
-  <table mat-table [dataSource]="dataSource" matSort class="userTable" style="width:100%">
+   <span style="position: absolute; right: 0;">
+      <button mat-icon-button>
+        <mat-icon
+          (click)="update(Nid.value)"
+          color="primary"
+        >
+          edit
+        </mat-icon>
+      </button>
 
-    <ng-container matColumnDef="select">
-        <th mat-header-cell *matHeaderCellDef>
-        <mat-checkbox (change)="$event ? masterToggle() : null"
-                        [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="selection.hasValue() && !isAllSelected()"
-                        [aria-label]="checkboxLabel()">
-        </mat-checkbox>
-        </th>
-        <td mat-cell *matCellDef="let row">
-        <mat-checkbox (click)="$event.stopPropagation()"
-                        (change)="$event ? selection.toggle(row) : null"
-                        [checked]="selection.isSelected(row)"
-                        [aria-label]="checkboxLabel(row)">
-        </mat-checkbox>
-        </td>
-    </ng-container>
-
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
   
-    <ng-container matColumnDef="desc">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
-      <td mat-cell *matCellDef="let element"> {{element.desc}} </td>
-    </ng-container>
-  
- 
-
-    
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row (click)="onRowClicked(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+      <button mat-icon-button>
+        <mat-icon (click)="delete(weakness.idOrgWeakness)" color="warn">
+          delete
+        </mat-icon>
+      </button>
+    </span> 
+  </mat-list-item>
+</mat-list>
 
 
 <mat-dialog-content class="dialog" >
 </mat-dialog-content>
-
-
-
-<button (click)="refresh()">refresh</button>

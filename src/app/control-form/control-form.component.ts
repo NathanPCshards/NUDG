@@ -5,8 +5,10 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { controlTable } from '../identifier-page/identifier-page.component';
+import { controls } from '../models/controls';
+import { ControlsService } from '../services/controls.service';
 import { SharedService } from '../services/Shared';
 
 
@@ -173,37 +175,37 @@ removeSelectedRows() {
 })
 export class controlDialog {
 controlForm;
-control_id;
-description;
-inpDate;
+
+controls$: Observable<controls[]>;
+
 position;
 procedure;
 submitted= false;
-  constructor(private http:HttpClient, private formBuilder: FormBuilder, private sharedService: SharedService) { }
+  constructor(private http:HttpClient, private formBuilder: FormBuilder, private controlService: ControlsService) { }
 
 ngOnInit(){
-  this.position = 3;
+  this.controls$ = this.fetchAll();
   this.controlForm = this.formBuilder.group({
    
     //initialize stuff to be null or whatever, here
 
   });
 }
-public onFormSubmit() {
-  console.log("FORM WAS SUBMITTED");
-  this.submitted = true;
-  const configUrl = 'http://localhost:4200/home'; 
- 
 
-  const modal: controlTemplate = new control(this.position,this.control_id,this.description,this.inpDate,this.procedure);
-
-
-  const temp = (globalControlData.data);
-  temp.push(modal)
-  globalControlData.data = temp;
-
- 
+fetchAll(): Observable<controls[]> {
+  return this.controlService.fetchAll();
 }
+
+post(Nid, Cname, Coverview, Cissuedate, Csharedresources, Curl ): void {
+//console.log(Nid,Cname,Coverview,Cissuedate,Csharedresources,Curl)
+   
+   this.controls$ = this.controlService
+     .post({ Nid, Cname, Coverview, Cissuedate, Csharedresources, Curl })
+     .pipe(tap(() => (this.controls$ = this.fetchAll())));
+     console.log("post from ctrl")
+ }
+
+
 
 
 public onFormReset() {

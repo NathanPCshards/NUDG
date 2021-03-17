@@ -6,8 +6,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {merge, Observable, of as observableOf} from 'rxjs';
-import {catchError, map, startWith, switchMap} from 'rxjs/operators';
+import {catchError, map, startWith, switchMap, tap} from 'rxjs/operators';
+import { weaknesses } from '../models/weaknesses';
 import { SharedService } from '../services/Shared';
+import { WeaknessesService } from '../services/weaknesses.service';
 
 
 export interface tableEntry {
@@ -102,7 +104,8 @@ export class WeaknessFormComponent implements OnInit {
   displayedColumns: String[] = ['select','id', 'desc'];
   rowSelected = false;
   name: any;
- 
+  weaknesses$: Observable<weaknesses[]>;
+
   dataSource!: MatTableDataSource<weaknessTable>;
   selection = new SelectionModel<weaknessTable>(true, []);
   @ViewChild(MatSort) sort;
@@ -114,7 +117,7 @@ export class WeaknessFormComponent implements OnInit {
   resultsLength
 
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog, public _sharedService : SharedService){
+  constructor(private http: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog, public weaknessservice : WeaknessesService){
     this.dataSource = new MatTableDataSource(weaknessData);
     globalWeaknessData.data = this.dataSource.data;
 
@@ -134,7 +137,77 @@ export class WeaknessFormComponent implements OnInit {
   }
 
   ngOnInit(){
+    this.weaknesses$ = this.fetchAll()
+
   }
+  fetchAll(): Observable<weaknesses[]> {
+    return this.weaknessservice.fetchAll();
+  }
+  
+  post(Nid): void {
+    // IdateOfReceipt = new Date();
+     console.log("nid : " , Nid)
+     this.weaknesses$ = this.weaknessservice
+       .post({ Nid})
+       .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));
+   }
+
+
+}
+
+
+
+@Component({
+  selector: 'weakness-dialog',
+  templateUrl: 'weaknessForm.html',
+  styleUrls: ['./weakness-form.component.scss']
+
+})
+export class weaknessDialog {
+weaknessForm;
+position;
+id;
+desc;
+milestones;
+submitted= false;
+weaknesses$: Observable<weaknesses[]>;
+
+
+  constructor(private http:HttpClient, private formBuilder: FormBuilder, private weaknessservice: WeaknessesService) { }
+
+ngOnInit(){
+  this.weaknesses$ = this.fetchAll()
+  this.weaknessForm = this.formBuilder.group({
+    //initialize stuff to be null or whatever, here
+
+  });
+}
+public onFormSubmit() {
+
+}
+fetchAll(): Observable<weaknesses[]> {
+  return this.weaknessservice.fetchAll();
+}
+
+post(Nid): void {
+  // IdateOfReceipt = new Date();
+   console.log("from dialoge weakness : " , Nid)
+   this.weaknesses$ = this.weaknessservice
+     .post({ Nid})
+     .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));
+ }
+
+public onFormReset() {
+  console.log("FORM WAS Reset");
+
+this.submitted = false;
+
+}
+}   
+
+
+/*
+
 
 onRowClicked(row): void {
   console.log("Row clicked: ", row);
@@ -181,52 +254,4 @@ removeSelectedRows() {
    });
    this.selection = new SelectionModel<weaknessTable>(true, []);
 }
-
-}
-
-
-
-@Component({
-  selector: 'weakness-dialog',
-  templateUrl: 'weaknessForm.html',
-  styleUrls: ['./weakness-form.component.scss']
-
-})
-export class weaknessDialog {
-weaknessForm;
-position;
-id;
-desc;
-milestones;
-submitted= false;
-  constructor(private http:HttpClient, private formBuilder: FormBuilder) { }
-
-ngOnInit(){
-  this.weaknessForm = this.formBuilder.group({
-    //initialize stuff to be null or whatever, here
-
-  });
-}
-public onFormSubmit() {
-    this.submitted = true;
-    const configUrl = 'http://localhost:4200/home'; 
-  
-    const modal: weaknessTable = new weakness(this.position,this.id,this.desc,this.milestones);
-  
-  
-    const temp = (globalWeaknessData.data);
-    temp.push(modal)
-    globalWeaknessData.data = temp;
-  
-
-}
-
-
-public onFormReset() {
-  console.log("FORM WAS Reset");
-
-this.submitted = false;
-
-}
-}   
-
+*/
