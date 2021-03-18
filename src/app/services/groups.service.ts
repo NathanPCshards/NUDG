@@ -30,15 +30,15 @@ httpOptions: { headers: HttpHeaders } = {
       );
   }
 
-  post(item: Partial<groups>): Observable<any> {
+  post(item: any): Observable<any> {
     return this.http
-      .post<Partial<groups>>(this.url, item, this.httpOptions)
+      .post(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
-  update(user: groups): Observable<any> {
+  update(item: any): Observable<any> {
     return this.http
-      .put<groups>(this.url, user, this.httpOptions)
+      .put(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
   }
 

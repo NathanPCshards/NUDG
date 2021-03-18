@@ -8,15 +8,15 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { InventoryFormComponent } from './inventory-form/inventory-form.component';
 import { CompanyInfoFormComponent } from './company-info-form/company-info-form.component';
-import { GroupFormComponent, groupTable } from './group-form/group-form.component';
+import { GroupFormComponent } from './group-form/group-form.component';
 import { RoleFormComponent } from './role-form/role-form.component';
-import { controlTable, IdentifierPageComponent, weaknessTable } from './identifier-page/identifier-page.component';
+import { IdentifierPageComponent, weaknessTable } from './identifier-page/identifier-page.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { CuiContractsFormComponent } from './cui-contracts-form/cui-contracts-form.component';
 import { SupplierFormComponent } from './supplier-form/supplier-form.component';
 import { VendorFormComponent } from './vendor-form/vendor-form.component';
 import { TasksComponent } from './tasks/tasks.component';
-import { GuidelinesForm, GuidelinesPageComponent } from './guidelines-page/guidelines-page.component';
+import { GuidelinesForm } from './guidelines-page/guidelines-page.component';
 import { GapAssessmentPageComponent, GapForm } from './gap-assessment-page/gap-assessment-page.component';
 import { weaknessDialog, WeaknessFormComponent } from './weakness-form/weakness-form.component';
 import { controlDialog, ControlFormComponent } from './control-form/control-form.component';
@@ -39,8 +39,7 @@ const routes: Routes = [
   { path: 'Inventory', component: InventoryFormComponent },
   { path: 'CompanyInfo', component: CompanyInfoFormComponent },
   { path: 'Roles', component: RoleFormComponent },
-  { path: 'GroupsForm', component: GroupFormComponent },
-  { path: 'GroupsPage', component: groupTable },
+  { path: 'GroupsPage', component: GroupFormComponent },
   { path: 'AdminPanel', component: AdminPanelComponent },
 
   { path: 'Policy', component: IdentifierPageComponent },
@@ -50,7 +49,6 @@ const routes: Routes = [
   { path: 'Vendors', component: VendorFormComponent },
   { path: 'Tasks', component: TasksComponent },
   { path: 'Controls', component: ControlFormComponent },
-  { path: 'GuidelinesForm', component: GuidelinesPageComponent },
   { path: 'GuidelinesPage', component: GuidelinesForm },
   
   { path: 'Weaknesses', component: WeaknessFormComponent },

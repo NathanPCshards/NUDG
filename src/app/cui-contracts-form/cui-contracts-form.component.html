@@ -1,4 +1,59 @@
 
+    <style>
+      div.container1{
+          overflow:hidden;
+          padding: 5px;
+          margin-top: 10px;
+          margin-left:auto;
+          margin-right: auto;
+          width:98%;
+          height: 450px;
+  
+          box-shadow: 1px 1px 15px -1px ;
+          background: linear-gradient(to bottom, #212121 12%, white 0%);
+          overflow: hidden;
+          border-radius: 3px;
+  
+          }
+      mat-grid-tile{
+          width: 98px;
+          margin:auto;
+      }
+      mat-form-field{
+          margin-left: 1%;
+      }
+      
+      .col{
+          float:left;
+          width: 33%;
+          padding:1%;
+          
+      }
+      
+      .row2{
+          width:100%;
+          align-items: center;
+          display: flexbox;
+          clear:both;
+          padding-left: 2px;
+          padding-right: 2px;
+      }
+      .mat-raised-button{
+          margin-top: 1%;
+          margin-bottom: 15px;
+      }
+      
+      .mat-toolbar{
+          padding: 0px;
+      }
+      ::ng-deep.mat-dialog-container {
+          padding: 0px !important;
+          margin-bottom: 0px;
+      }
+      
+      
+  </style>
+
 <mat-accordion class ="accordion">
 
       
@@ -13,46 +68,93 @@
        Open panel to add a CUI Contract Item
       </mat-panel-description>
 
-
-
-   
-
-
     </mat-expansion-panel-header>
-      <cuiForm>
 
-      </cuiForm>
+  
+      <div class="container1" style="margin:0px;padding: 0px;">
+    
+          <form class="cui-form"  novalidate>
+  
+              <h2 style=" margin-left: 1%; margin-top: 1%; font-size: 32px;color: white;">
+                  CUI Contracts
+              </h2>
+      
+      
+              
+              <div class = InputContainer>
+                  <div class = "row">
+                      <div class ="col">
+                          <h1 style="margin-left: 1%;">Info</h1>
+                          <mat-form-field  appearance = "legacy" style="width:40%">
+                              <input matInput placeholder = "Contract ID">
+                          </mat-form-field>
+                          <mat-form-field appearance = "legacy" style="width:40%">
+                              <input #CCname matInput placeholder = "Contract Name">
+                          </mat-form-field>
+                          <mat-form-field appearance = "legacy" style="width:80%">
+                              <input #CCnum matInput placeholder = "Contract Number" >
+                          </mat-form-field>
+                          <mat-form-field appearance = "legacy" style="width:40%">
+                              <input #CCstartDate matInput placeholder = "Contract Start Date">
+                          </mat-form-field>
+                          <mat-form-field appearance = "legacy" style="width:40%">
+                              <input #CCendDate matInput placeholder = "Contract End Date">
+                          </mat-form-field>
+                          <mat-form-field appearance = "legacy" style="width:40%">
+                              <input #CCdescription matInput placeholder = "Description">
+                          </mat-form-field>
+                          <mat-form-field appearance = "legacy" style="width:40%">
+                              <input matInput placeholder = "Primary Asset Relation">
+                          </mat-form-field>
+
+                      </div>
+  
+                      <div class ="col">
+                          <h1 style="margin-left: 1%;"> Contact</h1>
+                                  
+
+                          <mat-form-field appearance = "legacy"  style="width:80%">
+                              <input  matInput placeholder = "Supplier Relation">
+                          </mat-form-field>
+                          <mat-form-field appearance = "legacy" style="width:80%">
+                              <input matInput placeholder = "Vendor Relaton">
+                          </mat-form-field>
+                          <mat-form-field appearance = "legacy" style="width:40%" >
+                              <input matInput placeholder = "Business Phone">
+                          </mat-form-field>
+                          <mat-form-field appearance = "legacy" style="width:40%" >
+                              <input matInput placeholder = "Cell Phone">
+                          </mat-form-field>
+  
+  
+
+                      
+                        <div class = "row2">
+                            <div class="fileInput" style="margin-left: 1%; float:1; width:25%;">
+                                <input  class="ng-hide" id="input-file-id" multiple type="file" />
+                                <label for="input-file-id" class="md-button md-raised md-primary"></label>
+                            </div>
+        
+            
+                            <button mat-raised-button (click)="post(CCname.value, CCnum.value, CCstartDate.value, CCendDate.value, CCdescription.value)"  style="margin-left: 15%;width:25%;height: 5vh; float: 2;" color="primary"  >Submit</button>
+                            <button mat-raised-button  (click)="onFormReset();" style="margin-left: 10%;width:25%;height: 5vh;float: 3;" type="reset"  color="primary"  >Reset</button>
+                        </div>
+          
+          
+                    </div>
+                  </div>
+                    
+                </div>
+          </form>
+      </div>
+          
+  
   </mat-expansion-panel>
 
 </mat-accordion>
 
-
-<!--
-
-  <mat-toolbar  class="tools" style="height: 8vh;">
-
-    <mat-toolbar-row>
-        <mat-form-field style="width: 15%; height: 70%;">
-            <mat-label>Search</mat-label>
-        <input matInput (keyup)="applyFilter($event)" #input>
-        </mat-form-field>
-
-        <button mat-raised-button (click)="openDialog()" style="margin-left: 35%;margin-top: 20px;"> Add Contract</button>
-        <button mat-raised-button (click)="removeSelectedRows()" style="margin-left: 3%;"> Delete Selected</button>
-        <button mat-raised-button style="margin-left: 3%;"> Import </button>
-        <button mat-raised-button style="margin-left: 3%;"> Export </button>
-
-
-    </mat-toolbar-row>
-
-</mat-toolbar>
-
-
-
--->
-
 <button
-(click)="post(userInput.value)"
+(click)="post(CCname.value, CCnum.value, CCstartDate.value, CCendDate.value, CCdescription.value)"
 mat-fab
 color="primary"
 style="float: right;"
@@ -90,7 +192,7 @@ style="float: right;"
    <span style="position: absolute; right: 0;">
       <button mat-icon-button>
         <mat-icon
-          (click)="update(contract.idCUIcontracts, userInput.value)"
+          (click)="update(CCname.value, CCnum.value, CCstartDate.value, CCendDate.value, CCdescription.value, contract.idCUIcontracts)"
           color="primary"
         >
           edit
@@ -106,16 +208,6 @@ style="float: right;"
     </span> 
   </mat-list-item>
 </mat-list>
-
-
-
-
-
-
-<mat-dialog-content class="dialog" >
-</mat-dialog-content>
-
-
 
 
 

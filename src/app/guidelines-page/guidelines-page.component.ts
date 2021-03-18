@@ -1,52 +1,10 @@
-import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { guidelines } from '../models/guidelines';
 import { GuidelinesService } from '../services/guidelines.service';
-
-
-
-@Component({
-  selector: 'guidelines-form',
-  templateUrl: 'guidelinesForm.html',
-  styleUrls: ['./guidelines-page.component.scss']
-})
-export class GuidelinesPageComponent implements OnInit {
-  guidelineForm;
-  id;
-  desc;
-
-  
-  
-  submitted= false;
-    constructor(private http:HttpClient, private formBuilder: FormBuilder) { }
-  
-  ngOnInit(){
-    this.guidelineForm = this.formBuilder.group({
-      //initialize stuff to be null or whatever, here
-  
-    });
-  }
-  public submit() {
-    console.log("form submitted")
-
-  
-  }
-  
-  
-  public onFormReset() {
-    console.log("FORM WAS Reset");
-  
-  this.submitted = false;
-  
-  }
-} 
-
-
 
 @Component({
   selector: 'app-guidelines-page',

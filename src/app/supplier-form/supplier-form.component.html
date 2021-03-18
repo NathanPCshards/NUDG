@@ -18,39 +18,140 @@
 
 
     </mat-expansion-panel-header>
-    <supplierForm>
 
-    </supplierForm>
+    <div [formGroup] ="supplierform">
+      <form  class="supplierform" (ngSubmit)="onFormSubmit()" novalidate>
+  
+      <div class="container1">
+          <h2>
+              Suppliers
+          </h2>
+  
+          <mat-divider style="padding-top: 3px; padding-bottom: 3px;"></mat-divider>
+            <!--  <div class = InputContainer>--> 
+                  <div class = "row">
+                      <div class ="col">
+                          <h1>Info</h1>
+                          <mat-form-field appearance = "legacy" style="width:80%">
+                              <input #Sname matInput placeholder = "Supplier Name" style="padding-left: 2px;">
+                          </mat-form-field>
+                          <mat-form-field appearance = "legacy" style="width:40%">
+                              <input #Sproduct matInput placeholder = "Supplier Product">
+                          </mat-form-field>
+  
+                          <mat-form-field appearance = "legacy" style="width:40%">
+                              <input #Swebsite matInput placeholder = "Supplier Website">
+                          </mat-form-field>
+  
+                          <mat-form-field appearance = "legacy" style="width:80%">
+                              <input #StechnicalPOCinfo matInput placeholder = "Technical POC Information">
+                          </mat-form-field>
+  
+  
+                          <h1 style="margin-left: 1%;">Address</h1>
+  
+                          <mat-form-field appearance = "legacy" style="width:40%">
+                              <input #Saddress matInput placeholder = "Address Line 1">
+                          </mat-form-field>
+  
+ 
+  
+                          <mat-form-field appearance = "legacy" style="width:40%">
+                              <input matInput placeholder = "City">
+                          </mat-form-field>
+  
+                          <mat-form-field appearance = "legacy" style="width:40%">
+                              <input matInput placeholder = "State">
+                          </mat-form-field>
+  
+                          <mat-form-field appearance = "legacy" style="width:40%">
+                              <input matInput placeholder = "Zip Code">
+                          </mat-form-field>
+  
+                          <mat-form-field appearance = "legacy" style="width:40%">
+                              <input matInput placeholder = "Country">
+                          </mat-form-field>
+                          <div class="fileInput" style="margin-left: 1%;">
+                              <input  class="ng-hide" id="input-file-id" multiple type="file" />
+                              <label for="input-file-id" class="md-button md-raised md-primary"> Upload Image</label>
+                          </div>
+                      </div>
+  
+                      <div class ="col">
+                          <mat-form-field appearance = "legacy" style="width:80%; padding-top: 46px;">
+                              <input #ScontractualPOCinfo matInput placeholder = "Primary Point of Contact">
+                          </mat-form-field>
+
+                          <mat-card class ="card1" style="width:65%">
+                              <mat-card-header style="margin-left: 27%;" >SBA Certified</mat-card-header>
+                              <mat-radio-group class="radio-groupCertified" appearance = "legacy" aria-label="Select an option">
+                                  <mat-radio-button #SSBAcertified style="margin-left: 1%;" value="1">Yes</mat-radio-button>
+                                  <mat-radio-button #SSBAcertified style="margin-left: 80%;" value="2">No</mat-radio-button>
+                              </mat-radio-group>
+                          </mat-card>
+                          <mat-form-field appearance = "legacy" style="width:80%">
+                              <input #SbusinessType matInput placeholder = "Business Type">
+                          </mat-form-field>
+
+                          <mat-form-field appearance = "legacy" style="width:40%">
+                              <input #SDUNSnum matInput placeholder = "DUNS Number">
+                          </mat-form-field>
+                          <mat-form-field appearance = "legacy" style="width:40%">
+                              <input #Scagecode matInput placeholder = "CAGE Code">
+                          </mat-form-field>
+                      </div>
+  
+                      <div class ="col">
+                          <h1 style="margin-left: 1%;">Audit Information</h1>
+                          <mat-form-field appearance = "legacy" style="width:80%;">
+                              <input #ScmmcAuditAgency matInput placeholder = "CMMC Audit Agency" >
+                          </mat-form-field>
+                          <mat-form-field appearance = "legacy" style="width:80%;">
+                              <input #ScmmcAuditorInfo matInput placeholder = "CMMC Auditor Information">
+                          </mat-form-field>
+                          <mat-form-field appearance = "legacy" style="width:80%;">
+                              <input #ScmmcAuditDate matInput placeholder = "CMMC Auditor Date">
+                          </mat-form-field>
+       
+                          <mat-form-field appearance = "legacy" style="width:80%;">
+                              <input #SNISTauditAgency matInput placeholder = "NIST Audit Agency"> 
+                          </mat-form-field>
+                          <mat-form-field appearance = "legacy" style="width:80%;">
+                              <input #SNISTauditorInfo matInput placeholder = "NIST Audit Auditor Information">
+                          </mat-form-field>
+                          <mat-form-field appearance = "legacy" style="width:80%;">
+                              <input #SNISTauditDate matInput placeholder = "NIST Audit Date">
+                          </mat-form-field>
+
+  
+                  
+                      </div>
+  
+  
+                  </div>
+                  
+      
+              <div class = "row2">
+                  <mat-divider style="padding-top: 3px; padding-bottom: 3px;"></mat-divider>
+  
+                  <button mat-raised-button (click) = "post(Sname.value, Sproduct.value, Saddress.value, Swebsite.value, StechnicalPOCinfo.value, SDUNSnum.value, Scagecode.value, SbusinessType.value, SSBAcertified.value, ScontractualPOCinfo.value, ScmmcAuditAgency.value, ScmmcAuditorInfo.value, ScmmcAuditDate.value, SNISTauditAgency.value, SNISTauditorInfo.value, SNISTauditDate.value)"   style="margin-left: 30%;width:30vw;height: 4vh;" type ="Submit" color="primary"  >Submit</button>
+                  <button mat-raised-button (click) = "onFormReset()" style="margin-left: 30%;width:30vw;height: 4vh;" type="Reset" color="primary"  >Reset</button>
+              </div>
+          </div>
+      </form>
+      
+
+      
+  </div>
+
+
   </mat-expansion-panel>
 
 </mat-accordion>
 
-<!--
-<mat-toolbar  class="tools" style="height: 8vh;">
-
-    <mat-toolbar-row>
-        <mat-form-field style="width: 15%; height: 70%;">
-            <mat-label>Search</mat-label>
-        <input matInput (keyup)="applyFilter($event)" #input>
-        </mat-form-field>
-
-        <button mat-raised-button (click)="openDialog()" style="margin-left: 35%;margin-top: 20px;"> Add Supplier</button>
-        <button mat-raised-button (click)="removeSelectedRows()" style="margin-left: 3%;"> Delete Selected</button>
-        <button mat-raised-button style="margin-left: 3%;"> Import </button>
-        <button mat-raised-button style="margin-left: 3%;"> Export </button>
-
-
-    </mat-toolbar-row>
-
-</mat-toolbar>
-
-
-
--->
-
 
 <button
-(click)="post(userInput.value)"
+(click)="post(Sname.value, Sproduct.value, Saddress.value, Swebsite.value, StechnicalPOCinfo.value, SDUNSnum.value, Scagecode.value, SbusinessType.value, SSBAcertified.value, ScontractualPOCinfo.value, ScmmcAuditAgency.value, ScmmcAuditorInfo.value, ScmmcAuditDate.value, SNISTauditAgency.value, SNISTauditorInfo.value, SNISTauditDate.value)"
 mat-fab
 color="primary"
 style="float: right;"
@@ -88,7 +189,7 @@ style="float: right;"
    <span style="position: absolute; right: 0;">
       <button mat-icon-button>
         <mat-icon
-          (click)="update(supplier.idSuppliers, userInput.value)"
+          (click)="update(Sname.value, Sproduct.value, Saddress.value, Swebsite.value, StechnicalPOCinfo.value, SDUNSnum.value, Scagecode.value, SbusinessType.value, SSBAcertified.value, ScontractualPOCinfo.value, ScmmcAuditAgency.value, ScmmcAuditorInfo.value, ScmmcAuditDate.value, SNISTauditAgency.value, SNISTauditorInfo.value, SNISTauditDate.value, supplier.idSuppliers)"
           color="primary"
         >
           edit

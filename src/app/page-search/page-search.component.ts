@@ -27,11 +27,11 @@ export class PageSearchComponent implements OnInit {
   'Dashboard', 'Users', 'Inventory',
   'CompanyInfo', 'Roles', 
   'Suppliers', 'Vendors', 'Tasks',
-  'Controls', 'GuidelinesPage', 'Weaknesses',
+  'Controls', 'Weaknesses',
   'GapAssessment', 'GapForm', 'ControlForm',
   'WeaknessForm', 'NetworkShareForm', 'SoftwareApprovalForm',
   'SharedResourceForm', 'SecurityLogForm', 'GuidelinesForm',
-  'HelpCenterForm', 'GroupsPage', 'GroupsForm',
+  'HelpCenterForm', 'GroupsPage',
   'NetworkSharePage','MilestonePage', 'ProcedurePage','AdminPanel'];
 
   

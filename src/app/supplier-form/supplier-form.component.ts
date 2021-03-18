@@ -33,10 +33,7 @@ export class SupplierFormComponent implements OnInit {
      public dialog: MatDialog, public suppliersService : SuppliersService){
     
   }
-  public openDialog() {
-    this.dialog.open(DialogSupplier, {height:'75%', width:"75%",});
 
-  }
 
 
 
@@ -49,30 +46,21 @@ export class SupplierFormComponent implements OnInit {
     return this.suppliersService.fetchAll();
   }
   
-  post(inventoryItem: Partial<suppliers>): void {
-    const name = (<string>inventoryItem).trim();
-    if (!name) return;
-  /*
+  post(Sname, Sproduct, Saddress, Swebsite, StechnicalPOCinfo, SDUNSnum, Scagecode, SbusinessType, SSBAcertified, ScontractualPOCinfo, ScmmcAuditAgency, ScmmcAuditorInfo, ScmmcAuditDate, SNISTauditAgency, SNISTauditorInfo, SNISTauditDate): void {
+ 
+ 
     this.suppliers$ = this.suppliersService
-      .post({ name })
-      .pipe(tap(() => (this.suppliers$ = this.fetchAll())));*/
+      .post({ Sname, Sproduct, Saddress, Swebsite, StechnicalPOCinfo, SDUNSnum, Scagecode, SbusinessType, SSBAcertified, ScontractualPOCinfo, ScmmcAuditAgency, ScmmcAuditorInfo, ScmmcAuditDate, SNISTauditAgency, SNISTauditorInfo, SNISTauditDate })
+      .pipe(tap(() => (this.suppliers$ = this.fetchAll())));
   }
   
   
-  update(id: number, inventoryItem: Partial<suppliers>): void {
-    const name = (<any>inventoryItem).trim();
+  update(Sname, Sproduct, Saddress, Swebsite, StechnicalPOCinfo, SDUNSnum, Scagecode, SbusinessType, SSBAcertified, ScontractualPOCinfo, ScmmcAuditAgency, ScmmcAuditorInfo, ScmmcAuditDate, SNISTauditAgency, SNISTauditorInfo, SNISTauditDate, idSuppliers): void {
     
-    if (!name) return;
-  /*
-    const newUsers: suppliers = {
-      id,
-      name
-  
-    };
-  
     this.suppliers$ = this.suppliersService
-      .update(newUsers)
-      .pipe(tap(() => (this.suppliers$ = this.fetchAll())));*/
+    .update({ Sname, Sproduct, Saddress, Swebsite, StechnicalPOCinfo, SDUNSnum, Scagecode, SbusinessType, SSBAcertified, ScontractualPOCinfo, ScmmcAuditAgency, ScmmcAuditorInfo, ScmmcAuditDate, SNISTauditAgency, SNISTauditorInfo, SNISTauditDate, idSuppliers })
+    .pipe(tap(() => (this.suppliers$ = this.fetchAll())));
+ 
   }
   
   
@@ -86,102 +74,27 @@ export class SupplierFormComponent implements OnInit {
       .pipe(tap(() => (this.suppliers$ = this.fetchAll())));
       
   }
-  
-}
-
-
-
-
-
-
-@Component({
-  selector: 'supplierForm',
-  templateUrl: 'supplierForm.html',
-})
-export class DialogSupplier {
-supplierform;
-submitted= false;
-  constructor(private http:HttpClient, private formBuilder: FormBuilder) { }
-
-ngOnInit(){
-  this.supplierform = this.formBuilder.group({
-    //initialize stuff to be null or whatever, here
-
-  });
-}
-public onFormSubmit() {
-  console.log("FORM WAS SUBMITTED");
-  this.submitted = true;
-  const configUrl = 'http://localhost:4200/home'; 
-  /*
-  this.http.post(configUrl,this.UserForm.value)
-  .pipe(
-    tap(
-      data => console.log(configUrl, data),
-      error => console.log(configUrl, error)
+  public onFormSubmit() {
+    console.log("FORM WAS SUBMITTED");
+    this.submitted = true;
+    const configUrl = 'http://localhost:4200/home'; 
+    /*
+    this.http.post(configUrl,this.UserForm.value)
+    .pipe(
+      tap(
+        data => console.log(configUrl, data),
+        error => console.log(configUrl, error)
+      )
     )
-  )
-  .subscribe(results => this.results = results);*/
-}
-
-
-public onFormReset() {
-  console.log("FORM WAS Reset");
-
-this.submitted = false;
-
-}
-}
-
-
-/* old functions for table
-
-onRowClicked(row): void {
-  console.log("Row clicked: ", row);
-  this.rowSelected = true;
-  var configUrl = 'http://localhost:4200' + "/" + row.Title;
-  console.log(configUrl)
- // this.router.navigate(configUrl.concat("/",row.Title))
-}
-applyFilter(event: Event) {
-  const filterValue = (event.target as HTMLInputElement).value;
-  this.dataSource.filter = filterValue.trim().toLowerCase();
-
-
-}
-
-
-isAllSelected() {
-  const numSelected = this.selection.selected.length;
-  const numRows = this.dataSource.data.length;
-  return numSelected === numRows;
-}
-
-masterToggle() {
-  this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
-}
-
-checkboxLabel(row?: userTable): string {
-  if (!row) {
-    return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    .subscribe(results => this.results = results);*/
   }
-  return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  
+  
+  public onFormReset() {
+    console.log("FORM WAS Reset");
+  
+  this.submitted = false;
+  
+  }
 }
 
-
-removeSelectedRows() {
-  let data = Object.assign(User_Data)
-  this.selection.selected.forEach(item => {
-     let index: number = data.findIndex(d => d === item);
-     console.log(data.findIndex(d => d === item));
-     data.splice(index,1)
-     this.dataSource = new MatTableDataSource<userTable>(data);
-   });
-   this.selection = new SelectionModel<userTable>(true, []);
-}
-
-
-
-*/

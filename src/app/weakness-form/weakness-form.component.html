@@ -4,13 +4,9 @@
 <mat-toolbar  class="tools" style="height: 8vh;">
 
     <mat-toolbar-row>
-        <mat-form-field style="width: 15%; height: 70%; margin-bottom: 10px;">
-            <mat-label >Search</mat-label>
-        <input matInput (keyup)="applyFilter($event)" #input>
-        </mat-form-field>
+
 
         <button mat-raised-button (click)="openDialog()" style="margin-left: 30%;margin-top: 30px;"> Add Weakness</button>
-        <button mat-raised-button (click)="removeSelectedRows()" style="margin-left: 4%; margin-top: 30px;"> Delete Selected</button>
         <button mat-raised-button style="margin-left: 4%;margin-top: 30px;"> Import </button>
         <button mat-raised-button style="margin-left: 4%;margin-top: 30px;"> Export </button>
 
@@ -20,7 +16,7 @@
 </mat-toolbar>
 
 
-<button (click)="post(Nid.value)"
+<button (click)="post2()"
 mat-fab
 color="primary"
 style="float: right;"

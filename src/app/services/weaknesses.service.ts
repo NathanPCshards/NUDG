@@ -30,9 +30,10 @@ httpOptions: { headers: HttpHeaders } = {
       );
   }
 
-  post(item: Partial<weaknesses>): Observable<any> {
+  post(item: any): Observable<any> {
+    console.log("in weakness service post : " , item)
     return this.http
-      .post<Partial<weaknesses>>(this.url, item, this.httpOptions)
+      .post(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 

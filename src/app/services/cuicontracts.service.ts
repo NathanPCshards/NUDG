@@ -31,15 +31,15 @@ httpOptions: { headers: HttpHeaders } = {
       );
   }
 
-  post(item: Partial<cuicontracts>): Observable<any> {
+  post(item: any): Observable<any> {
     return this.http
-      .post<Partial<cuicontracts>>(this.url, item, this.httpOptions)
+      .post(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
-  update(user: cuicontracts): Observable<any> {
+  update(item: any): Observable<any> {
     return this.http
-      .put<cuicontracts>(this.url, user, this.httpOptions)
+      .put(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
   }
 

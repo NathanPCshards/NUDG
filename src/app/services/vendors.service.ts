@@ -31,9 +31,10 @@ httpOptions: { headers: HttpHeaders } = {
       );
   }
 
-  post(item: Partial<vendors>): Observable<any> {
+  post(item: any): Observable<any> {
+    console.log("inside vendors post : " , item)
     return this.http
-      .post<Partial<vendors>>(this.url, item, this.httpOptions)
+      .post(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 

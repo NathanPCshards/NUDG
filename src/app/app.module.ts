@@ -8,19 +8,19 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { CompanyInfoFormComponent } from './company-info-form/company-info-form.component';
 import { InventoryFormComponent } from './inventory-form/inventory-form.component';
 import { NotfoundComponent } from './notfound/notfound.component';
-import { GroupFormComponent, groupTable } from './group-form/group-form.component';
+import { GroupFormComponent } from './group-form/group-form.component';
 import { roleDialog, RoleFormComponent } from './role-form/role-form.component';
 import { controlTable, IdentifierPageComponent, standardTable, weaknessTable } from './identifier-page/identifier-page.component';
 import { Bar3dDatasetComponent, calendarComponent, chartSimple, DashboardComponent } from './dashboard/dashboard.component';
 import { PolicyBoardComponent } from './policy-board/policy-board.component';
 import { UserFormComponent } from './user-form/user-form.component';
-import { DialogVendor, VendorFormComponent } from './vendor-form/vendor-form.component';
-import { DialogSupplier, SupplierFormComponent } from './supplier-form/supplier-form.component';
-import { CuiContractsFormComponent, DialogCUIForm } from './cui-contracts-form/cui-contracts-form.component';
+import { VendorFormComponent } from './vendor-form/vendor-form.component';
+import { SupplierFormComponent } from './supplier-form/supplier-form.component';
+import { CuiContractsFormComponent } from './cui-contracts-form/cui-contracts-form.component';
 import { PageSearchComponent } from './page-search/page-search.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { GapAssessmentPageComponent, GapForm } from './gap-assessment-page/gap-assessment-page.component';
-import { GuidelinesForm, GuidelinesPageComponent } from './guidelines-page/guidelines-page.component';
+import { GuidelinesForm } from './guidelines-page/guidelines-page.component';
 import { controlDialog, ControlFormComponent } from './control-form/control-form.component';
 import {weaknessDialog, WeaknessFormComponent } from './weakness-form/weakness-form.component';
 import { milestoneDialog, MilestoneFormComponent } from './milestone-form/milestone-form.component';
@@ -97,7 +97,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     PolicyBoardComponent,
     NotfoundComponent,
     roleDialog,
-    groupTable,
+
     weaknessTable,
     controlTable,
     standardTable,
@@ -107,14 +107,13 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     VendorFormComponent,
     SupplierFormComponent,
     CuiContractsFormComponent,
-    DialogCUIForm,
+  
     SupplierFormComponent,
-    DialogSupplier,
     VendorFormComponent,
-    DialogVendor,
+
     TasksComponent,
     GapAssessmentPageComponent,
-    GuidelinesPageComponent,
+  
     GapForm,
     ControlFormComponent,
     WeaknessFormComponent,
@@ -131,7 +130,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     SharedResourcesFormComponent,
     SecurityLogFormComponent,
     GuidelinesForm,
-    GuidelinesPageComponent,
+
     HelpCenterComponent,
     helpCenterForm,
     networkSharesPage,

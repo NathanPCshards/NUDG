@@ -1,15 +1,16 @@
-import { HttpClient, HttpHeaders} from "@angular/common/http";
-import { ErrorHandler, Injectable } from '@angular/core';
-import { Observable } from "rxjs";
-import { catchError, publish, tap } from "rxjs/operators";
-import { controls } from "../models/controls"
-import { ErrorHandlerService } from "./error-handler.service";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { controls } from '../models/controls';
+import { ErrorHandlerService } from './error-handler.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ControlsService {
-//url must match route in the app.use(...) in index.js
+
+  //url must match route in the app.use(...) in index.js
 private url = "http://localhost:3000/controls"
 
 httpOptions: { headers: HttpHeaders } = {
@@ -23,7 +24,7 @@ httpOptions: { headers: HttpHeaders } = {
     return this.http
       .get<controls[]>(this.url, { responseType: "json" })
       .pipe(
-        tap((_) => console.log("fetched controls")),
+        tap((_) => console.log("fetched cuicontracts")),
         catchError(
           this.errorHandlerService.handleError<controls[]>("fetchAll", [])
         )
@@ -31,7 +32,6 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   post(item: any): Observable<any> {
-    console.log("this is the control:", item, "caught it")
     return this.http
       .post(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
@@ -50,5 +50,6 @@ httpOptions: { headers: HttpHeaders } = {
       .delete<controls>(url, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("delete")));
   }
+
 
 }

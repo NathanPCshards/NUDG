@@ -13,7 +13,7 @@
     </mat-expansion-panel-header>
 
       <div [formGroup] ="UserForm" style="margin:0px;padding: 0px;"></div>
-          <form  class="user-form" (ngSubmit)="onFormSubmit()" novalidate>
+          <form  class="user-form" novalidate>
       
       
       
@@ -49,13 +49,22 @@
                               <mat-form-field appearance = "legacy" style="width:40%">
                                   <input #Uhiredate matInput placeholder = "Hire Date">
                               </mat-form-field>
-                              <mat-form-field appearance = "legacy"  style="width:80%">
+                              <mat-form-field appearance = "legacy"  style="width:40%">
                                   <input #Ulogonhours matInput placeholder = "Logon Hours">
                               </mat-form-field>
-                              <div class="fileInput" style="margin-left: 1%;">
-                                  <input  class="ng-hide" id="input-file-id" multiple type="file" />
-                                  <label for="input-file-id" class="md-button md-raised md-primary"></label>
-                              </div>
+
+                              <mat-form-field appearance = "legacy" style="width:40%" >
+                                <input #Udepartment matInput placeholder = "Department">
+                            </mat-form-field>
+
+                            <h3>Additional Info </h3>
+                            <textarea #Uadditionalinfo id="comments" style="text-align: left; align-content: left; margin-left: 1%; " rows="4" cols="38"></textarea>
+                            <div class="fileInput" style="margin-left: 1%;">
+                              <input #Udocumentupload  class="ng-hide" id="input-file-id" multiple type="file" />
+                              <label for="input-file-id" class="md-button md-raised md-primary"> Upload Image</label>
+                          </div>
+
+
                           </div>
       
                           <div class ="col">
@@ -136,8 +145,8 @@
                   <div class = "row2">
                       <mat-divider style="padding-top: 3px;"></mat-divider>
       
-                      <button mat-raised-button [mat-dialog-close]="true" (click)="onFormSubmit();"  style="margin-left: 15%;width:20vw;height: 5vh; float: left;" color="primary"  >Submit</button>
                       
+                      <button mat-raised-button  (click)="post(Ufname.value, Ulname.value, Uempid.value, Uemptype.value, Ujobtitle.value, Ujobrole.value, Udepartment.value, Uhiredate.value, Ulogonhours.value, Uadditionalinfo.value, Udocumentupload.value, Uemail.value, Ubusinessphone.value, Ucellphone.value, Uaddress.value, Ucity.value, Ustate.value, Upostal.value, Ucountry.value, Ucompany.value, Uuserid.value, Ucuidata.value, Uremoteuser.value);"  style="margin-left: 15%;width:20vw;height: 5vh; float: left;" color="primary"  >Submit</button>
                       <button mat-raised-button  (click)="onFormReset();" style="margin-right: 15%;width:20vw;height: 5vh;float: right;" type="reset"  color="primary"  >Reset</button>
                   </div>
               </div>
@@ -147,42 +156,8 @@
 
 </mat-accordion>
 
-
-
-
-  <!--
-  <mat-toolbar  class="tools" style="height: 4vh;">
-
-
-    <mat-toolbar-row>
-        <mat-form-field style="width: 15%; height: 70%; margin-bottom: 20px;">
-            <mat-label>Search</mat-label>
-        <input matInput (keyup)="applyFilter($event)" #input>
-        </mat-form-field>
-        
-       
-        <button mat-raised-button (click)="openDialog()" style="margin-left: 35%;margin-top: 30px;"> Add Users</button>
-        <button mat-raised-button (click)="removeSelectedRows()" style="margin-left: 3%;margin-top: 30px;"> Delete Selected</button>
-        <button mat-raised-button style="margin-left: 3%;margin-top: 30px;"> Import </button>
-        <button mat-raised-button style="margin-left: 3%;margin-top: 30px;"> Export </button>
-        
-    </mat-toolbar-row>
-
-</mat-toolbar>
-
-
--->
-
-
-<!--
-
-
-
-
--->
-
 <button
-(click)="post(userInput.value)"
+(click)="post(Ufname.value, Ulname.value, Uempid.value, Uemptype.value, Ujobtitle.value, Ujobrole.value, Udepartment.value, Uhiredate.value, Ulogonhours.value, Uadditionalinfo.value, Udocumentupload.value, Uemail.value, Ubusinessphone.value, Ucellphone.value, Uaddress.value, Ucity.value, Ustate.value, Upostal.value, Ucountry.value, Ucompany.value, Uuserid.value, Ucuidata.value, Uremoteuser.value)"
 mat-fab
 color="primary"
 style="float: right;"
@@ -226,7 +201,7 @@ style="float: right;"
      <span style="position: absolute; right: 0;">
         <button mat-icon-button>
           <mat-icon
-            (click)="update(user.idOrgUsers, userInput.value)"
+            (click)="update(Ufname.value, Ulname.value, Uempid.value, Uemptype.value, Ujobtitle.value, Ujobrole.value, Udepartment.value, Uhiredate.value, Ulogonhours.value, Uadditionalinfo.value, Udocumentupload.value, Uemail.value, Ubusinessphone.value, Ucellphone.value, Uaddress.value, Ucity.value, Ustate.value, Upostal.value, Ucountry.value, Ucompany.value, Uuserid.value, Ucuidata.value, Uremoteuser.value, user.idOrgUsers)"
             color="primary"
           >
             edit

@@ -13,7 +13,6 @@ import { ControlsService } from '../services/controls.service';
 import { SharedService } from '../services/Shared';
 import { StandardsService } from '../services/standards.service';
 import { WeaknessesService } from '../services/weaknesses.service';
-import { userTable } from '../user-form/user-form.component';
 
 
 

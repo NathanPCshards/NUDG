@@ -1,6 +1,6 @@
 export interface groups {
     idOrgGroups : number;
-    Gname : string;
+    Gnames : string;
     Gdescription : string;
     GcreationDate : Date;
     GCUIaccess : string;
