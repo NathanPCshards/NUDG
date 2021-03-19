@@ -29,8 +29,8 @@ export class PageSearchComponent implements OnInit {
   'Suppliers', 'Vendors', 'Tasks',
   'Controls', 'Weaknesses',
   'GapAssessment', 'GapForm', 'ControlForm',
-  'WeaknessForm', 'NetworkShareForm', 'SoftwareApprovalForm',
-  'SharedResourceForm', 'SecurityLogForm', 'GuidelinesForm',
+  'WeaknessForm', 'SoftwareApprovalForm',
+  'SharedResourceForm', 'SecurityLogForm', 'GuidelinesPage',
   'HelpCenterForm', 'GroupsPage',
   'NetworkSharePage','MilestonePage', 'ProcedurePage','AdminPanel'];
 

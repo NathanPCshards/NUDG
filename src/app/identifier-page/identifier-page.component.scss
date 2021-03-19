@@ -256,6 +256,7 @@ div.control {
 }
 .headerRow {
     position:relative;
+    background-color: rgb(122, 149, 236);
 }
 
 .mat-list >  .mat-list-item:nth-child(2n+1){
@@ -271,4 +272,22 @@ div.control {
     border: 1px solid black;
     justify-content: center;
 
+  }
+  .idCol{
+    width:60px;
+    min-width: 60px;
+    text-align: left;
+
+  }
+  .descCol{
+    width:700px;
+    min-width: 700px;
+    text-align: left;
+    margin-left: 5%;
+  }
+  .dateCol{
+    width:60px;
+    min-width: 60px;
+    text-align: left;
+    margin-left: 5%;
   }

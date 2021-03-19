@@ -84,24 +84,26 @@ style="float: right;"
 <mat-list>
   <div class="flexContainer">
     <mat-list-item class="headerRow">
-      <span>
+      <span class="listSpan idCol">
         ID
       </span>
-      <span style="margin-left: 6.5%;">
-        Name
+      <span class="listSpan descCol">
+        Description
       </span>
+
     </mat-list-item>
   </div>
 
   <mat-list-item *ngFor="let role of roles$ | async">
-    <div class="flexContainer">
-    <span class="listSpan" style="font-weight: bold;"
-      >{{ role.idOrgRoles }}    </span
-    >
-    <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
-      {{role.URGroles}}
+
+    <span class="listSpan idCol">
+      {{ role.idOrgRoles }}  
     </span>
-    </div>
+
+    <span class="listSpan descCol">
+      {{role.Rdescription}}
+    </span>
+
 
 
    <span style="position: absolute; right: 0;">

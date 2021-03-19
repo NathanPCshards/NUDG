@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { guidelines } from '../models/guidelines';
@@ -18,7 +19,7 @@ export class GuidelinesForm implements OnInit {
   guidelines$: Observable<guidelines[]>;
 
 
-  constructor(private http:HttpClient, private formBuilder: FormBuilder, private guidelinesService : GuidelinesService ) {
+  constructor(private http:HttpClient, private formBuilder: FormBuilder, private guidelinesService : GuidelinesService, public dialog : MatDialog ) {
    }
 
   ngOnInit(){
@@ -30,32 +31,10 @@ export class GuidelinesForm implements OnInit {
   }
   
   post(inventoryItem: Partial<guidelines>): void {
-    const name = (<string>inventoryItem).trim();
-    if (!name) return;
-  /*
-    this.guidelines$ = this.guidelinesService
-      .post({ name })
-      .pipe(tap(() => (this.guidelines$ = this.fetchAll())));*/
+
   }
   
-  
-  update(id: number, inventoryItem: Partial<guidelines>): void {
-    const name = (<any>inventoryItem).trim();
-    
-    if (!name) return;
-  /*
-    const newUsers: guidelines = {
-      id,
-      name
-  
-    };
-  
-    this.guidelines$ = this.guidelinesService
-      .update(newUsers)
-      .pipe(tap(() => (this.guidelines$ = this.fetchAll())));*/
-  }
-  
-  
+
   delete(id: any): void {
     console.log("attempting to delete id : " , id)
    // iduseru = 15
@@ -68,53 +47,50 @@ export class GuidelinesForm implements OnInit {
   }
   
   public onFormSubmit() {
-
-
 }
+
+
+  public openGuideline(id, guideline) {
+    const dialogRef = this.dialog.open(guidelinesDialog, {
+      width: '600px',
+      height: '600px',
+      autoFocus : false,
+      data: {
+        id,
+        guideline
+      },
+
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result.data);//returns undefined
+    });
+  }
+
+
+
 }
   
 
 
 
-/*  old guidelines page
+@Component({
+  selector: 'guideline-dialog',
+  templateUrl: 'guideline-dialog.html',
+  styleUrls: ['dialog.scss']
+})
+export class guidelinesDialog {
 
+  constructor(private dialogRef : MatDialogRef<guidelinesDialog>, @Inject(MAT_DIALOG_DATA) public data : any) { }
 
-isAllSelected() {
-  const numSelected = this.selection.selected.length;
-  const numRows = this.dataSource.data.length;
-  return numSelected === numRows;
+ngOnInit(){
+
 }
-masterToggle() {
-  this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
-}
 
-checkboxLabel(row?: entry): string {
-  if (!row) {
-    return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-  }
-  return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+closeDialog(){
+  this.dialogRef.close({ data : "test"});
+
 }
 
 
-removeSelectedRows() {
-  let data = Object.assign(exampleData)
-  this.selection.selected.forEach(item => {
-     let index: number = data.findIndex(d => d === item);
-     console.log(data.findIndex(d => d === item));
-     data.splice(index,1)
-     this.dataSource = new MatTableDataSource<entry>(data);
-   });
-   this.selection = new SelectionModel<entry>(true, []);
 }
-onRowClicked(row): void {
-  console.log("Row clicked: ", row);
-  this.rowSelected = true;
-  var configUrl = 'http://localhost:4200' + "/" + row.Title;
-  console.log(configUrl)
- // this.router.navigate(configUrl.concat("/",row.Title))
-}
-
-
-*/

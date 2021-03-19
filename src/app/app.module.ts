@@ -20,12 +20,12 @@ import { CuiContractsFormComponent } from './cui-contracts-form/cui-contracts-fo
 import { PageSearchComponent } from './page-search/page-search.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { GapAssessmentPageComponent, GapForm } from './gap-assessment-page/gap-assessment-page.component';
-import { GuidelinesForm } from './guidelines-page/guidelines-page.component';
+import { guidelinesDialog, GuidelinesForm } from './guidelines-page/guidelines-page.component';
 import { controlDialog, ControlFormComponent } from './control-form/control-form.component';
 import {weaknessDialog, WeaknessFormComponent } from './weakness-form/weakness-form.component';
 import { milestoneDialog, MilestoneFormComponent } from './milestone-form/milestone-form.component';
 import { procedureDialog, ProcedureFormComponent } from './procedure-form/procedure-form.component';
-import { NetworkSharesFormComponent, networkSharesPage } from './network-shares-form/network-shares-form.component';
+import { networkSharesPage } from './network-shares-form/network-shares-form.component';
 import { SoftwareApprovalFormComponent } from './software-approval-form/software-approval-form.component';
 import { SharedResourcesFormComponent } from './shared-resources-form/shared-resources-form.component';
 import { SecurityLogFormComponent } from './security-log-form/security-log-form.component';
@@ -70,6 +70,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import { DragDropModule } from '@angular/cdk/drag-drop'
 
 
 //Charts and calendars
@@ -125,7 +126,6 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     ProcedureFormComponent,
     procedureDialog,
     PageSearchComponent,
-    NetworkSharesFormComponent,
     SoftwareApprovalFormComponent,
     SharedResourcesFormComponent,
     SecurityLogFormComponent,
@@ -135,7 +135,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     helpCenterForm,
     networkSharesPage,
     AdminPanelComponent,
-    
+    guidelinesDialog
 
     
     
@@ -192,6 +192,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     MatCheckboxModule,
     MatTimepickerModule,
     NgxMaterialTimepickerModule,
+    DragDropModule,
 
 
     

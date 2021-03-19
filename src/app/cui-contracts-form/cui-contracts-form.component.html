@@ -169,24 +169,42 @@ style="float: right;"
 <mat-list>
   <div class="flexContainer">
     <mat-list-item class="headerRow">
-      <span>
+      <span class="idCol">
         ID
       </span>
-      <span style="margin-left: 6.5%;">
+      <span class="nameCol">
         Name
+      </span>
+      <span class="date1Col">
+        Start Date
+      </span>
+      <span class="date2Col">
+        End Date
+      </span>
+      <span class="numCol">
+        Number
       </span>
     </mat-list-item>
   </div>
 
   <mat-list-item *ngFor="let contract of cuicontracts$ | async">
-    <div class="flexContainer">
-    <span class="listSpan" style="font-weight: bold;"
-      >{{ contract.idCUIcontracts }}    </span
-    >
-    <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
+
+    <span class="listSpan idCol">
+    {{ contract.idCUIcontracts }}    
+    </span>
+    <span class="listSpan nameCol">
       {{contract.CCname}}
     </span>
-    </div>
+    <span class="listSpan date1Col">
+      {{contract.CCstartDate}}
+    </span>
+    <span class="listSpan date2Col">
+      {{contract.CCendDate}}
+    </span>
+    <span class="listSpan numCol">
+      {{contract.CCnum}}
+    </span>
+
 
 
    <span style="position: absolute; right: 0;">

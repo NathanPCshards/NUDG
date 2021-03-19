@@ -126,11 +126,12 @@ div.cards{
     display:flexbox;
 }
 .listSpan {
-    position:fixed;
+    position:relative;
     float:1;
 }
 .headerRow {
     position:relative;
+    background-color: rgb(122, 149, 236);
 }
 
 .mat-list >  .mat-list-item:nth-child(2n+1){
@@ -145,5 +146,36 @@ div.cards{
   .mat-list > .mat-list-item{
     border: 1px solid black;
     justify-content: center;
+
+  }
+  .idCol{
+    width:60px;
+    min-width: 60px;
+    text-align: left;
+
+  }
+  .descCol{
+    width:300x;
+    min-width: 300px;
+    text-align: left;
+    margin-left: 5%;
+  }
+  .date1Col{
+    width:200px;
+    min-width: 200px;
+    text-align: left;
+    margin-left: 5%;
+  } 
+   .date2Col{
+    width:200px;
+    min-width: 200px;
+    text-align: left;
+    margin-left: 5%;
+  }
+  .numcol{
+    width:60px;
+    min-width: 60px;
+    text-align: left;
+    margin-left: 5%;
 
   }

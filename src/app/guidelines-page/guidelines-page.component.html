@@ -1,46 +1,40 @@
-<mat-list>
+<mat-list style="overflow:hidden;">
   <div class="flexContainer">
     <mat-list-item class="headerRow">
-      <span>
+      <span class="idCol">
         ID
       </span>
-      <span style="margin-left: 6.5%;">
-        Name
+      <span class="descCol">
+        Description
       </span>
     </mat-list-item>
   </div>
 
   <mat-list-item *ngFor="let guideline of guidelines$ | async">
-    <div class="flexContainer">
-    <span class="listSpan" style="font-weight: bold;"
+
+    <span class="listSpan idCol" style="font-weight: bold;"
       >{{ guideline.idGuidelines }}    </span
     >
-    <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
-      {{guideline.Guidelines}}
+
+    <span class="listSpan descCol" style="font-weight: bold; ">
+      {{ guideline.Guidelines }}
     </span>
-    </div>
 
 
-   <span style="position: absolute; right: 0;">
-      <button mat-icon-button>
-        <mat-icon
-          (click)="update(guideline.idGuidelines, userInput.value)"
-          color="primary"
-        >
-          edit
-        </mat-icon>
-      </button>
 
-  
-      <button mat-icon-button>
-        <mat-icon (click)="delete(guideline.idGuidelines)" color="warn">
-          delete
-        </mat-icon>
-      </button>
+   <span class="listSpan" style="position: absolute; right: 0;">
+    <button mat-icon-button disabled aria-label="Example icon button with a open in new tab icon">
+      <mat-icon 
+      (click) ="openGuideline(guideline.idGuidelines, guideline.Guidelines)"
+      color="primary"
+      >
+      open_in_new
+      </mat-icon>
+    </button>
     </span> 
+
   </mat-list-item>
 </mat-list>
-
 
 
 

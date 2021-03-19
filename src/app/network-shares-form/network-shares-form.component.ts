@@ -8,50 +8,6 @@ import { tap } from 'rxjs/operators';
 import { networkshares } from '../models/networkshares';
 import { NetworksharesService } from '../services/networkshares.service';
 
-
-@Component({
-  selector: 'app-network-shares-form',
-  templateUrl: './network-shares-form.component.html',
-  styleUrls: ['./network-shares-form.component.scss']
-})
-export class NetworkSharesFormComponent implements OnInit {
-  UserForm;
-  submitted= false;
-    constructor(private http:HttpClient, private formBuilder: FormBuilder) { }
-  
-  ngOnInit(){
-    this.UserForm = this.formBuilder.group({
-      //initialize stuff to be null or whatever, here
-  
-    });
-  }
-  public onFormSubmit() {
-    console.log("FORM WAS SUBMITTED");
-    this.submitted = true;
-    const configUrl = 'http://localhost:4200/home'; 
-    /*
-    this.http.post(configUrl,this.UserForm.value)
-    .pipe(
-      tap(
-        data => console.log(configUrl, data),
-        error => console.log(configUrl, error)
-      )
-    )
-    .subscribe(results => this.results = results);*/
-  }
-  
-  
-  public onFormReset() {
-    console.log("FORM WAS Reset");
-  
-  this.submitted = false;
-  
-  }
-
-}
-
-
-
 @Component({
   selector: 'app-network-shares-page',
   templateUrl: './network-shares-page.html',
@@ -81,7 +37,7 @@ export class networkSharesPage implements OnInit {
     console.log("FORM WAS SUBMITTED");
     this.submitted = true;
     const configUrl = 'http://localhost:4200/home'; 
-    this.http.post(configUrl,this.inventoryForm.value)
+    this.http.post(configUrl,this.inventoryForm)
     .pipe(
       tap(
         data => console.log(configUrl, data),
@@ -102,37 +58,26 @@ fetchAll(): Observable<networkshares[]> {
   return this.networksharesService.fetchAll();
 }
 
-post(inventoryItem: Partial<networkshares>): void {
-  const name = (<string>inventoryItem).trim();
-  if (!name) return;
-/*
+post(NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifier): void {
+
+
   this.networkshares$ = this.networksharesService
-    .post({ name })
-    .pipe(tap(() => (this.networkshares$ = this.fetchAll())));*/
+    .post({NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifier})
+    .pipe(tap(() => (this.networkshares$ = this.fetchAll())));
 }
 
 
-update(id: number, inventoryItem: Partial<networkshares>): void {
-  const name = (<any>inventoryItem).trim();
-  
-  if (!name) return;
-/*
-  const newUsers: networkshares = {
-    id,
-    name
+update(NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifier, idOrgNetworkShares): void {
 
-  };
 
   this.networkshares$ = this.networksharesService
-    .update(newUsers)
-    .pipe(tap(() => (this.networkshares$ = this.fetchAll())));*/
+    .update({NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifier, idOrgNetworkShares})
+    .pipe(tap(() => (this.networkshares$ = this.fetchAll())));
 }
 
 
 delete(id: any): void {
   console.log("attempting to delete id : " , id)
- // iduseru = 15
- // console.log("attempting to delete id : " , iduseru)
 
   this.networkshares$ = this.networksharesService
     .delete(id)

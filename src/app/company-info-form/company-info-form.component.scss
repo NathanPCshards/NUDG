@@ -61,10 +61,11 @@ mat-form-field{
     display:flexbox;
 }
 .listSpan {
-    position:fixed;
+    position:relative;
     float:1;
 }
 .headerRow {
+    background-color: rgb(50, 130, 205);
     position:relative;
 }
 
@@ -80,5 +81,42 @@ mat-form-field{
   .mat-list > .mat-list-item{
     border: 1px solid black;
     justify-content: center;
+
+  }
+
+
+  .idCol{
+    width:60px;
+    min-width: 60px;
+
+    text-align: left;
+
+  }
+  .descCol{
+    width:300x;
+    min-width: 300px;
+    text-align: left;
+    margin-left: 5%;
+  }
+  .nameCol{
+    width:200px;
+    min-width: 200px;
+
+    text-align: left;
+    margin-left: 3%;
+  } 
+   .phoneCol{
+    width:200px;
+    min-width: 200px;
+
+    text-align: left;
+    margin-left: 5%;
+  }
+  .addressCol{
+    min-width: 400px;
+
+    width:400px;
+    text-align: left;
+    margin-left: 5%;
 
   }

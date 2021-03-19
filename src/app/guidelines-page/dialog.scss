@@ -1,0 +1,39 @@
+button {
+    width: 90px;
+    height: 36px;
+    font-weight: 100;
+  }
+  
+  .buttons {
+    grid-template-columns: auto auto ;
+    float:right;
+    display: grid;
+    font-size: 14px;
+    color: #fff;
+    justify-content: center;
+  
+    .save {
+      background-color: #E37B00;
+      margin-left: 2px;
+    }
+    .close {
+      background-color: #ffffff;
+      margin-right: 2px
+    }
+  }
+  
+  ::ng-deep.mat-dialog-container {
+    resize: both; 
+    overflow: auto;
+    background: #fff;
+  }
+  
+  
+  [mat-dialog-title] {
+    margin: -24px -24px 0px -24px !important;
+    padding: 10px 24px;
+    background: #369;
+    color: #fff;
+    cursor: move;
+    text-align: center;
+  }

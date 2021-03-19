@@ -171,35 +171,45 @@
 
 
   <mat-list>
-    <div class="flexContainer">
+
       <mat-list-item class="headerRow">
-        <span>
+
+        <span class="listSpan idCol">
           ID
         </span>
-        <span style="margin-left: 6.5%;">
+        <span class="listSpan nameCol">
           Name
         </span>
+        <span class="listSpan phoneCol">
+          Phone
+        </span>
+        <span class="listSpan descCol">
+          Description
+        </span>
+        <span class="listSpan addressCol">
+          Address
+        </span>
       </mat-list-item>
-    </div>
+
 
     <mat-list-item *ngFor="let company of companies$ | async">
-      <div class="flexContainer">
-      <span class="listSpan" style="font-weight: bold;"
-        >{{ company.idCompanyInfo }}    </span
-      >
-      <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
+
+      <span class="listSpan idCol">
+        {{ company.idCompanyInfo }}    
+      </span>
+      <span class="listSpan nameCol">
         {{company.CIname}}
       </span>
-      <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
-        {{company.CIcompanyinformation}}
-      </span>
-      <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
-        {{company.CIdescription}}
-      </span>
-      <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
+      <span class="listSpan phoneCol">
         {{company.CIphone}}
       </span>
-      </div>
+      <span class="listSpan descCol">
+        {{company.CIdescription}}
+      </span>
+      <span class="listSpan addressCol">
+        {{company.CIaddress}}
+      </span>
+
 
 
      <span style="position: absolute; right: 0;">

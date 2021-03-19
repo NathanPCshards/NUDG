@@ -16,24 +16,33 @@
   <mat-list>
     <div class="flexContainer">
       <mat-list-item class="headerRow">
-        <span>
+        <span class="idCol">
           ID
         </span>
-        <span style="margin-left: 6.5%;">
-          Name
+        <span class="descCol">
+          Description
+        </span>
+        <span class="dateCol">
+          Date
         </span>
       </mat-list-item>
     </div>
 
     <mat-list-item *ngFor="let control of controls$ | async">
-      <div class="flexContainer">
+
       <span class="listSpan" style="font-weight: bold;"
         >{{ control.idOrgControls }}    </span
       >
-      <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
+      <span class="listSpan idCol" style="font-weight: bold;">
         {{control.Cname}}
       </span>
-      </div>
+      <span class="listSpan descCol" style="font-weight: bold;">
+        {{control.Coverview}}
+      </span>
+      <span class="listSpan dateCol" style="font-weight: bold;">
+        {{control.Cissuedate}}
+      </span>
+
 
 
      <span style="position: absolute; right: 0;">

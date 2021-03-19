@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+//@ts-ignore 
 import { GuidelinesPageComponent } from './guidelines-page.component';
 
 describe('GuidelinesPageComponent', () => {

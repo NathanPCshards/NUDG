@@ -31,15 +31,15 @@ httpOptions: { headers: HttpHeaders } = {
       );
   }
 
-  post(item: Partial<networkshares>): Observable<any> {
+  post(item: any): Observable<any> {
     return this.http
-      .post<Partial<networkshares>>(this.url, item, this.httpOptions)
+      .post(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
-  update(inventory: networkshares): Observable<any> {
+  update(item: any): Observable<any> {
     return this.http
-      .put<networkshares>(this.url, inventory, this.httpOptions)
+      .put(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
   }
 
