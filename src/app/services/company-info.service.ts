@@ -31,17 +31,17 @@ httpOptions: { headers: HttpHeaders } = {
       );
   }
 
-  post(item: Partial<companyInfo>): Observable<any> {
+  post(item: any): Observable<any> {
     return this.http
-      .post<Partial<companyInfo>>(this.url, item, this.httpOptions)
+      .post(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
-  update(item: companyInfo): Observable<any> {
+  update(item: any): Observable<any> {
     console.log("attempting to update : " , item)
 
     return this.http
-      .put<companyInfo>(this.url, item, this.httpOptions)
+      .put(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
   }
 

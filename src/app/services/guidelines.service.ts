@@ -12,7 +12,6 @@ import { ErrorHandlerService } from "./error-handler.service";
 export class GuidelinesService {
   //url must match route in the app.use(...) in index.js
   private url = "http://localhost:3000/guidelines"
-  
   httpOptions: { headers: HttpHeaders } = {
     headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
@@ -53,4 +52,20 @@ export class GuidelinesService {
     }
   
   }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   

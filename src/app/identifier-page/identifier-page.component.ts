@@ -13,7 +13,7 @@ import { ControlsService } from '../services/controls.service';
 import { SharedService } from '../services/Shared';
 import { StandardsService } from '../services/standards.service';
 import { WeaknessesService } from '../services/weaknesses.service';
-
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 
 
@@ -33,7 +33,7 @@ export class IdentifierPageComponent implements OnInit {
   name: any;
 
 
-  constructor(private http:HttpClient, private formBuilder: FormBuilder) { }
+  constructor(private http:HttpClient, private formBuilder: FormBuilder, private router:Router, private route: ActivatedRoute) { }
 
   ngOnInit(){
     this.idPage = this.formBuilder.group({
@@ -50,7 +50,20 @@ export class IdentifierPageComponent implements OnInit {
    // this.router.navigate(configUrl.concat("/",row.Title))
   }
 
+  openWeakness= function ()  {
+    console.log("controls should appear")
 
+    this.router.navigate(['controls'],{relativeTo: this.route});
+  }
+  openControls= function ()  {
+    console.log("controls should appear")
+    this.router.navigateByUrl('/Policy/controls')
+    
+  }
+  openStandards= function ()  {
+   // this.router.navigateByUrl('/Policy/standardForm')
+    
+  }
 
 
 }
@@ -290,164 +303,3 @@ delete(id: any): void {
 }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* old standard table functions
-
-
-isAllSelected() {
-  const numSelected = this.selection.selected.length;
-  const numRows = this.dataSource.data.length;
-  return numSelected === numRows;
-}
-applyFilter() {
-
-}
-
-
-  masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
-  }
-  
-  checkboxLabel(row?: tableEntry): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-  }
-  
-  
-  removeSelectedRows() {
-    console.log("delete rows called in group")
-    if (document.getElementById("groupTable")!.style.display == "table"){
-      let data = Object.assign(ELEMENT_DATA)
-      this.selection.selected.forEach(item => {
-         let index: number = data.findIndex(d => d === item);
-         console.log(data.findIndex(d => d === item));
-         data.splice(index,1)
-         this.dataSource = new MatTableDataSource<tableEntry>(data);
-       });
-       this.selection = new SelectionModel<tableEntry>(true, []);
-    }
-  }
-  onRowClicked(row): void {
-    console.log("Row clicked: ", row);
-    this.rowSelected = true;
-    var configUrl = 'http://localhost:4200' + "/" + row.Title;
-    console.log(configUrl)
-   // this.router.navigate(configUrl.concat("/",row.Title))
-  }
-*/
-
-/* old control table functions
-
-isAllSelected() {
-  const numSelected = this.selection.selected.length;
-  const numRows = this.dataSource.data.length;
-  return numSelected === numRows;
-}
-applyFilter() {
-
-}
-
-
-  masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
-  }
-  
-  checkboxLabel(row?: tableEntry): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-  }
-  
-  
-  removeSelectedRows() {
-    console.log("delete rows called in group")
-    if (document.getElementById("groupTable")!.style.display == "table"){
-      let data = Object.assign(ELEMENT_DATA)
-      this.selection.selected.forEach(item => {
-         let index: number = data.findIndex(d => d === item);
-         console.log(data.findIndex(d => d === item));
-         data.splice(index,1)
-         this.dataSource = new MatTableDataSource<tableEntry>(data);
-       });
-       this.selection = new SelectionModel<tableEntry>(true, []);
-    }
-  }
-  onRowClicked(row): void {
-    console.log("Row clicked: ", row);
-    this.rowSelected = true;
-    var configUrl = 'http://localhost:4200' + "/" + row.Title;
-    console.log(configUrl)
-   // this.router.navigate(configUrl.concat("/",row.Title))
-  }
-
-*/
-
-/* old weakness table functions 
-
-
-isAllSelected() {
-  const numSelected = this.selection.selected.length;
-  const numRows = this.dataSource.data.length;
-  return numSelected === numRows;
-}
-
-  masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
-  }
-  
-  checkboxLabel(row?: tableEntry): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-  }
-  
-  
-  removeSelectedRows() {
-    console.log("delete rows called in group")
-    if (document.getElementById("groupTable")!.style.display == "table"){
-      let data = Object.assign(ELEMENT_DATA)
-      this.selection.selected.forEach(item => {
-         let index: number = data.findIndex(d => d === item);
-         console.log(data.findIndex(d => d === item));
-         data.splice(index,1)
-         this.dataSource = new MatTableDataSource<tableEntry>(data);
-       });
-       this.selection = new SelectionModel<tableEntry>(true, []);
-    }
-  }
-  onRowClicked(row): void {
-    console.log("Row clicked: ", row);
-    this.rowSelected = true;
-    var configUrl = 'http://localhost:4200' + "/" + row.Title;
-    console.log(configUrl)
-   // this.router.navigate(configUrl.concat("/",row.Title))
-  }
-
-*/

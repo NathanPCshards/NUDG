@@ -45,55 +45,19 @@ export class CompanyInfoFormComponent {
     return this.companyInfoService.fetchAll();
   }
 
-  post(companyItem: Partial<companyInfo>): void {
-    const CIcompanyinformation = (<string>companyItem);
-    if (!CIcompanyinformation) return;
-
+  post(CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber): void {
+  
     this.companies$ = this.companyInfoService
-      .post({ CIcompanyinformation })
+      .post({CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber})
       .pipe(tap(() => (this.companies$ = this.fetchAll())));
   }
 
 
-  update(idCompInfo, compInfo,    desc, 
-         compname,   dba,         phone,
-         website,    address,     ppoc, 
-         busType,    tpoc,        duns, 
-         cage,       cmmcAgency,  cmmcInfo,
-         cmmcDate,   nistAgency,  nistDate,
-         num,        sba): void {
-    //const name = (<any>companyItem).trim();
-    
-    //if (!name) return;
-
-    const newUsers: companyInfo = {
-     
-      idCompanyInfo : idCompInfo,
-      CIcompanyinformation : compInfo,
-      CIdescription : desc,
-      CIname : compname,
-      CIDBA : dba ,
-
-      CIphone : phone,
-      CIwebsite  : website, 
-      CIaddress : address,
-      CIprimaryPoC : ppoc,
-      CISBAcertified : sba,
-      CIbusinessType : busType,
-      CItechnicalPOCinformation : tpoc ,
-      CIDUNSnum : duns,
-      CIcagecode : cage,
-      CIcmmcAuditAgency : cmmcAgency,
-      CIcmmcAuditorInfo: cmmcInfo,
-      CIcmmcAuditDate: cmmcDate,
-      CIcmmcNISTauditAgency: nistAgency,
-      CINISTauditorDate: nistDate,
-      CInumber: num, 
-
-    };
+  update(CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber, idCompanyInfo): void {
+    console.log("update : "  , CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber, idCompanyInfo )
 
     this.companies$ = this.companyInfoService
-      .update(newUsers)
+      .update({CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber, idCompanyInfo})
       .pipe(tap(() => (this.companies$ = this.fetchAll())));
   }
 

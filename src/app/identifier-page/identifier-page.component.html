@@ -40,9 +40,12 @@
           <mat-tab label="NIST Information">NIST Information</mat-tab>
           <mat-tab label="References">References</mat-tab>
           <mat-tab label="Guidelines">
+            <!--
             <app-guidelines-page>
 
             </app-guidelines-page>
+
+            -->
 
           </mat-tab>
 
@@ -62,24 +65,39 @@
     <!-- </mat-card> -->
     </div>
 
-    <!--
-<div class ="editBar">
-  <mat-toolbar style="color: white;background-color: rgb(68, 72, 78)">
-    <mat-toolbar-row>
-        <span routerLink="/Weaknesses" routerLinkActive="active" style="margin-left: 12%;"> Edit Weaknesses</span>
-        <span routerLink="/Tasks" routerLinkActive="active" style="margin-left: 12%;">Tasks</span>
-        <span routerLink="/Guidelines" routerLinkActive="active" style="margin-left: 12%;"> Guidelines</span>
-        <span routerLink="/Controls" routerLinkActive="active" style="margin-left: 12%;"> Edit Controls </span>
-        <span routerLink="/GapForm" routerLinkActive="active"style="margin-left: 12%; margin-right: 12%"> GAP Assessments </span>
-
-
-    </mat-toolbar-row>
     
-  </mat-toolbar>
+<div class ="editBar">
+  <mat-accordion class ="accordion">   
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                        (closed)="panelOpenState = false"
+                        >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Add a User
+        </mat-panel-title>
+        <mat-panel-description class="description">
+        Open panel to add a User Item
+        </mat-panel-description>
+        <button routerLink="Policy/controls" mat-raised-button type="button" style="color: white;margin-left:30%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="openControls();"><i class="fa fa-plus"></i> Controls </button>    
+        <button routerLink="Policy/controls" mat-raised-button type="button" style="color: white;margin-left:5%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="openWeakness();"><i class="fa fa-plus"></i> Weaknesses </button>    
+        <button [routerLink]="[{ outlets: { sub: [controls] } }]" mat-raised-button type="button" style="color: white;margin-left:5%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="openStandards();"><i class="fa fa-plus"></i> Standards</button>    
+
+      </mat-expansion-panel-header>
+
+      <div 
+      [routerLink]="[{ outlets: { sub: [weaknessForm] } }]"
+      style= 
+      "width:300px;
+       height:300px; 
+       background-color: rebeccapurple;">
+        <router-outlet #sub id="sub" name="sub"></router-outlet>
+      </div>
+
+    </mat-expansion-panel>
+
+  </mat-accordion>
 </div>
 
-
-    -->
 
 
 

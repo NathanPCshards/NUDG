@@ -20,7 +20,7 @@ import { GuidelinesForm } from './guidelines-page/guidelines-page.component';
 import { GapAssessmentPageComponent, GapForm } from './gap-assessment-page/gap-assessment-page.component';
 import { weaknessDialog, WeaknessFormComponent } from './weakness-form/weakness-form.component';
 import { controlDialog, ControlFormComponent } from './control-form/control-form.component';
-import {  networkSharesPage } from './network-shares-form/network-shares-form.component';
+import { networkSharesPage } from './network-shares-form/network-shares-form.component';
 import { SoftwareApprovalFormComponent } from './software-approval-form/software-approval-form.component';
 import { SharedResourcesFormComponent } from './shared-resources-form/shared-resources-form.component';
 import { SecurityLogFormComponent } from './security-log-form/security-log-form.component';
@@ -28,6 +28,8 @@ import { helpCenterForm } from './help-center/help-center.component';
 import { ProcedureFormComponent } from './procedure-form/procedure-form.component';
 import { MilestoneFormComponent } from './milestone-form/milestone-form.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+
+import { IdentifierPageRoutingModule } from './identifier-page/identifier-page.routing.module'
 //https://angular.io/guide/router
 
 const routes: Routes = [
@@ -42,7 +44,11 @@ const routes: Routes = [
   { path: 'GroupsPage', component: GroupFormComponent },
   { path: 'AdminPanel', component: AdminPanelComponent },
 
-  { path: 'Policy', component: IdentifierPageComponent },
+  {
+      path: 'Policy', 
+      component: IdentifierPageComponent,
+      loadChildren: './identifier-page/identifier-page.routing.module#IdentifierPageRoutingModule',
+ },
   { path: 'AC-N.01', component: IdentifierPageComponent },
   { path: 'CUIcontracts', component: CuiContractsFormComponent },
   { path: 'Suppliers', component: SupplierFormComponent },
@@ -78,8 +84,8 @@ const routes: Routes = [
 
 
   { path: '404', component: NotfoundComponent},
-  { path: '**', redirectTo: '/404'},
-  
+  //{ path: '**', redirectTo: '/404'},
+  //disabled while testing
 
 ];
 

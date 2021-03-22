@@ -58,20 +58,19 @@ fetchAll(): Observable<networkshares[]> {
   return this.networksharesService.fetchAll();
 }
 
-post(NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifier): void {
-
+post(NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifier,CUIdata ,GRA, GWA, URA, UWA): void {
 
   this.networkshares$ = this.networksharesService
-    .post({NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifier})
+    .post({NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifier,CUIdata, GRA, GWA, URA, UWA})
     .pipe(tap(() => (this.networkshares$ = this.fetchAll())));
 }
 
 
-update(NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifier, idOrgNetworkShares): void {
+update(NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifier,CUIdata, GRA, GWA, URA, UWA, idOrgNetworkShares): void {
 
 
   this.networkshares$ = this.networksharesService
-    .update({NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifier, idOrgNetworkShares})
+    .update({NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifier,CUIdata, GRA, GWA, URA, UWA, idOrgNetworkShares})
     .pipe(tap(() => (this.networkshares$ = this.fetchAll())));
 }
 
