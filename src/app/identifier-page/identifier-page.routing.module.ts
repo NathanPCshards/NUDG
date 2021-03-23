@@ -9,26 +9,30 @@ import { WeaknessFormComponent } from '../weakness-form/weakness-form.component'
 const identifierPageRoutes: Routes = [
     {
         path: 'Policy',
-        component: IdentifierPageComponent
+        component: IdentifierPageComponent,
+        //redirectTo: 'Policy/controls',
+        children: [
+          {
+            path: 'standards',
+            component: standardTable,
+            outlet: 'sub'
+          },
+    
+        {
+            path: 'Policy/controls',
+            component: ControlFormComponent,
+            outlet: 'sub'
+    
+        },
+        {
+            path: 'controls',
+            component: WeaknessFormComponent,
+            outlet: 'sub'
+    
+        }
+        ]
     },
-      {
-        path: 'standards',
-        component: standardTable,
-        outlet: 'sub'
-      },
-
-    {
-        path: 'Policy/controls',
-        component: ControlFormComponent,
-        outlet: 'sub'
-
-    },
-    {
-        path: 'controls',
-        component: WeaknessFormComponent,
-        outlet: 'sub'
-
-    }
+      
 ];
 
 @NgModule({

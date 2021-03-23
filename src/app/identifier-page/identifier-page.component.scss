@@ -1,105 +1,64 @@
-
-.mat-expansion-panel {
-    margin: 1%;
-}
-.NistTable{
- 
-    width:100vw;
-}
-
-.tableCard{
-    box-shadow: 1px 1px 15px -1px ;
-    overflow:scroll;
-}
-
-
-//uncomment colors to see how everything lines up.
 .wrapper {
-    //overflow:hidden;
-   // background-color: salmon;
     display: grid;
     position: relative;
     grid-template-columns: repeat(6, 1fr);
     gap: 4px;
-    grid-auto-rows: repeat(3, 1fr);
-
-     //height: auto;
+    grid-auto-rows: repeat(6, 1fr);
   }
 
   .policy {
-      margin: 10px;
-      padding: 20px;
+    background-color: #eee;
+    margin: 10px;
+    padding: 20px;
     background-color:white;
     grid-column: 1 / 4;
-    grid-row: 1;
-    height:400px;
+    grid-row: 1/2;
     overflow:scroll;
-   // box-shadow: 1px 1px 15px -1px ;
+    display:block;
 
   }
   .standard{
+    background-color: #ddd;
     grid-column: 4 / 7;
-    grid-row: 1;
-    height:100%;
+    grid-row: 1/2;
     overflow:scroll;
+    display:block;
   }
   .editBar{
+    background-color: #ccc;
     grid-column: 1 / 7;
-    grid-row: 2;
-
-
+    grid-row: 3;
   }
 
-  .weakness {
-    //background-color: palegreen;
-    height: 100%;
+
+  .weakness .weaknessSmaller {
     //overflow:scroll;
+    background-color: #aaa;
     box-sizing: border-box;
-    position: relative;
+    position: sticky;
     grid-column: 1 / 4;
-    grid-row: 3 / 4;
+    grid-row: 4/7
+
+  }
+  .weakness{
+    grid-row : 4/7;
+
+  }
+  .weaknessSmaller{
+    grid-row : 7/7;
+
   }
   .control {
-    height: 100%;
+    background-color: #bbb;
     //overflow:scroll;
     box-sizing: border-box;
     position: relative;
     grid-column: 4 / 7;
-    grid-row: 3 / 3;
+    grid-row: 4;
   }
-.mat-table{
-    padding: 1%;
-    width:100%;
-}
 
-/*
-//:host limits ng deep to this component
-:host ::ng-deep .mat-expansion-panel-header:focus{
-    background-color: #212121 !important;
-}
-:host ::ng-deep .mat-expansion-panel-header{
-    background-color: #212121;
-    
-}
-:host ::ng-deep .mat-expansion-panel:hover{
-    background-color: #212121 !important ;
-
-}*/
-:host ::ng-deep .mat-expansion-panel-body{
-
-    background-color:rgb(230, 230, 230);
-    margin: 0%;
-    padding-left: 0;
-    padding-bottom: 0;
-}
-.cards{
-    box-shadow: 1px 1px 15px -1px;
-
-  }
-  
 div.row1{
-    display: flex;
-    
+    display: flex; 
 }
 div.item2{
     overflow: hidden;
@@ -110,140 +69,21 @@ div.item2{
 .dditems{
     text-align: left;
 }
-.col1{
-    float:left;
-    padding:10px;
-    background-color:#aaa;
-    width:48%;
-}
-.col2{
-    float:right;
-    padding:10px;
-    width:48%;
-    background-color:#bbb;
-}
-.toprow{
-    margin-bottom: 2%;
-    background-color: #ccc;
-    height:50%
-}
-.botrow{
-    background-color: #ddd;
-    height:50%
-}
-
-#Weaknesses {
-    font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-#Weaknesses td, #Weaknesses th {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-#Weaknesses tr:nth-child(even){background-color: #f2f2f2;}
-
-#Weaknesses tr:hover {background-color: #ddd;}
-
-#Weaknesses th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #4CAF50;
-    color: white;
-}
-
-
-#Controls {
-    font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-#Controls td, #Controls th {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-#Controls tr:nth-child(even){background-color: #f2f2f2;}
-
-#Controls tr:hover {background-color: #ddd;}
-
-#Controls th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #e0a421;
-    color: white;
-    border: black;
-    border-radius: 3px;
-}
-
-
-
-
-#Standards {
-    font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-#Standards td, #Standards th {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-#Standards tr:nth-child(even){background-color: #f2f2f2;}
-
-#Standards tr:hover {background-color: #ddd;}
-
-#Standards th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #00aeff;
-    color: white;
-}
-
-//adding ':after' will change the arrow to a diamond
-::ng-deep .mat-expansion-indicator{
-    color:white;
-    //background-color: white;
-    //border-color: white;
-}
-
-:host:ng-deep .test{
-    background-color: aqua;
-    color: red;
-    
-
-}
 
 div.standard {
-    height:400px;
     overflow-y: scroll;
     overflow-x: hidden;
-    margin: 10px;
-      
-   
-    
+    margin: 10px; 
 }
 
 div.weakness{
-    margin: 10px;
-    height: 400px;
-      
+    margin: 10px;     
 }
 
 div.control {
     margin: 10px;
     
 }
-
-
-
 
 
 //CSS for LIST
@@ -260,7 +100,6 @@ div.control {
 }
 
 .mat-list >  .mat-list-item:nth-child(2n+1){
-
     background-color:white;
   }
   .mat-list >  .mat-list-item:nth-child(2n){
@@ -273,6 +112,7 @@ div.control {
     justify-content: center;
 
   }
+
   .idCol{
     width:60px;
     min-width: 60px;
@@ -280,8 +120,8 @@ div.control {
 
   }
   .descCol{
-    width:700px;
-    min-width: 700px;
+    width:350px;
+    min-width: 350px;
     text-align: left;
     margin-left: 5%;
   }
@@ -291,3 +131,108 @@ div.control {
     text-align: left;
     margin-left: 5%;
   }
+
+
+  //CSS for Center bar and It's interactions
+  dl{
+    border:1px solid #ddd;
+  }
+  
+:host{
+    display:flex;
+    flex-direction: column;
+    &:not(:first-of-type) {
+    border-top:1px solid #ddd;
+  }
+  }
+  dt{
+    background-color:#efefef;
+    padding:5px;
+    cursor:pointer;
+    overflow:hidden;
+    &:hover{
+        background-color:#8f8f8f;
+
+    }
+  }
+  dd{
+    flex-direction: column;
+    background-color: white;
+    padding-top:0;
+    padding-bottom:0;
+   // height:500px;
+  }
+  
+  .uncollapsed {
+    animation: slide-down 2s ease forwards;
+    opacity:1;
+  }
+  .collapsed {
+    animation: slide-up 2s ease forwards;
+    opacity:0;
+  }
+  .shrink {
+    animation: shrink 2s ease forwards;
+
+  }
+  .grow {
+    animation: grow 2s ease forwards;
+
+}
+  
+  @keyframes slide-down {
+      //On Open
+    0% {
+      top:350px;
+      height: 0;
+      opacity:0;
+    }
+    100% {
+      top: 150px;
+      height: 400px;
+      opacity:1;
+    }
+  }
+  
+  @keyframes slide-up {
+      //On Close
+    0% {
+      height: 400px;
+      opacity:1;
+    }
+    100% {
+      height: 0;
+      opacity:0;
+    }
+  }
+
+
+
+@keyframes shrink {
+    //start big
+    0% {
+      grid-row: 7 / 7;
+      position: relative;
+
+    }
+    //get small
+    100%{
+      grid-row: 4 / 7;
+      position: relative;
+
+    }
+}
+
+@keyframes grow {
+    //start small
+    0% {
+      grid-row: 4 / 7;
+      position: relative;
+
+    }
+    //get big
+    100%{
+      grid-row: 7 / 7;
+      position: relative;
+    }
+}

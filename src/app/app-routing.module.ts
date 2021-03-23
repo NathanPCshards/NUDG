@@ -30,6 +30,7 @@ import { MilestoneFormComponent } from './milestone-form/milestone-form.componen
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 import { IdentifierPageRoutingModule } from './identifier-page/identifier-page.routing.module'
+import { PolicyAccordionComponent } from './policy-accordion/policy-accordion.component';
 //https://angular.io/guide/router
 
 const routes: Routes = [
@@ -43,6 +44,8 @@ const routes: Routes = [
   { path: 'Roles', component: RoleFormComponent },
   { path: 'GroupsPage', component: GroupFormComponent },
   { path: 'AdminPanel', component: AdminPanelComponent },
+  { path: 'Accordion', component: PolicyAccordionComponent },
+
 
   {
       path: 'Policy', 

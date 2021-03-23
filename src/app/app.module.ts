@@ -10,7 +10,6 @@ import { InventoryFormComponent } from './inventory-form/inventory-form.componen
 import { NotfoundComponent } from './notfound/notfound.component';
 import { GroupFormComponent } from './group-form/group-form.component';
 import { roleDialog, RoleFormComponent } from './role-form/role-form.component';
-//import { controlTable, IdentifierPageComponent, standardTable, weaknessTable } from './identifier-page/identifier-page.component';
 import { Bar3dDatasetComponent, calendarComponent, chartSimple, DashboardComponent } from './dashboard/dashboard.component';
 import { PolicyBoardComponent } from './policy-board/policy-board.component';
 import { UserFormComponent } from './user-form/user-form.component';
@@ -20,11 +19,9 @@ import { CuiContractsFormComponent } from './cui-contracts-form/cui-contracts-fo
 import { PageSearchComponent } from './page-search/page-search.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { GapAssessmentPageComponent, GapForm } from './gap-assessment-page/gap-assessment-page.component';
-import { guidelinesDialog, GuidelinesForm } from './guidelines-page/guidelines-page.component';
-import { controlDialog, ControlFormComponent } from './control-form/control-form.component';
+
 import {weaknessDialog, WeaknessFormComponent } from './weakness-form/weakness-form.component';
 import { milestoneDialog, MilestoneFormComponent } from './milestone-form/milestone-form.component';
-import { procedureDialog, ProcedureFormComponent } from './procedure-form/procedure-form.component';
 import { networkSharesPage } from './network-shares-form/network-shares-form.component';
 import { SoftwareApprovalFormComponent } from './software-approval-form/software-approval-form.component';
 import { SharedResourcesFormComponent } from './shared-resources-form/shared-resources-form.component';
@@ -45,6 +42,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { IdentifierPageModule } from './identifier-page/identifier-page.module';
 import { SharedModule } from './SharedModule.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PolicyAccordionModule } from './policy-accordion/policy-accordion.module';
 
 @NgModule({
   declarations: [
@@ -60,10 +58,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PolicyBoardComponent,
     NotfoundComponent,
     roleDialog,
-
     chartSimple,
     Bar3dDatasetComponent,
-
     calendarComponent,
     VendorFormComponent,
     SupplierFormComponent,
@@ -73,26 +69,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TasksComponent,
     GapAssessmentPageComponent,
     GapForm,
-   // ControlFormComponent,
     WeaknessFormComponent,
     weaknessDialog,
-    controlDialog,
-   // ControlFormComponent,
     MilestoneFormComponent,
     milestoneDialog,
-    ProcedureFormComponent,
-    procedureDialog,
     PageSearchComponent,
     SoftwareApprovalFormComponent,
     SharedResourcesFormComponent,
     SecurityLogFormComponent,
-    GuidelinesForm,
-
     HelpCenterComponent,
     helpCenterForm,
     networkSharesPage,
     AdminPanelComponent,
-    guidelinesDialog,
 
     
 
@@ -102,6 +90,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     IdentifierPageModule,
     SharedModule,
+    PolicyAccordionModule,
+
     
     //charts
     NgxEchartsModule.forRoot({

@@ -51,9 +51,37 @@ export class GuidelinesForm implements OnInit {
 
 
   public openGuideline(id, guideline) {
+
+    //this is how to dynmically make an html element
+    /*
+    var guidelineBox = document.getElementById('test')
+    let temp = `<div style="background-color:grey;" mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" ngDraggable cdkDragHandle>
+    <span>
+        {{data.id}}
+    </span>  
+    <div class="buttons">
+        <button mat-icon-button>
+             <mat-icon (click)="closeDialog()" color="warn">
+              close
+            </mat-icon>
+        </button>
+    </div>
+</div>
+<div class="example-box">
+    {{data.guideline}}
+</div>`
+
+    guidelineBox.insertAdjacentHTML('beforeend', temp)
+    guidelineBox.setAttribute('data', id);
+
+    console.log("guidelineBox : " , guidelineBox)
+
+*/
+
+
     const dialogRef = this.dialog.open(guidelinesDialog, {
-      width: '600px',
-      height: '600px',
+      width: '700px',
+      height: '700px',
       autoFocus : false,
       data: {
         id,
@@ -65,10 +93,9 @@ export class GuidelinesForm implements OnInit {
       console.log('The dialog was closed');
       console.log(result.data);//returns undefined
     });
+
+
   }
-
-
-
 }
   
 
@@ -91,6 +118,6 @@ closeDialog(){
   this.dialogRef.close({ data : "test"});
 
 }
-
+;
 
 }

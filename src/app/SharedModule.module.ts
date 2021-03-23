@@ -55,17 +55,12 @@ import { ControlFormComponent } from './control-form/control-form.component';
 
 @NgModule({
     declarations : [
-      //  GuidelinesForm,
-        ControlFormComponent,
-        //guidelinesDialog,
+
     ],
   exports : [   
     BrowserModule,
     BrowserAnimationsModule,
     NgbModalModule,
-  //  GuidelinesForm,
-   // guidelinesDialog,
-    ControlFormComponent,
 
     //Forms
     FormsModule,

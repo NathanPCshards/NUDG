@@ -1,132 +1,75 @@
 
-  <div class="wrapper">
+<div class="wrapper">
 
-      <div class="policy">
-      <!-- <mat-card id='card' style="height:500px; overflow:-moz-hidden-unscrollable"> -->
-     
-        <div class="row1">
-          <div class="item2" style="flex: 1; ">
-    
-            <p id="title" style="font-size: 28px;"> AC-N.01</p>
-          
-    
-          </div>
-          <div class="item2" style="flex: 1; ">
-    
-            <p id="title" style="font-size: 20px;"> Subtitle</p>
-    
-          </div>    
-          <div class="item2" style="flex: 1; ">
-    
-            <p id="title" style="font-size: 20px;color: #06d6a0;">Status</p>
-    
-          </div>
-          
+
+
+
+  <div id="policy" class="policy {{grow ? 'grow' :'grow shrink'}}" style="position: absolute; z-index:99;">
+      <div class="row1">
+
+        <div class="item2" style="flex: 1; ">
+          <p id="title" style="font-size: 28px;"> AC-N.01</p>
         </div>
 
-        <mat-tab-group>
-          <mat-tab label="CMMC Information">
-            <p style="margin-top: 1%;" class="dditems">CMMC Number</p>
-            <br>
-            <p class="dditems">Capability Name</p>
-            <br>
-            <p class="dditems">Capability Number</p>
-            <br>
-            <p class="dditems">Practice</p>
-            <br>
-            <p class="dditems">Clarification</p>
-          </mat-tab>
+        <div class="item2" style="flex: 1; ">
+          <p id="title" style="font-size: 20px;"> Subtitle</p>
+        </div>    
 
-          <mat-tab label="NIST Information">NIST Information</mat-tab>
-          <mat-tab label="References">References</mat-tab>
-          <mat-tab label="Guidelines">
-            <!--
-            <app-guidelines-page>
-
-            </app-guidelines-page>
-
-            -->
-
-          </mat-tab>
-
-        </mat-tab-group>
-
-
-       
-              
-    
-         <!-- </mat-card> -->
+        <div class="item2" style="flex: 1; ">
+          <p id="title" style="font-size: 20px;color: #06d6a0;">Status</p>
         </div>
-      
-    <div class="standard">
-     <!-- <mat-card class="tableCard" style="height:405px"> -->
-        <standardTable>
-        </standardTable>
-    <!-- </mat-card> -->
-    </div>
-
-    
-<div class ="editBar">
-  <mat-accordion class ="accordion">   
-    <mat-expansion-panel (opened)="panelOpenState = true"
-                        (closed)="panelOpenState = false"
-                        >
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Add a User
-        </mat-panel-title>
-        <mat-panel-description class="description">
-        Open panel to add a User Item
-        </mat-panel-description>
-        <button routerLink="Policy/controls" mat-raised-button type="button" style="color: white;margin-left:30%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="openControls();"><i class="fa fa-plus"></i> Controls </button>    
-        <button routerLink="Policy/controls" mat-raised-button type="button" style="color: white;margin-left:5%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="openWeakness();"><i class="fa fa-plus"></i> Weaknesses </button>    
-        <button [routerLink]="[{ outlets: { sub: [controls] } }]" mat-raised-button type="button" style="color: white;margin-left:5%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="openStandards();"><i class="fa fa-plus"></i> Standards</button>    
-
-      </mat-expansion-panel-header>
-
-      <div 
-      [routerLink]="[{ outlets: { sub: [weaknessForm] } }]"
-      style= 
-      "width:300px;
-       height:300px; 
-       background-color: rebeccapurple;">
-        <router-outlet #sub id="sub" name="sub"></router-outlet>
       </div>
 
-    </mat-expansion-panel>
+      <mat-tab-group>
+        <mat-tab label="CMMC Information">
+          <p style="margin-top: 1%;" class="dditems">CMMC Number</p>
+          <br>
+          <p class="dditems">Capability Name</p>
+          <br>
+          <p class="dditems">Capability Number</p>
+          <br>
+          <p class="dditems">Practice</p>
+          <br>
+          <p class="dditems">Clarification</p>
+        </mat-tab>
 
-  </mat-accordion>
+        <mat-tab label="NIST Information">NIST Information</mat-tab>
+        <mat-tab label="References">References</mat-tab>
+        <mat-tab label="Guidelines">
+          <app-guidelines-page>
+          </app-guidelines-page>
+        </mat-tab>
+
+      </mat-tab-group>
+  </div>
+    
+
+
+  <div id="standard" class="standard {{grow ? 'grow' :'grow shrink'}}">
+      <standardTable>
+      </standardTable>
+  </div>
+
+
+  <div class ="editBar">
+    <app-accordion-item *ngFor="let item of entries" 
+      [entry]="item">
+    </app-accordion-item> 
+  </div>
+
+
+  <div id="weakness" class="weaknessSmaller {{grow ? 'grow' :'grow shrink'}}">   
+      <weaknessTable>
+      </weaknessTable> 
+  </div>
+
+
+
+   
+  <div id="control" class="control {{grow ? 'grow' :'grow shrink'}}" style="position: fixed; right: 200px; bottom: 200px; height: 150px;">      
+      <app-control-form>
+      </app-control-form>
+  </div>
+
+
 </div>
-
-
-
-
-    <div class="weakness">   
- <!-- <mat-card class="tableCard" style="height:405px">
-  
-  <app-weakness-form>
-
-  </app-weakness-form>
-
-
-  -->  
-
-  <weaknessTable>
-  </weaknessTable> 
- <!-- </mat-card> -->
-   </div>
-
-    <div class="control">      
-      <!-- <mat-card class="tableCard" style="height:405px"> -->
-        <app-control-form>
-          
-        </app-control-form>
-     <!-- </mat-card> -->
-
- 
-  </div>
-  </div>
-
-
-  
-

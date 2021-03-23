@@ -1,0 +1,32 @@
+<div 
+id="div2" 
+class="{{grow ? 
+  'grow' : 
+  'grow shrink'}}"
+style="
+background-color: rgb(59, 75, 226);
+width: 100%;
+height: 300px;
+">
+
+</div>
+
+<dl class="accordion">
+    <app-accordion-item *ngFor="let item of entries" 
+    [entry]="item">
+
+</app-accordion-item>      
+  </dl>
+
+  <div 
+  id="div1" 
+  class="{{grow ? 
+    'grow' : 
+    'grow shrink'}}"
+  style="
+  background-color: rgb(51, 153, 105);
+  width: 100%;
+  height: 300px;
+  ">
+
+</div>

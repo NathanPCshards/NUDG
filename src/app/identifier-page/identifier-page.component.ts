@@ -14,8 +14,16 @@ import { SharedService } from '../services/Shared';
 import { StandardsService } from '../services/standards.service';
 import { WeaknessesService } from '../services/weaknesses.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { PolicyAccordionService } from '../services/policy-accordion.service';
 
-
+const obj = {
+  title: 'What are your hours?',
+  description: 'We are open 24/7.'
+}
+const accordionEntries: any[] = [];
+for (let i = 0; i < 1; i++) {
+  accordionEntries.push(obj);
+}
 
 
 @Component({
@@ -31,11 +39,54 @@ export class IdentifierPageComponent implements OnInit {
   displayedColumns: string[] = ['Title', 'Subtitle', 'Status'];
   rowSelected = false;
   name: any;
+  entries: any[];  
+  
+  //accordion animation variables
+  grow;
+  shrink;
+  uncollapsed = false;
+  collapse = true;
 
-
-  constructor(private http:HttpClient, private formBuilder: FormBuilder, private router:Router, private route: ActivatedRoute) { }
+  constructor(
+    private http:HttpClient,
+    private formBuilder: FormBuilder,
+    private router:Router, 
+    private route: ActivatedRoute,
+    private service:PolicyAccordionService) { }
 
   ngOnInit(){
+    this.entries = accordionEntries
+
+    this.service.onAccordionClick.subscribe(data =>{
+      console.log("before : " , document.getElementById('weakness').className)
+      if (data == "shrink"){
+      //  document.getElementById('standard').className = 'shrink'
+       document.getElementById('weakness').className = 'weaknessSmaller'
+       console.log("small")
+       this.uncollapsed = true;
+
+       //document.getElementById('weakness').classList.remove("grow");
+
+      //  document.getElementById('control').className = 'shrink'
+      // document.getElementById('policy').className = 'shrink'
+
+      }
+      if (data == "grow"){
+         this.uncollapsed = false;
+     //   document.getElementById('standard').className = 'grow'
+         //document.getElementById('weakness').classList.remove("shrink");
+
+        document.getElementById('weakness').className = 'weakness'
+        console.log("large")
+
+
+      //  document.getElementById('control').className = 'grow'
+        //document.getElementById('policy').className = 'grow'
+
+      }
+
+    });
+
     this.idPage = this.formBuilder.group({
       //initialize some stuff here
     });
@@ -49,22 +100,6 @@ export class IdentifierPageComponent implements OnInit {
     console.log(configUrl)
    // this.router.navigate(configUrl.concat("/",row.Title))
   }
-
-  openWeakness= function ()  {
-    console.log("controls should appear")
-
-    this.router.navigate(['controls'],{relativeTo: this.route});
-  }
-  openControls= function ()  {
-    console.log("controls should appear")
-    this.router.navigateByUrl('/Policy/controls')
-    
-  }
-  openStandards= function ()  {
-   // this.router.navigateByUrl('/Policy/standardForm')
-    
-  }
-
 
 }
 

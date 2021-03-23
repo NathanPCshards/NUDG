@@ -25,7 +25,7 @@ export class PageSearchComponent implements OnInit {
   options: string[] = [
   'CUIcontracts', 'Home', 'Policies',
   'Dashboard', 'Users', 'Inventory',
-  'CompanyInfo', 'Roles', 
+  'CompanyInfo', 'Roles', 'Accordion',
   'Suppliers', 'Vendors', 'Tasks',
   'Controls', 'Weaknesses',
   'GapAssessment', 'GapForm', 'ControlForm',

@@ -2,10 +2,10 @@
   <mat-list>
     <div class="flexContainer">
       <mat-list-item class="headerRow">
-        <span>
+        <span id="listSpan idCol">
           Standard ID
         </span>
-        <span style="margin-left: 6.5%;">
+        <span id="listSpan descCol">
           Name
         </span>
       </mat-list-item>
@@ -13,10 +13,10 @@
 
     <mat-list-item *ngFor="let standard of standards$ | async">
       <div class="flexContainer">
-      <span class="listSpan" style="font-weight: bold;"
-        >{{ standard.idStandards }}    </span
-      >
-      <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
+        <span id="listSpan idCol">
+          {{ standard.idStandards }}    
+          </span>
+      <span id="listSpan descCol">
         {{standard.Standard}}
       </span>
       </div>
