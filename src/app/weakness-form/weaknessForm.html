@@ -64,13 +64,13 @@
                                 <input #Nid matInput placeholder = "NUDG Identifiers">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input [(ngModel)]="id" [ngModelOptions]="{standalone: true}" matInput placeholder = "Weakness ID">
+                                <input  matInput placeholder = "Weakness ID">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:80%">
-                                <input matInput placeholder = "Weakness Name" >
+                                <input #Wname matInput placeholder = "Weakness Name" >
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input matInput placeholder = "Detection Date">
+                                <input #WdetectionDate matInput placeholder = "Detection Date">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:40%">
                                 <input matInput placeholder = "Weakness Source Identifier">
@@ -79,13 +79,17 @@
                                 <h1 style="margin: 0px; font-size:15px">Vendor Dependency</h1>
                                
                                 <mat-radio-group class="radio-groupRiskA"  appearance = "legacy" aria-label="Select an option">
-                                    <mat-radio-button color="primary" class="qs"  value="1">Yes</mat-radio-button>
-                                    <mat-radio-button style="margin-left: 1%" class="qs" value="2">No</mat-radio-button> 
+                                    <mat-radio-button #WvendorDependency color="primary" class="qs"  value="1">Yes</mat-radio-button>
+                                    <mat-radio-button #WvendorDependency style="margin-left: 1%" class="qs" value="2">No</mat-radio-button> 
                                 </mat-radio-group>
                             </div>
+
+                            <mat-form-field appearance = "legacy" style="width:40%">
+                                <input #WriskRating matInput placeholder = "Risk Rating">
+                            </mat-form-field>
     
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input matInput placeholder = "Risk Rating">
+                                <input #WadjustedRiskRating matInput placeholder = "Adjusted Risk Rating">
                             </mat-form-field>
 
 
@@ -95,9 +99,9 @@
                                 <h1 style="margin: 0px; font-size:15px">Risk Adjustment</h1>
                                
                                 <mat-radio-group class="radio-groupRiskA"  appearance = "legacy" aria-label="Select an option">
-                                    <mat-radio-button color="primary" class="qs"  value="1">Yes</mat-radio-button>
-                                    <mat-radio-button style="margin-left: 1%" class="qs" value="2">No</mat-radio-button> 
-                                    <mat-radio-button style="margin-left: 1%" class="qs" value="3">Pending</mat-radio-button> 
+                                    <mat-radio-button #WriskAdjustment color="primary" class="qs"  value="1">Yes</mat-radio-button>
+                                    <mat-radio-button #WriskAdjustment style="margin-left: 1%" class="qs" value="2">No</mat-radio-button> 
+                                    <mat-radio-button #WriskAdjustment style="margin-left: 1%" class="qs" value="3">Pending</mat-radio-button> 
 
                                 </mat-radio-group>
                             </div>
@@ -107,7 +111,7 @@
 
 
                             <div class="fileInput" style="margin-left: 1%;">
-                                <input  class="ng-hide" id="input-file-id" multiple type="file" />
+                                <input #WsupportingDoc class="ng-hide" id="input-file-id" multiple type="file" />
                                 <label for="input-file-id" class="md-button md-raised md-primary"></label>
                             </div>
                                         </div>
@@ -117,10 +121,10 @@
                                 <input matInput placeholder = "Standards">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:40%" >
-                                <input matInput placeholder = "Weakness Detector Source">
+                                <input #WdetectionSource matInput placeholder = "Weakness Detector Source">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:40%" >
-                                <input matInput placeholder = "Completion Date">
+                                <input #WcompletionDate matInput placeholder = "Completion Date">
                             </mat-form-field>
     
     
@@ -128,15 +132,15 @@
     
     
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input matInput placeholder = "Overall Remediation Plan">
+                                <input #WremediationPlan matInput placeholder = "Overall Remediation Plan">
                             </mat-form-field>
     
                             <div class="cards" style="margin-left: 1%; margin-bottom: 10px;">
                                 <h1 style="margin: 0px; font-size:15px">Auto Approve</h1>
                                
                                 <mat-radio-group class="radio-groupRiskA"  appearance = "legacy" aria-label="Select an option">
-                                    <mat-radio-button color="primary" class="qs"  value="1">Yes</mat-radio-button>
-                                    <mat-radio-button style="margin-left: 1%" class="qs" value="2">No</mat-radio-button> 
+                                    <mat-radio-button #WautoApprove color="primary" class="qs"  value="1">Yes</mat-radio-button>
+                                    <mat-radio-button #WautoApprove style="margin-left: 1%" class="qs" value="2">No</mat-radio-button> 
                                 </mat-radio-group>
                             </div>
     
@@ -144,9 +148,9 @@
                                 <h1 style="margin: 0px; font-size:15px">Operational Requirement</h1>
                                
                                 <mat-radio-group class="radio-OpReq"  appearance = "legacy" aria-label="Select an option">
-                                    <mat-radio-button color="primary" class="qs"  value="1">Yes</mat-radio-button>
-                                    <mat-radio-button style="margin-left: 1%" class="qs" value="2">No</mat-radio-button> 
-                                    <mat-radio-button style="margin-left: 1%" class="qs" value="3">Pending</mat-radio-button> 
+                                    <mat-radio-button #WoperationReq color="primary" class="qs"  value="1">Yes</mat-radio-button>
+                                    <mat-radio-button #WoperationReq style="margin-left: 1%" class="qs" value="2">No</mat-radio-button> 
+                                    <mat-radio-button #WoperationReq style="margin-left: 1%" class="qs" value="3">Pending</mat-radio-button> 
 
                                 </mat-radio-group>
                             </div>
@@ -161,42 +165,42 @@
                         <div class ="col">
         
                             <mat-form-field appearance = "legacy" style="width:80%">
-                                <input [(ngModel)]="desc" [ngModelOptions]="{standalone: true}" matInput placeholder = "Weakness Description">
+                                <input #Wdescription matInput placeholder = "Weakness Description">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input matInput placeholder = "Last Vendor Contact Date">
+                                <input #WlastVendorCheck matInput placeholder = "Last Vendor Contact Date">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input matInput placeholder = "Deviation Rationale">
+                                <input #WdeviationRationale matInput placeholder = "Deviation Rationale">
                             </mat-form-field>
 
                             <div class="cards" style="margin-left: 1%; margin-bottom: 10px;">
                                 <h1 style="margin: 0px; font-size:15px">False Positive</h1>
                                
                                 <mat-radio-group class="radio-groupFalseP"  appearance = "legacy" aria-label="Select an option">
-                                    <mat-radio-button color="primary" class="qs"  value="1">Yes</mat-radio-button>
-                                    <mat-radio-button style="margin-left: 1%" class="qs" value="2">No</mat-radio-button> 
-                                    <mat-radio-button style="margin-left: 1%" class="qs" value="3">Pending</mat-radio-button> 
+                                    <mat-radio-button #WfalsePositive color="primary" class="qs"  value="1">Yes</mat-radio-button>
+                                    <mat-radio-button #WfalsePositive style="margin-left: 1%" class="qs" value="2">No</mat-radio-button> 
+                                    <mat-radio-button #WfalsePositive style="margin-left: 1%" class="qs" value="3">Pending</mat-radio-button> 
 
                                 </mat-radio-group>
                             </div>
                             <mat-form-field appearance = "legacy" style="width:80%">
-                                <input matInput placeholder = "Point of Contact">
+                                <input #WpointOfContact matInput placeholder = "Point of Contact">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:80%">
-                                <input matInput placeholder = "Resources Required">
+                                <input #WresourceReq matInput placeholder = "Resources Required">
                             </mat-form-field>
                         
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input matInput placeholder = "Status">
+                                <input #Wstatus matInput placeholder = "Status">
                             </mat-form-field>
     
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input matInput placeholder = "Asset Identifier">
+                                <input #WassetID matInput placeholder = "Asset Identifier">
                             </mat-form-field>
     
                             <mat-form-field appearance = "legacy"  style="width:80%">
-                                <input matInput placeholder = "Last Change">
+                                <input #WlastChange matInput placeholder = "Last Change">
                             </mat-form-field>
 
                         </div>
@@ -205,14 +209,14 @@
                 <div class = "row2">
                     <mat-divider style="padding-top: 3px;"></mat-divider>
     
-                    <button mat-raised-button [mat-dialog-close]="true" (click)="post(Nid.value)" style="margin-left: 15%;width:20vw;height: 3vh; float: left;" color="primary"  >Submit</button>
+                    <button mat-raised-button [mat-dialog-close]="true" (click)="closeDialog(Nid.value, Wname.value, WdetectionDate.value, WvendorDependency.value, WriskRating.value, WriskAdjustment.value, WdetectionSource.value, WcompletionDate.value, WremediationPlan.value, WautoApprove.value, WoperationReq.value, Wstatus.value, WassetID.value, WlastChange.value, Wdescription.value, WlastVendorCheck.value, WdeviationRationale.value, WfalsePositive.value, WpointOfContact.value, WresourceReq.value, WsupportingDoc.value )" style="margin-left: 15%;width:20vw;height: 3vh; float: left;" color="primary"  >Submit</button>
                     
                     <button mat-raised-button  (click)="onFormReset();" style="margin-right: 15%;width:20vw;height: 3vh;float: right;" type="reset"  color="primary"  >Reset</button>
                 </div>
             </div>
 </form>
 
-
+<!--
 <div id="milestones" style="float:left; width:100%; margin-top: 2%;">
     <milestoneForm>
 
@@ -221,4 +225,6 @@
 </div>
 
 
+
+-->
 

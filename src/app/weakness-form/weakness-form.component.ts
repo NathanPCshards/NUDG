@@ -1,8 +1,8 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild , AfterViewInit} from '@angular/core';
+import { Component, OnInit, ViewChild , AfterViewInit, Inject} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {merge, Observable, of as observableOf} from 'rxjs';
@@ -104,6 +104,7 @@ export class WeaknessFormComponent implements OnInit {
   displayedColumns: String[] = ['select','id', 'desc'];
   rowSelected = false;
   name: any;
+
   weaknesses$: Observable<weaknesses[]>;
 
   dataSource!: MatTableDataSource<weaknessTable>;
@@ -120,10 +121,28 @@ export class WeaknessFormComponent implements OnInit {
   constructor(private http: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog, public weaknessservice : WeaknessesService){
     this.dataSource = new MatTableDataSource(weaknessData);
     globalWeaknessData.data = this.dataSource.data;
-
+    
   }
   public openDialog() {
-    this.dialog.open(weaknessDialog, {height:'90%', width:"80%",});
+    const dialogRef = this.dialog.open(weaknessDialog, {
+      width: '80%',
+      height: '90%',
+      
+      data: {
+              Nid:""
+
+      }
+
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log("result : " , result);
+      this.weaknesses$ = this.weaknessservice
+      //
+      .post(result)
+      .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));
+    });
+
 
   }
   public refresh(){
@@ -144,13 +163,12 @@ export class WeaknessFormComponent implements OnInit {
     return this.weaknessservice.fetchAll();
   }
   
-  post(Nid): void {
-    // IdateOfReceipt = new Date();
-     console.log("nid : " , Nid)
-     this.weaknesses$ = this.weaknessservice
-       .post({ Nid})
-       .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));
-   }
+  delete(id: any): void {
+    this.weaknesses$ = this.weaknessservice
+      .delete(id)
+      .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));
+      
+  }
 
 
 }
@@ -165,18 +183,15 @@ export class WeaknessFormComponent implements OnInit {
 })
 export class weaknessDialog {
 weaknessForm;
-position;
-id;
-desc;
-milestones;
+
 submitted= false;
-weaknesses$: Observable<weaknesses[]>;
+ weaknesses$: Observable<weaknesses[]>;
 
 
-  constructor(private http:HttpClient, private formBuilder: FormBuilder, private weaknessservice: WeaknessesService) { }
+  constructor(private formBuilder: FormBuilder,private dialogRef : MatDialogRef<weaknessDialog>, @Inject(MAT_DIALOG_DATA) public data : any) { }
 
 ngOnInit(){
-  this.weaknesses$ = this.fetchAll()
+
   this.weaknessForm = this.formBuilder.group({
     //initialize stuff to be null or whatever, here
 
@@ -185,17 +200,6 @@ ngOnInit(){
 public onFormSubmit() {
 
 }
-fetchAll(): Observable<weaknesses[]> {
-  return this.weaknessservice.fetchAll();
-}
-
-post(Nid): void {
-  // IdateOfReceipt = new Date();
-   console.log("from dialoge weakness : " , Nid)
-   this.weaknesses$ = this.weaknessservice
-     .post({ Nid})
-     .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));
- }
 
 public onFormReset() {
   console.log("FORM WAS Reset");
@@ -203,55 +207,34 @@ public onFormReset() {
 this.submitted = false;
 
 }
+
+closeDialog(Nid, Wname, WdetectionDate, WvendorDependency, WriskRating, WriskAdjustment, WdetectionSource, WcompletionDate, WremediationPlan, WautoApprove, WoperationReq, Wstatus, WassetID, WlastChange, Wdescription, WlastvendorCheck, WdeviationRationale, WfalsePositive, WpointOfContact, WresourceReq, WsupportingDoc ){
+  this.data.Nid = Nid;
+  this.data.Wname = Wname;
+  this.data.WdetectionDate = WdetectionDate;
+  this.data.WvendorDependency = WvendorDependency;
+  this.data.WriskRating = WriskRating;
+  this.data.WriskAdjustment = WriskAdjustment;
+  this.data.WdetectionSource = WdetectionSource;
+  this.data.WcompletionDate = WcompletionDate;
+  this.data.WremediationPlan = WremediationPlan;
+  this.data.WautoApprove = WautoApprove;
+  this.data.WoperationReq = WoperationReq;
+  this.data.Wstatus = Wstatus;
+  this.data.WassetID = WassetID;
+  this.data.WlastChange = WlastChange;
+  this.data.Wdescription = Wdescription;
+  this.data.WlastvendorCheck = WlastvendorCheck;
+  this.data.WdeviationRationale = WdeviationRationale;
+  this.data.WfalsePositive = WfalsePositive;
+  this.data.WpointOfContact = WpointOfContact;
+  this.data.WresourceReq = WresourceReq;
+  this.data.WsupportingDoc = WsupportingDoc;
+
+
+  this.dialogRef.close( this.data );
+
+};
+
 }   
 
-
-/*
-
-
-onRowClicked(row): void {
-  console.log("Row clicked: ", row);
-  this.rowSelected = true;
-  var configUrl = 'http://localhost:4200' + "/" + row.Title;
-  console.log(configUrl)
- // this.router.navigate(configUrl.concat("/",row.Title))
-}
-applyFilter(event: Event) {
-  const filterValue = (event.target as HTMLInputElement).value;
-  this.dataSource.filter = filterValue.trim().toLowerCase();
-
-
-}
-
-
-isAllSelected() {
-  const numSelected = this.selection.selected.length;
-  const numRows = this.dataSource.data.length;
-  return numSelected === numRows;
-}
-
-masterToggle() {
-  this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
-}
-
-checkboxLabel(row?: weaknessTable): string {
-  if (!row) {
-    return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-  }
-  return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-}
-
-
-removeSelectedRows() {
-  let data = Object.assign(weaknessData)
-  this.selection.selected.forEach(item => {
-     let index: number = data.findIndex(d => d === item);
-     console.log(data.findIndex(d => d === item));
-     data.splice(index,1)
-     this.dataSource = new MatTableDataSource<weaknessTable>(data);
-   });
-   this.selection = new SelectionModel<weaknessTable>(true, []);
-}
-*/

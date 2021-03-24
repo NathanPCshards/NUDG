@@ -28,19 +28,19 @@ dl{
   }
   
   .uncollapsed {
-    animation: slide-down 2s ease forwards;
+    animation: slide-down 1s ease forwards;
     opacity:1;
   }
   .collapsed {
-    animation: slide-up 2s ease forwards;
+    animation: slide-up 1s ease forwards;
     opacity:0;
   }
   .shrink {
-      animation: shrink 2s ease forwards;
+      animation: shrink 1s ease forwards;
 
   }
   .grow {
-    animation: grow 2s ease forwards;
+    animation: grow 1s ease forwards;
 
 }
   
@@ -53,7 +53,7 @@ dl{
     }
     100% {
       top: 250px;
-      height: 400px;
+      height: 600px;
       opacity:1;
     }
   }

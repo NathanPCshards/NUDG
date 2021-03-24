@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { isThisSecond } from 'date-fns';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { guidelines } from '../models/guidelines';
@@ -79,7 +80,7 @@ export class GuidelinesForm implements OnInit {
 */
 
 
-    const dialogRef = this.dialog.open(guidelinesDialog, {
+    let dialogRef = this.dialog.open(guidelinesDialog, {
       width: '700px',
       height: '700px',
       autoFocus : false,
@@ -91,7 +92,7 @@ export class GuidelinesForm implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      console.log(result.data);//returns undefined
+      console.log(result);//returns undefined
     });
 
 
@@ -115,9 +116,10 @@ ngOnInit(){
 }
 
 closeDialog(){
-  this.dialogRef.close({ data : "test"});
+  this.dialogRef.close( 3 );
 
-}
-;
+
+};
+
 
 }

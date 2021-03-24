@@ -69,10 +69,8 @@ import { PolicyAccordionModule } from './policy-accordion/policy-accordion.modul
     TasksComponent,
     GapAssessmentPageComponent,
     GapForm,
-    WeaknessFormComponent,
-    weaknessDialog,
-    MilestoneFormComponent,
-    milestoneDialog,
+
+
     PageSearchComponent,
     SoftwareApprovalFormComponent,
     SharedResourcesFormComponent,
@@ -90,7 +88,7 @@ import { PolicyAccordionModule } from './policy-accordion/policy-accordion.modul
   imports: [
     IdentifierPageModule,
     SharedModule,
-    PolicyAccordionModule,
+//    PolicyAccordionModule,
 
     
     //charts

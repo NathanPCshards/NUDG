@@ -3,8 +3,8 @@ import { PolicyAccordionService } from '../services/policy-accordion.service';
 
 
 const obj = {
-  title: 'What are your hours?',
-  description: 'We are open 24/7.'
+  title: '',
+  description: ''
 }
 const accordionEntries: any[] = [];
 for (let i = 0; i < 1; i++) {

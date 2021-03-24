@@ -19,9 +19,6 @@ export class InventoryFormComponent implements OnInit {
   panelOpenState;
   inventories$: Observable<inventories[]>;
 
-  
-
-
   constructor(private http:HttpClient, private fb: FormBuilder, private inventoryService:inventoryService) {
 
   }
@@ -38,8 +35,6 @@ export class InventoryFormComponent implements OnInit {
   }
 
   post(IassetIdentifier, Iaddress, InetworkID, Ivirtual, Ipublic, Idnsname, InetbiosName, Imacaddress, IauthenticatedScan, IbaselineConfigName, IosNameAndVersion, IphysicalLocation, IhardwareSoftwareVendor, IdateOfReceipt, Icost, IsoftwareDatabase, Ipatchlevel, Ifunction, Icomments, Iserial, Ivlan, IsystemAdmin, Iapplication, IsoftwareApproval): void {
-   // IdateOfReceipt = new Date();
-    
     this.inventories$ = this.inventoryService
       .post({ IassetIdentifier, Iaddress, InetworkID, Ivirtual, Ipublic, Idnsname, InetbiosName, Imacaddress, IauthenticatedScan, IbaselineConfigName, IosNameAndVersion, IphysicalLocation, IhardwareSoftwareVendor, IdateOfReceipt, Icost,  IsoftwareDatabase, Ipatchlevel, Ifunction, Icomments, Iserial, Ivlan, IsystemAdmin, Iapplication, IsoftwareApproval })
       .pipe(tap(() => (this.inventories$ = this.fetchAll())));
@@ -47,7 +42,6 @@ export class InventoryFormComponent implements OnInit {
 
 
   update(IassetIdentifier, Iaddress, InetworkID, Ivirtual, Ipublic, Idnsname, InetbiosName, Imacaddress, IauthenticatedScan, IbaselineConfigName, IosNameAndVersion, IphysicalLocation, IhardwareSoftwareVendor, IdateOfReceipt, Icost, IsoftwareDatabase, Ipatchlevel, Ifunction, Icomments, Iserial, Ivlan, IsystemAdmin, Iapplication, IsoftwareApproval, idOrgInventory): void {
-
     this.inventories$ = this.inventoryService
       .update( {IassetIdentifier, Iaddress, InetworkID, Ivirtual, Ipublic, Idnsname, InetbiosName, Imacaddress, IauthenticatedScan, IbaselineConfigName, IosNameAndVersion, IphysicalLocation, IhardwareSoftwareVendor, IdateOfReceipt, Icost,  IsoftwareDatabase, Ipatchlevel, Ifunction, Icomments, Iserial, Ivlan, IsystemAdmin, Iapplication, IsoftwareApproval, idOrgInventory})
       .pipe(tap(() => (this.inventories$ = this.fetchAll())));
@@ -55,8 +49,6 @@ export class InventoryFormComponent implements OnInit {
 
 
   delete(id: any): void {
-    console.log("attempting to delete id : " , id)
-
     this.inventories$ = this.inventoryService
       .delete(id)
       .pipe(tap(() => (this.inventories$ = this.fetchAll())));

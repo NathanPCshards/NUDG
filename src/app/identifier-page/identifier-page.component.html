@@ -4,7 +4,7 @@
 
 
 
-  <div id="policy" class="policy {{grow ? 'grow' :'grow shrink'}}" style="position: absolute; z-index:99;">
+  <div id="policy" class="policy2 {{grow ? 'grow' :'grow shrink'}}" >
       <div class="row1">
 
         <div class="item2" style="flex: 1; ">
@@ -21,7 +21,7 @@
       </div>
 
       <mat-tab-group>
-        <mat-tab label="CMMC Information">
+        <mat-tab label="CMMC Information" style="overflow: none;">
           <p style="margin-top: 1%;" class="dditems">CMMC Number</p>
           <br>
           <p class="dditems">Capability Name</p>
@@ -45,7 +45,7 @@
     
 
 
-  <div id="standard" class="standard {{grow ? 'grow' :'grow shrink'}}">
+  <div id="standard" class="standard2 {{grow ? 'grow' :'grow shrink'}}">
       <standardTable>
       </standardTable>
   </div>
@@ -57,8 +57,10 @@
     </app-accordion-item> 
   </div>
 
+<div>
 
-  <div id="weakness" class="weaknessSmaller {{grow ? 'grow' :'grow shrink'}}">   
+</div>
+  <div id="weakness" class="weakness2 {{grow ? 'grow' :'grow shrink'}}">   
       <weaknessTable>
       </weaknessTable> 
   </div>
@@ -66,10 +68,16 @@
 
 
    
-  <div id="control" class="control {{grow ? 'grow' :'grow shrink'}}" style="position: fixed; right: 200px; bottom: 200px; height: 150px;">      
+  <div id="control" class="control2 {{controlGrow ? 'controlGrow' :'controlGrow controlShrink'}}">      
       <app-control-form>
       </app-control-form>
   </div>
 
 
 </div>
+
+<!--
+<div id="placeholder" style="background-color: red; height: 100px;width: 100px;">
+
+</div>
+-->

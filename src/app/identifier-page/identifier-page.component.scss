@@ -1,62 +1,150 @@
-.wrapper {
-    display: grid;
-    position: relative;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 4px;
-    grid-auto-rows: repeat(6, 1fr);
+//the four corners + middle bar
+  .wrapper{
+    //this is a specific number to remove the scroll bar on the side
+    height:94vh;
   }
 
   .policy {
-    background-color: #eee;
-    margin: 10px;
+    width:49%;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-right: 3px;
+    float: left;
+    background-color: white;
     padding: 20px;
-    background-color:white;
-    grid-column: 1 / 4;
-    grid-row: 1/2;
-    overflow:scroll;
-    display:block;
-
+    min-height: 20%;
+    height:20%;
+    display: inline;
+    overflow: scroll;
+  }
+  .policy2 {
+    width:49%;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-right: 3px;
+    float: left;
+    background-color: white;
+    overflow: scroll;
+    padding: 20px;
+    min-height: 45%;
+    height:45%;
+    display: inline;
   }
   .standard{
-    background-color: #ddd;
-    grid-column: 4 / 7;
-    grid-row: 1/2;
-    overflow:scroll;
-    display:block;
+    margin-top: 7px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 3px;
+    width:49.5%;
+    min-height: 20%;
+    height:20%;
+    float:right;
+
+   // background-color: black;
+    overflow-y: scroll;
+   
+  }
+  .standard2{
+    margin-top: 7px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 3px;
+    width:49.5%;
+    min-height: 45%;
+    height:45%;
+    float:right;
+    align-content: stretch;
+   // background-color: orange;
+    overflow-y: scroll;
+   
+  }
+ 
+  .mat-list-base {
+    padding:0px;
   }
   .editBar{
-    background-color: #ccc;
-    grid-column: 1 / 7;
-    grid-row: 3;
-  }
-
-
-  .weakness .weaknessSmaller {
-    //overflow:scroll;
-    background-color: #aaa;
-    box-sizing: border-box;
-    position: sticky;
-    grid-column: 1 / 4;
-    grid-row: 4/7
+    width:99%;
+    float:right;
+    margin: 10px; 
+    margin-left: 30px;
+    position: relative;
 
   }
-  .weakness{
-    grid-row : 4/7;
 
-  }
-  .weaknessSmaller{
-    grid-row : 7/7;
-
-  }
-  .control {
-    background-color: #bbb;
-    //overflow:scroll;
+  .weakness {
+  //  background-color: red;
     box-sizing: border-box;
     position: relative;
-    grid-column: 4 / 7;
-    grid-row: 4;
+    width:49%;
+    float:left;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-right: 3px;
+    display:block;
+    min-height: 20%;
+    height:20%;
+
+  }
+  .weakness2 {
+    //background-color: red;
+    box-sizing: border-box;
+    position: relative;
+    width:49%;
+    float:left;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-right: 3px;
+    display:block;
+    min-height: 44%;
+    height:44%;
+
   }
 
+  .control {
+   // background-color: blue;
+    box-sizing: border-box;
+    position: relative;
+    width:49.5%;
+    min-height: 20%;
+    height:20%;
+
+    float:right;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 3px;
+    display:block;
+  }
+  .control2 {
+  //  background-color: blue;
+    box-sizing: border-box;
+    position: relative;
+    width:49.5%;
+    min-height: 44%;
+    height:44%;
+
+    float:right;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 3px;
+
+    display:block;
+  }
+
+//inside policy box
 div.row1{
     display: flex; 
 }
@@ -66,24 +154,6 @@ div.item2{
     margin: 1%;
 }
 
-.dditems{
-    text-align: left;
-}
-
-div.standard {
-    overflow-y: scroll;
-    overflow-x: hidden;
-    margin: 10px; 
-}
-
-div.weakness{
-    margin: 10px;     
-}
-
-div.control {
-    margin: 10px;
-    
-}
 
 
 //CSS for LIST
@@ -145,6 +215,8 @@ div.control {
     border-top:1px solid #ddd;
   }
   }
+
+  //some objects inside of the policy box
   dt{
     background-color:#efefef;
     padding:5px;
@@ -160,9 +232,16 @@ div.control {
     background-color: white;
     padding-top:0;
     padding-bottom:0;
-   // height:500px;
+
+
   }
-  
+  .dditems{
+    text-align: left;
+
+
+}
+
+//animations 'states'
   .uncollapsed {
     animation: slide-down 2s ease forwards;
     opacity:1;
@@ -180,6 +259,7 @@ div.control {
 
 }
   
+//keyframes
   @keyframes slide-down {
       //On Open
     0% {
@@ -189,7 +269,9 @@ div.control {
     }
     100% {
       top: 150px;
-      height: 400px;
+      height: 900px;
+      min-height: 800px;
+
       opacity:1;
     }
   }
@@ -197,7 +279,8 @@ div.control {
   @keyframes slide-up {
       //On Close
     0% {
-      height: 400px;
+      height: 900px;
+      min-height: 800px;
       opacity:1;
     }
     100% {
@@ -208,31 +291,56 @@ div.control {
 
 
 
-@keyframes shrink {
+@keyframes controlShrink {
     //start big
     0% {
-      grid-row: 7 / 7;
-      position: relative;
+      min-height: 44%;
+      height:44%;
+
 
     }
     //get small
     100%{
-      grid-row: 4 / 7;
+      box-sizing: border-box;
       position: relative;
-
+      width:49.5%;
+      min-height: 20%;
+      height:20%;
+  
+      float:right;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      margin-top: 10px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      margin-left: 3px;
+      display:block;
     }
 }
 
-@keyframes grow {
+@keyframes controlGrow {
     //start small
     0% {
-      grid-row: 4 / 7;
+      box-sizing: border-box;
       position: relative;
-
+      width:49.5%;
+      min-height: 20%;
+      height:20%;
+  
+      float:right;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      margin-top: 10px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      margin-left: 3px;
+      display:block;
     }
     //get big
     100%{
-      grid-row: 7 / 7;
-      position: relative;
+    
+      min-height: 44%;
+      height:44%;
+  
     }
 }

@@ -1,9 +1,7 @@
-import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { controls } from '../models/controls';
@@ -16,9 +14,10 @@ import { WeaknessesService } from '../services/weaknesses.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { PolicyAccordionService } from '../services/policy-accordion.service';
 
+//leave for now. The accordion needs these to function
 const obj = {
-  title: 'What are your hours?',
-  description: 'We are open 24/7.'
+  title: '',
+  description: ''
 }
 const accordionEntries: any[] = [];
 for (let i = 0; i < 1; i++) {
@@ -40,7 +39,10 @@ export class IdentifierPageComponent implements OnInit {
   rowSelected = false;
   name: any;
   entries: any[];  
-  
+
+  //service variables
+
+
   //accordion animation variables
   grow;
   shrink;
@@ -52,36 +54,41 @@ export class IdentifierPageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router:Router, 
     private route: ActivatedRoute,
-    private service:PolicyAccordionService) { }
+    private service:PolicyAccordionService,
+    private weaknessservice: WeaknessesService) { }
 
   ngOnInit(){
     this.entries = accordionEntries
+    //theres some issue here with content not loading look into it...
+    document.getElementById('control').className = 'control2'
+    document.getElementById('weakness').className = 'weakness2'
+    document.getElementById('standard').className = 'standard2'
+    document.getElementById('policy').className = 'policy2'
 
     this.service.onAccordionClick.subscribe(data =>{
-      console.log("before : " , document.getElementById('weakness').className)
       if (data == "shrink"){
-      //  document.getElementById('standard').className = 'shrink'
-       document.getElementById('weakness').className = 'weaknessSmaller'
+
        console.log("small")
        this.uncollapsed = true;
 
-       //document.getElementById('weakness').classList.remove("grow");
+      document.getElementById('control').className = 'control'
+      document.getElementById('standard').className = 'standard'
+      document.getElementById('weakness').className = 'weakness'
 
-      //  document.getElementById('control').className = 'shrink'
-      // document.getElementById('policy').className = 'shrink'
+
+      document.getElementById('policy').className = 'policy'
+
 
       }
       if (data == "grow"){
+        console.log("grow")
          this.uncollapsed = false;
-     //   document.getElementById('standard').className = 'grow'
-         //document.getElementById('weakness').classList.remove("shrink");
 
-        document.getElementById('weakness').className = 'weakness'
-        console.log("large")
+        document.getElementById('weakness').className = 'weakness2'
+        document.getElementById('control').className = 'control2'
+        document.getElementById('policy').className = 'policy2'
+        document.getElementById('standard').className = 'standard2'
 
-
-      //  document.getElementById('control').className = 'grow'
-        //document.getElementById('policy').className = 'grow'
 
       }
 
@@ -91,7 +98,9 @@ export class IdentifierPageComponent implements OnInit {
       //initialize some stuff here
     });
   }
-
+  fetchAllWeaknesses(): Observable<weaknesses[]> {
+    return this.weaknessservice.fetchAll();
+  }
 
   onRowClicked(row): void {
     console.log("Row clicked: ", row);
@@ -145,16 +154,6 @@ ngAfterViewInit(){
 fetchAll(): Observable<weaknesses[]> {
   return this.weaknessService.fetchAll();
 }
-
-post(inventoryItem: Partial<weaknesses>): void {
-  const name = (<string>inventoryItem).trim();
-  if (!name) return;
-/*
-  this.weaknesses$ = this.weaknessService
-    .post({ name })
-    .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));*/
-}
-
 
 update(id: number, inventoryItem: Partial<weaknesses>): void {
   const name = (<any>inventoryItem).trim();

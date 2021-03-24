@@ -14,20 +14,14 @@ import { PolicyAccordionModule } from '../policy-accordion/policy-accordion.modu
     IdentifierPageRoutingModule,
     SharedModule,
     GuidelinesModule,
-    ControlModule,
     PolicyAccordionModule
 
-   // AppModule,
-
-   // control
+ 
   ],
   declarations: [
     IdentifierPageComponent,
     weaknessTable,
-    
     standardTable,
-
-   // ControlFormComponent,
 
 
 

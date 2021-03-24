@@ -16,10 +16,10 @@
 
     <mat-list-item *ngFor="let control of controls$ | async">
 
-      <span class="listSpan" style="font-weight: bold;"
+      <span class="listSpan idCol" style="font-weight: bold;"
         >{{ control.idOrgControls }}    </span
       >
-      <span class="listSpan idCol" style="font-weight: bold;">
+      <span class="listSpan idName" style="font-weight: bold;">
         {{control.Cname}}
       </span>
       <span class="listSpan descCol" style="font-weight: bold;">

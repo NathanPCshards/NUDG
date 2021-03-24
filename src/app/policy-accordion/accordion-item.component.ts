@@ -4,13 +4,20 @@ import { PolicyAccordionService } from '../services/policy-accordion.service';
 @Component({
   selector: 'app-accordion-item',
   template: `
-    <dt (click)="onBtnClick()">{{entry.title}}</dt>
-    <dd class="{{uncollapsed ? 
-      'uncollapsed' : 
-      'uncollapsed collapsed'}}">{{entry.description}}    
-      <div style="height: 350px; background-color: rebeccapurple; opacity:.3">
-      </div></dd>
-  `,  
+  <dt (click)="onBtnClick()">{{entry.title}}
+  <button mat-raised-button type="button" style="color: white;margin-left:30%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="accordionButton" (click)="showControl();"><i class="fa fa-plus"></i> Control</button>    
+  <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="accordionButton" (click)="showWeakness();"><i class="fa fa-plus"></i>Weakness</button>
+  <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="accordionButton" (click)="showStandard();"><i class="fa fa-plus"></i>Standard</button>    
+
+  </dt>
+<dd class="{{uncollapsed ? 
+  'uncollapsed' : 
+  'uncollapsed collapsed'}}">{{entry.description}}    
+
+  <weakness-dialog>
+  </weakness-dialog>
+</dd>
+`,  
   styleUrls: [ './policy-accordion.component.scss' ]
 })
 export class AccordionItemComponent  {
