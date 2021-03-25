@@ -48,6 +48,7 @@ export class IdentifierPageComponent implements OnInit {
   shrink;
   uncollapsed = false;
   collapse = true;
+  weaknesses$: Observable<weaknesses[]>;
 
   constructor(
     private http:HttpClient,
@@ -60,10 +61,10 @@ export class IdentifierPageComponent implements OnInit {
   ngOnInit(){
     this.entries = accordionEntries
     //theres some issue here with content not loading look into it...
-    document.getElementById('control').className = 'control2'
-    document.getElementById('weakness').className = 'weakness2'
-    document.getElementById('standard').className = 'standard2'
-    document.getElementById('policy').className = 'policy2'
+    document.getElementById('control').className = 'control'
+    document.getElementById('weakness').className = 'weakness'
+    document.getElementById('standard').className = 'standard'
+    document.getElementById('policy').className = 'policy'
 
     this.service.onAccordionClick.subscribe(data =>{
       if (data == "shrink"){
@@ -94,6 +95,8 @@ export class IdentifierPageComponent implements OnInit {
 
     });
 
+
+
     this.idPage = this.formBuilder.group({
       //initialize some stuff here
     });
@@ -109,14 +112,11 @@ export class IdentifierPageComponent implements OnInit {
     console.log(configUrl)
    // this.router.navigate(configUrl.concat("/",row.Title))
   }
+  
 
 }
 
 
-
-//weaknesses
-//controls
-//standards
 
 
 @Component({
@@ -146,6 +146,14 @@ rowSelected = false;
 
 ngOnInit(){
   this.weaknesses$ = this.fetchAll();
+  this.weaknessService.onClick.subscribe(data =>{
+    console.log("submit should have been clicked")
+    console.log("data : " , data)
+    
+    this.weaknesses$ = this.weaknessService
+    .post(data)
+    .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));
+});
 
 }
 ngAfterViewInit(){

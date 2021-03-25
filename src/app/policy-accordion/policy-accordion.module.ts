@@ -1,4 +1,5 @@
 import { NgModule }       from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppModule } from '../app.module';
 import { ControlFormComponent } from '../control-form/control-form.component';
 import { ControlModule } from '../control-form/control.module';
@@ -23,6 +24,10 @@ import { PolicyAccordionComponent } from './policy-accordion.component';
 
 
   ],
+  providers: [
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: {} }
+],
   exports: [
     PolicyAccordionComponent, 
     AccordionItemComponent,

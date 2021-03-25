@@ -18,7 +18,7 @@
     <mat-list-item *ngFor="let weakness of weaknesses$ | async">
       <div class="flexContainer">
       <span class="listSpan" style="font-weight: bold;"
-        >{{ weakness.idOrgweaknesses }}    </span
+        >{{ weakness.idOrgWeaknesses }}    </span
       >
       <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
         {{weakness.Wname}}
@@ -29,7 +29,7 @@
      <span style="position: absolute; right: 0;">
         <button mat-icon-button>
           <mat-icon
-            (click)="update(weakness.idOrgweaknesses, userInput.value)"
+            (click)="update(weakness.idOrgWeaknesses, userInput.value)"
             color="primary"
           >
             edit
@@ -38,7 +38,7 @@
 
     
         <button mat-icon-button>
-          <mat-icon (click)="delete(weakness.idOrgweaknesses)" color="warn">
+          <mat-icon (click)="delete(weakness.idOrgWeaknesses)" color="warn">
             delete
           </mat-icon>
         </button>

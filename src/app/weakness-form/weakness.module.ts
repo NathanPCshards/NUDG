@@ -18,6 +18,9 @@ import { weaknessDialog, WeaknessFormComponent } from './weakness-form.component
   imports: [
     SharedModule,
   ],
+  providers: [
+
+  ],
   exports : [      
 
     WeaknessFormComponent,

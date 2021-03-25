@@ -43,6 +43,7 @@ import { IdentifierPageModule } from './identifier-page/identifier-page.module';
 import { SharedModule } from './SharedModule.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PolicyAccordionModule } from './policy-accordion/policy-accordion.module';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { PolicyAccordionModule } from './policy-accordion/policy-accordion.modul
   imports: [
     IdentifierPageModule,
     SharedModule,
+    
 //    PolicyAccordionModule,
 
     
