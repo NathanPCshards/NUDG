@@ -23,7 +23,7 @@ export class GuidelinesService {
       return this.http
         .get<guidelines[]>(this.url, { responseType: "json" })
         .pipe(
-          tap((_) => console.log("fetched users")),
+          tap((_) => console.log("fetched guidelines")),
           catchError(
             this.errorHandlerService.handleError<guidelines[]>("fetchAll", [])
           )
@@ -31,12 +31,15 @@ export class GuidelinesService {
     }
   
     post(item: Partial<guidelines>): Observable<any> {
+      console.log("post guidelines")
       return this.http
         .post<Partial<guidelines>>(this.url, item, this.httpOptions)
         .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
     }
   
     update(guideline: guidelines): Observable<any> {
+      console.log("update guidelines")
+
       return this.http
         .put<guidelines>(this.url, guideline, this.httpOptions)
         .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
@@ -44,7 +47,7 @@ export class GuidelinesService {
   
     delete(id: number): Observable<any> {
       const url = `http://localhost:3000/guidelines/${id}`;
-     //const url = `http://localhost:3000/users`;
+      console.log("delete guidelines")
   
       return this.http
         .delete<guidelines>(url, this.httpOptions)

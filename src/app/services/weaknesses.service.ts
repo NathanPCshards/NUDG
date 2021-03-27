@@ -44,15 +44,15 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   post(item: any): Observable<any> {
-    console.log("post reached in service : " , item)
-    console.log("being sent to this url : " , this.url)
+    console.log("post weaknesses");
+
     return this.http
       .post(this.url, item)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
   update(item: any): Observable<any> {
-    console.log("update reached in service : " , item)
+    console.log("update weaknesses");
 
     return this.http
       .put<weaknesses>(this.url, item, this.httpOptions)
@@ -61,8 +61,8 @@ httpOptions: { headers: HttpHeaders } = {
 
   delete(id: number): Observable<any> {
     const url = `http://localhost:3000/weaknesses/${id}`;
-    console.log("delete reached in service : " , id)
-    console.log("being sent to this url : " , url)
+    console.log("delete weaknesses")
+
 
     return this.http
       .delete<weaknesses>(url, this.httpOptions)

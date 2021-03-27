@@ -1,7 +1,7 @@
 //the four corners + middle bar
   .wrapper{
     //this is a specific number to remove the scroll bar on the side
-    height:94vh;
+    height:100vh;
   }
 
   .policy {
@@ -32,7 +32,7 @@
     height:45%;
     display: inline;
   }
-  .standard{
+  .standard3{
     margin-top: 7px;
     margin-right: 10px;
     margin-bottom: 10px;
@@ -46,7 +46,7 @@
     overflow-y: scroll;
    
   }
-  .standard2{
+  .standard4{
     margin-top: 7px;
     margin-right: 10px;
     margin-bottom: 10px;
@@ -189,12 +189,20 @@ div.item2{
     text-align: left;
 
   }
+  .nameCol{
+    margin-left: 5%;
+    width:150px;
+    min-width: 150px;
+    text-align: left;
+
+  }
   .descCol{
     width:350px;
     min-width: 350px;
     text-align: left;
     margin-left: 5%;
   }
+  
   .dateCol{
     width:60px;
     min-width: 60px;
@@ -344,3 +352,37 @@ div.item2{
   
     }
 }
+
+
+//DRAG AND DROP Styling
+
+  .cdk-drag-preview {
+    //this is the list element you move with the mouse
+    background-color: rgb(104, 230, 79);
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+                0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+  
+  .cdk-drag-placeholder {
+    //this is the location the element is dropped 
+    opacity: 0;
+    display: none;
+  }
+  
+  .cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  
+  .dragdropbox:last-child {
+    border: none;
+  }
+  
+  .weaknesses-list.cdk-drop-list-dragging .dragdropbox:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }  
+  .controls-list.cdk-drop-list-dragging .dragdropbox:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }

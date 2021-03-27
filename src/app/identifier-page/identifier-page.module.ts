@@ -1,7 +1,7 @@
 import { NgModule }       from '@angular/core';
 import { IdentifierPageRoutingModule } from './identifier-page.routing.module';
 
-import { IdentifierPageComponent, standardTable, weaknessTable } from './identifier-page.component';
+import {  IdentifierPageComponent, } from './identifier-page.component';
 import { SharedModule } from '../SharedModule.module';
 
 import { GuidelinesModule } from '../guidelines-page/guidelines.module';
@@ -14,14 +14,14 @@ import { PolicyAccordionModule } from '../policy-accordion/policy-accordion.modu
     IdentifierPageRoutingModule,
     SharedModule,
     GuidelinesModule,
-    PolicyAccordionModule
+    PolicyAccordionModule,
+    ControlModule
 
  
   ],
   declarations: [
     IdentifierPageComponent,
-    weaknessTable,
-    standardTable,
+    
 
 
 

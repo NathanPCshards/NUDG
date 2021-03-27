@@ -10,7 +10,7 @@ import { InventoryFormComponent } from './inventory-form/inventory-form.componen
 import { CompanyInfoFormComponent } from './company-info-form/company-info-form.component';
 import { GroupFormComponent } from './group-form/group-form.component';
 import { RoleFormComponent } from './role-form/role-form.component';
-import { IdentifierPageComponent, weaknessTable } from './identifier-page/identifier-page.component';
+import { IdentifierPageComponent,  } from './identifier-page/identifier-page.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { CuiContractsFormComponent } from './cui-contracts-form/cui-contracts-form.component';
 import { SupplierFormComponent } from './supplier-form/supplier-form.component';

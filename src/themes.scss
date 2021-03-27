@@ -34,6 +34,21 @@ $nudg-theme: mat-light-theme((
 @include angular-material-theme($nudg-theme);
 
 
+
+
+
+
+
+
+
+//delete anything that gets duplicated above this line
+
+
+
+
+
+
+
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
@@ -68,4 +83,3 @@ $nudg-theme: mat-light-theme((
 // that you are using.
 @include angular-material-theme($nudg-theme);
 
-//delete anything that gets duplicated below this line

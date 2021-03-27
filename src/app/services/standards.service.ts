@@ -31,12 +31,15 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   post(item: Partial<standards>): Observable<any> {
+    console.log("post standards")
     return this.http
       .post<Partial<standards>>(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
   update(user: standards): Observable<any> {
+    console.log("update standards")
+
     return this.http
       .put<standards>(this.url, user, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
@@ -44,6 +47,7 @@ httpOptions: { headers: HttpHeaders } = {
 
   delete(id: number): Observable<any> {
     const url = `http://localhost:3000/standards/${id}`;
+    console.log("delete standards")
 
     return this.http
       .delete<standards>(url, this.httpOptions)

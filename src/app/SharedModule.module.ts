@@ -61,7 +61,7 @@ import { ControlFormComponent } from './control-form/control-form.component';
     BrowserModule,
     BrowserAnimationsModule,
     NgbModalModule,
-
+   
     //Forms
     FormsModule,
     ReactiveFormsModule,

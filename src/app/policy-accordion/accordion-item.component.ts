@@ -6,9 +6,9 @@ import { PolicyAccordionService } from '../services/policy-accordion.service';
   template: `
   <dt (click)="onBtnClick();" disabled="true">
   {{entry.title}} 
-  <button mat-raised-button type="button" style="color: white;margin-left:30%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="accordionButton" (click)="showControl();$event.stopPropagation()"><i class="fa fa-plus"></i> Control</button>    
-  <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="accordionButton" (click)="showWeakness();$event.stopPropagation();"><i class="fa fa-plus"></i>Weakness</button>
-  <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="accordionButton" (click)="showStandard();$event.stopPropagation();"><i class="fa fa-plus"></i>Standard</button>    
+  <button mat-raised-button type="button" style="color: white;margin-left:40%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="accordionButton" (click)="showControl();$event.stopPropagation()"><i class="fa fa-plus"></i> Control</button>    
+  <button mat-raised-button type="button" style="color: white;margin-left: 3%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="accordionButton" (click)="showWeakness();$event.stopPropagation();"><i class="fa fa-plus"></i>Weakness</button>
+  <button mat-raised-button type="button" style="color: white;margin-left: 3%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="accordionButton" (click)="showStandard();$event.stopPropagation();"><i class="fa fa-plus"></i>Standard</button>    
 
   </dt>
 <dd class="{{uncollapsed ? 
@@ -42,7 +42,6 @@ export class AccordionItemComponent  {
   onBtnClick() {
     switch(this.uncollapsed){
         case true:
-            console.log("does this happen????")
             this.uncollapsed = false;
             this.service.emit("grow")
             break;
@@ -58,19 +57,19 @@ export class AccordionItemComponent  {
   showControl(){
     document.getElementById("control").style.visibility="visible"
     document.getElementById("weakness").style.visibility="hidden"
-    document.getElementById("standard").style.visibility="hidden"
+   // document.getElementById("standard").style.visibility="hidden"
 
 
   }
   showWeakness(){
     document.getElementById("control").style.visibility="hidden"
     document.getElementById("weakness").style.visibility="visible"
-    document.getElementById("standard").style.visibility="hidden"
+  //  document.getElementById("standard").style.visibility="hidden"
   }
   showStandard(){
     document.getElementById("control").style.visibility="hidden"
     document.getElementById("weakness").style.visibility="hidden"
-    document.getElementById("standard").style.visibility="visible"
+  //  document.getElementById("standard").style.visibility="visible"
   }
 
 

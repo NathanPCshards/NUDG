@@ -1,75 +1,14 @@
-import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, Optional, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { controls } from '../models/controls';
 import { ControlsService } from '../services/controls.service';
 import { SharedService } from '../services/Shared';
+import { weaknessDialog } from '../weakness-form/weakness-form.component';
 
-
-
-
-export interface tableEntry {
-  position: number;
-  procedure: string;
-  status: string;
-  status_date: string;
-  description: string;
-}
-
-
-const example_procedure: tableEntry[] = [
-  {position: 1, procedure: "P1", status: 'None', status_date:'Today', description: 'Onboarding and Offboarding process created, written documentation on the handling of added or removed users test test test test test test test test .'},
-  {position: 2, procedure: "P2", status: 'None', status_date:'Today', description: 'Placeholder'},
-  {position: 3, procedure: "P3", status: 'None', status_date:'Today', description: 'Placeholder'},
-  {position: 2, procedure: "P2", status: 'None', status_date:'Today', description: 'Placeholder'},
-  {position: 3, procedure: "P3", status: 'None', status_date:'Today', description: 'Placeholder'},
-  {position: 2, procedure: "P2",status: 'None', status_date:'Today',  description: 'Placeholder'},
-  {position: 3, procedure: "P3",status: 'None', status_date:'Today',  description: 'Placeholder'},
-
-];
-
-
-
-export interface controlTemplate {
-  position: number,
-
-  controlID: string,
-  description: string,
-  date: string,
-  procedure: string
-}
-
-class control implements controlTemplate{
-  position: -1;
-
-  controlID: 'Placeholder';
-  description: 'Placeholder';
-  date: 'Placeholder';
-  procedure: 'Placeholder';
-
-  constructor(position, controlID, description, date, procedure){
-    this.position= position;
-    this.controlID = controlID;
-    this.description = description;
-    this.date = date;
-    this.procedure = procedure;
-  }
-}
-
-const controlData: controlTemplate[] = [
-  {position: 1,controlID: "C1", description:"This is a test", date: "3/4/2020" , procedure: "none"},
-  {position: 2,controlID: "C2", description:"Second Test", date: "2/3/2020" , procedure: "Placeholder"},
-  {position: 3,controlID: "C3", description:"Third", date: "1/3/2020" , procedure: "none"},
-
-
-];
-let globalControlData = new MatTableDataSource(controlData);
 
 @Component({
   selector: 'app-control-form',
@@ -77,43 +16,145 @@ let globalControlData = new MatTableDataSource(controlData);
   styleUrls: ['./control-form.component.scss']
 })
 export class ControlFormComponent implements OnInit {
-  picker;
+
 
   submitted = false;
   results;// = res.json();
   panelOpenState = false;
-  displayedColumns: string[] = ['select','controlID', 'description', 'date', 'procedure'];
-  rowSelected = false;
-  name: any;
- 
-  dataSource: MatTableDataSource<controlTemplate>;
-  selection = new SelectionModel<controlTemplate>(true, []);
-  @ViewChild(MatSort) sort;
+
+  controls$: Observable<controls[]>;
 
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog, private sharedService: SharedService){
-    this.dataSource = new MatTableDataSource(controlData);
-    globalControlData.data = this.dataSource.data;
-    
+
+  constructor(private http: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog, private sharedService: SharedService, public controlssservice : ControlsService){
   }
+
   public openDialog() {
-    this.dialog.open(controlDialog, {height: '80%', width:"85%",});
+      const dialogRef =this.dialog.open(controlDialog, {
+      height: '80%',
+       width:"85%",
+       disableClose: true, //theres an issue here when the dialog is closed and submit is not pressed. 
+       data: {
+        Nid:""
 
-  }
+    }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log("result : " , result);
+      this.controls$ = this.controlssservice
+      .post(result)
+      .pipe(tap(() => (this.controls$ = this.fetchAll())));
+    });
 
-  public refresh(){
-    this.dataSource.data = globalControlData.data;
   }
 
 
   ngAfterViewInit(){
-    this.dataSource.sort = this.sort;
 
   }
 
   ngOnInit(){
 
   }
+  fetchAll(): Observable<controls[]> {
+    return this.controlssservice.fetchAll();
+  }
+  
+  delete(id: any): void {
+    this.controls$ = this.controlssservice
+      .delete(id)
+      .pipe(tap(() => (this.controls$ = this.fetchAll())));
+      
+  }
+
+}
+
+
+
+@Component({
+  selector: 'control-dialog',
+  templateUrl: 'controlForm.html',
+  styleUrls: ['./control-form.component.scss']
+
+})
+export class controlDialog {
+controlForm;
+
+controls$: Observable<controls[]>;
+
+position;
+procedure;
+submitted= false;
+constructor(
+  private formBuilder: FormBuilder,
+  @Optional() private dialogRef : MatDialogRef<weaknessDialog>,
+  @Inject(MAT_DIALOG_DATA) public data : any,
+  public controlsservice : ControlsService
+  ) { }
+ngOnInit(){
+  this.controls$ = this.fetchAll();
+  this.controlForm = this.formBuilder.group({
+   
+    //initialize stuff to be null or whatever, here
+
+  });
+}
+
+
+/*
+post(Nid, Cname, Coverview, Cissuedate, Csharedresources, Curl ): void {
+//console.log(Nid,Cname,Coverview,Cissuedate,Csharedresources,Curl)
+   
+   this.controls$ = this.controlsservice
+     .post({ Nid, Cname, Coverview, Cissuedate, Csharedresources, Curl })
+     .pipe(tap(() => (this.controls$ = this.fetchAll())));
+     console.log("post from ctrl")
+ }
+*/
+
+
+
+public onFormReset() {
+  console.log("FORM WAS Reset");
+  this.submitted = false;
+}
+
+
+closeDialog(Nid , Cname, Coverview, Cissuedate, WriCsharedresourcesskRating, Curl){
+  this.data.Nid = Nid;
+  this.data.Cname = Cname;
+  this.data.Coverview = Coverview;
+  this.data.Cissuedate = Cissuedate;
+  this.data.Csharedresources = WriCsharedresourcesskRating;
+  this.data.Curl = Curl;
+ 
+
+try{
+  //this works when opened as a dialog (the weakness page)
+  //but fails when used only as a form (policy/identifier page)
+  this.dialogRef.close( this.data );
+}
+ 
+  catch(err){
+    //in the case that it fails, we instead emit a signal for a different component to listen to
+    //and send a post request for us. (this is received by weaknessTable in identifier-page.component.ts) 3/25
+    this.controlsservice.emit(this.data)
+  }
+
+
+};
+fetchAll(): Observable<controls[]> {
+  return this.controlsservice.fetchAll();
+}
+
+
+
+
+
+}
+
+/*
 
 onRowClicked(row): void {
   console.log("Row clicked: ", row);
@@ -136,14 +177,12 @@ isAllSelected() {
   return numSelected === numRows;
 }
 
-/** Selects all rows if they are not all selected; otherwise clear selection. */
 masterToggle() {
   this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
 }
 
-/** The label for the checkbox on the passed row */
 checkboxLabel(row?: controlTemplate): string {
   if (!row) {
     return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
@@ -163,55 +202,4 @@ removeSelectedRows() {
    this.selection = new SelectionModel<controlTemplate>(true, []);
 }
 
-}
-
-
-
-@Component({
-  selector: 'control-dialog',
-  templateUrl: 'controlForm.html',
-  styleUrls: ['./control-form.component.scss']
-
-})
-export class controlDialog {
-controlForm;
-
-controls$: Observable<controls[]>;
-
-position;
-procedure;
-submitted= false;
-  constructor(private http:HttpClient, private formBuilder: FormBuilder, private controlService: ControlsService) { }
-
-ngOnInit(){
-  this.controls$ = this.fetchAll();
-  this.controlForm = this.formBuilder.group({
-   
-    //initialize stuff to be null or whatever, here
-
-  });
-}
-
-fetchAll(): Observable<controls[]> {
-  return this.controlService.fetchAll();
-}
-
-post(Nid, Cname, Coverview, Cissuedate, Csharedresources, Curl ): void {
-//console.log(Nid,Cname,Coverview,Cissuedate,Csharedresources,Curl)
-   
-   this.controls$ = this.controlService
-     .post({ Nid, Cname, Coverview, Cissuedate, Csharedresources, Curl })
-     .pipe(tap(() => (this.controls$ = this.fetchAll())));
-     console.log("post from ctrl")
- }
-
-
-
-
-public onFormReset() {
-  console.log("FORM WAS Reset");
-
-this.submitted = false;
-
-}
-}
+*/

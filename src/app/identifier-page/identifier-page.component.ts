@@ -13,6 +13,7 @@ import { StandardsService } from '../services/standards.service';
 import { WeaknessesService } from '../services/weaknesses.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { PolicyAccordionService } from '../services/policy-accordion.service';
+import { CdkDrag, CdkDragDrop } from '@angular/cdk/drag-drop';
 
 //leave for now. The accordion needs these to function
 const obj = {
@@ -31,24 +32,19 @@ for (let i = 0; i < 1; i++) {
   styleUrls: ['./identifier-page.component.scss']
 })
 export class IdentifierPageComponent implements OnInit {
+
+
   submitted = false;
-  idPage;
-  results;
-  panelOpenState;
-  displayedColumns: string[] = ['Title', 'Subtitle', 'Status'];
-  rowSelected = false;
-  name: any;
-  entries: any[];  
-
-  //service variables
-
-
   //accordion animation variables
+  entries: any[]; 
   grow;
   shrink;
   uncollapsed = false;
   collapse = true;
+  //Database obeservables
   weaknesses$: Observable<weaknesses[]>;
+  controls$: Observable<controls[]>;
+  standards$: Observable<standards[]>;
 
   constructor(
     private http:HttpClient,
@@ -56,16 +52,19 @@ export class IdentifierPageComponent implements OnInit {
     private router:Router, 
     private route: ActivatedRoute,
     private service:PolicyAccordionService,
-    private weaknessservice: WeaknessesService) { }
+    private weaknessservice: WeaknessesService,
+    private controlsservice: ControlsService,
+    private standardsservice: StandardsService,
+    
+    ) { }
 
   ngOnInit(){
+    //ACCORDION STUFF
     this.entries = accordionEntries
-    //theres some issue here with content not loading look into it...
     document.getElementById('control').className = 'control'
     document.getElementById('weakness').className = 'weakness'
-    document.getElementById('standard').className = 'standard'
+    document.getElementById('standard3').className = 'standard4'
     document.getElementById('policy').className = 'policy'
-
     this.service.onAccordionClick.subscribe(data =>{
       if (data == "shrink"){
 
@@ -73,7 +72,7 @@ export class IdentifierPageComponent implements OnInit {
        this.uncollapsed = true;
 
       document.getElementById('control').className = 'control'
-      document.getElementById('standard').className = 'standard'
+      document.getElementById('standard3').className = 'standard3'
       document.getElementById('weakness').className = 'weakness'
 
 
@@ -88,260 +87,135 @@ export class IdentifierPageComponent implements OnInit {
         document.getElementById('weakness').className = 'weakness2'
         document.getElementById('control').className = 'control2'
         document.getElementById('policy').className = 'policy2'
-        document.getElementById('standard').className = 'standard2'
+        document.getElementById('standard3').className = 'standard4'
 
 
       }
 
     });
-
-
-
-    this.idPage = this.formBuilder.group({
-      //initialize some stuff here
+    //CONTROLS STUFF
+    this.controls$ = this.fetchAllControls();
+    this.controlsservice.onClick.subscribe(data =>{
+      console.log("submit should have been clicked")
+      console.log("data : " , data)
+      
+      this.controls$ = this.controlsservice
+      .post(data)
+      .pipe(tap(() => (this.controls$ = this.fetchAllControls())));
     });
+  
+    //WEAKNESSES STUFF
+    this.weaknesses$ = this.fetchAllWeaknesses();
+    this.weaknessservice.onClick.subscribe(data =>{
+      console.log("submit should have been clicked")
+      console.log("data : " , data)
+      
+      this.weaknesses$ = this.weaknessservice
+      .post(data)
+      .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses())));
+  
+      
+  });
+    //STANDARDS STUFF
+    this.standards$ = this.fetchAllStandards();
+
+
+
   }
+
+
+  fetchAllControls(): Observable<controls[]> {
+    return this.controlsservice.fetchAll();
+  }
+  updateControls(id: number, inventoryItem: Partial<controls>): void {
+    //this.controls$ = this.controlsService
+     // .update(newUsers)
+    //  .pipe(tap(() => (this.controls$ = this.fetchAll())));
+  }
+  deleteControls(id: any): void {
+    this.controls$ = this.controlsservice
+      .delete(id)
+      .pipe(tap(() => (this.controls$ = this.fetchAllControls())));
+      
+  }
+  
+
+
+
   fetchAllWeaknesses(): Observable<weaknesses[]> {
     return this.weaknessservice.fetchAll();
   }
-
-  onRowClicked(row): void {
-    console.log("Row clicked: ", row);
-    this.rowSelected = true;
-    var configUrl = 'http://localhost:4200' + "/" + row.Title;
-    console.log(configUrl)
-   // this.router.navigate(configUrl.concat("/",row.Title))
-  }
-  
-
-}
-
-
-
-
-@Component({
-  selector: 'weaknessTable',
-  templateUrl: 'weaknessTable.html',
-  styleUrls: ['./identifier-page.component.scss']
-
-})
-export class weaknessTable {
-  weaknesses$: Observable<weaknesses[]>;
-
-@ViewChild(MatSort) sort;
-
-clickEventsubscription;
-displayedColumns: string[] = ['id', 'desc'];
-
-rowSelected = false;
-
-  constructor(private http:HttpClient, private formBuilder: FormBuilder, 
-    private sharedService: SharedService, private weaknessService:WeaknessesService) { 
-/*
-    this.clickEventsubscription = this.sharedService.getClickEvent().subscribe(()=>{
-      this.removeSelectedRows();
-      })*/
-
-  }
-
-ngOnInit(){
-  this.weaknesses$ = this.fetchAll();
-  this.weaknessService.onClick.subscribe(data =>{
-    console.log("submit should have been clicked")
-    console.log("data : " , data)
-    
+  updateWeaknesses(id: number, inventoryItem: Partial<weaknesses>): void {
+  /*
     this.weaknesses$ = this.weaknessService
-    .post(data)
-    .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));
-});
+      .update(newWeakness)
+      .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));*/
+  }
+  deleteWeaknesses(id: any): void {
+    this.weaknesses$ = this.weaknessservice
+      .delete(id)
+      .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses())));
+      
+  }
 
-}
-ngAfterViewInit(){
 
-}
-fetchAll(): Observable<weaknesses[]> {
-  return this.weaknessService.fetchAll();
-}
 
-update(id: number, inventoryItem: Partial<weaknesses>): void {
-  const name = (<any>inventoryItem).trim();
+
+
+  fetchAllStandards(): Observable<standards[]> {
+    return this.standardsservice.fetchAll();
+  }
+  postStandards(standardEntry: Partial<standards>): void {
+    const Standard = (<string>standardEntry).trim();
+    if (!Standard) return;
   
-  if (!name) return;
+    this.standards$ = this.standardsservice
+      .post({ Standard })
+      .pipe(tap(() => (this.standards$ = this.fetchAllStandards())));
+  }
+  updateStandards(id: number, inventoryItem: Partial<standards>): void {
+  /*
+    this.standards$ = this.standardsService
+      .update(newUsers)
+      .pipe(tap(() => (this.standards$ = this.fetchAll())));*/
+  }
+  deleteStandards(id: any): void {
+    this.standards$ = this.standardsservice
+      .delete(id)
+      .pipe(tap(() => (this.standards$ = this.fetchAllStandards())));
+      
+  }
+
+
+  drop(event: CdkDragDrop<string[]>) {
+      console.log("event.data : " , event.item.data.idOrgControls)
+
 /*
-  const newWeakness: weaknesses = {
-    id,
-    name
-
-  };
-
-  this.weaknesses$ = this.weaknessService
-    .update(newWeakness)
-    .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));*/
-}
-
-
-delete(id: any): void {
-  console.log("attempting to delete id : " , id)
- // iduseru = 15
- // console.log("attempting to delete id : " , iduseru)
-
-  this.weaknesses$ = this.weaknessService
-    .delete(id)
-    .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));
-    
-}
-
-
-}
-
-@Component({
-  selector: 'controlTable',
-  templateUrl: 'controlTable.html',
-  styleUrls: ['./identifier-page.component.scss']
-
-})
-export class controlTable {
-
-controls$: Observable<controls[]>;
-
-@ViewChild(MatSort) sort;
-
-clickEventsubscription;
-
-rowSelected = false;
-
-  constructor(private http:HttpClient, private formBuilder: FormBuilder, 
-    private sharedService: SharedService, private controlsService : ControlsService) { 
-/*
-    this.clickEventsubscription = this.sharedService.getClickEvent().subscribe(()=>{
-      this.removeSelectedRows();
-      })*/
+    if (event.previousContainer === event.container) {
+      //if object does NOT change containers
+    } else {
+      //if object changes containers
+      console.log(event.previousContainer.data)
+    }
+*/
 
   }
 
-ngOnInit(){
-  this.controls$ = this.fetchAll();
-
-}
-ngAfterViewInit(){
-}
-
-fetchAll(): Observable<controls[]> {
-  return this.controlsService.fetchAll();
-}
-
-post(inventoryItem: Partial<controls>): void {
-  const name = (<string>inventoryItem).trim();
-  if (!name) return;
-
-///  this.controls$ = this.controlsService
-  //  .post({ name })
- //   .pipe(tap(() => (this.controls$ = this.fetchAll())));
-}
 
 
-update(id: number, inventoryItem: Partial<controls>): void {
-  const name = (<any>inventoryItem).trim();
-  
-  if (!name) return;
-
- // const newUsers: controls = {
- //   id,
-  //  name
-
- // };
-
-  //this.controls$ = this.controlsService
-   // .update(newUsers)
-  //  .pipe(tap(() => (this.controls$ = this.fetchAll())));
-}
 
 
-delete(id: any): void {
-  console.log("attempting to delete id : " , id)
- // iduseru = 15
- // console.log("attempting to delete id : " , iduseru)
 
-  this.controls$ = this.controlsService
-    .delete(id)
-    .pipe(tap(() => (this.controls$ = this.fetchAll())));
-    
-}
-
-}
-
-@Component({
-  selector: 'standardTable',
-  templateUrl: 'standardTable.html',
-  styleUrls: ['./identifier-page.component.scss']
-
-})
-export class standardTable {
-
-@ViewChild(MatSort) sort;
-standards$: Observable<standards[]>;
-
-//clickEventsubscription;
-//displayedColumns: string[] = ['id', 'desc'];
-
-rowSelected = false;
-
-  constructor(private http:HttpClient, private formBuilder: FormBuilder, 
-    private sharedService: SharedService, private standardsService : StandardsService) { 
-/*
-    this.clickEventsubscription = this.sharedService.getClickEvent().subscribe(()=>{
-      this.removeSelectedRows();
-      })*/
-
+  controlsToWeaknesses(item: CdkDrag<any>) {
+    //this.dragdrop.emit(item.data)
+    return true;
   }
 
-ngOnInit(){
-  this.standards$ = this.fetchAll();
+  /** Predicate function that doesn't allow items to be dropped into a list. */
+  weaknessesToControls(item: CdkDrag<any>) {
+   // this.dragdrop.emit(item.data)
+    return true;
+  }
 
-}
-ngAfterViewInit(){
-
-}
-fetchAll(): Observable<standards[]> {
-  return this.standardsService.fetchAll();
-}
-
-post(standardEntry: Partial<standards>): void {
-  const Standard = (<string>standardEntry).trim();
-  if (!Standard) return;
-
-  this.standards$ = this.standardsService
-    .post({ Standard })
-    .pipe(tap(() => (this.standards$ = this.fetchAll())));
-}
-
-
-update(id: number, inventoryItem: Partial<standards>): void {
-  const name = (<any>inventoryItem).trim();
-  
-  if (!name) return;
-/*
-  const newUsers: standards = {
-    id,
-    name
-
-  };
-
-  this.standards$ = this.standardsService
-    .update(newUsers)
-    .pipe(tap(() => (this.standards$ = this.fetchAll())));*/
-}
-
-
-delete(id: any): void {
-  console.log("attempting to delete id : " , id)
- // iduseru = 15
- // console.log("attempting to delete id : " , iduseru)
-
-  this.standards$ = this.standardsService
-    .delete(id)
-    .pipe(tap(() => (this.standards$ = this.fetchAll())));
-    
-}
 
 }

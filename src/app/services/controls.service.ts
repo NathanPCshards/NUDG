@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { controls } from '../models/controls';
@@ -12,6 +12,7 @@ export class ControlsService {
 
   //url must match route in the app.use(...) in index.js
 private url = "http://localhost:3000/controls"
+onClick = new EventEmitter();
 
 httpOptions: { headers: HttpHeaders } = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -20,11 +21,16 @@ httpOptions: { headers: HttpHeaders } = {
   constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient) {
    }
 
+   emit(temp : any) {
+    this.onClick.emit(temp);
+  }
+
+
    fetchAll(): Observable<controls[]> {
     return this.http
       .get<controls[]>(this.url, { responseType: "json" })
       .pipe(
-        tap((_) => console.log("fetched cuicontracts")),
+        tap((_) => console.log("fetched controls")),
         catchError(
           this.errorHandlerService.handleError<controls[]>("fetchAll", [])
         )
@@ -32,12 +38,14 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   post(item: any): Observable<any> {
+    console.log("post controls")
     return this.http
       .post(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
   update(user: controls): Observable<any> {
+    console.log("update controls")
     return this.http
       .put<controls>(this.url, user, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));

@@ -1,9 +1,4 @@
-
 <div class="wrapper">
-
-
-
-
   <div id="policy" class="policy2 {{grow ? 'grow' :'grow shrink'}}" >
       <div class="row1">
 
@@ -44,10 +39,52 @@
   </div>
     
 
+  <!--THIS IS THE STANDARDS LIST-->
+  <div id="standard3" class="standard4 {{grow ? 'grow' :'grow shrink'}}">
 
-  <div id="standard" class="standard2 {{grow ? 'grow' :'grow shrink'}}">
-      <standardTable>
-      </standardTable>
+    <mat-list>
+      <div class="flexContainer">
+        <mat-list-item class="headerRow">
+          <span class="listSpan idCol">
+            Standard ID
+          </span>
+          <span class="listSpan descCol">
+            Name
+          </span>
+        </mat-list-item>
+      </div>
+  
+      <mat-list-item *ngFor="let standard of standards$ | async">
+  
+          <span class="listSpan idCol">
+            {{ standard.idStandards }}    
+            </span>
+        <span class="listSpan descCol">
+          {{standard.Standard}}
+        </span>
+  
+  
+  
+       <span style="position: absolute; right: 0;">
+          <button mat-icon-button>
+            <mat-icon
+              (click)="updateStandards(standard.id, userInput.value)"
+              color="primary"
+            >
+              edit
+            </mat-icon>
+          </button>
+  
+      
+          <button mat-icon-button>
+            <mat-icon (click)="deleteStandards(standard.idStandards)" color="warn">
+              delete
+            </mat-icon>
+          </button>
+        </span> 
+      </mat-list-item>
+    </mat-list>
+  
   </div>
 
 
@@ -57,27 +94,149 @@
     </app-accordion-item> 
   </div>
 
-<div>
+  <!--THIS IS THE WEAKNESSES LIST-->
+  <div
+  cdkDropList
+  id="weakness"
+  class="weakness2 {{grow ? 'grow' :'grow shrink'}}"
+  #weaknessesList="cdkDropList"
+  [cdkDropListData]="weaknessesList"
+  [cdkDropListConnectedTo]="[controlsList]"
+  class="weaknesses-list"
+  (cdkDropListDropped)="drop($event)"
+  [cdkDropListEnterPredicate]="controlsToWeaknesses">
 
-</div>
-  <div id="weakness" class="weakness2 {{grow ? 'grow' :'grow shrink'}}" >   
-      <weaknessTable >
-      </weaknessTable> 
+     
+    <mat-list>
+      <div class="flexContainer">
+        <mat-list-item class="headerRow">
+          <span class="idCol">
+            Weakness ID
+          </span>
+          <span class="nameCol">
+            Name
+          </span>
+          <span class="descCol">
+            Description
+          </span>
+          <span class="dateCol">
+            Status
+          </span>
+        </mat-list-item>
+      </div>
+  
+      <mat-list-item class="dragdropbox" cdkDrag [cdkDragData]="weaknessElement" *ngFor="let weaknessElement of weaknesses$ | async">
+    
+          <span class="listSpan idCol" style="font-weight: bold;"
+          >{{ weaknessElement.idOrgWeaknesses }}    </span
+        >
+        <span class="listSpan nameCol" style="font-weight: bold;">
+          {{weaknessElement.Wname}}
+        </span>
+  
+        <span class="listSpan descCol" style="font-weight: bold;">
+          {{weaknessElement.Wdescription}}
+        </span>
+  
+        <span class="listSpan dateCol" style="font-weight: bold;">
+          {{weaknessElement.Wstatus}}
+        </span>
+  
+  
+      <span style="position: absolute; right: 0;">
+          <button mat-icon-button>
+            <mat-icon
+              (click)="updateWeaknesses(weaknessElement.idOrgWeaknesses, userInput.value)"
+              color="primary"
+            >
+              edit
+            </mat-icon>
+          </button>
+  
+      
+          <button mat-icon-button>
+            <mat-icon (click)="deleteWeaknesses(weaknessElement.idOrgWeaknesses)" color="warn">
+              delete
+            </mat-icon>
+          </button>
+        </span> 
+       
+         
+      </mat-list-item>
+    </mat-list>
+    
+    
   </div>
 
 
+    <!-- THIS IS THE CONTROLS LIST-->
+    <div 
+    id="control" 
+    class="control2 {{controlGrow ? 'controlGrow' :'controlGrow controlShrink'}}"
+    cdkDropList
+    #controlsList="cdkDropList"
+    [cdkDropListData]="controlsList"
+    [cdkDropListConnectedTo]="[weaknessesList]"
+    class="controls-list"
+    (cdkDropListDropped)="drop($event)"
+    [cdkDropListEnterPredicate]="weaknessesToControls">
 
-   
-  <div id="control" class="control2 {{controlGrow ? 'controlGrow' :'controlGrow controlShrink'}}">      
-      <app-control-form>
-      </app-control-form>
-  </div>
+    <mat-list>
+      <div class="flexContainer">
+        <mat-list-item class="headerRow">
+          <span class="idCol">
+            Control ID
+          </span>
+          <span class="nameCol">
+            Name
+          </span>
+          <span class="descCol">
+            Description
+          </span>
+          <span class="dateCol">
+            Date
+          </span>
+        </mat-list-item>
+      </div>
 
+      <mat-list-item cdkDrag *ngFor="let controlElement of controls$ | async"  [cdkDragData]="controlElement">
+
+        <span class="listSpan idCol" style="font-weight: bold;"
+          >{{ controlElement.idOrgControls }}    </span
+        >
+        <span class="listSpan nameCol" style="font-weight: bold;">
+          {{controlElement.Cname}}
+        </span>
+        <span class="listSpan descCol" style="font-weight: bold;">
+          {{controlElement.Coverview}}
+        </span>
+        <span class="listSpan dateCol" style="font-weight: bold;">
+          {{controlElement.Cissuedate}}
+        </span>
+
+
+
+      <span style="position: absolute; right: 0;">
+          <button mat-icon-button>
+            <mat-icon
+              (click)="updateControls(control.idOrgControls, userInput.value)"
+              color="primary"
+            >
+              edit
+            </mat-icon>
+          </button>
+
+      
+          <button mat-icon-button>
+            <mat-icon (click)="deleteControls(controlElement.idOrgControls)" color="warn">
+              delete
+            </mat-icon>
+          </button>
+        </span> 
+      </mat-list-item>
+    </mat-list>
+
+    </div>
 
 </div>
 
-<!--
-<div id="placeholder" style="background-color: red; height: 100px;width: 100px;">
-
-</div>
--->
