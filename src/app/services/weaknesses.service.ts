@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders} from "@angular/common/http";
 import { ErrorHandler, EventEmitter, Injectable } from '@angular/core';
+import { fadeInItems } from "@angular/material/menu";
 import { Observable } from "rxjs";
 import { catchError, publish, tap } from "rxjs/operators";
 import { weaknesses } from "../models/weaknesses";
@@ -52,7 +53,7 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   update(item: any): Observable<any> {
-    console.log("update weaknesses");
+    console.log("update weaknesses", item);
 
     return this.http
       .put<weaknesses>(this.url, item, this.httpOptions)
@@ -67,6 +68,14 @@ httpOptions: { headers: HttpHeaders } = {
     return this.http
       .delete<weaknesses>(url, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("delete")));
+  }
+
+  patch(item: any): Observable<any> {
+    console.log("patch weaknesses", item);
+
+    return this.http
+      .patch<weaknesses>(this.url, item, this.httpOptions)
+      .pipe(catchError(this.errorHandlerService.handleError<any>("patch")));
   }
 
 }

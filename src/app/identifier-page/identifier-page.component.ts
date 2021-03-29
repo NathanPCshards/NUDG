@@ -61,33 +61,32 @@ export class IdentifierPageComponent implements OnInit {
   ngOnInit(){
     //ACCORDION STUFF
     this.entries = accordionEntries
-    document.getElementById('control').className = 'control'
-    document.getElementById('weakness').className = 'weakness'
-    document.getElementById('standard3').className = 'standard4'
-    document.getElementById('policy').className = 'policy'
+
     this.service.onAccordionClick.subscribe(data =>{
       if (data == "shrink"){
 
        console.log("small")
        this.uncollapsed = true;
 
-      document.getElementById('control').className = 'control'
-      document.getElementById('standard3').className = 'standard3'
-      document.getElementById('weakness').className = 'weakness'
+      console.log(document.getElementById("control").className)
+      console.log(document.getElementById("standard3").className)
 
-
-      document.getElementById('policy').className = 'policy'
-
+      document.getElementById('control').className = 'Cshrink'
+      document.getElementById('standard3').className = 'Sshrink'
+      document.getElementById('weakness').className = 'Wshrink'
+      document.getElementById('policy').className = 'Pshrink'
+      console.log(document.getElementById("control").className)
+      console.log(document.getElementById("standard3").className)
 
       }
       if (data == "grow"){
         console.log("grow")
          this.uncollapsed = false;
 
-        document.getElementById('weakness').className = 'weakness2'
-        document.getElementById('control').className = 'control2'
-        document.getElementById('policy').className = 'policy2'
-        document.getElementById('standard3').className = 'standard4'
+        document.getElementById('weakness').className = 'Wgrow'
+        document.getElementById('control').className = 'Cgrow'
+        document.getElementById('policy').className = 'Pgrow'
+        document.getElementById('standard3').className = 'Sgrow'
 
 
       }
@@ -188,7 +187,21 @@ export class IdentifierPageComponent implements OnInit {
 
 
   drop(event: CdkDragDrop<string[]>) {
-      console.log("event.data : " , event.item.data.idOrgControls)
+      console.log("event.data : " , event.item.data.Nid)
+      let WcompletionDate = String(new Date());
+      let Wstatus = "Good"
+      let Nid = event.item.data.Nid
+      /*
+      The item, that shares the Nid, should be updated.
+
+
+      */
+
+
+      this.weaknesses$ = this.weaknessservice
+      .patch({WcompletionDate, Wstatus, Nid })
+      .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses())));
+
 
 /*
     if (event.previousContainer === event.container) {

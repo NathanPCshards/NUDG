@@ -15,7 +15,7 @@ import { PolicyAccordionService } from '../services/policy-accordion.service';
   'uncollapsed' : 
   'uncollapsed collapsed'}}">{{entry.description}}    
 
-  <weakness-dialog id="weakness" style="position:absolute; visibility : hidden;">
+  <weakness-dialog id="weakness" style="width:100%; position:absolute; visibility : hidden;">
   </weakness-dialog>
 
   <control-dialog id="control" style="position:absolute; width:100%;">

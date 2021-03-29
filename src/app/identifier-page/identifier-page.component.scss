@@ -4,20 +4,7 @@
     height:100vh;
   }
 
-  .policy {
-    width:49%;
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-bottom: 10px;
-    margin-right: 3px;
-    float: left;
-    background-color: white;
-    padding: 20px;
-    min-height: 20%;
-    height:20%;
-    display: inline;
-    overflow: scroll;
-  }
+
   .policy2 {
     width:49%;
     margin-top: 10px;
@@ -32,20 +19,7 @@
     height:45%;
     display: inline;
   }
-  .standard3{
-    margin-top: 7px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    margin-left: 3px;
-    width:49.5%;
-    min-height: 20%;
-    height:20%;
-    float:right;
-
-   // background-color: black;
-    overflow-y: scroll;
-   
-  }
+ 
   .standard4{
     margin-top: 7px;
     margin-right: 10px;
@@ -73,23 +47,7 @@
 
   }
 
-  .weakness {
-  //  background-color: red;
-    box-sizing: border-box;
-    position: relative;
-    width:49%;
-    float:left;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-bottom: 10px;
-    margin-right: 3px;
-    display:block;
-    min-height: 20%;
-    height:20%;
 
-  }
   .weakness2 {
     //background-color: red;
     box-sizing: border-box;
@@ -108,23 +66,6 @@
 
   }
 
-  .control {
-   // background-color: blue;
-    box-sizing: border-box;
-    position: relative;
-    width:49.5%;
-    min-height: 20%;
-    height:20%;
-
-    float:right;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    margin-top: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    margin-left: 3px;
-    display:block;
-  }
   .control2 {
   //  background-color: blue;
     box-sizing: border-box;
@@ -210,6 +151,13 @@ div.item2{
     margin-left: 5%;
   }
 
+  .dateCol2{
+    width:60px;
+    min-width: 60px;
+    text-align: left;
+    margin-left: 5%;
+  }
+
 
   //CSS for Center bar and It's interactions
   dl{
@@ -251,19 +199,43 @@ div.item2{
 
 //animations 'states'
   .uncollapsed {
-    animation: slide-down 2s ease forwards;
+    animation: slide-down 1s ease forwards;
     opacity:1;
   }
   .collapsed {
-    animation: slide-up 2s ease forwards;
+    animation: slide-up 1s ease forwards;
     opacity:0;
   }
-  .shrink {
-    animation: shrink 2s ease forwards;
+  .Pshrink {
+    animation: policyShrink 1s ease forwards;
 
   }
-  .grow {
-    animation: grow 2s ease forwards;
+  .Pgrow {
+    animation: policyGrow 1s ease forwards;
+
+}
+.Cshrink {
+  animation: controlsShrink 1s ease forwards;
+
+}
+.Cgrow {
+  animation: controlsGrow 1s ease forwards;
+
+}
+.Sshrink {
+  animation: standardsShrink 1s ease forwards;
+
+}
+.Sgrow {
+  animation: standardsGrow 1s ease forwards;
+
+}
+.Wshrink {
+  animation: weaknessesShrink 1s ease forwards;
+
+}
+.Wgrow {
+  animation: weaknessesGrow 1s ease forwards;
 
 }
   
@@ -299,59 +271,319 @@ div.item2{
 
 
 
-@keyframes controlShrink {
+@keyframes policyShrink {
     //start big
     0% {
+      box-sizing: border-box;
+      position: relative;
+      width:49%;
+      float:left;
+      background-color: white;
+
+      overflow-y: scroll;
+      overflow-x: hidden;
+      margin-top: 10px;
+      margin-left: 10px;
+      margin-bottom: 10px;
+      margin-right: 3px;
+      display:block;
       min-height: 44%;
       height:44%;
-
-
     }
     //get small
     100%{
-      box-sizing: border-box;
-      position: relative;
-      width:49.5%;
+      width:49%;
+      margin-top: 10px;
+      margin-left: 10px;
+      margin-bottom: 10px;
+      margin-right: 3px;
+      float: left;
+      background-color: white;
+      padding: 20px;
       min-height: 20%;
       height:20%;
-  
-      float:right;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      margin-top: 10px;
-      margin-right: 10px;
-      margin-bottom: 10px;
-      margin-left: 3px;
-      display:block;
+      display: inline;
+      overflow: scroll;
+
     }
 }
 
-@keyframes controlGrow {
+@keyframes policyGrow {
     //start small
     0% {
-      box-sizing: border-box;
-      position: relative;
-      width:49.5%;
+      width:49%;
+      margin-top: 10px;
+      margin-left: 10px;
+      margin-bottom: 10px;
+      margin-right: 3px;
+      float: left;
+      background-color: white;
+      padding: 20px;
       min-height: 20%;
       height:20%;
-  
-      float:right;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      margin-top: 10px;
-      margin-right: 10px;
-      margin-bottom: 10px;
-      margin-left: 3px;
-      display:block;
+      display: inline;
+      overflow: scroll;
+
     }
     //get big
     100%{
-    
+      box-sizing: border-box;
+      position: relative;
+      width:49%;
+      float:left;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      background-color: white;
+
+      margin-top: 10px;
+      margin-left: 10px;
+      margin-bottom: 10px;
+      margin-right: 3px;
+      display:block;
       min-height: 44%;
       height:44%;
-  
     }
 }
+
+@keyframes controlsShrink {
+  //start big
+  0% {
+  //  background-color: blue;
+  box-sizing: border-box;
+  position: relative;
+  width:49.5%;
+  min-height: 44%;
+  height:44%;
+
+  float:right;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-left: 3px;
+
+  display:block;
+  }
+  //get small
+  100%{
+   // background-color: blue;
+   box-sizing: border-box;
+   position: relative;
+   width:49.5%;
+   min-height: 20%;
+   height:20%;
+
+   float:right;
+   overflow-y: scroll;
+   overflow-x: hidden;
+   margin-top: 10px;
+   margin-right: 10px;
+   margin-bottom: 10px;
+   margin-left: 3px;
+   display:block;
+
+  }
+}
+
+@keyframes controlsGrow {
+  //start small
+  0% {
+   // background-color: blue;
+   box-sizing: border-box;
+   position: relative;
+   width:49.5%;
+   min-height: 20%;
+   height:20%;
+
+   float:right;
+   overflow-y: scroll;
+   overflow-x: hidden;
+   margin-top: 10px;
+   margin-right: 10px;
+   margin-bottom: 10px;
+   margin-left: 3px;
+   display:block;
+
+  }
+  //get big
+  100%{
+  //  background-color: blue;
+  box-sizing: border-box;
+  position: relative;
+  width:49.5%;
+  min-height: 44%;
+  height:44%;
+
+  float:right;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-left: 3px;
+
+  display:block;
+  }
+}
+
+
+
+
+@keyframes standardsShrink {
+  //start big
+  0% {
+    margin-top: 7px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 3px;
+    width:49.5%;
+    min-height: 45%;
+    height:45%;
+    float:right;
+    align-content: stretch;
+   // background-color: orange;
+    overflow-y: scroll;
+   
+  }
+  //get small
+  100%{
+    margin-top: 7px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 3px;
+    width:49.5%;
+    min-height: 20%;
+    height:20%;
+    float:right;
+
+   // background-color: black;
+    overflow-y: scroll;
+
+  }
+}
+
+@keyframes standardsGrow {
+  //start small
+  0% {
+    margin-top: 7px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 3px;
+    width:49.5%;
+    min-height: 20%;
+    height:20%;
+    float:right;
+
+   // background-color: black;
+    overflow-y: scroll;
+
+  }
+  //get big
+  100%{
+    margin-top: 7px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 3px;
+    width:49.5%;
+    min-height: 45%;
+    height:45%;
+    float:right;
+    align-content: stretch;
+   // background-color: orange;
+    overflow-y: scroll;
+   
+  }
+}
+
+
+
+@keyframes weaknessesShrink {
+  //start big
+  0% {
+    //background-color: red;
+    box-sizing: border-box;
+    position: relative;
+    width:49%;
+    float:left;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-right: 3px;
+    display:block;
+    min-height: 44%;
+    height:44%;
+  }
+  //get small
+  100%{
+  //  background-color: red;
+  box-sizing: border-box;
+  position: relative;
+  width:49%;
+  float:left;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  margin-right: 3px;
+  display:block;
+  min-height: 20%;
+  height:20%;
+  }
+}
+
+@keyframes weaknessesGrow {
+  //start small
+  0% {
+  //  background-color: red;
+  box-sizing: border-box;
+  position: relative;
+  width:49%;
+  float:left;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  margin-right: 3px;
+  display:block;
+  min-height: 20%;
+  height:20%;
+  }
+  //get big
+  100%{
+    //background-color: red;
+    box-sizing: border-box;
+    position: relative;
+    width:49%;
+    float:left;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-right: 3px;
+    display:block;
+    min-height: 44%;
+    height:44%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //DRAG AND DROP Styling

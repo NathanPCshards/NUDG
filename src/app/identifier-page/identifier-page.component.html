@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <div id="policy" class="policy2 {{grow ? 'grow' :'grow shrink'}}" >
+  <div id="policy" class="policy2 {{Pgrow ? 'Pgrow' :'Pgrow Pshrink'}}" >
       <div class="row1">
 
         <div class="item2" style="flex: 1; ">
@@ -40,7 +40,7 @@
     
 
   <!--THIS IS THE STANDARDS LIST-->
-  <div id="standard3" class="standard4 {{grow ? 'grow' :'grow shrink'}}">
+  <div id="standard3" class="standard4 {{Sgrow ? 'Sgrow' :'Sgrow Sshrink'}}">
 
     <mat-list>
       <div class="flexContainer">
@@ -98,11 +98,10 @@
   <div
   cdkDropList
   id="weakness"
-  class="weakness2 {{grow ? 'grow' :'grow shrink'}}"
-  #weaknessesList="cdkDropList"
-  [cdkDropListData]="weaknessesList"
-  [cdkDropListConnectedTo]="[controlsList]"
-  class="weaknesses-list"
+  class="weakness2 {{Wgrow ? 'Wgrow' :'Wgrow Wshrink'}}"
+
+  [cdkDropListData]="weakness"
+  [cdkDropListConnectedTo]="[control]"
   (cdkDropListDropped)="drop($event)"
   [cdkDropListEnterPredicate]="controlsToWeaknesses">
 
@@ -111,7 +110,7 @@
       <div class="flexContainer">
         <mat-list-item class="headerRow">
           <span class="idCol">
-            Weakness ID
+            Nudg ID
           </span>
           <span class="nameCol">
             Name
@@ -122,13 +121,16 @@
           <span class="dateCol">
             Status
           </span>
+          <span class="dateCol2">
+            Completion Date
+          </span>
         </mat-list-item>
       </div>
   
       <mat-list-item class="dragdropbox" cdkDrag [cdkDragData]="weaknessElement" *ngFor="let weaknessElement of weaknesses$ | async">
     
           <span class="listSpan idCol" style="font-weight: bold;"
-          >{{ weaknessElement.idOrgWeaknesses }}    </span
+          >{{ weaknessElement.Nid }}    </span
         >
         <span class="listSpan nameCol" style="font-weight: bold;">
           {{weaknessElement.Wname}}
@@ -140,6 +142,10 @@
   
         <span class="listSpan dateCol" style="font-weight: bold;">
           {{weaknessElement.Wstatus}}
+        </span>
+
+        <span class="listSpan dateCol2" style="font-weight: bold;">
+          {{weaknessElement.WcompletionDate | date:'yyyy-MM-dd'}}
         </span>
   
   
@@ -172,12 +178,10 @@
     <!-- THIS IS THE CONTROLS LIST-->
     <div 
     id="control" 
-    class="control2 {{controlGrow ? 'controlGrow' :'controlGrow controlShrink'}}"
+    class="control2 {{Cgrow ? 'Cgrow' :'Cgrow Cshrink'}}"
     cdkDropList
-    #controlsList="cdkDropList"
-    [cdkDropListData]="controlsList"
-    [cdkDropListConnectedTo]="[weaknessesList]"
-    class="controls-list"
+    [cdkDropListData]="control"
+    [cdkDropListConnectedTo]="[weakness]"
     (cdkDropListDropped)="drop($event)"
     [cdkDropListEnterPredicate]="weaknessesToControls">
 
@@ -185,7 +189,7 @@
       <div class="flexContainer">
         <mat-list-item class="headerRow">
           <span class="idCol">
-            Control ID
+            Nudg ID
           </span>
           <span class="nameCol">
             Name
@@ -202,7 +206,7 @@
       <mat-list-item cdkDrag *ngFor="let controlElement of controls$ | async"  [cdkDragData]="controlElement">
 
         <span class="listSpan idCol" style="font-weight: bold;"
-          >{{ controlElement.idOrgControls }}    </span
+          >{{ controlElement.Nid }}    </span
         >
         <span class="listSpan nameCol" style="font-weight: bold;">
           {{controlElement.Cname}}
