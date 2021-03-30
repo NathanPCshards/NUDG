@@ -5,21 +5,17 @@ div.container1{
     margin-right: auto;
     width:70%;
     height: 50%;
-
     box-shadow: 1px 1px 15px -1px ;
     background: linear-gradient(to bottom, #212121 8%, white 0%);
     overflow: hidden;
-    border-radius: 3px;
-    
-    
-      
+    border-radius: 3px;   
   }
 
  
 mat-grid-tile{
     width: 98px;
-    
 }
+
 mat-form-field{
     margin-left: 1%;
     margin-top: 0px;
@@ -28,26 +24,13 @@ mat-form-field{
     
 }
 
-div.cards{
-   
+div.cards{   
     display: flexbox;
-     
-    
-    
-    
-    
-
 }
 
 .qs {
  margin-left: 3%;
-    
-    
-
 }
-
-
-
 
 .col{
     float:left;
@@ -60,11 +43,8 @@ div.cards{
     width:100%;    
     clear:both;
     display: flexbox;
-    
-    
-    
-    
 }
+
 .mat-divider {
     display: block;
     margin: 0;
@@ -72,27 +52,6 @@ div.cards{
     border-top-style: solid;
     margin-bottom: 15px;
  }
-
-//width for column objects is 70% for entire 'row'
-//35% to have 2 objects on 1 row
-//except radio buttons/cards, those are weird
-.mat-raised-button{
-    margin-bottom: 15px;
-    width: 10%;
-}
-.mat-header-cell{ 
-    background-color: #212121 ;
-    color: white;
-}
-.mat-checkbox-inner-container {
-    color: white;
-}
-.mat-checkbox {
-    color: white;
-}
-
-
-
 
 
 //CSS for LIST

@@ -1,24 +1,7 @@
-#milestones {
-    font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
+div.milestones{
+  //height:270px;
+  width:100%;
 
-#milestones td, #milestones th {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-#milestones tr:nth-child(even){background-color: #f2f2f2;}
-
-#milestones tr:hover {background-color: #ddd;}
-
-#milestones th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #4CAF50;
-    color: white;
 }
 
 //CSS for LIST
@@ -26,7 +9,7 @@
     display:flexbox;
 }
 .listSpan {
-    position:fixed;
+
     float:1;
 }
 .headerRow {
@@ -46,4 +29,39 @@
     border: 1px solid black;
     justify-content: center;
 
+  }
+
+  
+  .idCol{
+    width:60px;
+    min-width: 60px;
+    text-align: left;
+
+  }
+  .nameCol{
+    margin-left: 5%;
+    width:150px;
+    min-width: 150px;
+    text-align: left;
+
+  }
+  .descCol{
+    width:150px;
+    min-width: 150px;
+    text-align: left;
+    margin-left: 5%;
+  }
+  
+  .dateCol{
+    width:250px;
+    min-width: 250px;
+    text-align: left;
+    margin-left: 5%;
+  }
+
+  .dateCol2{
+    width:200px;
+    min-width: 200px;
+    text-align: left;
+    margin-left: 5%;
   }

@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders} from "@angular/common/http";
-import { ErrorHandler, Injectable } from '@angular/core';
+import { ErrorHandler, EventEmitter, Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { catchError, publish, tap } from "rxjs/operators";
 import { procedures } from "../models/procedures";
@@ -12,6 +12,7 @@ import { ErrorHandlerService } from "./error-handler.service";
 export class ProceduresService {
 //url must match route in the app.use(...) in index.js
 private url = "http://localhost:3000/procedures"
+onClick = new EventEmitter();
 
 httpOptions: { headers: HttpHeaders } = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -20,9 +21,15 @@ httpOptions: { headers: HttpHeaders } = {
   constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient) {
    }
 
-   fetchAll(): Observable<procedures[]> {
+   emit(temp : any) {
+    this.onClick.emit(temp);
+  }
+
+   fetchAll(id: any): Observable<procedures[]> {
+    const url = `http://localhost:3000/procedures/${id}`;
+    console.log("fetch procedure at : " , url)
     return this.http
-      .get<procedures[]>(this.url, { responseType: "json" })
+      .get<procedures[]>(url, { responseType: "json" })
       .pipe(
         tap((_) => console.log("fetched users")),
         catchError(

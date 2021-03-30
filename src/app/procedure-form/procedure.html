@@ -17,12 +17,12 @@
   <br>
   <mat-form-field color="primary" appearance="outline" id="descriptionBox" style="width: 90%;">
     <mat-label>Status Date</mat-label>
-    <input matInput #Pstatusdate placeholder="Procedure Description" >
+    <input matInput #PstatusDate placeholder="Procedure Description" >
   </mat-form-field>
     <br>
   <mat-form-field color="primary" appearance="outline" id="descriptionBox" style="width: 90%;">
     <mat-label>Procedure Description</mat-label>
     <input matInput #Pdescription placeholder="Procedure Description" >
   </mat-form-field>
-    <button mat-raised-button  (click) = "procedureSubmit('procedureForm')" color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Submit</button>
+    <button mat-raised-button  (click)="closeDialog(PProcedure.value, Pstatus.value, PstatusDate.value, Pdescription.value)" color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Submit</button>
 

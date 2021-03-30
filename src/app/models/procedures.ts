@@ -4,4 +4,5 @@ export interface procedures {
     Pstatus : string;
     Pstatusdate : Date; 
     Pdescription : string;
+    idOrgControls : string;
  }

@@ -26,7 +26,6 @@
     display:flexbox;
 }
 .listSpan {
-    position:fixed;
     float:1;
 }
 .headerRow {
@@ -46,4 +45,44 @@
     border: 1px solid black;
     justify-content: center;
 
+  }
+  div.procedures{
+
+    width:100%;
+ 
+}
+
+
+  .idCol{
+    width:60px;
+    min-width: 60px;
+    text-align: left;
+
+  }
+  .nameCol{
+    margin-left: 5%;
+    width:150px;
+    min-width: 150px;
+    text-align: left;
+
+  }
+  .descCol{
+    width:150px;
+    min-width: 150px;
+    text-align: left;
+    margin-left: 5%;
+  }
+  
+  .dateCol{
+    width:250px;
+    min-width: 250px;
+    text-align: left;
+    margin-left: 5%;
+  }
+
+  .dateCol2{
+    width:200px;
+    min-width: 200px;
+    text-align: left;
+    margin-left: 5%;
   }

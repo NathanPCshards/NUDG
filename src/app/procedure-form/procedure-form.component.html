@@ -1,10 +1,7 @@
 <mat-toolbar  class="tools" style="height: 8vh;">
 
     <mat-toolbar-row>
-        <button mat-raised-button (click)="openDialog($event);" style="margin-left: 23%;margin-top: 30px;"> Add Procedures</button>
-        <button mat-raised-button (click)="refresh()" style="margin-left: 15%; margin-top: 30px;"> Refresh</button>
-
-        <button mat-raised-button (click)="removeSelectedRows()" style="margin-left: 12%; margin-top: 30px;"> Delete Selected</button>
+        <button mat-raised-button (click)="openDialog($event);" style="margin-left: 48%;margin-top: 30px;"> Add Procedures</button>
 
     </mat-toolbar-row>
 
@@ -13,40 +10,43 @@
 
 
 <div id="procedures" class="procedures" style="width:100%">
-    <button
-    (click)="post(userInput.value)"
-    mat-fab
-    color="primary"
-    style="float: right;"
-    >
-    <mat-icon>add</mat-icon>
-    </button>
-    <mat-form-field style="width: 100%;">
-    <mat-label>User item</mat-label>
-    <input #userInput matInput placeholder="Ex. Rice" />
-    </mat-form-field>
-    
     <mat-list>
       <div class="flexContainer">
-        <mat-list-item class="headerRow">
-          <span>
-            ID
-          </span>
-          <span style="margin-left: 6.5%;">
-            Name
-          </span>
-        </mat-list-item>
+
+          <mat-list-item class="headerRow">
+            <span class="spanList idCol">
+              ID
+            </span>
+            <span class="spanList nameCol">
+              Description
+            </span>
+            <span class="spanList descCol">
+              Status
+            </span>
+            <span class="spanList dateCol">
+              Completion Date 
+            </span>
+  
+          </mat-list-item>
       </div>
     
       <mat-list-item *ngFor="let procedure of procedures$ | async">
-        <div class="flexContainer">
-        <span class="listSpan" style="font-weight: bold;"
-          >{{ procedure.idOrgProcedure }}    </span
-        >
-        <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
+
+        <span class="listSpan idCol" style="font-weight: bold;"
+          >{{ procedure.idOrgProcedure }}    
+          </span>
+
+        <span class="listSpan nameCol" style="font-weight: bold;">
           {{procedure.PProcedure}}
         </span>
-        </div>
+
+        <span class="listSpan descCol" style="font-weight: bold; ">
+          {{procedure.Pstatus}}
+        </span>
+        <span class="listSpan dateCol" style="font-weight: bold;">
+          {{procedure.Pdescription | date:'M/d/yy,   h:mm a'}}
+        </span>
+
     
     
        <span style="position: absolute; right: 0;">
@@ -73,78 +73,7 @@
 <mat-dialog-content class="dialog">
 
 </mat-dialog-content>
-<button (click)="refresh()">refresh</button>
 
 <!-- Use div.milestones height to change table size on dialog popout-->
 
-  <style>
-div.procedures{
-    height:420px;
-    width:100%;
-    overflow:scroll;
-}
-mat-grid-tile{
-    width: 98px;
-    margin:auto;
-}
-mat-form-field{
-    margin-left: 1%;
-}
 
-.col{
-    float:left;
-    width: 30%;
-    padding:1%;
-  
-}
-
-.row2{
-    width:100%;
-    align-items: center;
-    clear:both;
-    padding-left: 2px;
-    padding-right: 2px;
-}
-.mat-raised-button{
-    margin-top: 1%;
-    margin-bottom: 15px;
-}
-
-.mat-toolbar{
-    padding: 0px;
-}
-
-:host::ng-deep.mat-dialog-container{
-    padding: 0px;
-    margin: 0px;
-}
-
-
-:host::ng-deep.cdk-overlay-pane{
-    padding: 0px;
-    margin: 0px;
-}
-
-#procedures {
-    font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-#td, #th {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-#tr:nth-child(even){background-color: #f2f2f2;}
-
-#tr:hover {background-color: #ddd;}
-
-#th {
-    padding-top: 12px;
-    padding-bottom: 20px;
-    text-align: left;
-    background-color: #4CAF50;
-    color: white;
-}
-  </style>

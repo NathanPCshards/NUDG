@@ -26,73 +26,15 @@ mat-form-field{
     margin-bottom: 15px;
 }
 
-.mat-toolbar{
-    padding: 0px;
-}
-
-:host::ng-deep.mat-dialog-container{
-    padding: 0px;
-    margin: 0px;
-}
-
-
-:host::ng-deep.cdk-overlay-pane{
-    padding: 0px;
-    margin: 0px;
-}
-
-
- 
-mat-grid-tile{
-    width: 98px;
-    
-}
-mat-form-field{
-    margin-left: 1%;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    
-    
-}
 
 div.cards{
-   
     display: flexbox;
-     
-    
-    
-    
-    
-
 }
 
 .qs {
  margin-left: 3%;
-    
-    
-
 }
 
-
-
-
-.col{
-    float:left;
-    width: 31%;
-    padding:1%;
-
-  
-}
-
-.row2{
-    width:100%;    
-    clear:both;
-    display: flexbox;
-    
-    
-    
-    
-}
 .mat-divider {
     display: block;
     margin: 0;
@@ -100,24 +42,6 @@ div.cards{
     border-top-style: solid;
     margin-bottom: 15px;
  }
-
-//width for column objects is 70% for entire 'row'
-//35% to have 2 objects on 1 row
-//except radio buttons/cards, those are weird
-.mat-raised-button{
-    margin-bottom: 15px;
-    width: 10%;
-}
-.mat-header-cell{ 
-    background-color: #212121 ;
-    color: white;
-}
-.mat-checkbox-inner-container {
-    color: white;
-}
-.mat-checkbox {
-    color: white;
-}
 
 
 
@@ -154,7 +78,7 @@ div.cards{
     text-align: left;
 
   }
-  .descCol{
+  .nameCol{
     width:300x;
     min-width: 300px;
     text-align: left;

@@ -26,19 +26,16 @@ export class PageSearchComponent implements OnInit {
   'CUIcontracts', 'Home', 'Policies',
   'Dashboard', 'Users', 'Inventory',
   'CompanyInfo', 'Roles', 'Accordion',
-  'Suppliers', 'Vendors', 'Tasks',
-  'Controls', 'Weaknesses',
+  'Suppliers', 'Vendors', 'Tasks', 'Weaknesses',
   'GapAssessment', 'GapForm', 'ControlForm',
   'WeaknessForm', 'SoftwareApprovalForm',
   'SharedResourceForm', 'SecurityLogForm', 'GuidelinesPage',
   'HelpCenterForm', 'GroupsPage',
-  'NetworkSharePage','MilestonePage', 'ProcedurePage','AdminPanel'];
+  'NetworkSharePage', 'ProcedurePage','AdminPanel'];
 
   
   constructor(private route : ActivatedRoute, private router:Router) {
-    //this.input.addEventListener('input', this.updateValue);
     this.options.sort();
-
     this.myControl = new FormControl();
     this.filteredPages = this.myControl.valueChanges
       .pipe(
@@ -68,9 +65,7 @@ export class PageSearchComponent implements OnInit {
 
   public handleKeyDown(event: any, page : any)
   {
-    
-     console.log("Event: " , event);
-    // console.log("Page : " , page)
+
       if (event.key == "Enter")
       {
         this.router.navigate([page], { relativeTo: this.route });

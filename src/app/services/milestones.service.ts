@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders} from "@angular/common/http";
-import { ErrorHandler, Injectable } from '@angular/core';
+import { ErrorHandler, EventEmitter, Injectable } from '@angular/core';
+import { AnyNaptrRecord } from "node:dns";
 import { Observable } from "rxjs";
 import { catchError, publish, tap } from "rxjs/operators";
 import { inventories } from "../models/inventory";
@@ -13,6 +14,8 @@ import { ErrorHandlerService } from "./error-handler.service";
 export class MilestonesService {
 //url must match route in the app.use(...) in index.js
 private url = "http://localhost:3000/milestones"
+onClick = new EventEmitter();
+
 
 httpOptions: { headers: HttpHeaders } = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -21,9 +24,18 @@ httpOptions: { headers: HttpHeaders } = {
   constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient) {
    }
 
-   fetchAll(): Observable<milestones[]> {
+
+   emit(temp : any) {
+    this.onClick.emit(temp);
+  }
+
+
+   fetchAll(id: any): Observable<milestones[]> {
+    const url = `http://localhost:3000/milestones/${id}`;
+
+     console.log("Fetched url : ", url)
     return this.http
-      .get<milestones[]>(this.url, { responseType: "json" })
+      .get<milestones[]>(url, { responseType: "json"})
       .pipe(
         tap((_) => console.log("fetched users")),
         catchError(
@@ -33,6 +45,7 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   post(item: Partial<milestones>): Observable<any> {
+    console.log("item being posted : " , item)
     return this.http
       .post<Partial<milestones>>(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));

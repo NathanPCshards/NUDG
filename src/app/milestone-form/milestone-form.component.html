@@ -1,63 +1,51 @@
 <mat-toolbar  class="tools" style="height: 8vh;">
 
     <mat-toolbar-row>
-        <button mat-raised-button (click)="openDialog($event);" style="margin-left: 23%;margin-top: 30px;"> Add Milestones</button>
-        <button mat-raised-button (click)="refresh()" style="margin-left: 15%; margin-top: 30px;"> Refresh</button>
-
-        <button mat-raised-button (click)="removeSelectedRows()" style="margin-left: 12%; margin-top: 30px;"> Delete Selected</button>
-
+        <button mat-raised-button (click)="openDialog($event);" style="margin-left: 50%;margin-top: 30px;"> Add Milestones</button>
     </mat-toolbar-row>
 
 </mat-toolbar>
 
 
 <div id="milestones" class="milestones" style="width:100%">
-    <button
-    (click)="post(userInput.value)"
-    mat-fab
-    color="primary"
-    style="float: right;"
-    >
-    <mat-icon>add</mat-icon>
-    </button>
-    <mat-form-field style="width: 100%;">
-    <mat-label>User item</mat-label>
-    <input #userInput matInput placeholder="Ex. Rice" />
-    </mat-form-field>
+
     
     <mat-list>
       <div class="flexContainer">
         <mat-list-item class="headerRow">
-          <span>
+          <span class="spanList idCol">
             ID
           </span>
-          <span style="margin-left: 6.5%;">
-            Name
+          <span class="spanList nameCol">
+            Description
           </span>
+          <span class="spanList nameCol">
+            Status
+          </span>
+          <span class="spanList nameCol">
+            Completion Date 
+          </span>
+
         </mat-list-item>
       </div>
     
       <mat-list-item *ngFor="let milestone of milestones$ | async">
-        <div class="flexContainer">
-        <span class="listSpan" style="font-weight: bold;"
+       
+        <span class="listSpan idCol" style="font-weight: bold;"
           >{{ milestone.idMilestones }}    </span
         >
-        <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
+        <span class="listSpan nameCol" style="font-weight: bold; margin-left: 5%;">
           {{milestone.Milestones}}
         </span>
-        </div>
-    
+        <span class="listSpan descCol" style="font-weight: bold; margin-left: 5%;">
+          {{milestone.Mstatus}}
+        </span>
+        <span class="listSpan dateCol" style="font-weight: bold; margin-left: 5%;">
+          {{milestone.McompletionDate | date:'M/d/yy,   h:mm a'}}
+        </span>
+      
     
        <span style="position: absolute; right: 0;">
-          <button mat-icon-button>
-            <mat-icon
-              (click)="update(milestone.idMilestones, userInput.value)"
-              color="primary"
-            >
-              edit
-            </mat-icon>
-          </button>
-    
       
           <button mat-icon-button>
             <mat-icon (click)="delete(milestone.idMilestones)" color="warn">
@@ -67,10 +55,7 @@
         </span> 
       </mat-list-item>
     </mat-list>
-    
-    
-    
-    
+   
     
 </div>
 
@@ -78,75 +63,4 @@
 </mat-dialog-content>
 
 
-  <style>
 
-div.milestones{
-    height:270px;
-    width:100%;
-    overflow:scroll;
-}
-mat-grid-tile{
-    width: 98px;
-    margin:auto;
-}
-mat-form-field{
-    margin-left: 1%;
-}
-
-.col{
-    float:left;
-    width: 30%;
-    padding:1%;
-  
-}
-
-.row2{
-    width:100%;
-    align-items: center;
-    clear:both;
-    padding-left: 2px;
-    padding-right: 2px;
-}
-.mat-raised-button{
-    margin-top: 1%;
-    margin-bottom: 15px;
-}
-
-.mat-toolbar{
-    padding: 0px;
-}
-
-:host::ng-deep.mat-dialog-container{
-    padding: 0px;
-    margin: 0px;
-}
-
-
-:host::ng-deep.cdk-overlay-pane{
-    padding: 0px;
-    margin: 0px;
-}
-
-#milestones {
-    font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-#td, #th {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-#tr:nth-child(even){background-color: #f2f2f2;}
-
-#tr:hover {background-color: #ddd;}
-
-#th {
-    padding-top: 12px;
-    padding-bottom: 20px;
-    text-align: left;
-    background-color: #4CAF50;
-    color: white;
-}
-  </style>

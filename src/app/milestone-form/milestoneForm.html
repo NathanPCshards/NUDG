@@ -1,34 +1,45 @@
 <div style="justify-content: center;display: flex;">
-    <div class="container1">
-      <div [formGroup] ="milestoneForm">
-        <form  class="milestone-form" (ngSubmit)="milestoneSubmit('value')" novalidate></form>
-        <div style="justify-content: center;">  
-            
-              <p id="title" style="font-size: 40px; margin-bottom: 40px;margin-left: 25%;color: white;margin-top: 20px;font-weight: bold"> Milestones</p>
-              
+  <div class="container1">
 
-            <form class="UsernameBox">
-              <mat-form-field appearance="outline" color="primary" style="width: 90%;">
-                <mat-label >Milestone ID</mat-label>
-                <input matInput [(ngModel)]="id" [ngModelOptions]="{standalone: true}" id="Input" placeholder="Milestone ID">
-                </mat-form-field>
-      
-                <br>
-                <mat-form-field color="primary" appearance="outline" id="descriptionBox" style="width: 90%;">
-                
-                <mat-label>Milestone Description</mat-label>
-                <input matInput [(ngModel)]="desc" [ngModelOptions]="{standalone: true}" placeholder="Milestone Description" >
-              </mat-form-field>
 
-              <mat-form-field color="primary" appearance="outline" id="PasswordBox" style="width: 90%;">
-                
-                <mat-label>Milestone Date</mat-label>
-                <input matInput  [(ngModel)]="date" [ngModelOptions]="{standalone: true}" placeholder="Date" >
-              </mat-form-field>
+    <p id="title" style="font-size: 40px; margin-bottom: 40px;margin-left: 25%;color: white;margin-top: 20px;font-weight: bold"> Milestones</p>
+    
+    
+    <mat-form-field appearance="outline" color="primary" style="width: 90%;">
+      <mat-label >Milestone Description</mat-label>
+      <input matInput #Milestones id="Input" placeholder="Milestone Description">
+    </mat-form-field>
 
-                <button mat-raised-button  (click) = "milestoneSubmit('milestoneForm')" color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Submit</button>
-            </form>
-          </div>
-      </div>
-      </div>
-    </div>
+
+
+    <mat-form-field color="primary" appearance="outline" id="descriptionBox" style="width: 45%;">
+      <mat-label>Status</mat-label>
+      <input matInput #Mstatus placeholder="Milestone Description" >
+      </mat-form-field>
+
+
+
+    <mat-form-field color="primary" appearance="outline" id="PasswordBox" style="width: 45%;">
+      <mat-label>Status Date</mat-label>
+      <input matInput #MstatusDate placeholder="Status Date" >
+    </mat-form-field>
+
+
+
+    <mat-form-field color="primary" appearance="outline" id="PasswordBox" style="width: 45%;">
+      <mat-label>Completion date</mat-label>
+      <input matInput #McompletionDate placeholder="Completion Date" >
+    </mat-form-field>
+
+
+    <mat-form-field color="primary" appearance="outline" id="PasswordBox" style="width: 45%;">
+      <mat-label>Changes</mat-label>
+      <input matInput #Mchanges placeholder="Date" >
+    </mat-form-field>
+
+
+    <button mat-raised-button  (click)="closeDialog(Milestones.value, Mstatus.value, MstatusDate.value, McompletionDate.value, Mchanges.value)" color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Submit</button>
+ 
+ 
+  </div>
+</div>

@@ -20,19 +20,15 @@ httpOptions: { headers: HttpHeaders } = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
 };
 
-  constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient) {
-   }
+constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient) {
+  }
 
-
-
-
+//Used for dialog closing
    emit(temp : any) {
     this.onClick.emit(temp);
   }
 
-
-
-
+  //Get Requests
    fetchAll(): Observable<weaknesses[]> {
     return this.http
       .get<weaknesses[]>(this.url, { responseType: "json" })
@@ -44,6 +40,7 @@ httpOptions: { headers: HttpHeaders } = {
       );
   }
 
+  //Post Requests
   post(item: any): Observable<any> {
     console.log("post weaknesses");
 
@@ -52,6 +49,7 @@ httpOptions: { headers: HttpHeaders } = {
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
+  //Put Requests
   update(item: any): Observable<any> {
     console.log("update weaknesses", item);
 
@@ -60,6 +58,7 @@ httpOptions: { headers: HttpHeaders } = {
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
   }
 
+  //Delete Requests
   delete(id: number): Observable<any> {
     const url = `http://localhost:3000/weaknesses/${id}`;
     console.log("delete weaknesses")
@@ -70,6 +69,7 @@ httpOptions: { headers: HttpHeaders } = {
       .pipe(catchError(this.errorHandlerService.handleError<any>("delete")));
   }
 
+  //Patch Requests
   patch(item: any): Observable<any> {
     console.log("patch weaknesses", item);
 

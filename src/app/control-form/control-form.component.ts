@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+
 import { Component, Inject, OnInit, Optional, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -16,17 +16,10 @@ import { weaknessDialog } from '../weakness-form/weakness-form.component';
   styleUrls: ['./control-form.component.scss']
 })
 export class ControlFormComponent implements OnInit {
-
-
-  submitted = false;
-  results;// = res.json();
   panelOpenState = false;
-
   controls$: Observable<controls[]>;
 
-
-
-  constructor(private http: HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog, private sharedService: SharedService, public controlssservice : ControlsService){
+  constructor(public dialog: MatDialog, private sharedService: SharedService, public controlssservice : ControlsService){
   }
 
   public openDialog() {
@@ -49,11 +42,6 @@ export class ControlFormComponent implements OnInit {
 
   }
 
-
-  ngAfterViewInit(){
-
-  }
-
   ngOnInit(){
 
   }
@@ -70,8 +58,6 @@ export class ControlFormComponent implements OnInit {
 
 }
 
-
-
 @Component({
   selector: 'control-dialog',
   templateUrl: 'controlForm.html',
@@ -85,39 +71,17 @@ controls$: Observable<controls[]>;
 
 position;
 procedure;
-submitted= false;
+
 constructor(
-  private formBuilder: FormBuilder,
+
   @Optional() private dialogRef : MatDialogRef<weaknessDialog>,
   @Inject(MAT_DIALOG_DATA) public data : any,
   public controlsservice : ControlsService
   ) { }
+
 ngOnInit(){
   this.controls$ = this.fetchAll();
-  this.controlForm = this.formBuilder.group({
-   
-    //initialize stuff to be null or whatever, here
 
-  });
-}
-
-
-/*
-post(Nid, Cname, Coverview, Cissuedate, Csharedresources, Curl ): void {
-//console.log(Nid,Cname,Coverview,Cissuedate,Csharedresources,Curl)
-   
-   this.controls$ = this.controlsservice
-     .post({ Nid, Cname, Coverview, Cissuedate, Csharedresources, Curl })
-     .pipe(tap(() => (this.controls$ = this.fetchAll())));
-     console.log("post from ctrl")
- }
-*/
-
-
-
-public onFormReset() {
-  console.log("FORM WAS Reset");
-  this.submitted = false;
 }
 
 
@@ -150,56 +114,4 @@ fetchAll(): Observable<controls[]> {
 
 
 
-
-
 }
-
-/*
-
-onRowClicked(row): void {
-  console.log("Row clicked: ", row);
-  this.rowSelected = true;
-  var configUrl = 'http://localhost:4200' + "/" + row.Title;
-  console.log(configUrl)
- // this.router.navigate(configUrl.concat("/",row.Title))
-}
-applyFilter(event: Event) {
-  const filterValue = (event.target as HTMLInputElement).value;
-  this.dataSource.filter = filterValue.trim().toLowerCase();
-
-
-}
-
-
-isAllSelected() {
-  const numSelected = this.selection.selected.length;
-  const numRows = this.dataSource.data.length;
-  return numSelected === numRows;
-}
-
-masterToggle() {
-  this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
-}
-
-checkboxLabel(row?: controlTemplate): string {
-  if (!row) {
-    return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-  }
-  return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-}
-
-
-removeSelectedRows() {
-  let data = Object.assign(controlData)
-  this.selection.selected.forEach(item => {
-     let index: number = data.findIndex(d => d === item);
-     console.log(data.findIndex(d => d === item));
-     data.splice(index,1)
-     this.dataSource = new MatTableDataSource<controlTemplate>(data);
-   });
-   this.selection = new SelectionModel<controlTemplate>(true, []);
-}
-
-*/

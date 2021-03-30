@@ -145,11 +145,26 @@
         </span>
 
         <span class="listSpan dateCol2" style="font-weight: bold;">
-          {{weaknessElement.WcompletionDate | date:'yyyy-MM-dd'}}
+          {{weaknessElement.WcompletionDate | date:'M/d/yy,   h:mm a'}}
         </span>
+
+
+
   
   
       <span style="position: absolute; right: 0;">
+        <button mat-icon-button>
+            <mat-icon
+            (click)="openMilestones(weaknessElement.idOrgWeaknesses)"
+            color="primary"
+            >
+            assignment
+          </mat-icon>
+        </button>
+
+
+
+
           <button mat-icon-button>
             <mat-icon
               (click)="updateWeaknesses(weaknessElement.idOrgWeaknesses, userInput.value)"
@@ -221,9 +236,19 @@
 
 
       <span style="position: absolute; right: 0;">
+        <button mat-icon-button>
+          <mat-icon
+          (click)="openProcedures(controlElement.idOrgControls)"
+          color="primary"
+          >
+          assignment
+        </mat-icon>
+      </button>
+
+
           <button mat-icon-button>
             <mat-icon
-              (click)="updateControls(control.idOrgControls, userInput.value)"
+              (click)="updateControls(controlElement.idOrgControls, userInput.value)"
               color="primary"
             >
               edit

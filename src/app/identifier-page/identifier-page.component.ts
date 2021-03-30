@@ -14,6 +14,9 @@ import { WeaknessesService } from '../services/weaknesses.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { PolicyAccordionService } from '../services/policy-accordion.service';
 import { CdkDrag, CdkDragDrop } from '@angular/cdk/drag-drop';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MilestoneFormComponent } from '../milestone-form/milestone-form.component';
+import { ProcedureFormComponent } from '../procedure-form/procedure-form.component';
 
 //leave for now. The accordion needs these to function
 const obj = {
@@ -46,6 +49,7 @@ export class IdentifierPageComponent implements OnInit {
   controls$: Observable<controls[]>;
   standards$: Observable<standards[]>;
 
+
   constructor(
     private http:HttpClient,
     private formBuilder: FormBuilder,
@@ -55,7 +59,7 @@ export class IdentifierPageComponent implements OnInit {
     private weaknessservice: WeaknessesService,
     private controlsservice: ControlsService,
     private standardsservice: StandardsService,
-    
+    public dialog : MatDialog
     ) { }
 
   ngOnInit(){
@@ -187,30 +191,23 @@ export class IdentifierPageComponent implements OnInit {
 
 
   drop(event: CdkDragDrop<string[]>) {
-      console.log("event.data : " , event.item.data.Nid)
+
       let WcompletionDate = String(new Date());
       let Wstatus = "Good"
       let Nid = event.item.data.Nid
-      /*
-      The item, that shares the Nid, should be updated.
-
-
-      */
-
-
       this.weaknesses$ = this.weaknessservice
       .patch({WcompletionDate, Wstatus, Nid })
       .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses())));
 
 
-/*
+    //double check on this
     if (event.previousContainer === event.container) {
       //if object does NOT change containers
     } else {
       //if object changes containers
       console.log(event.previousContainer.data)
     }
-*/
+
 
   }
 
@@ -218,7 +215,7 @@ export class IdentifierPageComponent implements OnInit {
 
 
 
-
+//must return true to call Drop().
   controlsToWeaknesses(item: CdkDrag<any>) {
     //this.dragdrop.emit(item.data)
     return true;
@@ -231,4 +228,48 @@ export class IdentifierPageComponent implements OnInit {
   }
 
 
+
+  openMilestones(idOrgWeaknesses){
+    let dialogRef = this.dialog.open(MilestoneFormComponent, {
+      width: '2400px',
+      height: '800px',
+      autoFocus : false,
+      data: {
+        idOrgWeaknesses
+      },
+
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);//returns undefined
+    });
+
+
+  }
+
+  openProcedures(idOrgControls){
+    let dialogRef = this.dialog.open(ProcedureFormComponent, {
+      width: '2400px',
+      height: '800px',
+      autoFocus : false,
+      data: {
+        idOrgControls
+      },
+
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);//returns undefined
+    });
+
+
+  }
+
+
+
+
 }
+
+
+
+

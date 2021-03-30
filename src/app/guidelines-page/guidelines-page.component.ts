@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { isThisSecond } from 'date-fns';
+
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { guidelines } from '../models/guidelines';
@@ -15,7 +15,7 @@ import { GuidelinesService } from '../services/guidelines.service';
 })
 export class GuidelinesForm implements OnInit {
   panelOpenState = false;
-  rowSelected;
+
 
   guidelines$: Observable<guidelines[]>;
 
@@ -37,10 +37,6 @@ export class GuidelinesForm implements OnInit {
   
 
   delete(id: any): void {
-    console.log("attempting to delete id : " , id)
-   // iduseru = 15
-   // console.log("attempting to delete id : " , iduseru)
-  
     this.guidelines$ = this.guidelinesService
       .delete(id)
       .pipe(tap(() => (this.guidelines$ = this.fetchAll())));
@@ -52,34 +48,6 @@ export class GuidelinesForm implements OnInit {
 
 
   public openGuideline(id, guideline) {
-
-    //this is how to dynmically make an html element
-    /*
-    var guidelineBox = document.getElementById('test')
-    let temp = `<div style="background-color:grey;" mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" ngDraggable cdkDragHandle>
-    <span>
-        {{data.id}}
-    </span>  
-    <div class="buttons">
-        <button mat-icon-button>
-             <mat-icon (click)="closeDialog()" color="warn">
-              close
-            </mat-icon>
-        </button>
-    </div>
-</div>
-<div class="example-box">
-    {{data.guideline}}
-</div>`
-
-    guidelineBox.insertAdjacentHTML('beforeend', temp)
-    guidelineBox.setAttribute('data', id);
-
-    console.log("guidelineBox : " , guidelineBox)
-
-*/
-
-
     let dialogRef = this.dialog.open(guidelinesDialog, {
       width: '700px',
       height: '700px',
@@ -116,9 +84,7 @@ ngOnInit(){
 }
 
 closeDialog(){
-  this.dialogRef.close( 3 );
-
-
+  this.dialogRef.close();
 };
 
 

@@ -76,7 +76,6 @@
         
                         <button mat-raised-button [mat-dialog-close]="true" (click)="post(NSshareName.value, NSresourceType.value, NSdescription.value, NSfolderPath.value, NShostIdentifier.value, CUIdata.value, GRA.value, GWA.value, URA.value, UWA.value);"  style="margin-left: 15%;width:20vw;height: 5vh; float: left;" color="primary"  >Submit</button>
                         
-                        <button mat-raised-button  (click)="onFormReset();" style="margin-right: 15%;width:20vw;height: 5vh;float: right;" type="reset"  color="primary"  >Reset</button>
                     </div>
                 </div>
 
@@ -84,21 +83,12 @@
 
   </mat-accordion>
 
-  <button
-  (click)="post(NSshareName.value, NSresourceType.value, NSdescription.value, NSfolderPath.value, NShostIdentifier.value, CUIdata.value,  GRA.value, GWA.value, URA.value, UWA.value)"
-  mat-fab
-  color="primary"
-  style="float: right;"
-  >
-  <mat-icon>add</mat-icon>
-  </button>
-  <mat-form-field style="width: 100%;">
-  <mat-label>User item</mat-label>
-  <input #userInput matInput placeholder="Ex. Rice" />
-  </mat-form-field>
+<!--
+    (click)="post(NSshareName.value, NSresourceType.value, NSdescription.value, NSfolderPath.value, NShostIdentifier.value, CUIdata.value,  GRA.value, GWA.value, URA.value, UWA.value)"
+
+-->
   
   <mat-list>
-
       <mat-list-item class="headerRow">
         <span class="idCol">
           ID

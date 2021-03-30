@@ -12,82 +12,6 @@ import { SharedService } from '../services/Shared';
 import { WeaknessesService } from '../services/weaknesses.service';
 
 
-export interface tableEntry {
-  position: number;
-  desc: string;
-  id: string;
-}
-
-export interface weaknessTable {
-  position: number,
-  id: string,
-  desc: string,
-  milestones: string,
-}
-
-class weakness implements weaknessTable {
-  position: -1;
-  id: 'Placeholder';
-  desc: 'Placeholder';
-  milestones: 'Placeholder';
-
-  constructor (position, id, desc, milestones ){
-    this.position=position;
-    this.id = id;
-    this.desc = desc;
-    this.milestones = milestones;
-  }
-}
-
-
-const weaknessData: weaknessTable[] = [
-  {position: 1,id: "W1", desc:"This is a test", milestones : "temp" },
-  {position: 2,id: "W2", desc:"Second Test",milestones : " temp"},
-  {position: 3,id: "W3", desc:"Description would go here", milestones  : "temp"},
-
-
-];
-
-
-
-export interface userTable {
-  position: number;
-  name: string,
-  employeeNumber : string,
-  jobTitle: string,
-  jobRole: string,
-  employeeType : string,
-  department : string,
-  hireDate : string,
-  logonHours : string,
-  emailAddress : string,
-  phone : string,
-  address : string,
-  CUIdata : string,
-}
-
-const User_Data: userTable[] = [
-  {position: 1, name : "Test" ,employeeNumber : "Test",jobTitle : "placeholder",jobRole : "Test",employeeType: "Test",
-  department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-
-  {position:2,name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-    department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-
-    {position: 3,name : "Weakness" ,employeeNumber : "Table",jobTitle : "filler",jobRole : "Test",employeeType: "Test",
-    department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-
-    {position: 4,name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-      department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-
-      {position: 5,name : "stuff" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-      department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-
-      {position: 6,name : "Test" ,employeeNumber : "Test",jobTitle : "Test",jobRole : "Test",employeeType: "Test",
-        department: "Test", hireDate: "Test",logonHours: "Test",emailAddress: "Test", phone: "Test", address: "Test", CUIdata: "Test",},
-];
-
-let globalWeaknessData = new MatTableDataSource(weaknessData);
-
 @Component({
   selector: 'app-weakness-form',
   templateUrl: './weakness-form.component.html',
@@ -107,8 +31,6 @@ export class WeaknessFormComponent implements OnInit {
 
   weaknesses$: Observable<weaknesses[]>;
 
-  dataSource!: MatTableDataSource<weaknessTable>;
-  selection = new SelectionModel<weaknessTable>(true, []);
   @ViewChild(MatSort) sort;
 
 
@@ -124,8 +46,6 @@ export class WeaknessFormComponent implements OnInit {
     public dialog: MatDialog,
     public weaknessservice : WeaknessesService
     ){
-    this.dataSource = new MatTableDataSource(weaknessData);
-    globalWeaknessData.data = this.dataSource.data;
     
   }
   public openDialog() {
@@ -151,15 +71,9 @@ export class WeaknessFormComponent implements OnInit {
 
 
   }
-  public refresh(){
-    this.dataSource.data = globalWeaknessData.data;
-  }
+
   
-  ngAfterViewInit(){
 
-    this.dataSource.sort = this.sort;
-
-  }
 
   ngOnInit(){
     this.weaknesses$ = this.fetchAll()
@@ -251,7 +165,7 @@ try{
  
   catch(err){
     //in the case that it fails, we instead emit a signal for a different component to listen to
-    //and send a post request for us. (this is received by weaknessTable in identifier-page.component.ts) 3/25
+    //and send a post request for us. (this is received in identifier-page.component.ts, by subscribe in INIT) 3/25
     this.weaknessservice.emit(this.data)
   }
 

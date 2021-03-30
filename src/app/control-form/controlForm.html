@@ -1,16 +1,10 @@
 
 
 <div class="container1" style="margin:0px;padding: 0px;">
-    <div [formGroup] ="controlForm" style="margin:0px;padding: 0px;"></div>
-        <form  class="control-form" novalidate>
-            
-
+    <div style="margin:0px;padding: 0px;"></div>
             <h2 style="margin-left: 1%; margin-top: 1%; font-size: 32px;color: white; ;">
                 Controls
             </h2>
-    
-    
-            
                 <div class = InputContainer>
                     <div class = "row">
                         <div class ="col">
@@ -27,8 +21,6 @@
                             <mat-form-field appearance = "legacy" style="width:40%">
                                 <input #Coverview matInput placeholder = "Overview">
                             </mat-form-field>
- 
-            
                         </div>
     
                         <div class ="col">
@@ -50,67 +42,11 @@
                         
                 <div class = "row2">
                     <mat-divider style="padding-top: 3px;"></mat-divider>
-    
                     <button
                      mat-raised-button (click)="closeDialog(Nid.value,Cname.value,Coverview.value,Cissuedate.value,Csharedresources.value,Curl.value)" 
                      style="margin-left: 15%;width:20vw;height: 5vh; float: left;" 
-                     color="primary">Submit</button>
-                    
-                    <button mat-raised-button  (click)="onFormReset();" style="margin-right: 15%;width:20vw;height: 5vh;float: right;" type="reset"  color="primary"  >Reset</button>
+                     color="primary">Submit
+                    </button>
                 </div>
             </div>      
-    </form>
 
-<div id="procedures">
-    <!--
-    <app-procedure-form>
-        </app-procedure-form>
-    -->
-
-</div>
-
-<style>
-    div.container1{
-      
-        background: linear-gradient(to bottom, rgb(63,81,181) 8%, white 0%);
-        overflow:hidden;
-          
-      }
-    mat-grid-tile{
-        width: 98px;
-        margin:auto;
-    }
-    mat-form-field{
-        margin-left: 1%;
-    }
-    
-    .col{
-        float:left;
-        width: 33%;
-        padding:1%;
-      
-    }
-    
-    .row2{
-        width:100%;
-        align-items: center;
-        display: flexbox;
-        clear:both;
-        padding-left: 2px;
-        padding-right: 2px;
-    }
-    .mat-raised-button{
-        margin-top: 1%;
-        margin-bottom: 15px;
-    }
-    
-    .mat-toolbar{
-        padding: 0px;
-    }
-    ::ng-deep.mat-dialog-container {
-        padding: 0px !important;
-        margin-bottom: 0px;
-    }
-    
-    
-    </style>

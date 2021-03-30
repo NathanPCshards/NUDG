@@ -5,4 +5,5 @@ Mstatus :number;
 MstatusDate : Date;
 McompletionDate : Date;
 Mchanges : string;
+idOrgWeaknesses: number;
 }

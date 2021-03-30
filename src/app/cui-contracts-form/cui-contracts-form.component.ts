@@ -1,10 +1,5 @@
-import { SelectionModel } from '@angular/cdk/collections';
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { cuicontracts } from '../models/cuicontracts';
@@ -18,34 +13,18 @@ import { CuicontractsService } from '../services/cuicontracts.service';
 })
 export class CuiContractsFormComponent implements OnInit {
 
-  picker;
   cuicontracts$: Observable<cuicontracts[]>;
 
-  submitted = false;
-  results;// = res.json();
   panelOpenState = false;
-  displayedColumns: string[] = ['select','name', 'employeeNumber', 'jobTitle', 'jobRole', 'employeeType',
-   'department', 'hireDate', 'logonHours','emailAddress', 'phone', 'address', 'CUIdata'];
-  rowSelected = false;
-  name: any;
- 
 
 
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder,
-     public dialog: MatDialog, private cuicontractsService : CuicontractsService){
+  constructor(public dialog: MatDialog, private cuicontractsService : CuicontractsService){
     
   }
   
-
-
-  ngAfterViewInit(){
-
-  }
-
   ngOnInit(){
     this.cuicontracts$ = this.fetchAll();
-
   }
 
   fetchAll(): Observable<cuicontracts[]> {
@@ -54,8 +33,6 @@ export class CuiContractsFormComponent implements OnInit {
   }
   
   post(CCname, CCnum, CCstartDate, CCendDate, CCdescription): void {
-
-
     this.cuicontracts$ = this.cuicontractsService
       .post({ CCname, CCnum, CCstartDate, CCendDate, CCdescription })
       .pipe(tap(() => (this.cuicontracts$ = this.fetchAll())));
@@ -63,8 +40,6 @@ export class CuiContractsFormComponent implements OnInit {
   
   }
   update(CCname, CCnum, CCstartDate, CCendDate, CCdescription, idCUIcontracts ): void {
-
-
     this.cuicontracts$ = this.cuicontractsService
       .update({CCname, CCnum, CCstartDate, CCendDate, CCdescription, idCUIcontracts} )
       .pipe(tap(() => (this.cuicontracts$ = this.fetchAll())));
@@ -80,18 +55,6 @@ export class CuiContractsFormComponent implements OnInit {
       .delete(id)
       .pipe(tap(() => (this.cuicontracts$ = this.fetchAll())));
       
-  }
-  public onFormSubmit() {
-
-    this.submitted = true;
-  
-  }
-  
-  
-  public onFormReset() {
-  
-  this.submitted = false;
-  
   }
 
 }
