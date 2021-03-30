@@ -17,6 +17,7 @@ import { CdkDrag, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MilestoneFormComponent } from '../milestone-form/milestone-form.component';
 import { ProcedureFormComponent } from '../procedure-form/procedure-form.component';
+import { MatTableDataSource } from '@angular/material/table';
 
 //leave for now. The accordion needs these to function
 const obj = {
@@ -35,8 +36,8 @@ for (let i = 0; i < 1; i++) {
   styleUrls: ['./identifier-page.component.scss']
 })
 export class IdentifierPageComponent implements OnInit {
-
-
+  controlDrop
+  weaknessDrop;
   submitted = false;
   //accordion animation variables
   entries: any[]; 
@@ -48,7 +49,8 @@ export class IdentifierPageComponent implements OnInit {
   weaknesses$: Observable<weaknesses[]>;
   controls$: Observable<controls[]>;
   standards$: Observable<standards[]>;
-
+  //Used for sorting
+  weaknessesDataSource;
 
   constructor(
     private http:HttpClient,
@@ -125,7 +127,10 @@ export class IdentifierPageComponent implements OnInit {
 
 
   }
-
+  applyFilter(event: Event) {
+    //const filterValue = (event.target as HTMLInputElement).value;
+    //this.weaknessesDataSource.filter = filterValue.trim().toLowerCase();
+  }
 
   fetchAllControls(): Observable<controls[]> {
     return this.controlsservice.fetchAll();

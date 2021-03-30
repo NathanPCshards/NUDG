@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <div id="policy" class="policy2 {{Pgrow ? 'Pgrow' :'Pgrow Pshrink'}}" >
+  <div id="policy" class="policy2" >
       <div class="row1">
 
         <div class="item2" style="flex: 1; ">
@@ -40,7 +40,7 @@
     
 
   <!--THIS IS THE STANDARDS LIST-->
-  <div id="standard3" class="standard4 {{Sgrow ? 'Sgrow' :'Sgrow Sshrink'}}">
+  <div id="standard3" class="standard4 ">
 
     <mat-list>
       <div class="flexContainer">
@@ -68,9 +68,10 @@
        <span style="position: absolute; right: 0;">
           <button mat-icon-button>
             <mat-icon
-              (click)="updateStandards(standard.id, userInput.value)"
+              
               color="primary"
             >
+            <!--(click)="updateStandards(standard.idStandards, userInput.value)"-->
               edit
             </mat-icon>
           </button>
@@ -95,13 +96,17 @@
   </div>
 
   <!--THIS IS THE WEAKNESSES LIST-->
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+  </mat-form-field>
   <div
   cdkDropList
-  id="weakness"
-  class="weakness2 {{Wgrow ? 'Wgrow' :'Wgrow Wshrink'}}"
+  id="weaknessDrop"
+  class="weakness2 "
 
-  [cdkDropListData]="weakness"
-  [cdkDropListConnectedTo]="[control]"
+  [cdkDropListData]="weaknessDrop"
+  [cdkDropListConnectedTo]="[controlDrop]"
   (cdkDropListDropped)="drop($event)"
   [cdkDropListEnterPredicate]="controlsToWeaknesses">
 
@@ -167,9 +172,10 @@
 
           <button mat-icon-button>
             <mat-icon
-              (click)="updateWeaknesses(weaknessElement.idOrgWeaknesses, userInput.value)"
+     
               color="primary"
             >
+            <!--         (click)="updateWeaknesses(weaknessElement.idOrgWeaknesses, userInput.value)"-->
               edit
             </mat-icon>
           </button>
@@ -192,11 +198,11 @@
 
     <!-- THIS IS THE CONTROLS LIST-->
     <div 
-    id="control" 
-    class="control2 {{Cgrow ? 'Cgrow' :'Cgrow Cshrink'}}"
+    id="controlDrop" 
+    class="control2"
     cdkDropList
-    [cdkDropListData]="control"
-    [cdkDropListConnectedTo]="[weakness]"
+    [cdkDropListData]="controlDrop"
+    [cdkDropListConnectedTo]="[weaknessDrop]"
     (cdkDropListDropped)="drop($event)"
     [cdkDropListEnterPredicate]="weaknessesToControls">
 
@@ -248,9 +254,10 @@
 
           <button mat-icon-button>
             <mat-icon
-              (click)="updateControls(controlElement.idOrgControls, userInput.value)"
               color="primary"
             >
+            <!--              (click)="updateControls(controlElement.idOrgControls, userInput.value)"
+-->
               edit
             </mat-icon>
           </button>

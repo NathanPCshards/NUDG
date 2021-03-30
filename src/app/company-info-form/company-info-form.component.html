@@ -11,8 +11,6 @@
          Open panel to add a Company
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <div [formGroup] ="companyInfoForm">
-        <form  class="inventory-form" (ngSubmit)="onFormSubmit()" novalidate>
     
         <div class="container1">
             <h2>
@@ -146,11 +144,10 @@
                     <button mat-raised-button (click) = "post(CIcompanyinformation.value, CIdescription.value, CIname.value, CIDBA.value, CIphone.value, CIwebsite.value, CIaddress.value, CIprimaryPoC.value, CISBAcertified.value, CIbusinessType.value, CItechnicalPOCinformation.value, CIDUNSnum.value, CIcagecode.value, CIcmmcAuditAgency.value, CIcmmcAuditorInfo.value, CIcmmcAuditDate.value, CIcmmcNISTauditAgency.value, CINISTauditorInfo.value, CINISTauditorDate.value, CInumber.value)"   style="margin-left: 30%;width:30vw;height: 4vh;" type ="Submit" color="primary"  >Submit</button>
                 </div>
             </div>
-        </form>
+       
         
 
         
-    </div>
     </mat-expansion-panel>
 
   </mat-accordion>

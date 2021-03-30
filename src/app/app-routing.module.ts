@@ -35,7 +35,7 @@ import { PolicyAccordionComponent } from './policy-accordion/policy-accordion.co
 
 const routes: Routes = [
   { path: 'Home', component: LoginFormComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full'},
+  { path: '', redirectTo: '/Home', pathMatch: 'full'},
   { path: 'Policies', component: PolicyBoardComponent },
   { path: 'Dashboard', component: DashboardComponent },
   { path: 'Users', component: UserFormComponent },
@@ -87,7 +87,7 @@ const routes: Routes = [
 
 
   { path: '404', component: NotfoundComponent},
-  //{ path: '**', redirectTo: '/404'},
+  { path: '**', redirectTo: '/404'},
   //disabled while testing
 
 ];
