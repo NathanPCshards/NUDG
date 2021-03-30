@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
+//@ts-ignore
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { milestones } from '../models/milestones';
 import { Observable } from 'rxjs';
@@ -18,7 +19,7 @@ export class MilestoneFormComponent implements OnInit {
   milestones$: Observable<milestones[]>;
   idOrgWeaknesses;
   clickEventsubscription;
-  
+  searchMilestones
   rowSelected = false;
   
     constructor(
@@ -52,7 +53,15 @@ export class MilestoneFormComponent implements OnInit {
 
 
   }
-  
+
+
+  public filterMilestone()
+  {
+    //by updating search, the html data binding updates and the filter is automatically applied.
+    this.searchMilestones = (<HTMLInputElement>document.getElementById("searchMilestones")).value.toLowerCase()
+  }
+
+
   ngOnInit(){
     this.milestones$ = this.fetchAll(this.idOrgWeaknesses);
 

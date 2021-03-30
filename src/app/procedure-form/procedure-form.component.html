@@ -26,11 +26,13 @@
             <span class="spanList dateCol">
               Completion Date 
             </span>
-  
+            <input class="searchBox" style="margin-left: 127px;" type="text" #searchprocedure id='searchprocedure' (keyup)="filterprocedure()" placeholder="search" />
+
           </mat-list-item>
       </div>
     
       <mat-list-item *ngFor="let procedure of procedures$ | async">
+        <div style="display: flex;" *ngIf="procedure.PProcedure.toLowerCase().indexOf(searchprocedure.value)!== -1 || procedure.Pstatus.toLowerCase().indexOf(searchprocedure.value)!== -1">
 
         <span class="listSpan idCol" style="font-weight: bold;"
           >{{ procedure.idOrgProcedure }}    
@@ -67,6 +69,7 @@
             </mat-icon>
           </button>
         </span> 
+        </div>
       </mat-list-item>
     </mat-list>
     
@@ -75,6 +78,6 @@
 
 </mat-dialog-content>
 
-<!-- Use div.milestones height to change table size on dialog popout-->
+<!-- Use div.procedures height to change table size on dialog popout-->
 
 

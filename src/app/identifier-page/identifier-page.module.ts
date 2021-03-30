@@ -7,6 +7,7 @@ import { SharedModule } from '../SharedModule.module';
 import { GuidelinesModule } from '../guidelines-page/guidelines.module';
 import { ControlModule } from '../control-form/control.module';
 import { PolicyAccordionModule } from '../policy-accordion/policy-accordion.module';
+
  
 
 @NgModule({
@@ -15,13 +16,14 @@ import { PolicyAccordionModule } from '../policy-accordion/policy-accordion.modu
     SharedModule,
     GuidelinesModule,
     PolicyAccordionModule,
-    ControlModule
+    ControlModule,
+
 
  
   ],
   declarations: [
     IdentifierPageComponent,
-    
+
 
 
 

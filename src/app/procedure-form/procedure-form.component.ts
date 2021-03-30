@@ -22,7 +22,8 @@ export class ProcedureFormComponent implements OnInit {
   procedures$: Observable<procedures[]>;
   idOrgControls;
   rowSelected = false;
-  
+  searchProcedures
+
     constructor(
       private http:HttpClient, 
       private formBuilder: FormBuilder,  
@@ -53,7 +54,12 @@ export class ProcedureFormComponent implements OnInit {
       });
 
     }
-
+    public filterprocedure()
+    {
+      //by updating search, the html data binding updates and the filter is automatically applied.
+      this.searchProcedures = (<HTMLInputElement>document.getElementById("searchprocedure")).value.toLowerCase()
+    }
+  
   ngOnInit(){
     console.log("orgcontrols : " , this.idOrgControls)
  

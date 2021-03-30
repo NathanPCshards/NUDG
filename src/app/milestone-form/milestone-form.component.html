@@ -25,12 +25,14 @@
           <span class="spanList nameCol">
             Completion Date 
           </span>
+          <input class="searchBox" style="margin-left: 127px;" type="text" #searchMilestone id='searchMilestone' (keyup)="filterMilestone()" placeholder="search" />
 
         </mat-list-item>
       </div>
-    
+  
       <mat-list-item *ngFor="let milestone of milestones$ | async">
-       
+        <div style="display: flex;" *ngIf="milestone.Milestones.toLowerCase().indexOf(searchMilestone.value)!== -1 || milestone.Mstatus.toLowerCase().indexOf(searchMilestone.value)!== -1">
+
         <span class="listSpan idCol" style="font-weight: bold;"
           >{{ milestone.idMilestones }}    </span
         >
@@ -53,11 +55,12 @@
             </mat-icon>
           </button>
         </span> 
+      </div>
       </mat-list-item>
     </mat-list>
    
-    
-</div>
+    </div>
+
 
 <mat-dialog-content class="dialog" >
 </mat-dialog-content>

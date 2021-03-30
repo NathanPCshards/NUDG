@@ -1,9 +1,9 @@
 export interface milestones {
 idMilestones :number;
 Milestones : string;
-Mstatus :number;
-MstatusDate : Date;
-McompletionDate : Date;
+Mstatus :string;
+MstatusDate : string;
+McompletionDate : string;
 Mchanges : string;
 idOrgWeaknesses: number;
 }

@@ -43,7 +43,7 @@ import { IdentifierPageModule } from './identifier-page/identifier-page.module';
 import { SharedModule } from './SharedModule.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PolicyAccordionModule } from './policy-accordion/policy-accordion.module';
-import { MatDialogRef } from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [
@@ -80,7 +80,7 @@ import { MatDialogRef } from '@angular/material/dialog';
     helpCenterForm,
     networkSharesPage,
     AdminPanelComponent,
-
+    
     
 
     
@@ -109,7 +109,8 @@ import { MatDialogRef } from '@angular/material/dialog';
  
 
   ],
-  exports : [],
+  exports : [    
+  ],
 
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent],

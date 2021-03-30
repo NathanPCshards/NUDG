@@ -96,15 +96,16 @@
   </div>
 
   <!--THIS IS THE WEAKNESSES LIST-->
-  <mat-form-field>
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
-  </mat-form-field>
+
+
+
+
+
+
   <div
   cdkDropList
   id="weaknessDrop"
-  class="weakness2 "
-
+  class="weakness2"
   [cdkDropListData]="weaknessDrop"
   [cdkDropListConnectedTo]="[controlDrop]"
   (cdkDropListDropped)="drop($event)"
@@ -129,64 +130,76 @@
           <span class="dateCol2">
             Completion Date
           </span>
+          <input class="searchBox" style="margin-left: 127px;" type="text" #searchWeaknesses id='searchWeaknesses' (keyup)="filterWeaknesses()" placeholder="search" />
+
         </mat-list-item>
+
+
       </div>
   
       <mat-list-item class="dragdropbox" cdkDrag [cdkDragData]="weaknessElement" *ngFor="let weaknessElement of weaknesses$ | async">
+          <!--The below ngIf is what applies the searchbar to the list-->
+        <div style="display: flex;" *ngIf="weaknessElement.Wname.toLowerCase().indexOf(searchWeaknesses.value)!== -1 || weaknessElement.Wstatus.toLowerCase().indexOf(searchWeaknesses.value)!== -1|| weaknessElement.Wdescription.toLowerCase().indexOf(searchWeaknesses.value)!== -1 ">
+            <span class="listSpan idCol" style="font-weight: bold;">
+              <a>
+                {{ weaknessElement.Nid }} 
+              </a>   
+            </span>
+          <span class="listSpan nameCol" style="font-weight: bold;" >
+            {{weaknessElement.Wname}}
+          </span>
     
-          <span class="listSpan idCol" style="font-weight: bold;"
-          >{{ weaknessElement.Nid }}    </span
-        >
-        <span class="listSpan nameCol" style="font-weight: bold;">
-          {{weaknessElement.Wname}}
-        </span>
+          <span class="listSpan descCol" style="font-weight: bold;">
+            {{weaknessElement.Wdescription}}
+          </span>
+    
+          <span class="listSpan dateCol" style="font-weight: bold;">
+            {{weaknessElement.Wstatus}}
+          </span>
   
-        <span class="listSpan descCol" style="font-weight: bold;">
-          {{weaknessElement.Wdescription}}
-        </span>
-  
-        <span class="listSpan dateCol" style="font-weight: bold;">
-          {{weaknessElement.Wstatus}}
-        </span>
-
-        <span class="listSpan dateCol2" style="font-weight: bold;">
-          {{weaknessElement.WcompletionDate | date:'M/d/yy,   h:mm a'}}
-        </span>
-
-
-
+          <span class="listSpan dateCol2" style="font-weight: bold;">
+            {{weaknessElement.WcompletionDate | date:'M/d/yy,   h:mm a'}}
+          </span>
   
   
-      <span style="position: absolute; right: 0;">
-        <button mat-icon-button>
-            <mat-icon
-            (click)="openMilestones(weaknessElement.idOrgWeaknesses)"
-            color="primary"
-            >
-            assignment
-          </mat-icon>
-        </button>
-
-
-
-
+  
+    
+    
+        <span style="position: absolute; right: 0;">
           <button mat-icon-button>
-            <mat-icon
-     
+              <mat-icon
+              (click)="openMilestones(weaknessElement.idOrgWeaknesses)"
               color="primary"
-            >
-            <!--         (click)="updateWeaknesses(weaknessElement.idOrgWeaknesses, userInput.value)"-->
-              edit
+              >
+              assignment
             </mat-icon>
           </button>
   
-      
-          <button mat-icon-button>
-            <mat-icon (click)="deleteWeaknesses(weaknessElement.idOrgWeaknesses)" color="warn">
-              delete
-            </mat-icon>
-          </button>
-        </span> 
+  
+  
+  
+            <button mat-icon-button>
+              <mat-icon
+       
+                color="primary"
+              >
+              <!--         (click)="updateWeaknesses(weaknessElement.idOrgWeaknesses, userInput.value)"-->
+                edit
+              </mat-icon>
+            </button>
+    
+        
+            <button mat-icon-button>
+              <mat-icon (click)="deleteWeaknesses(weaknessElement.idOrgWeaknesses)" color="warn">
+                delete
+              </mat-icon>
+            </button>
+          </span> 
+
+          </div>
+
+    
+         
        
          
       </mat-list-item>
@@ -221,21 +234,25 @@
           <span class="dateCol">
             Date
           </span>
+          <input class="searchBox" type="text" #searchControls id='searchControls' (keyup)="filterControls()" placeholder="search" />
+
         </mat-list-item>
+
       </div>
 
       <mat-list-item cdkDrag *ngFor="let controlElement of controls$ | async"  [cdkDragData]="controlElement">
+        <div style="display: flex;" *ngIf="controlElement.Cname.toLowerCase().indexOf(searchControls.value)!== -1 || controlElement.Coverview.toLowerCase().indexOf(searchControls.value)!== -1 ">
 
-        <span class="listSpan idCol" style="font-weight: bold;"
+        <span class=" idCol" style="font-weight: bold;"
           >{{ controlElement.Nid }}    </span
         >
-        <span class="listSpan nameCol" style="font-weight: bold;">
+        <span class=" nameCol" style="font-weight: bold;">
           {{controlElement.Cname}}
         </span>
-        <span class="listSpan descCol" style="font-weight: bold;">
+        <span class=" descCol" style="font-weight: bold;">
           {{controlElement.Coverview}}
         </span>
-        <span class="listSpan dateCol" style="font-weight: bold;">
+        <span class=" dateCol" style="font-weight: bold;">
           {{controlElement.Cissuedate}}
         </span>
 
@@ -269,6 +286,7 @@
             </mat-icon>
           </button>
         </span> 
+        </div>
       </mat-list-item>
     </mat-list>
 

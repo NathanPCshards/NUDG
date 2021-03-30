@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 import { controls } from '../models/controls';
 import { standards } from '../models/standards';
 import { weaknesses } from '../models/weaknesses';
@@ -14,6 +14,7 @@ import { WeaknessesService } from '../services/weaknesses.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { PolicyAccordionService } from '../services/policy-accordion.service';
 import { CdkDrag, CdkDragDrop } from '@angular/cdk/drag-drop';
+//@ts-ignore
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MilestoneFormComponent } from '../milestone-form/milestone-form.component';
 import { ProcedureFormComponent } from '../procedure-form/procedure-form.component';
@@ -51,6 +52,10 @@ export class IdentifierPageComponent implements OnInit {
   standards$: Observable<standards[]>;
   //Used for sorting
   weaknessesDataSource;
+  searchWeaknesses;
+  searchControls
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+
 
   constructor(
     private http:HttpClient,
@@ -74,15 +79,11 @@ export class IdentifierPageComponent implements OnInit {
        console.log("small")
        this.uncollapsed = true;
 
-      console.log(document.getElementById("control").className)
-      console.log(document.getElementById("standard3").className)
-
       document.getElementById('control').className = 'Cshrink'
       document.getElementById('standard3').className = 'Sshrink'
       document.getElementById('weakness').className = 'Wshrink'
       document.getElementById('policy').className = 'Pshrink'
-      console.log(document.getElementById("control").className)
-      console.log(document.getElementById("standard3").className)
+
 
       }
       if (data == "grow"){
@@ -110,6 +111,7 @@ export class IdentifierPageComponent implements OnInit {
     });
   
     //WEAKNESSES STUFF
+
     this.weaknesses$ = this.fetchAllWeaknesses();
     this.weaknessservice.onClick.subscribe(data =>{
       console.log("submit should have been clicked")
@@ -124,12 +126,21 @@ export class IdentifierPageComponent implements OnInit {
     //STANDARDS STUFF
     this.standards$ = this.fetchAllStandards();
 
+  }
 
+  ngAfterViewInit(){
 
   }
-  applyFilter(event: Event) {
-    //const filterValue = (event.target as HTMLInputElement).value;
-    //this.weaknessesDataSource.filter = filterValue.trim().toLowerCase();
+
+  public filterWeaknesses()
+  {
+    //by updating search, the html data binding updates and the filter is automatically applied.
+    this.searchWeaknesses = (<HTMLInputElement>document.getElementById("searchWeaknesses")).value.toLowerCase()
+  }
+  public filterControls()
+  {
+    //by updating search, the html data binding updates and the filter is automatically applied.
+    this.searchControls = (<HTMLInputElement>document.getElementById("searchControls")).value.toLowerCase()
   }
 
   fetchAllControls(): Observable<controls[]> {

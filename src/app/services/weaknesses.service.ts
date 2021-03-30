@@ -28,6 +28,8 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
     this.onClick.emit(temp);
   }
 
+ 
+
   //Get Requests
    fetchAll(): Observable<weaknesses[]> {
     return this.http

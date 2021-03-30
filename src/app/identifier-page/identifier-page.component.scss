@@ -120,7 +120,7 @@ div.item2{
 
   .mat-list > .mat-list-item{
     border: 1px solid black;
-    justify-content: center;
+    justify-content: left;
 
   }
 
@@ -131,7 +131,7 @@ div.item2{
 
   }
   .nameCol{
-    margin-left: 5%;
+    margin-left: 10px;
     width:150px;
     min-width: 150px;
     text-align: left;
@@ -141,21 +141,27 @@ div.item2{
     width:250px;
     min-width: 250px;
     text-align: left;
-    margin-left: 5%;
+    margin-left: 10px;
   }
   
   .dateCol{
     width:60px;
     min-width: 60px;
     text-align: left;
-    margin-left: 5%;
+    margin-left:  10px;
   }
 
   .dateCol2{
     width:200px;
     min-width: 200px;
     text-align: left;
-    margin-left: 5%;
+    margin-left:  10px
+  }
+  .searchBox{
+    width: 110px;
+    min-width: 110px;
+    margin-left: 35%;
+
   }
 
 
