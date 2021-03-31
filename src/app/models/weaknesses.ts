@@ -25,4 +25,5 @@ export interface weaknesses {
     WresourceReq : string;
     WsupportingDoc : string;
     Milestones : number;
+    idOrgControls : number;
  }

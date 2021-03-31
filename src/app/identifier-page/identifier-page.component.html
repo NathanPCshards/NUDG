@@ -1,4 +1,4 @@
-<div class="wrapper">
+<div class="wrapper" id="wrapper">
   <div id="policy" class="policy2" >
       <div class="row1">
 
@@ -116,7 +116,7 @@
       <div class="flexContainer">
         <mat-list-item class="headerRow">
           <span class="idCol">
-            Nudg ID
+            Weakness ID
           </span>
           <span class="nameCol">
             Name
@@ -130,20 +130,22 @@
           <span class="dateCol2">
             Completion Date
           </span>
-          <input class="searchBox" style="margin-left: 127px;" type="text" #searchWeaknesses id='searchWeaknesses' (keyup)="filterWeaknesses()" placeholder="search" />
+          <span class="dateCol3">
+            Cid
+          </span>
+          <input class="searchBox"  type="text" #searchWeaknesses id='searchWeaknesses' (keyup)="filterWeaknesses()" placeholder="search" />
 
         </mat-list-item>
 
 
       </div>
   
-      <mat-list-item class="dragdropbox" cdkDrag [cdkDragData]="weaknessElement" *ngFor="let weaknessElement of weaknesses$ | async">
+      <mat-list-item class="dragdropbox"  cdkDrag [cdkDragData]="weaknessElement" *ngFor="let weaknessElement of weaknesses$ | async">
           <!--The below ngIf is what applies the searchbar to the list-->
-        <div style="display: flex;" *ngIf="weaknessElement.Wname.toLowerCase().indexOf(searchWeaknesses.value)!== -1 || weaknessElement.Wstatus.toLowerCase().indexOf(searchWeaknesses.value)!== -1|| weaknessElement.Wdescription.toLowerCase().indexOf(searchWeaknesses.value)!== -1 ">
+        <div style="display: flex;" *ngIf="weaknessElement.Wname.toLowerCase().indexOf(searchWeaknesses.value)!== -1 || weaknessElement.Wstatus.toLowerCase().indexOf(searchWeaknesses.value)!== -1|| weaknessElement.Wdescription.toLowerCase().indexOf(searchWeaknesses.value)!== -1 "
+        ng-class="highlightToggle$ ? 'dragDropboxHighlight' : 'dragDropbox'">
             <span class="listSpan idCol" style="font-weight: bold;">
-              <a>
-                {{ weaknessElement.Nid }} 
-              </a>   
+              {{ weaknessElement.idOrgWeaknesses }} 
             </span>
           <span class="listSpan nameCol" style="font-weight: bold;" >
             {{weaknessElement.Wname}}
@@ -158,7 +160,11 @@
           </span>
   
           <span class="listSpan dateCol2" style="font-weight: bold;">
-            {{weaknessElement.WcompletionDate | date:'M/d/yy,   h:mm a'}}
+            {{weaknessElement.WcompletionDate | date:'M/d/yy'}}
+          </span>
+
+          <span class="listSpan dateCol3" style="font-weight: bold; ">
+            {{weaknessElement.idOrgControls}}
           </span>
   
   
@@ -214,6 +220,7 @@
     id="controlDrop" 
     class="control2"
     cdkDropList
+
     [cdkDropListData]="controlDrop"
     [cdkDropListConnectedTo]="[weaknessDrop]"
     (cdkDropListDropped)="drop($event)"
@@ -223,7 +230,7 @@
       <div class="flexContainer">
         <mat-list-item class="headerRow">
           <span class="idCol">
-            Nudg ID
+            Control ID
           </span>
           <span class="nameCol">
             Name
@@ -234,17 +241,27 @@
           <span class="dateCol">
             Date
           </span>
-          <input class="searchBox" type="text" #searchControls id='searchControls' (keyup)="filterControls()" placeholder="search" />
+          <span class="dateCol2" style="margin-left: 6.5%;">
+            Wid
+          </span>
+          <input class="searchBox" style="margin-left: 3px;" type="text" #searchControls id='searchControls' (keyup)="filterControls()" placeholder="search" />
 
         </mat-list-item>
 
       </div>
 
-      <mat-list-item cdkDrag *ngFor="let controlElement of controls$ | async"  [cdkDragData]="controlElement">
+      <mat-list-item 
+      id="controlDraggable"
+      cdkDrag 
+      *ngFor="let controlElement of controls$ | async"  
+ 
+      [cdkDragData]="controlElement"
+
+      >
         <div style="display: flex;" *ngIf="controlElement.Cname.toLowerCase().indexOf(searchControls.value)!== -1 || controlElement.Coverview.toLowerCase().indexOf(searchControls.value)!== -1 ">
 
         <span class=" idCol" style="font-weight: bold;"
-          >{{ controlElement.Nid }}    </span
+          >{{ controlElement.idOrgControls }}    </span
         >
         <span class=" nameCol" style="font-weight: bold;">
           {{controlElement.Cname}}
@@ -254,6 +271,9 @@
         </span>
         <span class=" dateCol" style="font-weight: bold;">
           {{controlElement.Cissuedate}}
+        </span>
+        <span class=" dateCol2" style="font-weight: bold; margin-left: 8%;">
+          {{controlElement.idOrgWeaknesses}}
         </span>
 
 

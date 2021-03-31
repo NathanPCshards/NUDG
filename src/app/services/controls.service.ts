@@ -26,9 +26,13 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
 
-   fetchAll(): Observable<controls[]> {
+   fetchAll(id: any): Observable<controls[]> {
+    let tempUrl;
+    id ? tempUrl = `http://localhost:3000/controls/${id}` : tempUrl = "http://localhost:3000/controls"
+    console.log("control url : ", tempUrl)
+
     return this.http
-      .get<controls[]>(this.url, { responseType: "json" })
+      .get<controls[]>(tempUrl, { responseType: "json" })
       .pipe(
         tap((_) => console.log("fetched controls")),
         catchError(

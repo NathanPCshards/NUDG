@@ -38,6 +38,8 @@ export class MilestoneFormComponent implements OnInit {
         height: '550px',
         minHeight: '550px',
         autoFocus : false,
+        disableClose: true, //theres an issue here when the dialog is closed and submit is not pressed. 
+
         data: {
           idOrgWeaknesses:this.idOrgWeaknesses
         },

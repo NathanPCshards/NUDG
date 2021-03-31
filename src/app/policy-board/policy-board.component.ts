@@ -55,9 +55,9 @@ export class PolicyBoardComponent implements OnInit {
   onRowClicked(row): void {
     console.log("Row clicked: ", row);
     this.rowSelected = true;
-    var configUrl = ["/" + row.Title];
+    var configUrl = ["Policy/" + row.Title];
     console.log(configUrl)
-     this.route.navigate(configUrl);
+     this.route.navigate(configUrl, {state: {Id: row.Title}});
 
 
 

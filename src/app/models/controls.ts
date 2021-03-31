@@ -8,4 +8,5 @@ export interface controls {
     Csharedresources : number;
     Curl : string;
     CProcedure : number;
+    idOrgWeaknesses: number;
  }

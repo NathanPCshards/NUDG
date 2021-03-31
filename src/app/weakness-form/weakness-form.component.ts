@@ -56,7 +56,6 @@ export class WeaknessFormComponent implements OnInit {
   
       data: {
               Nid:""
-
       }
 
     });
@@ -65,7 +64,7 @@ export class WeaknessFormComponent implements OnInit {
       console.log("result : " , result);
       this.weaknesses$ = this.weaknessservice
       .post(result)
-      .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));
+     // .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));
     });
 
 
@@ -76,17 +75,17 @@ export class WeaknessFormComponent implements OnInit {
 
 
   ngOnInit(){
-    this.weaknesses$ = this.fetchAll()
+  //  this.weaknesses$ = this.fetchAll()
 
   }
-  fetchAll(): Observable<weaknesses[]> {
+  /*fetchAll(): Observable<weaknesses[]> {
     return this.weaknessservice.fetchAll();
-  }
+  }*/
   
   delete(id: any): void {
     this.weaknesses$ = this.weaknessservice
       .delete(id)
-      .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));
+     // .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));
       
   }
 
@@ -170,9 +169,9 @@ try{
   }
 
 
-};
+};/*
 fetchAll(): Observable<weaknesses[]> {
   return this.weaknessservice.fetchAll();
-}
+}*/
 }   
 

@@ -33,7 +33,7 @@ httpOptions: { headers: HttpHeaders } = {
    fetchAll(id: any): Observable<milestones[]> {
     const url = `http://localhost:3000/milestones/${id}`;
 
-     console.log("Fetched url : ", url)
+     console.log("milestones url : ", url)
     return this.http
       .get<milestones[]>(url, { responseType: "json"})
       .pipe(

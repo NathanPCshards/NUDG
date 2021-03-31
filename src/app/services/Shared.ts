@@ -1,19 +1,19 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
-//private socketUrl = "http://localhost:4200"
-//private socket;
+onClick = new EventEmitter();
+
 messages: any[] = [];
 private subject = new Subject<any>();
 public filterSubject = new BehaviorSubject(0);   
     
   constructor(private http: HttpClient) { 
- //   this.socket = io(this.socketUrl);
+    
   }
 
 addMessage(message){
@@ -38,5 +38,9 @@ sendFilterEvent(event){
     this.filterSubject.next(event);
 }
 
+//Used for dialog closing
+emit(temp : any) {
+  this.onClick.emit(temp);
+}
 
 }

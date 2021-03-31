@@ -52,7 +52,8 @@ const routes: Routes = [
       component: IdentifierPageComponent,
       loadChildren: './identifier-page/identifier-page.routing.module#IdentifierPageRoutingModule',
  },
-  { path: 'AC-N.01', component: IdentifierPageComponent },
+  { path: 'Policy/:id', component: IdentifierPageComponent },
+
   { path: 'CUIcontracts', component: CuiContractsFormComponent },
   { path: 'Suppliers', component: SupplierFormComponent },
   { path: 'Vendors', component: VendorFormComponent },

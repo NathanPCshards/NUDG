@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 import { controls } from '../models/controls';
 import { standards } from '../models/standards';
 import { weaknesses } from '../models/weaknesses';
@@ -13,7 +13,7 @@ import { StandardsService } from '../services/standards.service';
 import { WeaknessesService } from '../services/weaknesses.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { PolicyAccordionService } from '../services/policy-accordion.service';
-import { CdkDrag, CdkDragDrop } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDragEnd } from '@angular/cdk/drag-drop';
 //@ts-ignore
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MilestoneFormComponent } from '../milestone-form/milestone-form.component';
@@ -37,9 +37,11 @@ for (let i = 0; i < 1; i++) {
   styleUrls: ['./identifier-page.component.scss']
 })
 export class IdentifierPageComponent implements OnInit {
+  //Drag and drop related
   controlDrop
   weaknessDrop;
   submitted = false;
+  highlightToggle$ = false;
   //accordion animation variables
   entries: any[]; 
   grow;
@@ -54,9 +56,12 @@ export class IdentifierPageComponent implements OnInit {
   weaknessesDataSource;
   searchWeaknesses;
   searchControls
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-
-
+  //Used to bring up correct policy when opening page
+  state$: Observable<object>;
+  routeSub
+  id
+ 
+  currentPolicy;
   constructor(
     private http:HttpClient,
     private formBuilder: FormBuilder,
@@ -66,13 +71,30 @@ export class IdentifierPageComponent implements OnInit {
     private weaknessservice: WeaknessesService,
     private controlsservice: ControlsService,
     private standardsservice: StandardsService,
-    public dialog : MatDialog
+    private activatedRoute : ActivatedRoute,
+    public dialog : MatDialog,
+    private sharedService : SharedService
     ) { }
 
   ngOnInit(){
+    //Pulling correct policy.
+    document.addEventListener('mousedown', e=>{
+        this.highlightToggle$ = true;
+        console.log("test")
+    })
+    document.addEventListener('mouseup', e=>{
+      this.highlightToggle$ = false;
+      console.log("test2")
+  })
+    this.routeSub = this.route.params.subscribe(params => {
+      this.id = params['id'];
+      });
+      console.log("id : " , this.id);
+
+
+    console.log("current policy : " , this.currentPolicy)
     //ACCORDION STUFF
     this.entries = accordionEntries
-
     this.service.onAccordionClick.subscribe(data =>{
       if (data == "shrink"){
 
@@ -100,26 +122,26 @@ export class IdentifierPageComponent implements OnInit {
 
     });
     //CONTROLS STUFF
-    this.controls$ = this.fetchAllControls();
+    this.controls$ = this.fetchAllControls(this.id);
     this.controlsservice.onClick.subscribe(data =>{
       console.log("submit should have been clicked")
       console.log("data : " , data)
       
       this.controls$ = this.controlsservice
       .post(data)
-      .pipe(tap(() => (this.controls$ = this.fetchAllControls())));
+      .pipe(tap(() => (this.controls$ = this.fetchAllControls(this.id))));
     });
   
     //WEAKNESSES STUFF
 
-    this.weaknesses$ = this.fetchAllWeaknesses();
+    this.weaknesses$ = this.fetchAllWeaknesses(this.id);
     this.weaknessservice.onClick.subscribe(data =>{
       console.log("submit should have been clicked")
       console.log("data : " , data)
       
       this.weaknesses$ = this.weaknessservice
       .post(data)
-      .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses())));
+      .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses(this.id))));
   
       
   });
@@ -143,26 +165,27 @@ export class IdentifierPageComponent implements OnInit {
     this.searchControls = (<HTMLInputElement>document.getElementById("searchControls")).value.toLowerCase()
   }
 
-  fetchAllControls(): Observable<controls[]> {
-    return this.controlsservice.fetchAll();
+  fetchAllControls(Nid:any): Observable<controls[]> {
+    console.log("Nid test : " , Nid)
+    return this.controlsservice.fetchAll(Nid);
   }
   updateControls(id: number, inventoryItem: Partial<controls>): void {
     //this.controls$ = this.controlsService
      // .update(newUsers)
     //  .pipe(tap(() => (this.controls$ = this.fetchAll())));
   }
-  deleteControls(id: any): void {
+  deleteControls( id: any): void {
     this.controls$ = this.controlsservice
       .delete(id)
-      .pipe(tap(() => (this.controls$ = this.fetchAllControls())));
+      .pipe(tap(() => (this.controls$ = this.fetchAllControls(this.id))));
       
   }
   
 
 
 
-  fetchAllWeaknesses(): Observable<weaknesses[]> {
-    return this.weaknessservice.fetchAll();
+  fetchAllWeaknesses(Nid: any): Observable<weaknesses[]> {
+    return this.weaknessservice.fetchAll(Nid);
   }
   updateWeaknesses(id: number, inventoryItem: Partial<weaknesses>): void {
   /*
@@ -173,7 +196,7 @@ export class IdentifierPageComponent implements OnInit {
   deleteWeaknesses(id: any): void {
     this.weaknesses$ = this.weaknessservice
       .delete(id)
-      .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses())));
+      .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses(this.id))));
       
   }
 
@@ -209,19 +232,18 @@ export class IdentifierPageComponent implements OnInit {
   drop(event: CdkDragDrop<string[]>) {
 
       let WcompletionDate = String(new Date());
-      let Wstatus = "Good"
+      let Wstatus = "good"
+      let idOrgControls = event.item.data.idOrgControls
       let Nid = event.item.data.Nid
+
+    if (event.distance.x < -300 && event.container.id == "controlDrop") {
       this.weaknesses$ = this.weaknessservice
-      .patch({WcompletionDate, Wstatus, Nid })
-      .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses())));
+      .patch({Nid, WcompletionDate, Wstatus, idOrgControls })
+      .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses(this.id))));
 
-
-    //double check on this
-    if (event.previousContainer === event.container) {
-      //if object does NOT change containers
     } else {
-      //if object changes containers
-      console.log(event.previousContainer.data)
+
+
     }
 
 

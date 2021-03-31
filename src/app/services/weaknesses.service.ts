@@ -31,9 +31,13 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
  
 
   //Get Requests
-   fetchAll(): Observable<weaknesses[]> {
+   fetchAll(id: any = null): Observable<weaknesses[]> {
+     let tempUrl;
+     id ? tempUrl = `http://localhost:3000/weaknesses/${id}`: tempUrl = "http://localhost:3000/weaknesses"
+     console.log("weaknesses url : ", tempUrl)
+
     return this.http
-      .get<weaknesses[]>(this.url, { responseType: "json" })
+      .get<weaknesses[]>(tempUrl, { responseType: "json" })
       .pipe(
         tap((_) => console.log("fetched weaknesses")),
         catchError(
@@ -73,10 +77,13 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
 
   //Patch Requests
   patch(item: any): Observable<any> {
+    let tempUrl;
+    tempUrl = `http://localhost:3000/weaknesses/${item.Nid}`
     console.log("patch weaknesses", item);
+    console.log("url : " , tempUrl)
 
     return this.http
-      .patch<weaknesses>(this.url, item, this.httpOptions)
+      .patch<weaknesses>(tempUrl, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("patch")));
   }
 

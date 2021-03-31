@@ -37,7 +37,7 @@ export class ControlFormComponent implements OnInit {
       console.log("result : " , result);
       this.controls$ = this.controlssservice
       .post(result)
-      .pipe(tap(() => (this.controls$ = this.fetchAll())));
+    // .pipe(tap(() => (this.controls$ = this.fetchAll())));
     });
 
   }
@@ -45,14 +45,15 @@ export class ControlFormComponent implements OnInit {
   ngOnInit(){
 
   }
+  /*
   fetchAll(): Observable<controls[]> {
     return this.controlssservice.fetchAll();
-  }
+  }*/
   
   delete(id: any): void {
     this.controls$ = this.controlssservice
       .delete(id)
-      .pipe(tap(() => (this.controls$ = this.fetchAll())));
+     // .pipe(tap(() => (this.controls$ = this.fetchAll())));
       
   }
 
@@ -80,7 +81,7 @@ constructor(
   ) { }
 
 ngOnInit(){
-  this.controls$ = this.fetchAll();
+//  this.controls$ = this.fetchAll();
 
 }
 
@@ -108,9 +109,11 @@ try{
 
 
 };
+
+/*
 fetchAll(): Observable<controls[]> {
   return this.controlsservice.fetchAll();
-}
+}*/
 
 
 
