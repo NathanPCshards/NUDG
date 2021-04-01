@@ -88,7 +88,7 @@ const routes: Routes = [
 
 
   { path: '404', component: NotfoundComponent},
-  { path: '**', redirectTo: '/404'},
+  //{ path: '**', redirectTo: '/404'},
   //disabled while testing
 
 ];
@@ -103,5 +103,8 @@ const routes: Routes = [
     RouterModule
   ]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule { 
+
+
+}
 

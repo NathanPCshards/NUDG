@@ -56,15 +56,18 @@ export class DashboardComponent implements OnInit {
 
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
-  constructor() { }
+  constructor(public policyService : PolicyService) { }
+  policyCount$: Observable<policy[]>;
+  policyImpCount$: Observable<policy[]>;
 
   displayedColumns1: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
 
   
-  ngOnInit() { 
-
-    
+  ngOnInit() {    
+     this.policyCount$ = this.getAllPolicies();
+     this.policyImpCount$ = this.getImplementedPolicies();
+     console.log("policy : " , this.policyCount$, "     , ", this.policyImpCount$)
   }
   onRowClicked(row): void {
     console.log("Row clicked: ", row);
@@ -73,6 +76,18 @@ export class DashboardComponent implements OnInit {
     console.log(configUrl)
    // this.router.navigate(configUrl.concat("/",row.Title))
   }
+
+
+
+  getAllPolicies(): Observable<policy[]> {
+    return this.policyService.getAll();
+  }
+  getImplementedPolicies(): Observable<policy[]> {
+    return this.policyService.patch();
+  }
+
+
+
 }
 
 
@@ -220,6 +235,8 @@ import {
   CalendarEventAction,
   CalendarEventTimesChangedEvent,
 } from 'angular-calendar';
+import { PolicyService } from '../services/policy.service';
+import { policy } from '../models/policy';
 
 
 

@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders} from "@angular/common/http";
 import { ErrorHandler, Injectable } from '@angular/core';
+import { AnyPtrRecord } from "node:dns";
 import { Observable } from "rxjs";
 import { catchError, publish, tap } from "rxjs/operators";
 import { standards } from "../models/standards";
@@ -19,9 +20,11 @@ httpOptions: { headers: HttpHeaders } = {
   constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient) {
    }
 
-   fetchAll(): Observable<standards[]> {
+   fetchAll(id: any): Observable<standards[]> {
+    let tempUrl;
+    id ? tempUrl = `http://localhost:3000/standards/${id}` : tempUrl = "http://localhost:3000/standards"
     return this.http
-      .get<standards[]>(this.url, { responseType: "json" })
+      .get<standards[]>(tempUrl, { responseType: "json" })
       .pipe(
         tap((_) => console.log("fetched standards")),
         catchError(

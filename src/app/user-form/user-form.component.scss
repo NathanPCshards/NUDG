@@ -3,23 +3,21 @@ div.container1{
     margin-top: 10px;
     margin-left:auto;
     margin-right: auto;
-    width:70%;
-    height: 50%;
-
+    width:65%;
+    height: 800%;
     box-shadow: 1px 1px 15px -1px ;
-    background: linear-gradient(to bottom, #212121 8%, white 0%);
+    background: linear-gradient(to bottom, #212121 1%, white 0%);
+    background-color: rgb(255, 255, 255);
+
     overflow: hidden;
-    border-radius: 3px;
-    
-    
-      
+    border-radius: 3px;   
   }
 
  
 mat-grid-tile{
     width: 98px;
-    
 }
+
 mat-form-field{
     margin-left: 1%;
     margin-top: 0px;
@@ -28,26 +26,13 @@ mat-form-field{
     
 }
 
-div.cards{
-   
+div.cards{   
     display: flexbox;
-     
-    
-    
-    
-    
-
 }
 
 .qs {
  margin-left: 3%;
-    
-    
-
 }
-
-
-
 
 .col{
     float:left;
@@ -60,11 +45,8 @@ div.cards{
     width:100%;    
     clear:both;
     display: flexbox;
-    
-    
-    
-    
 }
+
 .mat-divider {
     display: block;
     margin: 0;
@@ -72,27 +54,6 @@ div.cards{
     border-top-style: solid;
     margin-bottom: 15px;
  }
-
-//width for column objects is 70% for entire 'row'
-//35% to have 2 objects on 1 row
-//except radio buttons/cards, those are weird
-.mat-raised-button{
-    margin-bottom: 15px;
-    width: 10%;
-}
-.mat-header-cell{ 
-    background-color: #212121 ;
-    color: white;
-}
-.mat-checkbox-inner-container {
-    color: white;
-}
-.mat-checkbox {
-    color: white;
-}
-
-
-
 
 
 //CSS for LIST
@@ -105,6 +66,7 @@ div.cards{
 }
 .headerRow {
     position:relative;
+    background-color: white;
 }
 
 .mat-list >  .mat-list-item:nth-child(2n+1){
@@ -120,4 +82,44 @@ div.cards{
     border: 1px solid black;
     justify-content: center;
 
+  }
+
+  .idCol{
+    width:75px;
+    min-width: 75px;
+    text-align: left;
+
+  }
+  .nameCol{
+    margin-left: 10px;
+    width:150px;
+    min-width: 150px;
+    text-align: left;
+
+  }
+  .descCol{
+    width:250px;
+    min-width: 250px;
+    text-align: left;
+    margin-left: 10px;
+  }
+  
+  .dateCol{
+    width:60px;
+    min-width: 60px;
+    text-align: left;
+    margin-left:  10px;
+  }
+
+  .dateCol2{
+    width:200px;
+    min-width: 200px;
+    text-align: left;
+    margin-left:  10px
+  }
+  .dateCol3{
+    width:75px;
+    min-width: 75px;
+    text-align: left;
+    margin-left:  10px
   }

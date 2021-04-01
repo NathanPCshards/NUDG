@@ -3,24 +3,21 @@ div.container1{
     margin-top: 10px;
     margin-left:auto;
     margin-right: auto;
-    width:70%;
-    height: 50%;
-
+    width:65%;
+    height: 800%;
     box-shadow: 1px 1px 15px -1px ;
-    background: linear-gradient(to bottom, #212121 8%, white 0%);
-    overflow: hidden;
-    border-radius: 3px;
-    
-    
-      
-  }
+    background: linear-gradient(to bottom, #212121 1%, white 0%);
+    background-color: rgb(255, 255, 255);
 
+    overflow: hidden;
+    border-radius: 3px;   
+  }
 
  
 mat-grid-tile{
     width: 98px;
-    
 }
+
 mat-form-field{
     margin-left: 1%;
     margin-top: 0px;
@@ -29,33 +26,13 @@ mat-form-field{
     
 }
 
-mat-expansion-panel {
-    background-color: #b0bec5;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cg stroke='%23455a64' stroke-width='66.7' stroke-opacity='0.05' %3E%3Ccircle fill='%23b0bec5' cx='0' cy='0' r='1800'/%3E%3Ccircle fill='%23abbac1' cx='0' cy='0' r='1700'/%3E%3Ccircle fill='%23a6b6be' cx='0' cy='0' r='1600'/%3E%3Ccircle fill='%23a2b2ba' cx='0' cy='0' r='1500'/%3E%3Ccircle fill='%239daeb7' cx='0' cy='0' r='1400'/%3E%3Ccircle fill='%2398aab4' cx='0' cy='0' r='1300'/%3E%3Ccircle fill='%2393a7b0' cx='0' cy='0' r='1200'/%3E%3Ccircle fill='%238fa3ad' cx='0' cy='0' r='1100'/%3E%3Ccircle fill='%238a9fa9' cx='0' cy='0' r='1000'/%3E%3Ccircle fill='%23859ba6' cx='0' cy='0' r='900'/%3E%3Ccircle fill='%238197a2' cx='0' cy='0' r='800'/%3E%3Ccircle fill='%237c939f' cx='0' cy='0' r='700'/%3E%3Ccircle fill='%2377909c' cx='0' cy='0' r='600'/%3E%3Ccircle fill='%23738c98' cx='0' cy='0' r='500'/%3E%3Ccircle fill='%236e8895' cx='0' cy='0' r='400'/%3E%3Ccircle fill='%23698492' cx='0' cy='0' r='300'/%3E%3Ccircle fill='%2365818e' cx='0' cy='0' r='200'/%3E%3Ccircle fill='%23607d8b' cx='0' cy='0' r='100'/%3E%3C/g%3E%3C/svg%3E");
-    background-attachment: fixed;
-    background-size: cover;
-}
-
-div.cards{
-   
+div.cards{   
     display: flexbox;
-     
-    
-    
-    
-    
-
 }
 
 .qs {
  margin-left: 3%;
-    
-    
-
 }
-
-
-
 
 .col{
     float:left;
@@ -68,38 +45,15 @@ div.cards{
     width:100%;    
     clear:both;
     display: flexbox;
-    
-    
-    
-    
 }
+
 .mat-divider {
     display: block;
     margin: 0;
     border-top-width: 1px;
     border-top-style: solid;
     margin-bottom: 15px;
-    color: white;
  }
-
-//width for column objects is 70% for entire 'row'
-//35% to have 2 objects on 1 row
-//except radio buttons/cards, those are weird
-.mat-raised-button{
-    margin-bottom: 15px;
-    width: 10%;
-}
-.mat-header-cell{ 
-    background-color: #212121 ;
-    color: white;
-}
-.mat-checkbox-inner-container {
-    color: white;
-}
-.mat-checkbox {
-    color: white;
-}
-
 
 
 //CSS for LIST
@@ -112,6 +66,7 @@ div.cards{
 }
 .headerRow {
     position:relative;
+    background-color: white;
 }
 
 .mat-list >  .mat-list-item:nth-child(2n+1){
@@ -127,4 +82,44 @@ div.cards{
     border: 1px solid black;
     justify-content: center;
 
+  }
+
+  .idCol{
+    width:75px;
+    min-width: 75px;
+    text-align: left;
+
+  }
+  .nameCol{
+    margin-left: 10px;
+    width:150px;
+    min-width: 150px;
+    text-align: left;
+
+  }
+  .descCol{
+    width:250px;
+    min-width: 250px;
+    text-align: left;
+    margin-left: 10px;
+  }
+  
+  .dateCol{
+    width:60px;
+    min-width: 60px;
+    text-align: left;
+    margin-left:  10px;
+  }
+
+  .dateCol2{
+    width:200px;
+    min-width: 200px;
+    text-align: left;
+    margin-left:  10px
+  }
+  .dateCol3{
+    width:75px;
+    min-width: 75px;
+    text-align: left;
+    margin-left:  10px
   }

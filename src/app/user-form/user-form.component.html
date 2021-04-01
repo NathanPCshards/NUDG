@@ -173,13 +173,13 @@
 
     <mat-list-item *ngFor="let user of users$ | async">
       <div class="flexContainer">
-      <span class="listSpan" style="font-weight: bold;"
+      <span class="listSpan idCol" style="font-weight: bold;"
         >{{ user.Ufname }}    </span
       >
-      <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
+      <span class="listSpan nameCol" style="font-weight: bold; margin-left: 5%;">
         {{user.Ulname }}
       </span>
-      <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
+      <span class="listSpan descCol" style="font-weight: bold; margin-left: 5%;">
         {{user.idOrgUsers }}
       </span>
       </div>

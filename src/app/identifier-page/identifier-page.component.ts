@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup} from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
-import { filter, map, tap } from 'rxjs/operators';
+import { filter, map, tap, startWith } from 'rxjs/operators';
 import { controls } from '../models/controls';
 import { standards } from '../models/standards';
 import { weaknesses } from '../models/weaknesses';
@@ -18,7 +18,8 @@ import { CdkDrag, CdkDragDrop, CdkDragEnd } from '@angular/cdk/drag-drop';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MilestoneFormComponent } from '../milestone-form/milestone-form.component';
 import { ProcedureFormComponent } from '../procedure-form/procedure-form.component';
-import { MatTableDataSource } from '@angular/material/table';
+import { policy } from '../models/policy';
+import { PolicyService } from '../services/policy.service';
 
 //leave for now. The accordion needs these to function
 const obj = {
@@ -30,6 +31,17 @@ for (let i = 0; i < 1; i++) {
   accordionEntries.push(obj);
 }
 
+
+export interface Policy {
+  level: string;
+  names: string[];
+}
+
+export const _filter = (opt: string[], value: string): string[] => {
+  const filterValue = value.toLowerCase();
+
+  return opt.filter(item => item.toLowerCase().indexOf(filterValue) === 0);
+};
 
 @Component({
   selector: 'app-identifier-page',
@@ -52,6 +64,7 @@ export class IdentifierPageComponent implements OnInit {
   weaknesses$: Observable<weaknesses[]>;
   controls$: Observable<controls[]>;
   standards$: Observable<standards[]>;
+  policy$: Observable<policy[]>;
   //Used for sorting
   weaknessesDataSource;
   searchWeaknesses;
@@ -60,6 +73,35 @@ export class IdentifierPageComponent implements OnInit {
   state$: Observable<object>;
   routeSub
   id
+
+  //Used where the nudg id is shown on the page. Autocomplete info is pulled from below array
+  //You could likely do this by pulling from the database where cmmc level = ?, Which would be better
+  //if it changes frequently but this is much easier for now. - just note if a policy is added, it manually needs to be added here.
+  policyForm: FormGroup = this._formBuilder.group({
+    policyLevel: '',
+  });
+
+  policyLevels: Policy[] = [{
+    level: 'CMMC Level 1',
+    names: ['AC-N.01', 'AC-N.02', 'AC-N.03', 'AC-N.04', 'IA-N.01', 'IA-N.02', 'MP-N.01', 'PE-N.01', 'PE-N.02', 'PE-N.03', 'PE-N.04'
+  ,'SC-N.01', 'SC-N.02', 'SI-N.01', 'SI-N.02', 'SI-N.03', 'SI-N.04']
+  }, {
+    level: 'CMMC Level 2',
+    names: ['AC-N.05', 'AC-N.06', 'AC-N.07', 'AC-N.08', 'AC-N.09', 'AC-N.10', 'AC-N.11', 'AC-N.13', 'AC-N.15','AC-N.16', 'AT-N.01', 
+    'AT-N.02', 'AU-N.01', 'AU-N.02', 'AU-N.03', 'AU-N.04']
+  }, {
+    level: 'CMMC Level 3',
+    names: ['AC-N.12', 'AC-N.14', 'AC-N.17']
+  }, {
+    level: 'NIST CUI',
+    names: ['AC-N.01', 'AC-N.02', 'AC-N.03', 'AC-N.04','AC-N.05', 'AC-N.06', 'AC-N.07']
+  }, {
+    level: 'NIST NFO',
+    names: ['AC-N.23', 'AT-N.04']
+  }];
+
+  policyLevelOptions: Observable<Policy[]>;
+
  
   currentPolicy;
   constructor(
@@ -71,26 +113,30 @@ export class IdentifierPageComponent implements OnInit {
     private weaknessservice: WeaknessesService,
     private controlsservice: ControlsService,
     private standardsservice: StandardsService,
+    private policyService : PolicyService,
+
     private activatedRoute : ActivatedRoute,
     public dialog : MatDialog,
-    private sharedService : SharedService
+    private sharedService : SharedService,
+    private _formBuilder : FormBuilder,
     ) { }
 
   ngOnInit(){
+    this.policyLevelOptions = this.policyForm.get('policyLevel')!.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this._filterGroup(value))
+    );
     //Pulling correct policy.
-    document.addEventListener('mousedown', e=>{
-        this.highlightToggle$ = true;
-        console.log("test")
-    })
-    document.addEventListener('mouseup', e=>{
-      this.highlightToggle$ = false;
-      console.log("test2")
-  })
     this.routeSub = this.route.params.subscribe(params => {
       this.id = params['id'];
       });
-      console.log("id : " , this.id);
 
+    //Sets defualt page to be AC-N.01
+    this.id ? true : this.id = "AC-N.01"
+
+    //POLICY STUFF
+    this.policy$ = this.fetchPolicy(this.id);
 
     console.log("current policy : " , this.currentPolicy)
     //ACCORDION STUFF
@@ -124,21 +170,16 @@ export class IdentifierPageComponent implements OnInit {
     //CONTROLS STUFF
     this.controls$ = this.fetchAllControls(this.id);
     this.controlsservice.onClick.subscribe(data =>{
-      console.log("submit should have been clicked")
-      console.log("data : " , data)
-      
+
       this.controls$ = this.controlsservice
       .post(data)
       .pipe(tap(() => (this.controls$ = this.fetchAllControls(this.id))));
     });
   
     //WEAKNESSES STUFF
-
     this.weaknesses$ = this.fetchAllWeaknesses(this.id);
     this.weaknessservice.onClick.subscribe(data =>{
-      console.log("submit should have been clicked")
-      console.log("data : " , data)
-      
+
       this.weaknesses$ = this.weaknessservice
       .post(data)
       .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses(this.id))));
@@ -165,8 +206,13 @@ export class IdentifierPageComponent implements OnInit {
     this.searchControls = (<HTMLInputElement>document.getElementById("searchControls")).value.toLowerCase()
   }
 
+  fetchPolicy(id): Observable<policy[]> {
+
+    return this.policyService.fetchAll(id);
+  }
+
   fetchAllControls(Nid:any): Observable<controls[]> {
-    console.log("Nid test : " , Nid)
+
     return this.controlsservice.fetchAll(Nid);
   }
   updateControls(id: number, inventoryItem: Partial<controls>): void {
@@ -205,7 +251,7 @@ export class IdentifierPageComponent implements OnInit {
 
 
   fetchAllStandards(): Observable<standards[]> {
-    return this.standardsservice.fetchAll();
+    return this.standardsservice.fetchAll(this.id);
   }
   postStandards(standardEntry: Partial<standards>): void {
     const Standard = (<string>standardEntry).trim();
@@ -232,7 +278,7 @@ export class IdentifierPageComponent implements OnInit {
   drop(event: CdkDragDrop<string[]>) {
 
       let WcompletionDate = String(new Date());
-      let Wstatus = "good"
+      let Wstatus = "Good"
       let idOrgControls = event.item.data.idOrgControls
       let Nid = event.item.data.Nid
 
@@ -248,10 +294,6 @@ export class IdentifierPageComponent implements OnInit {
 
 
   }
-
-
-
-
 
 //must return true to call Drop().
   controlsToWeaknesses(item: CdkDrag<any>) {
@@ -297,17 +339,33 @@ export class IdentifierPageComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      console.log(result);//returns undefined
+     // console.log(result);//returns undefined
     });
 
 
   }
 
 
+  private _filterGroup(value: string): Policy[] {
+    if (value) {
+      return this.policyLevels
+        .map(group => ({level: group.level, names: _filter(group.names, value)}))
+        .filter(group => group.names.length > 0);
+    }
 
+    return this.policyLevels;
+  }
+
+  public policySearch(event: any, name : any)
+  {
+      //By routing to a random place, then back to the policy page we force the window to refresh and update data
+      //Otherwise it would route to Policy/AC-N.02 and still show AC-N.01's page.
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+      this.router.navigate(["Policy/",name]));
+    
+  }
 
 }
 
 
-
-
+  

@@ -1,35 +1,57 @@
 <div class="wrapper" id="wrapper">
-  <div id="policy" class="policy2" >
+  <div id="policy" class="policy2" *ngFor="let policy of policy$ | async">
       <div class="row1">
 
-        <div class="item2" style="flex: 1; ">
-          <p id="title" style="font-size: 28px;"> AC-N.01</p>
-        </div>
+
+        <form [formGroup]="policyForm">
+          <mat-form-field id="policySearch">
+            <mat-label>{{this.id}}</mat-label>
+            <input type="text"
+            
+                   matInput
+                   formControlName="policyLevel"
+                   required
+                   [matAutocomplete]="autoGroup">
+              <mat-autocomplete #autoGroup="matAutocomplete">
+                <mat-optgroup *ngFor="let group of policyLevelOptions | async" [label]="group.level">
+                  <mat-option *ngFor="let name of group.names" [value]="name" routerLink="/Policy/{{name}}" (click)="policySearch($event, name)" routerLinkActive="active">
+                    {{name}}
+                  </mat-option>
+              </mat-optgroup>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+        
 
         <div class="item2" style="flex: 1; ">
-          <p id="title" style="font-size: 20px;"> Subtitle</p>
+          <p id="title" style="font-size: 20px;"> {{policy.Subtitle}}</p>
         </div>    
 
         <div class="item2" style="flex: 1; ">
-          <p id="title" style="font-size: 20px;color: #06d6a0;">Status</p>
+          <p id="title" style="font-size: 20px;color: #06d6a0;">{{policy.Pstatus}}</p>
         </div>
       </div>
 
-      <mat-tab-group>
+      <mat-tab-group >
         <mat-tab label="CMMC Information" style="overflow: none;">
-          <p style="margin-top: 1%;" class="dditems">CMMC Number</p>
+          <p style="margin-top: 1%;" class="dditems">CMMC Number: {{policy.CMMCnumber}}</p>
           <br>
-          <p class="dditems">Capability Name</p>
+          <p class="dditems">Capability Name: {{policy.nudgid}}</p>
           <br>
-          <p class="dditems">Capability Number</p>
+          <p class="dditems">Capability Number: {{policy.Capabilitynumber}}</p>
           <br>
-          <p class="dditems">Practice</p>
+          <p class="dditems">Practice: {{policy.Practice}}</p>
           <br>
-          <p class="dditems">Clarification</p>
+          <p class="dditems">Clarification: {{policy.Clarification}}</p>
         </mat-tab>
 
-        <mat-tab label="NIST Information">NIST Information</mat-tab>
-        <mat-tab label="References">References</mat-tab>
+        <mat-tab label="NIST Information" style="overflow: none;">
+        <p style="margin-top: 1%;" class="dditems">NIST Mapping: {{policy.NISTmapping}}</p>
+        <br>
+        <p class="dditems">NIST Value: {{policy.NISTvalue}}</p>
+        <br>
+      </mat-tab>
+        <mat-tab label="References"> {{policy.References}}</mat-tab>
         <mat-tab label="Guidelines">
           <app-guidelines-page>
           </app-guidelines-page>
@@ -142,8 +164,7 @@
   
       <mat-list-item class="dragdropbox"  cdkDrag [cdkDragData]="weaknessElement" *ngFor="let weaknessElement of weaknesses$ | async">
           <!--The below ngIf is what applies the searchbar to the list-->
-        <div style="display: flex;" *ngIf="weaknessElement.Wname.toLowerCase().indexOf(searchWeaknesses.value)!== -1 || weaknessElement.Wstatus.toLowerCase().indexOf(searchWeaknesses.value)!== -1|| weaknessElement.Wdescription.toLowerCase().indexOf(searchWeaknesses.value)!== -1 "
-        ng-class="highlightToggle$ ? 'dragDropboxHighlight' : 'dragDropbox'">
+        <div style="display: flex;" *ngIf="weaknessElement.Wname.toLowerCase().indexOf(searchWeaknesses.value)!== -1 || weaknessElement.Wstatus.toLowerCase().indexOf(searchWeaknesses.value)!== -1|| weaknessElement.Wdescription.toLowerCase().indexOf(searchWeaknesses.value)!== -1 ">
             <span class="listSpan idCol" style="font-weight: bold;">
               {{ weaknessElement.idOrgWeaknesses }} 
             </span>
