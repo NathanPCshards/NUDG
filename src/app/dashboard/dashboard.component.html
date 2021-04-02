@@ -1,26 +1,26 @@
-<div class="dash"*ngFor="let polCount of policyCount$ | async" >
+<div class="dash" >
 
 
 
-<div class="bdyL" *ngFor="let polICount of policyImpCount$ | async">
+<div class="bdyL" >
   <h1 style="color:white;font-size: 24px;width: 100%;height: 20px;font-weight: bold;">General Statistics</h1>
   <div class="sc">
     <div class="sci" >
       <mat-list role="list" style="color: white;">
         <mat-list-item role="listitem" style="color: white;font-size: 18px;">Total Policies</mat-list-item> 
-        <p style="margin-left: 400px;font-size: 40px;">{{polCount}}</p>
+        <p style="margin-left: 400px;font-size: 40px;">{{totalPolicies$}}</p>
         <mat-divider></mat-divider>
       
         <mat-list-item role="listitem" style="color: white;font-size: 18px;">Total Implemented</mat-list-item>
-        <p style="margin-left: 400px;font-size: 40px;">300</p>
+        <p style="margin-left: 400px;font-size: 40px;">{{implemented$}}</p>
         <mat-divider></mat-divider>
 
         <mat-list-item role="listitem" style="color: white;font-size: 18px;">Total Inprogress</mat-list-item>
-        <p style="margin-left: 400px;font-size: 40px;">300</p>
+        <p style="margin-left: 400px;font-size: 40px;">{{notImplemented$}}</p>
         <mat-divider></mat-divider>
 
         <mat-list-item role="listitem" style="color: white;font-size: 18px;">Total Deficient</mat-list-item>
-        <p style="margin-left: 400px;font-size: 40px;">300</p>
+        <p style="margin-left: 400px;font-size: 40px;">{{deficient$}}</p>
         <mat-divider></mat-divider>
 
       </mat-list>

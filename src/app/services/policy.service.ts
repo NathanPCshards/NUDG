@@ -24,7 +24,7 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
 
  
 
-  //Get Requests
+  //Get single
    fetchAll(id: any = null): Observable<policy[]> {
      let tempUrl;
      id ? tempUrl = `http://localhost:3000/policy/${id}`: tempUrl = "http://localhost:3000/policy"
@@ -40,19 +40,54 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
       );
   }
 
-    //Get Requests
-    getAll(getImplementedOnly: any=false): Observable<policy[]> {
+    //Get Everything
+    getAll(): any{
      let tempUrl = `http://localhost:3000/policy`
  
      return this.http
-       .get<policy[]>(tempUrl, { responseType: "json" })
+       .get<number[]>(tempUrl, { responseType: "json" })
        .pipe(
          tap((_) => console.log("fetched all policies")),
          catchError(
-           this.errorHandlerService.handleError<policy[]>("fetchAll", [])
+           this.errorHandlerService.handleError<number[]>("fetchAll", [])
          )
        );
    }
+
+
+
+
+    //Get Families
+    getFamilies(): any{
+      let tempUrl = `http://localhost:3000/policy?FamilyPolicy=Access Control`
+      console.log("get families called")
+      return this.http
+        .get<any>(tempUrl, { responseType: "json" })
+        .pipe(
+          tap((_) => console.log("fetched all families")),
+          catchError(
+            this.errorHandlerService.handleError<any>("getFamilies", [])
+          )
+        );
+    }
+
+
+    //Get Everything
+    getPoliciesInFamily(family: any): any{
+      let tempUrl = `http://localhost:3000/policy?Family=${family}`
+      console.log("get families called")
+      return this.http
+        .get<any>(tempUrl, { responseType: "json" })
+        .pipe(
+          tap((_) => console.log("fetched all families")),
+          catchError(
+            this.errorHandlerService.handleError<any>("getFamilies", [])
+          )
+        );
+    }
+
+
+
 
     //We're not actually patching, this was the easiest way I could think of to do a conditional get request
     //It's going to function as a get request but the message type is a patch
@@ -60,11 +95,11 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
       let tempUrl = `http://localhost:3000/policy`
   
       return this.http
-        .get<number[]>(tempUrl, { responseType: "json" })
+        .patch<number[]>(tempUrl, { responseType: "json" })
         .pipe(
           tap((_) => console.log("patch/get implemented called")),
           catchError(
-            this.errorHandlerService.handleError<number[]>("fetchAll", [])
+            this.errorHandlerService.handleError<number[]>("patch", [])
           )
         );
     }

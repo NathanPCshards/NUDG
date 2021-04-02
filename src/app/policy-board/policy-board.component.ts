@@ -1,30 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Observable } from 'rxjs';
+import { policy } from '../models/policy';
+import { PolicyService } from '../services/policy.service';
 //delete this trash later
 export interface PeriodicElement {
   Subtitle: string;
   Title: string;
   Status: string;
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {Title: "AC-N.01", Subtitle: 'Account Management', Status: "Implemented"},
-  {Title: "AC-N.02", Subtitle: 'Access Enforcement', Status: "Implemented", },
-  {Title: "AC-N.03", Subtitle: 'Use of External Information Systems', Status: "Implemented"},
-  {Title: "AC-N.04", Subtitle: 'Publicly Accessible Content', Status: "Implemented"},
-  {Title: "AC-N.05", Subtitle: 'System Use Notification', Status: "Not Implemented"},
-  {Title: "AC-N.06", Subtitle: 'Account Management', Status: "Implemented"},
-  {Title: "AC-N.07", Subtitle: 'Access Enforcement', Status: "Implemented", },
-  {Title: "AC-N.08", Subtitle: 'Use of External Information Systems', Status: "Implemented"},
-  {Title: "AC-N.09", Subtitle: 'Publicly Accessible Content', Status: "Implemented"},
-  {Title: "AC-N.10", Subtitle: 'System Use Notification', Status: "Not Implemented"},
-  {Title: "AC-N.11", Subtitle: 'Account Management', Status: "Implemented"},
-  {Title: "AC-N.12", Subtitle: 'Access Enforcement', Status: "Implemented", },
-  {Title: "AC-N.13", Subtitle: 'Use of External Information Systems', Status: "Implemented"},
-  {Title: "AC-N.14", Subtitle: 'Publicly Accessible Content', Status: "Implemented"},
-  {Title: "AC-N.15", Subtitle: 'System Use Notification', Status: "Not Implemented"},
-];
-
 
 
 
@@ -36,32 +20,63 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class PolicyBoardComponent implements OnInit {
   panelOpenState = false;
-  displayedColumns: string[] = ['Title', 'Subtitle', 'Status'];
-  dataSource = ELEMENT_DATA;
-  rowSelected = false;
-  name: any;
 
+   familyDict$ = {};
+   families$: any[];
 
-  constructor(private route: Router) { 
+ 
+  constructor(
+    private route: Router,
+    private policyService : PolicyService
+    ) { 
     
   }
 
   ngOnInit() {
-    /* 
-    this.route.queryParams.subscribe(params => {
-      this.name = params['name'];
-    });*/
+    //Creates the list this.families$ that contains all unique family names
+    this.families$ = this.policyService.getFamilies().subscribe(e=>{
+      this.families$ = []
+      let i = 0
+      e.forEach(element => {
+        if (String(element.FamilyPolicy) != 'null'){
+          this.families$[i] = String(element.FamilyPolicy)
+          this.familyDict$[String(element.FamilyPolicy)] = []
+        }
+        i++;
+      });
+    })
+/*
+
+
+display entries in groups by family
+
+  -get all unique family names
+  -display those family names
+  -get entries w/ matching family name
+
+
+trying to make a dictionary here of [family name] = all elements
+
+
+    for (key of this.familyDict$) {
+      console.log(key, value);
+    }
+     let tempGroup = this.policyService.getPoliciesInFamily(key)
+     console.log("tempGroup : ", tempGroup)
+
+    }*/
+    
   }
+
+
   onRowClicked(row): void {
-    console.log("Row clicked: ", row);
-    this.rowSelected = true;
-    var configUrl = ["Policy/" + row.Title];
-    console.log(configUrl)
-     this.route.navigate(configUrl, {state: {Id: row.Title}});
 
-
-
-
+  }
+  getFamilies(){
+    return this.policyService.getFamilies();
+  }
+  getPoliciesInFamily(family: any){
+    return this.policyService.getPoliciesInFamily(family);
   }
 }
 
@@ -69,3 +84,12 @@ export class PolicyBoardComponent implements OnInit {
 // or implementing custom CDK data source
 // 
 //https://blog.angular-university.io/angular-material-data-table/
+
+
+
+
+
+
+
+
+
