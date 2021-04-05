@@ -68,3 +68,71 @@ table{
     position: relative;
     top: 1px;
 }
+
+
+
+//CSS for LIST
+.flexContainer{
+    display:flexbox;
+}
+.listSpan {
+    position:relative;
+    float:1;
+}
+.headerRow {
+    position:relative;
+    background-color: rgb(122, 149, 236);
+}
+
+.mat-list >  .mat-list-item:nth-child(2n+1){
+
+    background-color:white;
+  }
+  .mat-list >  .mat-list-item:nth-child(2n){
+
+    background-color:rgb(230, 228, 228);
+  }
+
+  .mat-list > .mat-list-item{
+    border: 1px solid black;
+    justify-content: center;
+
+  }
+  .idCol{
+    width:60px;
+    min-width: 60px;
+    text-align: left;
+
+  }
+  .nameCol{
+    width:300x;
+    min-width: 300px;
+    text-align: left;
+    margin-left: 5%;
+  }
+  .date1Col{
+    width:200px;
+    min-width: 200px;
+    text-align: left;
+    margin-left: 5%;
+  } 
+   .date2Col{
+    width:200px;
+    min-width: 200px;
+    text-align: left;
+    margin-left: 5%;
+  }
+  .numcol{
+    width:60px;
+    min-width: 60px;
+    text-align: left;
+    margin-left: 5%;
+
+  }
+  .numcol2{
+    width:60px;
+    min-width: 60px;
+    text-align: left;
+    margin-left: 5%;
+
+  }

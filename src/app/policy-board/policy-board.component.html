@@ -1,352 +1,78 @@
-<div>
-  <mat-list-item *ngFor="let family of families$">
-
-
-
-    <span class="listSpan idCol" style="color: white;">
-      {{family}}
-    </span>
-
-
-  </mat-list-item>
-
-</div>
-
-
-
-
-
-<!--
-
-  
-    <mat-expansion-panel (opened)="panelOpenState = true"
-                         (closed)="panelOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-title >
-          Access Control
-        </mat-panel-title>
+<div >
+  <mat-list-item *ngFor="let family of families$;let i=index; let policy of policiesByFamily$;">
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title >
+          {{families$[i]}}
+          </mat-panel-title>
         <mat-panel-description class="description">
-          13/13 Implemented
+          {{counts$[i][0]}}/{{counts$[i][1]}} Implemented
         </mat-panel-description>
 
 
-
-
-
-
-      </mat-expansion-panel-header>
-
-
-      <div id="standard3" class="standard4 ">
+        </mat-expansion-panel-header>
 
         <mat-list>
           <div class="flexContainer">
             <mat-list-item class="headerRow">
-              <span class="listSpan idCol">
-                NUDG ID
+              <span class="idCol">
+                Nid
               </span>
-
+              <span class="nameCol">
+                Subtitle
+              </span>
+              <span class="date1Col">
+                CMMC Number
+              </span>
+              <span class="date2Col">
+                Status
+              </span>
+              <span class="numcol">
+                NIST Mapping
+              </span>
+              <span class="numcol2">
+                CMMC Level
+              </span>
             </mat-list-item>
           </div>
-      
-          <mat-list-item *ngFor="let policy of policies$ | async">
-      
-              <span class="listSpan idCol">
-                {{ policy.nudgid }}    
-                </span>
-
-      
-      
-      
+        
+          <mat-list-item *ngFor="let p of policy" (click)="onRowClicked(row.innerHTML)">
+        
+            <span #row class="listSpan idCol">{{allPoliciesDict$[p].nudgid}}</span>
+            <span class="listSpan nameCol">
+              {{allPoliciesDict$[p].Subtitle}}
+            </span>
+            <span class="listSpan date1Col">
+              {{allPoliciesDict$[p].CMMCnumber}}
+            </span>
+            <span class="listSpan date2Col">
+              {{allPoliciesDict$[p].Pstatus}}
+            </span>
+            <span class="listSpan numcol">
+              {{allPoliciesDict$[p].NISTmapping}}
+            </span>
+            <span class="listSpan numcol2">
+              {{allPoliciesDict$[p].CMMClevel}}
+            </span>
+        
+        
+        
            <span style="position: absolute; right: 0;">
               <button mat-icon-button>
                 <mat-icon
-                  
+                 
                   color="primary"
                 >
-                (click)="updateStandards(standard.idStandards, userInput.value)"
-                edit
-              </mat-icon>
-            </button>
-    
+                  arrow_forward
+                </mat-icon>
+              </button>
         
-            <button mat-icon-button>
-              <mat-icon color="warn">
-                delete
-              </mat-icon>
-            </button>
-          </span> 
-        </mat-list-item>
-      </mat-list>
-    
-    </div>
   
+            </span> 
+          </mat-list-item>
+        </mat-list>
+        </mat-expansion-panel>
 
+    </mat-list-item>
+</div>
 
-    
-    
-    <mat-expansion-panel (opened)="panelOpenState = true"
-    (closed)="panelOpenState = false">
-     
-
-
-      </mat-expansion-panel>
-  </mat-expansion-panel>
-
-
-
-
-
-
-
-
-
-
-  <mat-expansion-panel (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Asset Management
-      </mat-panel-title>
-      <mat-panel-description class="description" override>
-        0/15 Implemented
-      </mat-panel-description>
-
-
-
-
-
-
-    </mat-expansion-panel-header>
-
-
-<p>
-table here too
-</p>
-    
-    <mat-expansion-panel (opened)="panelOpenState = true"
-    (closed)="panelOpenState = false">
-     
-
-
-      </mat-expansion-panel>
-  </mat-expansion-panel>
-
-
-
-
-
-  <mat-expansion-panel (opened)="panelOpenState = true"
-  (closed)="panelOpenState = false">
-<mat-expansion-panel-header>
-<mat-panel-title>
-Audit and Accountability
-</mat-panel-title>
-<mat-panel-description class="description">
-0/10 Implemented
-</mat-panel-description>
-</mat-expansion-panel-header>
-<p>I'm visible because I am open</p>
-</mat-expansion-panel>
-
-<mat-expansion-panel (opened)="panelOpenState = true"
-(closed)="panelOpenState = false">
-<mat-expansion-panel-header>
-<mat-panel-title>
-Awareness and Training
-</mat-panel-title>
-<mat-panel-description class="description">
-0/10 Implemented
-</mat-panel-description>
-</mat-expansion-panel-header>
-<p>I'm visible because I am open</p>
-</mat-expansion-panel>
-
-<mat-expansion-panel (opened)="panelOpenState = true"
-(closed)="panelOpenState = false">
-<mat-expansion-panel-header>
-<mat-panel-title>
-Configuration Management
-</mat-panel-title>
-<mat-panel-description class="description">
-0/10 Implemented
-</mat-panel-description>
-</mat-expansion-panel-header>
-<p>I'm visible because I am open</p>
-</mat-expansion-panel>
-
-<mat-expansion-panel (opened)="panelOpenState = true"
-(closed)="panelOpenState = false">
-<mat-expansion-panel-header>
-<mat-panel-title>
-Identification and Authentication
-</mat-panel-title>
-<mat-panel-description class="description">
-0/10 Implemented
-</mat-panel-description>
-</mat-expansion-panel-header>
-<p>I'm visible because I am open</p>
-</mat-expansion-panel>
-
-<mat-expansion-panel (opened)="panelOpenState = true"
-(closed)="panelOpenState = false">
-<mat-expansion-panel-header>
-<mat-panel-title>
-Incident Response
-</mat-panel-title>
-<mat-panel-description class="description">
-0/10 Implemented
-</mat-panel-description>
-</mat-expansion-panel-header>
-<p>I'm visible because I am open</p>
-</mat-expansion-panel>
-
-<mat-expansion-panel (opened)="panelOpenState = true"
-(closed)="panelOpenState = false">
-<mat-expansion-panel-header>
-<mat-panel-title>
-Maintenance
-</mat-panel-title>
-<mat-panel-description class="description">
-0/10 Implemented
-</mat-panel-description>
-</mat-expansion-panel-header>
-<p>I'm visible because I am open</p>
-</mat-expansion-panel>
-
-<mat-expansion-panel (opened)="panelOpenState = true"
-(closed)="panelOpenState = false">
-<mat-expansion-panel-header>
-<mat-panel-title>
-Media Protection
-</mat-panel-title>
-<mat-panel-description class="description">
-0/10 Implemented
-</mat-panel-description>
-</mat-expansion-panel-header>
-<p>I'm visible because I am open</p>
-</mat-expansion-panel>
-
-<mat-expansion-panel (opened)="panelOpenState = true"
-(closed)="panelOpenState = false">
-<mat-expansion-panel-header>
-<mat-panel-title>
-Personal Security 
-</mat-panel-title>
-<mat-panel-description class="description">
-0/10 Implemented
-</mat-panel-description>
-</mat-expansion-panel-header>
-<p>I'm visible because I am open</p>
-</mat-expansion-panel>
-
-<mat-expansion-panel (opened)="panelOpenState = true"
-(closed)="panelOpenState = false">
-<mat-expansion-panel-header>
-<mat-panel-title>
-Physical Protection
-</mat-panel-title>
-<mat-panel-description class="description">
-0/10 Implemented
-</mat-panel-description>
-</mat-expansion-panel-header>
-<p>I'm visible because I am open</p>
-</mat-expansion-panel>
-
-<mat-expansion-panel (opened)="panelOpenState = true"
-(closed)="panelOpenState = false">
-<mat-expansion-panel-header>
-<mat-panel-title>
-Recovery
-</mat-panel-title>
-<mat-panel-description class="description">
-0/10 Implemented
-</mat-panel-description>
-</mat-expansion-panel-header>
-<p>I'm visible because I am open</p>
-</mat-expansion-panel>
-
-<mat-expansion-panel (opened)="panelOpenState = true"
-(closed)="panelOpenState = false">
-<mat-expansion-panel-header>
-<mat-panel-title>
-Risk Management
-</mat-panel-title>
-<mat-panel-description class="description">
-0/10 Implemented
-</mat-panel-description>
-</mat-expansion-panel-header>
-<p>I'm visible because I am open</p>
-</mat-expansion-panel>
-
-<mat-expansion-panel (opened)="panelOpenState = true"
-(closed)="panelOpenState = false">
-<mat-expansion-panel-header>
-<mat-panel-title>
-Security Assessment
-</mat-panel-title>
-<mat-panel-description class="description">
-0/10 Implemented
-</mat-panel-description>
-</mat-expansion-panel-header>
-<p>I'm visible because I am open</p>
-</mat-expansion-panel>
-
-<mat-expansion-panel (opened)="panelOpenState = true"
-(closed)="panelOpenState = false">
-<mat-expansion-panel-header>
-<mat-panel-title>
-Situational Awareness
-</mat-panel-title>
-<mat-panel-description class="description">
-0/10 Implemented
-</mat-panel-description>
-</mat-expansion-panel-header>
-<p>I'm visible because I am open</p>
-</mat-expansion-panel>
-
-<mat-expansion-panel (opened)="panelOpenState = true"
-(closed)="panelOpenState = false">
-<mat-expansion-panel-header>
-<mat-panel-title>
-System and Communication
-</mat-panel-title>
-<mat-panel-description class="description">
-0/10 Implemented
-</mat-panel-description>
-</mat-expansion-panel-header>
-<p>I'm visible because I am open</p>
-</mat-expansion-panel>
-
-<mat-expansion-panel (opened)="panelOpenState = true"
-(closed)="panelOpenState = false">
-<mat-expansion-panel-header>
-<mat-panel-title>
-System Development
-</mat-panel-title>
-<mat-panel-description class="description">
-0/10 Implemented
-</mat-panel-description>
-</mat-expansion-panel-header>
-<p>I'm visible because I am open</p>
-</mat-expansion-panel>
-
-<mat-expansion-panel (opened)="panelOpenState = true"
-(closed)="panelOpenState = false">
-<mat-expansion-panel-header>
-<mat-panel-title>
-System and Information Integrity (SI)
-</mat-panel-title>
-<mat-panel-description class="description">
-0/10 Implemented
-</mat-panel-description>
-</mat-expansion-panel-header>
-<p>I'm visible because I am open</p>
-</mat-expansion-panel>
-
-
-
--->
-    
-    
-  

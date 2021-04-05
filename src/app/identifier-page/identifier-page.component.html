@@ -85,8 +85,6 @@
           {{standard.Standard}}
         </span>
   
-  
-  
        <span style="position: absolute; right: 0;">
           <button mat-icon-button>
             <mat-icon
@@ -118,11 +116,6 @@
   </div>
 
   <!--THIS IS THE WEAKNESSES LIST-->
-
-
-
-
-
 
   <div
   cdkDropList
@@ -164,8 +157,9 @@
   
       <mat-list-item class="dragdropbox"  cdkDrag [cdkDragData]="weaknessElement" *ngFor="let weaknessElement of weaknesses$ | async">
           <!--The below ngIf is what applies the searchbar to the list-->
-        <div style="display: flex;" *ngIf="weaknessElement.Wname.toLowerCase().indexOf(searchWeaknesses.value)!== -1 || weaknessElement.Wstatus.toLowerCase().indexOf(searchWeaknesses.value)!== -1|| weaknessElement.Wdescription.toLowerCase().indexOf(searchWeaknesses.value)!== -1 ">
-            <span class="listSpan idCol" style="font-weight: bold;">
+        <ng-container  *ngIf="weaknessElement.Wname.toLowerCase().indexOf(searchWeaknesses.value)!== -1 || weaknessElement.Wstatus.toLowerCase().indexOf(searchWeaknesses.value)!== -1|| weaknessElement.Wdescription.toLowerCase().indexOf(searchWeaknesses.value)!== -1 ">
+         
+          <span class="listSpan idCol" style="font-weight: bold;">
               {{ weaknessElement.idOrgWeaknesses }} 
             </span>
           <span class="listSpan nameCol" style="font-weight: bold;" >
@@ -188,11 +182,7 @@
             {{weaknessElement.idOrgControls}}
           </span>
   
-  
-  
-    
-    
-        <span style="position: absolute; right: 0;">
+        <span class="listSpan dateCol4">
           <button mat-icon-button>
               <mat-icon
               (click)="openMilestones(weaknessElement.idOrgWeaknesses)"
@@ -223,7 +213,7 @@
             </button>
           </span> 
 
-          </div>
+        </ng-container>
 
     
          
@@ -279,7 +269,7 @@
       [cdkDragData]="controlElement"
 
       >
-        <div style="display: flex;" *ngIf="controlElement.Cname.toLowerCase().indexOf(searchControls.value)!== -1 || controlElement.Coverview.toLowerCase().indexOf(searchControls.value)!== -1 ">
+        <ng-container style="display: flex;" *ngIf="controlElement.Cname.toLowerCase().indexOf(searchControls.value)!== -1 || controlElement.Coverview.toLowerCase().indexOf(searchControls.value)!== -1 ">
 
         <span class=" idCol" style="font-weight: bold;"
           >{{ controlElement.idOrgControls }}    </span
@@ -327,7 +317,7 @@
             </mat-icon>
           </button>
         </span> 
-        </div>
+      </ng-container>
       </mat-list-item>
     </mat-list>
 

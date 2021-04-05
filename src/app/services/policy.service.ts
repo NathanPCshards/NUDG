@@ -13,6 +13,7 @@ import { ErrorHandlerService } from "./error-handler.service";
 export class PolicyService {
 //url must match route in the app.use(...) in index.js
 private url = "http://localhost:3000/policy"
+onClick = new EventEmitter();
 
 
 httpOptions: { headers: HttpHeaders } = {
@@ -22,6 +23,9 @@ httpOptions: { headers: HttpHeaders } = {
 constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient) {
   }
 
+  emit(temp : any) {
+    this.onClick.emit(temp);
+  }
  
 
   //Get single
@@ -59,6 +63,7 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
 
     //Get Families
     getFamilies(): any{
+      //this pulls all families, despite looking like it only pulls access control
       let tempUrl = `http://localhost:3000/policy?FamilyPolicy=Access Control`
       console.log("get families called")
       return this.http
