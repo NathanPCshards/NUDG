@@ -51,8 +51,6 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 
 
-import { guidelinesDialog, GuidelinesForm } from './guidelines-page/guidelines-page.component';
-import { ControlFormComponent } from './control-form/control-form.component';
 
 @NgModule({
     declarations : [

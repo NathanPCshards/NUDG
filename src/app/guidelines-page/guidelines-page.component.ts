@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, ComponentRef, Directive, ElementRef, EventEmitter, inject, Inject, Injector, Input, OnInit, Output, Renderer2, ViewContainerRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { id } from 'date-fns/locale';
 
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -48,6 +49,12 @@ export class GuidelinesForm implements OnInit {
 
 
   public openGuideline(id, guideline) {
+
+      this.guidelinesService.openGuideline(id,guideline)
+
+
+
+    /*
     let dialogRef = this.dialog.open(guidelinesDialog, {
       width: '700px',
       height: '700px',
@@ -63,7 +70,7 @@ export class GuidelinesForm implements OnInit {
       console.log(result);//returns undefined
     });
 
-
+*/
   }
 }
   
@@ -76,16 +83,73 @@ export class GuidelinesForm implements OnInit {
   styleUrls: ['dialog.scss']
 })
 export class guidelinesDialog {
+  id$;
+  guideline$;
+  @Input() type: string ="tesssst"
+  @Output() output = new EventEmitter();
 
-  constructor(private dialogRef : MatDialogRef<guidelinesDialog>, @Inject(MAT_DIALOG_DATA) public data : any) { }
+  constructor(private guidelinesService : GuidelinesService) { 
+  
+    this.id$ 
+    this.guideline$ 
+  }
 
 ngOnInit(){
-
+  this.output.emit("Random emit")
 }
 
-closeDialog(){
-  this.dialogRef.close();
+closeDialog(id,guideline){
+  console.log("just testing close : " , id, guideline)
+  this.guidelinesService.closeGuideline(id,guideline)
+ // this.dialogRef.close();
 };
 
 
 }
+
+/*
+@Directive({
+  selector: '[tooltip]'
+})
+export class GuidelineDirective {
+  // We can pass string, template or component
+  @Input('tooltip') content : any;
+  
+  private componentRef : ComponentRef<guidelinesDialog>;
+
+  constructor( private element : ElementRef,
+               private renderer : Renderer2,
+               private injector: Injector,
+               private resolver : ComponentFactoryResolver,
+               private vcr : ViewContainerRef ) {
+  }
+
+}
+
+*/
+
+/*
+
+
+
+
+
+
+ if ( this.componentRef ) return;
+    const factory = this.resolver.resolveComponentFactory(TooltipComponent);
+    const injector = ReflectiveInjector.resolveAndCreate([
+      {
+        provide: 'tooltipConfig',
+        useValue: {
+          host: this.element.nativeElement
+        }
+      }
+    ]);
+    this.componentRef = this.vcr.createComponent(factory, 0, injector, this.generateNgContent());
+
+
+
+
+
+
+*/

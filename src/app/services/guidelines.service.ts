@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders} from "@angular/common/http";
-import { ErrorHandler, Injectable } from '@angular/core';
+import { ErrorHandler, EventEmitter, Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { catchError, publish, tap } from "rxjs/operators";
 import { guidelines } from "../models/guidelines";
@@ -12,12 +12,28 @@ import { ErrorHandlerService } from "./error-handler.service";
 export class GuidelinesService {
   //url must match route in the app.use(...) in index.js
   private url = "http://localhost:3000/guidelines"
+  onOpen = new EventEmitter();
+  onClose = new EventEmitter();
+  toComponent = new EventEmitter();
+
+  
   httpOptions: { headers: HttpHeaders } = {
     headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
   
     constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient) {
      }
+
+
+     openGuideline(id : any, guideline: any) {
+      let temp = [id,guideline]
+      this.onOpen.emit(temp);
+      this.toComponent.emit(temp)
+    }
+    closeGuideline(id : any, guideline: any) {
+      let temp = [id,guideline]
+     this.onClose.emit(temp);
+   }
   
      fetchAll(): Observable<guidelines[]> {
       return this.http

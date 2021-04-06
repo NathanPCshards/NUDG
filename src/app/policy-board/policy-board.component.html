@@ -1,4 +1,5 @@
 <div >
+
   <mat-list-item *ngFor="let family of families$;let i=index; let policy of policiesByFamily$;">
       <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
@@ -59,10 +60,7 @@
         
            <span style="position: absolute; right: 0;">
               <button mat-icon-button>
-                <mat-icon
-                 
-                  color="primary"
-                >
+                <mat-icon color="primary">
                   arrow_forward
                 </mat-icon>
               </button>

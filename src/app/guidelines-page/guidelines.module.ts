@@ -7,7 +7,6 @@ import { guidelinesDialog, GuidelinesForm } from './guidelines-page.component';
   declarations: [
       GuidelinesForm,
       guidelinesDialog
-
     
   ],
   imports: [
@@ -17,7 +16,9 @@ import { guidelinesDialog, GuidelinesForm } from './guidelines-page.component';
   ],
   exports : [      
     GuidelinesForm,
-    guidelinesDialog],
+    guidelinesDialog
+
+    ],
 
 })
 export class GuidelinesModule { }

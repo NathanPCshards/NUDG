@@ -23,7 +23,7 @@ import { PolicyAccordionModule } from '../policy-accordion/policy-accordion.modu
   ],
   declarations: [
     IdentifierPageComponent,
-
+    
 
 
 

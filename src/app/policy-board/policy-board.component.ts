@@ -75,7 +75,7 @@ export class PolicyBoardComponent implements OnInit {
       })
 
       //TODO This is sort of hardcoded. WILL NEED TO update as DB is added to
-      //But after everything is in it likely wont change (funny enough this syntax works)
+      //But after everything is in it likely wont change
       this.policiesByFamily$[0] = this.policyDict$['Access Control']                        .replaceAll("undefined,", "").split(',')
       this.policiesByFamily$[1] = this.policyDict$["Identification and Authentication (IA)"].replaceAll("undefined,", "").split(',')
       this.policiesByFamily$[2] = this.policyDict$["Media Protection"]                      .replaceAll("undefined,", "").split(',')

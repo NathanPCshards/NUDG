@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ComponentFactoryResolver, ViewContainerRef, ComponentRef, ComponentFactory } from '@angular/core';
 import { FormBuilder, FormGroup} from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
@@ -20,6 +20,9 @@ import { MilestoneFormComponent } from '../milestone-form/milestone-form.compone
 import { ProcedureFormComponent } from '../procedure-form/procedure-form.component';
 import { policy } from '../models/policy';
 import { PolicyService } from '../services/policy.service';
+import { GuidelinesService } from '../services/guidelines.service';
+import { guidelinesDialog } from '../guidelines-page/guidelines-page.component';
+
 
 //leave for now. The accordion needs these to function
 const obj = {
@@ -73,7 +76,8 @@ export class IdentifierPageComponent implements OnInit {
   state$: Observable<object>;
   routeSub
   id
-
+  //Guidelines 
+  guidelinesList = []
   //Used where the nudg id is shown on the page. Autocomplete info is pulled from below array
   //You could likely do this by pulling from the database where cmmc level = ?, Which would be better
   //if it changes frequently but this is much easier for now. - just note if a policy is added, it manually needs to be added here.
@@ -101,9 +105,13 @@ export class IdentifierPageComponent implements OnInit {
   }];
 
   policyLevelOptions: Observable<Policy[]>;
-
- 
   currentPolicy;
+
+  @ViewChild('guidelinesdialog', { read: ViewContainerRef }) formRef //First
+  //@ts-ignore
+  componentRef: ComponentRef;
+
+  
   constructor(
     private http:HttpClient,
     private formBuilder: FormBuilder,
@@ -114,11 +122,12 @@ export class IdentifierPageComponent implements OnInit {
     private controlsservice: ControlsService,
     private standardsservice: StandardsService,
     private policyService : PolicyService,
-
+    private guidelinesService: GuidelinesService,
     private activatedRoute : ActivatedRoute,
     public dialog : MatDialog,
     private sharedService : SharedService,
     private _formBuilder : FormBuilder,
+    private componentFactoryResolver:ComponentFactoryResolver,
     ) { }
 
   ngOnInit(){
@@ -188,6 +197,19 @@ export class IdentifierPageComponent implements OnInit {
   });
     //STANDARDS STUFF
     this.standards$ = this.fetchAllStandards();
+
+    //GUIDELINES STUFF
+    this.guidelinesService.onOpen.subscribe(e=>{
+      console.log("E(idpage): ", e)
+      let id = e[0]
+      let desc = e[1]
+      this.openGuideline(id,desc)
+    })
+    this.guidelinesService.onClose.subscribe(e=>{
+      let id = e[0]
+      let desc = e[1]
+      this.closeGuideline(id,desc)
+    })
 
   }
 
@@ -341,9 +363,36 @@ export class IdentifierPageComponent implements OnInit {
       console.log('The dialog was closed');
      // console.log(result);//returns undefined
     });
+  }
+
+  openGuideline(id, desc){
+    //@ts-ignore
+    const factory: ComponentFactory = this.componentFactoryResolver.resolveComponentFactory(guidelinesDialog);
+    const cRef = this.formRef.createComponent(factory)
+
+
+    console.log("object :")
+    this.guidelinesList.push(cRef)
+
+    this.componentRef.instance.output.subscribe(event => console.log("i doubt this prints", event));
 
 
   }
+  closeGuideline(id,desc){
+    const component = this.guidelinesList.find((component) => component.instance instanceof guidelinesDialog);
+    const componentIndex = this.guidelinesList.indexOf(component);
+    this.componentRef.instance.id = id;
+    this.componentRef.instance.desc = desc;
+
+    if (componentIndex !== -1) {
+      // Remove component from both view and array
+      //find a way to remove correct index 
+      //old way didnt work : this.formRef.indexOf(component)
+      this.formRef.remove(0);
+      this.guidelinesList.splice(componentIndex, 1);
+    }
+  }
+  
 
 
   private _filterGroup(value: string): Policy[] {
@@ -363,6 +412,9 @@ export class IdentifierPageComponent implements OnInit {
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
       this.router.navigate(["Policy/",name]));
     
+  }
+  ngOnDestroy() {
+    this.componentRef.destroy();    
   }
 
 }
