@@ -1,7 +1,7 @@
 <mat-accordion class ="accordion">   
-  <mat-expansion-panel (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false"
-                       >
+  <mat-expansion-panel 
+  (closed)="panelOpenState = false" 
+  (opened)="panelOpenState = true">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Add a User
@@ -11,18 +11,10 @@
       </mat-panel-description>
   
     </mat-expansion-panel-header>
-
-      <div [formGroup] ="UserForm" style="margin:0px;padding: 0px;"></div>
-          <form  class="user-form" novalidate>
-      
-      
       
               <h2 style="margin-left: 1%; margin-top: 1%; font-size: 32px;color: white;">
                   Users
               </h2>
-      
-      
-              
                   <div class = InputContainer>
                       <div class = "row">
                           <div class ="col">
@@ -149,7 +141,7 @@
                       <button mat-raised-button  (click)="post(Ufname.value, Ulname.value, Uempid.value, Uemptype.value, Ujobtitle.value, Ujobrole.value, Udepartment.value, Uhiredate.value, Ulogonhours.value, Uadditionalinfo.value, Udocumentupload.value, Uemail.value, Ubusinessphone.value, Ucellphone.value, Uaddress.value, Ucity.value, Ustate.value, Upostal.value, Ucountry.value, Ucompany.value, Uuserid.value, Ucuidata.value, Uremoteuser.value);"  style="margin-left: 15%;width:20vw;height: 5vh; float: left;" color="primary"  >Submit</button>
                   </div>
               </div>
-              </form>
+          
 
   </mat-expansion-panel>
 

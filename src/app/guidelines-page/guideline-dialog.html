@@ -1,22 +1,50 @@
-<ng-content>
-    
-</ng-content>
+<div>
 
-<div mat-dialog-title cdkDrag cdkDragRootElement=".cdk-overlay-pane" ngDraggable cdkDragHandle 
-    style=" width:300px;  height:300px;   background-color: rgb(118, 115, 124);  border: white; border-width: 2px;">
-    <div>
-        <span>
-            
+<div #box class="mainDiv" 
+mat-dialog-title 
+cdkDrag 
+cdkDragRootElement=".cdk-overlay-pane" 
+ngDraggable 
+cdkDragHandle 
+[style.width.px] ="width" 
+[style.height.px] = "height"
+[style.transform]="'translate3d(' + left + 'px,' + top + 'px,' + '0px)'"
+[class.active]="status === 1 || status === 2"
+(mousedown)="setStatus($event, 2)"
+(window:mouseup)="setStatus($event, 0)">
+    <div style="background-color: black;"> 
+        <span class="idCol id" style="color:white">
+           {{id$}} 
         </span>  
         <div class="buttons">
             <button mat-icon-button>
-                <mat-icon (click)="closeDialog(id$, guideline$)" color="warn">
+                <mat-icon (click)="closeDialog(id$, desc$)" color="warn">
                 close
                 </mat-icon>
             </button>
         </div>
     </div>
-    <div class="example-box">
-        {{guideline$}}
+
+
+    <div style="background-color: rgb(255, 255, 255); display: inline-block;" >
+        <span style="font-size: small; color:black">
+            NIST Special Publication 800-53 Revision 4
+
+PS-8 PERSONNEL SANCTIONS
+
+Control: The organization:
+
+      a.       Employs a formal sanctions process for individuals failing to comply with established information security policies and procedures; and
+
+      b.       Notifies [Assignment: organization-defined personnel or roles] within [Assignment: organization-defined time period] when a formal employee sanctions process is initiated, identifying the individual sanctioned and the reason for the sanction.
+
+Supplemental Guidance: Organizational sanctions processes reflect applicable federal laws, Executive Orders, directives, regulations, policies, standards, and guidance. Sanctions processes are described in access agreements and can be included as part of general personnel policies and procedures for organizations. Organizations consult with the Office of the General Counsel regarding matters of employee sanctions.
+
+Related controls: PL-4, PS-6.
+
+        </span>
     </div>
+
+    
+</div>
 </div>

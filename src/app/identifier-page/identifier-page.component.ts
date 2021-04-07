@@ -76,8 +76,14 @@ export class IdentifierPageComponent implements OnInit {
   state$: Observable<object>;
   routeSub
   id
+
   //Guidelines 
   guidelinesList = []
+  child_unique_key: number = 0;
+  componentsReferences = Array<ComponentRef<guidelinesDialog>>()
+  @ViewChild("guidelinesdialog", { read: ViewContainerRef })
+  VCR: ViewContainerRef;
+
   //Used where the nudg id is shown on the page. Autocomplete info is pulled from below array
   //You could likely do this by pulling from the database where cmmc level = ?, Which would be better
   //if it changes frequently but this is much easier for now. - just note if a policy is added, it manually needs to be added here.
@@ -107,7 +113,7 @@ export class IdentifierPageComponent implements OnInit {
   policyLevelOptions: Observable<Policy[]>;
   currentPolicy;
 
-  @ViewChild('guidelinesdialog', { read: ViewContainerRef }) formRef //First
+  
   //@ts-ignore
   componentRef: ComponentRef;
 
@@ -127,7 +133,7 @@ export class IdentifierPageComponent implements OnInit {
     public dialog : MatDialog,
     private sharedService : SharedService,
     private _formBuilder : FormBuilder,
-    private componentFactoryResolver:ComponentFactoryResolver,
+    private CFR:ComponentFactoryResolver,
     ) { }
 
   ngOnInit(){
@@ -200,15 +206,13 @@ export class IdentifierPageComponent implements OnInit {
 
     //GUIDELINES STUFF
     this.guidelinesService.onOpen.subscribe(e=>{
-      console.log("E(idpage): ", e)
-      let id = e[0]
-      let desc = e[1]
-      this.openGuideline(id,desc)
+
+      this.openGuideline(e[0],e[1])
     })
     this.guidelinesService.onClose.subscribe(e=>{
-      let id = e[0]
-      let desc = e[1]
-      this.closeGuideline(id,desc)
+      let key = e[0]
+      console.log("closeGuideline  Called")
+      this.closeGuideline(key)
     })
 
   }
@@ -301,12 +305,14 @@ export class IdentifierPageComponent implements OnInit {
 
       let WcompletionDate = String(new Date());
       let Wstatus = "Good"
-      let idOrgControls = event.item.data.idOrgControls
+      //getting the weakness ID from control entry
+      let idOrgWeaknesses = event.item.data.idOrgWeaknesses
+      console.log("weakness id : " , idOrgWeaknesses)
       let Nid = event.item.data.Nid
 
     if (event.distance.x < -300 && event.container.id == "controlDrop") {
       this.weaknesses$ = this.weaknessservice
-      .patch({Nid, WcompletionDate, Wstatus, idOrgControls })
+      .patch({Nid, WcompletionDate, Wstatus, idOrgWeaknesses })
       .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses(this.id))));
 
     } else {
@@ -366,32 +372,43 @@ export class IdentifierPageComponent implements OnInit {
   }
 
   openGuideline(id, desc){
-    //@ts-ignore
-    const factory: ComponentFactory = this.componentFactoryResolver.resolveComponentFactory(guidelinesDialog);
-    const cRef = this.formRef.createComponent(factory)
 
+    let componentFactory = this.CFR.resolveComponentFactory(guidelinesDialog);
+    let childComponentRef = this.VCR.createComponent(componentFactory);
+    let childComponent = childComponentRef.instance;
+    childComponentRef.instance.id$ = id;
+    childComponentRef.instance.desc$ = desc;
+    childComponent.unique_key = ++this.child_unique_key;
+    childComponent.parentRef = this;
 
-    console.log("object :")
-    this.guidelinesList.push(cRef)
+    // add reference for newly created component
+    this.componentsReferences.push(childComponentRef);
 
-    this.componentRef.instance.output.subscribe(event => console.log("i doubt this prints", event));
 
 
   }
-  closeGuideline(id,desc){
-    const component = this.guidelinesList.find((component) => component.instance instanceof guidelinesDialog);
-    const componentIndex = this.guidelinesList.indexOf(component);
-    this.componentRef.instance.id = id;
-    this.componentRef.instance.desc = desc;
+  closeGuideline(key:number){
+    if (this.VCR.length < 1) return;
 
-    if (componentIndex !== -1) {
-      // Remove component from both view and array
-      //find a way to remove correct index 
-      //old way didnt work : this.formRef.indexOf(component)
-      this.formRef.remove(0);
-      this.guidelinesList.splice(componentIndex, 1);
+    let componentRef = this.componentsReferences.filter(
+      x => x.instance.unique_key == key
+    )[0];
+
+    let vcrIndex: number = this.VCR.indexOf(componentRef as any);
+    console.log("componentRef : " , componentRef)
+    console.log("VCR: " , this.VCR)
+    console.log("vcrIndex : " , vcrIndex)
+    // removing component from container
+    //VCR.indexof cant find the right  component for some reason and always returns -1
+    //so instead im always removing the first element, (the list auto shrinks itself)
+    this.VCR.remove(0);
+
+    // removing component from the list
+    this.componentsReferences = this.componentsReferences.filter(
+      x => x.instance.unique_key !== key
+    );
     }
-  }
+  
   
 
 
@@ -413,9 +430,7 @@ export class IdentifierPageComponent implements OnInit {
       this.router.navigate(["Policy/",name]));
     
   }
-  ngOnDestroy() {
-    this.componentRef.destroy();    
-  }
+
 
 }
 

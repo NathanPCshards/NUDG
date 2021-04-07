@@ -30,10 +30,28 @@ button {
   
   
   [mat-dialog-title] {
-    margin: -24px -24px 0px -24px !important;
-    padding: 10px 24px;
+    padding: 10px;
     background: #369;
     color: #fff;
     cursor: move;
     text-align: center;
   }
+
+
+    .mainDiv{
+    //  width:300px;  
+    //  height:300px;
+      position: relative;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+      left: 100px;
+      top:100px;  
+      background-color: rgba(255, 166, 0);
+      border-radius: 10px;
+      display: inline-block;
+    }
+    .id{
+      color:black
+    }
+    .desc{
+      color:black;
+    }

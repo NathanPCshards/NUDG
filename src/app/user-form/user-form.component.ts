@@ -25,7 +25,7 @@ export class UserFormComponent implements OnInit {
   isLoadingResults = false;
   isRateLimitReached = false;
   UserForm;
-  panelOpenState =false;
+  panelOpenState = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
  
@@ -35,6 +35,8 @@ export class UserFormComponent implements OnInit {
  
   ngOnInit(){
     this.users$ = this.fetchAll();
+    this.panelOpenState = false;
+
   }
  
   fetchAll(): Observable<Users[]> {

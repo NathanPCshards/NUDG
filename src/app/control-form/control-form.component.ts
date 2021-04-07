@@ -67,7 +67,7 @@ export class ControlFormComponent implements OnInit {
 })
 export class controlDialog {
 controlForm;
-
+id$;
 controls$: Observable<controls[]>;
 
 position;
@@ -86,13 +86,14 @@ ngOnInit(){
 }
 
 
-closeDialog(Nid , Cname, Coverview, Cissuedate, WriCsharedresourcesskRating, Curl){
+closeDialog(Nid , Cname, Coverview, Cissuedate, WriCsharedresourcesskRating, Curl, idOrgWeaknesses){
   this.data.Nid = Nid;
   this.data.Cname = Cname;
   this.data.Coverview = Coverview;
   this.data.Cissuedate = Cissuedate;
   this.data.Csharedresources = WriCsharedresourcesskRating;
   this.data.Curl = Curl;
+  this.data.idOrgWeaknesses = idOrgWeaknesses
  
 
 try{

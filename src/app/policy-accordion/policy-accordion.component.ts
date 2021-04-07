@@ -21,7 +21,7 @@ for (let i = 0; i < 1; i++) {
 export class PolicyAccordionComponent implements OnInit {
   entries: any[];  
   constructor(private service: PolicyAccordionService ) { }
-
+  
   ngOnInit() {
     this.entries = accordionEntries
     this.service.onAccordionClick.subscribe(data =>{

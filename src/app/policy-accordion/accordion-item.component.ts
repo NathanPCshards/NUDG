@@ -32,6 +32,7 @@ export class AccordionItemComponent  {
   collapse = true;
   //grow = false;
   shrink = false;
+  id$;
   constructor(private service: PolicyAccordionService ) { }
 
   ngOnInit() {

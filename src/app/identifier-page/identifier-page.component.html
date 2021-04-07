@@ -1,11 +1,8 @@
-<div class="wrapper" id="wrapper">
 
-
-
-
-
+<div class="wrapper" id="wrapper" >
 
   <div id="policy" class="policy2" *ngFor="let policy of policy$ | async">
+    
       <div class="row1">
 
 
@@ -59,8 +56,9 @@
       </mat-tab>
         <mat-tab label="References"> {{policy.References}}</mat-tab>
         <mat-tab label="Guidelines">      
-          <app-guidelines-page>
+          <app-guidelines-page style="z-index: 99">
           </app-guidelines-page>
+
         </mat-tab>
 
       </mat-tab-group>
@@ -332,7 +330,4 @@
 </div>
 
 
-
-<button #guidelinesdialog (click)="openGuideline('test','test2')" style="position:absolute; z-index: 99; width:300px; height:300px">
-
-</button>
+  <ng-template #guidelinesdialog style="display: none; position: fixed; background-color: red;"></ng-template>
