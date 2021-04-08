@@ -1,5 +1,5 @@
 
-import { Component, Inject, OnInit, Optional, ViewChild } from '@angular/core';
+import { Component, Inject, Input, OnInit, Optional, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
@@ -67,11 +67,15 @@ export class ControlFormComponent implements OnInit {
 })
 export class controlDialog {
 controlForm;
-id$;
-controls$: Observable<controls[]>;
 
+controls$: Observable<controls[]>;
 position;
 procedure;
+
+@Input()
+
+//setting defualt ID
+public id$;
 
 constructor(
 
@@ -81,13 +85,14 @@ constructor(
   ) { }
 
 ngOnInit(){
+
 //  this.controls$ = this.fetchAll();
 
 }
 
 
 closeDialog(Nid , Cname, Coverview, Cissuedate, WriCsharedresourcesskRating, Curl, idOrgWeaknesses){
-  this.data.Nid = Nid;
+  this.data.Nid = this.id$
   this.data.Cname = Cname;
   this.data.Coverview = Coverview;
   this.data.Cissuedate = Cissuedate;
@@ -115,7 +120,10 @@ try{
 fetchAll(): Observable<controls[]> {
   return this.controlsservice.fetchAll();
 }*/
-
+getid$(): string { return this.id$; }
+setid$(id$: string) {
+  this.id$ = (id$);
+}
 
 
 }

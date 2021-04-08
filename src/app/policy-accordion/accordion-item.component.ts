@@ -15,10 +15,10 @@ import { PolicyAccordionService } from '../services/policy-accordion.service';
   'uncollapsed' : 
   'uncollapsed collapsed'}}">{{entry.description}}    
 
-  <weakness-dialog id="weakness" style="width:100%; position:absolute; visibility : hidden;">
+  <weakness-dialog [id$]="id$" id="weakness" style="width:100%; position:absolute; visibility : hidden;">
   </weakness-dialog>
 
-  <control-dialog id="control" style="position:absolute; width:100%;">
+  <control-dialog [id$]="id$" id="control" style="position:absolute; width:100%;">
   </control-dialog>
 
 
@@ -32,6 +32,7 @@ export class AccordionItemComponent  {
   collapse = true;
   //grow = false;
   shrink = false;
+  @Input() 
   id$;
   constructor(private service: PolicyAccordionService ) { }
 

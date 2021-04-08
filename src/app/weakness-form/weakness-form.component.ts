@@ -1,6 +1,6 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild , AfterViewInit, Inject, Optional} from '@angular/core';
+import { Component, OnInit, ViewChild , AfterViewInit, Inject, Optional, Input} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
@@ -102,7 +102,8 @@ export class WeaknessFormComponent implements OnInit {
 })
 export class weaknessDialog {
 weaknessForm;
-
+@Input()
+id$;
 submitted= false;
 weaknesses$: Observable<weaknesses[]>;
 
@@ -133,7 +134,7 @@ this.submitted = false;
 }
 
 closeDialog(Nid , Wname, WdetectionDate, WvendorDependency, WriskRating, WriskAdjustment, WadjustedRiskRating, WdetectionSource, WcompletionDate, WremediationPlan, WautoApprove, WoperationReq, Wstatus, WassetID, WlastChange, Wdescription, WlastvendorCheck, WdeviationRationale, WfalsePositive, WpointOfContact, WresourceReq, WsupportingDoc ){
-  this.data.Nid = Nid;
+  this.data.Nid = this.id$
   this.data.Wname = Wname;
   this.data.WdetectionDate = WdetectionDate;
   this.data.WvendorDependency = WvendorDependency;

@@ -149,7 +149,7 @@ export class IdentifierPageComponent implements OnInit {
 
     //Sets defualt page to be AC-N.01
     this.id ? true : this.id = "AC-N.01"
-
+    
     //POLICY STUFF
     this.policy$ = this.fetchPolicy(this.id);
 
@@ -253,12 +253,10 @@ export class IdentifierPageComponent implements OnInit {
       
   }
   
-
-
-
   fetchAllWeaknesses(Nid: any): Observable<weaknesses[]> {
     return this.weaknessservice.fetchAll(Nid);
   }
+
   updateWeaknesses(id: number, inventoryItem: Partial<weaknesses>): void {
   /*
     this.weaknesses$ = this.weaknessService
@@ -271,10 +269,6 @@ export class IdentifierPageComponent implements OnInit {
       .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses(this.id))));
       
   }
-
-
-
-
 
   fetchAllStandards(): Observable<standards[]> {
     return this.standardsservice.fetchAll(this.id);
@@ -293,13 +287,13 @@ export class IdentifierPageComponent implements OnInit {
       .update(newUsers)
       .pipe(tap(() => (this.standards$ = this.fetchAll())));*/
   }
+
   deleteStandards(id: any): void {
     this.standards$ = this.standardsservice
       .delete(id)
       .pipe(tap(() => (this.standards$ = this.fetchAllStandards())));
       
   }
-
 
   drop(event: CdkDragDrop<string[]>) {
 
@@ -334,8 +328,6 @@ export class IdentifierPageComponent implements OnInit {
    // this.dragdrop.emit(item.data)
     return true;
   }
-
-
 
   openMilestones(idOrgWeaknesses){
     let dialogRef = this.dialog.open(MilestoneFormComponent, {
@@ -387,6 +379,7 @@ export class IdentifierPageComponent implements OnInit {
 
 
   }
+
   closeGuideline(key:number){
     if (this.VCR.length < 1) return;
 
@@ -409,9 +402,6 @@ export class IdentifierPageComponent implements OnInit {
     );
     }
   
-  
-
-
   private _filterGroup(value: string): Policy[] {
     if (value) {
       return this.policyLevels
@@ -433,6 +423,3 @@ export class IdentifierPageComponent implements OnInit {
 
 
 }
-
-
-  
