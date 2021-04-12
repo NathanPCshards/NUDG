@@ -37,6 +37,8 @@ const routes: Routes = [
   { path: 'Home', component: LoginFormComponent },
   { path: '', redirectTo: '/Home', pathMatch: 'full'},
   { path: 'Policies', component: PolicyBoardComponent },
+  { path: 'Policies/:type', component: PolicyBoardComponent },
+
   { path: 'Dashboard', component: DashboardComponent },
   { path: 'Users', component: UserFormComponent },
   { path: 'Inventory', component: InventoryFormComponent },
@@ -45,14 +47,10 @@ const routes: Routes = [
   { path: 'GroupsPage', component: GroupFormComponent },
   { path: 'AdminPanel', component: AdminPanelComponent },
   { path: 'Accordion', component: PolicyAccordionComponent },
-
-
-  {
-      path: 'Policy', 
-      component: IdentifierPageComponent,
-      loadChildren: './identifier-page/identifier-page.routing.module#IdentifierPageRoutingModule',
- },
+  { path: 'Policy', component: IdentifierPageComponent},
   { path: 'Policy/:id', component: IdentifierPageComponent },
+
+
 
   { path: 'CUIcontracts', component: CuiContractsFormComponent },
   { path: 'Suppliers', component: SupplierFormComponent },

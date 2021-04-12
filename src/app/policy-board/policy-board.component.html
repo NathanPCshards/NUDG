@@ -1,6 +1,6 @@
 <div >
 
-  <mat-list-item *ngFor="let family of families$;let i=index; let policy of policiesByFamily$;">
+  <mat-list-item *ngFor="let family of families$;let i=index; let policy of toDisplay$;">
       <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
           <mat-panel-title >

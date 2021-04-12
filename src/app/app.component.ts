@@ -16,8 +16,24 @@ export class AppComponent implements OnInit {
     this.router.navigateByUrl('/Roles')
     
   }
-  rtpol= function ()  {
-    this.router.navigateByUrl('/Policies')
+  rtpol= function (famType)  {
+    if (famType == "all"){
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+      this.router.navigateByUrl('/Policies'))
+
+
+    }
+    if (famType == "nist"){
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+      this.router.navigateByUrl('/Policies/Nist'))
+
+
+    }
+    if (famType == "cmmc"){
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+      this.router.navigateByUrl('/Policies/CMMC'))
+
+    }
     
   }
   rtusers= function ()  {

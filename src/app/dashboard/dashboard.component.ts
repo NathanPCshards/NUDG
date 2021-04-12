@@ -67,27 +67,29 @@ export class DashboardComponent implements OnInit {
   notImplemented$ = 0;
   deficient$ = 0;
   totalPolicies$ = 0;
-  ///may need to change the regex depending on the format data is entered in
-  regex = new RegExp('Implemented','gi')
-  regex2 = new RegExp('Not Implemented', 'gi')
+
   ngOnInit() {    
     //pulling every policy, checking its status and counting it
      this.policyCount$ = this.policyService.getAll().subscribe(e=>{
-      for(let i=0; i<e.length; i++) {
-       let element = e[i]
-       let test = this.regex.test(element.Pstatus)
-       let test2 = this.regex2.test(element.Pstatus)
-          if (test){
-            this.notImplemented$ += 1;
-          }
-          if (test2) {
-            this.implemented$ += 1;
-          }
-          if (!test && !test2){
-            this.deficient$ +=1;
-          }
-      };
-     this.totalPolicies$ = this.notImplemented$ + this.implemented$ + this.deficient$
+      let allPoliciesDict = []
+      e.forEach(element => {
+        allPoliciesDict.push(element) 
+   });
+
+   
+    allPoliciesDict.forEach(element => {
+      this.totalPolicies$ += 1
+      if (String(element.Pstatus)=="Implemented"){
+        this.implemented$ += 1
+      }
+      if (String(element.Pstatus)=="In Progress"){
+        this.notImplemented$ += 1
+      }
+      if (String(element.Pstatus)=="Deficient"){
+        this.deficient$ += 1
+      }
+    });
+
      });
 
   }
