@@ -67,6 +67,8 @@ export class DashboardComponent implements OnInit {
   notImplemented$ = 0;
   deficient$ = 0;
   totalPolicies$ = 0;
+  totalPossiblePoints$ = 0;
+  currentPoints$ = 0;
 
   ngOnInit() {    
     //pulling every policy, checking its status and counting it
@@ -79,8 +81,14 @@ export class DashboardComponent implements OnInit {
    
     allPoliciesDict.forEach(element => {
       this.totalPolicies$ += 1
+      if (element.NISTvalue){
+          this.totalPossiblePoints$ += element.NISTvalue
+      }    
       if (String(element.Pstatus)=="Implemented"){
         this.implemented$ += 1
+        if (element.NISTvalue){
+          this.currentPoints$ += element.NISTvalue
+      } 
       }
       if (String(element.Pstatus)=="In Progress"){
         this.notImplemented$ += 1

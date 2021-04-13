@@ -1,59 +1,63 @@
 <div >
 
-  <mat-list-item *ngFor="let family of families$;let i=index; let policy of toDisplay$;">
+  <mat-list-item *ngFor="let entry of masterList$;let i=index;">
       <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
-          <mat-panel-title >
-          {{families$[i]}}
+          <mat-panel-title #familyName>
+          {{entry[0]}}
           </mat-panel-title>
         <mat-panel-description class="description">
-          {{counts$[i][0]}}/{{counts$[i][1]}} Implemented
+          {{entry[2][0]}}/{{entry[2][1]}} Implemented
         </mat-panel-description>
-
+        <mat-panel-description class="description">
+          {{entry[2][2]}}/{{entry[2][3]}} Score
+        </mat-panel-description>
 
         </mat-expansion-panel-header>
 
         <mat-list>
           <div class="flexContainer">
             <mat-list-item class="headerRow">
-              <span class="idCol">
+              <span class="idCol" (click)="sort(familyName.innerHTML, 'ByID')">
                 Nid
               </span>
-              <span class="nameCol">
+              <span class="nameCol" (click)="sort(familyName.innerHTML,'BySubtitle')">
                 Subtitle
               </span>
-              <span class="date1Col">
+              <span class="date1Col" (click)="sort(familyName.innerHTML,'ByCMMC')">
                 CMMC Number
               </span>
-              <span class="date2Col">
+              <span class="date2Col" (click)="sort(familyName.innerHTML,'ByStatus')">
                 Status
               </span>
-              <span class="numcol">
+              <span class="numcol" (click)="sort(familyName.innerHTML,'ByNIST')">
                 NIST Mapping
               </span>
-              <span class="numcol2">
+              <span class="numcol2" (click)="sort(familyName.innerHTML,'ByLevel')">
                 CMMC Level
               </span>
             </mat-list-item>
           </div>
         
-          <mat-list-item *ngFor="let p of policy" (click)="onRowClicked(row.innerHTML)">
+          <mat-list-item *ngFor="let p of entry[1]" (click)="onRowClicked(row.innerHTML)">
         
-            <span #row class="listSpan idCol">{{allPoliciesDict$[p].nudgid}}</span>
+            <span #row class="listSpan idCol">
+              {{p[0]}}
+            </span>
             <span class="listSpan nameCol">
-              {{allPoliciesDict$[p].Subtitle}}
+              {{p[1]}}
             </span>
             <span class="listSpan date1Col">
-              {{allPoliciesDict$[p].CMMCnumber}}
+              {{p[2]}}
             </span>
             <span class="listSpan date2Col">
-              {{allPoliciesDict$[p].Pstatus}}
+              {{p[3]}}
             </span>
             <span class="listSpan numcol">
-              {{allPoliciesDict$[p].NISTmapping}}
+              {{p[4]}}
             </span>
             <span class="listSpan numcol2">
-              {{allPoliciesDict$[p].CMMClevel}}
+              {{p[5]}}
             </span>
         
         
@@ -69,6 +73,7 @@
             </span> 
           </mat-list-item>
         </mat-list>
+        
         </mat-expansion-panel>
 
     </mat-list-item>

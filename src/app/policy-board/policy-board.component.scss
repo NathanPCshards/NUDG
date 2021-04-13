@@ -25,13 +25,6 @@ table{
 }
 
 
-.description{
-    display: flex;
-    flex-grow: 0;
-    justify-content: flex-end;
-    margin-left: 25%;
-   
-}
 .mat-panel-title{
     width:30px;
 }
@@ -99,8 +92,8 @@ table{
 
   }
   .idCol{
-    width:60px;
-    min-width: 60px;
+    width:100px;
+    min-width: 100px;
     text-align: left;
 
   }
@@ -135,4 +128,12 @@ table{
     text-align: left;
     margin-left: 5%;
 
+  }
+  .description{
+      display: flex;
+      flex-grow: 0;
+      justify-content: flex-end;
+      margin-left: 10%;
+      width:300px;
+      min-width: 300px;
   }

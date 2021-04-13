@@ -18,7 +18,8 @@ export class PolicyBoardComponent implements OnInit {
    policiesByFamily$: any[];
    policiesByFamilyCMMC$: any[];
    policiesByFamilyNist$: any[];
-   toDisplay$;
+   masterList$;
+
 
    temp$;
    allPoliciesDict$;
@@ -51,13 +52,6 @@ export class PolicyBoardComponent implements OnInit {
         }
         i++;
       });
-
-      //Manually adding this to the families though technically they are not families
-   /*   this.families$[i] = "CMMC Level 1"
-      i++;
-      this.families$[i] = "CMMC Level 2"
-      i++;
-      this.families$[i] = "CMMC Level 3"*/
     })
 
     //Getting all policies and grouping by Family.
@@ -95,20 +89,25 @@ export class PolicyBoardComponent implements OnInit {
 
       //TODO This is sort of hardcoded. WILL NEED TO update as DB is added to
       //But after everything is in it likely wont change
-      this.policiesByFamily$[0] = this.policyDict$['Access Control']                        .replaceAll("undefined,", "").split(',')
+      this.policiesByFamily$[0] = this.policyDict$['Access Control (AC)']                  .replaceAll("undefined,", "").split(',')
       this.policiesByFamily$[1] = this.policyDict$["Identification and Authentication (IA)"].replaceAll("undefined,", "").split(',')
-      this.policiesByFamily$[2] = this.policyDict$["Media Protection"]                      .replaceAll("undefined,", "").split(',')
-      this.policiesByFamily$[3] = this.policyDict$["Physical Protection"]                   .replaceAll("undefined,", "").split(',')
-      this.policiesByFamily$[4] = this.policyDict$["System and Communication Protection"]   .replaceAll("undefined,", "").split(',')
-      this.policiesByFamily$[5] = this.policyDict$["System and Information Integrity"]      .replaceAll("undefined,", "").split(',')
-      this.policiesByFamily$[6] = this.policyDict$["Maintenance"]                           .replaceAll("undefined,", "").split(',')
-      this.policiesByFamily$[7] = this.policyDict$["Asset Management"]                      .replaceAll("undefined,", "").split(',')
-      this.policiesByFamily$[8] = this.policyDict$['Audit andAccountability (AU)']          .replaceAll("undefined,", "").split(',')
-      this.policiesByFamily$[9] = this.policyDict$['Awareness and Training (AT)']           .replaceAll("undefined,", "").split(',')
-      this.policiesByFamily$[10] = this.policyDict$['Configuration Management']             .replaceAll("undefined,", "").split(',')
-      this.policiesByFamily$[11] = this.policyDict$['Incident Response']                    .replaceAll("undefined,", "").split(',')
+      this.policiesByFamily$[2] = this.policyDict$["Media Protection (MP)"]                      .replaceAll("undefined,", "").split(',')
+      this.policiesByFamily$[3] = this.policyDict$["Physical Protection (PE)"]                   .replaceAll("undefined,", "").split(',')
+      this.policiesByFamily$[4] = this.policyDict$["Asset Management (AM)"]                      .replaceAll("undefined,", "").split(',')
+      this.policiesByFamily$[5] = this.policyDict$['Audit and Accountability (AU)']         .replaceAll("undefined,", "").split(',')
+      this.policiesByFamily$[6] = this.policyDict$['Awareness and Training (AT)']           .replaceAll("undefined,", "").split(',')
+      this.policiesByFamily$[7] = this.policyDict$['Configuration Management (CM)']              .replaceAll("undefined,", "").split(',')
+      this.policiesByFamily$[8] = this.policyDict$['Incident Response (IR)']                     .replaceAll("undefined,", "").split(',')
+      this.policiesByFamily$[9] = this.policyDict$["Maintenance (MA)"]                           .replaceAll("undefined,", "").split(',')
+      this.policiesByFamily$[10] = this.policyDict$['Personnel Security (PS)']                   .replaceAll("undefined,", "").split(',')
+      this.policiesByFamily$[11] = this.policyDict$['Recovery (RE)']                             .replaceAll("undefined,", "").split(',')
+      this.policiesByFamily$[12] = this.policyDict$['Risk Management (RM)']                      .replaceAll("undefined,", "").split(',')
+      this.policiesByFamily$[13] = this.policyDict$['Security Assessment (CA)']                  .replaceAll("undefined,", "").split(',')
+      this.policiesByFamily$[14] = this.policyDict$["Situational Awareness (SA)"]                .replaceAll("undefined,", "").split(',')
+      this.policiesByFamily$[15] = this.policyDict$["System and Communication Protection (SC)"]  .replaceAll("undefined,", "").split(',')
+      this.policiesByFamily$[16] = this.policyDict$['System Development (SD)']                   .replaceAll("undefined,", "").split(',')
+      this.policiesByFamily$[17] = this.policyDict$['System and Information Integrity (SI)']     .replaceAll("undefined,", "").split(',')
 
-      
       this.policiesByFamilyCMMC$ = []
       this.policiesByFamilyCMMC$[0] = this.policyDict$["1"].replaceAll("undefined,", "").split(',')
       this.policiesByFamilyCMMC$[1] = this.policyDict$["2"].replaceAll("undefined,", "").split(',')
@@ -122,33 +121,38 @@ export class PolicyBoardComponent implements OnInit {
       //is just an object to hold every policy so we can pull any information we want like this {{allPoliciesDict$[p].nudgid}}
       this.allPoliciesDict$ = allPoliciesDict
 
-      //Repeated calls to count the number of implemented policies in each family
-      if (this.famType$ != "Nist" && this.famType$ != "CMMC")
-      for (let i = 0; i < this.policiesByFamily$.length; i++){
-        this.counts$[i] = this.getImplemented(this.policiesByFamily$[i])
+     // console.log("-------debug-------" ,  "\n" ,  this.families$, "\n" , this.policiesByFamilyCMMC$ , "\n" ,  this.policiesByFamilyNist$, "\n" , this.policyDict$ , "\n" , this.policiesByFamily$ , "\n" , this.allPoliciesDict$)
+
+
+
+      //masterlist: [Family, [PoliciesOfFamily], [Counts/Score information]]
+      //the masterlist is responsible for all information that gets displayed on screen.
+      this.masterList$ = []
+      if (this.famType$ != "Nist" && this.famType$ != "CMMC"){
+        for (let index = 0; index < this.families$.length; index++) {
+          this.masterList$[index] = [this.families$[index], this.getInfoFromId(this.policiesByFamily$[index]), this.getImplemented(this.policiesByFamily$[index])] 
+        }
       }
-
-
-      this.toDisplay$ = []
-      this.toDisplay$ = this.policiesByFamily$;
 
       if (this.famType$ == "CMMC"){
           this.families$ = ["CMMC Level 1", "CMMC Level 2", "CMMC Level 3"]
-          this.toDisplay$ = this.policiesByFamilyCMMC$
-          for (let i = 0; i < this.policiesByFamily$.length; i++){
-            this.counts$[i] = this.getImplemented(this.policiesByFamilyCMMC$[i])
+          for (let index = 0; index < this.families$.length; index++) {
+            this.masterList$[index] = [this.families$[index], this.getInfoFromId(this.policiesByFamilyCMMC$[index]), this.getImplemented(this.policiesByFamilyCMMC$[index])] 
           }
       }
+
       if (this.famType$ == "Nist"){
            this.families$ = ["NFO", "CUI"]
-           this.toDisplay$ = this.policiesByFamilyNist$
-           for (let i = 0; i < this.policiesByFamily$.length; i++){
-            this.counts$[i] = this.getImplemented(this.policiesByFamilyNist$[i])
+            for (let index = 0; index < this.families$.length; index++) {
+            this.masterList$[index] = [this.families$[index], this.getInfoFromId(this.policiesByFamilyNist$[index]), this.getImplemented(this.policiesByFamilyNist$[index])] 
           }
       }
-
-      console.log("-------debug-------" ,  "\n" ,  this.families$, "\n" , this.toDisplay$, "\n" , this.policiesByFamilyCMMC$ , "\n" ,  this.policiesByFamilyNist$, "\n" , this.policyDict$ , "\n" , this.policiesByFamily$)
-
+      //initializing everything to be ABC order
+      this.masterList$.sort()
+      this.masterList$.forEach(element => {
+        element[1].sort()
+      });
+      console.log("masterlist: " ,  this.masterList$)
 
     });
 
@@ -159,7 +163,7 @@ export class PolicyBoardComponent implements OnInit {
   onRowClicked(row): void {
     console.log("Row clicked |" + String(row) + "|");
   //  this.rowSelected = true;
-    var configUrl = ["Policy/" + String(row)];
+    var configUrl = ["Policy/" + String(row).trim()];
     console.log(configUrl)
      this.router.navigate(configUrl);
 
@@ -176,14 +180,103 @@ export class PolicyBoardComponent implements OnInit {
   getImplemented(family:any){
     let count = 0
     let total = 0
+    let score = 0
+    let potentialScore = 0
     family.forEach(nudgid => {
       total += 1
+      if (this.allPoliciesDict$[nudgid].NISTvalue){
+        potentialScore += this.allPoliciesDict$[nudgid].NISTvalue
+      }
       if (String(this.allPoliciesDict$[nudgid].Pstatus)=="Implemented"){
         count +=1
+        if (this.allPoliciesDict$[nudgid].NISTvalue){
+          score += this.allPoliciesDict$[nudgid].NISTvalue
+        }
       }
     });
-    return [count, total]
+    return [count, total, score, potentialScore]
   }
+  //takes a array of Nids, returns a list of respective objects
+  getInfoFromId(id){
+    let info = []
+    for (let index = 0; index < id.length; index++) {
+      const element = id[index];
+      let policy = this.allPoliciesDict$[element]
+      info.push([String(policy.nudgid).trim(),String(policy.Subtitle).trim(), String(policy.CMMCnumber).trim(), String(policy.Pstatus).trim(), String(policy.NISTmapping).trim(), String(policy.CMMClevel).trim()])
+    }
+
+    return info
+  }
+
+
+  sort(family, column){    
+    console.log("sort called : " , family, column)
+    console.log('master list before : ', this.masterList$)
+    family = family.trim()
+    let indexDict = {
+      "Access Control (AC)" : 0,
+      "Identification and Authentication (IA)" : 5,
+      "Media Protection (MP)" : 8,
+      "Physical Protection (PE)": 10,
+      "Asset Management (AM)": 1,
+      'Audit and Accountability (AU)': 2,
+      'Awareness and Training (AT)': 3,
+      'Configuration Management (CM)':4,
+      'Incident Response (IR)': 6,
+      "Maintenance (MA)": 7,
+      'Personnel Security (PS)': 9,
+      'Recovery (RE)' : 11,
+      'Risk Management (RM)' : 12,
+      'Security Assessment (CA)' : 13,
+      "Situational Awareness (SA)": 14,
+      "System and Communication Protection (SC)": 15,
+      'System Development (SD)' : 16,
+      'System and Information Integrity (SI)' : 17,
+      "CMMC Level 1" : 0,
+      "CMMC Level 2" : 1,
+      "CMMC Level 3" : 2,
+      "NFO": 0,
+      "CUI": 1
+    }
+    //theres a lot of data unpacking going on here, just console log if u need to know what anything is
+    switch(String(column)){
+      case "ByID":
+        this.masterList$[indexDict[family]][1].sort()
+        break;
+      case "BySubtitle":
+        this.masterList$[indexDict[family]][1].sort(function(a,b) {
+ 
+          return a[1] > b[1]
+        })
+        break;
+      case "ByCMMC":
+        this.masterList$[indexDict[family]][1].sort(function(a,b) {
+          return a[2] > b[2]
+        })
+        break;
+      case "ByStatus":
+        this.masterList$[indexDict[family]][1].sort(function(a,b) {
+          return a[3] > b[3]
+        })
+          break;
+      case "ByNIST":
+        this.masterList$[indexDict[family]][1].sort(function(a,b) {
+          return a[4] > b[4]
+        })
+        break;
+      case "ByLevel":
+        this.masterList$[indexDict[family]][1].sort(function(a,b) {
+          return a[5] > b[5]
+        })
+        break;
+    }
+    console.log('master list after : ', this.masterList$)
+
+  }
+
+
+
+
 }
 
 
