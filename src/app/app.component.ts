@@ -89,6 +89,9 @@ export class AppComponent implements OnInit {
     console.log('mouse leave');
     this.height = 1;
   }
+  printPage() {
+    window.print();
+  }
 
 }
 

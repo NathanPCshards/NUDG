@@ -1,0 +1,17 @@
+<div class ="dropzone" appDragDrop style="margin-top: 5%;">
+    <input 
+    type="file" 
+    #fileDropRef 
+    id="fileDropRef" 
+    multiple 
+    (change)="uploadFile($event)"/>
+    <div style="margin-top: 10%;">
+        <h3>Drag and drop file here</h3>
+        <h3>or</h3>
+        <label for="fileDropRef">Browse for a file</label>
+    </div>
+
+
+</div>
+
+<!--(change)="fileBrowseHandler($event.target.files)"-->

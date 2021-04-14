@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild, ComponentFactoryResolver, ViewContainerRef, ComponentRef, ComponentFactory } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, ComponentFactoryResolver, ViewContainerRef, ComponentRef, ComponentFactory, ɵɵsetComponentScope } from '@angular/core';
 import { FormBuilder, FormGroup} from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
@@ -78,7 +78,7 @@ export class IdentifierPageComponent implements OnInit {
   id
 
   //Guidelines 
-  guidelinesList = []
+  guidelines$ = []
   child_unique_key: number = 0;
   componentsReferences = Array<ComponentRef<guidelinesDialog>>()
   @ViewChild("guidelinesdialog", { read: ViewContainerRef })
@@ -210,9 +210,10 @@ export class IdentifierPageComponent implements OnInit {
       this.openGuideline(e[0],e[1])
     })
     this.guidelinesService.onClose.subscribe(e=>{
+      /*
       let key = e[0]
       console.log("closeGuideline  Called")
-      this.closeGuideline(key)
+      this.closeGuideline(key)*/
     })
 
   }
@@ -364,42 +365,19 @@ export class IdentifierPageComponent implements OnInit {
   }
 
   openGuideline(id, desc){
-
-    let componentFactory = this.CFR.resolveComponentFactory(guidelinesDialog);
-    let childComponentRef = this.VCR.createComponent(componentFactory);
-    let childComponent = childComponentRef.instance;
-    childComponentRef.instance.id$ = id;
-    childComponentRef.instance.desc$ = desc;
-    childComponent.unique_key = ++this.child_unique_key;
-    childComponent.parentRef = this;
-
-    // add reference for newly created component
-    this.componentsReferences.push(childComponentRef);
-
-
-
+    this.guidelines$.push([id,desc])
   }
 
-  closeGuideline(key:number){
-    if (this.VCR.length < 1) return;
-
-    let componentRef = this.componentsReferences.filter(
-      x => x.instance.unique_key == key
-    )[0];
-
-    let vcrIndex: number = this.VCR.indexOf(componentRef as any);
-    console.log("componentRef : " , componentRef)
-    console.log("VCR: " , this.VCR)
-    console.log("vcrIndex : " , vcrIndex)
-    // removing component from container
-    //VCR.indexof cant find the right  component for some reason and always returns -1
-    //so instead im always removing the first element, (the list auto shrinks itself)
-    this.VCR.remove(0);
-
-    // removing component from the list
-    this.componentsReferences = this.componentsReferences.filter(
-      x => x.instance.unique_key !== key
-    );
+  closeGuideline(id,desc){
+    let i  = 0
+    this.guidelines$.forEach(element => {
+      if (element[0] == id){
+        if (element[1] == desc){
+          this.guidelines$.splice(i, 1);
+        }
+      }
+      i += 1
+    });
     }
   
   private _filterGroup(value: string): Policy[] {

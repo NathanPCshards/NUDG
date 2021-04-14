@@ -23,16 +23,10 @@
         <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtinven();"><i class="fa fa-plus"></i>Inventory</button>    
         <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtcompany();"><i class="fa fa-plus"></i>Company Info</button>    
         <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtpolic();"><i class="fa fa-plus"></i> Policy</button>    
-        </div>
-        <!--
-        <span routerLink="/Dashboard" routerLinkActive="active" style="margin-left: 30%;border: transparent;"> Dashboard</span>
-        <span routerLink="/Policies" routerLinkActive="active" style="margin-left: 2%; ">Policies</span>
-        <span routerLink="/Users" routerLinkActive="active"style="margin-left: 2%; "> Users</span>
-        <span routerLink="/Inventory" routerLinkActive="active" style="margin-left: 2%; "> Inventory </span>
-        <span routerLink="/CompanyInfo" routerLinkActive="active" style="margin-left: 2%; "> Company Info </span>
-        <span routerLink="/Roles" routerLinkActive="active" style="margin-left: 2%; "> Roles</span>
-        <span routerLink="/Policy" routerLinkActive="active" style="margin-left: 2%; "> Policy</span>
-    -->
+        <button (click)="printPage()">print</button>
+
+    </div>
+
     </mat-toolbar-row>
     
 </mat-toolbar>

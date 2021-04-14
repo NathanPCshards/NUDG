@@ -1,50 +1,190 @@
-<div>
 
-<div #box class="mainDiv" 
-mat-dialog-title 
-cdkDrag 
-cdkDragRootElement=".cdk-overlay-pane" 
-ngDraggable 
-cdkDragHandle 
-[style.width.px] ="width" 
-[style.height.px] = "height"
-[style.transform]="'translate3d(' + left + 'px,' + top + 'px,' + '0px)'"
-[class.active]="status === 1 || status === 2"
-(mousedown)="setStatus($event, 2)"
-(window:mouseup)="setStatus($event, 0)">
-    <div style="background-color: black;"> 
-        <span class="idCol id" style="color:white">
-           {{id$}} 
-        </span>  
-        <div class="buttons">
-            <button mat-icon-button>
-                <mat-icon (click)="closeDialog(id$, desc$)" color="warn">
-                close
-                </mat-icon>
-            </button>
+
+    <div #box class="mainDiv" 
+    mat-dialog-title 
+    cdkDrag 
+    cdkDragRootElement=".cdk-overlay-pane" 
+    ngDraggable 
+    cdkDragHandle 
+
+    [style.width.px] ="width" 
+    [style.height.px] = "height"
+    [class.active]="status === 1 || status === 2"
+    (mousedown)="setStatus($event, 2)"
+    (window:mouseup)="setStatus($event, 0)">
+        <div style="background-color: black;"> 
+            <span class="idCol id" style="color:white">
+            {{id$}} 
+            </span>  
+            <div class="buttons">
+                <button mat-icon-button>
+                    <mat-icon (click)="closeDialog(id$, desc$)" color="warn">
+                    close
+                    </mat-icon>
+                </button>
+            </div>
         </div>
+
+
+        <div style="background-color: rgb(255, 255, 255); display: inline-block; overflow: scroll; max-height: 400px;" >
+        //  <span style="font-size: small; color:black; overflow:scroll;">        
+            NIST Special Publication 800-53 Revision 5
+            
+            AC-2 ACCOUNT MANAGEMENT 
+            
+            Control:
+            
+                a.       Define and document the types of accounts allowed and specifically prohibited for use within the system;
+            
+                b.       Assign account managers;
+            
+                c.       Require [Assignment: organization-defined prerequisites and criteria] for group and role membership;
+            
+                d.       Specify:
+            
+                        1.       Authorized users of the system;
+            
+                        2.       Group and role membership; and
+            
+                        3.       Access authorizations (i.e., privileges) and [Assignment: organization-defined attributes (as required)] for each account;
+            
+                e.       Require approvals by [Assignment: organization-defined personnel or roles] for requests to create accounts;
+            
+                f.       Create, enable, modify, disable, and remove accounts in accordance with [Assignment: organization-defined policy, procedures, prerequisites, and criteria];
+            
+                g.       Monitor the use of accounts;
+            
+                h.       Notify account managers and [Assignment: organization-defined personnel or roles] within:
+            
+                        1.       [Assignment: organization-defined time period] when accounts are no longer required;
+            
+                        2.       [Assignment: organization-defined time period] when users are terminated or transferred; and
+            
+                        3.       [Assignment: organization-defined time period] when system usage or need-to-know changes for an individual;
+            
+                i.       Authorize access to the system based on:
+            
+                        1.       A valid access authorization;
+            
+                        2.       Intended system usage; and
+            
+                        3.       [Assignment: organization-defined attributes (as required)];
+            
+                j.       Review accounts for compliance with account management requirements [Assignment: organization-defined frequency];
+            
+                k.       Establish and implement a process for changing shared or group account authenticators (if deployed) when individuals are removed from the group; and
+            
+                l.       Align account management processes with personnel termination and transfer processes.
+            
+            Discussion: Examples of system account types include individual, shared, group, system, guest, anonymous, emergency, developer, temporary, and service. Identification of authorized system users and the specification of access privileges reflect the requirements in other controls in the security plan. Users requiring administrative privileges on system accounts receive additional scrutiny by organizational personnel responsible for approving such accounts and privileged access, including system owner, mission or business owner, senior agency information security officer, or senior agency official for privacy. Types of accounts that organizations may wish to prohibit due to increased risk include shared, group, emergency, anonymous, temporary, and guest accounts.
+            
+            Where access involves personally identifiable information, security programs collaborate with the senior agency official for privacy to establish the specific conditions for group and role membership; specify authorized users, group and role membership, and access authorizations for each account; and create, adjust, or remove system accounts in accordance with organizational policies. Policies can include such information as account expiration dates or other factors that trigger the disabling of accounts. Organizations may choose to define access privileges or other attributes by account, type of account, or a combination of the two. Examples of other attributes required for authorizing access include restrictions on time of day, day of week, and point of origin. In defining other system account attributes, organizations consider system-related requirements and mission/business requirements. Failure to consider these factors could affect system availability. 
+            
+            Temporary and emergency accounts are intended for short-term use. Organizations establish temporary accounts as part of normal account activation procedures when there is a need for short-term accounts without the demand for immediacy in account activation. Organizations establish emergency accounts in response to crisis situations and with the need for rapid account activation. Therefore, emergency account activation may bypass normal account authorization processes. Emergency and temporary accounts are not to be confused with infrequently used accounts, including local logon accounts used for special tasks or when network resources are unavailable (may also be known as accounts of last resort). Such accounts remain available and are not subject to automatic disabling or removal dates. Conditions for disabling or deactivating accounts include when shared/group, emergency, or temporary accounts are no longer required and when individuals are transferred or terminated. Changing shared/group authenticators when members leave the group is intended to ensure that former group members do not retain access to the shared or group account. Some types of system accounts may require specialized training.
+            
+            Related Controls: AC-3, AC-5, AC-6, AC-17, AC-18, AC-20, AC-24, AU-2, AU-12, CM-5, IA-2, IA-4, IA-5, IA-8, MA-3, MA-5, PE-2, PL-4, PS-2, PS-4, PS-5, PS-7, PT-2, PT-3, SC-7, SC-12, SC-13, SC-37.
+            
+            References: [OMB A-130], [SP 800-12], [SP 800-30], [SP 800-39], [SP 800-100], [IR 7874].
+            
+            AC-17 REMOTE ACCESS 
+            
+            Control: 
+            
+                a.       Establish and document usage restrictions, configuration/connection requirements, and implementation guidance for each type of remote access allowed; and
+            
+                b.       Authorize each type of remote access to the system prior to allowing such connections.
+            
+            Discussion: Remote access is access to organizational systems (or processes acting on behalf of users) that communicate through external networks such as the Internet. Types of remote access include dial-up, broadband, and wireless. Organizations use encrypted virtual private networks (VPNs) to enhance confidentiality and integrity for remote connections. The use of encrypted VPNs provides sufficient assurance to the organization that it can effectively treat such connections as internal networks if the cryptographic mechanisms used are implemented in accordance with applicable laws, executive orders, directives, regulations, policies, standards, and guidelines. Still, VPN connections traverse external networks, and the encrypted VPN does not enhance the availability of remote connections. VPNs with encrypted tunnels can also affect the ability to adequately monitor network communications traffic for malicious code. Remote access controls apply to systems other than public web servers or systems designed for public access. 
+            
+            Authorization of each remote access type addresses authorization prior to allowing remote access without specifying the specific formats for such authorization. While organizations may use information exchange and system connection security agreements to manage remote access connections to other systems, such agreements are addressed as part of CA-3. Enforcing access restrictions for remote access is addressed via AC-3.
+            
+            Related Controls: AC-2, AC-3, AC-4, AC-18, AC-19, AC-20, CA-3, CM-10, IA-2, IA-3, IA-8, MA-4, PE-17, PL-2, PL-4, SC-10, SC-12, SC-13, SI-4.
+            
+            References: [SP 800-46], [SP 800-77], [SP 800-113], [SP 800-114], [SP 800-121], [IR 7966].
+            
+            
+            CMMC Version 1.0
+            
+            AC.1.001: Limit information system access to authorized users, processes acting on behalf of authorized users, or devices (including other information systems).
+            
+            
+            DISCUSSION FROM SOURCE: DRAFT NIST SP 800-171 R2
+            
+            Access control policies (e.g., identity- or role-based policies, control matrices, and cryptography) control access between active entities or subjects (i.e., users or processes acting on behalf of users) and passive entities or objects (e.g., devices, files, records, and domains) in systems. Access  enforcement mechanisms can be employed at the application and service level to provide increased information security. Other systems include systems internal and external to the organization. This requirement focuses on account management for systems and applications. The definition of and enforcement of access authorizations, other than those determined by account type (e.g., privileged verses non-privileged) are addressed in requirement 3.1.2 (AC.1.002).
+            
+            
+            CMMC CLARIFICATION
+            
+            Control who can use company computers and who can log on to the company network. Limit the services and devices, like printers, that can be accessed by company computers. Set up your system so that unauthorized users and devices cannot get on the company network.
+            
+            Example 1
+            
+            You are in charge of IT for your company. You give a username and password to every employee who uses a company computer for their job. No one can use a company computer without a username and a password. You give a username and password only to those employees you know have permission to be on the system. When an employee leaves the company, you disable their username and password immediately.
+            
+            Example 2
+            
+            A coworker from the marketing department tells you their boss wants to buy a new multi-function printer/scanner/fax device and make it available on the company network. You explain that the company controls system and device access to the network, and will stop non-company systems and devices unless they already have permission to access the network. You work with the marketing department to grant permission to the new printer/scanner/fax device to connect to the network, then install it.
+            
+            REFERENCES
+            
+            •FAR Clause 52.204-21 b.1.i
+            
+            •NIST SP 800-171 Rev 1 3.1.1
+            
+            •CIS Controls v7.1 1.4, 1.6, 5.1, 14.6, 15.10, 16.8, 16.9,16.11
+            
+            •NIST CSF v1.1 PR.AC-1, PR.AC-3, PR.AC-4, PR.AC-6, PR.PT-3,PR.PT-4
+            
+            •CERT RMM v1.2 TM:SG4.SP1
+            
+            •NIST SP 800-53 Rev 4 AC-2, AC-3, AC-17
+            
+            •AU ACSC Essential Eight
+            
+                    3.1.1 Limit system access to authorized users, processes acting on behalf of authorized users, and devices (including other systems).
+            
+            DISCUSSION 
+            
+            Access control policies (e.g., identity- or role-based policies, control matrices, and cryptography) control access between active entities or subjects (i.e., users or processes acting on behalf of users) and passive entities or objects (e.g., devices, files, records, and domains) in systems. Access enforcement mechanisms can be employed at the application and service level to provide increased information security. Other systems include systems internal and external to the organization. This requirement focuses on account management for systems and applications. The definition of and enforcement of access authorizations, other than those determined by account type (e.g., privileged verses non-privileged) are addressed in requirement 3.1.2.
+            
+            ASSESSMENT  OBJECTIVE 
+            
+            Determine  if: 
+            
+            3.1.1[a]   authorized  users are identified.
+            3.1.1[b]   processes  acting on behalf of authorized users are identified.
+            3.1.1[c]   devices  (and other systems) authorized to connect to the system are identified.
+            3.1.1[d]   system  access is limited to authorized users.
+            3.1.1[e]   system  access is limited to processes acting on behalf of authorized users.
+            3.1.1[f]   system  access is limited to authorized devices (including other systems).
+            
+            Additional information: 
+            
+            User access security refers to the set of procedures by which authorized users access the system and unauthorized users are prevented accessing the system.
+            
+            Perform Test On: 
+            
+            • processes account management on the information system
+            
+            • automated mechanisms for implementing account management
+            
+            • automated mechanisms implementing access control policy
+            
+            • remote access management capability
+            
+            REFERENCES
+            •NIST SP 800-171 Rev 2 3.1.1
+            
+            •NIST SP 800-171A 3.1.1
+            
+            •NIST Handbook 162 3.1.1
+            
+            
+            
+
+            </span>
+        </div>
+
+        
     </div>
 
-
-    <div style="background-color: rgb(255, 255, 255); display: inline-block;" >
-        <span style="font-size: small; color:black">
-            NIST Special Publication 800-53 Revision 4
-
-PS-8 PERSONNEL SANCTIONS
-
-Control: The organization:
-
-      a.       Employs a formal sanctions process for individuals failing to comply with established information security policies and procedures; and
-
-      b.       Notifies [Assignment: organization-defined personnel or roles] within [Assignment: organization-defined time period] when a formal employee sanctions process is initiated, identifying the individual sanctioned and the reason for the sanction.
-
-Supplemental Guidance: Organizational sanctions processes reflect applicable federal laws, Executive Orders, directives, regulations, policies, standards, and guidance. Sanctions processes are described in access agreements and can be included as part of general personnel policies and procedures for organizations. Organizations consult with the Office of the General Counsel regarding matters of employee sanctions.
-
-Related controls: PL-4, PS-6.
-
-        </span>
-    </div>
-
-    
-</div>
-</div>

@@ -48,15 +48,25 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatTimepickerModule } from 'mat-timepicker';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { FileImportComponent } from './file-import/file-import.component';
+import { PrintPageComponent } from './print-page/print-page.component';
+import { DragDropDirective } from './drag-drop.directive';
 
 
 
 
 @NgModule({
     declarations : [
-
+      FileImportComponent,
+      PrintPageComponent,
+      DragDropDirective,
     ],
   exports : [   
+
+    FileImportComponent,
+    PrintPageComponent,
+    DragDropDirective,
+
     BrowserModule,
     BrowserAnimationsModule,
     NgbModalModule,

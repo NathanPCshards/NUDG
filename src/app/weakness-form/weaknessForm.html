@@ -84,9 +84,16 @@
                             </mat-form-field>
     
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input #WadjustedRiskRating matInput placeholder = "Adjusted Risk Rating">
-                            </mat-form-field>
+                                <input #WadjustedRiskRating matInput >
+                                <mat-label>Adjusted Risk Rating</mat-label>
+                                <mat-select>
+                                  <mat-option #WadjustedRiskRating value="Low">Low</mat-option>
+                                  <mat-option #WadjustedRiskRating value="Moderate">Moderate</mat-option>
+                                  <mat-option #WadjustedRiskRating value="High">High</mat-option>
+                                  <mat-option #WadjustedRiskRating value="N/A">N/A</mat-option>
 
+                                </mat-select>
+                            </mat-form-field>
 
 
 

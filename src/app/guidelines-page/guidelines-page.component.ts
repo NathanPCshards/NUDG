@@ -90,14 +90,16 @@ const enum Status {
 export class guidelinesDialog {
   id$;
   desc$;
+  left$;
+  top$;
  // @Input() type: string ="tesssst"
  @Input('width') public width: number = 590;
  @Input('height') public height: number = 450;
  @Input('left') public left: number;
  @Input('top') public top: number;
  @ViewChild("box") public box: ElementRef;
- private boxPosition: { left: number, top: number };
- private containerPos: { left: number, top: number, right: number, bottom: number };
+ public boxPosition: { left: number, top: number };
+ public containerPos: { left: number, top: number, right: number, bottom: number };
  public mouse: {x: number, y: number}
  public status: Status = Status.OFF;
  private mouseClick: {x: number, y: number, left: number, top: number}
@@ -163,7 +165,7 @@ ngOnInit(){
 
 
 closeDialog(id,guideline){
-  this.parentRef.closeGuideline(this.unique_key)
+ // this.parentRef.closeGuideline(this.unique_key)
 };
 
 

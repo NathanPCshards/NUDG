@@ -31,7 +31,7 @@ export class PageSearchComponent implements OnInit {
   'WeaknessForm', 'SoftwareApprovalForm',
   'SharedResourceForm', 'SecurityLogForm', 'GuidelinesPage',
   'HelpCenterForm', 'GroupsPage',
-  'NetworkSharePage', 'ProcedurePage','AdminPanel'];
+  'NetworkSharePage', 'ProcedurePage','AdminPanel', 'FileDrop'];
 
   
   constructor(private route : ActivatedRoute, private router:Router) {

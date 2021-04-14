@@ -113,6 +113,7 @@
   </div>
 
 
+
   <div class ="editBar">
     <app-accordion-item [id$]="id" *ngFor="let item of entries" 
       [entry]="item">
@@ -314,7 +315,7 @@
             </mat-icon>
           </button>
 
-      
+
           <button mat-icon-button>
             <mat-icon (click)="deleteControls(controlElement.idOrgControls)" color="warn">
               delete
@@ -329,5 +330,36 @@
 
 </div>
 
+<ng-container *ngFor="let guideline of guidelines$">
+  <div id="box" #box class="mainDiv" 
+  style="width:500px; height:450px; z-index: 100; position: absolute; left: 100px; top: 100px;"
+  popUp 
+  cdkDrag 
+  cdkDragRootElement=".cdk-overlay-pane" 
+  ngDraggable 
+  cdkDragHandle 
+  >
+      <div style="background-color: black;"> 
+          <span class="idCol id" style="color:white; min-width: 300px;">
+          {{guideline[0]}}
+          </span>  
+       
+          <button mat-icon-button id="dButton">
+              <mat-icon (click)="closeGuideline(guideline[0], guideline[1])" color="warn">
+              close
+              </mat-icon>
+          </button>
+     
+      </div>
+  
+      <div style="background-color: rgb(255, 255, 255); display: inline-block; overflow: scroll; max-height: 400px; min-height: 400px; min-width: 480px;" >
+        <span style="font-size: small; color:black; overflow:scroll;">        
+                {{guideline[1]}}
+          </span>
+      </div>
+  
+      
+  </div>
+  
+</ng-container>
 
-  <ng-template #guidelinesdialog style="display: none; position: fixed; background-color: red;"></ng-template>

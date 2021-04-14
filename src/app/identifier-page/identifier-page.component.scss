@@ -47,7 +47,9 @@
 
   }
 
-
+@media print{
+  weakness2 { display:table}
+}
   .weakness2 {
     //background-color: red;
     box-sizing: border-box;
@@ -654,3 +656,53 @@ div.item2{
   //margin-bottom: 40%;
   font-size: 24px;
 }
+
+
+
+
+.dButton {
+  width: 90px;
+  height: 36px;
+  font-weight: 100;
+  margin-left: 40%;
+}
+
+/*
+.dbuttons {
+  grid-template-columns: auto auto ;
+  float:right;
+  display: grid;
+  font-size: 14px;
+  color: #fff;
+  justify-content: center;
+
+  .save {
+    background-color: #E37B00;
+    margin-left: 2px;
+  }
+  .close {
+    background-color: #ffffff;
+    margin-right: 2px
+  }
+}
+*/
+
+//some styling for guideline popout
+[popUp] {
+ // padding: 10px;
+  background: #369;
+  color: #fff;
+  cursor: move;
+  text-align: center;
+}
+  .mainDiv{
+  //  width:300px;  
+  //  height:300px;
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    left: 100px;
+    top:100px;  
+    background-color: rgba(255, 166, 0);
+    border-radius: 10px;
+    display: inline-block;
+  }

@@ -19,7 +19,7 @@ export class PolicyBoardComponent implements OnInit {
    policiesByFamilyCMMC$: any[];
    policiesByFamilyNist$: any[];
    masterList$;
-
+   sortType;
 
    temp$;
    allPoliciesDict$;
@@ -235,43 +235,107 @@ export class PolicyBoardComponent implements OnInit {
       "CMMC Level 1" : 0,
       "CMMC Level 2" : 1,
       "CMMC Level 3" : 2,
-      "NFO": 0,
-      "CUI": 1
+      "CUI": 0,
+      "NFO": 1,
+
     }
+
     //theres a lot of data unpacking going on here, just console log if u need to know what anything is
+    //this is the controller for to sort each column
     switch(String(column)){
       case "ByID":
-        this.masterList$[indexDict[family]][1].sort()
+        if (this.sortType == String(column)){
+          this.masterList$[indexDict[family]][1].sort()
+          this.sortType = ""
+        }
+        else{
+          this.masterList$[indexDict[family]][1].sort(function(a,b){return b - a})
+          this.sortType = column
+        }
+        
         break;
       case "BySubtitle":
-        this.masterList$[indexDict[family]][1].sort(function(a,b) {
- 
-          return a[1] > b[1]
-        })
+        console.log("test")
+
+        if (this.sortType == String(column)){
+          this.masterList$[indexDict[family]][1].sort(function(a,b) {
+        //    console.log(a[1] < b[1])
+            return a[1] < b[1] 
+          })
+          this.sortType = ""
+        }
+        else{
+          this.sortType = String(column);
+          this.masterList$[indexDict[family]][1].sort(function(a,b) {
+         //   console.log(a[1] > b[1])
+            return a[1] > b[1] 
+          })
+          this.sortType = column;
+        }
+
         break;
       case "ByCMMC":
-        this.masterList$[indexDict[family]][1].sort(function(a,b) {
-          return a[2] > b[2]
-        })
+        if (this.sortType == String(column)){
+          this.masterList$[indexDict[family]][1].sort(function(a,b) {
+            return a[2] < b[2]
+          })
+          this.sortType = ""
+        }
+        else{
+          this.masterList$[indexDict[family]][1].sort(function(a,b) {
+            return a[2] > b[2]
+          })
+          this.sortType = column;
+
+        }
+
         break;
       case "ByStatus":
-        this.masterList$[indexDict[family]][1].sort(function(a,b) {
-          return a[3] > b[3]
-        })
+        if (this.sortType == String(column)){
+          this.masterList$[indexDict[family]][1].sort(function(a,b) {
+            return a[3] < b[3]
+          })
+          this.sortType = ""
+        }
+        else{
+          this.masterList$[indexDict[family]][1].sort(function(a,b) {
+            return a[3] > b[3]
+          })
+          this.sortType = column
+        }
+
           break;
       case "ByNIST":
-        this.masterList$[indexDict[family]][1].sort(function(a,b) {
-          return a[4] > b[4]
-        })
+        if (this.sortType == String(column)){
+          this.masterList$[indexDict[family]][1].sort(function(a,b) {
+            return a[4] < b[4]
+          })
+          this.sortType = ""
+        }
+        else{
+          this.masterList$[indexDict[family]][1].sort(function(a,b) {
+            return a[4] > b[4]
+          })
+          this.sortType = column
+        }
+
         break;
       case "ByLevel":
-        this.masterList$[indexDict[family]][1].sort(function(a,b) {
-          return a[5] > b[5]
-        })
+        if (this.sortType == String(column)){
+          this.masterList$[indexDict[family]][1].sort(function(a,b) {
+            return a[5] < b[5]
+          })
+          this.sortType =""
+        }
+        else{
+          this.masterList$[indexDict[family]][1].sort(function(a,b) {
+            return a[5] > b[5]
+          })
+          this.sortType = column
+        }
+
         break;
     }
-    console.log('master list after : ', this.masterList$)
-
   }
 
 

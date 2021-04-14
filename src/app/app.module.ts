@@ -43,6 +43,9 @@ import { IdentifierPageModule } from './identifier-page/identifier-page.module';
 import { SharedModule } from './SharedModule.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PolicyAccordionModule } from './policy-accordion/policy-accordion.module';
+import { PrintPageComponent } from './print-page/print-page.component';
+import { FileImportComponent } from './file-import/file-import.component';
+import { DragDropDirective } from './drag-drop.directive';
 
 
 @NgModule({
@@ -80,6 +83,7 @@ import { PolicyAccordionModule } from './policy-accordion/policy-accordion.modul
     helpCenterForm,
     networkSharesPage,
     AdminPanelComponent,
+
     
     
 

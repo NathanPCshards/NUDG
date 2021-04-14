@@ -31,6 +31,7 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 import { IdentifierPageRoutingModule } from './identifier-page/identifier-page.routing.module'
 import { PolicyAccordionComponent } from './policy-accordion/policy-accordion.component';
+import { FileImportComponent } from './file-import/file-import.component';
 //https://angular.io/guide/router
 
 const routes: Routes = [
@@ -73,6 +74,8 @@ const routes: Routes = [
 
   { path: 'MilestonePage', component: MilestoneFormComponent},
   { path: 'ProcedurePage', component: ProcedureFormComponent},
+  { path: 'FileDrop', component: FileImportComponent},
+
 
 
 
