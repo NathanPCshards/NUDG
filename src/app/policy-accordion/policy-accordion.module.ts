@@ -4,6 +4,7 @@ import { AppModule } from '../app.module';
 import { ControlFormComponent } from '../control-form/control-form.component';
 import { ControlModule } from '../control-form/control.module';
 import { FileImportComponent } from '../file-import/file-import.component';
+import { fileImportModule } from '../file-import/file-import.module';
 import { SharedModule } from '../SharedModule.module';
 import { WeaknessModule } from '../weakness-form/weakness.module';
 import { AccordionItemComponent } from './accordion-item.component';
@@ -15,8 +16,8 @@ import { PolicyAccordionComponent } from './policy-accordion.component';
   imports: [
     SharedModule,
     ControlModule,
-    WeaknessModule
-
+    WeaknessModule,
+    fileImportModule
 
   ],
   declarations: [

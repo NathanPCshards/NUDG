@@ -7,6 +7,7 @@ import { SharedModule } from '../SharedModule.module';
 import { GuidelinesModule } from '../guidelines-page/guidelines.module';
 import { ControlModule } from '../control-form/control.module';
 import { PolicyAccordionModule } from '../policy-accordion/policy-accordion.module';
+import { fileImportModule } from '../file-import/file-import.module';
 
  
 
@@ -17,7 +18,7 @@ import { PolicyAccordionModule } from '../policy-accordion/policy-accordion.modu
     GuidelinesModule,
     PolicyAccordionModule,
     ControlModule,
-
+    fileImportModule
 
  
   ],

@@ -1,35 +1,34 @@
-
-<mat-toolbar class = "toolbar" id="toolbar" style="background-color: transparent;"
-
->
-    <mat-toolbar-row class="tbRow" style="color: white;" > 
-
-
-
-        <span style="margin-left: 1%;"> NUDG 3.0 </span>
-
-        <app-page-search style="margin-left: 3%;">
-
-        </app-page-search>
+<div class="doNotPrint">
+    <mat-toolbar class = "toolbar" id="toolbar" style="background-color: transparent;">
+        <mat-toolbar-row class="tbRow" style="color: white;" > 
+    
+    
+    
+            <span style="margin-left: 1%;"> NUDG 3.0 </span>
+    
+            <app-page-search style="margin-left: 3%;">
+    
+            </app-page-search>
+            
+            <div class="routes">
+            <button mat-raised-button type="button" style="color: white;margin-left:80%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtdash();"><i class="fa fa-plus"></i> Dashboard</button>    
+            <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtroles();"><i class="fa fa-plus"></i>Roles</button>
+            <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtpol('all');"><i class="fa fa-plus"></i>Families</button>
+            <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtpol('cmmc');"><i class="fa fa-plus"></i>CMMC</button>    
+            <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtpol('nist');"><i class="fa fa-plus"></i>NIST</button>    
         
-        <div class="routes">
-        <button mat-raised-button type="button" style="color: white;margin-left:80%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtdash();"><i class="fa fa-plus"></i> Dashboard</button>    
-        <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtroles();"><i class="fa fa-plus"></i>Roles</button>
-        <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtpol('all');"><i class="fa fa-plus"></i>Families</button>
-        <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtpol('cmmc');"><i class="fa fa-plus"></i>CMMC</button>    
-        <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtpol('nist');"><i class="fa fa-plus"></i>NIST</button>    
+            <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtusers();"><i class="fa fa-plus"></i>Users</button>    
+            <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtinven();"><i class="fa fa-plus"></i>Inventory</button>    
+            <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtcompany();"><i class="fa fa-plus"></i>Company Info</button>    
+            <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtpolic();"><i class="fa fa-plus"></i> Policy</button>    
     
-        <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtusers();"><i class="fa fa-plus"></i>Users</button>    
-        <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtinven();"><i class="fa fa-plus"></i>Inventory</button>    
-        <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtcompany();"><i class="fa fa-plus"></i>Company Info</button>    
-        <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtpolic();"><i class="fa fa-plus"></i> Policy</button>    
-        <button (click)="printPage()">print</button>
-
-    </div>
-
-    </mat-toolbar-row>
+        </div>
     
-</mat-toolbar>
+        </mat-toolbar-row>
+        
+    </mat-toolbar>
+</div>
+
 
 <!-- The routed views render in the <router-outlet>-->
 <router-outlet></router-outlet>

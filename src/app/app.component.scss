@@ -17,3 +17,8 @@
 }
 
 
+@media print {
+    .doNotPrint {display:none; visibility: hidden;}
+    .PrintSection {display:table; visibility: visible;}
+
+  }

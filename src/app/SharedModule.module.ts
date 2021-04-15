@@ -18,7 +18,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatMenuModule} from '@angular/material/menu';
+//import {MatMenuModule} from '@angular/material/menu';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatListModule} from '@angular/material/list';
@@ -57,15 +57,12 @@ import { DragDropDirective } from './drag-drop.directive';
 
 @NgModule({
     declarations : [
-      FileImportComponent,
       PrintPageComponent,
-      DragDropDirective,
     ],
   exports : [   
 
-    FileImportComponent,
     PrintPageComponent,
-    DragDropDirective,
+
 
     BrowserModule,
     BrowserAnimationsModule,
@@ -91,7 +88,7 @@ import { DragDropDirective } from './drag-drop.directive';
     MatSelectModule,
     MatSliderModule,
     MatSlideToggleModule,
-    MatMenuModule,
+  //  MatMenuModule,
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,

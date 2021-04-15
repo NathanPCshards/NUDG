@@ -2,6 +2,7 @@ export interface policy {
     idPolicy : number;
     nudgid : string;
     CMMCnumber : string;
+    CMMClevel: string;
     NISTmapping : string;
     NISTvalue : number;
     Capabilitynumber : string;

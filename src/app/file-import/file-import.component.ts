@@ -19,8 +19,15 @@ export class FileImportComponent implements OnInit {
     let payload = new FormData();
     payload.append('data', evt[0]);
     console.log(payload)
+
+    
+
+   // let files = evt.srcElement.files; 
+
+
     // File can now be uploaded by doing an http post with the payload
   }
+
 }
 
 

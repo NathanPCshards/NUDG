@@ -152,7 +152,9 @@ export class IdentifierPageComponent implements OnInit {
     
     //POLICY STUFF
     this.policy$ = this.fetchPolicy(this.id);
-
+    this.policy$.forEach(element => {
+        console.log("elemenet : " , element)
+      });
     console.log("current policy : " , this.currentPolicy)
     //ACCORDION STUFF
     this.entries = accordionEntries

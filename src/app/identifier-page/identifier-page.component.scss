@@ -47,9 +47,7 @@
 
   }
 
-@media print{
-  weakness2 { display:table}
-}
+
   .weakness2 {
     //background-color: red;
     box-sizing: border-box;
@@ -705,4 +703,99 @@ div.item2{
     background-color: rgba(255, 166, 0);
     border-radius: 10px;
     display: inline-block;
+  }
+
+  .doNotPrint{
+    visibility: visible;
+  }
+  .PrintSection{
+    display:none;
+    visibility: hidden;
+  }
+
+  @media print {
+    .doNotPrint {display:none; visibility: hidden;}
+    .PrintSection {display:flex; visibility: visible;}
+    .idCol{
+      font-size: small;
+
+      width:75px;
+      min-width: 75px;
+      text-align: left;
+  
+    }
+    .nameCol{
+      font-size: small;
+
+      margin-left: 10px;
+      width:150px;
+      min-width: 150px;
+      text-align: left;
+  
+    }
+    .descCol{
+      font-size: small;
+
+      width:150px;
+      min-width: 250px;
+      text-align: left;
+      margin-left: 10px;
+    }
+    
+    .dateCol{
+      font-size: small;
+
+      width:60px;
+      min-width: 60px;
+      text-align: left;
+      margin-left:  10px;
+    }
+  
+    .dateCol2{
+      font-size: small;
+      width:100px;
+      min-width: 100px;
+      text-align: left;
+      margin-left:  10px
+    }
+    .dateCol3{
+      width:75px;
+      min-width: 75px;
+      text-align: left;
+      margin-left:  10px
+    }
+    .dateCol4{
+  
+      text-align: left;
+  
+  
+    }
+
+    #table {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    #table td, #table th {
+      border: 1px solid rgb(0, 0, 0);
+      padding: 8px;
+    }
+    
+    #table tr:nth-child(even){background-color: #f2f2f2;}
+    
+    #table tr:hover {background-color: #ddd;}
+    
+    #table th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #4CAF50;
+      color: white;
+    }
+    .div1{
+      width:33.3%;
+      float:left;
+      height:10%
+    }
   }

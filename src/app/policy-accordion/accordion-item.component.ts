@@ -9,6 +9,8 @@ import { PolicyAccordionService } from '../services/policy-accordion.service';
   <button mat-raised-button type="button" style="color: white;margin-left:40%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="accordionButton" (click)="showControl();$event.stopPropagation()"><i class="fa fa-plus"></i> Control</button>    
   <button mat-raised-button type="button" style="color: white;margin-left: 3%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="accordionButton" (click)="showWeakness();$event.stopPropagation();"><i class="fa fa-plus"></i>Weakness</button>
   <button mat-raised-button type="button" style="color: white;margin-left: 3%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="accordionButton" (click)="showFileUpload();$event.stopPropagation();"><i class="fa fa-plus"></i>Import</button>    
+  <button mat-raised-button type="button" style="color: white;margin-left: 3%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="accordionButton" (click)="printPage();$event.stopPropagation();"><i class="fa fa-plus"></i>Print</button>    
+
 
   </dt>
 <dd class="{{uncollapsed ? 
@@ -78,6 +80,8 @@ export class AccordionItemComponent  {
   }
 
 
-
+  printPage() {
+    window.print();
+  }
 
 }

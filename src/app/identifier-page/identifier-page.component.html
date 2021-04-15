@@ -1,365 +1,545 @@
-
-<div class="wrapper" id="wrapper" >
-
-  <div id="policy" class="policy2" *ngFor="let policy of policy$ | async">
-    
-      <div class="row1">
-
-
-        <form [formGroup]="policyForm">
-          <mat-form-field id="policySearch">
-            <mat-label>{{this.id}}</mat-label>
-            <input type="text"
-            
-                   matInput
-                   formControlName="policyLevel"
-                   required
-                   [matAutocomplete]="autoGroup">
-              <mat-autocomplete #autoGroup="matAutocomplete">
-                <mat-optgroup *ngFor="let group of policyLevelOptions | async" [label]="group.level">
-                  <mat-option *ngFor="let name of group.names" [value]="name" routerLink="/Policy/{{name}}" (click)="policySearch($event, name)" routerLinkActive="active">
-                    {{name}}
-                  </mat-option>
-              </mat-optgroup>
-            </mat-autocomplete>
-          </mat-form-field>
-        </form>
-        
-
-        <div class="item2" style="flex: 1; ">
-          <p id="title" style="font-size: 20px;"> {{policy.Subtitle}}</p>
-        </div>    
-
-        <div class="item2" style="flex: 1; ">
-          <p id="title" style="font-size: 20px;color: #06d6a0;">{{policy.Pstatus}}</p>
-        </div>
-      </div>
-
-      <mat-tab-group >
-        <mat-tab label="CMMC Information" style="overflow: none;">
-          <p style="margin-top: 1%;" class="dditems">CMMC Number: {{policy.CMMCnumber}}</p>
-          <br>
-          <p class="dditems">Capability Name: {{policy.nudgid}}</p>
-          <br>
-          <p class="dditems">Capability Number: {{policy.Capabilitynumber}}</p>
-          <br>
-          <p class="dditems">Practice: {{policy.Practice}}</p>
-          <br>
-          <p class="dditems">Clarification: {{policy.Clarification}}</p>
-        </mat-tab>
-
-        <mat-tab label="NIST Information" style="overflow: none;">
-        <p style="margin-top: 1%;" class="dditems">NIST Mapping: {{policy.NISTmapping}}</p>
-        <br>
-        <p class="dditems">NIST Value: {{policy.NISTvalue}}</p>
-        <br>
-      </mat-tab>
-        <mat-tab label="References"> {{policy.References}}</mat-tab>
-        <mat-tab label="Guidelines">      
-          <app-guidelines-page style="z-index: 99">
-          </app-guidelines-page>
-
-        </mat-tab>
-
-      </mat-tab-group>
-  </div>
-    
-
-  <!--THIS IS THE STANDARDS LIST-->
-  <div id="standard3" class="standard4 ">
-
-    <mat-list>
-      <div class="flexContainer">
-        <mat-list-item class="headerRow">
-          <span class="listSpan idCol">
-            Standard ID
-          </span>
-          <span class="listSpan descCol">
-            Name
-          </span>
-        </mat-list-item>
-      </div>
-  
-      <mat-list-item *ngFor="let standard of standards$ | async">
-  
-          <span class="listSpan idCol">
-            {{ standard.idStandards }}    
-            </span>
-        <span class="listSpan descCol">
-          {{standard.Standard}}
-        </span>
-  
-       <span style="position: absolute; right: 0;">
-          <button mat-icon-button>
-            <mat-icon
-              
-              color="primary"
-            >
-            <!--(click)="updateStandards(standard.idStandards, userInput.value)"-->
-              edit
-            </mat-icon>
-          </button>
-  
+<div class="doNotPrint">
+  <div class="wrapper" id="wrapper" >
+    <div id="policy" class="policy2" *ngFor="let policy of policy$ | async">
       
-          <button mat-icon-button>
-            <mat-icon (click)="deleteStandards(standard.idStandards)" color="warn">
-              delete
-            </mat-icon>
-          </button>
-        </span> 
-      </mat-list-item>
-    </mat-list>
+        <div class="row1">
   
-  </div>
-
-
-
-  <div class ="editBar">
-    <app-accordion-item [id$]="id" *ngFor="let item of entries" 
-      [entry]="item">
-    </app-accordion-item> 
-  </div>
-
-  <!--THIS IS THE WEAKNESSES LIST-->
-
-  <div
-  cdkDropList
-  id="weaknessDrop"
-  class="weakness2"
-  [cdkDropListData]="weaknessDrop"
-  [cdkDropListConnectedTo]="[controlDrop]"
-  (cdkDropListDropped)="drop($event)"
-  [cdkDropListEnterPredicate]="controlsToWeaknesses">
-
-     
-    <mat-list>
-      <div class="flexContainer">
-        <mat-list-item class="headerRow">
-          <span class="idCol">
-            Weakness ID
-          </span>
-          <span class="nameCol">
-            Name
-          </span>
-          <span class="descCol">
-            Description
-          </span>
-          <span class="dateCol">
-            Status
-          </span>
-          <span class="dateCol2">
-            Completion Date
-          </span>
-          <span class="dateCol3">
-            Cid
-          </span>
-          <input class="searchBox"  type="text" #searchWeaknesses id='searchWeaknesses' (keyup)="filterWeaknesses()" placeholder="search" />
-
-        </mat-list-item>
-
-
-      </div>
   
-      <mat-list-item class="dragdropbox"  cdkDrag [cdkDragData]="weaknessElement" *ngFor="let weaknessElement of weaknesses$ | async">
-          <!--The below ngIf is what applies the searchbar to the list-->
-        <ng-container  *ngIf="weaknessElement.Wname.toLowerCase().indexOf(searchWeaknesses.value)!== -1 || weaknessElement.Wstatus.toLowerCase().indexOf(searchWeaknesses.value)!== -1|| weaknessElement.Wdescription.toLowerCase().indexOf(searchWeaknesses.value)!== -1 ">
-         
-          <span class="listSpan idCol" style="font-weight: bold;">
-              {{ weaknessElement.idOrgWeaknesses }} 
+          <form [formGroup]="policyForm">
+            <mat-form-field id="policySearch">
+              <mat-label>{{this.id}}</mat-label>
+              <input type="text"
+              
+                     matInput
+                     formControlName="policyLevel"
+                     required
+                     [matAutocomplete]="autoGroup">
+                <mat-autocomplete #autoGroup="matAutocomplete">
+                  <mat-optgroup *ngFor="let group of policyLevelOptions | async" [label]="group.level">
+                    <mat-option *ngFor="let name of group.names" [value]="name" routerLink="/Policy/{{name}}" (click)="policySearch($event, name)" routerLinkActive="active">
+                      {{name}}
+                    </mat-option>
+                </mat-optgroup>
+              </mat-autocomplete>
+            </mat-form-field>
+          </form>
+          
+  
+          <div class="item2" style="flex: 1; ">
+            <p id="title" style="font-size: 20px;"> {{policy.Subtitle}}</p>
+          </div>    
+  
+          <div class="item2" style="flex: 1; ">
+            <p id="title" style="font-size: 20px;color: #06d6a0;">{{policy.Pstatus}}</p>
+          </div>
+        </div>
+  
+        <mat-tab-group >
+          <mat-tab label="CMMC Information" style="overflow: none;">
+            <p style="margin-top: 1%;" class="dditems">CMMC Number: {{policy.CMMCnumber}}</p>
+            <br>
+            <p class="dditems">Capability Name: {{policy.nudgid}}</p>
+            <br>
+            <p class="dditems">Capability Number: {{policy.Capabilitynumber}}</p>
+            <br>
+            <p class="dditems">Practice: {{policy.Practice}}</p>
+            <br>
+            <p class="dditems">Clarification: {{policy.Clarification}}</p>
+          </mat-tab>
+  
+          <mat-tab label="NIST Information" style="overflow: none;">
+          <p style="margin-top: 1%;" class="dditems">NIST Mapping: {{policy.NISTmapping}}</p>
+          <br>
+          <p class="dditems">NIST Value: {{policy.NISTvalue}}</p>
+          <br>
+        </mat-tab>
+          <mat-tab label="References"> {{policy.References}}</mat-tab>
+          <mat-tab label="Guidelines">      
+            <app-guidelines-page style="z-index: 99">
+            </app-guidelines-page>
+  
+          </mat-tab>
+  
+        </mat-tab-group>
+    </div>
+      
+  
+    <!--THIS IS THE STANDARDS LIST-->
+    <div id="standard3" class="standard4 ">
+  
+      <mat-list>
+        <div class="flexContainer">
+          <mat-list-item class="headerRow">
+            <span class="listSpan idCol">
+              Standard ID
             </span>
-          <span class="listSpan nameCol" style="font-weight: bold;" >
-            {{weaknessElement.Wname}}
+            <span class="listSpan descCol">
+              Name
+            </span>
+          </mat-list-item>
+        </div>
+    
+        <mat-list-item *ngFor="let standard of standards$ | async">
+    
+            <span class="listSpan idCol">
+              {{ standard.idStandards }}    
+              </span>
+          <span class="listSpan descCol">
+            {{standard.Standard}}
           </span>
     
-          <span class="listSpan descCol" style="font-weight: bold;">
-            {{weaknessElement.Wdescription}}
-          </span>
-    
-          <span class="listSpan dateCol" style="font-weight: bold;">
-            {{weaknessElement.Wstatus}}
-          </span>
-  
-          <span class="listSpan dateCol2" style="font-weight: bold;">
-            {{weaknessElement.WcompletionDate | date:'M/d/yy'}}
-          </span>
-
-          <span class="listSpan dateCol3" style="font-weight: bold; ">
-            {{weaknessElement.idOrgControls}}
-          </span>
-  
-        <span class="listSpan dateCol4">
-          <button mat-icon-button>
-              <mat-icon
-              (click)="openMilestones(weaknessElement.idOrgWeaknesses)"
-              color="primary"
-              >
-              assignment
-            </mat-icon>
-          </button>
-  
-  
-  
-  
+         <span style="position: absolute; right: 0;">
             <button mat-icon-button>
               <mat-icon
-       
+                
                 color="primary"
               >
-              <!--         (click)="updateWeaknesses(weaknessElement.idOrgWeaknesses, userInput.value)"-->
+              <!--(click)="updateStandards(standard.idStandards, userInput.value)"-->
                 edit
               </mat-icon>
             </button>
     
         
             <button mat-icon-button>
-              <mat-icon (click)="deleteWeaknesses(weaknessElement.idOrgWeaknesses)" color="warn">
+              <mat-icon (click)="deleteStandards(standard.idStandards)" color="warn">
                 delete
               </mat-icon>
             </button>
           </span> 
-
-        </ng-container>
-
-    
-         
-       
-         
-      </mat-list-item>
-    </mat-list>
-    
-    
-  </div>
-
-
-    <!-- THIS IS THE CONTROLS LIST-->
-    <div 
-    id="controlDrop" 
-    class="control2"
-    cdkDropList
-
-    [cdkDropListData]="controlDrop"
-    [cdkDropListConnectedTo]="[weaknessDrop]"
-    (cdkDropListDropped)="drop($event)"
-    [cdkDropListEnterPredicate]="weaknessesToControls">
-
-    <mat-list>
-      <div class="flexContainer">
-        <mat-list-item class="headerRow">
-          <span class="idCol">
-            Control ID
-          </span>
-          <span class="nameCol">
-            Name
-          </span>
-          <span class="descCol">
-            Description
-          </span>
-          <span class="dateCol">
-            Date
-          </span>
-          <span class="dateCol2" style="margin-left: 6.5%;">
-            Wid
-          </span>
-          <input class="searchBox" style="margin-left: 3px;" type="text" #searchControls id='searchControls' (keyup)="filterControls()" placeholder="search" />
-
         </mat-list-item>
-
-      </div>
-
-      <mat-list-item 
-      id="controlDraggable"
-      cdkDrag 
-      *ngFor="let controlElement of controls$ | async"  
- 
-      [cdkDragData]="controlElement"
-
-      >
-        <ng-container style="display: flex;" *ngIf="controlElement.Cname.toLowerCase().indexOf(searchControls.value)!== -1 || controlElement.Coverview.toLowerCase().indexOf(searchControls.value)!== -1 ">
-
-        <span class=" idCol" style="font-weight: bold;"
-          >{{ controlElement.idOrgControls }}    </span
+      </mat-list>
+    
+    </div>
+  
+  
+  
+    <div class ="editBar">
+      <app-accordion-item [id$]="id" *ngFor="let item of entries" 
+        [entry]="item">
+      </app-accordion-item> 
+    </div>
+  
+    <!--THIS IS THE WEAKNESSES LIST-->
+  
+    <div
+    cdkDropList
+    id="weaknessDrop"
+    class="weakness2"
+    [cdkDropListData]="weaknessDrop"
+    [cdkDropListConnectedTo]="[controlDrop]"
+    (cdkDropListDropped)="drop($event)"
+    [cdkDropListEnterPredicate]="controlsToWeaknesses">
+  
+       
+      <mat-list>
+        <div class="flexContainer">
+          <mat-list-item class="headerRow">
+            <span class="idCol">
+              Weakness ID
+            </span>
+            <span class="nameCol">
+              Name
+            </span>
+            <span class="descCol">
+              Description
+            </span>
+            <span class="dateCol">
+              Status
+            </span>
+            <span class="dateCol2">
+              Completion Date
+            </span>
+            <span class="dateCol3">
+              Cid
+            </span>
+            <input class="searchBox"  type="text" #searchWeaknesses id='searchWeaknesses' (keyup)="filterWeaknesses()" placeholder="search" />
+  
+          </mat-list-item>
+  
+  
+        </div>
+    
+        <mat-list-item class="dragdropbox"  cdkDrag [cdkDragData]="weaknessElement" *ngFor="let weaknessElement of weaknesses$ | async">
+            <!--The below ngIf is what applies the searchbar to the list-->
+          <ng-container  *ngIf="weaknessElement.Wname.toLowerCase().indexOf(searchWeaknesses.value)!== -1 || weaknessElement.Wstatus.toLowerCase().indexOf(searchWeaknesses.value)!== -1|| weaknessElement.Wdescription.toLowerCase().indexOf(searchWeaknesses.value)!== -1 ">
+           
+            <span class="listSpan idCol" style="font-weight: bold;">
+                {{ weaknessElement.idOrgWeaknesses }} 
+              </span>
+            <span class="listSpan nameCol" style="font-weight: bold;" >
+              {{weaknessElement.Wname}}
+            </span>
+      
+            <span class="listSpan descCol" style="font-weight: bold;">
+              {{weaknessElement.Wdescription}}
+            </span>
+      
+            <span class="listSpan dateCol" style="font-weight: bold;">
+              {{weaknessElement.Wstatus}}
+            </span>
+    
+            <span class="listSpan dateCol2" style="font-weight: bold;">
+              {{weaknessElement.WcompletionDate | date:'M/d/yy'}}
+            </span>
+  
+            <span class="listSpan dateCol3" style="font-weight: bold; ">
+              {{weaknessElement.idOrgControls}}
+            </span>
+    
+          <span class="listSpan dateCol4">
+            <button mat-icon-button>
+                <mat-icon
+                (click)="openMilestones(weaknessElement.idOrgWeaknesses)"
+                color="primary"
+                >
+                assignment
+              </mat-icon>
+            </button>
+    
+    
+    
+    
+              <button mat-icon-button>
+                <mat-icon
+         
+                  color="primary"
+                >
+                <!--         (click)="updateWeaknesses(weaknessElement.idOrgWeaknesses, userInput.value)"-->
+                  edit
+                </mat-icon>
+              </button>
+      
+          
+              <button mat-icon-button>
+                <mat-icon (click)="deleteWeaknesses(weaknessElement.idOrgWeaknesses)" color="warn">
+                  delete
+                </mat-icon>
+              </button>
+            </span> 
+  
+          </ng-container>
+  
+      
+           
+         
+           
+        </mat-list-item>
+      </mat-list>
+      
+      
+    </div>
+  
+  
+      <!-- THIS IS THE CONTROLS LIST-->
+      <div 
+      id="controlDrop" 
+      class="control2"
+      cdkDropList
+  
+      [cdkDropListData]="controlDrop"
+      [cdkDropListConnectedTo]="[weaknessDrop]"
+      (cdkDropListDropped)="drop($event)"
+      [cdkDropListEnterPredicate]="weaknessesToControls">
+  
+      <mat-list>
+        <div class="flexContainer">
+          <mat-list-item class="headerRow">
+            <span class="idCol">
+              Control ID
+            </span>
+            <span class="nameCol">
+              Name
+            </span>
+            <span class="descCol">
+              Description
+            </span>
+            <span class="dateCol">
+              Date
+            </span>
+            <span class="dateCol2" style="margin-left: 6.5%;">
+              Wid
+            </span>
+            <input class="searchBox" style="margin-left: 3px;" type="text" #searchControls id='searchControls' (keyup)="filterControls()" placeholder="search" />
+  
+          </mat-list-item>
+  
+        </div>
+  
+        <mat-list-item 
+        id="controlDraggable"
+        cdkDrag 
+        *ngFor="let controlElement of controls$ | async"  
+   
+        [cdkDragData]="controlElement"
+  
         >
-        <span class=" nameCol" style="font-weight: bold;">
-          {{controlElement.Cname}}
-        </span>
-        <span class=" descCol" style="font-weight: bold;">
-          {{controlElement.Coverview}}
-        </span>
-        <span class=" dateCol" style="font-weight: bold;">
-          {{controlElement.Cissuedate}}
-        </span>
-        <span class=" dateCol2" style="font-weight: bold; margin-left: 8%;">
-          {{controlElement.idOrgWeaknesses}}
-        </span>
-
-
-
-      <span style="position: absolute; right: 0;">
-        <button mat-icon-button>
-          <mat-icon
-          (click)="openProcedures(controlElement.idOrgControls)"
-          color="primary"
+          <ng-container style="display: flex;" *ngIf="controlElement.Cname.toLowerCase().indexOf(searchControls.value)!== -1 || controlElement.Coverview.toLowerCase().indexOf(searchControls.value)!== -1 ">
+  
+          <span class=" idCol" style="font-weight: bold;"
+            >{{ controlElement.idOrgControls }}    </span
           >
-          assignment
-        </mat-icon>
-      </button>
-
-
+          <span class=" nameCol" style="font-weight: bold;">
+            {{controlElement.Cname}}
+          </span>
+          <span class=" descCol" style="font-weight: bold;">
+            {{controlElement.Coverview}}
+          </span>
+          <span class=" dateCol" style="font-weight: bold;">
+            {{controlElement.Cissuedate}}
+          </span>
+          <span class=" dateCol2" style="font-weight: bold; margin-left: 8%;">
+            {{controlElement.idOrgWeaknesses}}
+          </span>
+  
+  
+  
+        <span style="position: absolute; right: 0;">
           <button mat-icon-button>
             <mat-icon
-              color="primary"
+            (click)="openProcedures(controlElement.idOrgControls)"
+            color="primary"
             >
-            <!--              (click)="updateControls(controlElement.idOrgControls, userInput.value)"
--->
-              edit
-            </mat-icon>
-          </button>
+            assignment
+          </mat-icon>
+        </button>
+  
+  
+            <button mat-icon-button>
+              <mat-icon
+                color="primary"
+              >
+              <!--              (click)="updateControls(controlElement.idOrgControls, userInput.value)"
+  -->
+                edit
+              </mat-icon>
+            </button>
+  
+  
+            <button mat-icon-button>
+              <mat-icon (click)="deleteControls(controlElement.idOrgControls)" color="warn">
+                delete
+              </mat-icon>
+            </button>
+          </span> 
+        </ng-container>
+        </mat-list-item>
+      </mat-list>
+  
+      </div>
+  
+  </div>
+  
+  <ng-container *ngFor="let guideline of guidelines$">
+    <div id="box" #box class="mainDiv" 
+    style="width:500px; height:450px; z-index: 100; position: absolute; left: 100px; top: 100px;"
+    popUp 
+    cdkDrag 
+    cdkDragRootElement=".cdk-overlay-pane" 
+    ngDraggable 
+    cdkDragHandle 
+    >
+        <div style="background-color: black;"> 
+            <span class="idCol id" style="color:white; min-width: 300px;">
+            {{guideline[0]}}
+            </span>  
+         
+            <button mat-icon-button id="dButton">
+                <mat-icon (click)="closeGuideline(guideline[0], guideline[1])" color="warn">
+                close
+                </mat-icon>
+            </button>
+       
+        </div>
+    
+        <div style="background-color: rgb(255, 255, 255); display: inline-block; overflow: scroll; max-height: 400px; min-height: 400px; min-width: 480px;" >
+          <span style="font-size: small; color:black; overflow:scroll;">        
+                  {{guideline[1]}}
+            </span>
+        </div>
+    
+        
+    </div>
+    
+  </ng-container>
+</div>
 
 
-          <button mat-icon-button>
-            <mat-icon (click)="deleteControls(controlElement.idOrgControls)" color="warn">
-              delete
-            </mat-icon>
-          </button>
-        </span> 
-      </ng-container>
-      </mat-list-item>
-    </mat-list>
+<div class="PrintSection" style="align-items: center; display:flex">
+  <div class="pMainDiv" style="background-color: white; width: 98%; height:100%">
+
+
+    <div class="div1"  style = "height:100px; width:40%; ;">
+      <img  id="logo" class="img" src="../../assets/images/nudgLogo.png" style="height: 100px; width:100px; margin-left: 65%;">
 
     </div>
 
-</div>
 
-<ng-container *ngFor="let guideline of guidelines$">
-  <div id="box" #box class="mainDiv" 
-  style="width:500px; height:450px; z-index: 100; position: absolute; left: 100px; top: 100px;"
-  popUp 
-  cdkDrag 
-  cdkDragRootElement=".cdk-overlay-pane" 
-  ngDraggable 
-  cdkDragHandle 
-  >
-      <div style="background-color: black;"> 
-          <span class="idCol id" style="color:white; min-width: 300px;">
-          {{guideline[0]}}
-          </span>  
-       
-          <button mat-icon-button id="dButton">
-              <mat-icon (click)="closeGuideline(guideline[0], guideline[1])" color="warn">
-              close
-              </mat-icon>
-          </button>
-     
-      </div>
-  
-      <div style="background-color: rgb(255, 255, 255); display: inline-block; overflow: scroll; max-height: 400px; min-height: 400px; min-width: 480px;" >
-        <span style="font-size: small; color:black; overflow:scroll;">        
-                {{guideline[1]}}
+    <div class="div1"  style ="height:50px; width:60%; ">
+      <span style="font-size: x-large; padding-top: 30px;">
+        NUDG Systems
+        </span>
+    </div>
+
+
+    <div class="div1" style ="width:60%; height:50px; ">
+      NIST Unified Data Governance
+    </div>
+
+
+   <ng-container *ngFor="let policy of policy$ | async">
+
+
+
+
+
+
+     <h1>{{policy.Subtitle}}</h1>
+     <h2>Family Policy</h2>
+     <span>{{policy.FamilyPolicy}}</span>
+     <table class="table" style="width:100%">
+      <tr>
+        <th class="col1-2">NUDG Identifier</th>
+        <th class="col3-4">{{policy.nudgid}}</th>
+      </tr>
+      <tr>
+        <td class="col1">CMMC Number</td>
+        <td class="col2">{{policy.CMMCnumber}}</td>
+
+        <td class="col3">Status</td>
+        <td class="col4">{{policy.Pstatus}}</td>
+      </tr>
+      <tr>
+        <td class="col1">Capability Number</td>
+        <td class="col2">{{policy.Capabilitynumber}}</td>
+
+        <td class="col3">CMMC Level</td>
+        <td class="col4">{{policy.CMMClevel}}</td>
+      </tr>
+      <tr>
+        <td class="col1">NIST Mapping</td>
+        <td class="col2">{{policy.NISTmapping}}</td>
+
+        <td class="col3">NIST Value</td>
+        <td class="col4">{{policy.NISTvalue}}</td>
+      </tr>
+     </table>
+
+      <label>Practice</label>
+     <body>
+      <span>{{policy.Practice}}</span>
+
+     </body>
+     <br>
+    
+     <label>Clarification</label>
+
+     <body>
+      <span>{{policy.Clarification}}</span>
+
+     </body>
+
+
+
+    <!-- STANDARDS -->
+     <div id="standard3" class="standard4 " style="width:100%; float:left">
+      <mat-list>
+        <div class="flexContainer">
+          <mat-list-item class="headerRow">
+            <span class="listSpan idCol">
+              Standard ID
+            </span>
+            <span class="listSpan descCol">
+              Name
+            </span>
+          </mat-list-item>
+        </div>
+    
+        <mat-list-item *ngFor="let standard of standards$ | async">
+    
+            <span class="listSpan idCol">
+              {{ standard.idStandards }}    
+              </span>
+          <span class="listSpan descCol">
+            {{standard.Standard}}
           </span>
-      </div>
-  
-      
-  </div>
-  
-</ng-container>
+        
+        
+        </mat-list-item>
+      </mat-list>
+    
+    </div>
+<!--CONTROLS -->
+<div 
+id="controlDrop" 
+class="control2"
+cdkDropList
+style="width:100%; float:left"
+[cdkDropListData]="controlDrop"
+[cdkDropListConnectedTo]="[weaknessDrop]"
+(cdkDropListDropped)="drop($event)"
+[cdkDropListEnterPredicate]="weaknessesToControls">
 
+<mat-list>
+  <div class="flexContainer">
+    <mat-list-item class="headerRow">
+      <span class="idCol">
+        Control ID
+      </span>
+      <span class="nameCol">
+        Name
+      </span>
+      <span class="descCol">
+        Description
+      </span>
+      <span class="dateCol">
+        Date
+      </span>
+      <span class="dateCol2" style="margin-left: 6.5%;">
+        Wid
+      </span>
+
+    </mat-list-item>
+
+  </div>
+
+  <mat-list-item 
+  id="controlDraggable"
+  cdkDrag 
+  *ngFor="let controlElement of controls$ | async"  
+
+  [cdkDragData]="controlElement"
+
+  >
+    <ng-container style="display: flex;" *ngIf="controlElement.Cname.toLowerCase().indexOf(searchControls.value)!== -1 || controlElement.Coverview.toLowerCase().indexOf(searchControls.value)!== -1 ">
+
+    <span class=" idCol">
+      {{ controlElement.idOrgControls }}    </span
+    >
+    <span class=" nameCol" >
+      {{controlElement.Cname}}
+    </span>
+    <span class=" descCol" >
+      {{controlElement.Coverview}}
+    </span>
+    <span class=" dateCol" >
+      {{controlElement.Cissuedate}}
+    </span>
+    <span class=" dateCol2" style="margin-left: 8%;">
+      {{controlElement.idOrgWeaknesses}}
+    </span>
+
+
+
+  </ng-container>
+  </mat-list-item>
+</mat-list>
+<label>References</label>
+
+<body>
+ <span>{{policy.References}}</span>
+
+</body>
+</div>
+   </ng-container>
+  </div>
+</div>

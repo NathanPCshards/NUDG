@@ -42,7 +42,7 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   post(item: any): Observable<any> {
-    console.log("post controls")
+    console.log("post controls : " , item)
     return this.http
       .post(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
