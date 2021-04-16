@@ -36,6 +36,7 @@ export class DragDropDirective {
           let csvData = reader.result
           let dataArray = String(csvData).split('\n')
           // IF (FILETYPE = CONTROL){}
+          
           for (let index = 1; index < dataArray.length; index++) {
             const entry = dataArray[index].split(",");
             console.log("entry :" ,  entry)
@@ -47,13 +48,15 @@ export class DragDropDirective {
             let Curl = entry[5]
             let idOrgWeaknesses = entry[6].replace("\r","")
             console.log("weaknesses check : " , idOrgWeaknesses)
-         /* this.controlService
-            .post({nudgid, idStandards, Cname, Coverview, Cissuedate, Curl, CProcedure, idOrgWeaknesses})*/
+/*
+         this.controlService
+            .post({nudgid, idStandards, Cname, Coverview, Cissuedate, Curl, CProcedure, idOrgWeaknesses})
+          
+*/
 
-
-            this.controlService.emit({Nid, Cname, Coverview, Cissuedate, Csharedresources, Curl, idOrgWeaknesses})
-       
           }
+          
+         // this.controlService.emit({dataArray})
 
           
           }

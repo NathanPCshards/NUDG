@@ -1,80 +1,108 @@
+<div class="container1 " style="height:600px;">
+    <ng-container *ngFor="let entry of gap$ | async">
+        <h2 style=" font-size: 32px;color: white;">
+            Gap Assessment
+        </h2>
+        
+        <div class="col" style="width:20%">
 
-<style>
-    div.container1{
-      
-        background: linear-gradient(to bottom, rgb(63,81,181) 8%, white 0%);
-        height:100%;
-        overflow:hidden;
-          
-      }
-    mat-grid-tile{
-        width: 98px;
-        margin:auto;
-    }
-    mat-form-field{
-        margin-left: 1%;
-    }
+            <div class ="colSmall" style=" background-color: palegoldenrod; box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; margin-top: 15px;">
+                <mat-form-field  appearance = "legacy" style="width:80%">
+                    <input matInput placeholder = "NUDG Identifier" value = "{{id$}}">
+                </mat-form-field>
+                <mat-form-field appearance = "legacy" style="width:80%">
+                    <input matInput placeholder = "Assesssment Date" value = "{{entry.Gdate}}">
+                </mat-form-field>
     
-    .col{
-        float:left;
-        width: 100%;
-        padding:1%;
-      
-    }
-    
-    .row2{
-        width:100%;
-        align-items: center;
-        display: flexbox;
-        clear:both;
-        padding-left: 2px;
-        padding-right: 2px;
-    }
-    .mat-raised-button{
-        margin-top: 1%;
-        margin-bottom: 15px;
-    }
-    
-    .mat-toolbar{
-        padding: 0px;
-    }
-    ::ng-deep.mat-dialog-container {
-        padding: 0px !important;
-        margin-bottom: 0px;
-    }
-    
-    
-    </style>
-    <div class="container1" style="margin:0px;padding: 0px;">
-    <div [formGroup] ="GapForm" style="margin:0px;padding: 0px;"></div>
-        <form  class="user-form" (ngSubmit)="onFormSubmit()" novalidate>
-    
-    
-    
-            <h2 style="margin-left: 1%; margin-top: 1%; font-size: 32px;color: white;">
-                Gap Assessment
-            </h2>
-                <div class = InputContainer>
-                    <div class = "row">
-                        <div class ="col">
-                            <mat-form-field  appearance = "legacy" style="width:50%">
-                                <input matInput placeholder = "NUDG Identifier">
-                            </mat-form-field>
-                            <mat-form-field appearance = "legacy" style="width:50%">
-                                <input matInput placeholder = "Assesssment Date">
-                            </mat-form-field>
-                            <mat-form-field appearance = "legacy" style="width:100%">
-                                <input matInput placeholder = "GAP Assessment, reference NIST Handbook 162" >
-                            </mat-form-field>
-
-                        </div>
-
-                <div class = "row2">
-                    <mat-divider style="padding-top: 3px;"></mat-divider>
-    
-                    <button mat-raised-button [mat-dialog-close]="true" (click)="onFormSubmit();"  style="margin-left: 15%;width:20vw;height: 5vh; float: left;" color="primary"  >Submit</button>
-                    
-                    <button mat-raised-button  (click)="onFormReset();" style="margin-right: 15%;width:20vw;height: 5vh;float: right;" type="reset"  color="primary"  >Reset</button>
-                </div>
             </div>
-         
+
+            <div class ="colSmall" style=" background-color: palegoldenrod; box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; margin-top: 30px;">
+                <span>
+                    Autofill Weaknesses
+                </span>
+                <button mat-icon-button>
+                <mat-icon id="wToggleIcon" color="primary" (click)="toggleWeaknessImport()">
+                    check_box_outline_blank
+                </mat-icon>
+                </button>
+                <span>
+                    Autofill Controls
+                </span>
+                <button mat-icon-button>
+                    <mat-icon id="cToggleIcon" color="primary" (click)="toggleControlImport()">
+                        check_box_outline_blank
+                    </mat-icon>
+                </button>
+                
+    
+  
+
+        </div>
+    
+        <div class ="colSmall" style=" background-color: palegoldenrod; box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; margin-top: 30px;">
+            <span>
+                Edit Questions 
+            </span>
+            <button mat-icon-button>
+                <mat-icon id="qToggleIcon" color="primary" (click)="toggleQuestionEdit()">
+                    check_box_outline_blank
+                </mat-icon>
+            </button>
+
+            <span>
+                Hide Comments 
+            </span>
+            <button mat-icon-button>
+                <mat-icon id="commentToggleIcon" color="primary" (click)="toggleComment()">
+                    check_box_outline_blank
+                </mat-icon>
+            </button>
+
+        </div>
+    
+            <button class ="colSmall" style=" background-color: palegoldenrod; box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; margin-top: 30px; margin-left: 45%;">
+                Submit
+            </button>
+
+        </div>
+
+        <div class ="col" style="width:80%; overflow: scroll;  height:550px" >
+            
+                <table class="table" style="width:100%;">
+                    <tr>
+                      <td class="col2">{{entry.Gquestion}}</td>
+                    </tr>
+                    <tr>
+           <td>
+            <mat-form-field  class= "col2" appearance = "legacy" style="width:100%; float:left">
+                <input #Ganswer matInput value="{{entry.Ganswer}}">
+               </mat-form-field>
+               
+           <div id="comment">
+            <textarea #Gcomment  value="{{entry.Gcomment}}" id="comments" style="float:left; text-align: left; align-content: left; margin-left: 20%; height:50px; " rows="2" cols="70"></textarea>
+
+           </div>
+           </td>
+        
+                    </tr>
+
+                   </table>
+
+          
+        </div>
+    </ng-container>
+</div>
+
+<!--
+
+            <div class = "row2">
+                <mat-divider style="padding-top: 3px;"></mat-divider>
+
+                <button mat-raised-button [mat-dialog-close]="true" (click)="onFormSubmit();"  style="margin-left: 15%;width:20vw;height: 5vh; float: left;" color="primary"  >Submit</button>
+                
+                <button mat-raised-button  (click)="onFormReset();" style="margin-right: 15%;width:20vw;height: 5vh;float: right;" type="reset"  color="primary"  >Reset</button>
+            </div>
+        
+
+-->
+

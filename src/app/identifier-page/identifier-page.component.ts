@@ -22,6 +22,8 @@ import { policy } from '../models/policy';
 import { PolicyService } from '../services/policy.service';
 import { GuidelinesService } from '../services/guidelines.service';
 import { guidelinesDialog } from '../guidelines-page/guidelines-page.component';
+import { GapService } from '../services/gap.service';
+import { gap } from '../models/gap';
 
 
 //leave for now. The accordion needs these to function
@@ -68,6 +70,7 @@ export class IdentifierPageComponent implements OnInit {
   controls$: Observable<controls[]>;
   standards$: Observable<standards[]>;
   policy$: Observable<policy[]>;
+  gap$: Observable<gap[]>;
   //Used for sorting
   weaknessesDataSource;
   searchWeaknesses;
@@ -76,7 +79,8 @@ export class IdentifierPageComponent implements OnInit {
   state$: Observable<object>;
   routeSub
   id
-
+ 
+  
   //Guidelines 
   guidelines$ = []
   child_unique_key: number = 0;
@@ -129,11 +133,13 @@ export class IdentifierPageComponent implements OnInit {
     private standardsservice: StandardsService,
     private policyService : PolicyService,
     private guidelinesService: GuidelinesService,
+    private gapservice : GapService,
     private activatedRoute : ActivatedRoute,
     public dialog : MatDialog,
     private sharedService : SharedService,
     private _formBuilder : FormBuilder,
     private CFR:ComponentFactoryResolver,
+
     ) { }
 
   ngOnInit(){
@@ -206,6 +212,9 @@ export class IdentifierPageComponent implements OnInit {
     //STANDARDS STUFF
     this.standards$ = this.fetchAllStandards();
 
+    //GAP STUFF
+    this.gap$ = this.fetchAllGap(this.id);
+
     //GUIDELINES STUFF
     this.guidelinesService.onOpen.subscribe(e=>{
 
@@ -239,9 +248,12 @@ export class IdentifierPageComponent implements OnInit {
 
     return this.policyService.fetchAll(id);
   }
+  
+  fetchAllGap(Nid:any): Observable<gap[]> {
+    return this.gapservice.fetchAll(Nid);
+  }
 
   fetchAllControls(Nid:any): Observable<controls[]> {
-
     return this.controlsservice.fetchAll(Nid);
   }
   updateControls(id: number, inventoryItem: Partial<controls>): void {

@@ -71,8 +71,7 @@ import { DragDropDirective } from './drag-drop.directive';
     SupplierFormComponent,
     VendorFormComponent,
     TasksComponent,
-    GapAssessmentPageComponent,
-    GapForm,
+    
 
 
     PageSearchComponent,
