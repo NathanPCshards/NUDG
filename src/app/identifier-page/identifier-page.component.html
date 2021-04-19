@@ -114,7 +114,7 @@
   
   
     <div class ="editBar">
-      <app-accordion-item [id$]="id" *ngFor="let item of entries" 
+      <app-accordion-item [id$]="id" [Gdate$] = "Gdate$" [parentReference$] = "urlAdjuster" *ngFor="let item of entries" 
         [entry]="item">
       </app-accordion-item> 
     </div>

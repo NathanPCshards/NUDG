@@ -27,9 +27,15 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
 
-   fetchAll(id: any): Observable<any[]> {
+   fetchAll(id: any, Gdate:any = ""): Observable<any[]> {
     let tempUrl;
-    id ? tempUrl = `http://localhost:3000/gap/${id}` : tempUrl = "http://localhost:3000/gap"
+    if (Gdate != "") {
+      tempUrl = `http://localhost:3000/gap?Nid=${id}&Gdate=${Gdate}`
+    }
+    else{
+      tempUrl = `http://localhost:3000/gap/${id}`
+    }
+
     console.log("gap url : ", tempUrl)
 
   
@@ -46,15 +52,18 @@ httpOptions: { headers: HttpHeaders } = {
 
   post(item: any): Observable<any> {
     console.log("post gap : " , item)
+    console.log("posted to url : " , this.url)
     return this.http
       .post(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
-  update(user: controls): Observable<any> {
-    console.log("update gap")
+  update(item: any): Observable<any> {
+    console.log("update gap: ", item)
+    console.log("updated to url : " , this.url)
+
     return this.http
-      .put<any>(this.url, user, this.httpOptions)
+      .put<any>(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
   }
 

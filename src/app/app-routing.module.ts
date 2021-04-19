@@ -50,6 +50,8 @@ const routes: Routes = [
   { path: 'Accordion', component: PolicyAccordionComponent },
   { path: 'Policy', component: IdentifierPageComponent},
   { path: 'Policy/:id', component: IdentifierPageComponent },
+  { path: 'Policy/:id/:Date', component: IdentifierPageComponent },
+
 
 
 
@@ -62,7 +64,10 @@ const routes: Routes = [
   
   { path: 'Weaknesses', component: WeaknessFormComponent },
   { path: 'GapAssessment', component: GapAssessmentPageComponent },
+
   { path: 'GapForm', component: GapForm },
+  { path: 'GapForm/:id/:Date', component: GapForm },
+
   { path: 'ControlForm', component: controlDialog },
   { path: 'WeaknessForm', component: weaknessDialog },
   { path: 'NetworkSharePage', component: networkSharesPage},

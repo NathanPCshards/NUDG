@@ -79,8 +79,9 @@ export class IdentifierPageComponent implements OnInit {
   state$: Observable<object>;
   routeSub
   id
- 
-  
+  //used to bring up most recent gap assessment
+  Gdate$;
+  urlAdjuster = "policy"
   //Guidelines 
   guidelines$ = []
   child_unique_key: number = 0;
@@ -118,8 +119,6 @@ export class IdentifierPageComponent implements OnInit {
   currentPolicy;
 
   
-  //@ts-ignore
-  componentRef: ComponentRef;
 
   
   constructor(
@@ -151,23 +150,21 @@ export class IdentifierPageComponent implements OnInit {
     //Pulling correct policy.
     this.routeSub = this.route.params.subscribe(params => {
       this.id = params['id'];
+      this.Gdate$ = params['Gdate$']
       });
+    
 
     //Sets defualt page to be AC-N.01
     this.id ? true : this.id = "AC-N.01"
-    
+    this.Gdate$ ? true : this.Gdate$ = "4/16/2021"
     //POLICY STUFF
     this.policy$ = this.fetchPolicy(this.id);
-    this.policy$.forEach(element => {
-        console.log("elemenet : " , element)
-      });
-    console.log("current policy : " , this.currentPolicy)
+
     //ACCORDION STUFF
     this.entries = accordionEntries
     this.service.onAccordionClick.subscribe(data =>{
       if (data == "shrink"){
 
-       console.log("small")
        this.uncollapsed = true;
 
       document.getElementById('control').className = 'Cshrink'
@@ -178,7 +175,6 @@ export class IdentifierPageComponent implements OnInit {
 
       }
       if (data == "grow"){
-        console.log("grow")
          this.uncollapsed = false;
 
         document.getElementById('weakness').className = 'Wgrow'
@@ -212,20 +208,31 @@ export class IdentifierPageComponent implements OnInit {
     //STANDARDS STUFF
     this.standards$ = this.fetchAllStandards();
 
-    //GAP STUFF
-    this.gap$ = this.fetchAllGap(this.id);
+   //GAP STUFF
+      //TODO make the dates held in a array and make this call fetchall with most recent  date
+
+    this.gap$ = this.fetchAllGap(this.id, this.Gdate$);
+    this.gapservice.onClick.subscribe(data=>{
+      if (data.idOrgGap){
+        console.log("updating : " , data)
+        this.gap$ = this.gapservice
+        .update(data)
+      }else{
+        console.log("Posting : " , data)
+        this.gap$ = this.gapservice
+        .post(data)
+
+      }
+
+    })
+    
 
     //GUIDELINES STUFF
     this.guidelinesService.onOpen.subscribe(e=>{
 
       this.openGuideline(e[0],e[1])
     })
-    this.guidelinesService.onClose.subscribe(e=>{
-      /*
-      let key = e[0]
-      console.log("closeGuideline  Called")
-      this.closeGuideline(key)*/
-    })
+
 
   }
 
@@ -249,8 +256,8 @@ export class IdentifierPageComponent implements OnInit {
     return this.policyService.fetchAll(id);
   }
   
-  fetchAllGap(Nid:any): Observable<gap[]> {
-    return this.gapservice.fetchAll(Nid);
+  fetchAllGap(Nid:any, Gdate:any): Observable<gap[]> {
+    return this.gapservice.fetchAll(Nid, Gdate);
   }
 
   fetchAllControls(Nid:any): Observable<controls[]> {
@@ -316,7 +323,6 @@ export class IdentifierPageComponent implements OnInit {
       let Wstatus = "Good"
       //getting the weakness ID from control entry
       let idOrgWeaknesses = event.item.data.idOrgWeaknesses
-      console.log("weakness id : " , idOrgWeaknesses)
       let Nid = event.item.data.Nid
 
     if (event.distance.x < -300 && event.container.id == "controlDrop") {
@@ -355,8 +361,8 @@ export class IdentifierPageComponent implements OnInit {
 
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);//returns undefined
+
+    //  console.log(result);//returns undefined
     });
 
 
@@ -373,7 +379,6 @@ export class IdentifierPageComponent implements OnInit {
 
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
      // console.log(result);//returns undefined
     });
   }

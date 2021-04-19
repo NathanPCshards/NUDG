@@ -1,5 +1,5 @@
 <div class="container1 " style="height:600px;">
-    <ng-container *ngFor="let entry of gap$ | async">
+ 
         <h2 style=" font-size: 32px;color: white;">
             Gap Assessment
         </h2>
@@ -7,12 +7,47 @@
         <div class="col" style="width:20%">
 
             <div class ="colSmall" style=" background-color: palegoldenrod; box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; margin-top: 15px;">
-                <mat-form-field  appearance = "legacy" style="width:80%">
-                    <input matInput placeholder = "NUDG Identifier" value = "{{id$}}">
+                <form [formGroup]="policyForm">
+                    <mat-form-field id="policySearch">
+                      <mat-label>{{id$}}</mat-label>
+                      <input type="text"
+                      
+                             matInput
+                             formControlName="policyLevel"
+                             required
+                             [matAutocomplete]="autoGroup">
+                        <mat-autocomplete #autoGroup="matAutocomplete">
+                          <mat-optgroup *ngFor="let group of policyLevelOptions | async" [label]="group.level">
+                            <mat-option *ngFor="let name of group.names" [value]="name"  (click)="setNid($event, name, Gdate$)" routerLinkActive="active">
+                              {{name}}
+                            </mat-option>
+                        </mat-optgroup>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  </form>
+
+<!--2nd for loop part routerLink="/Policy/{{name}}" (click)="policySearch($event, name)" routerLinkActive="active" -->
+
+
+
+
+
+            <form [formGroup]="dateForm">
+                <mat-form-field id="dateSearch">
+                <mat-label>{{Gdate$}}</mat-label>
+                <input type="text"
+                        matInput
+                        required
+                        [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                    <mat-optgroup *ngFor="let group of dateObservable$ | async" >
+                        <mat-option #date *ngFor="let date of group.date" [value]=date (click)="setDate($event, id$, date)" routerLinkActive="active">
+                        {{date}}
+                        </mat-option>
+                    </mat-optgroup>
+                </mat-autocomplete>
                 </mat-form-field>
-                <mat-form-field appearance = "legacy" style="width:80%">
-                    <input matInput placeholder = "Assesssment Date" value = "{{entry.Gdate}}">
-                </mat-form-field>
+            </form>
     
             </div>
 
@@ -59,38 +94,49 @@
             </button>
 
         </div>
-    
-            <button class ="colSmall" style=" background-color: palegoldenrod; box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; margin-top: 30px; margin-left: 45%;">
+            <button class ="colSmall" (click)="addQuestion()" class="editToggle" style=" background-color: palegoldenrod; box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; margin-top: 30px; margin-left: 25%;">
+                Add Question
+            </button>
+            
+            <button class ="colSmall" (click)="submitGap()" class="editToggle"  style=" background-color: palegoldenrod; box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; margin-top: 30px; margin-left: 25%;">
                 Submit
             </button>
+            <br>
+            <br>
+            <br>
+            <span>*Changes are not saved until 'Submit' is pressed!*</span>
 
         </div>
+            <div class ="col" style="width:80%; overflow: scroll;  height:550px" >
+                <div *ngFor="let entry of displayList$; let i = index" [attr.data-index]="i">        
 
-        <div class ="col" style="width:80%; overflow: scroll;  height:550px" >
-            
                 <table class="table" style="width:100%;">
                     <tr>
-                      <td class="col2">{{entry.Gquestion}}</td>
+                        <input #Gquestion class="editToggle" matInput value="{{entry.Gquestion}}" (change)="onQuestionChange(i, Gquestion.value)">
+
+
                     </tr>
                     <tr>
-           <td>
-            <mat-form-field  class= "col2" appearance = "legacy" style="width:100%; float:left">
-                <input #Ganswer matInput value="{{entry.Ganswer}}">
-               </mat-form-field>
-               
-           <div id="comment">
-            <textarea #Gcomment  value="{{entry.Gcomment}}" id="comments" style="float:left; text-align: left; align-content: left; margin-left: 20%; height:50px; " rows="2" cols="70"></textarea>
+                        <td>
+                            <mat-form-field  class= "col2" appearance = "legacy" style="width:100%; float:left">
+                                <input class="editToggle" (change)="onAnswerChange(i, Ganswer.value)"#Ganswer matInput value="{{entry.Ganswer}}">
+                            </mat-form-field>
+                            
+                        <div id="comments" class="comment">
+                            <textarea #Gcomment class="comment" value="{{entry.Gcomment}}" (change)="onCommentChange(i, Gcomment.value)" id="comment" style="float:left; text-align: left; align-content: left; margin-left: 20%; height:50px; " rows="2" cols="70"></textarea>
+                        </div>
 
-           </div>
-           </td>
-        
+                        <button mat-icon-button class="editToggle">
+                            <mat-icon (click)="deleteEntry(i)" color="warn">
+                              delete
+                            </mat-icon>
+                          </button>
+
+                        </td>
                     </tr>
-
-                   </table>
-
-          
+                </table>        
+            </div>
         </div>
-    </ng-container>
 </div>
 
 <!--
