@@ -18,15 +18,15 @@ import { PolicyAccordionService } from '../services/policy-accordion.service';
   'uncollapsed' : 
   'uncollapsed collapsed'}}">{{entry.description}}    
 
-  <weakness-dialog [id$]="id$" id="weakness" style="width:100%; position:absolute; visibility : hidden;">
+  <weakness-dialog [id$]="id$" id="weakness" style="width:100%; position:absolute; display:none">
   </weakness-dialog>
 
   <control-dialog [id$]="id$" id="control" style="position:absolute; width:100%;">
   </control-dialog>
 
-  <app-file-import id="fileUpload" style="left:30%; position:absolute; visibility:hidden;"> </app-file-import>
+  <app-file-import id="fileUpload" style="left:30%; position:absolute; display:none;"> </app-file-import>
 
-  <gap-form id="gapForm" [id$] ="id$" [Gdate$] ="Gdate$" [parentReference$] = "parentReference$" style="position:absolute; width:100%; visibility:hidden"> </gap-form>
+  <gap-form id="gapForm" [id$] ="id$" [Gdate$] ="Gdate$" [parentReference$] = "parentReference$" style="position:absolute; width:100%; display:none"> </gap-form>
 
 </dd>
 `,  
@@ -68,31 +68,31 @@ export class AccordionItemComponent  {
   }
 
   showControl(){
-    document.getElementById("control").style.visibility="visible"
-    document.getElementById("weakness").style.visibility="hidden"
-    document.getElementById("gapForm").style.visibility="hidden"
-    document.getElementById("fileUpload").style.visibility="hidden"
+    document.getElementById("control").style.display="flex"
+    document.getElementById("weakness").style.display="none"
+    document.getElementById("gapForm").style.display="none"
+    document.getElementById("fileUpload").style.display="none"
 
 
   }
   showWeakness(){
-    document.getElementById("control").style.visibility="hidden"
-    document.getElementById("weakness").style.visibility="visible"
-    document.getElementById("fileUpload").style.visibility="hidden"
-    document.getElementById("gapForm").style.visibility="hidden"
+    document.getElementById("control").style.display="none"
+    document.getElementById("weakness").style.display="flex"
+    document.getElementById("fileUpload").style.display="none"
+    document.getElementById("gapForm").style.display="none"
 
   }
   showFileUpload(){
-    document.getElementById("control").style.visibility="hidden"
-    document.getElementById("weakness").style.visibility="hidden"
-    document.getElementById("gapForm").style.visibility="hidden"
-    document.getElementById("fileUpload").style.visibility="visible"
+    document.getElementById("control").style.display="none"
+    document.getElementById("weakness").style.display="none"
+    document.getElementById("gapForm").style.display="none"
+    document.getElementById("fileUpload").style.display="inline"
   }
   showGap(){
-    document.getElementById("control").style.visibility="hidden"
-    document.getElementById("weakness").style.visibility="hidden"
-    document.getElementById("gapForm").style.visibility="visible"
-    document.getElementById("fileUpload").style.visibility="hidden"
+    document.getElementById("control").style.display="none"
+    document.getElementById("weakness").style.display="none"
+    document.getElementById("gapForm").style.display="flex"
+    document.getElementById("fileUpload").style.display="none"
   }
 
 

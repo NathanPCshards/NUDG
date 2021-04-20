@@ -29,7 +29,6 @@ httpOptions: { headers: HttpHeaders } = {
    fetchAll(id: any): Observable<controls[]> {
     let tempUrl;
     id ? tempUrl = `http://localhost:3000/controls/${id}` : tempUrl = "http://localhost:3000/controls"
-    console.log("control url : ", tempUrl)
 
     return this.http
       .get<controls[]>(tempUrl, { responseType: "json" })
@@ -42,14 +41,12 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   post(item: any): Observable<any> {
-    console.log("post controls : " , item)
     return this.http
       .post(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
   update(user: controls): Observable<any> {
-    console.log("update controls")
     return this.http
       .put<controls>(this.url, user, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));

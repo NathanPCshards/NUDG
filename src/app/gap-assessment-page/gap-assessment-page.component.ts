@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -50,20 +50,21 @@ export const _filter = (opt: string[], value: string): string[] => {
   templateUrl: './gapForm.html',
   styleUrls: ['./gap-assessment-page.component.scss']
 })
-export class GapForm implements OnInit {
+export class GapForm implements OnInit{
   GapForm;
   submitted= false;
   UserForm: any;
   gap$: Observable<gap[]>;
   displayList$;
   resetListCopy;
+  toDeleteList = [];
   @Input()
   id$;
   @Input()
   Gdate$;
   @Input()
   parentReference$;
-
+  showComments = true;
   routeSub
 
   policyLevelOptions: Observable<Policy[]>;
@@ -114,12 +115,7 @@ export class GapForm implements OnInit {
       this.Gdate$ = params['Date']
   
       });
-      //initializing edit controls to be off
-      this.editing=false;
-      for (let index = 0; index < document.getElementsByClassName("editToggle").length; index++) {
-        let element = <HTMLInputElement>document.getElementsByClassName("editToggle").item(index)
-        element.disabled = true        
-      }
+
 
     //Sets defualt page to be AC-N.01
     this.id$ ? true : this.id$ = "AC-N.01"
@@ -148,21 +144,27 @@ export class GapForm implements OnInit {
 
 
     this.gap$ = this.fetchAllGap(this.id$, this.Gdate$);
-    this.gapservice.onClick.subscribe(e=>{
-      //  this.displayList$ = e
-    })
+
     this.gap$.forEach(element => {
       this.displayList$ = []
       element.forEach(element2 => {
-        
         this.displayList$.push(element2)
-
       });
+      this.resetListCopy = this.displayList$
 
     });
-    this.resetListCopy = this.displayList$
 
   }
+  ngAfterViewInit(){
+      //initializing edit controls to be off
+      this.editing = false;
+      document.getElementById("qToggleIcon").innerText = "check_box_outline_blank"
+      for (let index = 0; index < document.getElementsByClassName("editToggle").length; index++) {
+        let element = <HTMLInputElement>document.getElementsByClassName("editToggle").item(index)
+        element.disabled = true        
+      }
+  }
+
   public onFormSubmit() {
 
   }
@@ -189,7 +191,6 @@ export class GapForm implements OnInit {
 
 
   toggleQuestionEdit(){
-
     if (document.getElementById("qToggleIcon").innerText == "check_box"){
       this.editing = false;
       document.getElementById("qToggleIcon").innerText = "check_box_outline_blank"
@@ -210,24 +211,17 @@ export class GapForm implements OnInit {
 
   toggleComment(){
     if (document.getElementById("commentToggleIcon").innerText == "check_box"){
+      this.showComments = true
+
       document.getElementById("commentToggleIcon").innerText = "check_box_outline_blank"
     
-      for (let index = 0; index < document.getElementsByClassName("comment").length; index++) {
-        let element = <HTMLBodyElement>document.getElementsByClassName("comment").item(index)
-       
-        element.style.visibility = "visible"
-        
-      }
-
+     
     }
     else{
-      document.getElementById("commentToggleIcon").innerText = "check_box"
-      for (let index = 0; index < document.getElementsByClassName("comment").length; index++) {
-        let element = <HTMLBodyElement>document.getElementsByClassName("comment").item(index)
-        element.style.visibility = "hidden"
-        
-      }
+      this.showComments = false
 
+      document.getElementById("commentToggleIcon").innerText = "check_box"
+    
 
     }
   }
@@ -248,43 +242,9 @@ export class GapForm implements OnInit {
   }
 
 
-  post(userItem: Partial<gap>): void {
-    const name = (<string>userItem).trim();
-    if (!name) return;
-/*
-    this.roles$ = this.roleservice
-      .post({ name })
-      .pipe(tap(() => (this.roles$ = this.fetchAll())));*/
-  }
-
-
-  update(id: number, userItem: Partial<gap>): void {
-    const name = (<any>userItem).trim();
-    
-    if (!name) return;
-/*
-    const newroles: roles = {
-      id,
-      name
-
-    };
-
-    this.roles$ = this.roleservice
-      .update(newroles)
-      .pipe(tap(() => (this.roles$ = this.fetchAll())));*/
-  }
-
-
   delete(id: any): void {
-    console.log("attempting to delete id : " , id)
-   // iduseru = 15
-   // console.log("attempting to delete id : " , iduseru)
-   /*
-
-    this.gap$ = this.gapservice
-      .delete(id)
-      .pipe(tap(() => (this.gap$ = this.fetchAllGap(id))));*/
-      
+      this.gap$ = this.gapservice
+      .delete(id)    
   }
 
 
@@ -319,9 +279,9 @@ export class GapForm implements OnInit {
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
       this.router.navigate(["GapForm/",String(name).trim() ,String(date).trim()]));
     }
-
     
   }
+
   public setDate(event: any, name : any, date:any)
   {
     this.Gdate$ = date
@@ -335,20 +295,23 @@ export class GapForm implements OnInit {
     }
   }
   public submitGap(){
+    //When submit button is pressed
+    //This goes to identifier page ngOnInit, where gapservice post and update are called
     this.displayList$.forEach(element => {
-
         this.gapservice.emit(element)
-
     });
-    console.log("list : " , this.displayList$)
+    this.toDeleteList.forEach(element => {
+      this.gapservice.emit(element[0].idOrgGap)
+    });
 
   }
   public deleteEntry(index:any){
     if(this.editing){
-      this.displayList$.splice(index, index+1)
-
+      let objectToDelete = this.displayList$.splice(index,1)
+      this.toDeleteList.push(objectToDelete)
     }
   }
+
   public onAnswerChange(i:any, data:any){
     this.displayList$[i].Ganswer = data;
   }

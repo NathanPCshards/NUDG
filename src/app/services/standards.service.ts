@@ -20,11 +20,11 @@ httpOptions: { headers: HttpHeaders } = {
   constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient) {
    }
 
-   fetchAll(id: any): Observable<standards[]> {
+   fetchAll(id: any): Observable<any[]> {
     let tempUrl;
     id ? tempUrl = `http://localhost:3000/standards/${id}` : tempUrl = "http://localhost:3000/standards"
     return this.http
-      .get<standards[]>(tempUrl, { responseType: "json" })
+      .get<any[]>(tempUrl, { responseType: "json" })
       .pipe(
         tap((_) => console.log("fetched standards")),
         catchError(
@@ -33,10 +33,10 @@ httpOptions: { headers: HttpHeaders } = {
       );
   }
 
-  post(item: Partial<standards>): Observable<any> {
+  post(item: any): Observable<any> {
     console.log("post standards")
     return this.http
-      .post<Partial<standards>>(this.url, item, this.httpOptions)
+      .post<any>(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
@@ -44,7 +44,7 @@ httpOptions: { headers: HttpHeaders } = {
     console.log("update standards")
 
     return this.http
-      .put<standards>(this.url, user, this.httpOptions)
+      .put<any>(this.url, user, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
   }
 
@@ -53,7 +53,7 @@ httpOptions: { headers: HttpHeaders } = {
     console.log("delete standards")
 
     return this.http
-      .delete<standards>(url, this.httpOptions)
+      .delete<any>(url, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("delete")));
   }
 

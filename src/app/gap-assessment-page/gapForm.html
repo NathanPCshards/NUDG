@@ -122,12 +122,12 @@
                                 <input class="editToggle" (change)="onAnswerChange(i, Ganswer.value)"#Ganswer matInput value="{{entry.Ganswer}}">
                             </mat-form-field>
                             
-                        <div id="comments" class="comment">
-                            <textarea #Gcomment class="comment" value="{{entry.Gcomment}}" (change)="onCommentChange(i, Gcomment.value)" id="comment" style="float:left; text-align: left; align-content: left; margin-left: 20%; height:50px; " rows="2" cols="70"></textarea>
+                        <div id="comments" class="comment" class="editToggle">
+                            <textarea #Gcomment [ngStyle]="showComments?{'visibility': 'visible'} : {'visibility': 'hidden'}" class="comment"  class="editToggle" value="{{entry.Gcomment}}" (change)="onCommentChange(i, Gcomment.value)" id="comment" style="float:left; text-align: left; align-content: left; margin-left: 20%; height:50px; " rows="2" cols="70"></textarea>
                         </div>
 
                         <button mat-icon-button class="editToggle">
-                            <mat-icon (click)="deleteEntry(i)" color="warn">
+                            <mat-icon [ngStyle]="editing?{'color': 'red'} : {'color': 'grey'}" class="editToggle" (click)="deleteEntry(i)" color="warn">
                               delete
                             </mat-icon>
                           </button>

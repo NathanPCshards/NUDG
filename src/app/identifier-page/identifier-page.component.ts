@@ -84,10 +84,9 @@ export class IdentifierPageComponent implements OnInit {
   urlAdjuster = "policy"
   //Guidelines 
   guidelines$ = []
-  child_unique_key: number = 0;
-  componentsReferences = Array<ComponentRef<guidelinesDialog>>()
-  @ViewChild("guidelinesdialog", { read: ViewContainerRef })
-  VCR: ViewContainerRef;
+  //GAP
+  gapList$
+
 
   //Used where the nudg id is shown on the page. Autocomplete info is pulled from below array
   //You could likely do this by pulling from the database where cmmc level = ?, Which would be better
@@ -176,7 +175,6 @@ export class IdentifierPageComponent implements OnInit {
       }
       if (data == "grow"){
          this.uncollapsed = false;
-
         document.getElementById('weakness').className = 'Wgrow'
         document.getElementById('control').className = 'Cgrow'
         document.getElementById('policy').className = 'Pgrow'
@@ -210,18 +208,30 @@ export class IdentifierPageComponent implements OnInit {
 
    //GAP STUFF
       //TODO make the dates held in a array and make this call fetchall with most recent  date
-
     this.gap$ = this.fetchAllGap(this.id, this.Gdate$);
-    this.gapservice.onClick.subscribe(data=>{
-      if (data.idOrgGap){
-        console.log("updating : " , data)
-        this.gap$ = this.gapservice
-        .update(data)
-      }else{
-        console.log("Posting : " , data)
-        this.gap$ = this.gapservice
-        .post(data)
+    this.gap$.forEach(element => {
+      this.gapList$ = []
+      element.forEach(element2 => {
+        this.gapList$.push(element2)
+      });
 
+    });
+    this.gapservice.onClick.subscribe(async data=>{
+     // console.log("INCOMING DATA : " , data)
+      if (data.idOrgGap){
+      //  console.log("updating")
+        this.gap$ = await this.gapservice
+        .update(data).toPromise()
+        
+      }else if (data.Gquestion){
+     //   console.log("Posting : " , data)
+        this.gap$ = await this.gapservice
+        .post(data).toPromise()
+
+      }
+      else{
+        this.gap$ = await this.gapservice
+        .delete(data).toPromise()
       }
 
     })
@@ -229,16 +239,22 @@ export class IdentifierPageComponent implements OnInit {
 
     //GUIDELINES STUFF
     this.guidelinesService.onOpen.subscribe(e=>{
-
       this.openGuideline(e[0],e[1])
+    })
+
+    //Refreshing the page after importing anything
+    this.sharedService.onClick.subscribe(e =>{
+      this.weaknesses$ = this.weaknessservice.fetchAll(this.id)
+      this.controls$ = this.controlsservice.fetchAll(this.id)
+      this.gap$ = this.gapservice.fetchAll(this.id,this.Gdate$)
+      this.standards$ = this.standardsservice.fetchAll(this.id)
     })
 
 
   }
 
-  ngAfterViewInit(){
 
-  }
+  
 
   public filterWeaknesses()
   {
@@ -250,7 +266,12 @@ export class IdentifierPageComponent implements OnInit {
     //by updating search, the html data binding updates and the filter is automatically applied.
     this.searchControls = (<HTMLInputElement>document.getElementById("searchControls")).value.toLowerCase()
   }
+  getAll(id:any, Gdate:any){
+    //calls every get request again. refreshing the backend/data
 
+    
+  }
+  
   fetchPolicy(id): Observable<policy[]> {
 
     return this.policyService.fetchAll(id);
@@ -398,7 +419,7 @@ export class IdentifierPageComponent implements OnInit {
       i += 1
     });
     }
-  
+
   private _filterGroup(value: string): Policy[] {
     if (value) {
       return this.policyLevels
@@ -417,6 +438,7 @@ export class IdentifierPageComponent implements OnInit {
       this.router.navigate(["Policy/",name]));
     
   }
+  
 
 
 }

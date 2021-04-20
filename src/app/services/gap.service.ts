@@ -69,7 +69,7 @@ httpOptions: { headers: HttpHeaders } = {
 
   delete(id: number): Observable<any> {
     const url = `http://localhost:3000/gap/${id}`;
-
+    console.log("delete called : ", url, id)
     return this.http
       .delete<any>(url, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("delete")));

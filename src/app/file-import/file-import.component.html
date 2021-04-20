@@ -1,25 +1,27 @@
-<div class ="dropzone" appDragDrop style="margin-top: 5%;">
+<div class ="dropzone" appDragDrop [fileType] = fileType style="margin-top: 5%;">
     <input 
     type="file" 
     #fileDropRef 
     id="fileDropRef" 
     multiple 
-    (change)="uploadFile($event)"/>
+    (change)="uploadFile($event, fileType)"/>
     <div style="margin-top: 10%;">
         <h3>Drag and drop file here</h3>
         <h3>or</h3>
         <label for="fileDropRef">Browse for a file</label>
+   
     </div>
 
 
 </div>
-<mat-radio-group class="radio-group"  appearance = "legacy" aria-label="Select an option" style="margin-left: 40%;">
-    <mat-radio-button #WvendorDependency color="primary" class="qs"  value="1">Weaknesses</mat-radio-button>
-    <mat-radio-button #WvendorDependency style="margin-left: 1%" class="qs" value="2">Controls </mat-radio-button> 
-    <mat-radio-button #WvendorDependency style="margin-left: 1%" class="qs" value="3">Standards </mat-radio-button> 
-    <mat-radio-button #WvendorDependency style="margin-left: 1%" class="qs" value="4">Gap</mat-radio-button> 
-
-
+<mat-radio-group
+  aria-labelledby="example-radio-group-label"
+  class="example-radio-group"
+  [(ngModel)]="fileType">
+  <mat-radio-button class="example-radio-button" *ngFor="let type of fileTypes" [value]="type" style="margin-left: 4%; margin-top: 2%;">
+    {{type}}
+  </mat-radio-button>
 </mat-radio-group>
+
 
 <!--(change)="fileBrowseHandler($event.target.files)"-->
