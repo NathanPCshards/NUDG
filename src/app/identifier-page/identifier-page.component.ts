@@ -88,6 +88,7 @@ export class IdentifierPageComponent implements OnInit {
   gapList$
 
 
+
   //Used where the nudg id is shown on the page. Autocomplete info is pulled from below array
   //You could likely do this by pulling from the database where cmmc level = ?, Which would be better
   //if it changes frequently but this is much easier for now. - just note if a policy is added, it manually needs to be added here.
@@ -243,18 +244,23 @@ export class IdentifierPageComponent implements OnInit {
     })
 
     //Refreshing the page after importing anything
+    //TODO theres an issue here of not pulling in the data, 
+    //i think its because the get requests can happen before the post finishes.
+    //It seems to happen less when dropping in larger files.
     this.sharedService.onClick.subscribe(e =>{
-      this.weaknesses$ = this.weaknessservice.fetchAll(this.id)
-      this.controls$ = this.controlsservice.fetchAll(this.id)
-      this.gap$ = this.gapservice.fetchAll(this.id,this.Gdate$)
-      this.standards$ = this.standardsservice.fetchAll(this.id)
-    })
+      console.log("e : ", e )
 
+        this.controls$ = this.controlsservice.fetchAll(this.id)
+        this.weaknesses$ = this.weaknessservice.fetchAll(this.id); 
+        this.gap$ = this.gapservice.fetchAll(this.id,this.Gdate$); 
+        this.standards$ = this.standardsservice.fetchAll(this.id); 
+
+    })
+ 
 
   }
 
 
-  
 
   public filterWeaknesses()
   {

@@ -64,49 +64,35 @@ export class GapForm implements OnInit{
   Gdate$;
   @Input()
   parentReference$;
+  Greference$;
   showComments = true;
   routeSub
+  editing = false;
+  nudgid;
 
-  policyLevelOptions: Observable<Policy[]>;
-  dateObservable$: Observable<Date[]>;
+
+
+  NidFilter$;
+  uniqueNidList$;
+  uniqueDateList$;
+  displayNidList = []
+  displayDateList = []
 
   policyForm: FormGroup = this.formBuilder.group({
-    policyLevel: '',
+    NidFilter: '',
   });
 
   dateForm: FormGroup = this.formBuilder.group({
-    date: '',
+    dateControl: '',
   });
-  
-  policyLevels: Policy[] = [{
-    level: 'CMMC Level 1',
-    names: ['AC-N.01', 'AC-N.02', 'AC-N.03', 'AC-N.04', 'IA-N.01', 'IA-N.02', 'MP-N.01', 'PE-N.01', 'PE-N.02', 'PE-N.03', 'PE-N.04'
-  ,'SC-N.01', 'SC-N.02', 'SI-N.01', 'SI-N.02', 'SI-N.03', 'SI-N.04']
-  }, {
-    level: 'CMMC Level 2',
-    names: ['AC-N.05', 'AC-N.06', 'AC-N.07', 'AC-N.08', 'AC-N.09', 'AC-N.10', 'AC-N.11', 'AC-N.13', 'AC-N.15','AC-N.16', 'AT-N.01', 
-    'AT-N.02', 'AU-N.01', 'AU-N.02', 'AU-N.03', 'AU-N.04']
-  }, {
-    level: 'CMMC Level 3',
-    names: ['AC-N.12', 'AC-N.14', 'AC-N.17']
-  }, {
-    level: 'NIST CUI',
-    names: ['AC-N.01', 'AC-N.02', 'AC-N.03', 'AC-N.04','AC-N.05', 'AC-N.06', 'AC-N.07']
-  }, {
-    level: 'NIST NFO',
-    names: ['AC-N.23', 'AT-N.04']
-  }];
-  
-  dates: Date[] = [{
-    date:['4/15/2021', '4/16/2021', '4/17/2021', '4/18/2021', '4/19/2021']
-  }]
-  editing = false;
-  nudgid;
-    constructor(private http:HttpClient, 
+
+    constructor(
+    private http:HttpClient, 
     private formBuilder: FormBuilder,
     public gapservice : GapService,
     private route: ActivatedRoute,
-    public router: Router) { }
+    public router: Router
+    ) { }
   
   ngOnInit(){
 
@@ -117,27 +103,54 @@ export class GapForm implements OnInit{
       });
 
 
-    //Sets defualt page to be AC-N.01
-    this.id$ ? true : this.id$ = "AC-N.01"
-    this.Gdate$ ? true : this.Gdate$ = "4/16/2021"
 
-    this.policyLevelOptions = this.policyForm.get('policyLevel')!.valueChanges
+
+   //If no date is given set date to defualt : 1/1/2021
+    if(!this.Gdate$){
+      this.Gdate$ = "1/1/2021"
+    }
+
+    //TODO Set up date field to route to whatever is typed it.
+    //Setup filtering for both
+    //Check logic for posting/updating...
+    //Getting unintended duplicate behavior in DB
+    
+
+
+
+    this.uniqueNidList$= this.gapservice.getUniqueNids();
+    this.uniqueDateList$ = this.gapservice.getUniqueDates()
+
+
+
+
+
+    //Filtering Nid list by input field
+    this.NidFilter$ = this.policyForm.get('NidFilter')!.valueChanges
     .pipe(
       startWith(''),
-      map(value => this._filterGroup(value))
-    );
+      map(value=> this._filterNid(value))
+    )
 
-
-
-
-
-    this.dateObservable$ = this.dateForm.get('date')!.valueChanges
+    /*
+    this.Gdate$ = this.dateForm.get('dateControl')!.valueChanges
     .pipe(
-      startWith(''),
-      map(value => this._filterDates(value))
-    );
+      map(value=>console.log(value))
+    )*/
+ 
+    //leave here for some reason, its important
+    this.NidFilter$.forEach(element => {
+     // console.log('element : ', element)
+    });
 
-  
+
+
+
+
+
+
+
+
 
 
 
@@ -149,6 +162,7 @@ export class GapForm implements OnInit{
       this.displayList$ = []
       element.forEach(element2 => {
         this.displayList$.push(element2)
+        this.Greference$ = element2.Greference
       });
       this.resetListCopy = this.displayList$
 
@@ -165,18 +179,8 @@ export class GapForm implements OnInit{
       }
   }
 
-  public onFormSubmit() {
-
-  }
-  
-  public onFormReset() {
-
-  }
-
   getid$(): string { return this.id$; }
-  setid$(id$: string) {
-    this.id$ = (id$);
-  }
+  setid$(id$: string) { this.id$ = (id$);}
 
   toggleWeaknessImport(){
     if (document.getElementById("wToggleIcon").innerText == "check_box"){
@@ -187,8 +191,6 @@ export class GapForm implements OnInit{
 
     }
   }
-
-
 
   toggleQuestionEdit(){
     if (document.getElementById("qToggleIcon").innerText == "check_box"){
@@ -226,7 +228,6 @@ export class GapForm implements OnInit{
     }
   }
 
-
   toggleControlImport(){
     if (document.getElementById("cToggleIcon").innerText == "check_box"){
       document.getElementById("cToggleIcon").innerText = "check_box_outline_blank"
@@ -241,32 +242,36 @@ export class GapForm implements OnInit{
     return this.gapservice.fetchAll(Nid,Gdate);
   }
 
-
   delete(id: any): void {
       this.gap$ = this.gapservice
       .delete(id)    
   }
 
 
+    _filterNid(value: string){
+    console.log("value  " , value)
+    console.log("display Nid list : " , this.displayNidList)
 
-  private _filterGroup(value: string): Policy[] {
-    if (value) {
-      return this.policyLevels
-        .map(group => ({level: group.level, names: _filter(group.names, value)}))
-        .filter(group => group.names.length > 0);
+    return this.displayNidList[0]
+    //if (value) {
+    //  return this.displayNidList
+      //  .map()
+      //  .filter();
     }
 
-    return this.policyLevels;
-  }
+   // return this.uniqueNidList$;
 
-  private _filterDates(value: string): Date[] {
+
+  private _filterDates(value: string): any {
+    
     if (value) {
-      return this.dates
+      return this.displayDateList
         .map(group => ({level: group.date, date: _filter(group.date, value)}))
         .filter(group => group.date.length > 0);
     }
-    return this.dates;
+    return this.uniqueDateList$;
   }
+  
 
   public setNid(event: any, name : any, date:any)
   {
@@ -282,9 +287,10 @@ export class GapForm implements OnInit{
     
   }
 
-  public setDate(event: any, name : any, date:any)
+  public setDate(event: any, name : any)
   {
-    this.Gdate$ = date
+    let date = this.Gdate$
+    console.log(this.Gdate$)
     if (this.parentReference$){
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
       this.router.navigate(["Policy/",String(name).trim() ,String(date).trim()]));

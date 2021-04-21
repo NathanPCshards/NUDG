@@ -62,7 +62,9 @@ fileType;
               let idOrgWeaknesses = entry[6].replace("\r","")    
 
               await this.controlService
-                  .post({Nid, Cname, Coverview, Cissuedate, Csharedresources, Curl, idOrgWeaknesses}).toPromise()
+                  .post({Nid, Cname, Coverview, Cissuedate, Csharedresources, Curl, idOrgWeaknesses})
+                  .pipe(tap(()=>(this.sharedService.emit("Control")))).toPromise()
+                  
                }
             }
           if (this.fileType == "Weakness"){
@@ -134,7 +136,7 @@ fileType;
 
 
     }
-    this.sharedService.emit("Refresh")
+   // this.sharedService.emit("Refresh")
     
   }
 

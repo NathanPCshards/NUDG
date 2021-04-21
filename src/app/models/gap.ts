@@ -5,5 +5,6 @@ export interface gap {
     Gquestion : string;
     Gcomment : string;
     Gdate : string;
+    Greference : string;
 
  }

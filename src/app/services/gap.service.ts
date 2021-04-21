@@ -36,16 +36,38 @@ httpOptions: { headers: HttpHeaders } = {
       tempUrl = `http://localhost:3000/gap/${id}`
     }
 
-    console.log("gap url : ", tempUrl)
-
-  
-
     return this.http
       .get<any[]>(tempUrl, { responseType: "json" })
       .pipe(
         tap((_) => console.log("fetched gap")),
         catchError(
           this.errorHandlerService.handleError<any[]>("fetchAll", [])
+        )
+      );
+  }
+
+  getUniqueDates(): any{
+    let tempUrl = `http://localhost:3000/gap/?getUniqueDates=${true}`
+    console.log("get unique dates url : " , tempUrl)
+    return this.http
+      .get<any>(tempUrl, { responseType: "json" })
+      .pipe(
+        tap((_) => console.log("fetched unique dates")),
+        catchError(
+          this.errorHandlerService.handleError<any>("getUniqueDates", [])
+        )
+      );
+  }
+
+  getUniqueNids(): any{
+    let tempUrl = `http://localhost:3000/gap/?getUniqueNids=${true}`
+    console.log("get unique nids url : " , tempUrl)
+    return this.http
+      .get<any>(tempUrl, { responseType: "json" })
+      .pipe(
+        tap((_) => console.log("fetched unique Nids")),
+        catchError(
+          this.errorHandlerService.handleError<any>("getUniqueNids", [])
         )
       );
   }
