@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 })
 export class SharedService {
 onClick = new EventEmitter();
-chainEvent = new EventEmitter
+refreshRequest = new EventEmitter();
 messages: any[] = [];
 private subject = new Subject<any>();
 public filterSubject = new BehaviorSubject(0);   
@@ -42,8 +42,8 @@ sendFilterEvent(event){
 emit(temp : any) {
   this.onClick.emit(temp);
 }
-chainEmit(temp :any){
-  this.chainEvent.emit(temp)
+refresh(){
+  this.refreshRequest.emit()
 }
 
 }

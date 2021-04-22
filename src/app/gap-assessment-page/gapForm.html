@@ -10,42 +10,51 @@
                     <mat-form-field id="policySearch">
                       <mat-label>{{id$}}</mat-label>
                       <input type="text"
-                            
                              matInput
-                             formControlName='NidFilter'
+                             formControlName='NidFilterList'
                              required
                              [matAutocomplete]="autoGroup">
                         <mat-autocomplete #autoGroup="matAutocomplete">
-                          <mat-optgroup *ngFor="let entry of uniqueNidList$ | async" >
-                            <mat-option  [value]="entry.Nid"  (click)="setNid($event, entry.Nid, Gdate$)" routerLinkActive="active">
-                              {{entry.Nid}}
-                            </mat-option>
+                          <mat-optgroup *ngFor="let entry of NidDisplayList$ " >
+                            <mat-option  [value]="entry.Nid"  (click)="setNid($event, entry.Nid, displayDate$)" routerLinkActive="active">{{entry.Nid}}</mat-option>
                         </mat-optgroup>
                       </mat-autocomplete>
                     </mat-form-field>
                   </form>
 
+               
+
 <!--2nd for loop part routerLink="/Policy/{{name}}" (click)="policySearch($event, name)" routerLinkActive="active" -->
 
             <form [formGroup]="dateForm">
-                <mat-form-field id="dateSearch">
-                <mat-label>{{Gdate$}}</mat-label>
+                <mat-form-field id="dateSearch" >
+                <mat-label>{{displayDate$}}</mat-label>
                 <input type="text"
-                        formControlName='dateControl'
-
+                        formControlName='DateFilterList'
                         matInput
                         required
-                        [matAutocomplete]="auto">
+                        [matAutocomplete]="auto"
+                         >
                     <mat-autocomplete #auto="matAutocomplete">
-                    <mat-optgroup *ngFor="let entry of uniqueDateList$ | async" >
-                        <mat-option #date [value]=entry.Gdate (click)="setDate($event, id$)" routerLinkActive="active">
-                        {{entry.Gdate}}
-                        </mat-option>
+                    <mat-optgroup >
+                        <ng-container *ngFor="let entry of DateDisplayList$ ">
+                            <mat-option #date [value]=entry.Gdate (click)="setDate($event, entry.Gdate, id$)" routerLinkActive="active">{{entry.Gdate}}</mat-option>
+                        </ng-container>
                     </mat-optgroup>
                 </mat-autocomplete>
                 </mat-form-field>
             </form>
+            <!--
+            <button mat-icon-button>
+                Add Date
+                <mat-icon id="wToggleIcon" color="green" (click)="addDate()">
+                    add
+                </mat-icon>
+            </button>
     
+
+            -->
+
             </div>
 
             <div class ="colSmall" style=" background-color: palegoldenrod; box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; margin-top: 30px;">
@@ -72,7 +81,7 @@
         </div>
     
         <div class ="colSmall" style=" background-color: palegoldenrod; box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; margin-top: 30px;">
-            <span>
+            <span style="font-size: small;">
                 Edit Questions 
             </span>
             <button mat-icon-button>
@@ -81,11 +90,20 @@
                 </mat-icon>
             </button>
 
-            <span>
+            <span style="font-size: small;">
                 Hide Comments 
             </span>
             <button mat-icon-button>
                 <mat-icon id="commentToggleIcon" color="primary" (click)="toggleComment()">
+                    check_box_outline_blank
+                </mat-icon>
+            </button>
+
+            <span style="font-size: small;">
+                New Date?
+            </span>
+            <button mat-icon-button>
+                <mat-icon id="dateToggleIcon" color="primary" (click)="toggleNewDate()">
                     check_box_outline_blank
                 </mat-icon>
             </button>

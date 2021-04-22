@@ -125,8 +125,6 @@ fileType;
 
           
           }
-          //IF (FILETYPE = WEAKNESS)
-          //IF FILETYPE == GAP
 
           
       }
@@ -136,7 +134,7 @@ fileType;
 
 
     }
-   // this.sharedService.emit("Refresh")
+    this.sharedService.refresh()
     
   }
 

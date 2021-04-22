@@ -113,24 +113,15 @@ export class FileImportComponent implements OnInit {
                     .post({Nid, Ganswer, Gquestion, Gcomment, Gdate}).toPromise()
                  }
             }
-            
-           
-     
-           
-          // this.controlService.emit({dataArray})
- 
-           
+
            }
-           //IF (FILETYPE = WEAKNESS)
-           //IF FILETYPE == GAP
- 
            
        }
        else{
          alert("Please upload a valid .csv File.")
        }
       }
-      this.sharedService.emit("Refresh")
+      this.sharedService.refresh()
      }
    // let files = evt.srcElement.files; 
     // File can now be uploaded by doing an http post with the payload

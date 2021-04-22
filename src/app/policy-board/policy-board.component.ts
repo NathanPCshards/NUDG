@@ -210,8 +210,6 @@ export class PolicyBoardComponent implements OnInit {
 
 
   sort(family, column){    
-    console.log("sort called : " , family, column)
-    console.log('master list before : ', this.masterList$)
     family = family.trim()
     let indexDict = {
       "Access Control (AC)" : 0,

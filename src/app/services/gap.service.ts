@@ -22,8 +22,9 @@ httpOptions: { headers: HttpHeaders } = {
   constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient) {
    }
 
-   emit(temp : any) {
-    this.onClick.emit(temp);
+   emit(data : any, optionalParam : any = false) {
+
+    this.onClick.emit({data,optionalParam});
   }
 
 

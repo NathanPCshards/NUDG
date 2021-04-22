@@ -1,24 +1,18 @@
 <div class="doNotPrint">
   <div class="wrapper" id="wrapper" >
     <div id="policy" class="policy2" *ngFor="let policy of policy$ | async">
-      
         <div class="row1">
-  
-  
           <form [formGroup]="policyForm">
             <mat-form-field id="policySearch">
               <mat-label>{{this.id}}</mat-label>
               <input type="text"
-              
                      matInput
-                     formControlName="policyLevel"
+                     formControlName='NidFilterList'
                      required
                      [matAutocomplete]="autoGroup">
                 <mat-autocomplete #autoGroup="matAutocomplete">
-                  <mat-optgroup *ngFor="let group of policyLevelOptions | async" [label]="group.level">
-                    <mat-option *ngFor="let name of group.names" [value]="name" routerLink="/Policy/{{name}}" (click)="policySearch($event, name)" routerLinkActive="active">
-                      {{name}}
-                    </mat-option>
+                  <mat-optgroup *ngFor="let entry of NidDisplayList$ " >
+                    <mat-option  [value]="entry.Nid"  [value]="entry.Nid" routerLink="/Policy/{{entry.Nid}}" (click)="policySearch($event, entry.Nid)" routerLinkActive="active">{{entry.Nid}}</mat-option>
                 </mat-optgroup>
               </mat-autocomplete>
             </mat-form-field>

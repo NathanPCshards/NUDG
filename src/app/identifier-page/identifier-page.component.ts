@@ -89,33 +89,15 @@ export class IdentifierPageComponent implements OnInit {
 
 
 
-  //Used where the nudg id is shown on the page. Autocomplete info is pulled from below array
-  //You could likely do this by pulling from the database where cmmc level = ?, Which would be better
-  //if it changes frequently but this is much easier for now. - just note if a policy is added, it manually needs to be added here.
-  policyForm: FormGroup = this._formBuilder.group({
-    policyLevel: '',
+ 
+  policyForm: FormGroup = this.formBuilder.group({
+    NidFilterList : []
   });
-
-  policyLevels: Policy[] = [{
-    level: 'CMMC Level 1',
-    names: ['AC-N.01', 'AC-N.02', 'AC-N.03', 'AC-N.04', 'IA-N.01', 'IA-N.02', 'MP-N.01', 'PE-N.01', 'PE-N.02', 'PE-N.03', 'PE-N.04'
-  ,'SC-N.01', 'SC-N.02', 'SI-N.01', 'SI-N.02', 'SI-N.03', 'SI-N.04']
-  }, {
-    level: 'CMMC Level 2',
-    names: ['AC-N.05', 'AC-N.06', 'AC-N.07', 'AC-N.08', 'AC-N.09', 'AC-N.10', 'AC-N.11', 'AC-N.13', 'AC-N.15','AC-N.16', 'AT-N.01', 
-    'AT-N.02', 'AU-N.01', 'AU-N.02', 'AU-N.03', 'AU-N.04']
-  }, {
-    level: 'CMMC Level 3',
-    names: ['AC-N.12', 'AC-N.14', 'AC-N.17']
-  }, {
-    level: 'NIST CUI',
-    names: ['AC-N.01', 'AC-N.02', 'AC-N.03', 'AC-N.04','AC-N.05', 'AC-N.06', 'AC-N.07']
-  }, {
-    level: 'NIST NFO',
-    names: ['AC-N.23', 'AT-N.04']
-  }];
-
+  NidFilterList = []
   policyLevelOptions: Observable<Policy[]>;
+  NidDisplayList$;
+  NidFilter$;
+  uniqueNidList$;
   currentPolicy;
 
   
@@ -142,11 +124,23 @@ export class IdentifierPageComponent implements OnInit {
     ) { }
 
   ngOnInit(){
-    this.policyLevelOptions = this.policyForm.get('policyLevel')!.valueChanges
+
+
+    this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
     .pipe(
       startWith(''),
-      map(value => this._filterGroup(value))
-    );
+      map(value=> this._filterNid(value))
+    )
+    this.uniqueNidList$= this.gapservice.getUniqueNids();
+
+    this.NidFilter$.forEach(element => {
+    });
+
+    //Unique Lists
+    this.uniqueNidList$.forEach(element => {
+      this.NidFilterList.push(element)
+    });
+
     //Pulling correct policy.
     this.routeSub = this.route.params.subscribe(params => {
       this.id = params['id'];
@@ -208,31 +202,38 @@ export class IdentifierPageComponent implements OnInit {
     this.standards$ = this.fetchAllStandards();
 
    //GAP STUFF
-      //TODO make the dates held in a array and make this call fetchall with most recent  date
+   //TODO Idea for later, sort dates chronologically and defualt to most recent date
     this.gap$ = this.fetchAllGap(this.id, this.Gdate$);
     this.gap$.forEach(element => {
       this.gapList$ = []
       element.forEach(element2 => {
         this.gapList$.push(element2)
       });
-
     });
-    this.gapservice.onClick.subscribe(async data=>{
-     // console.log("INCOMING DATA : " , data)
-      if (data.idOrgGap){
-      //  console.log("updating")
-        this.gap$ = await this.gapservice
-        .update(data).toPromise()
-        
-      }else if (data.Gquestion){
-     //   console.log("Posting : " , data)
-        this.gap$ = await this.gapservice
-        .post(data).toPromise()
 
+    this.gapservice.onClick.subscribe(async incomingData=>{
+      //the optional param is added when NewDate is toggled on the Gap component
+      //its defualt is false, if nothing is given. This makes sure new dates are 
+      //posted to, and not updated to (which would fail because it wouldnt exist)
+      if (incomingData.idOrgGap && !incomingData.optionalParam){
+        //Updates if Id exists
+        this.gap$ = await this.gapservice
+        .update(incomingData.data).toPromise()
+        
+      }else if (incomingData.data.Gdate || incomingData.optionalParam){
+      //Post if Id does not exist and Date exists (New Entry)
+        this.gap$ = await this.gapservice
+        .post(incomingData.data).toPromise()
+        //After posting we need to refresh data in gap assessment because the new entry
+        //will be assigned a Id by the DB. Without refreshing pressing submit again will
+        //resubmit the entry like it doesnt already exist.
+        this.sharedService.refresh()
+        
       }
       else{
+        //when we delete we send gapservice a Nid, so data here is just "AC-N.01" or whatever.
         this.gap$ = await this.gapservice
-        .delete(data).toPromise()
+        .delete(incomingData.data).toPromise()
       }
 
     })
@@ -244,20 +245,13 @@ export class IdentifierPageComponent implements OnInit {
     })
 
     //Refreshing the page after importing anything
-    //TODO theres an issue here of not pulling in the data, 
-    //i think its because the get requests can happen before the post finishes.
-    //It seems to happen less when dropping in larger files.
-    this.sharedService.onClick.subscribe(e =>{
-      console.log("e : ", e )
-
-        this.controls$ = this.controlsservice.fetchAll(this.id)
-        this.weaknesses$ = this.weaknessservice.fetchAll(this.id); 
-        this.gap$ = this.gapservice.fetchAll(this.id,this.Gdate$); 
-        this.standards$ = this.standardsservice.fetchAll(this.id); 
-
-    })
+    //tried refreshing data and was having issues, so now just navigating to URL again
+    this.sharedService.refreshRequest.subscribe( e=>{
+      console.log("refresh recieved in identifier page")
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+      this.router.navigate(["Policy/",String(this.id).trim() ,String(this.Gdate$).trim()]));
  
-
+    })
   }
 
 
@@ -426,15 +420,19 @@ export class IdentifierPageComponent implements OnInit {
     });
     }
 
-  private _filterGroup(value: string): Policy[] {
-    if (value) {
-      return this.policyLevels
-        .map(group => ({level: group.level, names: _filter(group.names, value)}))
-        .filter(group => group.names.length > 0);
-    }
-
-    return this.policyLevels;
-  }
+    //Setup the exact same as the gap assessment's. See line 229 in its component.ts for comment.
+    _filterNid(value: string){
+      this.NidFilterList.forEach(element => {
+        if (value){
+          this.NidDisplayList$ = element.filter(x=>x.Nid.includes(value))
+          return element.filter(x=> x.Nid.includes(value))
+        }
+          this.NidDisplayList$ = element
+          return element
+    
+      });
+      
+      }
 
   public policySearch(event: any, name : any)
   {
@@ -444,7 +442,6 @@ export class IdentifierPageComponent implements OnInit {
       this.router.navigate(["Policy/",name]));
     
   }
-  
 
 
 }

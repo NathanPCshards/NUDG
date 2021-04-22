@@ -26,7 +26,7 @@ import { PolicyAccordionService } from '../services/policy-accordion.service';
 
   <app-file-import id="fileUpload" style="left:30%; position:absolute; display:none;"> </app-file-import>
 
-  <gap-form id="gapForm" [id$] ="id$" [Gdate$] ="Gdate$" [parentReference$] = "parentReference$" style="position:absolute; width:100%; display:none"> </gap-form>
+  <gap-form id="gapForm" [id$] ="id$" [displayDate$] ="Gdate$" [parentReference$] = "parentReference$" style="position:absolute; width:100%; display:none"> </gap-form>
 
 </dd>
 `,  

@@ -91,6 +91,19 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
         );
     }
 
+    getUniqueNids(): any{
+      let tempUrl = `http://localhost:3000/Policy/?getUniqueNids=${true}`
+      console.log("get unique nids url : " , tempUrl)
+      return this.http
+        .get<any>(tempUrl, { responseType: "json" })
+        .pipe(
+          tap((_) => console.log("fetched unique Nids")),
+          catchError(
+            this.errorHandlerService.handleError<any>("getUniqueNids", [])
+          )
+        );
+    }
+
 
 
 
