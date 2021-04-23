@@ -57,6 +57,10 @@ export class AppComponent implements OnInit {
     this.router.navigateByUrl('/Dashboard')
     
   }
+  rtcalendar= function ()  {
+    this.router.navigateByUrl('/Calendar')
+    
+  }
 
   constructor(private http: HttpClient, private router: Router){
     // client-side

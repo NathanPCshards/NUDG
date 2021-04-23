@@ -10,7 +10,7 @@ import { InventoryFormComponent } from './inventory-form/inventory-form.componen
 import { NotfoundComponent } from './notfound/notfound.component';
 import { GroupFormComponent } from './group-form/group-form.component';
 import { roleDialog, RoleFormComponent } from './role-form/role-form.component';
-import { Bar3dDatasetComponent, calendarComponent, chartSimple, DashboardComponent } from './dashboard/dashboard.component';
+import { Bar3dDatasetComponent, chartSimple, DashboardComponent } from './dashboard/dashboard.component';
 import { PolicyBoardComponent } from './policy-board/policy-board.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { VendorFormComponent } from './vendor-form/vendor-form.component';
@@ -46,6 +46,7 @@ import { PolicyAccordionModule } from './policy-accordion/policy-accordion.modul
 import { PrintPageComponent } from './print-page/print-page.component';
 import { FileImportComponent } from './file-import/file-import.component';
 import { DragDropDirective } from './drag-drop.directive';
+import { CalendarComponent } from './calendar/calendar.component';
 
 
 @NgModule({
@@ -64,7 +65,7 @@ import { DragDropDirective } from './drag-drop.directive';
     roleDialog,
     chartSimple,
     Bar3dDatasetComponent,
-    calendarComponent,
+    CalendarComponent,
     VendorFormComponent,
     SupplierFormComponent,
     CuiContractsFormComponent,
@@ -82,6 +83,7 @@ import { DragDropDirective } from './drag-drop.directive';
     helpCenterForm,
     networkSharesPage,
     AdminPanelComponent,
+    CalendarComponent,
 
     
     

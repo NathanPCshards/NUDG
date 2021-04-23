@@ -12,7 +12,7 @@
                      [matAutocomplete]="autoGroup">
                 <mat-autocomplete #autoGroup="matAutocomplete">
                   <mat-optgroup *ngFor="let entry of NidDisplayList$ " >
-                    <mat-option  [value]="entry.Nid"  [value]="entry.Nid" routerLink="/Policy/{{entry.Nid}}" (click)="policySearch($event, entry.Nid)" routerLinkActive="active">{{entry.Nid}}</mat-option>
+                    <mat-option  [value]="entry.nudgid"  [value]="entry.nudgid" routerLink="/Policy/{{entry.nudgid}}" (click)="policySearch($event, entry.nudgid)" routerLinkActive="active">{{entry.nudgid}}</mat-option>
                 </mat-optgroup>
               </mat-autocomplete>
             </mat-form-field>

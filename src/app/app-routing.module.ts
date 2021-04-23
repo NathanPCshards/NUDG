@@ -32,6 +32,7 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { IdentifierPageRoutingModule } from './identifier-page/identifier-page.routing.module'
 import { PolicyAccordionComponent } from './policy-accordion/policy-accordion.component';
 import { FileImportComponent } from './file-import/file-import.component';
+import { CalendarComponent } from './calendar/calendar.component';
 //https://angular.io/guide/router
 
 const routes: Routes = [
@@ -53,6 +54,7 @@ const routes: Routes = [
   { path: 'Policy/:id/:Date', component: IdentifierPageComponent },
 
 
+  { path: 'Calendar', component: CalendarComponent },
 
 
   { path: 'CUIcontracts', component: CuiContractsFormComponent },

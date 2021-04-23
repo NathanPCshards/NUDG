@@ -32,6 +32,7 @@
     "@types/socket.io": "^2.1.10",
     "angular": "^1.8.2",
     "angular-calendar": "^0.28.22",
+    "angular-mat-datepicker": "0.0.2",
     "angularx-flatpickr": "^6.5.2",
     "bootstrap": "^4.5.0",
     "chart.js": "^2.9.4",

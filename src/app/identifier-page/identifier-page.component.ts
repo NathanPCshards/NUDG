@@ -125,13 +125,13 @@ export class IdentifierPageComponent implements OnInit {
 
   ngOnInit(){
 
+    this.uniqueNidList$= this.policyService.getUniqueNids();
 
     this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
     .pipe(
       startWith(''),
       map(value=> this._filterNid(value))
     )
-    this.uniqueNidList$= this.gapservice.getUniqueNids();
 
     this.NidFilter$.forEach(element => {
     });
@@ -424,8 +424,8 @@ export class IdentifierPageComponent implements OnInit {
     _filterNid(value: string){
       this.NidFilterList.forEach(element => {
         if (value){
-          this.NidDisplayList$ = element.filter(x=>x.Nid.includes(value))
-          return element.filter(x=> x.Nid.includes(value))
+          this.NidDisplayList$ = element.filter(x=>x.nudgid.includes(value))
+          return element.filter(x=> x.nudgid.includes(value))
         }
           this.NidDisplayList$ = element
           return element
