@@ -118,27 +118,35 @@
       </thead>
   
       <tbody>
-        <tr *ngFor="let event of displayEvents$">
+        <tr *ngFor="let event of displayEvents$; let i = index">
           <td>
             <input
               type="text"
               class="form-control"
               [(ngModel)]="event.title"
+              (change)="update(event,i)"
               (keyup)="refresh.next()"
             />
+
           </td>
           <td>
             <input
               type="color"
               [(ngModel)]="event.colorPrimary"
-              (change)="refresh.next()"
+              (change)="refresh.next();update(event,i)"
+              id="colorPrimary"
+              value={{event.colorPrimary}}
+
             />
           </td>
           <td>
             <input
+            
               type="color"
               [(ngModel)]="event.colorSecondary"
-              (change)="refresh.next()"
+              value={{event.colorSecondary}}
+
+              (change)="refresh.next();update(event,i)"
             />
           </td>
           <td>
@@ -150,8 +158,8 @@
             [(ngModel)]="event.start" 
             matInput 
             [matDatepicker]="datepicker1"
-            (ngModelChange)="refresh.next()"
-  
+            (ngModelChange)="update(event,i);refresh.next();"
+           
             dateFormat="Y-m-dTH:i"
             placeholder="Not set"
 
@@ -172,18 +180,18 @@
 
             <input 
             matInput
-            (ngModelChange)="refresh.next()"
+            [(ngModel)]="event.timeStart" 
 
+            (ngModelChange)="refresh.next();update(event,i)"
+ 
             [ngxTimepicker]="toggleTimepickerSTART" 
-            [disableClick]="true" 
-            readonly
+          
+            
             />
             <ngx-material-timepicker-toggle  style="float:right;" [for]="toggleTimepickerSTART"></ngx-material-timepicker-toggle>
             <ngx-material-timepicker #toggleTimepickerSTART ></ngx-material-timepicker>
           </mat-form-field>
-       
-
-            </div>
+          </div>
     
           </td>
           <td>
@@ -194,7 +202,7 @@
               [(ngModel)]="event.end" 
               matInput 
               [matDatepicker]="datepicker2"
-              (ngModelChange)="refresh.next()"
+              (ngModelChange)="refresh.next();update(event,i)"
               dateFormat="Y-m-dTH:i"
               placeholder="Not set"
               />
@@ -216,11 +224,12 @@
 
               <input style="width:40%;" 
               matInput
-              (ngModelChange)="refresh.next()"
-
+              [(ngModel)]="event.timeEnd" 
+              (ngModelChange)="refresh.next();update(event,i)"
+              placeholder="12:02 PM"
               [ngxTimepicker]="toggleTimepickerEND" 
-              [disableClick]="true" 
-              readonly
+       
+        
               >
               <ngx-material-timepicker-toggle  style="float:right;" [for]="toggleTimepickerEND"></ngx-material-timepicker-toggle>
               <ngx-material-timepicker #toggleTimepickerEND ></ngx-material-timepicker>
@@ -233,7 +242,7 @@
 
           </td>
           <td>
-            <button class="btn btn-danger" (click)="deleteEvent(event)" (click)="debugEvent()">
+            <button class="btn btn-danger" (click)="deleteEvent(event)" >
               Delete
             </button>
           </td>

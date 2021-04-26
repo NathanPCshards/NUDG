@@ -37,15 +37,13 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   post(item: any): Observable<any> {
-    console.log("posting task : " , item)
-    console.log('to url : ', this.url)
-    console.log("http options? : " , this.httpOptions)
     return this.http
       .post(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
   update(item: any): Observable<any> {
+    console.log("update called : " , item)
     return this.http
       .put(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));

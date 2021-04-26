@@ -43,7 +43,7 @@ function validateToken(token: string) {
 export class CalendarComponent implements OnInit {
     tasks$;
     @ViewChild('modalContent', { static: true }) modalContent!: TemplateRef<any> ;
-    
+    timeEnd$;
     mwlFlatPicker: any;
     view: CalendarView = CalendarView.Month;
   
@@ -63,7 +63,6 @@ export class CalendarComponent implements OnInit {
     };
   
     CalendarView = CalendarView;
-    time;
     viewDate: Date = new Date();
   
     modalData!: {
@@ -106,31 +105,7 @@ export class CalendarComponent implements OnInit {
     }
   ngOnInit(): void {
     //Pull existing tasks from the database
-    this.tasks$ = this.taskService.fetchAll();
-    this.tasks$.subscribe(element => {
-      element.forEach(task => {
-        //template out a object to put the DB info into
-        let eventFromDB = {
-          title: task.title,
-          start: task.start,
-          end: task.end,
-          color: {
-              primary: task.colorPrimary,
-              secondary: task.colorSecondary
-          },
-          draggable: false,
-          resizable: {
-            beforeStart: true,
-            afterEnd: true,
-          }
-        }
-        //put object in lists
-        this.displayEvents$.push(eventFromDB)
-        this.events.push(eventFromDB)
-
-
-      });
-    }); //end of tasks foreach
+    this.initializeData()
 
     console.log("===debug===")
     console.log("this.events: ", this.events)
@@ -140,9 +115,6 @@ export class CalendarComponent implements OnInit {
     //initialize view to month
     this.setView(CalendarView.Month)
   }
-  
-
-
 
 
 
@@ -166,6 +138,7 @@ export class CalendarComponent implements OnInit {
   
     eventTimesChanged({event, newStart, newEnd,}: CalendarEventTimesChangedEvent): void {
       //debug this
+      console.log("event time changed")
       this.events = this.events.map((iEvent) => {
         if (iEvent === event) {
           return {
@@ -185,31 +158,127 @@ export class CalendarComponent implements OnInit {
       this.modal.open(this.modalContent, { size: 'lg' });
     }
   
-    addEvent(): void {
-      console.log("adding event")
+  addEvent(optionalObject=null)  {
+      //in the case a brand new event is created, optionalObject = "" and the below code is executed to
+      //add a blank/default value event
+      if (optionalObject == null){
+        console.log("No object given")
+        //Add to database
+        this.tasks$ =  this.taskService.post({ 
+          title: 'New event',
+          dateStart: startOfDay(new Date()),
+          dateEnd: endOfDay(new Date()),
+          colorPrimary: this.colors.red.primary,
+          colorSecondary: this.colors.red.secondary,
+          draggable: false,
+          resizableBeforeStart: true,
+          resizableAfterEnd: true,
+          timeStart: "1:00 AM",
+          timeEnd: "1:00 PM"
+    
+    })
+     //to instantiate the observable (so post goes through)
+     this.tasks$.forEach(element => {
+        
+    });
+    this.tasks$ = this.taskService.fetchAll()
 
-      //Post a copy of 'blank' entry to DB
-      this.tasks$ = this.taskService.post({ 
+    //Add to display list
+    let temp = {
       title: 'New event',
       start: startOfDay(new Date()),
       end: endOfDay(new Date()),
-      colorPrimary: this.colors.red.primary,
-      colorSecondary: this.colors.red.secondary,
-      draggable: false,
-      resizableBeforeStart: true,
-      resizableAfterEnd: true
-})
+      color: this.colors.red,
+      draggable: true,
+      resizable: {
+        beforeStart: true,
+        afterEnd: true,
+      },
+      timeStart: "1:00 AM",
+      timeEnd: "1:00 PM"
+    }
+    this.displayEvents$.push(temp)
+    console.log("checking display : " , this.displayEvents$)
 
-      //necessary subscribe for observable.
+    //Add to events
+    this.events = [
+      ...this.events,
+      {
+        title: 'New event',
+        start: startOfDay(new Date()),
+        end: endOfDay(new Date()),
+        color: this.colors.red,
+        draggable: true,
+        resizable: {
+          beforeStart: true,
+          afterEnd: true,
+        },
+      },
+    ];
+    }
+    else{
+      //Add the object that was passed as a parameter
+      console.log("optionalObject : " , optionalObject)
+      this.events = [
+        ...this.events,
+        optionalObject
+      ]
+      this.displayEvents$.push(optionalObject)
+      this.refresh.next()
+    }
+
+     
+    
+
+      console.log("debug add")
+      console.log("events : " , this.events)
+      console.log("display E : " , this.displayEvents$)
+    }
+  
+  async deleteEvent(eventToDelete: CalendarEvent) {
+    console.log("display events before delete : " , this.displayEvents$)
+    //getting index of event to delete
+    let taskIndex = getTaskIndex(this.displayEvents$, eventToDelete)
+    //Remove from display list
+    this.displayEvents$.splice(taskIndex,1)
+
+    //code that came with calendar (filters/removes from events)
+    this.events = this.events.filter((event) => event !== eventToDelete);
+
+    //remove from database
+    this.tasks$.forEach(async element => {
+      await this.taskService.delete(element[taskIndex].idOrgTasks).toPromise()
+  });
+
+
+
+  }
+
+  setView(view: CalendarView) {
+    this.view = view;
+  }
+
+  closeOpenMonthViewDay() {
+    this.activeDayIsOpen = false;
+  }
+
+
+  
+    debugEvent(){
+      console.log("debug pressed")
+      console.log("display List : ", this.displayEvents$)
+      console.log("event list : " , this.events)
       this.tasks$.forEach(element => {
-        this.displayEvents$.push(element)
+        console.log("Tasks list: ", element)
       });
 
-      //Add a generic new entry to events array
+ 
+    }
+
+    initializeData(){
       this.events = [
         ...this.events,
         {
-
           title: 'New event',
           start: startOfDay(new Date()),
           end: endOfDay(new Date()),
@@ -222,63 +291,109 @@ export class CalendarComponent implements OnInit {
         },
       ];
 
+      this.displayEvents$ = []
+      this.events = []
+      this.tasks$ = this.taskService.fetchAll();
+      this.tasks$.subscribe(element => {
+        element.forEach(task => {
+          //template out a object to put the DB info into
+          let eventFromDB = {
+            title: task.title,
+            start: task.dateStart,
+            end: task.dateEnd,
+            color: {
+                primary: task.colorPrimary,
+                secondary: task.colorSecondary
+            },
+            draggable: task.draggable ? true : false,
+            resizable: {
+              beforeStart: task.resizableBeforeStart ? true : false,
+              afterEnd: task.resizableAfterStart ? true : false,
+            },
+            timeStart: task.timeStart,
+            timeEnd: task.timeEnd
+          }
+          //put object in lists
+          //this.displayEvents$.push(eventFromDB)
+          this.addEvent(eventFromDB)
+        });
+      }); //end of tasks foreach
     }
-  
-    deleteEvent(eventToDelete: CalendarEvent) {
-      //TODO call delete here for DB
-      this.events = this.events.filter((event) => event !== eventToDelete);
+
+     update(event, index, optional=""){
+      let temp;
+      console.log("time end value : " , optional)
+      console.log("event : " , event)
+      this.tasks$.forEach(async element => {
+        //update the entry and temp save it
+        element[index].title = event.title
+        element[index].dateStart = event.start
+        element[index].dateEnd = event.end
+        //TODO This can be cleaned up to not have the conditional check (just use 1 variable)
+        event.colorPrimary ?  element[index].colorPrimary = event.colorPrimary  : element[index].colorPrimary = event.color.primary
+        event.colorSecondary ?  element[index].colorSecondary = event.colorSecondary  : element[index].colorSecondary = event.color.secondary
+        element[index].timeStart = event.timeStart
+        element[index].timeEnd = event.timeEnd
+        temp = element[index]
+        //update called
+        await this.taskService.update(temp).toPromise()
+      });
+
+       //this.initializeData(); but without clearing the displayed events list
+       this.events = []
+       this.tasks$ = this.taskService.fetchAll();
+       this.tasks$.subscribe(element => {
+         element.forEach(task => {
+           //template out a object to put the DB info into
+           let eventFromDB = {
+             title: task.title,
+             start: task.dateStart,
+             end: task.dateEnd,
+             color: {
+                 primary: task.colorPrimary,
+                 secondary: task.colorSecondary
+             },
+             draggable: task.draggable ? true : false,
+             resizable: {
+               beforeStart: task.resizableBeforeStart ? true : false,
+               afterEnd: task.resizableAfterStart ? true : false,
+             },
+             timeStart: task.timeStart,
+             timeEnd: task.timeEnd
+           }
+           //put object in lists
+           this.events.push(eventFromDB)
+         });
+
+       }); //end of tasks foreach
+       console.log("end of update")
+       console.log("display List : ", this.displayEvents$)
+       console.log("event list : " , this.events)
+       console.log("-------------------")
+       this.refresh.next()
     }
+
+  }
   
-    setView(view: CalendarView) {
-      this.view = view;
-    }
+  function getTaskIndex(array, taskToFind): any{
+    console.log("array : " , array)
+    console.log("task to taskToFind : " , taskToFind)
   
-    closeOpenMonthViewDay() {
-      this.activeDayIsOpen = false;
-    }
-  
-  
-  
-    debugEvent(){
-    //  console.log("All Event Info, and refresh testing")
+     for (let index = 0; index < array.length; index++) {
+      const element = array[index];
+      //TODO may need to make this more strict later
+      console.log("Debug Index Getter")
+      console.log("Element variables : " , element.title, element.start, element.end)
+      console.log("task variables : " , taskToFind.title, taskToFind.start, taskToFind.end)
+
+      if (element.title == taskToFind.title && element.start == taskToFind.start && element.end == taskToFind.end){
+        return index
+      }
       
-      //this.refresh.next()
-    
-    //  this.events.forEach(event => console.log(event));
-    //  this.displayEvents$.forEach(event=>console.log(event))
-
- 
     }
-
-/*
-    fetchAllTasks(): Observable<any[]> {
-      return this.taskService.fetchAll();
-    }
-    postTask(object:any): void{
-      this.taskService
-      .post(object)
-      .pipe(tap(() => (this.tasks$ = this.fetchAllTasks())));
-    }
-    updateTask(object: any): void {
-    this.taskService
-        .update(object)
-        .pipe(tap(() => (this.tasks$ = this.fetchAllTasks())));
-    }
-    deleteTask(id: any): void {
-      this.tasks$ = this.taskService
-        .delete(id)
-        .pipe(tap(() => (this.tasks$ = this.fetchAllTasks())));
-        
-    }
-  
-  
-*/
-
-
+    return -1
 
 
 
 
   }
-  
-  

@@ -273,7 +273,6 @@ export class IdentifierPageComponent implements OnInit {
   }
   
   fetchPolicy(id): Observable<policy[]> {
-
     return this.policyService.fetchAll(id);
   }
   
