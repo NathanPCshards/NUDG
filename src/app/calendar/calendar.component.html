@@ -1,9 +1,8 @@
-<div class="row text-center">
+<div class="row text-center" style="background-color: white;">
     <div class="col-md-4">
       <div class="btn-group">
         <div
           class="btn btn-primary"
-          
           mwlCalendarPreviousView
           [view]="view"
           [(viewDate)]="viewDate"
@@ -41,7 +40,11 @@
         >
           Month
         </div>
-        <div
+        <!--
+          //commenting out the other views because the events times do not initialize correctly.
+          //This was always an issue with this calendar, its likely fixable, but it doesnt seem worthwhile to spend time on at the moment.
+        -->
+                  <div
           class="btn btn-primary"
           (click)="setView(CalendarView.Week)"
           [class.active]="view === CalendarView.Week"
@@ -55,6 +58,8 @@
         >
           Day
         </div>
+      
+
       </div>
     </div>
   </div>
@@ -62,6 +67,7 @@
 
   <div [ngSwitch]="view">
     <mwl-calendar-month-view
+      id="monthView"
       *ngSwitchCase="CalendarView.Month"
       [viewDate]="viewDate"
       [events]="events"
@@ -72,30 +78,40 @@
       (eventTimesChanged)="eventTimesChanged($event)"
     >
     </mwl-calendar-month-view>
+    
     <mwl-calendar-week-view
+      id="weekView"
       *ngSwitchCase="CalendarView.Week"
       [viewDate]="viewDate"
       [events]="events"
       [refresh]="refresh"
       (eventClicked)="handleEvent('Clicked', $event.event)"
       (eventTimesChanged)="eventTimesChanged($event)"
+
     >
     </mwl-calendar-week-view>
     <mwl-calendar-day-view
+      id="dayView"
       *ngSwitchCase="CalendarView.Day"
       [viewDate]="viewDate"
       [events]="events"
       [refresh]="refresh"
       (eventClicked)="handleEvent('Clicked', $event.event)"
       (eventTimesChanged)="eventTimesChanged($event)"
+
     >
     </mwl-calendar-day-view>
+
+  
+
   </div>
   
   <!-- Everything you see below is just for the demo, you don't need to include it in your app -->
   
-  <br /><br /><br />
-  
+  <br />
+  <div style="background-color: white;">
+
+
   <h3>
 
     <button class="btn btn-primary float-right" (click)="addEvent()">
@@ -113,6 +129,7 @@
           <th>Secondary color</th>
           <th>Starts at</th>
           <th>Ends at</th>
+          <th>Additional Information</th> 
           <th>Remove</th>
         </tr>
       </thead>
@@ -127,38 +144,36 @@
               (change)="update(event,i)"
               (keyup)="refresh.next()"
             />
-
           </td>
+
           <td>
             <input
               type="color"
-              [(ngModel)]="event.colorPrimary"
+              [(ngModel)]="event.color.primary"
               (change)="refresh.next();update(event,i)"
               id="colorPrimary"
-              value={{event.colorPrimary}}
-
             />
           </td>
+
           <td>
             <input
-            
               type="color"
-              [(ngModel)]="event.colorSecondary"
-              value={{event.colorSecondary}}
-
+              [(ngModel)]="event.color.secondary"
               (change)="refresh.next();update(event,i)"
             />
           </td>
+
           <td>
             <div>
+
           <!-- Date picker for start-->
-          <mat-form-field appearance="fill" id="datepicker1" style="width:50%;height:120%;float:left;">
+          <mat-form-field appearance="fill" class="datepicker dateStart datepicker1" id="datepicker1">
             <mat-label>Choose a date</mat-label>
             <input 
             [(ngModel)]="event.start" 
             matInput 
             [matDatepicker]="datepicker1"
-            (ngModelChange)="update(event,i);refresh.next();"
+            (ngModelChange)="update(event,i);refresh.next()"
            
             dateFormat="Y-m-dTH:i"
             placeholder="Not set"
@@ -174,35 +189,37 @@
           </mat-form-field>
 
           <!--Time picker for start-->
-          
-            <mat-form-field appearance="fill"  class="time-field" id="timepicker1" >
-              <mat-label>Choose a time</mat-label>
 
+          <mat-form-field appearance="fill" class="timepicker timeEnd timepicker2 time-field">
+            <mat-label>Choose a time</mat-label>
             <input 
             matInput
             [(ngModel)]="event.timeStart" 
-
-            (ngModelChange)="refresh.next();update(event,i)"
- 
+       
+            (ngModelChange)="update(event,i);refresh.next();"
             [ngxTimepicker]="toggleTimepickerSTART" 
-          
-            
             />
-            <ngx-material-timepicker-toggle  style="float:right;" [for]="toggleTimepickerSTART"></ngx-material-timepicker-toggle>
+            <ngx-material-timepicker-toggle  matSuffix [for]="toggleTimepickerSTART"></ngx-material-timepicker-toggle>
             <ngx-material-timepicker #toggleTimepickerSTART ></ngx-material-timepicker>
+
           </mat-form-field>
+
+
+
+
           </div>
-    
+     
           </td>
+
           <td>
             <!-- Date Picker for End-->
-            <mat-form-field appearance="fill" class="example-form-field">
+            <mat-form-field appearance="fill" class="datepicker dateEnd datepicker2 example-form-field">
               <mat-label>Choose a date</mat-label>
               <input 
               [(ngModel)]="event.end" 
               matInput 
               [matDatepicker]="datepicker2"
-              (ngModelChange)="refresh.next();update(event,i)"
+              (ngModelChange)="update(event,i);refresh.next();"
               dateFormat="Y-m-dTH:i"
               placeholder="Not set"
               />
@@ -217,32 +234,40 @@
 
 
             <!-- Time Picker for End-->
-
-            <div class="toggle-example" style="float:right;">
-              <mat-form-field appearance="fill"  class="time-field" id="timepicker2">
-                <mat-label>Choose a time</mat-label>
-
-              <input style="width:40%;" 
+            <mat-form-field appearance="fill" class="timepicker timeEnd timepicker2 time-field">
+              <mat-label>Choose a time</mat-label>
+              <input
               matInput
               [(ngModel)]="event.timeEnd" 
-              (ngModelChange)="refresh.next();update(event,i)"
-              placeholder="12:02 PM"
+              (ngModelChange)="update(event,i);refresh.next();"
               [ngxTimepicker]="toggleTimepickerEND" 
-       
-        
               >
-              <ngx-material-timepicker-toggle  style="float:right;" [for]="toggleTimepickerEND"></ngx-material-timepicker-toggle>
+              <ngx-material-timepicker-toggle  matSuffix [for]="toggleTimepickerEND"></ngx-material-timepicker-toggle>
               <ngx-material-timepicker #toggleTimepickerEND ></ngx-material-timepicker>
-            </mat-form-field>
-            </div>
 
+            </mat-form-field>
+
+
+        
 
 
 
 
           </td>
+          <!--            (change)="onCommentChange(i, Gcomment.value)" 
+-->
           <td>
-            <button class="btn btn-danger" (click)="deleteEvent(event)" >
+
+            <textarea 
+            class="comment"  
+            [(ngModel)]="event.comment" 
+            (ngModelChange)="update(event,i);refresh.next();"
+            id="comment" 
+            style="align-content: left;" rows="2" cols="60"></textarea>
+
+          </td>
+          <td>
+            <button class="btn btn-danger" (click)="deleteEvent(event);" >
               Delete
             </button>
           </td>
@@ -250,7 +275,9 @@
       </tbody>
     </table>
   </div>
-  
+</div>
+
+
   <!--This is the 'dialog' box that shows after clicking a event-->
   <!--
   <ng-template #modalContent let-close="close">
@@ -280,6 +307,3 @@
 
 
   -->
-  <button (click)="debugEvent(); ">
-    push
-  </button>

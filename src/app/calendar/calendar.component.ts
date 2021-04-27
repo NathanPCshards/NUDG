@@ -105,13 +105,14 @@ export class CalendarComponent implements OnInit {
     }
   ngOnInit(): void {
     //Pull existing tasks from the database
-    this.initializeData()
+    this.reloadData()
 
-    console.log("===debug===")
+/*
+    console.log("===debug===")  
     console.log("this.events: ", this.events)
     console.log("this.displayEvents: "  ,this.displayEvents$)
     console.log("====end====")
-
+*/
     //initialize view to month
     this.setView(CalendarView.Month)
   }
@@ -137,8 +138,17 @@ export class CalendarComponent implements OnInit {
     }
   
     eventTimesChanged({event, newStart, newEnd,}: CalendarEventTimesChangedEvent): void {
-      //debug this
-      console.log("event time changed")
+      //this is called anytime a event is dropped to a new date.
+      //this.update(event,index)
+
+     
+      let index = getTaskIndex(this.displayEvents$,event,true)
+
+      event.start = newStart
+      event.end = newEnd
+      //Update Database with new dates
+      this.update(event,index)
+
       this.events = this.events.map((iEvent) => {
         if (iEvent === event) {
           return {
@@ -149,13 +159,21 @@ export class CalendarComponent implements OnInit {
         }
         return iEvent;
       });
-      this.handleEvent('Dropped or resized', event);
+    //  this.handleEvent('Dropped or resized', event);
+   //this.reloadData();
+
+
     }
   
     handleEvent(action: string, event: CalendarEvent): void {
-      //I think this happens when the event is clicked and accordion thing opens
-      this.modalData = { event, action };
-      this.modal.open(this.modalContent, { size: 'lg' });
+      //this is called on drop of event and clicking the event 
+      //commenting out for now because having the screen go grey is annoying. but we might want to put a alert here 
+      //like showing the time/date changed because the event was moved
+
+      //console.log("handleEvent called")
+
+      //this.modalData = { event, action };
+      //this.modal.open(this.modalContent, { size: 'lg' });
     }
   
   addEvent(optionalObject=null)  {
@@ -174,7 +192,8 @@ export class CalendarComponent implements OnInit {
           resizableBeforeStart: true,
           resizableAfterEnd: true,
           timeStart: "1:00 AM",
-          timeEnd: "1:00 PM"
+          timeEnd: "1:00 PM",
+          comment: ""
     
     })
      //to instantiate the observable (so post goes through)
@@ -195,10 +214,10 @@ export class CalendarComponent implements OnInit {
         afterEnd: true,
       },
       timeStart: "1:00 AM",
-      timeEnd: "1:00 PM"
+      timeEnd: "1:00 PM",
+      comment: ""
     }
     this.displayEvents$.push(temp)
-    console.log("checking display : " , this.displayEvents$)
 
     //Add to events
     this.events = [
@@ -213,12 +232,19 @@ export class CalendarComponent implements OnInit {
           beforeStart: true,
           afterEnd: true,
         },
+
       },
     ];
     }
     else{
       //Add the object that was passed as a parameter
-      console.log("optionalObject : " , optionalObject)
+      //date casting is necessary for dots to show on calendar. otherwise startofday/endofday functions return "invalid date"
+      let incStartDate = new Date(optionalObject.start)
+      let incEndDate = new Date(optionalObject.end)
+
+      optionalObject.start = startOfDay(incStartDate)
+      optionalObject.end = endOfDay(incEndDate)
+      
       this.events = [
         ...this.events,
         optionalObject
@@ -227,31 +253,21 @@ export class CalendarComponent implements OnInit {
       this.refresh.next()
     }
 
-     
-    
-
-      console.log("debug add")
-      console.log("events : " , this.events)
-      console.log("display E : " , this.displayEvents$)
     }
   
   async deleteEvent(eventToDelete: CalendarEvent) {
-    console.log("display events before delete : " , this.displayEvents$)
+   // console.log("display events before delete : " , this.displayEvents$)
     //getting index of event to delete
     let taskIndex = getTaskIndex(this.displayEvents$, eventToDelete)
     //Remove from display list
     this.displayEvents$.splice(taskIndex,1)
-
+    this.events.splice(taskIndex,1)
     //code that came with calendar (filters/removes from events)
     this.events = this.events.filter((event) => event !== eventToDelete);
-
     //remove from database
     this.tasks$.forEach(async element => {
       await this.taskService.delete(element[taskIndex].idOrgTasks).toPromise()
-  });
-
-
-
+  }); 
   }
 
   setView(view: CalendarView) {
@@ -265,32 +281,44 @@ export class CalendarComponent implements OnInit {
 
   
     debugEvent(){
-      console.log("debug pressed")
+      console.log("debug button pressed")
       console.log("display List : ", this.displayEvents$)
       console.log("event list : " , this.events)
       this.tasks$.forEach(element => {
         console.log("Tasks list: ", element)
       });
 
- 
     }
 
-    initializeData(){
-      this.events = [
-        ...this.events,
-        {
-          title: 'New event',
-          start: startOfDay(new Date()),
-          end: endOfDay(new Date()),
-          color: this.colors.red,
-          draggable: true,
-          resizable: {
-            beforeStart: true,
-            afterEnd: true,
-          },
-        },
-      ];
+     update(event, index){
+       //Event is the changed event, index is the index that event is located at in several arrays (the indices match between arrays)
+       //given a NEW/Different event, update events/tasks/ DB accordingly
+      let temp;
 
+      //the below line updates the events to reflect the users changes
+      this.events[index] = this.displayEvents$[index]
+
+      this.tasks$.forEach(async element => {
+        //update the entry and temp save it
+        element[index].title = event.title
+        element[index].dateStart = new Date(event.start)
+        element[index].dateEnd = new Date(event.end)
+        //TODO This can be cleaned up to not have the conditional check (just use 1 variable)
+        event.colorPrimary ?  element[index].colorPrimary = event.colorPrimary  : element[index].colorPrimary = event.color.primary
+        event.colorSecondary ?  element[index].colorSecondary = event.colorSecondary  : element[index].colorSecondary = event.color.secondary
+        element[index].timeStart = event.timeStart
+        element[index].timeEnd = event.timeEnd
+        element[index].comment = event.comment
+
+        temp = element[index]
+        //update called
+        await this.taskService.update(temp).toPromise()
+      });
+
+       this.refresh.next()
+    }
+
+    reloadData(){
       this.displayEvents$ = []
       this.events = []
       this.tasks$ = this.taskService.fetchAll();
@@ -299,8 +327,8 @@ export class CalendarComponent implements OnInit {
           //template out a object to put the DB info into
           let eventFromDB = {
             title: task.title,
-            start: task.dateStart,
-            end: task.dateEnd,
+            start: new Date(task.dateStart),
+            end: new Date(task.dateEnd),
             color: {
                 primary: task.colorPrimary,
                 secondary: task.colorSecondary
@@ -311,7 +339,8 @@ export class CalendarComponent implements OnInit {
               afterEnd: task.resizableAfterStart ? true : false,
             },
             timeStart: task.timeStart,
-            timeEnd: task.timeEnd
+            timeEnd: task.timeEnd,
+            comment: task.comment
           }
           //put object in lists
           //this.displayEvents$.push(eventFromDB)
@@ -320,72 +349,25 @@ export class CalendarComponent implements OnInit {
       }); //end of tasks foreach
     }
 
-     update(event, index, optional=""){
-      let temp;
-      console.log("time end value : " , optional)
-      console.log("event : " , event)
-      this.tasks$.forEach(async element => {
-        //update the entry and temp save it
-        element[index].title = event.title
-        element[index].dateStart = event.start
-        element[index].dateEnd = event.end
-        //TODO This can be cleaned up to not have the conditional check (just use 1 variable)
-        event.colorPrimary ?  element[index].colorPrimary = event.colorPrimary  : element[index].colorPrimary = event.color.primary
-        event.colorSecondary ?  element[index].colorSecondary = event.colorSecondary  : element[index].colorSecondary = event.color.secondary
-        element[index].timeStart = event.timeStart
-        element[index].timeEnd = event.timeEnd
-        temp = element[index]
-        //update called
-        await this.taskService.update(temp).toPromise()
-      });
-
-       //this.initializeData(); but without clearing the displayed events list
-       this.events = []
-       this.tasks$ = this.taskService.fetchAll();
-       this.tasks$.subscribe(element => {
-         element.forEach(task => {
-           //template out a object to put the DB info into
-           let eventFromDB = {
-             title: task.title,
-             start: task.dateStart,
-             end: task.dateEnd,
-             color: {
-                 primary: task.colorPrimary,
-                 secondary: task.colorSecondary
-             },
-             draggable: task.draggable ? true : false,
-             resizable: {
-               beforeStart: task.resizableBeforeStart ? true : false,
-               afterEnd: task.resizableAfterStart ? true : false,
-             },
-             timeStart: task.timeStart,
-             timeEnd: task.timeEnd
-           }
-           //put object in lists
-           this.events.push(eventFromDB)
-         });
-
-       }); //end of tasks foreach
-       console.log("end of update")
-       console.log("display List : ", this.displayEvents$)
-       console.log("event list : " , this.events)
-       console.log("-------------------")
-       this.refresh.next()
-    }
-
   }
   
-  function getTaskIndex(array, taskToFind): any{
-    console.log("array : " , array)
-    console.log("task to taskToFind : " , taskToFind)
-  
+  function getTaskIndex(array, taskToFind, dropped=false): any{
+    /*
+    console.log("Looking in array : " , array)
+    console.log("looking for : " , taskToFind)*/
      for (let index = 0; index < array.length; index++) {
       const element = array[index];
       //TODO may need to make this more strict later
-      console.log("Debug Index Getter")
+     /* console.log("Debug Index Getter")
       console.log("Element variables : " , element.title, element.start, element.end)
       console.log("task variables : " , taskToFind.title, taskToFind.start, taskToFind.end)
+*/
+      if (dropped){
+        if (element.title == taskToFind.title && element.timeStart == taskToFind.timeStart && element.timeEnd == taskToFind.timeEnd){
+          return index
+        }
 
+      }
       if (element.title == taskToFind.title && element.start == taskToFind.start && element.end == taskToFind.end){
         return index
       }
