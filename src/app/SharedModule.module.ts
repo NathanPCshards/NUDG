@@ -51,7 +51,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { FileImportComponent } from './file-import/file-import.component';
 import { PrintPageComponent } from './print-page/print-page.component';
 import { DragDropDirective } from './drag-drop.directive';
-
+import { MatMenuModule} from '@angular/material/menu';
 
 
 
@@ -62,7 +62,7 @@ import { DragDropDirective } from './drag-drop.directive';
   exports : [   
 
     PrintPageComponent,
-
+    MatMenuModule,
 
     BrowserModule,
     BrowserAnimationsModule,

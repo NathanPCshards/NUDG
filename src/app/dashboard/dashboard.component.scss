@@ -14,7 +14,7 @@
   .bdyR {
       float: 1;
       margin-top: 10px;
-        
+
   }
 
   .bdy2 {
@@ -126,7 +126,9 @@ background-size: cover;
 box-shadow: 1px 1px 15px -1px black;
     border-radius: 5px;
 width: 500px;
+max-height: 400px;
 height: 100%;
+overflow:auto
 
 }
 
@@ -134,3 +136,39 @@ height: 100%;
     margin: 10px;
     color: white;
 }
+.taskDate{
+    width:100px;
+  
+  //  margin-left: 50%;
+  //  float: right;
+    //align-items: right;
+}
+.taskTitle{
+    //align-items: left;
+   // float: left;
+   position: relative;
+
+    width:200px;
+    min-width: 200px;
+}
+
+
+
+[popUp] {
+    // padding: 10px;
+     background: #369;
+     color: #fff;
+     cursor: move;
+     text-align: center;
+   }
+     .mainDiv{
+     //  width:300px;  
+     //  height:300px;
+       position: relative;
+       box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+       left: 100px;
+       top:100px;  
+       background-color: rgb(122, 108, 155);
+       border-radius: 10px;
+       display: inline-block;
+     }

@@ -7,35 +7,8 @@ import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { PolicyService } from '../services/policy.service';
 import { policy } from '../models/policy';
-
-
-
-// table stuff for examples -->
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
-
-
-
-
-
-
+import { taskService } from '../services/task.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -58,21 +31,40 @@ export class DashboardComponent implements OnInit {
 
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
-  constructor(public policyService : PolicyService) { }
+  constructor(
+    public policyService : PolicyService,
+    public taskService : taskService,
+    private _snackBar: MatSnackBar) { }
 
   displayedColumns1: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+
 
   //For parsing and counting which policies are implemented
   policyCount$: Observable<policy[]>;
+  tasks$= []
+  alerts$ = []
   implemented$ = 0;
   notImplemented$ = 0;
   deficient$ = 0;
   totalPolicies$ = 0;
   totalPossiblePoints$ = 0;
   currentPoints$ = 0;
+  
 
   ngOnInit() {    
+    //pulling tasks from database
+    this.taskService.fetchAll().subscribe(e=>{
+      e.forEach(async element => {
+        await this.triggerAlert(element)
+        this.tasks$.push(element) 
+        
+   });
+   //Sorting in ascending order, flip sign for reverse
+    this.tasks$.sort(function(a, b){
+      return a.dateStart > b.dateStart  ? 1 : 0})
+    })
+
+
     //pulling every policy, checking its status and counting it
      this.policyCount$ = this.policyService.getAll().subscribe(e=>{
       let allPoliciesDict = []
@@ -103,6 +95,28 @@ export class DashboardComponent implements OnInit {
      });
 
   }
+  convertDate(date,time){
+    let tempDate = new Date(date)
+    let tempTime = time.split(/[: ]/)
+    let output: any
+
+    if (String(tempTime[2]) == "PM"){
+      let adjusted = Number(tempTime[0]) + 12
+       output = new Date(tempDate.getFullYear(),tempDate.getMonth(), tempDate.getDate(), adjusted,Number(tempTime[1]),0,0 )
+    }
+    else{
+       output = new Date(tempDate.getFullYear(),tempDate.getMonth(), tempDate.getDate(), Number(tempTime[0]),Number(tempTime[1]),0,0 )
+    }
+    let temp3 = [...output.toLocaleString()]
+    temp3.splice(-6,3) //removing seconds from string
+
+    return temp3.join('')
+  }
+
+  toDaysFunction(date){
+    return daysTill(new Date(date).getTime())
+  }
+
   onRowClicked(row): void {
     console.log("Row clicked: ", row);
     this.rowSelected = true;
@@ -111,7 +125,22 @@ export class DashboardComponent implements OnInit {
    // this.router.navigate(configUrl.concat("/",row.Title))
   }
 
+  closeAlert(index){
+    this.alerts$.splice(index,1)
+  }
 
+  triggerAlert(event){
+      let alertSetting = event.alert
+      let currentDate = new Date().getTime()
+      let startDate = new Date(event.dateStart).getTime()
+
+      if (alertSetting != "Off"){
+        if (daysTill(startDate) < Number(alertSetting.split("")[0]) && daysTill(startDate) >= 1) {
+          this.alerts$.push(event)
+
+        }
+      }
+  }
 
   getAllPolicies(): Observable<policy[]> {
     return this.policyService.getAll();
@@ -245,4 +274,18 @@ export class Bar3dDatasetComponent implements OnInit {
         })),
       );
   }
+}
+function dateDiffInDays(a, b) {
+  var _MS_PER_DAY = 1000 * 60 * 60 * 24;
+  // Discard the time and time-zone information.
+  var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+  var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+  return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+}
+
+// Calculate how many days between now and an event...
+function daysTill(e) {
+  var eventE = new Date(e);
+  var today =  new Date();
+  return dateDiffInDays(today, eventE);
 }

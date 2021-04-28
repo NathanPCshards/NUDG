@@ -130,6 +130,7 @@
           <th>Starts at</th>
           <th>Ends at</th>
           <th>Additional Information</th> 
+          <th>Alerts</th>
           <th>Remove</th>
         </tr>
       </thead>
@@ -190,13 +191,13 @@
 
           <!--Time picker for start-->
 
-          <mat-form-field appearance="fill" class="timepicker timeEnd timepicker2 time-field">
+          <mat-form-field appearance="fill" class="timepicker timeStart timepicker2 time-field">
             <mat-label>Choose a time</mat-label>
             <input 
             matInput
             [(ngModel)]="event.timeStart" 
        
-            (ngModelChange)="update(event,i);refresh.next();"
+            (ngModelChange)="update(event,i);reloadData()"
             [ngxTimepicker]="toggleTimepickerSTART" 
             />
             <ngx-material-timepicker-toggle  matSuffix [for]="toggleTimepickerSTART"></ngx-material-timepicker-toggle>
@@ -239,10 +240,10 @@
               <input
               matInput
               [(ngModel)]="event.timeEnd" 
-              (ngModelChange)="update(event,i);refresh.next();"
+              (ngModelChange)="update(event,i);reloadData();"
               [ngxTimepicker]="toggleTimepickerEND" 
               >
-              <ngx-material-timepicker-toggle  matSuffix [for]="toggleTimepickerEND"></ngx-material-timepicker-toggle>
+              <ngx-material-timepicker-toggle matSuffix [for]="toggleTimepickerEND"></ngx-material-timepicker-toggle>
               <ngx-material-timepicker #toggleTimepickerEND ></ngx-material-timepicker>
 
             </mat-form-field>
@@ -265,6 +266,17 @@
             id="comment" 
             style="align-content: left;" rows="2" cols="60"></textarea>
 
+          </td>
+          <td>
+            <button mat-button placeholder="Menu" [matMenuTriggerFor]="alertMenu">{{event.alert}}</button>
+            <mat-menu #alertMenu="matMenu">
+              <button #alert (click)="update(event,i,false,'Off');reloadData();" value="Off"  mat-menu-item>Off</button>
+              <button #alert (click)="update(event,i,false,'1 Day');reloadData();" mat-menu-item>1 Day</button>
+              <button #alert (click)="update(event,i,false,'3 Days');reloadData();" value="3 Days" mat-menu-item>3 Days</button>
+              <button #alert (click)="update(event,i,false,'7 Days');reloadData();" value="7 Days" mat-menu-item>7 Days</button>
+  
+            </mat-menu>
+            
           </td>
           <td>
             <button class="btn btn-danger" (click)="deleteEvent(event);" >

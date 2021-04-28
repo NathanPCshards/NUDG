@@ -1,6 +1,30 @@
 <div class="dash" >
 
+<!--This is the HTML for alerts-->
+<div #box class="mainDiv" 
+*ngFor="let alert of alerts$; let i = index"
+mat-dialog-title 
+cdkDrag 
+cdkDragRootElement=".cdk-overlay-pane" 
+ngDraggable 
+cdkDragHandle
+[style.left.%] ="(i+.5)*20"
+style="width:400px;  z-index: 100; position: absolute; left: 8%; top: 43%;" 
+>
+    <div style="background-color: rgb(255, 255, 255); position: relative;margin: 2%;"> 
+        <span  style="color:rgb(0, 0, 0); min-width: 300px; width:300px">
+        There Are {{toDaysFunction(alert.dateStart)}} days until {{alert.title}}
+        </span>  
 
+        <button mat-icon-button >
+            <mat-icon (click)="closeAlert(i)" color="warn" >
+            close
+            </mat-icon>
+        </button>
+
+
+    </div>
+</div>
 
 <div class="bdyL" >
   <h1 style="color:white;font-size: 24px;width: 100%;height: 20px;font-weight: bold;">General Statistics</h1>
@@ -40,35 +64,34 @@
         <p style="margin-left: 400px;font-size: 40px;">{{currentPoints$}}</p>
         <mat-divider></mat-divider>
 
-        <mat-list-item role="listitem" style="color: white;font-size: 18px;">Total Inprogress</mat-list-item>
-        <p style="margin-left: 400px;font-size: 40px;">300</p>
-        <mat-divider></mat-divider>
-
-        <mat-list-item role="listitem" style="color: white;font-size: 18px;">Total Deficient</mat-list-item>
-        <p style="margin-left: 400px;font-size: 40px;">300</p>
-        <mat-divider></mat-divider>
 
       </mat-list>
     </div>   
   </div>
 </div>
 
-<div class="bdyR">
+<div class="bdyR" >
   <h1 style="color:white;font-size: 24px;width: 100%;height: 20px;font-weight: bold;">Upcoming Tasks</h1>
   <div class="sc">
     <div class="sci">
       
-      <mat-list role="list" style="color: white;">
-        <mat-list-item role="listitem" style="color: white;font-size: 18px;">Example task</mat-list-item> 
-        
-      
-        <mat-list-item role="listitem" style="color: white;font-size: 18px;">Example task 2</mat-list-item>
-        
+      <mat-list *ngFor="let task of tasks$" role="list" style="color: white;">
+        <div>
+          <mat-list-item role="listitem" style="color: white;font-size: 18px; position:relative">
+            <div style="width:49%; float:left; ">
+              <span id="taskTitle">{{task.title}}</span>
 
-        <mat-list-item role="listitem" style="color: white;font-size: 18px;">Example task 3</mat-list-item>
-        
+            </div>
+            <div style="width:49%; float:right; margin-top: 13px;">
+              <p id="taskDate" style="font-size: 18px;"> {{convertDate(task.dateStart, task.timeStart)}}</p>
+            </div>
+        </mat-list-item>
+        </div>
 
-        <mat-list-item role="listitem" style="color: white;font-size: 18px;">Exampe task 4</mat-list-item>
+        <mat-divider></mat-divider>
+
+
+
     
 
       </mat-list>
@@ -88,9 +111,6 @@
 </div>
 
 </div>
-
-
-
 
 
 
