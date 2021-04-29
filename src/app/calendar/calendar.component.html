@@ -124,11 +124,11 @@
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>Title</th>
+          <th (click)="sort('title')">Title</th>
           <th>Primary color</th>
           <th>Secondary color</th>
-          <th>Starts at</th>
-          <th>Ends at</th>
+          <th (click)="sort('startDate')">Starts at</th>
+          <th (click)="sort('endDate')">Ends at</th>
           <th>Additional Information</th> 
           <th>Alerts</th>
           <th>Remove</th>
@@ -136,7 +136,7 @@
       </thead>
   
       <tbody>
-        <tr *ngFor="let event of displayEvents$; let i = index">
+        <tr *ngFor="let event of displayEvents$; let i = index; trackBy:trackByFn">
           <td>
             <input
               type="text"
@@ -220,7 +220,7 @@
               [(ngModel)]="event.end" 
               matInput 
               [matDatepicker]="datepicker2"
-              (ngModelChange)="update(event,i);refresh.next();"
+              (change)="update(event,i);refresh.next();"
               dateFormat="Y-m-dTH:i"
               placeholder="Not set"
               />
@@ -255,14 +255,12 @@
 
 
           </td>
-          <!--            (change)="onCommentChange(i, Gcomment.value)" 
--->
-          <td>
 
+          <td>
             <textarea 
             class="comment"  
             [(ngModel)]="event.comment" 
-            (ngModelChange)="update(event,i);refresh.next();"
+            (change)="update(event,i);"
             id="comment" 
             style="align-content: left;" rows="2" cols="60"></textarea>
 

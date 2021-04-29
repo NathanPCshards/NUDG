@@ -28,13 +28,6 @@ import { SharedService } from '../services/Shared';
 
 
 
-
-function validateToken(token: string) {
-  console.log("checking token")
-  return token;
-}
-
-
 @Component({
   selector: 'app-calendar',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -45,9 +38,11 @@ export class CalendarComponent implements OnInit {
     tasks$;
     @ViewChild('modalContent', { static: true }) modalContent!: TemplateRef<any> ;
     timeEnd$;
+    lastSort;
     mwlFlatPicker: any;
     view: CalendarView = CalendarView.Month;
   
+    //color template that came with the calendar. (used for event instantiation)
     colors: any = {
       red: {
         primary: '#ad2121',
@@ -70,7 +65,9 @@ export class CalendarComponent implements OnInit {
       action: string;
       event: CalendarEvent;
     }; 
-  
+    
+    //came with the calendar. Might be useful so leaving it here.
+/*
     actions: CalendarEventAction[] = [
       {
         label: '<i class="fas fa-fw fa-pencil-alt"></i>',
@@ -88,16 +85,18 @@ export class CalendarComponent implements OnInit {
         },
       },
     ];
-  
+  */
+ 
     refresh: Subject<any> = new Subject();
-
-
-    //format for a calendar event
-    //TODO get/pull data from DB and populate this based on entries
     events: CalendarEvent[] = [ ];
-  
     activeDayIsOpen: boolean = false;
     displayEvents$ = []
+    //this counter is incremented whenever a task is added. Used for setting the default
+    //task name to be Task 0, Task 1 ... This is sorta a work around for drag events failing when
+    //events share a name and time.
+    //idea for better work around. just add new task to DB and pull the ID back, then use the ID, because its always unique
+    //then when update is called add a check to prevent any same-named events from being added
+    addCounter = 0
   
     constructor(
       private modal: NgbModal,
@@ -108,27 +107,11 @@ export class CalendarComponent implements OnInit {
   ngOnInit(): void {
     //Pull existing tasks from the database
     this.reloadData()
-
-    this.sharedService.onClick.subscribe(e=>{
-      this.reloadData()
-    })
-
-/*
-    console.log("===debug===")  
-    console.log("this.events: ", this.events)
-    console.log("this.displayEvents: "  ,this.displayEvents$)
-    console.log("====end====")
-*/
-    //initialize view to month
     this.setView(CalendarView.Month)
+    this.sort('startDate')
   }
 
 
-
-
-
-
-  
     dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
       if (isSameMonth(date, this.viewDate)) {
         if (
@@ -142,21 +125,75 @@ export class CalendarComponent implements OnInit {
         this.viewDate = date;
       }
     }
+
+    sort(column){
+      console.log("sort reached, last sort : ", this.lastSort)
+      console.log("column : " , column)
+
+      if (column == 'title'){
+        if (this.lastSort == 'title'){
+          //reverse sort 
+          this.displayEvents$.sort(function(a,b){
+            return a.title < b.title ? 1 : 0
+          })
+          this.lastSort = ''
+        }
+        else{
+          //normal sort
+          this.displayEvents$.sort(function(a,b){
+            return b.title < a.title ? 1 : 0
+          })
+          this.lastSort = 'title'
+        }
+
+      }
+      if(column =='startDate'){
+        if (this.lastSort == 'startDate'){
+          //reverse sort 
+          this.lastSort = ''
+          this.displayEvents$.sort(function(a,b){
+            
+            return daysTill(new Date(a.start)) < daysTill(new Date(b.start)) ? 1 : 0
+          })
+
+          
+        }
+        else{
+          //normal sort
+          this.lastSort = 'startDate'
+          this.displayEvents$.sort(function(a,b){
+            return daysTill(new Date(a.start)) > daysTill(new Date(b.start)) ? 1 : 0})
+        }
+       
+
+      }
+      if(column =='endDate') {
+        if (this.lastSort == 'endDate'){
+          //reverse sort 
+          this.lastSort = ''
+          this.displayEvents$.sort(function(a,b){
+            return daysTill(new Date(a.end)) < daysTill(new Date(b.end)) ? 1 : 0
+          })
+        }
+        else{
+          //normal sort
+          this.lastSort = 'endDate'
+          this.displayEvents$.sort(function(a,b){
+            return daysTill(new Date(a.end)) > daysTill(new Date(b.end)) ? 1 : 0})
+        }
+      }
+    }
   
     eventTimesChanged({event, newStart, newEnd,}: CalendarEventTimesChangedEvent): void {
       //this is called anytime a event is dropped to a new date.
-      //this.update(event,index)
-
-     
+      //Get the index of the task we're working with
       let index = getTaskIndex(this.displayEvents$,event,true)
-      console.log("new start : " , newStart)
-      console.log("new end : " , newEnd)
+      //update the date/time locally
       event.start = newStart
       event.end = newEnd
-      console.log("event being sent to update : ", event)
-      //Update Database with new dates
+      //Update the DB with the updated task
       this.update(event,index,true)
-
+      //Maps the event into events array
       this.events = this.events.map((iEvent) => {
         if (iEvent === event) {
           return {
@@ -167,8 +204,7 @@ export class CalendarComponent implements OnInit {
         }
         return iEvent;
       });
-    //  this.handleEvent('Dropped or resized', event);
-   //this.reloadData();
+
 
 
     }
@@ -178,21 +214,17 @@ export class CalendarComponent implements OnInit {
       //commenting out for now because having the screen go grey is annoying. but we might want to put a alert here 
       //like showing that the time/date changed because the event was moved
 
-      //console.log("handleEvent called")
-
       //this.modalData = { event, action };
       //this.modal.open(this.modalContent, { size: 'lg' });
     }
   
   addEvent(optionalObject=null)  {
-    console.log("addEvent()")
-      //in the case a brand new event is created, optionalObject = "" and the below code is executed to
-      //add a blank/default value event
+    //When adding a new entry, optionalObject is ignored and we just
+    //add a default value task. When pulling from the DB, optionalObject is
+    //a task from the Db and is added to events accordingly.
       if (optionalObject == null){
-        console.log("No object given")
-        //Add to database
-        this.tasks$ =  this.taskService.post({ 
-          title: 'New event',
+          this.tasks$ =  this.taskService.post({ 
+          title: 'Event ' + this.addCounter,
           dateStart: startOfDay(new Date()),
           dateEnd: endOfDay(new Date()),
           colorPrimary: this.colors.red.primary,
@@ -206,15 +238,15 @@ export class CalendarComponent implements OnInit {
           alert: "Off"
     
     })
+  
      //to instantiate the observable (so post goes through)
      this.tasks$.forEach(element => {
-        
     });
     this.tasks$ = this.taskService.fetchAll()
 
     //Add to display list
     let temp = {
-      title: 'New event',
+      title: 'Event ' + this.addCounter,
       start: startOfDay(new Date()),
       end: endOfDay(new Date()),
       color: this.colors.red,
@@ -229,12 +261,12 @@ export class CalendarComponent implements OnInit {
       alert: "Off"
     }
     this.displayEvents$.push(temp)
-
+    this.addCounter += 1
     //Add to events
     this.events = [
       ...this.events,
       {
-        title: 'New event',
+        title: 'Event ' + this.addCounter,
         start: startOfDay(new Date()),
         end: endOfDay(new Date()),
         color: this.colors.red,
@@ -246,22 +278,22 @@ export class CalendarComponent implements OnInit {
 
       },
     ];
-    }
-    else{
-      console.log(optionalObject)
-      this.events = [
-        ...this.events,
-        optionalObject
-      ]
-      this.displayEvents$.push(optionalObject)
-      this.refresh.next()
-    }
+      }
+      else{
+        //Adding the incoming task to events.
+        this.events = [
+          ...this.events,
+          optionalObject
+        ]
+        //Adding to display
+        this.displayEvents$.push(optionalObject)
+        //refreshing screen.
+        this.refresh.next()
+      }
 
     }
   
   async deleteEvent(eventToDelete: CalendarEvent) {
-    console.log("deleteEvent()")
-   // console.log("display events before delete : " , this.displayEvents$)
     //getting index of event to delete
     let taskIndex = getTaskIndex(this.displayEvents$, eventToDelete)
     //Remove from display list
@@ -276,6 +308,7 @@ export class CalendarComponent implements OnInit {
   }
 
   setView(view: CalendarView) {
+    //called to set month/week/day view
     this.view = view;
   }
 
@@ -285,30 +318,28 @@ export class CalendarComponent implements OnInit {
 
 
   
-    debugEvent(){
-      console.log("debug button pressed")
-      console.log("display List : ", this.displayEvents$)
-      console.log("event list : " , this.events)
-      this.tasks$.forEach(element => {
-        console.log("Tasks list: ", element)
-      });
-      this.reloadData()
-    }
+  debugEvent(){
+    console.log("debug button pressed")
+    console.log("display List : ", this.displayEvents$)
+    console.log("event list : " , this.events)
+    this.tasks$.forEach(element => {
+      console.log("Tasks list: ", element)
+    });
+    this.reloadData()
+  }
 
-     update(event, index, eventMoved=false, alertValue=""){
-       console.log("update()")
-       //Event is the changed event, index is the index that event is located at in several arrays (the indices match between arrays)
-       //given a NEW/Different event, update events/tasks/ DB accordingly
+    update(event, index, eventMoved=false, alertValue=""){
+      //Event is the changed event, index is the index that event is located at in several arrays (the indices match between arrays)
+      //given a NEW/Different event, update events/tasks/ DB accordingly
       let temp;
 
       //the below line updates the events to reflect the users changes
       this.events[index] = this.displayEvents$[index]
 
       this.tasks$.forEach(async element => {
-        //update the entry and temp save it
+        //update the entry in tasks
         element[index].title = event.title
         if (eventMoved){
-          console.log("event moved : " ,event)
           element[index].dateStart = event.start
           element[index].dateEnd = event.end
           element[index].timeStart = this.dateToTime(event.start)
@@ -326,20 +357,23 @@ export class CalendarComponent implements OnInit {
         event.colorSecondary ?  element[index].colorSecondary = event.colorSecondary  : element[index].colorSecondary = event.color.secondary
         element[index].comment = event.comment
         if (alertValue != ""){
+          //if given a value for alert, update it.
           element[index].alert = alertValue
         }
         temp = element[index]
-        console.log("posting to DB : ", temp)
-        //Post new data to database ()
+
+        //Post updated task to database ()
         await this.taskService.update(temp).toPromise().then(value=>{this.reloadData()})
       });
 
-       this.refresh.next()      
+        this.refresh.next()      
 
-    }
+  }
 
     reloadData(){
-      console.log("reloadData()")
+      //used to pull data from DB and populate display, events and tasks arrays
+      //this is called after almost every change to the calendar. 
+      //clear lists
       this.displayEvents$ = []
       this.events = []
       this.tasks$ = this.taskService.fetchAll();
@@ -365,15 +399,14 @@ export class CalendarComponent implements OnInit {
             alert: task.alert
           }
           //put object in lists
-          //this.displayEvents$.push(eventFromDB)
           this.addEvent(eventFromDB)
         });
-      }); //end of tasks foreach
+      }); 
     }
     
    combineDateTime(date, time){
-     date = new Date(date)
-     console.log("inputs : " , date , time)
+     //takes ISO date format (although would probably work for other formats), and combines it with 'hh:mm a' formatted Time.
+    date = new Date(date)
     let temp = time.split(/[: ]/)
     if (String(temp[2]) == "PM"){
       let adjusted = Number(temp[0]) + 12
@@ -385,25 +418,26 @@ export class CalendarComponent implements OnInit {
 
 }
    dateToTime(date){
+     //takes ISO date format and converts it to 'hh:mm a' time
      let str = date.toLocaleTimeString()
      let temp = str.split(/[: ]/)
      let time = String(temp[0]+":"+temp[1]+" "+temp[3])
      return time
    }
 
+   trackByFn(index: any, item: any) {
+    return index;
+ }
+
   }
   
   function getTaskIndex(array, taskToFind, dropped=false): any{
-    /*
-    console.log("Looking in array : " , array)
-    console.log("looking for : " , taskToFind)*/
+    //given a array and task/event to find in that array, this function will iterate through and
+    //return the index if it can match its title and time or title and date start.
+    //this could lead to unexpected behavior if you have two events with the same name, start, and end time.
+    
      for (let index = 0; index < array.length; index++) {
       const element = array[index];
-      //TODO may need to make this more strict later
-     /* console.log("Debug Index Getter")
-      console.log("Element variables : " , element.title, element.start, element.end)
-      console.log("task variables : " , taskToFind.title, taskToFind.start, taskToFind.end)
-*/
       if (dropped){
         if (element.title == taskToFind.title && element.timeStart == taskToFind.timeStart && element.timeEnd == taskToFind.timeEnd){
           return index
@@ -420,4 +454,16 @@ export class CalendarComponent implements OnInit {
 
 
 
+  }
+  function daysTill(e) {
+    var eventE = new Date(e);
+    var today =  new Date();
+    return dateDiffInDays(today, eventE);
+  }
+  function dateDiffInDays(a, b) {
+    var _MS_PER_DAY = 1000 * 60 * 60 * 24;
+    // Discard the time and time-zone information.
+    var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+    var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+    return Math.floor((utc2 - utc1) / _MS_PER_DAY);
   }

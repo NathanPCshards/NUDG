@@ -1,30 +1,8 @@
 <div class="dash" >
 
-<!--This is the HTML for alerts-->
-<div #box class="mainDiv" 
-*ngFor="let alert of alerts$; let i = index"
-mat-dialog-title 
-cdkDrag 
-cdkDragRootElement=".cdk-overlay-pane" 
-ngDraggable 
-cdkDragHandle
-[style.left.%] ="(i+.5)*20"
-style="width:400px;  z-index: 100; position: absolute; left: 8%; top: 43%;" 
->
-    <div style="background-color: rgb(255, 255, 255); position: relative;margin: 2%;"> 
-        <span  style="color:rgb(0, 0, 0); min-width: 300px; width:300px">
-        There Are {{toDaysFunction(alert.dateStart)}} days until {{alert.title}}
-        </span>  
-
-        <button mat-icon-button >
-            <mat-icon (click)="closeAlert(i)" color="warn" >
-            close
-            </mat-icon>
-        </button>
 
 
-    </div>
-</div>
+
 
 <div class="bdyL" >
   <h1 style="color:white;font-size: 24px;width: 100%;height: 20px;font-weight: bold;">General Statistics</h1>
@@ -100,6 +78,44 @@ style="width:400px;  z-index: 100; position: absolute; left: 8%; top: 43%;"
 </div>
 
 </div>
+
+
+  <div class="horizontal-scroll-wrapper squares">
+
+      <!--This is the HTML for alerts 
+      [style.left.%] ="(i+.5)*20"position: absolute; top: 42%;
+          cdkDrag 
+    cdkDragRootElement=".cdk-overlay-pane" 
+    ngDraggable 
+    cdkDragHandle
+    "i*400 + 120"
+    -->
+    <div #box class="mainDiv" 
+    *ngFor="let alert of alerts$; let i = index"
+    mat-dialog-title 
+    
+    [style.top.%] ="i*20 + 10"
+    [style.left.%] ="0" 
+    style="z-index: 100;" 
+
+    >
+     
+            <span  style="color:rgb(0, 0, 0);  width:80%; float:left; margin: 3px; font-size: medium;">
+            {{toDaysFunction(alert.dateStart)}} {{alert.day}} until {{alert.title}}
+            </span>  
+            <button mat-icon-button style="bottom:5px; margin:1px; width: 10%; float:right; position: relative;">
+              <mat-icon (click)="closeAlert(i)" color="warn" >
+              close
+              </mat-icon>
+          </button>
+    
+
+    
+    </div>
+
+</div>
+
+
 
 <div class="dash">
 

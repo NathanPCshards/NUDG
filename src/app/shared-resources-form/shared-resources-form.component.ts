@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { SharedResourcesService } from '../services/shared-resources.service';
 
 @Component({
   selector: 'app-shared-resources-form',
@@ -11,12 +12,14 @@ export class SharedResourcesFormComponent implements OnInit {
   SRForm;
   id;
   desc;
-
+  postSub;
   displayedColumns: String[] = ['select','id', 'desc','date'];
   
   
-  submitted= false;
-    constructor(private http:HttpClient, private formBuilder: FormBuilder) { }
+
+    constructor(private http:HttpClient, 
+      private formBuilder: FormBuilder,
+      private sharedResourceService : SharedResourcesService) { }
   
   ngOnInit(){
     this.SRForm = this.formBuilder.group({
@@ -24,17 +27,14 @@ export class SharedResourcesFormComponent implements OnInit {
   
     });
   }
-  public submit() {
-    console.log("form submitted")
+  public submit(SRtitle,SRdescription,SRupload) {
+    console.log("submitting : " , SRupload)
+    this.postSub = this.sharedResourceService.post({SRtitle,SRdescription,SRupload})
+    this.postSub.forEach(element => {
+      
+    });
+  
+  }
+  
 
-  
-  }
-  
-  
-  public onFormReset() {
-    console.log("FORM WAS Reset");
-  
-  this.submitted = false;
-  
-  }
 }   

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CalendarView } from 'angular-calendar';
 import { PolicyBoardComponent} from '../policy-board/policy-board.component'
 import { HttpClient } from '@angular/common/http';
@@ -36,6 +36,7 @@ export class DashboardComponent implements OnInit {
     public taskService : taskService,
     private _snackBar: MatSnackBar) { }
 
+
   displayedColumns1: string[] = ['position', 'name', 'weight', 'symbol'];
 
 
@@ -49,6 +50,9 @@ export class DashboardComponent implements OnInit {
   totalPolicies$ = 0;
   totalPossiblePoints$ = 0;
   currentPoints$ = 0;
+  //variable used on alert box to be either "day" or "days" depending
+  //on context, for grammar.
+ 
   
 
   ngOnInit() {    
@@ -56,13 +60,19 @@ export class DashboardComponent implements OnInit {
     this.taskService.fetchAll().subscribe(e=>{
       e.forEach(async element => {
         await this.triggerAlert(element)
-        this.tasks$.push(element) 
-        
+        //conditional to show only events that have not happened yet
+        if (daysTill(element.dateStart) > 0){
+          this.tasks$.push(element) 
+
+        }
+        //Sorting in ascending order, flip sign for reverse
+
+        this.tasks$.sort(function(a, b){
+          return daysTill(new Date(a.dateStart)) > daysTill(new Date(b.dateStart))  ? 1 : 0})
+    
+        })
    });
-   //Sorting in ascending order, flip sign for reverse
-    this.tasks$.sort(function(a, b){
-      return a.dateStart > b.dateStart  ? 1 : 0})
-    })
+
 
 
     //pulling every policy, checking its status and counting it
@@ -72,7 +82,7 @@ export class DashboardComponent implements OnInit {
         allPoliciesDict.push(element) 
    });
 
-   
+   //iterating over policies and counting implemented status
     allPoliciesDict.forEach(element => {
       this.totalPolicies$ += 1
       if (element.NISTvalue){
@@ -95,7 +105,10 @@ export class DashboardComponent implements OnInit {
      });
 
   }
+
   convertDate(date,time){
+    //converts ISO date format to mm/dd/yyyy, h:mm a
+    //used for displaying date in 'upcoming tasks' box
     let tempDate = new Date(date)
     let tempTime = time.split(/[: ]/)
     let output: any
@@ -114,18 +127,13 @@ export class DashboardComponent implements OnInit {
   }
 
   toDaysFunction(date){
+    //helper function that calls daysTill
     return daysTill(new Date(date).getTime())
   }
 
-  onRowClicked(row): void {
-    console.log("Row clicked: ", row);
-    this.rowSelected = true;
-    var configUrl = 'http://localhost:4200' + "/" + row.Title;
-    console.log(configUrl)
-   // this.router.navigate(configUrl.concat("/",row.Title))
-  }
 
   closeAlert(index){
+    //removes alert from the array, which removes it from screen
     this.alerts$.splice(index,1)
   }
 
@@ -133,13 +141,26 @@ export class DashboardComponent implements OnInit {
       let alertSetting = event.alert
       let currentDate = new Date().getTime()
       let startDate = new Date(event.dateStart).getTime()
-
+      //checks if alert is turned on. if it is, checks if the current date is within the alert range.
       if (alertSetting != "Off"){
         if (daysTill(startDate) < Number(alertSetting.split("")[0]) && daysTill(startDate) >= 1) {
+          //by pushing into alerts, we add the event to a ngFor loop in the html, and a new alert shows up
+
+          if (this.toDaysFunction(event.dateStart) == 1){
+            event.isAre = "is"
+            event.day = "Day"
+          }else{
+            event.isAre = "are"
+            event.day = "Days"
+          }
+          
           this.alerts$.push(event)
 
         }
       }
+      this.alerts$.sort(function(a, b){
+        return a.dateStart > b.dateStart  ? 1 : 0})
+      
   }
 
   getAllPolicies(): Observable<policy[]> {

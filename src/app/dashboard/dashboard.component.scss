@@ -119,7 +119,7 @@ background-size: cover;
 }
 
 .sc {
-    background-color: #b0bec5;
+background-color: #b0bec5;
 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cg stroke='%23455a64' stroke-width='66.7' stroke-opacity='0.05' %3E%3Ccircle fill='%23b0bec5' cx='0' cy='0' r='1800'/%3E%3Ccircle fill='%23abbac1' cx='0' cy='0' r='1700'/%3E%3Ccircle fill='%23a6b6be' cx='0' cy='0' r='1600'/%3E%3Ccircle fill='%23a2b2ba' cx='0' cy='0' r='1500'/%3E%3Ccircle fill='%239daeb7' cx='0' cy='0' r='1400'/%3E%3Ccircle fill='%2398aab4' cx='0' cy='0' r='1300'/%3E%3Ccircle fill='%2393a7b0' cx='0' cy='0' r='1200'/%3E%3Ccircle fill='%238fa3ad' cx='0' cy='0' r='1100'/%3E%3Ccircle fill='%238a9fa9' cx='0' cy='0' r='1000'/%3E%3Ccircle fill='%23859ba6' cx='0' cy='0' r='900'/%3E%3Ccircle fill='%238197a2' cx='0' cy='0' r='800'/%3E%3Ccircle fill='%237c939f' cx='0' cy='0' r='700'/%3E%3Ccircle fill='%2377909c' cx='0' cy='0' r='600'/%3E%3Ccircle fill='%23738c98' cx='0' cy='0' r='500'/%3E%3Ccircle fill='%236e8895' cx='0' cy='0' r='400'/%3E%3Ccircle fill='%23698492' cx='0' cy='0' r='300'/%3E%3Ccircle fill='%2365818e' cx='0' cy='0' r='200'/%3E%3Ccircle fill='%23607d8b' cx='0' cy='0' r='100'/%3E%3C/g%3E%3C/svg%3E");
 background-attachment: fixed;
 background-size: cover;
@@ -154,21 +154,76 @@ overflow:auto
 
 
 
+
+
+
+
+body {
+  background: #111;
+}
+
+
+
+.horizontal-scroll-wrapper {
+    //tricky to work with everything rotated 90degrees.
+    //also hard when the inside alert divs need to be rotated the opposite 90 degrees
+    //id suggest getting a piece of paper and writing out Top, Left, Right, Bottom
+    //like overflow x and y are flipped
+    position: absolute;
+    right:0;
+    left:45%;
+    bottom: 0;
+    top:-35%;
+    width: 10%;
+    min-width: 10%;
+
+    height:87.5vw;
+    transform: rotate(-90deg);
+    color:white;
+    overflow-y: scroll;
+    overflow-x: scroll;
+      //having scroll enabled but hiding the bar
+      scrollbar-width: none;  /*Hiding bar for Firefox */
+      -ms-overflow-style: none;   /*Hiding bar for Internet Explorer 10+ */
+
+    & > div {
+        display: block;
+        overflow:none;
+        background: #abc;
+        transform: rotate(90deg);
+        left:50%;
+
+       
+      }
+}
+
+
 [popUp] {
-    // padding: 10px;
-     background: #369;
-     color: #fff;
-     cursor: move;
-     text-align: center;
-   }
-     .mainDiv{
-     //  width:300px;  
-     //  height:300px;
-       position: relative;
-       box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-       left: 100px;
-       top:100px;  
-       background-color: rgb(122, 108, 155);
-       border-radius: 10px;
-       display: inline-block;
-     }
+  // padding: 10px;
+   background: #369;
+   color: #fff;
+   cursor: move;
+   text-align: center;
+ }
+ .mainDiv{
+
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+    border-radius: 10px;
+    display: inline-block;
+
+  }
+
+
+.squares {
+    padding: 20px 0 0 0;
+  & > div {
+    left:50%;
+    top: 40px;
+    width: 350px;
+    height: 70px;
+    margin: 10px 0;
+    
+  }
+}
