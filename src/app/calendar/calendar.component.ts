@@ -86,7 +86,7 @@ export class CalendarComponent implements OnInit {
       },
     ];
   */
- 
+
     refresh: Subject<any> = new Subject();
     events: CalendarEvent[] = [ ];
     activeDayIsOpen: boolean = false;
@@ -97,6 +97,8 @@ export class CalendarComponent implements OnInit {
     //idea for better work around. just add new task to DB and pull the ID back, then use the ID, because its always unique
     //then when update is called add a check to prevent any same-named events from being added
     addCounter = 0
+    displayListNoSort = []
+    indexMap = []
   
     constructor(
       private modal: NgbModal,
@@ -109,6 +111,7 @@ export class CalendarComponent implements OnInit {
     this.reloadData()
     this.setView(CalendarView.Month)
     this.sort('startDate')
+
   }
 
 
@@ -133,7 +136,7 @@ export class CalendarComponent implements OnInit {
           this.displayEvents$.sort(function(a,b){
             return a.title < b.title ? 1 : 0
           })
-          this.lastSort = ''
+          this.lastSort = 'reverseTitle'
         }
         else{
           //normal sort
@@ -147,7 +150,7 @@ export class CalendarComponent implements OnInit {
       if(column =='startDate'){
         if (this.lastSort == 'startDate'){
           //reverse sort 
-          this.lastSort = ''
+          this.lastSort = 'reverseStartDate'
           this.displayEvents$.sort(function(a,b){
             
             return daysTill(new Date(a.start)) < daysTill(new Date(b.start)) ? 1 : 0
@@ -167,7 +170,7 @@ export class CalendarComponent implements OnInit {
       if(column =='endDate') {
         if (this.lastSort == 'endDate'){
           //reverse sort 
-          this.lastSort = ''
+          this.lastSort = 'reverseEndDate'
           this.displayEvents$.sort(function(a,b){
             return daysTill(new Date(a.end)) < daysTill(new Date(b.end)) ? 1 : 0
           })
@@ -220,7 +223,7 @@ export class CalendarComponent implements OnInit {
       //this.modal.open(this.modalContent, { size: 'lg' });
     }
   
-  addEvent(optionalObject=null)  {
+  addEvent(optionalObject=null, firstRefresh=null)  {
     //When adding a new entry, optionalObject is ignored and we just
     //add a default value task. When pulling from the DB, optionalObject is
     //a task from the Db and is added to events accordingly.
@@ -238,6 +241,7 @@ export class CalendarComponent implements OnInit {
           timeEnd: "1:00 PM",
           comment: "",
           alert: "Off"
+     
     
     })
   
@@ -260,7 +264,8 @@ export class CalendarComponent implements OnInit {
       timeStart: "1:00 AM",
       timeEnd: "1:00 PM",
       comment: "",
-      alert: "Off"
+      alert: "Off",
+      originalIndex: this.displayEvents$.length
     }
     this.displayEvents$.push(temp)
     this.addCounter += 1
@@ -290,7 +295,55 @@ export class CalendarComponent implements OnInit {
         //Adding to display
         this.displayEvents$.push(optionalObject)
         //refreshing screen.
+
+        //this is a little different from the actual sort function.
+        //used here to retain the sorting after the data updates
+        switch(this.lastSort){
+          case("title") :             
+            this.displayEvents$.sort(function(a,b){
+              return b.title < a.title ? 1 : 0
+            })
+            this.lastSort = 'title';
+          break;
+  
+          case("reverseTitle") :  
+     
+            this.displayEvents$.sort(function(a,b){
+              return a.title < b.title ? 1 : 0
+            })
+            this.lastSort = 'reverseTitle'; 
+          break;
+  
+          case("startDate") :     
+            this.lastSort = 'startDate'
+            this.displayEvents$.sort(function(a,b){
+              return daysTill(new Date(a.start)) > daysTill(new Date(b.start)) ? 1 : 0})
+          break;
+  
+          case("reverseStartDate") :           
+            this.lastSort = 'reverseStartDate'
+            this.displayEvents$.sort(function(a,b){
+              return daysTill(new Date(a.start)) < daysTill(new Date(b.start)) ? 1 : 0
+            });
+          break;
+  
+          case("endDate") :      
+            this.lastSort = 'endDate'
+            this.displayEvents$.sort(function(a,b){
+              return daysTill(new Date(a.end)) > daysTill(new Date(b.end)) ? 1 : 0});
+          break;
+  
+          case("reverseEndDate") :  
+              this.lastSort = 'reverseEndDate'
+              this.displayEvents$.sort(function(a,b){
+                return daysTill(new Date(a.end)) < daysTill(new Date(b.end)) ? 1 : 0
+              }) ;
+          break;
+  
+  
+        }
         this.refresh.next()
+
 
       }
 
@@ -337,12 +390,23 @@ export class CalendarComponent implements OnInit {
       //Event is the changed event, index is the index that event is located at in several arrays (the indices match between arrays)
       //given a NEW/Different event, update events/tasks/ DB accordingly
       let temp;
-
+      console.log("displayed list test : " , this.displayEvents$)
+      console.log("display list no sort : " , this.displayListNoSort)
+      console.log("event : ", event)
+      index = getTaskIndex(this.displayEvents$,event)
+      console.log('index : ', index)
+      //I needed to add originalIndex here as a way of matching up the indicies again after sorting
+      index = event.originalIndex
       //the below line updates the events to reflect the users changes
       this.events[index] = this.displayEvents$[index]
+      //after sorting the display list the index here is wrong... how can i fix this
+
+      console.log("testing? : " ,this.displayListNoSort)
+
 
       this.tasks$.forEach(async element => {
         //update the entry in tasks
+        
         element[index].title = event.title
         if (eventMoved){
           //if end date/time is before start
@@ -397,6 +461,7 @@ export class CalendarComponent implements OnInit {
       this.events = []
       this.tasks$ = this.taskService.fetchAll();
       this.tasks$.subscribe(element => {
+        let i = 0
         element.forEach(task => {
           //template out a object to put the DB info into
           let eventFromDB = {
@@ -415,12 +480,19 @@ export class CalendarComponent implements OnInit {
             timeStart: task.timeStart,
             timeEnd: task.timeEnd,
             comment: task.comment,
-            alert: task.alert
+            alert: task.alert,
+            originalIndex:i
           }
+          i++
           //put object in lists
           this.addEvent(eventFromDB)
         });
       }); 
+      
+
+
+
+
     }
     
    combineDateTime(date, time){
@@ -450,8 +522,14 @@ export class CalendarComponent implements OnInit {
      return time
    }
 
-   trackByFn(index: any, item: any) {
-    return index;
+   trackEvent(index: any, item: any) {
+
+    //this function is triggered when input is entered
+    //it is send the data once before anything was input, and once after something was input
+    //and if whatever this function returns is different from the first trigger, ngDoCheck() is called and (change) tags
+    //are triggered in html
+
+    return item;
  }
 
   }
@@ -460,7 +538,6 @@ export class CalendarComponent implements OnInit {
     //given a array and task/event to find in that array, this function will iterate through and
     //return the index if it can match its title and time or title and date start.
     //this could lead to unexpected behavior if you have two events with the same name, start, and end time.
-    
      for (let index = 0; index < array.length; index++) {
       const element = array[index];
       if (dropped){

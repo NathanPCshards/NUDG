@@ -136,7 +136,7 @@
       </thead>
   
       <tbody>
-        <tr *ngFor="let event of displayEvents$; let i = index; trackBy:trackByFn">
+        <tr *ngFor="let event of displayEvents$; let i = index; trackBy:trackEvent">
           <td>
             <input
               type="text"
@@ -267,10 +267,10 @@
           <td>
             <button mat-button placeholder="Menu" [matMenuTriggerFor]="alertMenu">{{event.alert}}</button>
             <mat-menu #alertMenu="matMenu">
-              <button #alert (click)="update(event,i,false,'Off');reloadData();" value="Off"  mat-menu-item>Off</button>
-              <button #alert (click)="update(event,i,false,'1 Day');reloadData();" mat-menu-item>1 Day</button>
-              <button #alert (click)="update(event,i,false,'3 Days');reloadData();" value="3 Days" mat-menu-item>3 Days</button>
-              <button #alert (click)="update(event,i,false,'7 Days');reloadData();" value="7 Days" mat-menu-item>7 Days</button>
+              <button #alert (click)="update(event,i,false,'Off');" value="Off"  mat-menu-item>Off</button>
+              <button #alert (click)="update(event,i,false,'1 Day');" mat-menu-item>1 Day</button>
+              <button #alert (click)="update(event,i,false,'3 Days');" value="3 Days" mat-menu-item>3 Days</button>
+              <button #alert (click)="update(event,i,false,'7 Days');" value="7 Days" mat-menu-item>7 Days</button>
   
             </mat-menu>
             
