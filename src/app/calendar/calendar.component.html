@@ -174,8 +174,7 @@
             [(ngModel)]="event.start" 
             matInput 
             [matDatepicker]="datepicker1"
-            (ngModelChange)="update(event,i);refresh.next()"
-           
+            (change)="update(event,i);refresh.next()"
             dateFormat="Y-m-dTH:i"
             placeholder="Not set"
 
@@ -184,7 +183,7 @@
             <mat-datepicker #datepicker1>
               <mat-datepicker-actions>
                 <button mat-button matDatepickerCancel>Cancel</button>
-                <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                <button (click)="update(event,i);refresh.next()" mat-raised-button color="primary" matDatepickerApply>Apply</button>
               </mat-datepicker-actions>
             </mat-datepicker>
           </mat-form-field>
@@ -228,7 +227,7 @@
               <mat-datepicker #datepicker2>
                 <mat-datepicker-actions>
                   <button mat-button matDatepickerCancel>Cancel</button>
-                  <button mat-raised-button color="primary"  matDatepickerApply>Apply</button>
+                  <button mat-raised-button (click)="update(event,i);refresh.next()" color="primary"  matDatepickerApply>Apply</button>
                 </mat-datepicker-actions>
               </mat-datepicker>
             </mat-form-field>

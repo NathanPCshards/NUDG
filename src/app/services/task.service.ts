@@ -43,7 +43,6 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   update(item: any): Observable<any> {
-    console.log("update called : " , item)
     return this.http
       .put(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));

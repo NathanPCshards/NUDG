@@ -127,9 +127,6 @@ export class CalendarComponent implements OnInit {
     }
 
     sort(column){
-      console.log("sort reached, last sort : ", this.lastSort)
-      console.log("column : " , column)
-
       if (column == 'title'){
         if (this.lastSort == 'title'){
           //reverse sort 
@@ -187,7 +184,12 @@ export class CalendarComponent implements OnInit {
     eventTimesChanged({event, newStart, newEnd,}: CalendarEventTimesChangedEvent): void {
       //this is called anytime a event is dropped to a new date.
       //Get the index of the task we're working with
+
+      //events date end is wrong here
+      //so is displayevents end
+
       let index = getTaskIndex(this.displayEvents$,event,true)
+ 
       //update the date/time locally
       event.start = newStart
       event.end = newEnd
@@ -289,7 +291,10 @@ export class CalendarComponent implements OnInit {
         this.displayEvents$.push(optionalObject)
         //refreshing screen.
         this.refresh.next()
+
       }
+
+ 
 
     }
   
@@ -328,7 +333,7 @@ export class CalendarComponent implements OnInit {
     this.reloadData()
   }
 
-    update(event, index, eventMoved=false, alertValue=""){
+    update(event, index, eventMoved=false, alertValue=""): any {
       //Event is the changed event, index is the index that event is located at in several arrays (the indices match between arrays)
       //given a NEW/Different event, update events/tasks/ DB accordingly
       let temp;
@@ -340,17 +345,30 @@ export class CalendarComponent implements OnInit {
         //update the entry in tasks
         element[index].title = event.title
         if (eventMoved){
+          //if end date/time is before start
+          if(event.start > event.end){
+            alert("Your start date and time must be BEFORE the end date and time.")
+            return 0
+          }
+
           element[index].dateStart = event.start
           element[index].dateEnd = event.end
+
           element[index].timeStart = this.dateToTime(event.start)
           element[index].timeEnd = this.dateToTime(event.end)
         }
         else{
+          if(this.combineDateTime(event.start, event.timeStart) > this.combineDateTime(event.end, event.timeEnd)){
+            alert("Your start date and time must be BEFORE the end date and time.")
+            return 0
+          }
+
           element[index].dateStart = startOfDay(this.combineDateTime(event.start, event.timeStart))
           element[index].dateEnd = endOfDay(this.combineDateTime(event.end, event.timeEnd))
           element[index].timeStart = event.timeStart
           element[index].timeEnd = event.timeEnd
-        }
+        }    
+        
 
         //TODO This can be cleaned up to not have the conditional check (just use 1 variable)
         event.colorPrimary ?  element[index].colorPrimary = event.colorPrimary  : element[index].colorPrimary = event.color.primary
@@ -364,9 +382,10 @@ export class CalendarComponent implements OnInit {
 
         //Post updated task to database ()
         await this.taskService.update(temp).toPromise().then(value=>{this.reloadData()})
+        return 1
       });
 
-        this.refresh.next()      
+        this.refresh.next()    
 
   }
 
@@ -408,11 +427,17 @@ export class CalendarComponent implements OnInit {
      //takes ISO date format (although would probably work for other formats), and combines it with 'hh:mm a' formatted Time.
     date = new Date(date)
     let temp = time.split(/[: ]/)
-    if (String(temp[2]) == "PM"){
+    if (String(temp[2]) == "PM" && temp[0] != 12){
       let adjusted = Number(temp[0]) + 12
+      //case where 2:00 PM becomes 14:00 (convert 12 hour to 24 hour)
       return new Date(date.getFullYear(),date.getMonth(), date.getDate(), adjusted,Number(temp[1]),0,0 )
     }
+    else if(String(temp[2]) == "AM" && temp[0] == 12){
+      //case where 12:03 AM, becomes 0:03 (drop 12, replace with 0)
+      return new Date(date.getFullYear(),date.getMonth(), date.getDate(), 0,Number(temp[1]),0,0 )
+    }
     else{
+      //normal 12 hour to 24 hour conversion
       return new Date(date.getFullYear(),date.getMonth(), date.getDate(), Number(temp[0]),Number(temp[1]),0,0 )
     }
 
