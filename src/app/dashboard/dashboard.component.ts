@@ -61,7 +61,7 @@ export class DashboardComponent implements OnInit {
       e.forEach(async element => {
         await this.triggerAlert(element)
         //conditional to show only events that have not happened yet
-        if (daysTill(element.dateStart) > 0){
+        if (daysTill(element.dateStart) >= 0){
           this.tasks$.push(element) 
 
         }
@@ -143,7 +143,7 @@ export class DashboardComponent implements OnInit {
       let startDate = new Date(event.dateStart).getTime()
       //checks if alert is turned on. if it is, checks if the current date is within the alert range.
       if (alertSetting != "Off"){
-        if (daysTill(startDate) < Number(alertSetting.split("")[0]) && daysTill(startDate) >= 1) {
+        if (daysTill(startDate) < Number(alertSetting.split("")[0]) && daysTill(startDate) >= 0) {
           //by pushing into alerts, we add the event to a ngFor loop in the html, and a new alert shows up
 
           if (this.toDaysFunction(event.dateStart) == 1){

@@ -8,6 +8,7 @@ import { GuidelinesModule } from '../guidelines-page/guidelines.module';
 import { ControlModule } from '../control-form/control.module';
 import { PolicyAccordionModule } from '../policy-accordion/policy-accordion.module';
 import { fileImportModule } from '../file-import/file-import.module';
+import { myCalendarModule } from '../calendar/calendar.module';
 
  
 
@@ -18,7 +19,8 @@ import { fileImportModule } from '../file-import/file-import.module';
     GuidelinesModule,
     PolicyAccordionModule,
     ControlModule,
-    fileImportModule
+    fileImportModule,
+    myCalendarModule
 
  
   ],

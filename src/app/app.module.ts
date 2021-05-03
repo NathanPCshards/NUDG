@@ -65,7 +65,6 @@ import { CalendarComponent } from './calendar/calendar.component';
     roleDialog,
     chartSimple,
     Bar3dDatasetComponent,
-    CalendarComponent,
     VendorFormComponent,
     SupplierFormComponent,
     CuiContractsFormComponent,
@@ -83,7 +82,7 @@ import { CalendarComponent } from './calendar/calendar.component';
     helpCenterForm,
     networkSharesPage,
     AdminPanelComponent,
-    CalendarComponent,
+   
 
     
     
@@ -95,6 +94,7 @@ import { CalendarComponent } from './calendar/calendar.component';
     IdentifierPageModule,
     SharedModule,
     
+    
 //    PolicyAccordionModule,
 
     
@@ -104,13 +104,7 @@ import { CalendarComponent } from './calendar/calendar.component';
     }),
     
     //calendar
-    FlatpickrModule.forRoot(),
-    CalendarModule.forRoot({
-      provide: DateAdapter,
-      useFactory: adapterFactory,
-    }),
-    BrowserAnimationsModule,
-    
+ 
  
 
   ],
