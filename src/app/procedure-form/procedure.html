@@ -7,22 +7,50 @@
 <form class="UsernameBox">
   <mat-form-field appearance="outline" color="primary" style="width: 90%;">
     <mat-label >Procedure</mat-label>
-    <input matInput #PProcedure id="Input" placeholder="Procedure ID">
+    <input matInput #PProcedure id="Input">
   </mat-form-field>
   <br>
-  <mat-form-field appearance="outline" color="primary" style="width: 90%;">
+  <mat-form-field appearance="outline" color="primary" style="width: 90%;" >
     <mat-label >Status</mat-label>
-    <input matInput #Pstatus id="Input" placeholder="Procedure ID">
+
+
+    <mat-select #Pstatus id="Input">
+    
+      <mat-option value="Incomplete">
+        Incomplete
+      </mat-option>
+      <mat-option value="Complete">
+        Complete
+      </mat-option>
+    </mat-select>
+
+
+
+
+
+
+
   </mat-form-field>
   <br>
-  <mat-form-field color="primary" appearance="outline" id="descriptionBox" style="width: 90%;">
-    <mat-label>Status Date</mat-label>
-    <input matInput #PstatusDate placeholder="Procedure Description" >
-  </mat-form-field>
+       <mat-form-field style="height: 100%; width: 100%;background: transparent;" appearance="fill" class="datepicker dateStart datepicker1" id="datepicker1">
+              <mat-label >{{todaysDate}}</mat-label>
+              <input 
+              #PstatusDate
+              matInput 
+              [matDatepicker]="datepicker1"
+              />
+              <mat-datepicker-toggle matSuffix [for]="datepicker1"></mat-datepicker-toggle>
+              <mat-datepicker #datepicker1>
+                <mat-datepicker-actions>
+                  <button mat-button matDatepickerCancel>Cancel</button>
+                  <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                </mat-datepicker-actions>
+              </mat-datepicker>
+            </mat-form-field>
     <br>
   <mat-form-field color="primary" appearance="outline" id="descriptionBox" style="width: 90%;">
     <mat-label>Procedure Description</mat-label>
-    <input matInput #Pdescription placeholder="Procedure Description" >
+    <input matInput #Pdescription  >
   </mat-form-field>
     <button mat-raised-button  (click)="closeDialog(PProcedure.value, Pstatus.value, PstatusDate.value, Pdescription.value)" color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Submit</button>
 

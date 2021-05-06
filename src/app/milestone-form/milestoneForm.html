@@ -18,19 +18,44 @@
       </mat-form-field>
 
 
+      <mat-form-field style="height: 100%; width: 100%;background: transparent;" appearance="fill" class="datepicker datepicker2" id="datepicker2">
+        <mat-label >{{todaysDate}}</mat-label>
+        <input 
+        #MstatusDate
+        matInput 
+        [matDatepicker]="datepicker2"
+        />
+        <mat-datepicker-toggle matSuffix [for]="datepicker2"></mat-datepicker-toggle>
+        <mat-datepicker #datepicker2>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+  
+      <mat-form-field color="primary" appearance="outline"style="width: 45%;">
+        <mat-label>Changes</mat-label>
+        <input matInput #Mchanges placeholder="Date" >
+      </mat-form-field>
 
-    <mat-form-field color="primary" appearance="outline" id="PasswordBox" style="width: 45%;">
-      <mat-label>Status Date</mat-label>
-      <input matInput #MstatusDate placeholder="Status Date" >
+
+
+    <mat-form-field style="height: 100%; width: 100%;background: transparent;" appearance="fill" class="datepicker datepicker1" id="datepicker1">
+      <mat-label >{{todaysDate}}</mat-label>
+      <input 
+      #McompletionDate
+      matInput 
+      [matDatepicker]="datepicker1"
+      />
+      <mat-datepicker-toggle matSuffix [for]="datepicker1"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker1>
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancel</button>
+          <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+        </mat-datepicker-actions>
+      </mat-datepicker>
     </mat-form-field>
-
-
-
-    <mat-form-field color="primary" appearance="outline" id="PasswordBox" style="width: 45%;">
-      <mat-label>Completion date</mat-label>
-      <input matInput #McompletionDate placeholder="Completion Date" >
-    </mat-form-field>
-
 
     <mat-form-field color="primary" appearance="outline" id="PasswordBox" style="width: 45%;">
       <mat-label>Changes</mat-label>

@@ -23,7 +23,6 @@ export class ProcedureFormComponent implements OnInit {
   idOrgControls;
   rowSelected = false;
   searchProcedures
-
     constructor(
       private http:HttpClient, 
       private formBuilder: FormBuilder,  
@@ -105,7 +104,7 @@ delete(id: any): void {
 })
 export class procedureDialog {
 idOrgControls
-
+todaysDate = new Date()
 submitted= false;
 constructor(private http:HttpClient,
   private formBuilder: FormBuilder,
@@ -136,12 +135,15 @@ this.submitted = false;
 closeDialog( PProcedure, Pstatus, PstatusDate, Pdescription){
   this.data.PProcedure = PProcedure;
   this.data.Pstatus = Pstatus;
+
   this.data.PstatusDate = PstatusDate;
+  if (!PstatusDate){
+    this.data.PstatusDate = this.todaysDate
+  }
   this.data.Pdescription = Pdescription;
 
   this.data.idOrgControls = this.idOrgControls
 
-  //console.log("post called", PProcedure, Pstatus, Pstatusdate, Pdescription, idOrgControls)
 
 try{
   //this works when opened as a dialog (the weakness page)
@@ -160,7 +162,6 @@ try{
 fetchAll(): Observable<procedures[]> {
   return this.milestoneService.fetchAll(this.idOrgControls);
 }
-
 
 
 

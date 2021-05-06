@@ -11,42 +11,48 @@
 
 <div id="procedures" class="procedures" style="width:100%">
     <mat-list>
-      <div class="flexContainer">
 
           <mat-list-item class="headerRow">
-            <span class="spanList idCol">
+            <span class=" idCol">
               ID
             </span>
-            <span class="spanList nameCol">
-              Description
+            <span class=" nameCol">
+              Procedure
             </span>
-            <span class="spanList descCol">
+            <span class=" statusCol">
               Status
             </span>
-            <span class="spanList dateCol">
+            <span class=" descCol">
+              Description
+            </span>
+            <span class=" dateCol">
               Completion Date 
             </span>
             <input class="searchBox" style="margin-left: 127px;" type="text" #searchprocedure id='searchprocedure' (keyup)="filterprocedure()" placeholder="search" />
 
           </mat-list-item>
-      </div>
+  
     
       <mat-list-item *ngFor="let procedure of procedures$ | async">
         <div style="display: flex;" *ngIf="procedure.PProcedure.toLowerCase().indexOf(searchprocedure.value)!== -1 || procedure.Pstatus.toLowerCase().indexOf(searchprocedure.value)!== -1">
 
-        <span class="listSpan idCol" style="font-weight: bold;"
-          >{{ procedure.idOrgProcedure }}    
+        <span class="listSpan idCol" >
+          {{ procedure.idOrgProcedure }}    
           </span>
 
-        <span class="listSpan nameCol" style="font-weight: bold;">
+        <span class="listSpan nameCol" >
           {{procedure.PProcedure}}
         </span>
 
-        <span class="listSpan descCol" style="font-weight: bold; ">
+        <span class="listSpan statusCol" >
           {{procedure.Pstatus}}
         </span>
-        <span class="listSpan dateCol" style="font-weight: bold;">
-          {{procedure.Pdescription | date:'M/d/yy,   h:mm a'}}
+        <span class="listSpan descCol">
+          {{procedure.Pdescription}}
+        </span>
+
+        <span class="listSpan dateCol" >
+          {{procedure.Pstatusdate | date:'M/d/yy,   h:mm a'}}
         </span>
 
     

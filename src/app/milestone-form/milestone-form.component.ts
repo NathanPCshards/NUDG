@@ -21,6 +21,7 @@ export class MilestoneFormComponent implements OnInit {
   clickEventsubscription;
   searchMilestones
   rowSelected = false;
+
   
     constructor(
       private http:HttpClient, 
@@ -105,7 +106,7 @@ export class milestoneDialog {
 
 milestoneForm;
 position;
-
+todaysDate = new Date()
 idOrgWeaknesses
 
 
@@ -136,8 +137,16 @@ this.submitted = false;
 closeDialog( Milestones, Mstatus, MstatusDate, McompletionDate, Mchanges){
   this.data.Milestones = Milestones;
   this.data.Mstatus = Mstatus;
-  this.data.MstatusDate = MstatusDate;
   this.data.McompletionDate = McompletionDate;
+  this.data.MstatusDate = MstatusDate
+  if (!MstatusDate){
+    this.data.MstatusDate = this.todaysDate;
+
+  }
+  if (!McompletionDate){
+    this.data.McompletionDate = this.todaysDate;
+
+  }
   this.data.Mchanges = Mchanges;
   this.data.idOrgWeaknesses = this.idOrgWeaknesses
 
