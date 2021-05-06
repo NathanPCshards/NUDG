@@ -171,13 +171,14 @@ body {
     //like overflow x and y are flipped
     position: absolute;
     right:0;
-    left:45%;
+    left:44%;
     bottom: 0;
-    top:-35%;
-    width: 10%;
-    min-width: 10%;
-
-    height:87.5vw;
+    top:-27%; //changing this impacts height of cards
+    width: 12%;
+    min-width: 12%;
+    height:92vw;
+    //if you need the cards moved, i highly suggest moving this box to where you want it first (above properties)
+    //then adjust the inside boxes after
     transform: rotate(-90deg);
     color:white;
     overflow-y: scroll;
@@ -191,7 +192,7 @@ body {
         overflow:none;
         background: #abc;
         transform: rotate(90deg);
-        left:50%;
+
 
        
       }
@@ -217,13 +218,12 @@ body {
 
 
 .squares {
-    padding: 20px 0 0 0;
+    padding: 50px 0 0 0;
   & > div {
-    left:50%;
-    top: 40px;
+  
     width: 350px;
     height: 70px;
-    margin: 10px 0;
+    margin: 0px 0;
     
   }
 }
