@@ -8,7 +8,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import {merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, tap} from 'rxjs/operators';
 import { weaknesses } from '../models/weaknesses';
+import { inventoryService } from '../services/inventory.service';
 import { SharedService } from '../services/Shared';
+import { StandardsService } from '../services/standards.service';
+import { VendorsService } from '../services/vendors.service';
 import { WeaknessesService } from '../services/weaknesses.service';
 
 
@@ -106,21 +109,29 @@ weaknessForm;
 id$;
 submitted= false;
 weaknesses$: Observable<weaknesses[]>;
-
+todaysDate = new Date()
+standards$
+vendorsProducts$
+assetIdentifiers$
 
   constructor(
     private formBuilder: FormBuilder,
     @Optional() private dialogRef : MatDialogRef<weaknessDialog>,
     @Inject(MAT_DIALOG_DATA) public data : any,
-    public weaknessservice : WeaknessesService
+    public weaknessservice : WeaknessesService,
+    private standardservice : StandardsService,
+    private vendorservice : VendorsService,
+    private inventoryService : inventoryService
     ) { }
 
 ngOnInit(){
+  //Getting standards
+  this.standards$ = this.standardservice.fetchAll(this.id$)
+  //Getting vendor's products
+  this.vendorsProducts$ = this.vendorservice.fetchAll()
+  //Getting Asset Identifier from inventory 
+  this.assetIdentifiers$ = this.inventoryService.fetchAll()
 
-  this.weaknessForm = this.formBuilder.group({
-    //initialize stuff to be null or whatever, here
-
-  });
 }
 public onFormSubmit() {
 

@@ -11,18 +11,61 @@
             </app-page-search>
             
             <div class="routes">
-            <button mat-raised-button type="button" style="color: white;margin-left:75%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtdash();"><i class="fa fa-plus"></i> Dashboard</button>    
-            <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtcalendar();"><i class="fa fa-plus"></i>Tasks</button>    
+                
 
-            <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtroles();"><i class="fa fa-plus"></i>Roles</button>
-            <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtpol('all');"><i class="fa fa-plus"></i>Families</button>
-            <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtpol('cmmc');"><i class="fa fa-plus"></i>CMMC</button>    
-            <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtpol('nist');"><i class="fa fa-plus"></i>NIST</button>    
+            <button mat-raised-button type="button" routerLink="/Dashboard" routerLinkActive="active" style="color: white;margin-left:75%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right"><i class="fa fa-plus"></i> Dashboard</button>    
+            <button mat-raised-button type="button" routerLink="/Calendar" routerLinkActive="active" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right"><i class="fa fa-plus"></i>Tasks</button>    
+
+   
         
-            <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtusers();"><i class="fa fa-plus"></i>Users</button>    
-            <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtinven();"><i class="fa fa-plus"></i>Inventory</button>    
-            <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtcompany();"><i class="fa fa-plus"></i>Company Info</button>    
-            <button mat-raised-button type="button" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" (click)="rtpolic();"><i class="fa fa-plus"></i> Policy</button>    
+            <button 
+            mat-raised-button 
+            type="button" 
+            style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" 
+            class="btn btn-primary-outline pull-right" 
+            [matMenuTriggerFor]="afterMenu">
+            <i class="fa fa-plus"></i>Inventories</button>
+   
+            <mat-menu #afterMenu="matMenu" xPosition="after">
+            <button mat-menu-item routerLink="/Inventory" routerLinkActive="active">Inventory</button>
+            <button mat-menu-item routerLink="/NetworkSharePage" routerLinkActive="active">Network Shares</button>
+            <button mat-menu-item routerLink="/SharedResourceForm" routerLinkActive="active">Shared Resources</button>
+            <button mat-menu-item routerLink="/SoftwareApprovalForm" routerLinkActive="active">Software Approval</button>
+            </mat-menu>
+
+            <button 
+            mat-raised-button 
+            type="button" 
+            style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" 
+            class="btn btn-primary-outline pull-right" 
+            [matMenuTriggerFor]="afterMenu2">
+            <i class="fa fa-plus"></i>Users, Roles and Groups</button>
+   
+            <mat-menu #afterMenu2 xPosition="after">
+            <button mat-menu-item type="button" routerLink="/Users" routerLinkActive="active" >Users</button>    
+            <button mat-menu-item type="button" routerLink="/Roles" routerLinkActive="active">Roles</button>
+            <button mat-menu-item type="button" routerLink="/GroupsPage" routerLinkActive="active" >Groups</button>    
+
+            </mat-menu>
+
+            <button 
+            mat-raised-button 
+            type="button" 
+            style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" 
+            class="btn btn-primary-outline pull-right" 
+            [matMenuTriggerFor]="afterMenu3">
+            <i class="fa fa-plus"></i>Families, CMMC, NIST</button>
+   
+            <mat-menu #afterMenu3 xPosition="after">
+            <button mat-menu-item type="button" (click)="rtpol('all');" >Families</button>    
+            <button mat-menu-item type="button" (click)="rtpol('cmmc');">CMMC</button>
+            <button mat-menu-item type="button" (click)="rtpol('nist');">Nist</button>    
+            </mat-menu>
+
+
+
+            <button mat-raised-button type="button" routerLink="/CompanyInfo" routerLinkActive="active" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" ><i class="fa fa-plus"></i>Company Info</button>    
+            <button mat-raised-button type="button" routerLink="/Policy" routerLinkActive="active" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" ><i class="fa fa-plus"></i> Policy</button>    
     
         </div>
     

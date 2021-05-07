@@ -17,7 +17,6 @@ import { VendorFormComponent } from './vendor-form/vendor-form.component';
 import { SupplierFormComponent } from './supplier-form/supplier-form.component';
 import { CuiContractsFormComponent } from './cui-contracts-form/cui-contracts-form.component';
 import { PageSearchComponent } from './page-search/page-search.component';
-import { TasksComponent } from './tasks/tasks.component';
 import { GapAssessmentPageComponent, GapForm } from './gap-assessment-page/gap-assessment-page.component';
 
 import {weaknessDialog, WeaknessFormComponent } from './weakness-form/weakness-form.component';
@@ -70,7 +69,6 @@ import { CalendarComponent } from './calendar/calendar.component';
     CuiContractsFormComponent,
     SupplierFormComponent,
     VendorFormComponent,
-    TasksComponent,
     
 
 

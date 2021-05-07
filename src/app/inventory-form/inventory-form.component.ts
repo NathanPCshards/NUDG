@@ -6,6 +6,11 @@ import { inventories } from '../models/inventory';
 import { inventoryService } from '../services/inventory.service';
 
 import { Observable } from 'rxjs';
+import { RolesService } from '../services/roles.service';
+import { GroupsService } from '../services/groups.service';
+import { CuicontractsService } from '../services/cuicontracts.service';
+import { UserServiceService } from '../services/user-service.service';
+import { SoftwareApprovalFormComponent } from '../software-approval-form/software-approval-form.component';
 
 
 @Component({
@@ -15,16 +20,31 @@ import { Observable } from 'rxjs';
 })
 export class InventoryFormComponent implements OnInit {
   submitted = false;
-  inventoryForm;
+
   panelOpenState;
+  CUIcontracts$
+  Users$ 
+
+
+
   inventories$: Observable<inventories[]>;
 
-  constructor(private http:HttpClient, private fb: FormBuilder, private inventoryService:inventoryService) {
+  constructor(
+    private http:HttpClient,
+    private inventoryService:inventoryService,
+    private usersService : UserServiceService,
+
+    private cuiService: CuicontractsService,
+   // private softwareApproval : 
+   ) {
 
   }
 
   ngOnInit(){
     this.inventories$ = this.fetchAll();
+    this.CUIcontracts$ = this.cuiService.fetchAll()
+    this.Users$ = this.usersService.fetchAll()
+
   }
   ngOnContentInit(){
 

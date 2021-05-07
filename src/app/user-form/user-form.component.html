@@ -28,9 +28,28 @@
                               <mat-form-field appearance = "legacy" style="width:80%">
                                   <input #Uempid matInput placeholder = "Employee Number" >
                               </mat-form-field>
-                              <mat-form-field appearance = "legacy" style="width:40%">
-                                  <input #Uemptype matInput placeholder = "EmployeeType">
+
+
+                              <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
+                                <mat-label >Employee Type</mat-label>
+                                <mat-select #Uemptype id="Input">
+                    
+                                    <mat-option value="Full time" >
+                                        Full time
+                                    </mat-option>
+                        
+                                    <mat-option value="Part Time" >
+                                        Part Time
+                                    </mat-option>
+
+                                    <mat-option value="Contractor" >
+                                        Contractor
+                                    </mat-option>          
+ 
+                                </mat-select>
                               </mat-form-field>
+
+
                               <mat-form-field appearance = "legacy" style="width:40%">
                                   <input #Ujobtitle matInput placeholder = "Job Title">
                               </mat-form-field>
@@ -38,9 +57,26 @@
                                   <input #Ujobrole matInput placeholder = "Job Role">
                               </mat-form-field>
       
-                              <mat-form-field appearance = "legacy" style="width:40%">
-                                  <input #Uhiredate matInput placeholder = "Hire Date">
-                              </mat-form-field>
+
+                            <mat-form-field style="width: 40%;background: transparent;" appearance="fill" class="datepicker datepicker2" id="datepicker2">
+                                <mat-label >Hire Date</mat-label>
+                                <input 
+                                #Uhiredate 
+                                matInput 
+                                [matDatepicker]="datepicker2"
+    
+                                />
+                                <mat-datepicker-toggle matSuffix [for]="datepicker2"></mat-datepicker-toggle>
+                                <mat-datepicker #datepicker2>
+                                <mat-datepicker-actions>
+                                    <button mat-button matDatepickerCancel>Cancel</button>
+                                    <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                                </mat-datepicker-actions>
+                                </mat-datepicker>
+                            </mat-form-field>
+
+
+
                               <mat-form-field appearance = "legacy"  style="width:40%">
                                   <input #Ulogonhours matInput placeholder = "Logon Hours">
                               </mat-form-field>
@@ -114,22 +150,88 @@
                               <mat-form-field appearance = "legacy" style="width:80%">
                                   <input #Uuserid matInput placeholder = "User id">
                               </mat-form-field>
-                              <mat-form-field appearance = "legacy" style="width:40%">
-                                  <input #Ucuidata matInput placeholder = "CUI Data">
+      
+
+                              <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
+                                <mat-label >CUI Data</mat-label>
+                                <mat-select #Ucuidata  id="Input">
+                  
+                                    <mat-option value="Yes" >
+                                        Yes 
+                                    </mat-option>
+                        
+                                    <mat-option value="No" >
+                                        No
+                                    </mat-option>     
+ 
+                                </mat-select>
                               </mat-form-field>
-                              <mat-form-field appearance = "legacy" style="width:40%">
-                                  <input #Uremoteuser matInput placeholder = "Remote User">
+
+                              <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
+                                <mat-label >CUI Contracts</mat-label>
+                                <mat-select #UcuiContracts id="Input" >
+                                    <div *ngFor="let contract of CUIcontracts$ | async">
+                                        <mat-option value={{contract.CCname}} >
+                                            {{contract.CCname}}
+                                        </mat-option>
+                                    </div>
+                                </mat-select>
+                              </mat-form-field>
+                              
+                              <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
+                                <mat-label >Remote User</mat-label>
+                                <mat-select #Uremoteuser  id="Input">
+                  
+                                    <mat-option value="Yes" >
+                                        Yes 
+                                    </mat-option>
+                        
+                                    <mat-option value="No" >
+                                        No
+                                    </mat-option>     
+ 
+                                </mat-select>
                               </mat-form-field>
                               <h1>Relationships</h1>
-                              <mat-form-field appearance = "legacy" style="width:80%">
-                                  <input matInput placeholder = "Groups">
+
+                              <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
+                                <mat-label >Groups</mat-label>
+                                <mat-select #UGRgroups id="Input" >
+                                    <div *ngFor="let group of Groups$ | async">
+                                        <mat-option value={{group.Gnames}} >
+                                            {{group.Gnames}}
+                                        </mat-option>
+                                    </div>
+                                </mat-select>
                               </mat-form-field>
-                              <mat-form-field appearance = "legacy" style="width:80%">
-                                  <input matInput placeholder = "Roles">
+
+
+                              <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
+                                <mat-label >Roles</mat-label>
+                                <mat-select #UcuiContracts id="Input" >
+                                    <div *ngFor="let role of Roles$ | async">
+                                        <mat-option value={{role.URGroles}} >
+                                            {{role.URGroles}}
+                                        </mat-option>
+                                    </div>
+                                </mat-select>
                               </mat-form-field>
-                              <mat-form-field appearance = "legacy" style="width:80%">
-                                  <input matInput placeholder = "Asset Identifier">
+
+                              <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
+                                <mat-label >Asset Identifier</mat-label>
+                                <mat-select #Iassetidentifier id="Input" >
+                                    <div *ngFor="let inventoryEntry of Inventory$ | async">
+                                        <mat-option value={{inventoryEntry.IassetIdentifier}} >
+                                            {{inventoryEntry.IassetIdentifier}}
+                                        </mat-option>
+                                    </div>
+                                </mat-select>
                               </mat-form-field>
+
+
+
+
+
       
                           </div>
                       </div>

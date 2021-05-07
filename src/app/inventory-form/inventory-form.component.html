@@ -23,9 +23,7 @@
               <!--  <div class = InputContainer>--> 
                     <div class = "row">
                         <div class ="col">
-                            <mat-form-field appearance = "legacy" style="width: 40%;" >
-                                <input matInput placeholder = "Users" style="padding-left: 5px;">
-                            </mat-form-field>
+
                             <mat-form-field appearance = "legacy" style="width: 40%;" >
                                 <input #IassetIdentifier matInput placeholder = "Asset Identifier">
                             </mat-form-field>
@@ -82,6 +80,47 @@
                             </mat-form-field>
     
     
+
+                            <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
+                                <mat-label >CUI Contracts - Contract Name</mat-label>
+                                <mat-select #UcuiContracts id="Input" >
+                                    <div *ngFor="let contract of CUIcontracts$ | async">
+                                        <mat-option value={{contract.CCname}} >
+                                            {{contract.CCname}}
+                                        </mat-option>
+                                    </div>
+                                </mat-select>
+                              </mat-form-field>    
+
+                              
+                            <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
+                                <mat-label >Users Associated with this device</mat-label>
+                                <mat-select #UcuiContracts id="Input" >
+                                    <div *ngFor="let user of Users$ | async">
+                                        <mat-option value={{user.Ufname}} >
+                                            {{user.Ufname}}
+                                        </mat-option>
+                                    </div>
+                                </mat-select>
+                              </mat-form-field>  
+
+                              
+                            <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
+                                <mat-label >CUI Contracts</mat-label>
+                                <mat-select #UcuiContracts id="Input" >
+                                    <div *ngFor="let contract of CUIcontracts$ | async">
+                                        <mat-option value={{contract.CCname}} >
+                                            {{contract.CCname}}
+                                        </mat-option>
+                                    </div>
+                                </mat-select>
+                              </mat-form-field>  
+
+
+
+
+
+
                         </div>
     
                         <div class = "col">

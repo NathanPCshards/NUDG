@@ -15,7 +15,7 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { CuiContractsFormComponent } from './cui-contracts-form/cui-contracts-form.component';
 import { SupplierFormComponent } from './supplier-form/supplier-form.component';
 import { VendorFormComponent } from './vendor-form/vendor-form.component';
-import { TasksComponent } from './tasks/tasks.component';
+
 import { GuidelinesForm } from './guidelines-page/guidelines-page.component';
 import { GapAssessmentPageComponent, GapForm } from './gap-assessment-page/gap-assessment-page.component';
 import { weaknessDialog, WeaknessFormComponent } from './weakness-form/weakness-form.component';
@@ -60,7 +60,7 @@ const routes: Routes = [
   { path: 'CUIcontracts', component: CuiContractsFormComponent },
   { path: 'Suppliers', component: SupplierFormComponent },
   { path: 'Vendors', component: VendorFormComponent },
-  { path: 'Tasks', component: TasksComponent },
+
   { path: 'Controls', component: ControlFormComponent },
   { path: 'GuidelinesPage', component: GuidelinesForm },
   

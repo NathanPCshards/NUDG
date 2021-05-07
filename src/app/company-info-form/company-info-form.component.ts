@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { companyInfo } from '../models/companyInfo';
 import { CompanyInfoService } from '../services/company-info.service';
+import { UserServiceService } from '../services/user-service.service';
 
 @Component({
   selector: 'app-company-info-form',
@@ -16,11 +17,17 @@ import { CompanyInfoService } from '../services/company-info.service';
 export class CompanyInfoFormComponent {
   panelOpenState = false;
   companies$: Observable<companyInfo[]>;
+  Users$;
 
-  constructor(  private companyInfoService: CompanyInfoService) { }
+  constructor(  
+    private companyInfoService: CompanyInfoService,
+    private usersService : UserServiceService
+
+  ) { }
 
   ngOnInit(){
     this.companies$ = this.fetchAll();
+    this.Users$ = this.usersService.fetchAll();
 
   }
 

@@ -125,8 +125,8 @@
       <thead>
         <tr>
           <th (click)="sort('title')">Title</th>
-          <th style="display: none">Primary color</th>
-          <th style="display: none">Secondary color</th>
+          <th >Primary color</th>
+          <th >Secondary color</th>
           <th (click)="sort('startDate')">Starts at</th>
           <th (click)="sort('endDate')">Ends at</th>
           <th>Additional Information</th> 
@@ -147,7 +147,7 @@
             />
           </td>
 
-          <td style="display: none">
+          <td >
             <input
               
               type="color"
@@ -157,7 +157,7 @@
             />
           </td>
 
-          <td style="display: none">
+          <td >
             <input
               type="color"
               [(ngModel)]="event.color.secondary"

@@ -6,7 +6,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { networkshares } from '../models/networkshares';
+import { GroupsService } from '../services/groups.service';
+import { inventoryService } from '../services/inventory.service';
 import { NetworksharesService } from '../services/networkshares.service';
+import { UserServiceService } from '../services/user-service.service';
 
 @Component({
   selector: 'app-network-shares-page',
@@ -17,15 +20,25 @@ export class networkSharesPage implements OnInit {
 
   panelOpenState;
   rowSelected = false;
+  assetIdentifiers$;
+  Users$;
+  Groups$;
 
   networkshares$: Observable<networkshares[]>;
 
   constructor(private http:HttpClient, private formBuilder: FormBuilder, 
-    private networksharesService : NetworksharesService ) {
+    private networksharesService : NetworksharesService,
+    private groupService : GroupsService,
+    private userService : UserServiceService,
+    private inventoryService : inventoryService ) {
    }
 
   ngOnInit(){
     this.networkshares$ = this.fetchAll();
+    this.Users$ = this.userService.fetchAll();
+    this.Groups$ = this.groupService.fetchAll();
+    this.assetIdentifiers$ = this.inventoryService.fetchAll();
+
 
   }
 

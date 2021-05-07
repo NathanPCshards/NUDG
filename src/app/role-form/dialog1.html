@@ -63,8 +63,8 @@ mat-form-field{
  }
 </style>
 
-<div [formGroup] ="roleForm">
-    <form  class="roleForm" (ngSubmit)="onFormSubmit()" novalidate>
+<div>
+
         <h2 style="margin-left: 1%">
             Roles 
         </h2>
@@ -77,22 +77,56 @@ mat-form-field{
 
                     <h1 style="margin-left: 1%;">Roles</h1>
                     <mat-form-field  appearance = "fill" style="width:70%; border-color: white;">
-                        <input matInput placeholder = "Role">
+                        <input #URGroles matInput placeholder = "Role">
                     </mat-form-field>
+
+
+
+
+
+                    <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
+                        <mat-label>Role Type</mat-label>
+                        <mat-select #Rroletype id="Input">
+                                <mat-option value="Restricted" >
+                                    Restricted
+                                </mat-option>
+                                <mat-option value="Standard" >
+                                    Standard
+                                </mat-option>
+                                <mat-option value="Privileged" >
+                                    Privileged
+                                </mat-option>
+                        </mat-select>
+                        </mat-form-field>
+
+
+
+
                     <mat-form-field appearance = "fill" style="width:70%">
-                        <input matInput placeholder = "Role Type">
+                        <input #Rdescription matInput placeholder = "Description">
                     </mat-form-field>
-                    <mat-form-field appearance = "fill" style="width:70%">
-                        <input matInput placeholder = "Description">
-                    </mat-form-field>
-                    <mat-form-field appearance = "fill" style="width:70%">
-                        <input matInput placeholder = "Users">
-                    </mat-form-field>
+
+
+
+                    <mat-form-field appearance="outline" color="primary" style="width: 70%;" >
+                        <mat-label>Users</mat-label>
+                        <mat-select #URGusers id="Input">
+                            <div *ngFor="let user of users$ | async">
+                                <mat-option value={{user.Ufname}} >
+                                    {{user.Ufname}}
+                                </mat-option>
+                            </div>
+                    
+
+                        </mat-select>
+                        </mat-form-field>
+
+
                     <div class = "row2">
                         <mat-divider style="padding-top: 3px; padding-bottom: 3px;"></mat-divider>
         
-                  <button mat-raised-button [mat-dialog-close]="true" (click)="onFormSubmit();"  style = "margin-left:47%; " color="primary"  >Submit</button>
-                <button mat-raised-button  (click)="onFormReset();" style="margin-left: 1%;" type="reset"  color="primary"  >Reset</button>
+                  <button mat-raised-button (click)="submit(URGroles.value, Rroletype.value, Rdescription.value, URGusers.value)" style="margin-left:47%;" color="primary">Submit</button>
+                <button mat-raised-button style="margin-left: 1%;" type="reset"  color="primary"  >Reset</button>
                     </div>
                 </div>
 

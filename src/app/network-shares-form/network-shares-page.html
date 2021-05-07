@@ -26,9 +26,32 @@
                                 <mat-form-field  appearance = "legacy" style="width:40%">
                                     <input #NSshareName matInput placeholder = "Share Name">
                                 </mat-form-field>
-                                <mat-form-field appearance = "legacy" style="width:40%">
-                                    <input #NSresourceType matInput placeholder = "Resource Type">
+
+
+                                <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
+                                  <mat-label >Resource Type</mat-label>
+                                  <mat-select #NSresourceType id="Input" >
+                           
+                                    <mat-option value="Mapped Drive" >
+                                        Mapped Drive
+                                    </mat-option>
+                                    <mat-option value="UNC Path" >
+                                      UNC Path
+                                  </mat-option>
+                                    <mat-option value="FTP" >
+                                      FTP
+                                  </mat-option>
+                                    <mat-option value="Printer" >
+                                      Printer
+                                  </mat-option>
+                                    <mat-option value="Other" >
+                                      Other
+                                  </mat-option>
+                                  </mat-select>
                                 </mat-form-field>
+
+
+
                                 <h3 style="margin-left: 8px;">Description</h3>
                                 <textarea id="comments" style="text-align: left; align-content: left; margin-left: 1%; " rows="4" cols="38"></textarea>
                                 <mat-form-field appearance = "legacy" style="margin-left: 4.5%;  width:40%">
@@ -37,12 +60,42 @@
                                 <mat-form-field appearance = "legacy" style="width:40%">
                                     <input #NSfolderPath matInput placeholder = "Folder Path">
                                 </mat-form-field>
+
+
+
+
+
+                                <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
+                                  <mat-label>Asset/Host Identifier</mat-label>
+                                  <mat-select #WassetID id="Input">
+                                      <div *ngFor="let inventoryEntry of assetIdentifiers$ | async">
+                                          <mat-option value={{inventoryEntry.IassetIdentifier}} >
+                                              {{inventoryEntry.IassetIdentifier}}
+                                          </mat-option>
+                                      </div>
+                             
+   
+                                  </mat-select>
+                                </mat-form-field>
+
                                 <mat-form-field appearance = "legacy" style="width:40%">
                                     <input #NShostIdentifier matInput placeholder = "Host Identifier">
                                 </mat-form-field>
         
-                                <mat-form-field appearance = "legacy" style="width:40%">
-                                    <input #CUIdata matInput placeholder = "CUI Data">
+
+                                <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
+                                  <mat-label >CUI Data</mat-label>
+                                  <mat-select #CUIdata  id="Input">
+                    
+                                      <mat-option value="Yes" >
+                                          Yes 
+                                      </mat-option>
+                          
+                                      <mat-option value="No" >
+                                          No
+                                      </mat-option>     
+   
+                                  </mat-select>
                                 </mat-form-field>
 
                                 <mat-form-field appearance = "legacy" style="width:40%">
@@ -53,18 +106,53 @@
         
                             <div class ="col">
                                 <h1 style="margin-left: 1%;"> Permissions</h1>
-                                <mat-form-field appearance = "legacy" style="width:80%">
-                                    <input #GRA matInput placeholder = "Groups Read Access">
+
+                                <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
+                                  <mat-label >Groups Read Access</mat-label>
+                                  <mat-select #GRA id="Input" >
+                                      <div *ngFor="let group of Groups$ | async">
+                                          <mat-option value={{group.Gnames}} >
+                                              {{group.Gnames}}
+                                          </mat-option>
+                                      </div>
+                                  </mat-select>
                                 </mat-form-field>
-                                <mat-form-field appearance = "legacy" style="width:80%" >
-                                    <input #GWA matInput placeholder = "Groups Writes Access">
+
+                                <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
+                                  <mat-label >Groups Write Access</mat-label>
+                                  <mat-select #GWA id="Input" >
+                                      <div *ngFor="let group of Groups$ | async">
+                                          <mat-option value={{group.Gnames}} >
+                                              {{group.Gnames}}
+                                          </mat-option>
+                                      </div>
+                                  </mat-select>
                                 </mat-form-field>
-                                <mat-form-field appearance = "legacy" style="width:80%" >
-                                    <input #URA matInput placeholder = "Users Read Access">
-                                </mat-form-field>
-                                <mat-form-field appearance = "legacy" style="width:80%" >
-                                    <input #UWA matInput placeholder = "Users Write Access">
-                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
+                                  <mat-label >Users Read Access</mat-label>
+                                  <mat-select #URA id="Input" >
+                                      <div *ngFor="let user of Users$ | async">
+                                          <mat-option value={{user.Ufname}} >
+                                              {{user.Ufname}}
+                                          </mat-option>
+                                      </div>
+                                  </mat-select>
+                                </mat-form-field>  
+
+                                
+                                <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
+                                  <mat-label >Users Write Access</mat-label>
+                                  <mat-select #UWA id="Input" >
+                                      <div *ngFor="let user of Users$ | async">
+                                          <mat-option value={{user.Ufname}} >
+                                              {{user.Ufname}}
+                                          </mat-option>
+                                      </div>
+                                  </mat-select>
+                                </mat-form-field>  
+
+    
         
         
                             </div>

@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { roles } from '../models/roles';
 import { Observable } from 'rxjs';
 import { RolesService } from '../services/roles.service';
+import { UserServiceService } from '../services/user-service.service';
 
  
 @Component({
@@ -28,8 +29,12 @@ export class RoleFormComponent implements OnInit {
   @ViewChild(MatSort) sort;
 
 
-  constructor(private http:HttpClient, private formBuilder: FormBuilder, public dialog: MatDialog, private sharedService: SharedService,
-    private roleservice: RolesService) {
+  constructor(private http:HttpClient, 
+    private formBuilder: FormBuilder, 
+    public dialog: MatDialog, 
+    private sharedService: SharedService,
+    private roleservice: RolesService,
+    private userservice : UserServiceService) {
 
 
    }
@@ -39,7 +44,14 @@ export class RoleFormComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.roles$ = this.fetchAll();
+    this.roles$ = this.roleservice.fetchAll();
+    this.sharedService.onClick.subscribe(async roleObject=>{
+      await this.roleservice.post(roleObject).toPromise()
+      this.roles$ = this.roleservice.fetchAll();
+    })
+
+
+
 
   }
   ngAfterViewInit(){
@@ -48,17 +60,9 @@ export class RoleFormComponent implements OnInit {
   }
 
 
-  fetchAll(): Observable<roles[]> {
-    return this.roleservice.fetchAll();
-  }
+ 
 
   post(userItem: Partial<roles>): void {
-    const name = (<string>userItem).trim();
-    if (!name) return;
-/*
-    this.roles$ = this.roleservice
-      .post({ name })
-      .pipe(tap(() => (this.roles$ = this.fetchAll())));*/
   }
 
 
@@ -86,7 +90,7 @@ export class RoleFormComponent implements OnInit {
 
     this.roles$ = this.roleservice
       .delete(id)
-      .pipe(tap(() => (this.roles$ = this.fetchAll())));
+      .pipe(tap(() => (this.roles$ = this.roleservice.fetchAll())));
       
   }
 
@@ -102,121 +106,23 @@ export class RoleFormComponent implements OnInit {
 export class roleDialog {
   roleSubmitted = false;
   roleForm;
+  users$
 
-  constructor(private http:HttpClient, private formBuilder: FormBuilder) { }
+  constructor(private http:HttpClient, 
+    private formBuilder: FormBuilder,
+    private userservice : UserServiceService,
+    private sharedSerivce : SharedService) { }
 
 ngOnInit(){
-  this.roleForm = this.formBuilder.group({
-    //initialize stuff to be null or whatever, here
+    //Getting Users 
+    this.users$ = this.userservice.fetchAll()
 
-  });
 }
-public onFormSubmit() {
-  console.log("FORM WAS SUBMITTED");
-  this.roleSubmitted = true;
-  const configUrl = 'http://localhost:4200/home'; 
-  /*
-  this.http.post(configUrl,this.UserForm.value)
-  .pipe(
-    tap(
-      data => console.log(configUrl, data),
-      error => console.log(configUrl, error)
-    )
-  )
-  .subscribe(results => this.results = results);*/
-}
+submit(URGroles, Rroletype, Rdescription, URGusers){
 
-
-public onFormReset() {
-  console.log("FORM WAS Reset");
-
-this.roleSubmitted = false;
+  this.sharedSerivce.emit({URGroles, Rroletype, Rdescription, URGusers})
 
 }
 
 
 }
-
-
-/*
-
-
-onRowClicked(row): void {
-  console.log("Row clicked: ", row);
-  this.rowSelected = true;
-  var configUrl = 'http://localhost:4200' + "/" + row.Title;
-  console.log(configUrl)
- // this.router.navigate(configUrl.concat("/",row.Title))
-}
-applyFilter(event: Event) {
-  //TODO filtering does not apply to groupTable yet. 
-  //probably need to make another service event
-  this.sharedService.sendFilterEvent(event);
-
-  const filterValue = (event.target as HTMLInputElement).value;
-  this.dataSource.filter = filterValue.trim().toLowerCase();
-
-  
-
-
-}
-
-toggleRoles(){
-  if (  document.getElementById("roleTable")!.style.display == "table"){
-    document.getElementById("roleTable")!.style.display = "none"; 
-}
-else{
-  document.getElementById("roleTable")!.style.display = "table"; 
-}
-
-}
-toggleGroups(){
-  if (  document.getElementById("groupTable")!.style.display == "table"){
-      document.getElementById("groupTable")!.style.display = "none"; 
-  }
-  else{
-    document.getElementById("groupTable")!.style.display = "table"; 
-  }
-
-}
-
-
-isAllSelected() {
-  const numSelected = this.selection.selected.length;
-  const numRows = this.dataSource.data.length;
-  return numSelected === numRows;
-}
-
-masterToggle() {
-  this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
-}
-
-checkboxLabel(row?: userTable): string {
-  if (!row) {
-    return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-  }
-  return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-}
-
-
-removeSelectedRows() {
-  //Deletes rows only if table is showing (prevent accidental deletion)
-  this.sharedService.sendClickEvent();
-
-  if (document.getElementById("roleTable")!.style.display == "table"){
-    let data = Object.assign(Role_Data)
-    this.selection.selected.forEach(item => {
-       let index: number = data.findIndex(d => d === item);
-       console.log(data.findIndex(d => d === item));
-       data.splice(index,1)
-       this.dataSource = new MatTableDataSource<userTable>(data);
-     });
-     this.selection = new SelectionModel<userTable>(true, []);
-  }
-}
-
-
-
-*/

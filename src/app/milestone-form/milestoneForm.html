@@ -12,16 +12,23 @@
 
 
 
-    <mat-form-field color="primary" appearance="outline" id="descriptionBox" style="width: 45%;">
-      <mat-label>Status</mat-label>
-      <input matInput #Mstatus placeholder="Milestone Description" >
-      </mat-form-field>
+    <mat-form-field appearance="outline" color="primary" style="width: 90%;" >
+      <mat-label >Status</mat-label>
+      <mat-select #Mstatus id="Input">
+        <mat-option value="Completed">
+          Completed
+        </mat-option>
+        <mat-option value="Ongoing">
+          Ongoing
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
 
-      <mat-form-field style="height: 100%; width: 100%;background: transparent;" appearance="fill" class="datepicker datepicker2" id="datepicker2">
+      <mat-form-field style="width: 100%;background: transparent;" appearance="fill" class="datepicker datepicker2" id="datepicker2">
         <mat-label >{{todaysDate}}</mat-label>
         <input 
-        #MstatusDate
+        #MstatusDate  
         matInput 
         [matDatepicker]="datepicker2"
         />
@@ -36,12 +43,12 @@
   
       <mat-form-field color="primary" appearance="outline"style="width: 45%;">
         <mat-label>Changes</mat-label>
-        <input matInput #Mchanges placeholder="Date" >
+        <input matInput #Mchanges  >
       </mat-form-field>
 
 
 
-    <mat-form-field style="height: 100%; width: 100%;background: transparent;" appearance="fill" class="datepicker datepicker1" id="datepicker1">
+    <mat-form-field style=" width: 100%;background: transparent;" appearance="fill" class="datepicker datepicker1" id="datepicker1">
       <mat-label >{{todaysDate}}</mat-label>
       <input 
       #McompletionDate
@@ -56,12 +63,7 @@
         </mat-datepicker-actions>
       </mat-datepicker>
     </mat-form-field>
-
-    <mat-form-field color="primary" appearance="outline" id="PasswordBox" style="width: 45%;">
-      <mat-label>Changes</mat-label>
-      <input matInput #Mchanges placeholder="Date" >
-    </mat-form-field>
-
+    <br>
 
     <button mat-raised-button  (click)="closeDialog(Milestones.value, Mstatus.value, MstatusDate.value, McompletionDate.value, Mchanges.value)" color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Submit</button>
  

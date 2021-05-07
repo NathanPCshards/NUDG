@@ -58,15 +58,35 @@
                             <mat-form-field  appearance = "legacy" style="width:40%">
                                 <input #Nid matInput placeholder = "NUDG Identifiers" value="{{id$}}">
                             </mat-form-field>
-                            <mat-form-field appearance = "legacy" style="width:40%">
-                                <input  matInput placeholder = "Weakness ID">
-                            </mat-form-field>
+
                             <mat-form-field appearance = "legacy" style="width:80%">
                                 <input #Wname matInput placeholder = "Weakness Name" >
                             </mat-form-field>
-                            <mat-form-field appearance = "legacy" style="width:40%">
-                                <input #WdetectionDate matInput placeholder = "Detection Date">
+
+
+
+
+                            <mat-form-field style="width: 40%;background: transparent;" appearance="fill" class="datepicker datepicker2" id="datepicker2">
+                                <mat-label >Detection Date</mat-label>
+                                <input 
+                                #WdetectionDate  
+                                matInput 
+                                [matDatepicker]="datepicker2"
+    
+                                />
+                                <mat-datepicker-toggle matSuffix [for]="datepicker2"></mat-datepicker-toggle>
+                                <mat-datepicker #datepicker2>
+                                <mat-datepicker-actions>
+                                    <button mat-button matDatepickerCancel>Cancel</button>
+                                    <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                                </mat-datepicker-actions>
+                                </mat-datepicker>
                             </mat-form-field>
+
+
+
+
+
                             <mat-form-field appearance = "legacy" style="width:40%">
                                 <input matInput placeholder = "Weakness Source Identifier">
                             </mat-form-field>
@@ -79,14 +99,34 @@
                                 </mat-radio-group>
                             </div>
 
-                            <mat-form-field appearance = "legacy" style="width:40%">
-                                <input #WriskRating matInput placeholder = "Risk Rating">
-                            </mat-form-field>
+         
+                            <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
+                                <mat-label >Risk rating</mat-label>
+                                <mat-select #WriskRating id="Input">
+                    
+                                    <mat-option value="Low" >
+                                        Low
+                                    </mat-option>
+                        
+                                    <mat-option value="Moderate" >
+                                        Moderate
+                                    </mat-option>
+
+                                    <mat-option value="High" >
+                                        High
+                                    </mat-option>          
+ 
+                                </mat-select>
+                              </mat-form-field>
+
+
+
+
     
-                            <mat-form-field appearance = "legacy" style="width:40%">
-                                <input #WadjustedRiskRating matInput >
+                            <mat-form-field appearance = "outline" style="width:40%">
+    
                                 <mat-label>Adjusted Risk Rating</mat-label>
-                                <mat-select>
+                                <mat-select #WadjustedRiskRating>
                                   <mat-option #WadjustedRiskRating value="Low">Low</mat-option>
                                   <mat-option #WadjustedRiskRating value="Moderate">Moderate</mat-option>
                                   <mat-option #WadjustedRiskRating value="High">High</mat-option>
@@ -119,23 +159,62 @@
                                         </div>
     
                         <div class ="col">
-                            <mat-form-field appearance = "legacy" style="width:80%">
-                                <input matInput placeholder = "Standards">
-                            </mat-form-field>
+
+
+                            <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
+                                <mat-label >Standards</mat-label>
+                                <mat-select #Standards id="Input" >
+                                    <div *ngFor="let standard of standards$ | async">
+                                        <mat-option value="Incomplete" >
+                                            {{standard.idStandards}}
+                                        </mat-option>
+                                    </div>
+                           
+ 
+                                </mat-select>
+                              </mat-form-field>
+
+
                             <mat-form-field appearance = "legacy" style="width:40%" >
                                 <input #WdetectionSource matInput placeholder = "Weakness Detector Source">
                             </mat-form-field>
-                            <mat-form-field appearance = "legacy" style="width:40%" >
-                                <input #WcompletionDate matInput placeholder = "Completion Date">
+
+
+
+                                <mat-form-field style="width: 40%;background: transparent;" appearance="fill" class="datepicker datepicker3" id="datepicker3">
+                                <mat-label >Completion Date</mat-label>
+                                <input 
+                                #WcompletionDate  
+                                matInput 
+                                [matDatepicker]="datepicker3"
+                                />
+                                <mat-datepicker-toggle matSuffix [for]="datepicker3"></mat-datepicker-toggle>
+                                <mat-datepicker #datepicker3>
+                                <mat-datepicker-actions>
+                                    <button mat-button matDatepickerCancel>Cancel</button>
+                                    <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                                </mat-datepicker-actions>
+                                </mat-datepicker>
                             </mat-form-field>
-    
-    
-    
     
     
                             <mat-form-field appearance = "legacy" style="width:40%">
                                 <input #WremediationPlan matInput placeholder = "Overall Remediation Plan">
                             </mat-form-field>
+
+        
+                            <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
+                                <mat-label>Vendor's Product</mat-label>
+                                <mat-select #idOrgWeaknesses id="Input">
+                                    <div *ngFor="let product of vendorsProducts$ | async">
+                                        <mat-option value={{product.Vproduct}} >
+                                            {{product.Vproduct}}
+                                        </mat-option>
+                                    </div>
+                           
+ 
+                                </mat-select>
+                              </mat-form-field>
     
                             <div class="cards" style="margin-left: 1%; margin-bottom: 10px;">
                                 <h1 style="margin: 0px; font-size:15px">Auto Approve</h1>
@@ -169,9 +248,26 @@
                             <mat-form-field appearance = "legacy" style="width:80%">
                                 <input #Wdescription matInput placeholder = "Weakness Description">
                             </mat-form-field>
-                            <mat-form-field appearance = "legacy" style="width:40%">
-                                <input #WlastVendorCheck matInput placeholder = "Last Vendor Contact Date">
+
+
+                            <mat-form-field style="width: 40%;background: transparent;" appearance="fill" class="datepicker datepicker4" id="datepicker4">
+                                <mat-label >Last Vendor Contact Date</mat-label>
+                                <input 
+                                #WlastVendorCheck  
+                                matInput 
+                                [matDatepicker]="datepicker4"
+                                />
+                                <mat-datepicker-toggle matSuffix [for]="datepicker4"></mat-datepicker-toggle>
+                                <mat-datepicker #datepicker4>
+                                <mat-datepicker-actions>
+                                    <button mat-button matDatepickerCancel>Cancel</button>
+                                    <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                                </mat-datepicker-actions>
+                                </mat-datepicker>
                             </mat-form-field>
+
+
+
                             <mat-form-field appearance = "legacy" style="width:40%">
                                 <input #WdeviationRationale matInput placeholder = "Deviation Rationale">
                             </mat-form-field>
@@ -186,23 +282,56 @@
 
                                 </mat-radio-group>
                             </div>
-                            <mat-form-field appearance = "legacy" style="width:80%">
+                            <mat-form-field appearance = "legacy" style="width:40%">
                                 <input #WpointOfContact matInput placeholder = "Point of Contact">
                             </mat-form-field>
-                            <mat-form-field appearance = "legacy" style="width:80%">
+                            <mat-form-field appearance = "legacy" style="width:40%">
                                 <input #WresourceReq matInput placeholder = "Resources Required">
                             </mat-form-field>
                         
-                            <mat-form-field appearance = "legacy" style="width:40%">
-                                <input #Wstatus matInput placeholder = "Status">
-                            </mat-form-field>
+  
+                            <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
+                                <mat-label>Status</mat-label>
+                                <mat-select #Wstatus id="Input">
+                                        <mat-option value="Incomplete" >
+                                            Incomplete
+                                        </mat-option>
+                                        <mat-option value="Complete" >
+                                            Complete
+                                        </mat-option>
+
+                                </mat-select>
+                              </mat-form-field>
     
-                            <mat-form-field appearance = "legacy" style="width:40%">
-                                <input #WassetID matInput placeholder = "Asset Identifier">
-                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
+                                <mat-label>Asset Identifier</mat-label>
+                                <mat-select #WassetID id="Input">
+                                    <div *ngFor="let inventoryEntry of assetIdentifiers$ | async">
+                                        <mat-option value={{inventoryEntry.IassetIdentifier}} >
+                                            {{inventoryEntry.IassetIdentifier}}
+                                        </mat-option>
+                                    </div>
+                           
+ 
+                                </mat-select>
+                              </mat-form-field>
     
-                            <mat-form-field appearance = "legacy"  style="width:80%">
-                                <input #WlastChange matInput placeholder = "Last Change">
+
+                            <mat-form-field style="width: 40%;background: transparent;" appearance="fill" class="datepicker datepicker5" id="datepicker5">
+                                <mat-label >Last Change</mat-label>
+                                <input 
+                                #WlastChange  
+                                matInput 
+                                [matDatepicker]="datepicker5"
+                                />
+                                <mat-datepicker-toggle matSuffix [for]="datepicker5"></mat-datepicker-toggle>
+                                <mat-datepicker #datepicker5>
+                                <mat-datepicker-actions>
+                                    <button mat-button matDatepickerCancel>Cancel</button>
+                                    <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                                </mat-datepicker-actions>
+                                </mat-datepicker>
                             </mat-form-field>
 
                         </div>

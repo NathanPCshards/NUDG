@@ -38,10 +38,16 @@
   <div class="flexContainer">
     <mat-list-item class="headerRow">
       <span class=" idCol">
-        ID
+        Role
       </span>
       <span class=" descCol">
         Description
+      </span>
+      <span class=" descCol">
+        Role Type
+      </span>
+      <span class=" descCol">
+        User
       </span>
 
     </mat-list-item>
@@ -50,11 +56,17 @@
   <mat-list-item *ngFor="let role of roles$ | async">
 
     <span class=" idCol">
-      {{ role.idOrgRoles }}  
+      {{ role.URGroles }}  
     </span>
 
     <span class=" descCol">
       {{role.Rdescription}}
+    </span>
+    <span class=" descCol">
+      {{role.Rroletype}}
+    </span>
+    <span class=" descCol">
+      {{role.URGusers}}
     </span>
 
 

@@ -78,21 +78,68 @@
                         </div>
     
                         <div class ="col">
-                            <mat-form-field appearance = "legacy" style="width:80%; padding-top: 46px;">
-                                <input #CIprimaryPoC id="ppoc" matInput placeholder = "Primary Point of Contact">
-                            </mat-form-field>
+       
+
+
+                            <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
+                              <mat-label >Primary Point of Contact</mat-label>
+                              <mat-select #CIprimaryPoC id="Input" >
+                                  <div *ngFor="let user of Users$ | async">
+                                      <mat-option value={{user.Ufname}} >
+                                          {{user.Ufname}}
+                                      </mat-option>
+                                  </div>
+                              </mat-select>
+                            </mat-form-field> 
+
+
+
+
+
                             <mat-form-field appearance = "legacy" style="width:80%">
                                 <input #CIdescription matInput placeholder = "Description">
                             </mat-form-field>
-                            <mat-card class ="card1" style="width:40%; align-content: center;" >
-                                <mat-card-header  style="margin-left: 15%;">SBA Certified</mat-card-header>
-                                <mat-radio-group  name="SBAbutton"class="radio-groupCertified" appearance = "legacy" aria-label="Select an option">
-                                    <mat-radio-button #CISBAcertified style="float: left" value="1">Yes</mat-radio-button>
-                                    <mat-radio-button #CISBAcertified value="2">No</mat-radio-button>
-                                </mat-radio-group>
-                            </mat-card>
-                            <mat-form-field appearance = "legacy" style="margin-top: 20px;">
-                                <input #CIbusinessType matInput placeholder = "Business Type">
+     
+
+
+                            <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
+                              <mat-label >SBA Certified</mat-label>
+                              <mat-select #CISBAcertified  id="Input">
+                
+                                  <mat-option value="Yes" >
+                                      Yes 
+                                  </mat-option>
+                      
+                                  <mat-option value="No" >
+                                      No
+                                  </mat-option>     
+
+                              </mat-select>
+                            </mat-form-field>
+
+
+
+                            <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
+                              <mat-label >Business Type</mat-label>
+                              <mat-select #CIbusinessType  id="Input">
+                              <mat-option value="WOSB" >
+                                  WOSB 
+                              </mat-option>
+                  
+                              <mat-option value="VOSB" >
+                                  VOSB
+                              </mat-option>     
+                              <mat-option value="SDVOSB" >
+                                SDVOSB
+                              </mat-option> 
+                                <mat-option value="SDWOSB" >
+                                  SDWOSB
+                              </mat-option> 
+                                <mat-option value="Minority Owned" >
+                                  Minority Owned
+                              </mat-option> 
+
+                              </mat-select>
                             </mat-form-field>
  
                             <h3 style="margin-top: 10px;">Technical POC Info</h3>
@@ -114,9 +161,26 @@
                             <mat-form-field appearance = "legacy" style="width:80%;">
                                 <input #CIcmmcAuditorInfo id= "cmmcInfo" matInput placeholder = "CMMC Auditor Information">
                             </mat-form-field>
-                            <mat-form-field appearance = "legacy" style="width:80%;">
-                                <input #CIcmmcAuditDate id="cmmcDate" matInput placeholder = "CMMC Auditor Date">
+
+
+
+                            <mat-form-field style="width: 80%;background: transparent;" appearance="fill" class="datepicker datepicker5" id="datepicker5">
+                                <mat-label >CMMC Auditor Date</mat-label>
+                                <input 
+                                #CIcmmcAuditDate  
+                                matInput 
+                                [matDatepicker]="datepicker5"
+                                />
+                                <mat-datepicker-toggle matSuffix [for]="datepicker5"></mat-datepicker-toggle>
+                                <mat-datepicker #datepicker5>
+                                <mat-datepicker-actions>
+                                    <button mat-button matDatepickerCancel>Cancel</button>
+                                    <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                                </mat-datepicker-actions>
+                                </mat-datepicker>
                             </mat-form-field>
+
+
          
                             <mat-form-field appearance = "legacy" style="width:80%;">
                                 <input #CIcmmcNISTauditAgency id="nistAgency" matInput placeholder = "NIST Audit Agency"> 
@@ -124,9 +188,30 @@
                             <mat-form-field appearance = "legacy" style="width:80%;">
                                 <input #CINISTauditorInfo id="nistInfo" matInput placeholder = "NIST Audit Auditor Information">
                             </mat-form-field>
-                            <mat-form-field appearance = "legacy" style="width:80%;">
-                                <input #CINISTauditorDate id="nistDate" matInput placeholder = "NIST Audit Date">
-                            </mat-form-field>
+
+
+
+
+                            <mat-form-field style="width: 80%;background: transparent;" appearance="fill" class="datepicker datepicker2" id="datepicker2">
+                              <mat-label >NIST Audit Date</mat-label>
+                              <input 
+                              #CINISTauditorDate 
+                              matInput 
+                              [matDatepicker]="datepicker2"
+  
+                              />
+                              <mat-datepicker-toggle matSuffix [for]="datepicker2"></mat-datepicker-toggle>
+                              <mat-datepicker #datepicker2>
+                              <mat-datepicker-actions>
+                                  <button mat-button matDatepickerCancel>Cancel</button>
+                                  <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                              </mat-datepicker-actions>
+                              </mat-datepicker>
+                          </mat-form-field>
+
+
+
+
                             <mat-form-field appearance = "legacy" style="width:80%;">
                                 <input #CInumber id="num" matInput placeholder = "Number">
                             </mat-form-field>

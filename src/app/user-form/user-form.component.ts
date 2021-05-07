@@ -10,6 +10,10 @@ import { UserServiceService } from '../services/user-service.service';
 import { Observable } from 'rxjs';
 import { Users } from '../models/users';
 import { MatPaginator } from '@angular/material/paginator';
+import { CuicontractsService } from '../services/cuicontracts.service';
+import { inventoryService } from '../services/inventory.service';
+import { RolesService } from '../services/roles.service';
+import { GroupsService } from '../services/groups.service';
 
 @Component({
   selector: 'app-user-form',
@@ -26,15 +30,32 @@ export class UserFormComponent implements OnInit {
   isRateLimitReached = false;
   UserForm;
   panelOpenState = false;
+  CUIcontracts$
+  Inventory$;
+  Groups$;
+  Roles$;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
  
   displayedColumns: string[] = ['idusersu','uname']
 
-  constructor(private _httpClient: HttpClient, private formBuilder: FormBuilder, private userService: UserServiceService,){  }
+  constructor(private _httpClient: HttpClient, 
+    private formBuilder: FormBuilder, 
+    private userService: UserServiceService,
+    private cuiService : CuicontractsService,
+    private inventoryService : inventoryService,
+    private roleService : RolesService,
+    private groupService : GroupsService
+
+    ){  }
  
   ngOnInit(){
     this.users$ = this.fetchAll();
+    this.CUIcontracts$ = this.cuiService.fetchAll()
+    this.Inventory$ = this.inventoryService.fetchAll()
+    this.Roles$ = this.roleService.fetchAll()
+    this.Groups$ = this.groupService.fetchAll()
+
     this.panelOpenState = false;
 
   }

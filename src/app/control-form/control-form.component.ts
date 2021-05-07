@@ -7,6 +7,9 @@ import { tap } from 'rxjs/operators';
 import { controls } from '../models/controls';
 import { ControlsService } from '../services/controls.service';
 import { SharedService } from '../services/Shared';
+import { SharedResourcesService } from '../services/shared-resources.service';
+import { StandardsService } from '../services/standards.service';
+import { WeaknessesService } from '../services/weaknesses.service';
 import { weaknessDialog } from '../weakness-form/weakness-form.component';
 
 
@@ -71,7 +74,13 @@ controlForm;
 controls$: Observable<controls[]>;
 position;
 procedure;
-
+standards$;
+resources$
+displayStandards$;
+displayResources$
+displayWeakness$
+weakness$
+todaysDate = new Date()
 @Input()
 
 //setting defualt ID
@@ -81,12 +90,39 @@ constructor(
 
   @Optional() private dialogRef : MatDialogRef<weaknessDialog>,
   @Inject(MAT_DIALOG_DATA) public data : any,
-  public controlsservice : ControlsService
+  public controlsservice : ControlsService,
+  public standardservice : StandardsService,
+  public sharedResourceService : SharedResourcesService,
+  public weaknessService : WeaknessesService
   ) { }
 
 ngOnInit(){
+  //Getting standards
+  this.standards$ = this.standardservice.fetchAll(this.id$)
+  this.displayStandards$ = []
+  this.standards$.forEach(standardarray => {
+    standardarray.forEach(standard => {
+        this.displayStandards$.push(standard)
+    });
+  });
+  //Getting resources
+  this.resources$ = this.sharedResourceService.fetchAll()
+  this.displayResources$ = []
+  this.resources$.forEach(resourcesArray => {
+    resourcesArray.forEach(resource => {
+        this.displayResources$.push(resource)
+    });
+  });
+  //Getting weaknesses
+  this.weakness$ = this.weaknessService.fetchAll(this.id$)
+  this.displayWeakness$ = []
+  this.weakness$.forEach(weaknessArray => {
 
-//  this.controls$ = this.fetchAll();
+    weaknessArray.forEach(weakness => {
+
+        this.displayWeakness$.push(weakness)
+    });
+  });
 
 }
 
