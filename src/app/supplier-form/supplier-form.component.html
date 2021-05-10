@@ -89,9 +89,34 @@
                                   <mat-radio-button #SSBAcertified style="margin-left: 80%;" value="2">No</mat-radio-button>
                               </mat-radio-group>
                           </mat-card>
-                          <mat-form-field appearance = "legacy" style="width:80%">
-                              <input #SbusinessType matInput placeholder = "Business Type">
+ 
+
+
+                          <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
+                            <mat-label >Business Type</mat-label>
+                            <mat-select #SbusinessType  id="Input">
+                            <mat-option value="WOSB" >
+                                WOSB 
+                            </mat-option>
+                
+                            <mat-option value="VOSB" >
+                                VOSB
+                            </mat-option>     
+                            <mat-option value="SDVOSB" >
+                              SDVOSB
+                            </mat-option> 
+                              <mat-option value="SDWOSB" >
+                                SDWOSB
+                            </mat-option> 
+                              <mat-option value="Minority Owned" >
+                                Minority Owned
+                            </mat-option> 
+
+                            </mat-select>
                           </mat-form-field>
+
+
+
 
                           <mat-form-field appearance = "legacy" style="width:40%">
                               <input #SDUNSnum matInput placeholder = "DUNS Number">
@@ -109,9 +134,23 @@
                           <mat-form-field appearance = "legacy" style="width:80%;">
                               <input #ScmmcAuditorInfo matInput placeholder = "CMMC Auditor Information">
                           </mat-form-field>
-                          <mat-form-field appearance = "legacy" style="width:80%;">
-                              <input #ScmmcAuditDate matInput placeholder = "CMMC Auditor Date">
-                          </mat-form-field>
+   
+
+                          <mat-form-field style="width: 80%;background: transparent;" appearance="fill" class="datepicker datepicker1" id="datepicker1">
+                            <mat-label >CMMC Auditor Date</mat-label>
+                            <input 
+                            #ScmmcAuditDate 
+                            matInput 
+                            [matDatepicker]="datepicker1"
+                            />
+                            <mat-datepicker-toggle matSuffix [for]="datepicker1"></mat-datepicker-toggle>
+                            <mat-datepicker #datepicker1>
+                            <mat-datepicker-actions>
+                                <button mat-button matDatepickerCancel>Cancel</button>
+                                <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                            </mat-datepicker-actions>
+                            </mat-datepicker>
+                        </mat-form-field>
        
                           <mat-form-field appearance = "legacy" style="width:80%;">
                               <input #SNISTauditAgency matInput placeholder = "NIST Audit Agency"> 
@@ -119,9 +158,27 @@
                           <mat-form-field appearance = "legacy" style="width:80%;">
                               <input #SNISTauditorInfo matInput placeholder = "NIST Audit Auditor Information">
                           </mat-form-field>
-                          <mat-form-field appearance = "legacy" style="width:80%;">
-                              <input #SNISTauditDate matInput placeholder = "NIST Audit Date">
-                          </mat-form-field>
+
+
+
+
+  
+                        <mat-form-field style="width: 80%;background: transparent;" appearance="fill" class="datepicker datepicker5" id="datepicker5">
+                          <mat-label >Nist Auditor Date</mat-label>
+                          <input 
+                          #SNISTauditDate 
+                          matInput 
+                          [matDatepicker]="datepicker5"
+                          />
+                          <mat-datepicker-toggle matSuffix [for]="datepicker5"></mat-datepicker-toggle>
+                          <mat-datepicker #datepicker5>
+                          <mat-datepicker-actions>
+                              <button mat-button matDatepickerCancel>Cancel</button>
+                              <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                          </mat-datepicker-actions>
+                          </mat-datepicker>
+                      </mat-form-field>
+  
 
   
                   

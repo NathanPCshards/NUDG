@@ -63,3 +63,78 @@ div.cards{
     margin-bottom: 15px;
     width: 10%;
 }
+
+
+
+
+
+
+
+
+//CSS for LIST
+.flexContainer{
+    display:flexbox;
+}
+.listSpan {
+
+    float:1;
+}
+.headerRow {
+    position:relative;
+    background-color: white;
+}
+
+.mat-list >  .mat-list-item:nth-child(2n+1){
+
+    background-color:white;
+  }
+  .mat-list >  .mat-list-item:nth-child(2n){
+
+    background-color:rgb(230, 228, 228);
+  }
+
+  .mat-list > .mat-list-item{
+    border: 1px solid black;
+    justify-content: center;
+
+  }
+
+  .idCol{
+    width:75px;
+    min-width: 75px;
+    text-align: left;
+
+  }
+  .nameCol{
+    margin-left: 15px;
+    width:150px;
+    min-width: 150px;
+    text-align: left;
+
+  }
+  .descCol{
+    width:250px;
+    min-width: 250px;
+    text-align: left;
+    margin-left: 10px;
+  }
+  
+  .dateCol{
+    width:60px;
+    min-width: 60px;
+    text-align: left;
+    margin-left:  10px;
+  }
+
+  .dateCol2{
+    width:200px;
+    min-width: 200px;
+    text-align: left;
+    margin-left:  10px
+  }
+  .dateCol3{
+    width:75px;
+    min-width: 75px;
+    text-align: left;
+    margin-left:  10px
+  }

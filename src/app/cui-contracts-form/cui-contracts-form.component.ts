@@ -3,7 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { cuicontracts } from '../models/cuicontracts';
+import { suppliers } from '../models/suppliers';
 import { CuicontractsService } from '../services/cuicontracts.service';
+import { inventoryService } from '../services/inventory.service';
+import { SuppliersService } from '../services/suppliers.service';
+import { UserServiceService } from '../services/user-service.service';
+import { VendorsService } from '../services/vendors.service';
 
 
 @Component({
@@ -14,17 +19,32 @@ import { CuicontractsService } from '../services/cuicontracts.service';
 export class CuiContractsFormComponent implements OnInit {
 
   cuicontracts$: Observable<cuicontracts[]>;
+  users$;
+  inventories$;
+  suppliers$;
+  vendors$;
 
   panelOpenState = false;
 
 
 
-  constructor(public dialog: MatDialog, private cuicontractsService : CuicontractsService){
+  constructor(
+    private cuicontractsService : CuicontractsService,
+    private userService : UserServiceService,
+    private supplierService : SuppliersService,
+    private vendorsService : VendorsService,
+    private inventoryService : inventoryService,
+
+    ){
     
   }
   
   ngOnInit(){
     this.cuicontracts$ = this.fetchAll();
+    this.users$ = this.userService.fetchAll();
+    this.inventories$ = this.inventoryService.fetchAll();
+    this.suppliers$ = this.supplierService.fetchAll();
+    this.vendors$ = this.vendorsService.fetchAll();
   }
 
   fetchAll(): Observable<cuicontracts[]> {
@@ -32,9 +52,14 @@ export class CuiContractsFormComponent implements OnInit {
 
   }
   
-  post(CCname, CCnum, CCstartDate, CCendDate, CCdescription): void {
+  post(CCname, CCnum, CCstartDate, CCendDate, CCdescription, CCaccountManager , CCsupplierRelation , CCvendorRelation , CCfileInput , CCurl , CCgovCUI , CCnewCUI , CCmodCUI ): void {
+    //because these are coming from another tables get request. these variables show up as lists, so im converting them to strings before sending the post (otherwise request fails)
+    CCsupplierRelation = String(CCsupplierRelation)
+    CCvendorRelation = String(CCvendorRelation)
+    CCaccountManager = String(CCaccountManager)
+
     this.cuicontracts$ = this.cuicontractsService
-      .post({ CCname, CCnum, CCstartDate, CCendDate, CCdescription })
+      .post({ CCname, CCnum, CCstartDate, CCendDate, CCdescription, CCaccountManager , CCsupplierRelation , CCvendorRelation , CCfileInput , CCurl , CCgovCUI , CCnewCUI , CCmodCUI  })
       .pipe(tap(() => (this.cuicontracts$ = this.fetchAll())));
   
   

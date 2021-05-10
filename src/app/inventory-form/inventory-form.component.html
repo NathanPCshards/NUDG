@@ -85,7 +85,7 @@
                                 <mat-label >CUI Contracts - Contract Name</mat-label>
                                 <mat-select #UcuiContracts id="Input" >
                                     <div *ngFor="let contract of CUIcontracts$ | async">
-                                        <mat-option value={{contract.CCname}} >
+                                        <mat-option value={{contract.CCname}} multiple>
                                             {{contract.CCname}}
                                         </mat-option>
                                     </div>
@@ -95,7 +95,7 @@
                               
                             <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                                 <mat-label >Users Associated with this device</mat-label>
-                                <mat-select #UcuiContracts id="Input" >
+                                <mat-select #UcuiContracts id="Input" multiple>
                                     <div *ngFor="let user of Users$ | async">
                                         <mat-option value={{user.Ufname}} >
                                             {{user.Ufname}}
@@ -106,11 +106,11 @@
 
                               
                             <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
-                                <mat-label >CUI Contracts</mat-label>
-                                <mat-select #UcuiContracts id="Input" >
-                                    <div *ngFor="let contract of CUIcontracts$ | async">
-                                        <mat-option value={{contract.CCname}} >
-                                            {{contract.CCname}}
+                                <mat-label >Software installed on this device.</mat-label>
+                                <mat-select #UcuiContracts id="Input" multiple>
+                                    <div *ngFor="let software of softwares$ | async">
+                                        <mat-option value={{software.SWname}} >
+                                            {{software.SWname}} 
                                         </mat-option>
                                     </div>
                                 </mat-select>

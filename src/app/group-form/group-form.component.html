@@ -91,28 +91,77 @@
                           <mat-form-field appearance = "legacy" style="width:40%">
                               <input #Gdescriptions matInput placeholder = "Group Description">
                           </mat-form-field>
-                          <mat-form-field appearance = "legacy" style="width:80%">
-                              <input #GcreationDate matInput placeholder = "Creation Date" >
-                          </mat-form-field>
-                          <mat-form-field appearance = "legacy" style="width:40%">
-                              <input #GCUIaccess matInput placeholder = "CUI Access">
-                          </mat-form-field>
 
+                          <mat-form-field style="width: 80%;background: transparent;" appearance="fill" class="datepicker datepicker2" id="datepicker2">
+                            <mat-label >Creation Date</mat-label>
+                            <input 
+                            #GcreationDate 
+                            matInput 
+                            [matDatepicker]="datepicker2"
+
+                            />
+                            <mat-datepicker-toggle matSuffix [for]="datepicker2"></mat-datepicker-toggle>
+                            <mat-datepicker #datepicker2>
+                            <mat-datepicker-actions>
+                                <button mat-button matDatepickerCancel>Cancel</button>
+                                <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                            </mat-datepicker-actions>
+                            </mat-datepicker>
+                        </mat-form-field>
+
+
+                          <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
+                            <mat-label >CUI Data</mat-label>
+                            <mat-select #GCUIaccess  id="Input">
+              
+                                <mat-option value="Yes" >
+                                    Yes 
+                                </mat-option>
+                    
+                                <mat-option value="No" >
+                                    No
+                                </mat-option>     
+
+                            </mat-select>
+                          </mat-form-field>
 
                       </div>
   
                       <div class ="col">
                           <h1 style="margin-left: 1%;"> Contact</h1>
                                   
+                          <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
+                            <mat-label >Users Associated with this device</mat-label>
+                            <mat-select #UGRusers id="Input" multiple>
+                                <div *ngFor="let user of users$ | async">
+                                    <mat-option value={{user.Ufname}} >
+                                        {{user.Ufname}}
+                                    </mat-option>
+                                </div>
+                            </mat-select>
+                          </mat-form-field>  
+                          
 
-                          <mat-form-field appearance = "legacy"  style="width:80%">
-                              <input matInput placeholder = "Users">
+                          <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
+                            <mat-label >Network Shares - Read Access</mat-label>
+                            <mat-select #GNSra id="Input" >
+                                <div *ngFor="let share of networkShares$ | async">
+                                    <mat-option value={{share.NSshareName}} >
+                                        {{share.NSshareName}}
+                                    </mat-option>
+                                </div>
+                            </mat-select>
                           </mat-form-field>
-                          <mat-form-field appearance = "legacy" style="width:80%">
-                              <input matInput placeholder = "Network - Read Access">
-                          </mat-form-field>
-                          <mat-form-field appearance = "legacy" style="width:40%" >
-                              <input matInput placeholder = "Network - Write Access">
+
+                          <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
+                            <mat-label >Network Shares - Write Access</mat-label>
+                            <mat-select #GNSwa id="Input" >
+                                <div *ngFor="let share of networkShares$ | async">
+                                    <mat-option value={{share.NSshareName}} >
+                                        {{share.NSshareName}}
+                                    </mat-option>
+                                </div>
+                            </mat-select>
                           </mat-form-field>
 
                       
@@ -123,7 +172,7 @@
                             </div>
         
             
-                            <button mat-raised-button (click)="post(Gnames.value, Gdescriptions.value, GcreationDate.value, GCUIaccess.value)"  style="margin-left: 15%;width:25%;height: 5vh; float: 2;" color="primary"  >Submit</button>
+                            <button mat-raised-button (click)="post(Gnames.value, Gdescriptions.value, GcreationDate.value, GCUIaccess.value, UGRusers.value, GNSra.value, GNSwa.value)"  style="margin-left: 15%;width:25%;height: 5vh; float: 2;" color="primary"  >Submit</button>
                             <button mat-raised-button style="margin-left: 10%;width:25%;height: 5vh;float: 3;" type="reset"  color="primary"  >Reset</button>
                             <!-- (click)="onFormReset();" -->
                           </div>
@@ -170,7 +219,7 @@
    <span style="position: absolute; right: 0;">
       <button mat-icon-button>
         <mat-icon
-          (click)="update(Gnames.value, Gdescriptions.value, GcreationDate.value, GCUIaccess.value, group.idOrgGroups)"
+          (click)="update(Gnames.value, Gdescriptions.value, GcreationDate.value, GCUIaccess.value, UGRusers.value, GNSra.value, GNSwa.value, group.idOrgGroups)"
           color="primary"
         >
           edit

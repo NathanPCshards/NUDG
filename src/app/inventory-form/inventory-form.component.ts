@@ -11,6 +11,7 @@ import { GroupsService } from '../services/groups.service';
 import { CuicontractsService } from '../services/cuicontracts.service';
 import { UserServiceService } from '../services/user-service.service';
 import { SoftwareApprovalFormComponent } from '../software-approval-form/software-approval-form.component';
+import { softewareApprovalService } from '../services/softwareApproval';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class InventoryFormComponent implements OnInit {
   panelOpenState;
   CUIcontracts$
   Users$ 
-
+  softwares$
 
 
   inventories$: Observable<inventories[]>;
@@ -33,7 +34,7 @@ export class InventoryFormComponent implements OnInit {
     private http:HttpClient,
     private inventoryService:inventoryService,
     private usersService : UserServiceService,
-
+    private softwareApprovalService : softewareApprovalService,
     private cuiService: CuicontractsService,
    // private softwareApproval : 
    ) {
@@ -44,6 +45,7 @@ export class InventoryFormComponent implements OnInit {
     this.inventories$ = this.fetchAll();
     this.CUIcontracts$ = this.cuiService.fetchAll()
     this.Users$ = this.usersService.fetchAll()
+    this.softwares$ = this.softwareApprovalService.fetchAll()
 
   }
   ngOnContentInit(){

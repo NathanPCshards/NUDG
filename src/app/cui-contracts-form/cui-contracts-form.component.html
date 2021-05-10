@@ -35,12 +35,47 @@
                           <mat-form-field appearance = "legacy" style="width:80%">
                               <input #CCnum matInput placeholder = "Contract Number" >
                           </mat-form-field>
-                          <mat-form-field appearance = "legacy" style="width:40%">
-                              <input #CCstartDate matInput placeholder = "Contract Start Date">
-                          </mat-form-field>
-                          <mat-form-field appearance = "legacy" style="width:40%">
-                              <input #CCendDate matInput placeholder = "Contract End Date">
-                          </mat-form-field>
+
+
+
+                          <mat-form-field style="width: 40%;background: transparent;" appearance="fill" class="datepicker datepicker5" id="datepicker5">
+                            <mat-label >Contract Start Date</mat-label>
+                            <input 
+                            #CCstartDate  
+                            matInput 
+                            [matDatepicker]="datepicker5"
+                            />
+                            <mat-datepicker-toggle matSuffix [for]="datepicker5"></mat-datepicker-toggle>
+                            <mat-datepicker #datepicker5>
+                            <mat-datepicker-actions>
+                                <button mat-button matDatepickerCancel>Cancel</button>
+                                <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                            </mat-datepicker-actions>
+                            </mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field style="width: 40%;background: transparent;" appearance="fill" class="datepicker datepicker0" id="datepicker0">
+                          <mat-label >Contract End Date</mat-label>
+                          <input 
+                          #CCendDate  
+                          matInput 
+                          [matDatepicker]="datepicker0"
+                          />
+                          <mat-datepicker-toggle matSuffix [for]="datepicker0"></mat-datepicker-toggle>
+                          <mat-datepicker #datepicker0>
+                          <mat-datepicker-actions>
+                              <button mat-button matDatepickerCancel>Cancel</button>
+                              <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                          </mat-datepicker-actions>
+                          </mat-datepicker>
+                      </mat-form-field>
+
+
+
+                      <mat-form-field appearance = "legacy" style="width:40%">
+                        <input #CCurl matInput placeholder = "URL">
+                    </mat-form-field>
+
                           <mat-form-field appearance = "legacy" style="width:40%">
                               <input #CCdescription matInput placeholder = "Description">
                           </mat-form-field>
@@ -48,36 +83,83 @@
                               <input matInput placeholder = "Primary Asset Relation">
                           </mat-form-field>
 
+                          <h3>Government Provided CUI</h3>
+                          <textarea #CCgovCUI  style="text-align: left; align-content: left; margin-left: 1%; " rows="4" cols="38"></textarea>
+
+                          <h3>Newly Added CUI</h3>
+                          <textarea #CCnewCUI  style="text-align: left; align-content: left; margin-left: 1%; " rows="4" cols="38"></textarea>
+
+                          <h3>Modified CUI</h3>
+                          <textarea #CCmodCUI style="text-align: left; align-content: left; margin-left: 1%; " rows="4" cols="38"></textarea>
                       </div>
   
                       <div class ="col">
                           <h1 style="margin-left: 1%;"> Contact</h1>
                                   
 
-                          <mat-form-field appearance = "legacy"  style="width:80%">
-                              <input  matInput placeholder = "Supplier Relation">
-                          </mat-form-field>
-                          <mat-form-field appearance = "legacy" style="width:80%">
-                              <input matInput placeholder = "Vendor Relaton">
-                          </mat-form-field>
-                          <mat-form-field appearance = "legacy" style="width:40%" >
-                              <input matInput placeholder = "Business Phone">
-                          </mat-form-field>
-                          <mat-form-field appearance = "legacy" style="width:40%" >
-                              <input matInput placeholder = "Cell Phone">
-                          </mat-form-field>
-  
-  
+                          <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
+                            <mat-label >Supplier Relation</mat-label>
+                            <mat-select #CCsupplierRelation id="Input" multiple>
+                                <div *ngFor="let supplier of suppliers$ | async">
+                                    <mat-option value={{supplier.Sname}} >
+                                        {{supplier.Sname}}
+                                    </mat-option>
+                                </div>
+                            </mat-select>
+                          </mat-form-field>  
 
+                          <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
+                            <mat-label >Vendor Relation</mat-label>
+                            <mat-select #CCvendorRelation id="Input" multiple>
+                                <div *ngFor="let vendor of vendors$ | async">
+                                    <mat-option value={{vendor.Vname}}>
+                                        {{vendor.Vname}}
+                                    </mat-option>
+                                </div>
+                            </mat-select>
+                          </mat-form-field>  
+
+                          <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
+                            <mat-label >Account Manager</mat-label>
+                            <mat-select #CCaccountManager id="Input" multiple>
+                                <div *ngFor="let user of users$ | async">
+                                    <mat-option value={{user.Ufname}}>
+                                        {{user.Ufname}}
+                                    </mat-option>
+                                </div>
+                            </mat-select>
+                          </mat-form-field>
+
+                          <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
+                            <mat-label >Network devices that store, or have access to, information in this CUI contract</mat-label>
+                            <mat-select #CCvendorRelation id="Input" multiple>
+                                <div *ngFor="let item of inventories$ | async">
+                                    <mat-option value={{item.IassetIdentifier}}>
+                                        {{item.IassetIdentifier}}
+                                    </mat-option>
+                                </div>
+                            </mat-select>
+                          </mat-form-field>
+
+                          <mat-form-field appearance="outline" color="primary" style="width:80%;" >
+                            <mat-label >Personnel that have access to this CUI contract's information Manager</mat-label>
+                            <mat-select #CCusers id="Input" multiple>
+                                <div *ngFor="let user of users$ | async">
+                                    <mat-option value={{user.Ufname}}>
+                                        {{user.Ufname}}
+                                    </mat-option>
+                                </div>
+                            </mat-select>
+                          </mat-form-field>
                       
                         <div class = "row2">
                             <div class="fileInput" style="margin-left: 1%; float:1; width:25%;">
-                                <input  class="ng-hide" id="input-file-id" multiple type="file" />
+                                <input #CCfileInput class="ng-hide" id="input-file-id" multiple type="file" />
                                 <label for="input-file-id" class="md-button md-raised md-primary"></label>
                             </div>
         
             
-                            <button mat-raised-button (click)="post(CCname.value, CCnum.value, CCstartDate.value, CCendDate.value, CCdescription.value)"  style="margin-left: 15%;width:25%;height: 5vh; float: 2;" color="primary"  >Submit</button>
+                            <button mat-raised-button (click)="post(CCname.value, CCnum.value, CCstartDate.value, CCendDate.value, CCdescription.value, CCaccountManager.value, CCsupplierRelation.value, CCvendorRelation.value, CCfileInput.value, CCurl.value, CCgovCUI.value, CCnewCUI.value, CCmodCUI.value )"  style="margin-left: 15%;width:25%;height: 5vh; float: 2;" color="primary"  >Submit</button>
                         </div>
           
           

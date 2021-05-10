@@ -63,6 +63,7 @@ export class GapForm implements OnInit{
   DateDisplayList$;
   NidFilterList = []
   DateFilterList = []
+  
   policyForm: FormGroup = this.formBuilder.group({
     NidFilterList : []
   });
