@@ -196,18 +196,19 @@
             </button>
     
     
-    
+    <!--
     
               <button mat-icon-button>
                 <mat-icon
          
                   color="primary"
                 >
-                <!--         (click)="updateWeaknesses(weaknessElement.idOrgWeaknesses, userInput.value)"-->
                   edit
                 </mat-icon>
               </button>
       
+    -->
+
           
               <button mat-icon-button>
                 <mat-icon (click)="deleteWeaknesses(weaknessElement.idOrgWeaknesses)" color="warn">
@@ -302,17 +303,20 @@
           </mat-icon>
         </button>
   
-  
+  <!--
             <button mat-icon-button>
               <mat-icon
                 color="primary"
               >
-              <!--              (click)="updateControls(controlElement.idOrgControls, userInput.value)"
-  -->
-                edit
-              </mat-icon>
-            </button>
+                            (click)="updateControls(controlElement.idOrgControls, userInput.value)"
   
+  edit
+</mat-icon>
+</button>
+
+
+  -->
+
   
             <button mat-icon-button>
               <mat-icon (click)="deleteControls(controlElement.idOrgControls)" color="warn">

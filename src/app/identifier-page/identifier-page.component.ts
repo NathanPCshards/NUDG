@@ -24,6 +24,8 @@ import { GuidelinesService } from '../services/guidelines.service';
 import { guidelinesDialog } from '../guidelines-page/guidelines-page.component';
 import { GapService } from '../services/gap.service';
 import { gap } from '../models/gap';
+import { login } from '../injectables';
+import { restAPI } from '../services/restAPI.service';
 
 
 //leave for now. The accordion needs these to function
@@ -120,10 +122,20 @@ export class IdentifierPageComponent implements OnInit {
     private sharedService : SharedService,
     private _formBuilder : FormBuilder,
     private CFR:ComponentFactoryResolver,
+    private loginInfo: login,
+    private rest_service : restAPI
 
     ) { }
 
   ngOnInit(){
+    console.log("-----====== onInit ======-----")
+
+    console.log(this.loginInfo.CompanyName)
+
+    console.log("-----====== Done ======-----")
+
+
+
 
     this.uniqueNidList$= this.policyService.getUniqueNids();
 
@@ -184,7 +196,7 @@ export class IdentifierPageComponent implements OnInit {
     this.controlsservice.onClick.subscribe(data =>{
 
       this.controls$ = this.controlsservice
-      .post(data)
+      .post(data, this.loginInfo.CompanyName)
       .pipe(tap(() => (this.controls$ = this.fetchAllControls(this.id))));
     });
   
@@ -193,7 +205,7 @@ export class IdentifierPageComponent implements OnInit {
     this.weaknessservice.onClick.subscribe(data =>{
 
       this.weaknesses$ = this.weaknessservice
-      .post(data)
+      .post(data, this.loginInfo.CompanyName)
       .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses(this.id))));
   
       
@@ -280,23 +292,55 @@ export class IdentifierPageComponent implements OnInit {
     return this.gapservice.fetchAll(Nid, Gdate);
   }
 
+
+
+
+
+
+
+
+
+
+
+
   fetchAllControls(Nid:any): Observable<controls[]> {
-    return this.controlsservice.fetchAll(Nid);
+    let CompanyName = this.loginInfo.CompanyName
+
+    return this.rest_service.get(`http://localhost:3000/controls/${Nid}/${CompanyName}`,CompanyName);
   }
   updateControls(id: number, inventoryItem: Partial<controls>): void {
     //this.controls$ = this.controlsService
      // .update(newUsers)
     //  .pipe(tap(() => (this.controls$ = this.fetchAll())));
   }
-  deleteControls( id: any): void {
+  deleteControls(id: any): void {
+    let CompanyName = this.loginInfo.CompanyName
+
+    this.rest_service.delete(`http://localhost:3000/controls/${id}/${CompanyName}`, CompanyName)
+  
+
+
     this.controls$ = this.controlsservice
-      .delete(id)
+      .delete(id, this.loginInfo.CompanyName)
       .pipe(tap(() => (this.controls$ = this.fetchAllControls(this.id))));
       
   }
   
+
+
+
+
+
+
+
+
+
+
+
+
+
   fetchAllWeaknesses(Nid: any): Observable<weaknesses[]> {
-    return this.weaknessservice.fetchAll(Nid);
+    return this.weaknessservice.fetchAll(Nid, this.loginInfo.CompanyName);
   }
 
   updateWeaknesses(id: number, inventoryItem: Partial<weaknesses>): void {
@@ -307,11 +351,38 @@ export class IdentifierPageComponent implements OnInit {
   }
   deleteWeaknesses(id: any): void {
     this.weaknesses$ = this.weaknessservice
-      .delete(id)
+      .delete(id,this.loginInfo.CompanyName)
       .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses(this.id))));
       
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   fetchAllStandards(): Observable<standards[]> {
     return this.standardsservice.fetchAll(this.id);
   }
@@ -336,6 +407,28 @@ export class IdentifierPageComponent implements OnInit {
       .pipe(tap(() => (this.standards$ = this.fetchAllStandards())));
       
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   drop(event: CdkDragDrop<string[]>) {
 

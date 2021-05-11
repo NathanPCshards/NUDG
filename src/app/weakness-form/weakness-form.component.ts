@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap, tap} from 'rxjs/operators';
+import { login } from '../injectables';
 import { weaknesses } from '../models/weaknesses';
 import { inventoryService } from '../services/inventory.service';
 import { SharedService } from '../services/Shared';
@@ -47,7 +48,8 @@ export class WeaknessFormComponent implements OnInit {
     private http: HttpClient,
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
-    public weaknessservice : WeaknessesService
+    public weaknessservice : WeaknessesService,
+    private loginInfo : login
     ){
     
   }
@@ -66,7 +68,7 @@ export class WeaknessFormComponent implements OnInit {
       console.log('The dialog was closed');
       console.log("result : " , result);
       this.weaknesses$ = this.weaknessservice
-      .post(result)
+      .post(result,this.loginInfo.CompanyName)
      // .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));
     });
 
@@ -87,7 +89,7 @@ export class WeaknessFormComponent implements OnInit {
   
   delete(id: any): void {
     this.weaknesses$ = this.weaknessservice
-      .delete(id)
+      .delete(id,this.loginInfo.CompanyName)
      // .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));
       
   }
@@ -121,7 +123,8 @@ assetIdentifiers$
     public weaknessservice : WeaknessesService,
     private standardservice : StandardsService,
     private vendorservice : VendorsService,
-    private inventoryService : inventoryService
+    private inventoryService : inventoryService,
+    private loginInfo : login
     ) { }
 
 ngOnInit(){
@@ -167,6 +170,7 @@ closeDialog(Nid , Wname, WdetectionDate, WvendorDependency, WriskRating, WriskAd
   this.data.WpointOfContact = WpointOfContact;
   this.data.WresourceReq = WresourceReq;
   this.data.WsupportingDoc = WsupportingDoc;
+  this.data.CompanyName = this.loginInfo.CompanyName
 
 try{
   //this works when opened as a dialog (the weakness page)

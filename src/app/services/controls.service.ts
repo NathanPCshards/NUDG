@@ -26,9 +26,10 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
 
-   fetchAll(id: any): Observable<controls[]> {
+   fetchAll(id: any, CompanyName:any, trick:any): Observable<controls[]> {
     let tempUrl;
-    id ? tempUrl = `http://localhost:3000/controls/${id}` : tempUrl = "http://localhost:3000/controls"
+    id ? tempUrl = `http://localhost:3000/controls/${id}/${CompanyName}` : tempUrl = "http://localhost:3000/controls"
+    console.log("url : " , `http://localhost:3000/controls/${id}/${CompanyName}`)
 
     return this.http
       .get<controls[]>(tempUrl, { responseType: "json" })
@@ -40,20 +41,21 @@ httpOptions: { headers: HttpHeaders } = {
       );
   }
 
-  post(item: any): Observable<any> {
+  post(item: any, CompanyName: any): Observable<any> {
+    console.log("posting : " , item)
     return this.http
       .post(this.url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
-  update(user: controls): Observable<any> {
+  update(user: controls, CompanyName: any): Observable<any> {
     return this.http
       .put<controls>(this.url, user, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
   }
 
-  delete(id: number): Observable<any> {
-    const url = `http://localhost:3000/controls/${id}`;
+  delete(id: number, CompanyName: any): Observable<any> {
+    const url = `http://localhost:3000/controls/${id}/${CompanyName}`;
 
     return this.http
       .delete<controls>(url, this.httpOptions)

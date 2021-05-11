@@ -31,9 +31,9 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
  
 
   //Get Requests
-   fetchAll(id: any = null): Observable<weaknesses[]> {
+   fetchAll(id: any = null, CompanyName): Observable<weaknesses[]> {
      let tempUrl;
-     id ? tempUrl = `http://localhost:3000/weaknesses/${id}`: tempUrl = "http://localhost:3000/weaknesses"
+     id ? tempUrl = `http://localhost:3000/weaknesses/${id}${CompanyName}`: tempUrl = "http://localhost:3000/weaknesses"
      console.log("weaknesses url : ", tempUrl)
 
     return this.http
@@ -47,8 +47,8 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
   }
 
   //Post Requests
-  post(item: any): Observable<any> {
-    console.log("post weaknesses");
+  post(item: any, CompanyName : any): Observable<any> {
+    console.log("post weaknesses", item, CompanyName);
 
     return this.http
       .post(this.url, item)
@@ -65,8 +65,8 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
   }
 
   //Delete Requests
-  delete(id: number): Observable<any> {
-    const url = `http://localhost:3000/weaknesses/${id}`;
+  delete(id: number, CompanyName): Observable<any> {
+    const url = `http://localhost:3000/weaknesses/${id}${CompanyName}`;
     console.log("delete weaknesses")
 
 

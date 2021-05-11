@@ -4,6 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { login } from '../injectables';
 import { controls } from '../models/controls';
 import { ControlsService } from '../services/controls.service';
 import { SharedService } from '../services/Shared';
@@ -22,7 +23,7 @@ export class ControlFormComponent implements OnInit {
   panelOpenState = false;
   controls$: Observable<controls[]>;
 
-  constructor(public dialog: MatDialog, private sharedService: SharedService, public controlssservice : ControlsService){
+  constructor(public dialog: MatDialog, private sharedService: SharedService, public controlssservice : ControlsService, private loginInfo : login){
   }
 
   public openDialog() {
@@ -39,7 +40,7 @@ export class ControlFormComponent implements OnInit {
       console.log('The dialog was closed');
       console.log("result : " , result);
       this.controls$ = this.controlssservice
-      .post(result)
+      .post(result, this.loginInfo.CompanyName)
     // .pipe(tap(() => (this.controls$ = this.fetchAll())));
     });
 
@@ -55,7 +56,7 @@ export class ControlFormComponent implements OnInit {
   
   delete(id: any): void {
     this.controls$ = this.controlssservice
-      .delete(id)
+      .delete(id,this.loginInfo.CompanyName)
      // .pipe(tap(() => (this.controls$ = this.fetchAll())));
       
   }
@@ -93,7 +94,8 @@ constructor(
   public controlsservice : ControlsService,
   public standardservice : StandardsService,
   public sharedResourceService : SharedResourcesService,
-  public weaknessService : WeaknessesService
+  public weaknessService : WeaknessesService,
+  public loginInfo : login
   ) { }
 
 ngOnInit(){
@@ -114,7 +116,7 @@ ngOnInit(){
     });
   });
   //Getting weaknesses
-  this.weakness$ = this.weaknessService.fetchAll(this.id$)
+  this.weakness$ = this.weaknessService.fetchAll(this.id$, this.loginInfo.CompanyName)
   this.displayWeakness$ = []
   this.weakness$.forEach(weaknessArray => {
 
@@ -128,13 +130,14 @@ ngOnInit(){
 
 
 closeDialog(Nid , Cname, Coverview, Cissuedate, WriCsharedresourcesskRating, Curl, idOrgWeaknesses){
-  this.data.Nid = this.id$
+  this.data.Nid = this.id$ 
   this.data.Cname = Cname;
   this.data.Coverview = Coverview;
   this.data.Cissuedate = Cissuedate;
   this.data.Csharedresources = WriCsharedresourcesskRating;
   this.data.Curl = Curl;
   this.data.idOrgWeaknesses = idOrgWeaknesses
+  this.data.CompanyName = this.loginInfo.CompanyName
  
 
 try{

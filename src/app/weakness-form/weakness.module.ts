@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { login } from '../injectables';
 import { milestoneDialog, MilestoneFormComponent } from '../milestone-form/milestone-form.component';
 import { SharedModule } from '../SharedModule.module';
 import { weaknessDialog, WeaknessFormComponent } from './weakness-form.component';
@@ -19,6 +20,7 @@ import { weaknessDialog, WeaknessFormComponent } from './weakness-form.component
     SharedModule,
   ],
   providers: [
+    login
 
   ],
   exports : [      

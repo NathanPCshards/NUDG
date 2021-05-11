@@ -18,7 +18,7 @@
                                 <mat-label >Standard</mat-label>
                                 <mat-select #Mstatus id="Input" >
                                     <div *ngFor="let standard of displayStandards$">
-                                        <mat-option value="Incomplete" >
+                                        <mat-option value={{standard.idStandards}} >
                                             {{standard.idStandards}}
                                         </mat-option>
                                     </div>
@@ -57,6 +57,7 @@
                             #Cissuedate  
                             matInput 
                             [matDatepicker]="datepicker2"
+
                             />
                             <mat-datepicker-toggle matSuffix [for]="datepicker2"></mat-datepicker-toggle>
                             <mat-datepicker #datepicker2>
@@ -104,7 +105,7 @@
                                 <mat-label>Paired Weakness</mat-label>
                                 <mat-select #idOrgWeaknesses id="Input">
                                     <div *ngFor="let weakness of displayWeakness$">
-                                        <mat-option value="Incomplete" >
+                                        <mat-option value={{weakness.idOrgWeaknesses}} >
                                             {{weakness.idOrgWeaknesses}}
                                         </mat-option>
                                     </div>

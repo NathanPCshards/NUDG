@@ -1,0 +1,44 @@
+<div style="justify-content: center;display: flex;">
+    <div class="container1">
+        <div style="justify-content: center;">  
+              <p id="title" style="font-size: 40px; margin-bottom: 40px;margin-left: 25%;color: white;margin-top: 20px;font-weight: bold"> User Login</p>
+              <img src="https://pcshards.com/wp-content/uploads/2019/08/pcshards-logo-1wrd-300.png">
+            
+              <mat-form-field appearance="outline" color="primary" style="width: 90%;">
+                <mat-label >Full Name</mat-label>
+                <input #name matInput id="Input" placeholder="Name1">
+                </mat-form-field>
+                <br>
+              <mat-form-field appearance="outline" color="primary" style="width: 90%;">
+                <mat-label >Username</mat-label>
+                <input #Username matInput id="Input" placeholder="Name1">
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="outline" color="primary" style="width: 90%;">
+                    <mat-label >Phone Number</mat-label>
+                    <input #Phone matInput id="Input" placeholder="Name1">
+                    </mat-form-field>
+                <br>
+                <mat-form-field appearance="outline" color="primary" style="width: 90%;">
+                    <mat-label >Email</mat-label>
+                    <input #Email matInput id="Input" placeholder="Name1">
+                    </mat-form-field>
+                <br>
+                <mat-form-field appearance="outline" color="primary" style="width: 90%;">
+                    <mat-label >Company Name</mat-label>
+                    <input #CompanyName matInput id="Input" placeholder="Name1">
+                    </mat-form-field>
+                <br>
+                <mat-form-field color="primary" appearance="outline" id="PasswordBox" style="width: 90%;">
+                
+                <mat-label>Password</mat-label>
+                <input #password matInput placeholder="Password" >
+              </mat-form-field>
+
+
+                <button mat-raised-button  routerLink="/Home" routerLinkActive="active" color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Login</button>
+                <button mat-raised-button  (click)="register(name.value, Username.value, Phone.value, Email.value, CompanyName.value, password.value)"  color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Register</button>
+          </div>
+    
+      </div>
+    </div>

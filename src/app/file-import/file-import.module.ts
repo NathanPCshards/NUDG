@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { DragDropDirective } from '../drag-drop.directive';
+import { login } from '../injectables';
 
 import { SharedModule } from '../SharedModule.module';
 import { FileImportComponent } from './file-import.component';
@@ -20,6 +21,9 @@ import { FileImportComponent } from './file-import.component';
     DragDropDirective,
 
 ],
+providers : [
+  login
+]
 
 })
 export class fileImportModule { }

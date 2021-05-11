@@ -1,5 +1,6 @@
 import { Directive, HostBinding, HostListener, Input } from '@angular/core';
 import { tap } from 'rxjs/operators';
+import { login } from './injectables';
 import { ControlsService } from './services/controls.service';
 import { GapService } from './services/gap.service';
 import { SharedService } from './services/Shared';
@@ -20,7 +21,8 @@ fileType;
     public weaknessService : WeaknessesService,
     public standardsService : StandardsService,
     public sharedService : SharedService,
-    public gapService : GapService) { }
+    public gapService : GapService,
+    public loginInfo : login) { }
   @HostListener('dragover', ['$event'] ) public ondragover(evt){
     evt.preventDefault();
     evt.stopPropagation();
@@ -60,9 +62,10 @@ fileType;
               let Csharedresources = entry[4].replace("\r","")  
               let Curl = entry[5].replace("\r","")  
               let idOrgWeaknesses = entry[6].replace("\r","")    
+              let CompanyName = this.loginInfo.CompanyName
 
               await this.controlService
-                  .post({Nid, Cname, Coverview, Cissuedate, Csharedresources, Curl, idOrgWeaknesses})
+                  .post({Nid, Cname, Coverview, Cissuedate, Csharedresources, Curl, CompanyName, idOrgWeaknesses},this.loginInfo.CompanyName)
                   .pipe(tap(()=>(this.sharedService.emit("Control")))).toPromise()
                   
                }
@@ -92,8 +95,9 @@ fileType;
                     let WpointOfContact = entry[19]
                     let WresourceReq =    entry[20]
                     let WsupportingDoc =  entry[21]
+                    let CompanyName = this.loginInfo.CompanyName
                     await this.weaknessService
-                    .post({Nid , Wname, WdetectionDate, WvendorDependency, WriskRating, WriskAdjustment, WadjustedRiskRating, WdetectionSource, WcompletionDate, WremediationPlan, WautoApprove, WoperationReq, Wstatus, WassetID, WlastChange, Wdescription, WlastvendorCheck, WdeviationRationale, WfalsePositive, WpointOfContact, WresourceReq, WsupportingDoc }).toPromise()
+                    .post({Nid , Wname, WdetectionDate, WvendorDependency, WriskRating, WriskAdjustment, WadjustedRiskRating, WdetectionSource, WcompletionDate, WremediationPlan, WautoApprove, WoperationReq, Wstatus, WassetID, WlastChange, Wdescription, WlastvendorCheck, WdeviationRationale, WfalsePositive, WpointOfContact, WresourceReq, WsupportingDoc, CompanyName }, CompanyName).toPromise()
                   }
             }
             if (this.fileType == "Standard"){

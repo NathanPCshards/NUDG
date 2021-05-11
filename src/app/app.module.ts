@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 //Forms and components
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { CompanyInfoFormComponent } from './company-info-form/company-info-form.component';
 import { InventoryFormComponent } from './inventory-form/inventory-form.component';
@@ -17,10 +16,7 @@ import { VendorFormComponent } from './vendor-form/vendor-form.component';
 import { SupplierFormComponent } from './supplier-form/supplier-form.component';
 import { CuiContractsFormComponent } from './cui-contracts-form/cui-contracts-form.component';
 import { PageSearchComponent } from './page-search/page-search.component';
-import { GapAssessmentPageComponent, GapForm } from './gap-assessment-page/gap-assessment-page.component';
 
-import {weaknessDialog, WeaknessFormComponent } from './weakness-form/weakness-form.component';
-import { milestoneDialog, MilestoneFormComponent } from './milestone-form/milestone-form.component';
 import { networkSharesPage } from './network-shares-form/network-shares-form.component';
 import { SoftwareApprovalFormComponent } from './software-approval-form/software-approval-form.component';
 import { SharedResourcesFormComponent } from './shared-resources-form/shared-resources-form.component';
@@ -34,18 +30,14 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 //Charts and calendars
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { FlatpickrModule } from 'angularx-flatpickr';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+
 import { NgxEchartsModule } from 'ngx-echarts';
 import { IdentifierPageModule } from './identifier-page/identifier-page.module';
 import { SharedModule } from './SharedModule.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PolicyAccordionModule } from './policy-accordion/policy-accordion.module';
-import { PrintPageComponent } from './print-page/print-page.component';
-import { FileImportComponent } from './file-import/file-import.component';
-import { DragDropDirective } from './drag-drop.directive';
-import { CalendarComponent } from './calendar/calendar.component';
+import { RegisterFormComponent } from './register-form/register-form.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { CompanyInfoModule } from './company-info-form/company-info-form.module';
+
 
 
 @NgModule({
@@ -53,7 +45,6 @@ import { CalendarComponent } from './calendar/calendar.component';
     //Components
     AppComponent,
     LoginFormComponent,
-    CompanyInfoFormComponent,
     InventoryFormComponent,
     UserFormComponent,
     GroupFormComponent,
@@ -70,6 +61,7 @@ import { CalendarComponent } from './calendar/calendar.component';
     SupplierFormComponent,
     VendorFormComponent,
     
+    
 
 
     PageSearchComponent,
@@ -82,13 +74,14 @@ import { CalendarComponent } from './calendar/calendar.component';
     AdminPanelComponent,
    
 
-    
+    RegisterFormComponent
     
 
     
     
   ],
   imports: [
+    CompanyInfoModule,
     IdentifierPageModule,
     SharedModule,
     
@@ -100,6 +93,9 @@ import { CalendarComponent } from './calendar/calendar.component';
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     }),
+    
+    
+NoopAnimationsModule,
     
     //calendar
  

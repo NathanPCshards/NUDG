@@ -12,10 +12,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+
 })
 
 
@@ -34,7 +36,9 @@ export class DashboardComponent implements OnInit {
   constructor(
     public policyService : PolicyService,
     public taskService : taskService,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+
+    ) { }
 
 
   displayedColumns1: string[] = ['position', 'name', 'weight', 'symbol'];
@@ -56,6 +60,10 @@ export class DashboardComponent implements OnInit {
   
 
   ngOnInit() {    
+
+
+
+
     //pulling tasks from database
     this.taskService.fetchAll().subscribe(e=>{
       e.forEach(async element => {

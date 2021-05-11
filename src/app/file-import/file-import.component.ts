@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { login } from '../injectables';
 import { ControlsService } from '../services/controls.service';
 import { GapService } from '../services/gap.service';
 import { SharedService } from '../services/Shared';
@@ -20,7 +21,8 @@ export class FileImportComponent implements OnInit {
     public weaknessService : WeaknessesService,
     public standardsService : StandardsService,
     public sharedService : SharedService,
-    public gapService : GapService
+    public gapService : GapService,
+    private loginInfo : login
     ) { }
 
   ngOnInit(): void {
@@ -39,6 +41,7 @@ export class FileImportComponent implements OnInit {
            let csvData = reader.result
            let dataArray = String(csvData).replace("\r","").split('\n')
            console.log("dataArray : " , dataArray)
+           let CompanyName = this.loginInfo.CompanyName
             if (fileType == "Control"){
                     //TODO this part of code is bound to change at some point.
                     //whatever template we decide on for imports, just follow the pattern below to match it, Assign variables, then async + post
@@ -54,7 +57,7 @@ export class FileImportComponent implements OnInit {
                       let idOrgWeaknesses = entry[6].replace("\r","")    
 
                       await this.controlService
-                          .post({Nid, Cname, Coverview, Cissuedate, Csharedresources, Curl, idOrgWeaknesses}).toPromise()
+                          .post({Nid, Cname, Coverview, Cissuedate, Csharedresources, Curl, CompanyName, idOrgWeaknesses},this.loginInfo.CompanyName).toPromise()
                        }
             }
             if (fileType == "Weakness"){
@@ -82,8 +85,9 @@ export class FileImportComponent implements OnInit {
                       let WpointOfContact = entry[19]
                       let WresourceReq =    entry[20]
                       let WsupportingDoc =  entry[21]
+                      
                       await this.weaknessService
-                      .post({Nid , Wname, WdetectionDate, WvendorDependency, WriskRating, WriskAdjustment, WadjustedRiskRating, WdetectionSource, WcompletionDate, WremediationPlan, WautoApprove, WoperationReq, Wstatus, WassetID, WlastChange, Wdescription, WlastvendorCheck, WdeviationRationale, WfalsePositive, WpointOfContact, WresourceReq, WsupportingDoc }).toPromise()
+                      .post({Nid , Wname, WdetectionDate, WvendorDependency, WriskRating, WriskAdjustment, WadjustedRiskRating, WdetectionSource, WcompletionDate, WremediationPlan, WautoApprove, WoperationReq, Wstatus, WassetID, WlastChange, Wdescription, WlastvendorCheck, WdeviationRationale, WfalsePositive, WpointOfContact, WresourceReq, WsupportingDoc, CompanyName}, CompanyName).toPromise()
                    }
               }
             
@@ -95,7 +99,7 @@ export class FileImportComponent implements OnInit {
 
 
                       await this.standardsService
-                      .post({Nid , Standard}).toPromise()
+                      .post({Nid , Standard, CompanyName} ).toPromise()
                    }
             }
             if (fileType == "Gap Assessment"){
@@ -110,7 +114,7 @@ export class FileImportComponent implements OnInit {
               
 
                 await this.gapService
-                    .post({Nid, Ganswer, Gquestion, Gcomment, Gdate}).toPromise()
+                    .post({Nid, Ganswer, Gquestion, Gcomment, Gdate, CompanyName} ).toPromise()
                  }
             }
 

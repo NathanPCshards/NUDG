@@ -25,6 +25,7 @@ import {
 import { taskService } from '../services/task.service';
 import { tap } from 'rxjs/operators';
 import { SharedService } from '../services/Shared';
+import { login } from '../injectables';
 
 
 
@@ -103,10 +104,26 @@ export class CalendarComponent implements OnInit {
     constructor(
       private modal: NgbModal,
       private taskService : taskService,
-      private sharedService : SharedService) {
+      private sharedService : SharedService,
+      public loginInfo : login) {
   
     }
   ngOnInit(): void {
+
+    console.log("-----====== onInit ======-----")
+   
+    console.log(this.loginInfo.token)
+
+
+
+
+
+
+    console.log("-----====== Done ======-----")
+
+
+
+
     //Pull existing tasks from the database
     this.reloadData()
     this.setView(CalendarView.Month)

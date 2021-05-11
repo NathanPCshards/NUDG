@@ -33,10 +33,13 @@ import { IdentifierPageRoutingModule } from './identifier-page/identifier-page.r
 import { PolicyAccordionComponent } from './policy-accordion/policy-accordion.component';
 import { FileImportComponent } from './file-import/file-import.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { RegisterFormComponent } from './register-form/register-form.component';
 //https://angular.io/guide/router
 
 const routes: Routes = [
   { path: 'Home', component: LoginFormComponent },
+  { path: 'Register', component: RegisterFormComponent },
+
   { path: '', redirectTo: '/Home', pathMatch: 'full'},
   { path: 'Policies', component: PolicyBoardComponent },
   { path: 'Policies/:type', component: PolicyBoardComponent },

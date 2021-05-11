@@ -7,17 +7,18 @@
 
           <mat-form-field appearance="outline" color="primary" style="width: 90%;">
             <mat-label >Username</mat-label>
-            <input matInput id="Input" placeholder="Username">
+            <input #Username matInput id="Input" placeholder="Username">
             </mat-form-field>
   
             <br>
             <mat-form-field color="primary" appearance="outline" id="PasswordBox" style="width: 90%;">
             
             <mat-label>Password</mat-label>
-            <input matInput placeholder="Password" >
+            <input #password matInput placeholder="Password" >
           </mat-form-field>
           <!-- (click) = "onFormSubmit()" -->
-            <button mat-raised-button  type="Submit" color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Submit</button>
+            <button mat-raised-button   (click)="login(Username.value, password.value)"   color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Login</button>
+            <button mat-raised-button   routerLink="/Register" routerLinkActive="active" color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Register</button>
             <button mat-raised-button routerLink="/Dashboard" routerLinkActive="active" color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Skip Login</button>
       </div>
 

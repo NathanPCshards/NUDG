@@ -9,6 +9,7 @@ import { ControlModule } from '../control-form/control.module';
 import { PolicyAccordionModule } from '../policy-accordion/policy-accordion.module';
 import { fileImportModule } from '../file-import/file-import.module';
 import { myCalendarModule } from '../calendar/calendar.module';
+import { login } from '../injectables';
 
  
 
@@ -26,11 +27,11 @@ import { myCalendarModule } from '../calendar/calendar.module';
   ],
   declarations: [
     IdentifierPageComponent,
-    
 
-
-
-
+  ]
+  ,
+  providers : [
+    login
   ]
 })
 export class IdentifierPageModule {}
