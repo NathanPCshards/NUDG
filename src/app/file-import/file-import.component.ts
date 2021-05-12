@@ -2,8 +2,8 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { login } from '../injectables';
 import { ControlsService } from '../services/controls.service';
 import { GapService } from '../services/gap.service';
+import { restAPI } from '../services/restAPI.service';
 import { SharedService } from '../services/Shared';
-import { StandardsService } from '../services/standards.service';
 import { WeaknessesService } from '../services/weaknesses.service';
 
 @Component({
@@ -19,9 +19,9 @@ export class FileImportComponent implements OnInit {
   constructor(    
     public controlService : ControlsService,
     public weaknessService : WeaknessesService,
-    public standardsService : StandardsService,
     public sharedService : SharedService,
     public gapService : GapService,
+    private rest_service : restAPI,
     private loginInfo : login
     ) { }
 
@@ -98,8 +98,8 @@ export class FileImportComponent implements OnInit {
                       let Standard = entry[1]
 
 
-                      await this.standardsService
-                      .post({Nid , Standard, CompanyName} ).toPromise()
+                      await this.rest_service.post(`http://localhost:3000/standards/${Nid}/${this.loginInfo.CompanyName}`,this.loginInfo.CompanyName).toPromise()
+
                    }
             }
             if (fileType == "Gap Assessment"){

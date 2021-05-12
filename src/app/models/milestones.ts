@@ -6,4 +6,5 @@ MstatusDate : string;
 McompletionDate : string;
 Mchanges : string;
 idOrgWeaknesses: number;
+CompanyName : string;
 }

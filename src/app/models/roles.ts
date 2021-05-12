@@ -4,4 +4,6 @@ export interface roles {
     Rroletype : string;
     Rdescription : string;
     URGusers : number;
+    CompanyName : string;
+
  }

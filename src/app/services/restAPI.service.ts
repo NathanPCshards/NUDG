@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders} from "@angular/common/http";
 import { ErrorHandler, Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { catchError, publish, tap } from "rxjs/operators";
+import { login } from "../injectables";
 import { cuicontracts } from "../models/cuicontracts";
 
 import { ErrorHandlerService } from "./error-handler.service";
@@ -16,10 +17,10 @@ httpOptions: { headers: HttpHeaders } = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
 };
 
-  constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient) {
+  constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient,private loginInfo : login) {
    }
 
-   get(url, CompanyName): Observable<any> {
+   get(url): Observable<any> {
     console.log("Get called @ ", url)
     return this.http
       .get<any>(url, { responseType: "json" })
@@ -46,7 +47,7 @@ httpOptions: { headers: HttpHeaders } = {
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
   }
 
-  delete(url,CompanyName): Observable<any> {
+  delete(url): Observable<any> {
     console.log("Delete called @ ", url)
 
 

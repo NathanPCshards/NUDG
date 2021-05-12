@@ -7,4 +7,6 @@ export interface groups {
     UGRusers : number;
     GNSra : number;
     GNSwa : number;
+    CompanyName : string;
+
  }

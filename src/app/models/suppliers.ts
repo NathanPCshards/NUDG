@@ -16,4 +16,6 @@ export interface suppliers {
     SNISTauditAgency : string;
     tSNISTauditorInfo : string;
     SNISTauditDate : string;
+    CompanyName : string;
+
  }

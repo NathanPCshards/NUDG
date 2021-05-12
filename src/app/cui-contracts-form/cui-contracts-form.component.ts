@@ -2,13 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { login } from '../injectables';
 import { cuicontracts } from '../models/cuicontracts';
 import { suppliers } from '../models/suppliers';
 import { CuicontractsService } from '../services/cuicontracts.service';
 import { inventoryService } from '../services/inventory.service';
 import { SuppliersService } from '../services/suppliers.service';
 import { UserServiceService } from '../services/user-service.service';
-import { VendorsService } from '../services/vendors.service';
 
 
 @Component({
@@ -25,6 +25,7 @@ export class CuiContractsFormComponent implements OnInit {
   vendors$;
 
   panelOpenState = false;
+  rest_service: any;
 
 
 
@@ -32,8 +33,8 @@ export class CuiContractsFormComponent implements OnInit {
     private cuicontractsService : CuicontractsService,
     private userService : UserServiceService,
     private supplierService : SuppliersService,
-    private vendorsService : VendorsService,
     private inventoryService : inventoryService,
+    private loginInfo : login
 
     ){
     
@@ -44,7 +45,7 @@ export class CuiContractsFormComponent implements OnInit {
     this.users$ = this.userService.fetchAll();
     this.inventories$ = this.inventoryService.fetchAll();
     this.suppliers$ = this.supplierService.fetchAll();
-    this.vendors$ = this.vendorsService.fetchAll();
+    this.vendors$ = this.rest_service.get(`http://localhost:3000/vendors/${this.loginInfo.CompanyName}`,this.loginInfo.CompanyName);
   }
 
   fetchAll(): Observable<cuicontracts[]> {

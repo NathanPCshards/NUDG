@@ -4,8 +4,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith, tap } from 'rxjs/operators';
+import { login } from '../injectables';
 import { gap } from '../models/gap';
 import { GapService } from '../services/gap.service';
+
+import { restAPI } from '../services/restAPI.service';
 import { SharedService } from '../services/Shared';
 
 @Component({
@@ -74,10 +77,12 @@ export class GapForm implements OnInit{
     constructor(
     private http:HttpClient, 
     private formBuilder: FormBuilder,
-    public gapservice : GapService,
+    private gapservice : GapService,
     private route: ActivatedRoute,
+    private loginInfo : login,
     public router: Router,
-    public sharedService: SharedService
+    public sharedService: SharedService,
+    private rest_service: restAPI
     ) { }
   
   ngOnInit(){
@@ -99,8 +104,8 @@ export class GapForm implements OnInit{
     }
 
     //Initializing unique lists (Used for dropdown displays)
-    this.uniqueNidList$= this.gapservice.getUniqueNids();
-    this.uniqueDateList$ = this.gapservice.getUniqueDates()
+    this.uniqueNidList$= this.rest_service.get(`http://localhost:3000/gap/${'None'}/${this.loginInfo.CompanyName}/?getUniqueNids=${true}`)
+    this.uniqueDateList$ = this.rest_service.get(`http://localhost:3000/gap/${'None'}/${this.loginInfo.CompanyName}/?getUniqueDates=${true}`)
 
     //Applying Filters
     this.dateFilter$ = this.dateForm.get('DateFilterList')!.valueChanges
@@ -218,12 +223,22 @@ export class GapForm implements OnInit{
   }
 
   fetchAllGap(Nid:any, Gdate: any): Observable<gap[]> {
-    return this.gapservice.fetchAll(Nid,Gdate);
+    let tempUrl;
+    if (Gdate != "") {
+      //if date is given
+      tempUrl = `http://localhost:3000/gap/${Nid}/${this.loginInfo.CompanyName}/?Gdate=${Gdate}`
+    }
+    else{
+      tempUrl = `http://localhost:3000/gap/${Nid}/${this.loginInfo.CompanyName}`
+    }
+    return this.rest_service.get(tempUrl);
   }
 
   delete(id: any): void {
-      this.gap$ = this.gapservice
-      .delete(id)    
+    let tempUrl = `http://localhost:3000/gap/${id}/${this.loginInfo.CompanyName}`
+    let sub = this.rest_service.delete(tempUrl)
+    sub.subscribe()
+    //  this.gap$ = this.rest_service.delete(id)    
   }
 
 
@@ -329,6 +344,7 @@ export class GapForm implements OnInit{
       Gquestion : "",
       Ganswer : "",
       Gcomment : "",
+      CompanyName : this.loginInfo.CompanyName
   }
     this.displayList$.push(temp)
   }
@@ -345,7 +361,7 @@ export class GapForm implements OnInit{
 
     });
 
-
+    console.log("display list for gap : " , this.displayList$)
   }
   public addDate(){
     console.log("add date")
@@ -355,6 +371,7 @@ export class GapForm implements OnInit{
       Gquestion : "",
       Ganswer : "",
       Gcomment : "",
+      CompanyName : this.loginInfo.CompanyName
   }
   this.gapservice.emit(temp)
   }

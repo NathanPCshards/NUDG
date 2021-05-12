@@ -3,8 +3,8 @@ import { tap } from 'rxjs/operators';
 import { login } from './injectables';
 import { ControlsService } from './services/controls.service';
 import { GapService } from './services/gap.service';
+import { restAPI } from './services/restAPI.service';
 import { SharedService } from './services/Shared';
-import { StandardsService } from './services/standards.service';
 import { WeaknessesService } from './services/weaknesses.service';
 
 @Directive({
@@ -19,7 +19,7 @@ fileType;
   constructor(    
     public controlService : ControlsService,
     public weaknessService : WeaknessesService,
-    public standardsService : StandardsService,
+    private rest_service : restAPI,
     public sharedService : SharedService,
     public gapService : GapService,
     public loginInfo : login) { }
@@ -107,8 +107,9 @@ fileType;
                       let Standard = entry[1]
 
 
-                      await this.standardsService
-                      .post({Nid , Standard}).toPromise()
+                      await this.rest_service.post(`http://localhost:3000/standards/${Nid}/${this.loginInfo.CompanyName}`,this.loginInfo.CompanyName).toPromise()
+
+
                    }
             }
             if (this.fileType == "Gap Assessment"){

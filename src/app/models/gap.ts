@@ -6,5 +6,7 @@ export interface gap {
     Gcomment : string;
     Gdate : string;
     Greference : string;
+    CompanyName : string;
+
 
  }

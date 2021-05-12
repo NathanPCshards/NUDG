@@ -9,7 +9,6 @@ import { standards } from '../models/standards';
 import { weaknesses } from '../models/weaknesses';
 import { ControlsService } from '../services/controls.service';
 import { SharedService } from '../services/Shared';
-import { StandardsService } from '../services/standards.service';
 import { WeaknessesService } from '../services/weaknesses.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { PolicyAccordionService } from '../services/policy-accordion.service';
@@ -19,9 +18,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MilestoneFormComponent } from '../milestone-form/milestone-form.component';
 import { ProcedureFormComponent } from '../procedure-form/procedure-form.component';
 import { policy } from '../models/policy';
-import { PolicyService } from '../services/policy.service';
 import { GuidelinesService } from '../services/guidelines.service';
-import { guidelinesDialog } from '../guidelines-page/guidelines-page.component';
 import { GapService } from '../services/gap.service';
 import { gap } from '../models/gap';
 import { login } from '../injectables';
@@ -113,8 +110,6 @@ export class IdentifierPageComponent implements OnInit {
     private service:PolicyAccordionService,
     private weaknessservice: WeaknessesService,
     private controlsservice: ControlsService,
-    private standardsservice: StandardsService,
-    private policyService : PolicyService,
     private guidelinesService: GuidelinesService,
     private gapservice : GapService,
     private activatedRoute : ActivatedRoute,
@@ -128,17 +123,9 @@ export class IdentifierPageComponent implements OnInit {
     ) { }
 
   ngOnInit(){
-    console.log("-----====== onInit ======-----")
 
-    console.log(this.loginInfo.CompanyName)
-
-    console.log("-----====== Done ======-----")
-
-
-
-
-    this.uniqueNidList$= this.policyService.getUniqueNids();
-
+    //getting unique Nudg Id's
+    this.uniqueNidList$ = this.rest_service.get(`http://localhost:3000/Policy/${this.id}/${this.loginInfo.CompanyName}/?getUniqueNids=${true}`);
     this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
     .pipe(
       startWith(''),
@@ -162,7 +149,7 @@ export class IdentifierPageComponent implements OnInit {
 
     //Sets defualt page to be AC-N.01
     this.id ? true : this.id = "AC-N.01"
-    this.Gdate$ ? true : this.Gdate$ = "4/16/2021"
+    this.Gdate$ ? true : this.Gdate$ = "1/1/2021"
     //POLICY STUFF
     this.policy$ = this.fetchPolicy(this.id);
 
@@ -203,10 +190,10 @@ export class IdentifierPageComponent implements OnInit {
     //WEAKNESSES STUFF
     this.weaknesses$ = this.fetchAllWeaknesses(this.id);
     this.weaknessservice.onClick.subscribe(data =>{
-
-      this.weaknesses$ = this.weaknessservice
-      .post(data, this.loginInfo.CompanyName)
+      this.weaknesses$ = this.rest_service.post(`http://localhost:3000/weaknesses/${this.id}/${this.loginInfo.CompanyName}`,data)
       .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses(this.id))));
+      
+
   
       
   });
@@ -215,6 +202,7 @@ export class IdentifierPageComponent implements OnInit {
 
    //GAP STUFF
    //TODO Idea for later, sort dates chronologically and defualt to most recent date
+
     this.gap$ = this.fetchAllGap(this.id, this.Gdate$);
     this.gap$.forEach(element => {
       this.gapList$ = []
@@ -223,6 +211,7 @@ export class IdentifierPageComponent implements OnInit {
       });
     });
 
+    //This block below handles most of the gap interactions with the database
     this.gapservice.onClick.subscribe(async incomingData=>{
       //the optional param is added when NewDate is toggled on the Gap component
       //its defualt is false, if nothing is given. This makes sure new dates are 
@@ -284,12 +273,44 @@ export class IdentifierPageComponent implements OnInit {
     
   }
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   fetchPolicy(id): Observable<policy[]> {
-    return this.policyService.fetchAll(id);
+    return this.rest_service.get(`http://localhost:3000/policy/${id}/${this.loginInfo.CompanyName}`);
   }
   
   fetchAllGap(Nid:any, Gdate:any): Observable<gap[]> {
-    return this.gapservice.fetchAll(Nid, Gdate);
+    let tempUrl  = ""
+    if (Gdate != "") {
+       tempUrl = `http://localhost:3000/gap/${this.id}/${this.loginInfo.CompanyName}/?Gdate=${Gdate}`
+    }
+    else{
+       tempUrl = `http://localhost:3000/gap/${this.id}/${this.loginInfo.CompanyName}`
+    }
+
+    return this.rest_service.get(tempUrl);
   }
 
 
@@ -302,27 +323,22 @@ export class IdentifierPageComponent implements OnInit {
 
 
 
-
+    //id is the control id that is clicked, this.id is the Nid of the page
   fetchAllControls(Nid:any): Observable<controls[]> {
     let CompanyName = this.loginInfo.CompanyName
 
-    return this.rest_service.get(`http://localhost:3000/controls/${Nid}/${CompanyName}`,CompanyName);
+    return this.rest_service.get(`http://localhost:3000/controls/${Nid}/${CompanyName}`);
   }
   updateControls(id: number, inventoryItem: Partial<controls>): void {
-    //this.controls$ = this.controlsService
-     // .update(newUsers)
-    //  .pipe(tap(() => (this.controls$ = this.fetchAll())));
+
   }
   deleteControls(id: any): void {
+
     let CompanyName = this.loginInfo.CompanyName
 
-    this.rest_service.delete(`http://localhost:3000/controls/${id}/${CompanyName}`, CompanyName)
-  
-
-
-    this.controls$ = this.controlsservice
-      .delete(id, this.loginInfo.CompanyName)
-      .pipe(tap(() => (this.controls$ = this.fetchAllControls(this.id))));
+    let temp = this.rest_service.delete(`http://localhost:3000/controls/${id}/${CompanyName}`)
+    .pipe(tap(() => (this.controls$ = this.fetchAllControls(this.id))));
+    temp.subscribe()
       
   }
   
@@ -384,28 +400,29 @@ export class IdentifierPageComponent implements OnInit {
 
   
   fetchAllStandards(): Observable<standards[]> {
-    return this.standardsservice.fetchAll(this.id);
+    return this.rest_service.get(`http://localhost:3000/standards/${this.id}/${this.loginInfo.CompanyName}`)
   }
-  postStandards(standardEntry: Partial<standards>): void {
+  async postStandards(standardEntry: Partial<standards>): Promise<void> {
+
     const Standard = (<string>standardEntry).trim();
     if (!Standard) return;
-  
-    this.standards$ = this.standardsservice
-      .post({ Standard })
-      .pipe(tap(() => (this.standards$ = this.fetchAllStandards())));
+
+
+    let temp = await this.rest_service.post(`http://localhost:3000/standards/${this.id}/${this.loginInfo.CompanyName}`,this.loginInfo.CompanyName)
+    .pipe(tap(() => (this.standards$ = this.fetchAllStandards())));
+    temp.subscribe()
   }
   updateStandards(id: number, inventoryItem: Partial<standards>): void {
-  /*
-    this.standards$ = this.standardsService
-      .update(newUsers)
-      .pipe(tap(() => (this.standards$ = this.fetchAll())));*/
+
   }
 
-  deleteStandards(id: any): void {
-    this.standards$ = this.standardsservice
-      .delete(id)
-      .pipe(tap(() => (this.standards$ = this.fetchAllStandards())));
-      
+  async deleteStandards(id: any): Promise<void> {
+
+
+    let temp = await this.rest_service.delete(`http://localhost:3000/standards/${id}/${this.loginInfo.CompanyName}`)
+    .pipe(tap(() => (this.standards$ = this.fetchAllStandards())));
+    temp.subscribe()
+     
   }
 
 
@@ -440,7 +457,7 @@ export class IdentifierPageComponent implements OnInit {
 
     if (event.distance.x < -300 && event.container.id == "controlDrop") {
       this.weaknesses$ = this.weaknessservice
-      .patch({Nid, WcompletionDate, Wstatus, idOrgWeaknesses })
+      .patch({Nid, WcompletionDate, Wstatus, idOrgWeaknesses },this.loginInfo.CompanyName)
       .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses(this.id))));
 
     } else {
@@ -475,7 +492,6 @@ export class IdentifierPageComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
 
-    //  console.log(result);//returns undefined
     });
 
 
@@ -492,7 +508,6 @@ export class IdentifierPageComponent implements OnInit {
 
     });
     dialogRef.afterClosed().subscribe(result => {
-     // console.log(result);//returns undefined
     });
   }
 

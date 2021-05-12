@@ -26,4 +26,6 @@ export interface Users {
     UGRgroups : number;
     UGRroles : number;
     Iassetidentifier : number; 
+    CompanyName : string;
+
 }

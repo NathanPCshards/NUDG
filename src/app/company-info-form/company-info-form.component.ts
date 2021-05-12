@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { login } from '../injectables';
 import { companyInfo } from '../models/companyInfo';
-import { CompanyInfoService } from '../services/company-info.service';
 import { restAPI } from '../services/restAPI.service';
 import { UserServiceService } from '../services/user-service.service';
 
@@ -20,10 +19,8 @@ export class CompanyInfoFormComponent {
   panelOpenState = false;
   companies$: Observable<companyInfo[]>;
   Users$;
-  temp$;
 
   constructor(  
-    private companyInfoService: CompanyInfoService,
     private usersService : UserServiceService,
     private rest_service : restAPI,
     private loginInfo : login
@@ -33,61 +30,40 @@ export class CompanyInfoFormComponent {
   ngOnInit(){
     this.companies$ = this.fetchAll();
     this.Users$ = this.usersService.fetchAll();
-
     this.companies$.subscribe()
-    
-    console.log("login info : " , this.loginInfo.CompanyName)
+
 
   }
 
   fetchAll(): Observable<companyInfo[]> {
 
-    let CompanyName = this.loginInfo.CompanyName
-
-    return this.rest_service.get(`http://localhost:3000/CompanyInfo/${CompanyName}`,CompanyName);
+    return this.rest_service.get(`http://localhost:3000/CompanyInfo/${this.loginInfo.CompanyName}`);
   }
 
   async post(CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber): Promise<void> {
-    let data = {CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber, CompanyName : this.loginInfo.CompanyName}
+ 
+   let data = {CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber, CompanyName : this.loginInfo.CompanyName}
 
-   this.temp$ = await this.rest_service.post(`http://localhost:3000/CompanyInfo/${this.loginInfo.CompanyName}`,data)
-   this.temp$.subscribe()
-   this.fetchAll()
-
-
+   let temp = await this.rest_service.post(`http://localhost:3000/CompanyInfo/${this.loginInfo.CompanyName}`,data)
+   .pipe(tap(() => (this.companies$ = this.fetchAll())));
+   temp.subscribe()
   }
 
 
   async update(CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber, idCompanyInfo): Promise<void> {
     let data = {CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber, idCompanyInfo, CompanyName : this.loginInfo.CompanyName}
   
-    this.temp$ = await this.rest_service.update(`http://localhost:3000/CompanyInfo/${this.loginInfo.CompanyName}`, data)
-    this.temp$.subscribe().then(e=>{
-      console.log("test")
-      this.fetchAll()
-
-    })
-
-  /*
-    this.companies$ = this.companyInfoService
-     // .update()
-      .pipe(tap(() => (this.companies$ = this.fetchAll())));*/
+    let temp  = await this.rest_service.update(`http://localhost:3000/CompanyInfo/${this.loginInfo.CompanyName}`, data)
+    .pipe(tap(() => (this.companies$ = this.fetchAll())));
+     temp.subscribe()
   }
 
 
-  async delete(idCompanyInfo: any): Promise<void> {
+    delete(idCompanyInfo: any) {
 
-    this.temp$ = await this.rest_service.delete(`http://localhost:3000/CompanyInfo/${idCompanyInfo}/${this.loginInfo.CompanyName}`,this.loginInfo.CompanyName)
-    .pipe(
-      tap((_) => this.fetchAll()),
-    )
-
-
-    /*
-    this.companies$ = this.companyInfoService
-      .delete(idCompanyInfo)
-      .pipe(tap(() => (this.companies$ = this.fetchAll())));*/
-      
+      let temp = this.rest_service.delete(`http://localhost:3000/CompanyInfo/${idCompanyInfo}/${this.loginInfo.CompanyName}`)
+     .pipe(tap(() => (this.companies$ = this.fetchAll())));
+     temp.subscribe()
   }
 
 

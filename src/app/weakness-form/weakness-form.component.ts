@@ -10,9 +10,8 @@ import {catchError, map, startWith, switchMap, tap} from 'rxjs/operators';
 import { login } from '../injectables';
 import { weaknesses } from '../models/weaknesses';
 import { inventoryService } from '../services/inventory.service';
+import { restAPI } from '../services/restAPI.service';
 import { SharedService } from '../services/Shared';
-import { StandardsService } from '../services/standards.service';
-import { VendorsService } from '../services/vendors.service';
 import { WeaknessesService } from '../services/weaknesses.service';
 
 
@@ -49,7 +48,9 @@ export class WeaknessFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
     public weaknessservice : WeaknessesService,
-    private loginInfo : login
+    private loginInfo : login,
+ 
+
     ){
     
   }
@@ -67,6 +68,7 @@ export class WeaknessFormComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       console.log("result : " , result);
+  
       this.weaknesses$ = this.weaknessservice
       .post(result,this.loginInfo.CompanyName)
      // .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));
@@ -99,6 +101,8 @@ export class WeaknessFormComponent implements OnInit {
 
 
 
+
+//this is the component you see in policy page
 @Component({
   selector: 'weakness-dialog',
   templateUrl: 'weaknessForm.html',
@@ -121,17 +125,16 @@ assetIdentifiers$
     @Optional() private dialogRef : MatDialogRef<weaknessDialog>,
     @Inject(MAT_DIALOG_DATA) public data : any,
     public weaknessservice : WeaknessesService,
-    private standardservice : StandardsService,
-    private vendorservice : VendorsService,
+    private rest_service : restAPI,
     private inventoryService : inventoryService,
     private loginInfo : login
     ) { }
 
 ngOnInit(){
   //Getting standards
-  this.standards$ = this.standardservice.fetchAll(this.id$)
+  this.standards$ = this.rest_service.get(this.id$)
   //Getting vendor's products
-  this.vendorsProducts$ = this.vendorservice.fetchAll()
+  this.vendorsProducts$ = this.rest_service.get(`http://localhost:3000/vendors/${this.loginInfo.CompanyName}`);
   //Getting Asset Identifier from inventory 
   this.assetIdentifiers$ = this.inventoryService.fetchAll()
 
@@ -147,7 +150,7 @@ this.submitted = false;
 
 }
 
-closeDialog(Nid , Wname, WdetectionDate, WvendorDependency, WriskRating, WriskAdjustment, WadjustedRiskRating, WdetectionSource, WcompletionDate, WremediationPlan, WautoApprove, WoperationReq, Wstatus, WassetID, WlastChange, Wdescription, WlastvendorCheck, WdeviationRationale, WfalsePositive, WpointOfContact, WresourceReq, WsupportingDoc ){
+closeDialog(Nid , Wname, WdetectionDate, WvendorDependency, WriskRating, WriskAdjustment, WadjustedRiskRating, WdetectionSource, WcompletionDate, WremediationPlan, WautoApprove, WoperationReq, Wstatus, WassetID, WlastChange, Wdescription, WlastVendorCheck, WdeviationRationale, WfalsePositive, WpointOfContact, WresourceReq, WsupportingDoc ){
   this.data.Nid = this.id$
   this.data.Wname = Wname;
   this.data.WdetectionDate = WdetectionDate;
@@ -164,7 +167,7 @@ closeDialog(Nid , Wname, WdetectionDate, WvendorDependency, WriskRating, WriskAd
   this.data.WassetID = WassetID;
   this.data.WlastChange = WlastChange;
   this.data.Wdescription = Wdescription;
-  this.data.WlastvendorCheck = WlastvendorCheck;
+  this.data.WlastVendorCheck = WlastVendorCheck;
   this.data.WdeviationRationale = WdeviationRationale;
   this.data.WfalsePositive = WfalsePositive;
   this.data.WpointOfContact = WpointOfContact;

@@ -9,4 +9,6 @@ export interface cuicontracts {
     CCaccountManager : number;
     CCsupplierRelation : number;
     CCvendorRelation : number;
+    CompanyName : string;
+
  }

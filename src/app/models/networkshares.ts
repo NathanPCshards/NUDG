@@ -10,4 +10,6 @@ export interface networkshares {
     GWA : number; 
     URA : number;
     UWA : number; 
+    CompanyName : string;
+
  }

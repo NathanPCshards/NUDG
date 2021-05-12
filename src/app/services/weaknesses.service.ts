@@ -11,7 +11,7 @@ import { ErrorHandlerService } from "./error-handler.service";
 })
 export class WeaknessesService {
 //url must match route in the app.use(...) in index.js
-private url = "http://localhost:3000/weaknesses"
+
 
 onClick = new EventEmitter();
 
@@ -33,7 +33,7 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
   //Get Requests
    fetchAll(id: any = null, CompanyName): Observable<weaknesses[]> {
      let tempUrl;
-     id ? tempUrl = `http://localhost:3000/weaknesses/${id}${CompanyName}`: tempUrl = "http://localhost:3000/weaknesses"
+     id ? tempUrl = `http://localhost:3000/weaknesses/${id}/${CompanyName}`: tempUrl = "http://localhost:3000/weaknesses"
      console.log("weaknesses url : ", tempUrl)
 
     return this.http
@@ -49,24 +49,25 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
   //Post Requests
   post(item: any, CompanyName : any): Observable<any> {
     console.log("post weaknesses", item, CompanyName);
-
+    let url  = `http://localhost:3000/weaknesses/${item.Nid}/${CompanyName}`
     return this.http
-      .post(this.url, item)
+      .post(url, item)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
   //Put Requests
-  update(item: any): Observable<any> {
+  update(item: any, CompanyName : any): Observable<any> {
     console.log("update weaknesses", item);
+    let url  = `http://localhost:3000/weaknesses/${item.Nid}/${CompanyName}`
 
     return this.http
-      .put<weaknesses>(this.url, item, this.httpOptions)
+      .put<weaknesses>(url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
   }
 
   //Delete Requests
   delete(id: number, CompanyName): Observable<any> {
-    const url = `http://localhost:3000/weaknesses/${id}${CompanyName}`;
+    const url = `http://localhost:3000/weaknesses/${id}/${CompanyName}`;
     console.log("delete weaknesses")
 
 
@@ -76,9 +77,9 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
   }
 
   //Patch Requests
-  patch(item: any): Observable<any> {
+  patch(item: any, CompanyName): Observable<any> {
     let tempUrl;
-    tempUrl = `http://localhost:3000/weaknesses/${item.Nid}`
+    tempUrl = `http://localhost:3000/weaknesses/${item.Nid}/${CompanyName}`
     console.log("patch weaknesses", item);
     console.log("url : " , tempUrl)
 

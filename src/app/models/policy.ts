@@ -16,6 +16,8 @@ export interface policy {
     idStandards : number;
     idWeaknesses : number;
     idControls : number;
+    CompanyName : string;
+
  }
 
 

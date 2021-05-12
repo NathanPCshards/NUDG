@@ -26,4 +26,6 @@ export interface weaknesses {
     WsupportingDoc : string;
     Milestones : number;
     idOrgControls : number;
+    CompanyName : string;
+
  }

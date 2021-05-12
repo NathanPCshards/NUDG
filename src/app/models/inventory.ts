@@ -23,4 +23,6 @@ export interface inventories {
     IsystemAdmin : string;
     Iapplication : string;
     IsoftwareApproval : string;
+    CompanyName : string;
+
 }

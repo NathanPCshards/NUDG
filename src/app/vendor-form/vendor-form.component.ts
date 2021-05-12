@@ -7,8 +7,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { login } from '../injectables';
 import { vendors } from '../models/vendors';
-import { VendorsService } from '../services/vendors.service';
+import { restAPI } from '../services/restAPI.service';
 
 
 
@@ -29,7 +30,9 @@ export class VendorFormComponent implements OnInit {
   vendors$: Observable<vendors[]>;
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder, 
-    public dialog: MatDialog, private vendorsService : VendorsService){
+    public dialog: MatDialog, 
+    private rest_service : restAPI,
+    private loginInfo : login){
     
   }
 
@@ -50,37 +53,36 @@ export class VendorFormComponent implements OnInit {
   
   }
   fetchAll(): Observable<vendors[]> {
-    return this.vendorsService.fetchAll();
+    return this.rest_service.get(`http://localhost:3000/vendors/${this.loginInfo.CompanyName}`);
   }
   
-  post(Vname, Vproduct, Vaddress, Vwebsite, VtechnicalPOCinfo, VDUNSnum, Vcagecode, VbusinessType, VSBAcertified, VcontractualPOCinfo, VcmmcAuditAgency, VcmmcAuditorInfo, VcmmcAuditDate, VNISTauditAgency, VNISTauditorInfo, VNISTauditDate): void {
-  
-    this.vendors$ = this.vendorsService
-      .post({ Vname, Vproduct, Vaddress, Vwebsite, VtechnicalPOCinfo, VDUNSnum, Vcagecode, VbusinessType, VSBAcertified, VcontractualPOCinfo, VcmmcAuditAgency, VcmmcAuditorInfo, VcmmcAuditDate, VNISTauditAgency, VNISTauditorInfo, VNISTauditDate })
-      .pipe(tap(() => (this.vendors$ = this.fetchAll())));
+  async post(Vname, Vproduct, Vaddress, Vwebsite, VtechnicalPOCinfo, VDUNSnum, Vcagecode, VbusinessType, VSBAcertified, VcontractualPOCinfo, VcmmcAuditAgency, VcmmcAuditorInfo, VcmmcAuditDate, VNISTauditAgency, VNISTauditorInfo, VNISTauditDate): Promise<void> {
+
+    let data = {Vname, Vproduct, Vaddress, Vwebsite, VtechnicalPOCinfo, VDUNSnum, Vcagecode, VbusinessType, VSBAcertified, VcontractualPOCinfo, VcmmcAuditAgency, VcmmcAuditorInfo, VcmmcAuditDate, VNISTauditAgency, VNISTauditorInfo, VNISTauditDate, CompanyName : this.loginInfo.CompanyName}
+
+    let temp = await this.rest_service.post(`http://localhost:3000/vendors/${this.loginInfo.CompanyName}`,data)
+    .pipe(tap(() => (this.vendors$ = this.fetchAll())));
+    temp.subscribe()
+
       
   }
   
   
-  update(Vname, Vproduct, Vaddress, Vwebsite, VtechnicalPOCinfo, VDUNSnum, Vcagecode, VbusinessType, VSBAcertified, VcontractualPOCinfo, VcmmcAuditAgency, VcmmcAuditorInfo, VcmmcAuditDate, VNISTauditAgency, VNISTauditorInfo, VNISTauditDate, idVendors): void {
+  async update(Vname, Vproduct, Vaddress, Vwebsite, VtechnicalPOCinfo, VDUNSnum, Vcagecode, VbusinessType, VSBAcertified, VcontractualPOCinfo, VcmmcAuditAgency, VcmmcAuditorInfo, VcmmcAuditDate, VNISTauditAgency, VNISTauditorInfo, VNISTauditDate, idVendors): Promise<void> {  
+    let data = {Vname, Vproduct, Vaddress, Vwebsite, VtechnicalPOCinfo, VDUNSnum, Vcagecode, VbusinessType, VSBAcertified, VcontractualPOCinfo, VcmmcAuditAgency, VcmmcAuditorInfo, VcmmcAuditDate, VNISTauditAgency, VNISTauditorInfo, VNISTauditDate, idVendors, CompanyName : this.loginInfo.CompanyName}
 
-  
+    let temp = await this.rest_service.update(`http://localhost:3000/vendors/${this.loginInfo.CompanyName}`,data)
+    .pipe(tap(() => (this.vendors$ = this.fetchAll())));
+    temp.subscribe()
 
-  
-    this.vendors$ = this.vendorsService
-      .update({Vname, Vproduct, Vaddress, Vwebsite, VtechnicalPOCinfo, VDUNSnum, Vcagecode, VbusinessType, VSBAcertified, VcontractualPOCinfo, VcmmcAuditAgency, VcmmcAuditorInfo, VcmmcAuditDate, VNISTauditAgency, VNISTauditorInfo, VNISTauditDate, idVendors})
-      .pipe(tap(() => (this.vendors$ = this.fetchAll())));
   }
   
   
   delete(id: any): void {
     console.log("attempting to delete id : " , id)
-   // iduseru = 15
-   // console.log("attempting to delete id : " , iduseru)
-  
-    this.vendors$ = this.vendorsService
-      .delete(id)
-      .pipe(tap(() => (this.vendors$ = this.fetchAll())));
+    let temp = this.rest_service.delete(`http://localhost:3000/CompanyInfo/${id}/${this.loginInfo.CompanyName}`)
+     .pipe(tap(() => (this.vendors$ = this.fetchAll())));
+     temp.subscribe()
       
   }
   

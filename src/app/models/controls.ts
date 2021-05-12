@@ -9,4 +9,6 @@ export interface controls {
     Curl : string;
     CProcedure : number;
     idOrgWeaknesses: number;
+    CompanyName : string;
+
  }

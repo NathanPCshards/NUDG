@@ -7,9 +7,9 @@ import { tap } from 'rxjs/operators';
 import { login } from '../injectables';
 import { controls } from '../models/controls';
 import { ControlsService } from '../services/controls.service';
+import { restAPI } from '../services/restAPI.service';
 import { SharedService } from '../services/Shared';
 import { SharedResourcesService } from '../services/shared-resources.service';
-import { StandardsService } from '../services/standards.service';
 import { WeaknessesService } from '../services/weaknesses.service';
 import { weaknessDialog } from '../weakness-form/weakness-form.component';
 
@@ -37,11 +37,8 @@ export class ControlFormComponent implements OnInit {
     }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log("result : " , result);
       this.controls$ = this.controlssservice
       .post(result, this.loginInfo.CompanyName)
-    // .pipe(tap(() => (this.controls$ = this.fetchAll())));
     });
 
   }
@@ -92,15 +89,17 @@ constructor(
   @Optional() private dialogRef : MatDialogRef<weaknessDialog>,
   @Inject(MAT_DIALOG_DATA) public data : any,
   public controlsservice : ControlsService,
-  public standardservice : StandardsService,
   public sharedResourceService : SharedResourcesService,
   public weaknessService : WeaknessesService,
+  public rest_service : restAPI,
   public loginInfo : login
   ) { }
 
 ngOnInit(){
   //Getting standards
-  this.standards$ = this.standardservice.fetchAll(this.id$)
+
+  this.standards$ =  this.rest_service.get(`http://localhost:3000/standards/${this.id$}/${this.loginInfo.CompanyName}`)
+
   this.displayStandards$ = []
   this.standards$.forEach(standardarray => {
     standardarray.forEach(standard => {
@@ -108,7 +107,7 @@ ngOnInit(){
     });
   });
   //Getting resources
-  this.resources$ = this.sharedResourceService.fetchAll()
+  this.resources$ = this.rest_service.get(`http://localhost:3000/sharedResources`)
   this.displayResources$ = []
   this.resources$.forEach(resourcesArray => {
     resourcesArray.forEach(resource => {

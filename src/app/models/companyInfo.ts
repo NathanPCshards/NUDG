@@ -19,5 +19,6 @@ export interface companyInfo {
      CINISTauditorDate : Date;
      CInumber : number;
      CIcagecode : string;
+     CompanyName : string;
 
  }

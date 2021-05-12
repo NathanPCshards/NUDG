@@ -16,4 +16,6 @@ export interface vendors {
     VNISTauditAgency :string;
     VNISTauditorInfo :string;
     VNISTauditDate : Date;
+    CompanyName : string;
+
  }

@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { tap } from 'rxjs/operators';
+import { login } from '../injectables';
 import { GroupsService } from '../services/groups.service';
 import { inventoryService } from '../services/inventory.service';
+import { restAPI } from '../services/restAPI.service';
 import { RolesService } from '../services/roles.service';
 import { softewareApprovalService } from '../services/softwareApproval';
 import { UserServiceService } from '../services/user-service.service';
-import { VendorsService } from '../services/vendors.service';
 
 @Component({
   selector: 'app-software-approval-form',
@@ -29,13 +30,14 @@ panelOpenState = false;
       private userService : UserServiceService, 
       private roleService : RolesService, 
       private groupService : GroupsService,
-      private vendorService : VendorsService,
+      private rest_service : restAPI,
+      private loginInfo : login,
       private softwareApprovalService : softewareApprovalService) { }
   
   ngOnInit(){
     //Loading Data
     this.software$ = this.softwareApprovalService.fetchAll()
-    this.vendors$ = this.vendorService.fetchAll()
+    this.vendors$ = this.rest_service.get(`http://localhost:3000/vendors/${this.loginInfo.CompanyName}`);
     this.inventory$ = this.inventoryService.fetchAll()
     this.users$ = this.userService.fetchAll()
     this.roles$ = this.roleService.fetchAll()
