@@ -3,15 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { inventories } from '../models/inventory';
-import { inventoryService } from '../services/inventory.service';
 
 import { Observable } from 'rxjs';
-import { RolesService } from '../services/roles.service';
-import { GroupsService } from '../services/groups.service';
 import { CuicontractsService } from '../services/cuicontracts.service';
-import { UserServiceService } from '../services/user-service.service';
-import { SoftwareApprovalFormComponent } from '../software-approval-form/software-approval-form.component';
 import { softewareApprovalService } from '../services/softwareApproval';
+import { restAPI } from '../services/restAPI.service';
+import { login } from '../injectables';
+import { templateJitUrl } from '@angular/compiler';
 
 
 @Component({
@@ -32,8 +30,8 @@ export class InventoryFormComponent implements OnInit {
 
   constructor(
     private http:HttpClient,
-    private inventoryService:inventoryService,
-    private usersService : UserServiceService,
+    private rest_service : restAPI,
+    private loginInfo : login,
     private softwareApprovalService : softewareApprovalService,
     private cuiService: CuicontractsService,
    // private softwareApproval : 
@@ -44,7 +42,7 @@ export class InventoryFormComponent implements OnInit {
   ngOnInit(){
     this.inventories$ = this.fetchAll();
     this.CUIcontracts$ = this.cuiService.fetchAll()
-    this.Users$ = this.usersService.fetchAll()
+    this.Users$ = this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
     this.softwares$ = this.softwareApprovalService.fetchAll()
 
   }
@@ -52,30 +50,46 @@ export class InventoryFormComponent implements OnInit {
 
   }
 
+
+
+
+
+
+
+
+
+
   fetchAll(): Observable<inventories[]> {
-    return this.inventoryService.fetchAll();
+    return this.rest_service.get(`http://localhost:3000/inventories/${this.loginInfo.CompanyName}`);
   }
 
   post(IassetIdentifier, Iaddress, InetworkID, Ivirtual, Ipublic, Idnsname, InetbiosName, Imacaddress, IauthenticatedScan, IbaselineConfigName, IosNameAndVersion, IphysicalLocation, IhardwareSoftwareVendor, IdateOfReceipt, Icost, IsoftwareDatabase, Ipatchlevel, Ifunction, Icomments, Iserial, Ivlan, IsystemAdmin, Iapplication, IsoftwareApproval): void {
-   
-    this.inventories$ = this.inventoryService
-      .post({ IassetIdentifier, Iaddress, InetworkID, Ivirtual, Ipublic, Idnsname, InetbiosName, Imacaddress, IauthenticatedScan, IbaselineConfigName, IosNameAndVersion, IphysicalLocation, IhardwareSoftwareVendor, IdateOfReceipt, Icost,  IsoftwareDatabase, Ipatchlevel, Ifunction, Icomments, Iserial, Ivlan, IsystemAdmin, Iapplication, IsoftwareApproval })
+   let data = { IassetIdentifier, Iaddress, InetworkID, Ivirtual, Ipublic, Idnsname, InetbiosName, Imacaddress, IauthenticatedScan, IbaselineConfigName, IosNameAndVersion, IphysicalLocation, IhardwareSoftwareVendor, IdateOfReceipt, Icost,  IsoftwareDatabase, Ipatchlevel, Ifunction, Icomments, Iserial, Ivlan, IsystemAdmin, Iapplication, IsoftwareApproval, CompanyInfo : this.loginInfo.CompanyName}
+    let temp = this.rest_service
+      .post(`http://localhost:3000/inventories/${this.loginInfo.CompanyName}`, data)
       .pipe(tap(() => (this.inventories$ = this.fetchAll())));
+
+      temp.subscribe()
   }
 
 
   update(IassetIdentifier, Iaddress, InetworkID, Ivirtual, Ipublic, Idnsname, InetbiosName, Imacaddress, IauthenticatedScan, IbaselineConfigName, IosNameAndVersion, IphysicalLocation, IhardwareSoftwareVendor, IdateOfReceipt, Icost, IsoftwareDatabase, Ipatchlevel, Ifunction, Icomments, Iserial, Ivlan, IsystemAdmin, Iapplication, IsoftwareApproval, idOrgInventory): void {
-    this.inventories$ = this.inventoryService
-      .update( {IassetIdentifier, Iaddress, InetworkID, Ivirtual, Ipublic, Idnsname, InetbiosName, Imacaddress, IauthenticatedScan, IbaselineConfigName, IosNameAndVersion, IphysicalLocation, IhardwareSoftwareVendor, IdateOfReceipt, Icost,  IsoftwareDatabase, Ipatchlevel, Ifunction, Icomments, Iserial, Ivlan, IsystemAdmin, Iapplication, IsoftwareApproval, idOrgInventory})
+   let data = {IassetIdentifier, Iaddress, InetworkID, Ivirtual, Ipublic, Idnsname, InetbiosName, Imacaddress, IauthenticatedScan, IbaselineConfigName, IosNameAndVersion, IphysicalLocation, IhardwareSoftwareVendor, IdateOfReceipt, Icost,  IsoftwareDatabase, Ipatchlevel, Ifunction, Icomments, Iserial, Ivlan, IsystemAdmin, Iapplication, IsoftwareApproval, idOrgInventory, CompanyInfo : this.loginInfo.CompanyName}
+   
+   
+    let temp = this.rest_service
+      .update(`http://localhost:3000/inventories/${this.loginInfo.CompanyName}`, data)
       .pipe(tap(() => (this.inventories$ = this.fetchAll())));
+
+      temp.subscribe()
   }
 
 
   delete(id: any): void {
-    this.inventories$ = this.inventoryService
-      .delete(id)
+    let temp = this.rest_service
+      .delete(`http://localhost:3000/inventories/${id}/${this.loginInfo.CompanyName}`)
       .pipe(tap(() => (this.inventories$ = this.fetchAll())));
-      
+      temp.subscribe()
   }
 
  public onFormReset() {

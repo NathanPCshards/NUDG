@@ -7,6 +7,8 @@ import { milestones } from '../models/milestones';
 import { Observable } from 'rxjs';
 import { MilestonesService } from '../services/milestones.service';
 import { tap } from 'rxjs/operators';
+import { login } from '../injectables';
+import { restAPI } from '../services/restAPI.service';
 
 
 @Component({
@@ -27,10 +29,12 @@ export class MilestoneFormComponent implements OnInit {
       private http:HttpClient, 
       private formBuilder: FormBuilder,  
       public dialog: MatDialog, 
+      private loginInfo : login,
+      private rest_service : restAPI,
       private milestonesService : MilestonesService,
       private dialogRef : MatDialogRef<MilestoneFormComponent>, 
       @Inject(MAT_DIALOG_DATA) public data : any) { 
-        this.idOrgWeaknesses = data;
+        this.idOrgWeaknesses = data.idOrgWeaknesses;
 
     }
     public openDialog(event) {
@@ -48,8 +52,8 @@ export class MilestoneFormComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
 
-        this.milestones$ = this.milestonesService
-        .post(result)
+        this.milestones$ = this.rest_service
+        .post(`http://localhost:3000/milestones/${this.idOrgWeaknesses}/${this.loginInfo.CompanyName}`,result)
         .pipe(tap(() => (this.milestones$ = this.fetchAll(this.idOrgWeaknesses))));
       });
   
@@ -61,6 +65,7 @@ export class MilestoneFormComponent implements OnInit {
   public filterMilestone()
   {
     //by updating search, the html data binding updates and the filter is automatically applied.
+    
     this.searchMilestones = (<HTMLInputElement>document.getElementById("searchMilestones")).value.toLowerCase()
   }
 
@@ -70,23 +75,23 @@ export class MilestoneFormComponent implements OnInit {
 
         // this.milestones$ = this.fetchAll(this.idOrgWeaknesses);
         this.milestonesService.onClick.subscribe(data =>{
-          this.milestones$ = this.milestonesService
-          .post(data)
+          let temp = this.rest_service
+          .post(`http://localhost:3000/milestones/${this.idOrgWeaknesses}/${this.loginInfo.CompanyName}`,data)
           .pipe(tap(() => (this.milestones$ = this.fetchAll(this.idOrgWeaknesses))));
+          temp.subscribe()
         })
   }
 
   
-fetchAll(idOrgWeaknesses): Observable<milestones[]> {
-
-  return this.milestonesService.fetchAll(idOrgWeaknesses.idOrgWeaknesses);
+fetchAll(idOrgWeaknesses) {
+  return this.rest_service.get(`http://localhost:3000/milestones/${idOrgWeaknesses}/${this.loginInfo.CompanyName}`);
 }
 
 delete(id: any): void {
-  this.milestones$ = this.milestonesService
-    .delete(id)
-    .pipe(tap(() => (this.milestones$ = this.fetchAll(this.idOrgWeaknesses))));
-    
+  let temp =  this.rest_service.delete(`http://localhost:3000/milestones/${id}/${this.loginInfo.CompanyName}`)
+  .pipe(tap(() => (this.milestones$ = this.fetchAll(id))));
+
+  temp.subscribe()
 }
 
 
@@ -114,6 +119,8 @@ submitted= false;
   constructor(private http:HttpClient,
      private formBuilder: FormBuilder,
      private dialogRef : MatDialogRef<milestoneDialog>, 
+     private loginInfo : login,
+     private rest_service : restAPI,
      private milestoneService : MilestonesService,
      @Inject(MAT_DIALOG_DATA) public data : any
      ) { 
@@ -122,13 +129,9 @@ submitted= false;
 ngOnInit(){
   this.idOrgWeaknesses = this.data.idOrgWeaknesses.idOrgWeaknesses;
 }
-public milestoneSubmit(value) {
-
-}
 
 
 public onFormReset() {
-  console.log("FORM WAS Reset");
 
 this.submitted = false;
 
@@ -139,6 +142,7 @@ closeDialog( Milestones, Mstatus, MstatusDate, McompletionDate, Mchanges){
   this.data.Mstatus = Mstatus;
   this.data.McompletionDate = McompletionDate;
   this.data.MstatusDate = MstatusDate
+  this.data.CompanyName = this.loginInfo.CompanyName
   if (!MstatusDate){
     this.data.MstatusDate = this.todaysDate;
 
@@ -166,7 +170,8 @@ try{
 
 };
 fetchAll(): Observable<milestones[]> {
-  return this.milestoneService.fetchAll(this.idOrgWeaknesses);
+
+  return this.rest_service.get(`http://localhost:3000/milestones/${this.idOrgWeaknesses}/${this.loginInfo.CompanyName}`);
 }
 
 

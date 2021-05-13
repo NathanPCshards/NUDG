@@ -19,7 +19,7 @@ httpOptions: { headers: HttpHeaders } = {
 
   constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient) {
    }
-
+/*
    fetchAll(): Observable<Users[]> {
     return this.http
       .get<Users[]>(this.url, { responseType: "json" })
@@ -51,5 +51,5 @@ httpOptions: { headers: HttpHeaders } = {
       .delete<Users>(url, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("delete")));
   }
-
+*/
 }

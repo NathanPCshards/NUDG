@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { groups } from '../models/groups';
-import { networkshares } from '../models/networkshares';
-import { GroupsService } from '../services/groups.service';
+import { login } from '../injectables';
 import { NetworksharesService } from '../services/networkshares.service';
-import { UserServiceService } from '../services/user-service.service';
+import { restAPI } from '../services/restAPI.service';
+
 
 
 
@@ -17,49 +15,60 @@ import { UserServiceService } from '../services/user-service.service';
 })
 export class GroupFormComponent implements OnInit {
   networkShares$
-  groups$: Observable<groups[]>;
+  groups$;
   users$;
   panelOpenState = false;;
 
   constructor(
-    private groupsService : GroupsService,
-    private userService: UserServiceService,
-    private groupService : GroupsService,
+    private rest_service : restAPI,
+    private loginInfo : login,
     private networkShareService : NetworksharesService) { 
 
   }
 
   ngOnInit(){  
     this.groups$ = this.fetchAll();
-    this.users$ = this.userService.fetchAll();
+    this.users$ = this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
     this.networkShares$ = this.networkShareService.fetchAll()
 
   }
   
 
-fetchAll(): Observable<groups[]> {
-  return this.groupsService.fetchAll();
+fetchAll() {
+  return this.rest_service.get(`http://localhost:3000/groups/${this.loginInfo.CompanyName}`)
 }
 
 post(Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa) {
-  this.groups$ = this.groupsService
-    .post({ Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa})
-    .pipe(tap(() => (this.groups$ = this.fetchAll())));
+  let data = { Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa}
+
+  let temp = this.rest_service.post(`http://localhost:3000/groups/${this.loginInfo.CompanyName}`,data)
+  .pipe(tap(() => (this.groups$ = this.fetchAll())));
+
+  temp.subscribe()
+
 }
 
 
 update(Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa, idOrgGroups): void {
-  this.groups$ = this.groupsService
-    .update({Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa, idOrgGroups})
-    .pipe(tap(() => (this.groups$ = this.fetchAll())));
+
+
+  let data = {Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa, idOrgGroups}
+
+  let temp = this.rest_service.update(`http://localhost:3000/groups/${this.loginInfo.CompanyName}`, data)
+  .pipe(tap(() => (this.groups$ = this.fetchAll())));
+
+  temp.subscribe()
+
 }
 
 
 delete(id: any): void {
-  this.groups$ = this.groupsService
-    .delete(id)
-    .pipe(tap(() => (this.groups$ = this.fetchAll())));
-    
+
+
+  let temp = this.rest_service.delete(`http://localhost:3000/groups/${id}/${this.loginInfo.CompanyName}`)
+  .pipe(tap(() => (this.groups$ = this.fetchAll())));
+
+  temp.subscribe()
 }
 
 }

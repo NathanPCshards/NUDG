@@ -9,6 +9,8 @@ import { Observable } from 'rxjs';
 import { procedures } from '../models/procedures';
 import { ProceduresService } from '../services/procedures.service';
 import { tap } from 'rxjs/operators';
+import { restAPI } from '../services/restAPI.service';
+import { login } from '../injectables';
 
 
 
@@ -29,8 +31,10 @@ export class ProcedureFormComponent implements OnInit {
       public dialog: MatDialog, 
       private procedureService : ProceduresService,
       private dialogRef : MatDialogRef<ProcedureFormComponent>, 
+      private rest_service : restAPI,
+      private loginInfo : login,
       @Inject(MAT_DIALOG_DATA) public data : any) { 
-        this.idOrgControls = data;
+        this.idOrgControls = data.idOrgControls;
 
     }
 
@@ -49,8 +53,8 @@ export class ProcedureFormComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
 
-        this.procedures$ = this.procedureService
-        .post(result)
+        this.procedures$ = this.rest_service
+        .post(`http://localhost:3000/milestones/${this.idOrgControls}/${this.loginInfo.CompanyName}`,result)
         .pipe(tap(() => (this.procedures$ = this.fetchAll(this.idOrgControls))));
       });
 
@@ -62,14 +66,13 @@ export class ProcedureFormComponent implements OnInit {
     }
   
   ngOnInit(){
-    console.log("orgcontrols : " , this.idOrgControls)
  
     this.procedures$ = this.fetchAll(this.idOrgControls);
 
     // this.milestones$ = this.fetchAll(this.idOrgWeaknesses);
     this.procedureService.onClick.subscribe(data =>{
-      this.procedures$ = this.procedureService
-      .post(data)
+      this.procedures$ = this.rest_service
+      .post(`http://localhost:3000/procedures/${this.idOrgControls}/${this.loginInfo.CompanyName}`,data)
       .pipe(tap(() => (this.procedures$ = this.fetchAll(this.idOrgControls))));
     })
 
@@ -79,16 +82,16 @@ export class ProcedureFormComponent implements OnInit {
   }
   
   fetchAll(idOrgControls): Observable<procedures[]> {
-
-    return this.procedureService.fetchAll(idOrgControls.idOrgControls);
+    return this.rest_service.get(`http://localhost:3000/procedures/${idOrgControls}/${this.loginInfo.CompanyName}`);
   }
 
 
 
 delete(id: any): void {
-  this.procedures$ = this.procedureService
-    .delete(id)
-    .pipe(tap(() => (this.procedures$ = this.fetchAll(this.idOrgControls))));
+  let temp =  this.rest_service.delete(`http://localhost:3000/procedures/${id}/${this.loginInfo.CompanyName}`)
+  .pipe(tap(() => (this.procedures$ = this.fetchAll(id))));
+
+  temp.subscribe()
     
 }
 
@@ -108,6 +111,8 @@ todaysDate = new Date()
 submitted= false;
 constructor(private http:HttpClient,
   private formBuilder: FormBuilder,
+  private rest_service : restAPI,
+  private loginInfo : login,
   private dialogRef : MatDialogRef<procedureDialog>, 
   private milestoneService : ProceduresService,
   @Inject(MAT_DIALOG_DATA) public data : any
@@ -124,7 +129,6 @@ public procedureSubmit(value) {
 
 
 public onFormReset() {
-  console.log("FORM WAS Reset");
 
 this.submitted = false;
 
@@ -160,7 +164,7 @@ try{
 
 };
 fetchAll(): Observable<procedures[]> {
-  return this.milestoneService.fetchAll(this.idOrgControls);
+  return this.rest_service.get(`http://localhost:3000/procedures/${this.idOrgControls}/${this.loginInfo.CompanyName}`);
 }
 
 

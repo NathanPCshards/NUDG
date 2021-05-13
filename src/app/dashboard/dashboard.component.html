@@ -79,8 +79,8 @@
 
 </div>
 
-
-  <div class="horizontal-scroll-wrapper squares">
+<!--This div must be on top for scrolling to work properly (high Z index)-->
+  <div class="horizontal-scroll-wrapper squares" style="z-index: 99;">
     <div #box class="mainDiv" 
     *ngFor="let alert of alerts$; let i = index"
     mat-dialog-title 

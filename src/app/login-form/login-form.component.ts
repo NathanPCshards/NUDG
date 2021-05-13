@@ -32,6 +32,10 @@ export class LoginFormComponent{
 
   }
 
+  loginSkip(){
+    this.loginInfo.CompanyName = `PCshards`
+  }
+
 
   async login(Username, password){
     this.test$ = await this.loginservice.Login({Username, password})

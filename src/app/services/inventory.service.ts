@@ -19,7 +19,7 @@ httpOptions: { headers: HttpHeaders } = {
 
   constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient) {
    }
-
+/*
    fetchAll(): Observable<inventories[]> {
     return this.http
       .get<inventories[]>(this.url, { responseType: "json" })
@@ -52,5 +52,5 @@ httpOptions: { headers: HttpHeaders } = {
       .delete<inventories>(url, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("delete")));
   }
-
+ */
 }

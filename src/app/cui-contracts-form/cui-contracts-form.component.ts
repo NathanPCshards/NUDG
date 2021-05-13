@@ -42,8 +42,8 @@ export class CuiContractsFormComponent implements OnInit {
   
   ngOnInit(){
     this.cuicontracts$ = this.fetchAll();
-    this.users$ = this.userService.fetchAll();
-    this.inventories$ = this.inventoryService.fetchAll();
+    this.users$ = this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
+    this.inventories$ = this.rest_service.get(`http://localhost:3000/inventories/${this.loginInfo.CompanyName}`);
     this.suppliers$ = this.supplierService.fetchAll();
     this.vendors$ = this.rest_service.get(`http://localhost:3000/vendors/${this.loginInfo.CompanyName}`,this.loginInfo.CompanyName);
   }

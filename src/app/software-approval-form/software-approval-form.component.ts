@@ -3,12 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { login } from '../injectables';
-import { GroupsService } from '../services/groups.service';
-import { inventoryService } from '../services/inventory.service';
+
 import { restAPI } from '../services/restAPI.service';
-import { RolesService } from '../services/roles.service';
 import { softewareApprovalService } from '../services/softwareApproval';
-import { UserServiceService } from '../services/user-service.service';
+
 
 @Component({
   selector: 'app-software-approval-form',
@@ -26,46 +24,52 @@ panelOpenState = false;
 
     constructor(private http:HttpClient, 
       private formBuilder: FormBuilder,
-      private inventoryService : inventoryService,
-      private userService : UserServiceService, 
-      private roleService : RolesService, 
-      private groupService : GroupsService,
+
+
       private rest_service : restAPI,
       private loginInfo : login,
       private softwareApprovalService : softewareApprovalService) { }
   
   ngOnInit(){
     //Loading Data
-    this.software$ = this.softwareApprovalService.fetchAll()
+    this.software$ = this.fetchall()
     this.vendors$ = this.rest_service.get(`http://localhost:3000/vendors/${this.loginInfo.CompanyName}`);
-    this.inventory$ = this.inventoryService.fetchAll()
-    this.users$ = this.userService.fetchAll()
-    this.roles$ = this.roleService.fetchAll()
-    this.groups$ = this.groupService.fetchAll()
+    this.inventory$ = this.rest_service.get(`http://localhost:3000/inventories/${this.loginInfo.CompanyName}`);
+    this.users$ = this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
+ 
+    this.roles$ = this.rest_service.get(`http://localhost:3000/roles/${this.loginInfo.CompanyName}`);
+    this.groups$ = this.rest_service.get(`http://localhost:3000/groups/${this.loginInfo.CompanyName}`);
 
 
   }
-  async submit(SWname , SWSupplierInformation , SWdescription , SWinstallDate , 
+  fetchall(){
+    return this.rest_service.get(`http://localhost:3000/softwareApproval/${this.loginInfo.CompanyName}`)
+  }
+
+   submit(SWname , SWSupplierInformation , SWdescription , SWinstallDate , 
     SWinstallPath , SWtype , SWdateApproved , SWplatform, SWversion , SWpatchNum , SWupdateSchedule , SWmanualReviewDate , 
     SWautomaticUpdateDate , SWinternetReq , SWlegacy , SWelevatedPrivileges , SWvulnerabilities , SWusers , SWgroups , SWroles ,
      SWassetIdentifier , SWvendor ){
 
-    await this.softwareApprovalService.post({SWname , SWSupplierInformation , SWdescription , SWinstallDate , 
+      let data = {SWname , SWSupplierInformation , SWdescription , SWinstallDate , 
         SWinstallPath , SWtype , SWdateApproved , SWplatform, SWversion , SWpatchNum , SWupdateSchedule , SWmanualReviewDate , 
         SWautomaticUpdateDate , SWinternetReq , SWlegacy , SWelevatedPrivileges , SWvulnerabilities , SWusers , SWgroups , SWroles ,
-         SWassetIdentifier , SWvendor }).toPromise().then(this.software$ = this.softwareApprovalService.fetchAll())
+         SWassetIdentifier , SWvendor }
 
-         
+         let temp = this.rest_service.post(`http://localhost:3000/softwareApproval/${this.loginInfo.CompanyName}`, this.loginInfo.CompanyName)
+         .pipe(tap(() => (this.software$ = this.fetchall())));
 
+         temp.subscribe()
 
 
   }
 
   async delete(id : any){
     //Delete Entry
-    this.software$ = await this.softwareApprovalService.delete(id).toPromise()
-    //Reload Data
-    this.software$ = this.softwareApprovalService.fetchAll()
+    let temp = this.rest_service.delete(`http://localhost:3000/softwareApproval/${id}/${this.loginInfo.CompanyName}`)
+    .pipe(tap(() => (this.software$ = this.fetchall())));
+
+    temp.subscribe()
 
   }
 

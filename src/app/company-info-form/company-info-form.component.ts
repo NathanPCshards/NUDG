@@ -29,7 +29,7 @@ export class CompanyInfoFormComponent {
 
   ngOnInit(){
     this.companies$ = this.fetchAll();
-    this.Users$ = this.usersService.fetchAll();
+    this.Users$ = this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
     this.companies$.subscribe()
 
 

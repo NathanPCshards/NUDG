@@ -19,7 +19,7 @@
           <!-- (click) = "onFormSubmit()" -->
             <button mat-raised-button   (click)="login(Username.value, password.value)"   color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Login</button>
             <button mat-raised-button   routerLink="/Register" routerLinkActive="active" color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Register</button>
-            <button mat-raised-button routerLink="/Dashboard" routerLinkActive="active" color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Skip Login</button>
+            <button mat-raised-button (click)="loginSkip()" routerLink="/Dashboard" routerLinkActive="active" color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Skip Login</button>
       </div>
 
   </div>

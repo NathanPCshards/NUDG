@@ -7,8 +7,9 @@ import { SharedService } from './../services/Shared';
 import { MatDialog } from '@angular/material/dialog';
 import { roles } from '../models/roles';
 import { Observable } from 'rxjs';
-import { RolesService } from '../services/roles.service';
-import { UserServiceService } from '../services/user-service.service';
+import { restAPI } from '../services/restAPI.service';
+import { login } from '../injectables';
+
 
  
 @Component({
@@ -28,13 +29,17 @@ export class RoleFormComponent implements OnInit {
 
   @ViewChild(MatSort) sort;
 
+//NOTE roles currently does not post, idk why. When sent from project everything is console logged and it looks like it would work
+//When sending from postman the server does not take in the body, which is also weird
 
   constructor(private http:HttpClient, 
     private formBuilder: FormBuilder, 
+    private rest_service : restAPI,
+    private loginInfo : login,
+  
     public dialog: MatDialog, 
     private sharedService: SharedService,
-    private roleservice: RolesService,
-    private userservice : UserServiceService) {
+) {
 
 
    }
@@ -44,10 +49,12 @@ export class RoleFormComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.roles$ = this.roleservice.fetchAll();
+    this.roles$ = this.fetchall()
+    this.roles$.forEach(element => {
+      console.log("element : " , element)
+  });
     this.sharedService.onClick.subscribe(async roleObject=>{
-      await this.roleservice.post(roleObject).toPromise()
-      this.roles$ = this.roleservice.fetchAll();
+      this.post(roleObject)
     })
 
 
@@ -59,38 +66,27 @@ export class RoleFormComponent implements OnInit {
 
   }
 
+  fetchall(){
+    return this.rest_service.get(`http://localhost:3000/roles/${this.loginInfo.CompanyName}`);
 
- 
-
-  post(userItem: Partial<roles>): void {
   }
+  async post(data){
+    console.log("data : " , data)
+    let temp = this.rest_service.post(`http://localhost:3000/roles/${this.loginInfo.CompanyName}`, data)
+    .pipe(tap(() => (this.roles$ = this.fetchall())));
+
+    temp.subscribe()
 
 
-  update(id: number, userItem: Partial<roles>): void {
-    const name = (<any>userItem).trim();
-    
-    if (!name) return;
-/*
-    const newroles: roles = {
-      id,
-      name
-
-    };
-
-    this.roles$ = this.roleservice
-      .update(newroles)
-      .pipe(tap(() => (this.roles$ = this.fetchAll())));*/
+    this.roles$ = this.fetchall()
   }
-
 
   delete(id: any): void {
-    console.log("attempting to delete id : " , id)
-   // iduseru = 15
-   // console.log("attempting to delete id : " , iduseru)
 
-    this.roles$ = this.roleservice
-      .delete(id)
-      .pipe(tap(() => (this.roles$ = this.roleservice.fetchAll())));
+    let temp = this.rest_service
+      .delete(`http://localhost:3000/roles/${id}/${this.loginInfo.CompanyName}`)
+      .pipe(tap(() => (this.roles$ = this.fetchall())));
+      temp.subscribe()
       
   }
 
@@ -110,17 +106,23 @@ export class roleDialog {
 
   constructor(private http:HttpClient, 
     private formBuilder: FormBuilder,
-    private userservice : UserServiceService,
+    private rest_service : restAPI,
+    private loginInfo : login,
     private sharedSerivce : SharedService) { }
 
 ngOnInit(){
     //Getting Users 
-    this.users$ = this.userservice.fetchAll()
+    this.users$ = this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
 
 }
-submit(URGroles, Rroletype, Rdescription, URGusers){
+  async submit(URGroles, Rroletype, Rdescription, URGusers){
+  let data = {URGroles, Rroletype, Rdescription, URGusers}
+  let temp = await this.rest_service.post(`http://localhost:3000/roles/${this.loginInfo.CompanyName}`, data)
+  temp.subscribe()
 
-  this.sharedSerivce.emit({URGroles, Rroletype, Rdescription, URGusers})
+
+ // this.roles$ = this.roleservice.fetchAll();
+  //this.sharedSerivce.emit(data)
 
 }
 

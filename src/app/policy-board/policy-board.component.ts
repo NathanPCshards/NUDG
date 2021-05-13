@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
+import { login } from '../injectables';
 import { policy } from '../models/policy';
-import { PolicyService } from '../services/policy.service';
+import { restAPI } from '../services/restAPI.service';
 
 @Component({
   selector: 'app-policy-board',
@@ -12,7 +13,7 @@ import { PolicyService } from '../services/policy.service';
 export class PolicyBoardComponent implements OnInit {
   panelOpenState = false;
 
-   policies$ : Observable<policy[]>;
+   policies$ :any
    policyDict$ : {}
    families$: any[];
    policiesByFamily$: any[];
@@ -28,8 +29,10 @@ export class PolicyBoardComponent implements OnInit {
    routeSub: any;
   constructor(
     private router: Router,
-    private policyService : PolicyService,
+    private rest_service : restAPI,
+    private loginInfo : login,
     private route: ActivatedRoute,
+    
     ) { 
     
   }
@@ -38,10 +41,10 @@ export class PolicyBoardComponent implements OnInit {
     this.routeSub = this.route.params.subscribe(params => {
       this.famType$ = params['type'];
       });
-      console.log("famType : " , this.famType$)
+
     //Creates the list this.families$ that contains all unique family names
     if (this.famType$ != "CMMC" && this.famType$ != "Nist")
-    this.policyService.getFamilies().subscribe(e=>{
+    this.rest_service.get(`http://localhost:3000/Policy/${'All'}/${this.loginInfo.CompanyName}/?FamilyPolicy=${true}`).subscribe(e=>{
       this.families$ = []
       let i = 0
       //If for some reason I does not look like its incrementing correctly. 
@@ -55,7 +58,11 @@ export class PolicyBoardComponent implements OnInit {
     })
 
     //Getting all policies and grouping by Family.
-    this.policies$ = this.getAll().subscribe(e=>{
+    this.policies$ = this.rest_service.get(`http://localhost:3000/Policy/${'All'}/${this.loginInfo.CompanyName}`)
+    this.policies$.forEach(element => {
+   
+    });
+    this.policies$.subscribe(e=>{
       this.policyDict$ = {}
 
       let allPoliciesDict = {}
@@ -63,11 +70,13 @@ export class PolicyBoardComponent implements OnInit {
       
       //makes dictionary of {Nudg ID : Policy}
       e.forEach(element => {
+     
 
            allPoliciesDict[element.nudgid] = element
       });
       //makes dictionary of {FamilyName: [policies]} format.
       e.forEach(policy =>{
+   
         if(policy){
           this.policiesByFamily$ = []
           if (String(policy.FamilyPolicy) != 'null'){
@@ -87,6 +96,7 @@ export class PolicyBoardComponent implements OnInit {
         }
       })
 
+      
       //TODO This is sort of hardcoded. WILL NEED TO update as DB is added to
       //But after everything is in it likely wont change
       this.policiesByFamily$[0] = this.policyDict$['Access Control (AC)']                  .replaceAll("undefined,", "").split(',')
@@ -121,7 +131,6 @@ export class PolicyBoardComponent implements OnInit {
       //is just an object to hold every policy so we can pull any information we want like this {{allPoliciesDict$[p].nudgid}}
       this.allPoliciesDict$ = allPoliciesDict
 
-     // console.log("-------debug-------" ,  "\n" ,  this.families$, "\n" , this.policiesByFamilyCMMC$ , "\n" ,  this.policiesByFamilyNist$, "\n" , this.policyDict$ , "\n" , this.policiesByFamily$ , "\n" , this.allPoliciesDict$)
 
 
 
@@ -152,30 +161,30 @@ export class PolicyBoardComponent implements OnInit {
       this.masterList$.forEach(element => {
         element[1].sort()
       });
-      console.log("masterlist: " ,  this.masterList$)
 
-    });
+    })
+
+    
 
 
   }
 
 
   onRowClicked(row): void {
-    console.log("Row clicked |" + String(row) + "|");
-  //  this.rowSelected = true;
+
     var configUrl = ["Policy/" + String(row).trim()];
-    console.log(configUrl)
+
      this.router.navigate(configUrl);
 
   }
   getAll(){
-    return this.policyService.getAll();
+    return this.rest_service.get(`http://localhost:3000/Policy/${'All'}/${this.loginInfo.CompanyName}`);
   }
   getFamilies(){
-    return this.policyService.getFamilies();
+    return this.rest_service.get(`http://localhost:3000/Policy/${'All'}/${this.loginInfo.CompanyName}/?FamilyPolicy=${true}`)
   }
   getPoliciesInFamily(family: any){
-    return this.policyService.getPoliciesInFamily(family);
+    return this.rest_service.get(`http://localhost:3000/Policy/${'All'}/${this.loginInfo.CompanyName}/?Family=${true}`)
   }
   getImplemented(family:any){
     let count = 0
@@ -253,11 +262,11 @@ export class PolicyBoardComponent implements OnInit {
         
         break;
       case "BySubtitle":
-        console.log("test")
+   
 
         if (this.sortType == String(column)){
           this.masterList$[indexDict[family]][1].sort(function(a,b) {
-        //    console.log(a[1] < b[1])
+
             return a[1] < b[1] 
           })
           this.sortType = ""
@@ -265,7 +274,7 @@ export class PolicyBoardComponent implements OnInit {
         else{
           this.sortType = String(column);
           this.masterList$[indexDict[family]][1].sort(function(a,b) {
-         //   console.log(a[1] > b[1])
+
             return a[1] > b[1] 
           })
           this.sortType = column;

@@ -2,18 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { tap } from 'rxjs/operators';
-import {SelectionModel} from '@angular/cdk/collections';
-import { MatDialog } from '@angular/material/dialog';
-import { UserServiceService } from '../services/user-service.service';
 import { Observable } from 'rxjs';
 import { Users } from '../models/users';
 import { MatPaginator } from '@angular/material/paginator';
 import { CuicontractsService } from '../services/cuicontracts.service';
-import { inventoryService } from '../services/inventory.service';
-import { RolesService } from '../services/roles.service';
-import { GroupsService } from '../services/groups.service';
+
+
+import { restAPI } from '../services/restAPI.service';
+import { login } from '../injectables';
 
 @Component({
   selector: 'app-user-form',
@@ -21,8 +18,7 @@ import { GroupsService } from '../services/groups.service';
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent implements OnInit {
- // exampleDatabase: ExampleHttpDatabase | null;
-  //filteredAndPagedIssues: Observable<GithubIssue[]>;
+
   users$: Observable<Users[]>;
   submitted= false;
   resultsLength = 0;
@@ -41,60 +37,63 @@ export class UserFormComponent implements OnInit {
 
   constructor(private _httpClient: HttpClient, 
     private formBuilder: FormBuilder, 
-    private userService: UserServiceService,
+    private rest_service : restAPI,
+    private loginInfo : login,
     private cuiService : CuicontractsService,
-    private inventoryService : inventoryService,
-    private roleService : RolesService,
-    private groupService : GroupsService
+
+
 
     ){  }
  
   ngOnInit(){
     this.users$ = this.fetchAll();
     this.CUIcontracts$ = this.cuiService.fetchAll()
-    this.Inventory$ = this.inventoryService.fetchAll()
-    this.Roles$ = this.roleService.fetchAll()
-    this.Groups$ = this.groupService.fetchAll()
+    this.Inventory$ = this.rest_service.get(`http://localhost:3000/inventories/${this.loginInfo.CompanyName}`);
+    this.Roles$ = this.rest_service.get(`http://localhost:3000/roles/${this.loginInfo.CompanyName}`);
+    this.Groups$ = this.rest_service.get(`http://localhost:3000/groups/${this.loginInfo.CompanyName}`)
 
     this.panelOpenState = false;
 
   }
  
   fetchAll(): Observable<Users[]> {
-    return this.userService.fetchAll();
+
+    return this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
   }
 
   post(Ufname, Ulname, Uempid, Uemptype, Ujobtitle, Ujobrole, Udepartment, Uhiredate, Ulogonhours, Uadditionalinfo, Udocumentupload, Uemail, Ubusinessphone, Ucellphone, Uaddress, Ucity, Ustate, Upostal, Ucountry, Ucompany, Uuserid, Ucuidata, Uremoteuser): void {
-
-    this.users$ = this.userService
-      .post({ Ufname, Ulname, Uempid, Uemptype, Ujobtitle, Ujobrole, Udepartment, Uhiredate, Ulogonhours, Uadditionalinfo, Udocumentupload, Uemail, Ubusinessphone, Ucellphone, Uaddress, Ucity, Ustate, Upostal, Ucountry, Ucompany, Uuserid, Ucuidata, Uremoteuser })
+    let data = { Ufname, Ulname, Uempid, Uemptype, Ujobtitle, Ujobrole, Udepartment, Uhiredate, Ulogonhours, Uadditionalinfo, Udocumentupload, Uemail, Ubusinessphone, Ucellphone, Uaddress, Ucity, Ustate, Upostal, Ucountry, Ucompany, Uuserid, Ucuidata, Uremoteuser }
+    let temp = this.rest_service
+      .post(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`, data)
       .pipe(tap(() => (this.users$ = this.fetchAll())));
+
+
+      temp.subscribe()
+
       }
 
 
   update(Ufname, Ulname, Uempid, Uemptype, Ujobtitle, Ujobrole, Udepartment, Uhiredate, Ulogonhours, Uadditionalinfo, Udocumentupload, Uemail, Ubusinessphone, Ucellphone, Uaddress, Ucity, Ustate, Upostal, Ucountry, Ucompany, Uuserid, Ucuidata, Uremoteuser, idOrgUsers): void {
+    let data = { Ufname, Ulname, Uempid, Uemptype, Ujobtitle, Ujobrole, Udepartment, Uhiredate, Ulogonhours, Uadditionalinfo, Udocumentupload, Uemail, Ubusinessphone, Ucellphone, Uaddress, Ucity, Ustate, Upostal, Ucountry, Ucompany, Uuserid, Ucuidata, Uremoteuser, idOrgUsers}
 
-
-    this.users$ = this.userService
-      .update({ Ufname, Ulname, Uempid, Uemptype, Ujobtitle, Ujobrole, Udepartment, Uhiredate, Ulogonhours, Uadditionalinfo, Udocumentupload, Uemail, Ubusinessphone, Ucellphone, Uaddress, Ucity, Ustate, Upostal, Ucountry, Ucompany, Uuserid, Ucuidata, Uremoteuser, idOrgUsers})
+    let temp = this.rest_service
+      .update(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}` , data)
       .pipe(tap(() => (this.users$ = this.fetchAll())));
+      temp.subscribe()
   }
 
 
   delete(Uuserid: any): void {
-    console.log("attempting to delete id : " , Uuserid)
-   // iduseru = 15
-   // console.log("attempting to delete id : " , iduseru)
 
-    this.users$ = this.userService
-      .delete(Uuserid)
+  let temp = this.rest_service
+      .delete(`http://localhost:3000/orgusers/${Uuserid}/${this.loginInfo.CompanyName}`)
       .pipe(tap(() => (this.users$ = this.fetchAll())));
+    temp.subscribe()
       
   }
 
   
   public onFormReset() {
-    console.log("FORM WAS Reset");
   
   this.submitted = false;
   

@@ -136,7 +136,7 @@ ngOnInit(){
   //Getting vendor's products
   this.vendorsProducts$ = this.rest_service.get(`http://localhost:3000/vendors/${this.loginInfo.CompanyName}`);
   //Getting Asset Identifier from inventory 
-  this.assetIdentifiers$ = this.inventoryService.fetchAll()
+  this.assetIdentifiers$ = this.rest_service.get(`http://localhost:3000/inventories/${this.loginInfo.CompanyName}`);
 
 }
 public onFormSubmit() {
