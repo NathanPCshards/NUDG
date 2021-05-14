@@ -23,40 +23,40 @@ export class ControlFormComponent implements OnInit {
   panelOpenState = false;
   controls$: Observable<controls[]>;
 
-  constructor(public dialog: MatDialog, private sharedService: SharedService, public controlssservice : ControlsService, private loginInfo : login){
+  constructor(){
   }
 
+  /*
   public openDialog() {
       const dialogRef =this.dialog.open(controlDialog, {
       height: '80%',
        width:"85%",
-       disableClose: true, //theres an issue here when the dialog is closed and submit is not pressed. 
+       disableClose: true, 
        data: {
         Nid:""
 
     }
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.controls$ = this.controlssservice
-      .post(result, this.loginInfo.CompanyName)
+      console.log("test : " , this.loginInfo.CompanyName)
+
+      this.controls$ = this.rest_service
+      .post(`http://localhost:3000/controls/${this.loginInfo.CompanyName}`, result)
     });
 
   }
-
+*/
   ngOnInit(){
 
   }
+
   /*
-  fetchAll(): Observable<controls[]> {
-    return this.controlssservice.fetchAll();
-  }*/
-  
   delete(id: any): void {
     this.controls$ = this.controlssservice
       .delete(id,this.loginInfo.CompanyName)
      // .pipe(tap(() => (this.controls$ = this.fetchAll())));
       
-  }
+  }*/
 
 }
 
@@ -107,7 +107,7 @@ ngOnInit(){
     });
   });
   //Getting resources
-  this.resources$ = this.rest_service.get(`http://localhost:3000/sharedResources`)
+  this.resources$ = this.rest_service.get(`http://localhost:3000/sharedResources/${this.loginInfo.CompanyName}`)
   this.displayResources$ = []
   this.resources$.forEach(resourcesArray => {
     resourcesArray.forEach(resource => {
@@ -128,36 +128,23 @@ ngOnInit(){
 }
 
 
-closeDialog(Nid , Cname, Coverview, Cissuedate, WriCsharedresourcesskRating, Curl, idOrgWeaknesses){
+submit(Cname, Coverview, Cissuedate, CsharedresourcesskRating, Curl, idOrgWeaknesses){
   this.data.Nid = this.id$ 
   this.data.Cname = Cname;
   this.data.Coverview = Coverview;
   this.data.Cissuedate = Cissuedate;
-  this.data.Csharedresources = WriCsharedresourcesskRating;
+  this.data.Csharedresources = CsharedresourcesskRating;
   this.data.Curl = Curl;
   this.data.idOrgWeaknesses = idOrgWeaknesses
   this.data.CompanyName = this.loginInfo.CompanyName
  
 
-try{
-  //this works when opened as a dialog (the weakness page)
-  //but fails when used only as a form (policy/identifier page)
-  this.dialogRef.close( this.data );
-}
- 
-  catch(err){
-    //in the case that it fails, we instead emit a signal for a different component to listen to
-    //and send a post request for us. (this is received by weaknessTable in identifier-page.component.ts) 3/25
-    this.controlsservice.emit(this.data)
-  }
-
-
+  //This is subscribed to in identifier page oninit.
+  console.log("Control service emit sent")
+  this.controlsservice.emitPostEvent(this.data)
 };
 
-/*
-fetchAll(): Observable<controls[]> {
-  return this.controlsservice.fetchAll();
-}*/
+
 getid$(): string { return this.id$; }
 setid$(id$: string) {
   this.id$ = (id$);

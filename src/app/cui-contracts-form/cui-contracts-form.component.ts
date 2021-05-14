@@ -1,14 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { login } from '../injectables';
 import { cuicontracts } from '../models/cuicontracts';
-import { suppliers } from '../models/suppliers';
-import { CuicontractsService } from '../services/cuicontracts.service';
-import { inventoryService } from '../services/inventory.service';
+import { restAPI } from '../services/restAPI.service';
 import { SuppliersService } from '../services/suppliers.service';
-import { UserServiceService } from '../services/user-service.service';
 
 
 @Component({
@@ -25,15 +21,13 @@ export class CuiContractsFormComponent implements OnInit {
   vendors$;
 
   panelOpenState = false;
-  rest_service: any;
+
 
 
 
   constructor(
-    private cuicontractsService : CuicontractsService,
-    private userService : UserServiceService,
-    private supplierService : SuppliersService,
-    private inventoryService : inventoryService,
+    private rest_service : restAPI,
+
     private loginInfo : login
 
     ){
@@ -44,12 +38,12 @@ export class CuiContractsFormComponent implements OnInit {
     this.cuicontracts$ = this.fetchAll();
     this.users$ = this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
     this.inventories$ = this.rest_service.get(`http://localhost:3000/inventories/${this.loginInfo.CompanyName}`);
-    this.suppliers$ = this.supplierService.fetchAll();
-    this.vendors$ = this.rest_service.get(`http://localhost:3000/vendors/${this.loginInfo.CompanyName}`,this.loginInfo.CompanyName);
+    this.suppliers$ = this.rest_service.get(`http://localhost:3000/suppliers/${this.loginInfo.CompanyName}`);
+    this.vendors$ = this.rest_service.get(`http://localhost:3000/vendors/${this.loginInfo.CompanyName}`);
   }
 
   fetchAll(): Observable<cuicontracts[]> {
-    return this.cuicontractsService.fetchAll();
+    return this.rest_service.get(`http://localhost:3000/cuicontracts/${this.loginInfo.CompanyName}`);
 
   }
   
@@ -59,15 +53,23 @@ export class CuiContractsFormComponent implements OnInit {
     CCvendorRelation = String(CCvendorRelation)
     CCaccountManager = String(CCaccountManager)
 
-    this.cuicontracts$ = this.cuicontractsService
-      .post({ CCname, CCnum, CCstartDate, CCendDate, CCdescription, CCaccountManager , CCsupplierRelation , CCvendorRelation , CCfileInput , CCurl , CCgovCUI , CCnewCUI , CCmodCUI  })
-      .pipe(tap(() => (this.cuicontracts$ = this.fetchAll())));
-  
+    let data =  { CCname, CCnum, CCstartDate, CCendDate, CCdescription, CCaccountManager , CCsupplierRelation , CCvendorRelation , CCfileInput , CCurl , CCgovCUI , CCnewCUI , CCmodCUI  }
+    let temp = this.rest_service
+    .post(`http://localhost:3000/cuicontracts/${this.loginInfo.CompanyName}`, data)
+    .pipe(tap(() => (this.cuicontracts$ = this.fetchAll())));
+
+    temp.subscribe()
   
   }
-  update(CCname, CCnum, CCstartDate, CCendDate, CCdescription, idCUIcontracts ): void {
-    this.cuicontracts$ = this.cuicontractsService
-      .update({CCname, CCnum, CCstartDate, CCendDate, CCdescription, idCUIcontracts} )
+  update(CCname, CCnum, CCstartDate, CCendDate, CCdescription, CCaccountManager , CCsupplierRelation , CCvendorRelation , CCfileInput , CCurl , CCgovCUI , CCnewCUI , CCmodCUI,idCUIcontracts ): void {
+    CCsupplierRelation = String(CCsupplierRelation)
+    CCvendorRelation = String(CCvendorRelation)
+    CCaccountManager = String(CCaccountManager)
+    let data = { CCname, CCnum, CCstartDate, CCendDate, CCdescription, CCaccountManager , CCsupplierRelation , CCvendorRelation , CCfileInput , CCurl , CCgovCUI , CCnewCUI , CCmodCUI, idCUIcontracts }
+   
+   
+    this.cuicontracts$ = this.rest_service
+      .update(`http://localhost:3000/cuicontracts/${this.loginInfo.CompanyName}`, data)
       .pipe(tap(() => (this.cuicontracts$ = this.fetchAll())));
   }
   
@@ -77,8 +79,8 @@ export class CuiContractsFormComponent implements OnInit {
    // iduseru = 15
    // console.log("attempting to delete id : " , iduseru)
   
-    this.cuicontracts$ = this.cuicontractsService
-      .delete(id)
+    this.cuicontracts$ = this.rest_service
+      .delete(`http://localhost:3000/cuicontracts/${id}/${this.loginInfo.CompanyName}`)
       .pipe(tap(() => (this.cuicontracts$ = this.fetchAll())));
       
   }

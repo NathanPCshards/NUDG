@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { login } from '../injectables';
 import { controls } from '../models/controls';
 import { ErrorHandlerService } from './error-handler.service';
 
@@ -13,16 +14,23 @@ export class ControlsService {
   //url must match route in the app.use(...) in index.js
 private url = "http://localhost:3000/controls"
 onClick = new EventEmitter();
+postEvent = new EventEmitter();
 
 httpOptions: { headers: HttpHeaders } = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
 };
 
-  constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient) {
+  constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient, private loginInfo : login) {
    }
 
    emit(temp : any) {
+     console.log("does this happen twice too ? ")
     this.onClick.emit(temp);
+  }
+  emitPostEvent(temp : any){
+    console.log("post event emitted")
+
+    this.postEvent.emit(temp)
   }
 
 
@@ -41,13 +49,24 @@ httpOptions: { headers: HttpHeaders } = {
       );
   }
 
+
+
+
   post(item: any, CompanyName: any): Observable<any> {
-    console.log("posting : " , item)
+    let url = `http://localhost:3000/controls/${CompanyName}`
+    console.log("post reached in control service")
     return this.http
-      .post(this.url, item, this.httpOptions)
+      .post(url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
+
+
+
+
+
+
+  
   update(user: controls, CompanyName: any): Observable<any> {
     return this.http
       .put<controls>(this.url, user, this.httpOptions)

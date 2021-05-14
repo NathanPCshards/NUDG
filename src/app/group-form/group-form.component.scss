@@ -1,18 +1,14 @@
 div.container1{
-    overflow:hidden;
     padding: 5px;
-    margin-top: 10px;
+    margin-top: 50px;
     margin-left:auto;
     margin-right: auto;
     width:98%;
-    height: 450px;
-
     box-shadow: 1px 1px 15px -1px ;
-    background: linear-gradient(to bottom, #212121 12%, white 0%);
+    background: linear-gradient(to bottom, rgb(63,81,181) 8%, white 0%);
     overflow: hidden;
-    border-radius: 3px;
-
-    }
+      
+  }
 mat-grid-tile{
     width: 98px;
     margin:auto;
@@ -23,15 +19,14 @@ mat-form-field{
 
 .col{
     float:left;
-    width: 33%;
+    width: 30%;
     padding:1%;
-    
+  
 }
 
 .row2{
     width:100%;
     align-items: center;
-    display: flexbox;
     clear:both;
     padding-left: 2px;
     padding-right: 2px;
@@ -44,38 +39,14 @@ mat-form-field{
 .mat-toolbar{
     padding: 0px;
 }
-::ng-deep.mat-dialog-container {
-    padding: 0px !important;
-    margin-bottom: 0px;
+
+
+.mat-header-cell{
+    color:black;
+    
+    font-size: 15px;
 }
 
-div.cards{  
-    display: flexbox;
-}
-
-.qs {
- margin-left: 3%;
-}
-
-.col{
-    float:left;
-    width: 31%;
-    padding:1%;
-}
-
-.row2{
-    width:100%;    
-    clear:both;
-    display: flexbox;   
-}
-
-.mat-divider {
-    display: block;
-    margin: 0;
-    border-top-width: 1px;
-    border-top-style: solid;
-    margin-bottom: 15px;
- }
 
 
 //CSS for LIST
@@ -83,8 +54,13 @@ div.cards{
     display:flexbox;
 }
 .listSpan {
-    position:fixed;
-    float:1;
+  width:6%;
+  min-width: 6%;
+ // margin-left: 1%;
+  text-align: left;
+  margin-right: 1%;
+
+
 }
 .headerRow {
     position:relative;
@@ -104,3 +80,66 @@ div.cards{
     justify-content: center;
 
   }
+
+
+
+
+
+  /* some old styling,
+
+    <style>
+      div.container1{
+          overflow:hidden;
+          padding: 5px;
+          margin-top: 10px;
+          margin-left:auto;
+          margin-right: auto;
+          width:98%;
+          height: 450px;
+  
+          box-shadow: 1px 1px 15px -1px ;
+          background: linear-gradient(to bottom, #212121 12%, white 0%);
+          overflow: hidden;
+          border-radius: 3px;
+  
+          }
+      mat-grid-tile{
+          width: 98px;
+          margin:auto;
+      }
+      mat-form-field{
+          margin-left: 1%;
+      }
+      
+      .col{
+          float:left;
+          width: 33%;
+          padding:1%;
+          
+      }
+      
+      .row2{
+          width:100%;
+          align-items: center;
+          display: flexbox;
+          clear:both;
+          padding-left: 2px;
+          padding-right: 2px;
+      }
+      .mat-raised-button{
+          margin-top: 1%;
+          margin-bottom: 15px;
+      }
+      
+      .mat-toolbar{
+          padding: 0px;
+      }
+      ::ng-deep.mat-dialog-container {
+          padding: 0px !important;
+          margin-bottom: 0px;
+      }
+      
+      
+  </style>
+
+  */

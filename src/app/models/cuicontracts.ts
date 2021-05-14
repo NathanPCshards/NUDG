@@ -10,5 +10,8 @@ export interface cuicontracts {
     CCsupplierRelation : number;
     CCvendorRelation : number;
     CompanyName : string;
+    CCgovCUI : string;
+    CCnewCUI : string;
+    CCmodCUI : string;
 
  }

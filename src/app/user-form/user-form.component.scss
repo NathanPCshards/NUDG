@@ -1,125 +1,90 @@
 div.container1{
-    padding: 5px;
-    margin-top: 10px;
-    margin-left:auto;
-    margin-right: auto;
-    width:65%;
-    height: 800%;
-    box-shadow: 1px 1px 15px -1px ;
-    background: linear-gradient(to bottom, #212121 1%, white 0%);
-    background-color: rgb(255, 255, 255);
-
-    overflow: hidden;
-    border-radius: 3px;   
-  }
-
- 
+  padding: 5px;
+  margin-top: 50px;
+  margin-left:auto;
+  margin-right: auto;
+  width:98%;
+  box-shadow: 1px 1px 15px -1px ;
+  background: linear-gradient(to bottom, rgb(63,81,181) 8%, white 0%);
+  overflow: hidden;
+    
+}
 mat-grid-tile{
-    width: 98px;
+  width: 98px;
+  margin:auto;
 }
-
 mat-form-field{
-    margin-left: 1%;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    
-    
-}
-
-div.cards{   
-    display: flexbox;
-}
-
-.qs {
- margin-left: 3%;
+  margin-left: 1%;
 }
 
 .col{
-    float:left;
-    width: 31%;
-    padding:1%;
-  
+  float:left;
+  width: 30%;
+  padding:1%;
+
 }
 
 .row2{
-    width:100%;    
-    clear:both;
-    display: flexbox;
+  width:100%;
+  align-items: center;
+  clear:both;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+.mat-raised-button{
+  margin-top: 1%;
+  margin-bottom: 15px;
 }
 
-.mat-divider {
-    display: block;
-    margin: 0;
-    border-top-width: 1px;
-    border-top-style: solid;
-    margin-bottom: 15px;
- }
+.mat-toolbar{
+  padding: 0px;
+}
+
+:host::ng-deep.mat-dialog-container{
+  padding: 0px;
+  margin: 0px;
+}
 
 
+:host::ng-deep.cdk-overlay-pane{
+  padding: 0px;
+  margin: 0px;
+}
 //CSS for LIST
 .flexContainer{
-    display:flexbox;
+  display:flexbox;
 }
 .listSpan {
+  width:6%;
+  min-width: 6%;
+ // margin-left: 1%;
+  text-align: left;
+  margin-right: 1%;
 
-    float:1;
+
 }
+
+
 .headerRow {
-    position:relative;
-    background-color: white;
+  position:relative;
+}
+
+.mat-list{
+  width:100%;
+  overflow: auto
 }
 
 .mat-list >  .mat-list-item:nth-child(2n+1){
 
-    background-color:white;
-  }
-  .mat-list >  .mat-list-item:nth-child(2n){
+  background-color:white;
+}
+.mat-list >  .mat-list-item:nth-child(2n){
 
-    background-color:rgb(230, 228, 228);
-  }
+  background-color:rgb(230, 228, 228);
+}
 
-  .mat-list > .mat-list-item{
-    border: 1px solid black;
-    justify-content: center;
+.mat-list > .mat-list-item{
+  border: 1px solid black;
+  justify-content: center;
 
-  }
-
-  .idCol{
-    width:75px;
-    min-width: 75px;
-    text-align: left;
-
-  }
-  .nameCol{
-    margin-left: 10px;
-    width:150px;
-    min-width: 150px;
-    text-align: left;
-
-  }
-  .descCol{
-    width:250px;
-    min-width: 250px;
-    text-align: left;
-    margin-left: 10px;
-  }
-  
-  .dateCol{
-    width:60px;
-    min-width: 60px;
-    text-align: left;
-    margin-left:  10px;
-  }
-
-  .dateCol2{
-    width:200px;
-    min-width: 200px;
-    text-align: left;
-    margin-left:  10px
-  }
-  .dateCol3{
-    width:75px;
-    min-width: 75px;
-    text-align: left;
-    margin-left:  10px
-  }
+}

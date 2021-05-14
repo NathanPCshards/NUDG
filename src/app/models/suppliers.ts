@@ -14,7 +14,7 @@ export interface suppliers {
     ScmmcAuditorInfo : string;
     ScmmcAuditDate : Date; 
     SNISTauditAgency : string;
-    tSNISTauditorInfo : string;
+    SNISTauditorInfo : string;
     SNISTauditDate : string;
     CompanyName : string;
 

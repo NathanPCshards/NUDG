@@ -7,7 +7,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { login } from '../injectables';
 import { suppliers } from '../models/suppliers';
+import { restAPI } from '../services/restAPI.service';
 import { SuppliersService } from '../services/suppliers.service';
 
 
@@ -30,7 +32,9 @@ export class SupplierFormComponent implements OnInit {
 
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder,
-     public dialog: MatDialog, public suppliersService : SuppliersService){
+     public dialog: MatDialog, public suppliersService : SuppliersService,
+     private rest_service : restAPI,
+     private loginInfo : login){
     
   }
 
@@ -43,23 +47,26 @@ export class SupplierFormComponent implements OnInit {
   }
 
   fetchAll(): Observable<suppliers[]> {
-    return this.suppliersService.fetchAll();
+    return this.rest_service.get(`http://localhost:3000/suppliers/${this.loginInfo.CompanyName}`);
   }
   
   post(Sname, Sproduct, Saddress, Swebsite, StechnicalPOCinfo, SDUNSnum, Scagecode, SbusinessType, SSBAcertified, ScontractualPOCinfo, ScmmcAuditAgency, ScmmcAuditorInfo, ScmmcAuditDate, SNISTauditAgency, SNISTauditorInfo, SNISTauditDate): void {
  
- 
-    this.suppliers$ = this.suppliersService
-      .post({ Sname, Sproduct, Saddress, Swebsite, StechnicalPOCinfo, SDUNSnum, Scagecode, SbusinessType, SSBAcertified, ScontractualPOCinfo, ScmmcAuditAgency, ScmmcAuditorInfo, ScmmcAuditDate, SNISTauditAgency, SNISTauditorInfo, SNISTauditDate })
+    let data = { Sname, Sproduct, Saddress, Swebsite, StechnicalPOCinfo, SDUNSnum, Scagecode, SbusinessType, SSBAcertified, ScontractualPOCinfo, ScmmcAuditAgency, ScmmcAuditorInfo, ScmmcAuditDate, SNISTauditAgency, SNISTauditorInfo, SNISTauditDate }
+    
+    let temp = this.rest_service
+      .post(`http://localhost:3000/suppliers/${this.loginInfo.CompanyName}`,data)
       .pipe(tap(() => (this.suppliers$ = this.fetchAll())));
+    temp.subscribe()
   }
   
   
   update(Sname, Sproduct, Saddress, Swebsite, StechnicalPOCinfo, SDUNSnum, Scagecode, SbusinessType, SSBAcertified, ScontractualPOCinfo, ScmmcAuditAgency, ScmmcAuditorInfo, ScmmcAuditDate, SNISTauditAgency, SNISTauditorInfo, SNISTauditDate, idSuppliers): void {
-    
-    this.suppliers$ = this.suppliersService
-    .update({ Sname, Sproduct, Saddress, Swebsite, StechnicalPOCinfo, SDUNSnum, Scagecode, SbusinessType, SSBAcertified, ScontractualPOCinfo, ScmmcAuditAgency, ScmmcAuditorInfo, ScmmcAuditDate, SNISTauditAgency, SNISTauditorInfo, SNISTauditDate, idSuppliers })
+    let data = { Sname, Sproduct, Saddress, Swebsite, StechnicalPOCinfo, SDUNSnum, Scagecode, SbusinessType, SSBAcertified, ScontractualPOCinfo, ScmmcAuditAgency, ScmmcAuditorInfo, ScmmcAuditDate, SNISTauditAgency, SNISTauditorInfo, SNISTauditDate, idSuppliers }
+    let temp = this.rest_service
+    .update(`http://localhost:3000/suppliers/${this.loginInfo.CompanyName}`,data)
     .pipe(tap(() => (this.suppliers$ = this.fetchAll())));
+    temp.subscribe()
  
   }
   
@@ -69,24 +76,17 @@ export class SupplierFormComponent implements OnInit {
    // iduseru = 15
    // console.log("attempting to delete id : " , iduseru)
   
-    this.suppliers$ = this.suppliersService
-      .delete(id)
+    let temp = this.rest_service
+      .delete(`http://localhost:3000/suppliers/${id}/${this.loginInfo.CompanyName}`)
       .pipe(tap(() => (this.suppliers$ = this.fetchAll())));
-      
+      temp.subscribe()  
   }
+
   public onFormSubmit() {
     console.log("FORM WAS SUBMITTED");
     this.submitted = true;
     const configUrl = 'http://localhost:4200/home'; 
-    /*
-    this.http.post(configUrl,this.UserForm.value)
-    .pipe(
-      tap(
-        data => console.log(configUrl, data),
-        error => console.log(configUrl, error)
-      )
-    )
-    .subscribe(results => this.results = results);*/
+
   }
   
   

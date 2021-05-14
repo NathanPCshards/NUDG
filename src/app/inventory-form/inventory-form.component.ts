@@ -5,11 +5,8 @@ import { tap } from 'rxjs/operators';
 import { inventories } from '../models/inventory';
 
 import { Observable } from 'rxjs';
-import { CuicontractsService } from '../services/cuicontracts.service';
-import { softewareApprovalService } from '../services/softwareApproval';
 import { restAPI } from '../services/restAPI.service';
 import { login } from '../injectables';
-import { templateJitUrl } from '@angular/compiler';
 
 
 @Component({
@@ -32,8 +29,6 @@ export class InventoryFormComponent implements OnInit {
     private http:HttpClient,
     private rest_service : restAPI,
     private loginInfo : login,
-    private softwareApprovalService : softewareApprovalService,
-    private cuiService: CuicontractsService,
    // private softwareApproval : 
    ) {
 
@@ -41,9 +36,9 @@ export class InventoryFormComponent implements OnInit {
 
   ngOnInit(){
     this.inventories$ = this.fetchAll();
-    this.CUIcontracts$ = this.cuiService.fetchAll()
+    this.CUIcontracts$ = this.rest_service.get(`http://localhost:3000/cuicontracts/${this.loginInfo.CompanyName}`);
     this.Users$ = this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
-    this.softwares$ = this.softwareApprovalService.fetchAll()
+    this.softwares$ = this.rest_service.get(`http://localhost:3000/softwareApproval/${this.loginInfo.CompanyName}`)
 
   }
   ngOnContentInit(){

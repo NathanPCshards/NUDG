@@ -243,28 +243,99 @@
   </mat-accordion>
 
 
+    <mat-list>
 
-  <mat-list>
-    <div class="flexContainer">
       <mat-list-item class="headerRow">
-        <span>
-          ID
+        <span class = "listSpan">
+          Asset Identifier
         </span>
-        <span style="margin-left: 6.5%;">
-          Name
+        <span class="listSpan">
+          Network Id
+        </span>
+        <span class="listSpan">
+          Virtual
+        </span>
+        <span class="listSpan">
+          Public
+        </span>
+        <span class="listSpan">
+          DNS Name
+        </span>
+        <span class="listSpan">
+          NetBios Name
+        </span>
+        <span class="listSpan">
+          Mac Address
+        </span>
+        <span class="listSpan">
+          Authenticated Scan
+        </span>
+        <span class="listSpan">
+          OS Name and Version
+        </span>
+        <span class="listSpan">
+          Physical Location
+        </span>
+        <span class="listSpan">
+          Date of Receipt
+        </span>
+        <span class="listSpan">
+          Cost
+        </span>
+        <span class="listSpan">
+            IsoftwareApproval
+        </span>
+        <span class="listSpan">
+          Comments
         </span>
       </mat-list-item>
-    </div>
+
 
     <mat-list-item *ngFor="let inventory of inventories$ | async">
-      <div class="flexContainer">
-      <span class="listSpan" style="font-weight: bold;"
-        >{{ inventory.idOrgInventory }}    </span
-      >
-      <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
+
+      <span class="listSpan">
         {{inventory.IassetIdentifier}}
       </span>
-      </div>
+      <span class="listSpan">
+        {{inventory.InetworkID}}
+      </span>
+      <span class="listSpan">
+        {{inventory.Ivirtual}}
+      </span>
+      <span class="listSpan">
+        {{inventory.Ipublic}}
+      </span>
+      <span class="listSpan">
+        {{inventory.Idnsname}}
+      </span>
+      <span class="listSpan">
+        {{inventory.InetbiosName}}
+      </span>
+      <span class="listSpan">
+        {{inventory.Imacaddress}}
+      </span>
+      <span class="listSpan">
+        {{inventory.IauthenticatedScan}}
+      </span>
+      <span class="listSpan">
+        {{inventory.IosNameAndVersion}}
+      </span>
+      <span class="listSpan">
+        {{inventory.IphysicalLocation}}
+      </span>
+      <span class="listSpan">
+        {{inventory.IdateOfReceipt}}
+      </span>
+      <span class="listSpan">
+        {{inventory.Icost}}
+      </span>
+      <span class="listSpan">
+        {{inventory.IsoftwareApproval}}
+      </span>
+      <span class="listSpan">
+        {{inventory.Icomments}}
+      </span>
+
 
 
      <span style="position: absolute; right: 0;">

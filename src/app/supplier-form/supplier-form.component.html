@@ -160,9 +160,6 @@
                           </mat-form-field>
 
 
-
-
-  
                         <mat-form-field style="width: 80%;background: transparent;" appearance="fill" class="datepicker datepicker5" id="datepicker5">
                           <mat-label >Nist Auditor Date</mat-label>
                           <input 
@@ -178,10 +175,7 @@
                           </mat-datepicker-actions>
                           </mat-datepicker>
                       </mat-form-field>
-  
 
-  
-                  
                       </div>
   
   
@@ -206,41 +200,86 @@
 
 </mat-accordion>
 
-
-<button
-(click)="post(Sname.value, Sproduct.value, Saddress.value, Swebsite.value, StechnicalPOCinfo.value, SDUNSnum.value, Scagecode.value, SbusinessType.value, SSBAcertified.value, ScontractualPOCinfo.value, ScmmcAuditAgency.value, ScmmcAuditorInfo.value, ScmmcAuditDate.value, SNISTauditAgency.value, SNISTauditorInfo.value, SNISTauditDate.value)"
-mat-fab
-color="primary"
-style="float: right;"
->
-<mat-icon>add</mat-icon>
-</button>
-<mat-form-field style="width: 100%;">
-<mat-label>User item</mat-label>
-<input #userInput matInput placeholder="Ex. Rice" />
-</mat-form-field>
-
 <mat-list>
-  <div class="flexContainer">
+
     <mat-list-item class="headerRow">
-      <span>
-        ID
-      </span>
-      <span style="margin-left: 6.5%;">
+      <span class ="listSpan">
         Name
       </span>
+      <span class="listSpan">
+        Product
+      </span>
+      <span class="listSpan">
+        Website
+      </span>
+      <span class="listSpan">
+        CMMC Audit Date
+      </span>
+      <span class="listSpan">
+        CMMC Auditor Information
+      </span>
+      <span class="listSpan">
+        CMMC Audit Agency
+      </span>
+      <span class="listSpan">
+        SBA Certified
+      </span>
+      <span class="listSpan">
+        NIST Audit Date
+      </span>
+      <span class="listSpan">
+        NIST Auditor Information
+      </span>
+      <span class="listSpan">
+        NIST Audit Agency
+      </span>
+
+      <span class="listSpan">
+        Business Type
+      </span>
+
+
     </mat-list-item>
-  </div>
+
 
   <mat-list-item *ngFor="let supplier of suppliers$ | async">
-    <div class="flexContainer">
-    <span class="listSpan" style="font-weight: bold;"
-      >{{ supplier.idSuppliers }}    </span
+
+    <span class="listSpan"
+      >{{ supplier.Sname }}    </span
     >
-    <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
-      {{supplier.Sname}}
+    <span class="listSpan" >
+      {{supplier.Sproduct}}
     </span>
-    </div>
+    <span class="listSpan" >
+      {{supplier.Swebsite}}
+    </span>
+    <span class="listSpan" >
+      {{supplier.ScmmcAuditDate}}
+    </span>
+    <span class="listSpan" >
+      {{supplier.ScmmcAuditorInfo}}
+    </span>
+    <span class="listSpan" >
+      {{supplier.ScmmcAuditAgency}}
+    </span>
+    <span class="listSpan" >
+      {{supplier.SSBAcertified}}
+    </span>
+    <span class="listSpan" >
+      {{supplier.SNISTauditDate}}
+    </span>
+    <span class="listSpan" >
+      {{supplier.SNISTauditorInfo}}
+    </span>
+    <span class="listSpan" >
+      {{supplier.SNISTauditAgency}}
+    </span>
+
+    <span class="listSpan" >
+      {{supplier.SbusinessType}}
+    </span>
+
+
 
 
    <span style="position: absolute; right: 0;">
@@ -253,7 +292,6 @@ style="float: right;"
         </mat-icon>
       </button>
 
-  
       <button mat-icon-button>
         <mat-icon (click)="delete(supplier.idSuppliers)" color="warn">
           delete
@@ -262,10 +300,6 @@ style="float: right;"
     </span> 
   </mat-list-item>
 </mat-list>
-
-
-
-
 
 
 <mat-dialog-content class="dialog" >

@@ -71,7 +71,7 @@ export class RoleFormComponent implements OnInit {
 
   }
   async post(data){
-    console.log("data : " , data)
+
     let temp = this.rest_service.post(`http://localhost:3000/roles/${this.loginInfo.CompanyName}`, data)
     .pipe(tap(() => (this.roles$ = this.fetchall())));
 
@@ -118,6 +118,7 @@ ngOnInit(){
   async submit(URGroles, Rroletype, Rdescription, URGusers){
   let data = {URGroles, Rroletype, Rdescription, URGusers}
   let temp = await this.rest_service.post(`http://localhost:3000/roles/${this.loginInfo.CompanyName}`, data)
+
   temp.subscribe()
 
 

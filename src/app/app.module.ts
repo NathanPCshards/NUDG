@@ -37,6 +37,7 @@ import { SharedModule } from './SharedModule.module';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CompanyInfoModule } from './company-info-form/company-info-form.module';
+import { FirewallPortsProtocolsComponent } from './firewall-ports-protocols/firewall-ports-protocols.component';
 
 
 
@@ -74,7 +75,10 @@ import { CompanyInfoModule } from './company-info-form/company-info-form.module'
     AdminPanelComponent,
    
 
-    RegisterFormComponent
+    RegisterFormComponent,
+   
+
+    FirewallPortsProtocolsComponent
     
 
     

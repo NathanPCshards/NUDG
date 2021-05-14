@@ -214,40 +214,82 @@
 
 -->
 
-<button
-(click)="post(Vname.value, Vproduct.value, Vaddress.value, Vwebsite.value, VtechnicalPOCinfo.value, VDUNSnum.value, Vcagecode.value, VbusinessType.value, VSBAcertified.value, VcontractualPOCinfo.value, VcmmcAuditAgency.value, VcmmcAuditorInfo.value, VcmmcAuditDate.value, VNISTauditAgency.value, VNISTauditorInfo.value, VNISTauditDate.value)"
-mat-fab
-color="primary"
-style="float: right;"
->
-<mat-icon>add</mat-icon>
-</button>
-<mat-form-field style="width: 100%;">
-<mat-label>User item</mat-label>
-<input #userInput matInput placeholder="Ex. Rice" />
-</mat-form-field>
-
 <mat-list>
-  <div class="flexContainer">
+
     <mat-list-item class="headerRow">
-      <span>
-        ID
-      </span>
-      <span style="margin-left: 6.5%;">
+      <span class ="listSpan">
         Name
       </span>
+      <span class="listSpan">
+        Product
+      </span>
+      <span class="listSpan">
+        Website
+      </span>
+      <span class="listSpan">
+        CMMC Audit Date
+      </span>
+      <span class="listSpan">
+        CMMC Auditor Information
+      </span>
+      <span class="listSpan">
+        CMMC Audit Agency
+      </span>
+      <span class="listSpan">
+        SBA Certified
+      </span>
+      <span class="listSpan">
+        NIST Audit Date
+      </span>
+      <span class="listSpan">
+        NIST Auditor Information
+      </span>
+      <span class="listSpan">
+        NIST Audit Agency
+      </span>
+      <span class="listSpan">
+        Business Type
+      </span>
     </mat-list-item>
-  </div>
+
 
   <mat-list-item *ngFor="let vendor of vendors$ | async">
-    <div class="flexContainer">
-    <span class="listSpan" style="font-weight: bold;"
-      >{{ vendor.idVendors }}    </span
+  
+    <span class="listSpan"
+      >{{vendor.Vname }}    </span
     >
-    <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
-      {{vendor.Vname}}
+    <span class="listSpan" >
+      {{vendor.Vproduct}}
     </span>
-    </div>
+    <span class="listSpan" >
+      {{vendor.Vwebsite}}
+    </span>
+    <span class="listSpan" >
+      {{vendor.VcmmcAuditDate}}
+    </span>
+    <span class="listSpan" >
+      {{vendor.VcmmcAuditorInfo}}
+    </span>
+    <span class="listSpan" >
+      {{vendor.VcmmcAuditAgency}}
+    </span>
+    <span class="listSpan" >
+      {{vendor.VSBAcertified}}
+    </span>
+    <span class="listSpan" >
+      {{vendor.VNISTauditDate}}
+    </span>
+    <span class="listSpan" >
+      {{vendor.VNISTauditorInfo}}
+    </span>
+    <span class="listSpan" >
+      {{vendor.VNISTauditAgency}}
+    </span>
+
+    <span class="listSpan" >
+      {{vendor.VbusinessType}}
+    </span>
+
 
 
    <span style="position: absolute; right: 0;">

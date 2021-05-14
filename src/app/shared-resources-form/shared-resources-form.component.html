@@ -1,29 +1,95 @@
-<div style="justify-content: center;display: flex;">
-    <div class="container1">
+    <mat-accordion class ="accordion">
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false"
+                           >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Add a Shared Resource Item
+          </mat-panel-title>
+          <mat-panel-description class="description">
+           Open panel to add a Network Share Item
+          </mat-panel-description>
+  
+        </mat-expansion-panel-header>
+  
+        <div class="container1">
  
-        <div style="justify-content: center;">  
-            
-            <p id="title" style="font-size: 30px; margin-bottom: 40px;margin-left: 25%;color: white;margin-top: 20px;font-weight: bold"> Shared Resources</p>
+          <div style="justify-content: center;">  
               
-              <mat-form-field appearance="outline" color="primary" style="width: 90%;">
-                <mat-label >Title</mat-label>
-                <input #SRtitle matInput  id="Input" placeholder="Milestone ID">
-                </mat-form-field>
-      
-                <br>
-                <mat-form-field color="primary" appearance="outline" id="descriptionBox" style="width: 90%;">
+              <p id="title" style="font-size: 30px; margin-bottom: 40px;margin-left: 25%;color: white;margin-top: 20px;font-weight: bold"> Shared Resources</p>
                 
-                <mat-label> Description</mat-label>
-                <input #SRdescription matInput   placeholder="Milestone Description" >
-              </mat-form-field>
-              <div class="fileInput" style="margin-left: 1%;">
-                <input #SRupload class="ng-hide" id="input-file-id" multiple type="file" />
-                <label for="input-file-id" class="md-button md-raised md-primary"></label>
+                <mat-form-field appearance="outline" color="primary" style="width: 40%;">
+                  <mat-label >Title</mat-label>
+                  <input #SRtitle matInput  id="Input">
+                  </mat-form-field>
+        
+                  <br>
+                  <mat-form-field color="primary" appearance="outline" id="descriptionBox" style="width: 40%;">
+                  
+                  <mat-label> Description</mat-label>
+                  <input #SRdescription matInput >
+                </mat-form-field>
+                <div class="fileInput" style="margin-left: 1%;">
+                  <input #SRupload class="ng-hide" id="input-file-id" multiple type="file" />
+                  <label for="input-file-id" class="md-button md-raised md-primary"></label>
+              </div>
+  
+  
+                  <button mat-raised-button  (click)="submit(SRtitle.value, SRdescription.value, SRupload.value)" color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Submit</button>
             </div>
+  
+        </div>
+  
+      </mat-expansion-panel>
+  
+    </mat-accordion>
+  
+ 
 
+         <mat-list>
+        <mat-list-item class="headerRow">
+          <span class="listSpan">
+            Title
+          </span>
+          <span class="listSpan">
+            Description
+          </span>
 
-                <button mat-raised-button  (click)="submit(SRtitle.value, SRdescription.value, SRupload.value)" color="primary" style ="width: 100px; margin: 8px;font-weight: bold;">Submit</button>
-          </div>
+  
+        </mat-list-item>
+  
+  
+      <mat-list-item *ngFor="let resource of sharedResources$ | async">
+  
+        <span class="listSpan">
+          {{ resource.SRtitle}}    
+        </span>
+  
+        <span class="listSpan ">
+          {{resource.SRdescription}}
+        </span>
 
-      </div>
-    </div>
+    
+       <span style="position: absolute; right: 0;">
+          <button mat-icon-button>
+            <mat-icon color="primary">
+              edit
+            </mat-icon>
+          </button>
+    
+      
+          <button mat-icon-button>
+            <mat-icon (click)="delete(resource.idSharedResources)" color="warn">
+              delete
+            </mat-icon>
+          </button>
+        </span> 
+        
+      </mat-list-item>
+    </mat-list>
+
+ 
+    
+    
+    
+    

@@ -171,37 +171,77 @@
 
   </mat-accordion>
 
-<!--
-    (click)="post(NSshareName.value, NSresourceType.value, NSdescription.value, NSfolderPath.value, NShostIdentifier.value, CUIdata.value,  GRA.value, GWA.value, URA.value, UWA.value)"
-
--->
   
   <mat-list>
       <mat-list-item class="headerRow">
-        <span class="idCol">
-          ID
-        </span>
-        <span class="nameCol">
+        <span class="listSpan">
           Name
         </span>
-        <span class="descCol">
+        <span class="listSpan">
+          Resource Type
+        </span>
+        <span class="listSpan">
           Description
         </span>
+        <span class="listSpan">
+          Folder Path
+        </span>
+        <span class="listSpan">
+          Host Identifier
+        </span>
+        <span class="listSpan">
+          CUI Data
+        </span>
+        <span class="listSpan">
+          Group Read Access
+        </span>
+        <span class="listSpan">
+          Group Write Access
+        </span>
+        <span class="listSpan">
+          User Read Access
+        </span>
+        <span class="listSpan">
+          User Write Access
+        </span>
+
       </mat-list-item>
 
   
     <mat-list-item *ngFor="let networkshare of networkshares$ | async">
 
-      <span class="idCol">
-        {{ networkshare.idOrgNetworkShares }}    
+      <span class="listSpan">
+        {{ networkshare.NSshareName}}    
       </span>
 
-      <span class="listSpan nameCol">
-        {{networkshare.NSshareName}}
+      <span class="listSpan ">
+        {{networkshare.NSresourceType}}
       </span>
 
-      <span class="listSpan descCol">
+      <span class="listSpan ">
         {{networkshare.NSdescription}}
+      </span>
+
+      <span class="listSpan ">
+        {{networkshare.NSfolderPath}}
+      </span>
+      <span class="listSpan ">
+        {{networkshare.NShostIdentifier}}
+      </span>
+      <span class="listSpan ">
+        {{networkshare.CUIdata}}
+      </span>
+      <span class="listSpan ">
+        {{networkshare.GRA}}
+      </span>
+      <span class="listSpan ">
+        {{networkshare.GWA}}
+      </span>
+      <span class="listSpan ">
+        {{networkshare.URA}}
+      </span>
+      <span class="listSpan ">
+        {{networkshare.UWA}}
       </span>
 
   

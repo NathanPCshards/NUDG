@@ -1,58 +1,4 @@
 
-    <style>
-      div.container1{
-          overflow:hidden;
-          padding: 5px;
-          margin-top: 10px;
-          margin-left:auto;
-          margin-right: auto;
-          width:98%;
-          height: 450px;
-  
-          box-shadow: 1px 1px 15px -1px ;
-          background: linear-gradient(to bottom, #212121 12%, white 0%);
-          overflow: hidden;
-          border-radius: 3px;
-  
-          }
-      mat-grid-tile{
-          width: 98px;
-          margin:auto;
-      }
-      mat-form-field{
-          margin-left: 1%;
-      }
-      
-      .col{
-          float:left;
-          width: 33%;
-          padding:1%;
-          
-      }
-      
-      .row2{
-          width:100%;
-          align-items: center;
-          display: flexbox;
-          clear:both;
-          padding-left: 2px;
-          padding-right: 2px;
-      }
-      .mat-raised-button{
-          margin-top: 1%;
-          margin-bottom: 15px;
-      }
-      
-      .mat-toolbar{
-          padding: 0px;
-      }
-      ::ng-deep.mat-dialog-container {
-          padding: 0px !important;
-          margin-bottom: 0px;
-      }
-      
-      
-  </style>
 
 <mat-accordion class ="accordion">
 
@@ -190,30 +136,58 @@
 
 </mat-accordion>
 
-<!--
-  (click)="post(Gnames.value, Gdescriptions.value, GcreationDate.value, GcreationDate.value, GCUIaccess.value)"
--->
 <mat-list>
-  <div class="flexContainer">
-    <mat-list-item class="headerRow">
-      <span>
-        ID
-      </span>
-      <span style="margin-left: 6.5%;">
+
+    <mat-list-item>
+      <span class="listSpan">
         Name
       </span>
+      <span class="listSpan">
+        Description
+      </span>
+      <span class="listSpan">
+        Creation Date
+      </span>
+      <span class="listSpan">
+        CUI Access
+      </span>
+      <span class="listSpan">
+        Users
+      </span>
+      <span class="listSpan">
+        Network Share - Read Access
+      </span>
+      <span class="listSpan">
+        Network Share - Write Access
+      </span>
+
     </mat-list-item>
-  </div>
+
 
   <mat-list-item *ngFor="let group of groups$ | async">
-    <div class="flexContainer">
-    <span class="listSpan" style="font-weight: bold;"
-      >{{ group.idOrgGroups }}    </span
-    >
-    <span class="listSpan" style="font-weight: bold; margin-left: 5%;">
-      {{group.Gnames}}
+
+    <span class="listSpan" class="listSpan" >
+      {{ group.Gnames }}    
     </span>
-    </div>
+    <span class="listSpan">
+      {{group.Gdescriptions}}
+    </span>
+    <span class="listSpan">
+      {{group.GcreationDate}}
+    </span>
+    <span class="listSpan">
+      {{group.GCUIaccess}}
+    </span>
+    <span class="listSpan">
+      {{group.UGRusers}}
+    </span>
+    <span class="listSpan">
+      {{group.GNSra}}
+    </span>
+    <span class="listSpan">
+      {{group.GNSwa}}
+    </span>
+
 
 
    <span style="position: absolute; right: 0;">

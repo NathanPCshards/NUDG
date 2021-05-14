@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders} from "@angular/common/http";
 import { ErrorHandler, EventEmitter, Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { catchError, publish, tap } from "rxjs/operators";
+import { login } from "../injectables";
 import { guidelines } from "../models/guidelines";
 
 import { ErrorHandlerService } from "./error-handler.service";
@@ -11,7 +12,7 @@ import { ErrorHandlerService } from "./error-handler.service";
 })
 export class GuidelinesService {
   //url must match route in the app.use(...) in index.js
-  private url = "http://localhost:3000/guidelines"
+  private url = `http://localhost:3000/guidelines/${this.loginInfo.CompanyName}`
   onOpen = new EventEmitter();
   onClose = new EventEmitter();
   toComponent = new EventEmitter();
@@ -21,7 +22,7 @@ export class GuidelinesService {
     headers: new HttpHeaders({ "Content-Type": "application/json" }),
   };
   
-    constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient) {
+    constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient, private loginInfo: login) {
      }
 
 
@@ -35,9 +36,9 @@ export class GuidelinesService {
      this.onClose.emit(temp);
    }
   
-     fetchAll(): Observable<guidelines[]> {
+     fetchAll() {
       return this.http
-        .get<guidelines[]>(this.url, { responseType: "json" })
+        .get<any>(this.url, { responseType: "json" })
         .pipe(
           tap((_) => console.log("fetched guidelines")),
           catchError(
@@ -62,7 +63,7 @@ export class GuidelinesService {
     }
   
     delete(id: number): Observable<any> {
-      const url = `http://localhost:3000/guidelines/${id}`;
+      const url = `http://localhost:3000/guidelines/${id}/${this.loginInfo.CompanyName}`;
       console.log("delete guidelines")
   
       return this.http

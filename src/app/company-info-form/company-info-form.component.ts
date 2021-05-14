@@ -21,7 +21,7 @@ export class CompanyInfoFormComponent {
   Users$;
 
   constructor(  
-    private usersService : UserServiceService,
+
     private rest_service : restAPI,
     private loginInfo : login
 
@@ -30,6 +30,7 @@ export class CompanyInfoFormComponent {
   ngOnInit(){
     this.companies$ = this.fetchAll();
     this.Users$ = this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
+    this.Users$.subscribe()
     this.companies$.subscribe()
 
 
@@ -40,20 +41,20 @@ export class CompanyInfoFormComponent {
     return this.rest_service.get(`http://localhost:3000/CompanyInfo/${this.loginInfo.CompanyName}`);
   }
 
-  async post(CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber): Promise<void> {
+   post(CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber){
  
    let data = {CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber, CompanyName : this.loginInfo.CompanyName}
 
-   let temp = await this.rest_service.post(`http://localhost:3000/CompanyInfo/${this.loginInfo.CompanyName}`,data)
+   let temp =  this.rest_service.post(`http://localhost:3000/CompanyInfo/${this.loginInfo.CompanyName}`,data)
    .pipe(tap(() => (this.companies$ = this.fetchAll())));
    temp.subscribe()
   }
 
 
-  async update(CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber, idCompanyInfo): Promise<void> {
+   update(CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber, idCompanyInfo) {
     let data = {CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber, idCompanyInfo, CompanyName : this.loginInfo.CompanyName}
   
-    let temp  = await this.rest_service.update(`http://localhost:3000/CompanyInfo/${this.loginInfo.CompanyName}`, data)
+    let temp  =  this.rest_service.update(`http://localhost:3000/CompanyInfo/${this.loginInfo.CompanyName}`, data)
     .pipe(tap(() => (this.companies$ = this.fetchAll())));
      temp.subscribe()
   }

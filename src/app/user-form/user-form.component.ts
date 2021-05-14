@@ -6,7 +6,6 @@ import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Users } from '../models/users';
 import { MatPaginator } from '@angular/material/paginator';
-import { CuicontractsService } from '../services/cuicontracts.service';
 
 
 import { restAPI } from '../services/restAPI.service';
@@ -39,7 +38,7 @@ export class UserFormComponent implements OnInit {
     private formBuilder: FormBuilder, 
     private rest_service : restAPI,
     private loginInfo : login,
-    private cuiService : CuicontractsService,
+
 
 
 
@@ -47,7 +46,8 @@ export class UserFormComponent implements OnInit {
  
   ngOnInit(){
     this.users$ = this.fetchAll();
-    this.CUIcontracts$ = this.cuiService.fetchAll()
+    this.CUIcontracts$ = this.rest_service.get(`http://localhost:3000/cuicontracts/${this.loginInfo.CompanyName}`);
+
     this.Inventory$ = this.rest_service.get(`http://localhost:3000/inventories/${this.loginInfo.CompanyName}`);
     this.Roles$ = this.rest_service.get(`http://localhost:3000/roles/${this.loginInfo.CompanyName}`);
     this.Groups$ = this.rest_service.get(`http://localhost:3000/groups/${this.loginInfo.CompanyName}`)

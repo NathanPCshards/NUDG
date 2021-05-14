@@ -22,10 +22,10 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView,
 } from 'angular-calendar';
-import { taskService } from '../services/task.service';
 import { tap } from 'rxjs/operators';
 import { SharedService } from '../services/Shared';
 import { login } from '../injectables';
+import { restAPI } from '../services/restAPI.service';
 
 
 
@@ -103,8 +103,8 @@ export class CalendarComponent implements OnInit {
   
     constructor(
       private modal: NgbModal,
-      private taskService : taskService,
       private sharedService : SharedService,
+      private rest_service : restAPI,
       public loginInfo : login) {
   
     }
@@ -245,7 +245,7 @@ export class CalendarComponent implements OnInit {
     //add a default value task. When pulling from the DB, optionalObject is
     //a task from the Db and is added to events accordingly.
       if (optionalObject == null){
-          this.tasks$ =  this.taskService.post({ 
+        let data = { 
           title: 'Event ' + this.addCounter,
           dateStart: startOfDay(new Date()),
           dateEnd: endOfDay(new Date()),
@@ -260,12 +260,13 @@ export class CalendarComponent implements OnInit {
           alert: "Off"
      
     
-    })
+    }
+          this.tasks$ =  this.rest_service.post(`http://localhost:3000/task/${this.loginInfo.CompanyName}`, data)
   
      //to instantiate the observable (so post goes through)
      this.tasks$.forEach(element => {
     });
-    this.tasks$ = this.taskService.fetchAll()
+    this.tasks$ = this.rest_service.get(`http://localhost:3000/task/${this.loginInfo.CompanyName}`)
 
     //Add to display list
     let temp = {
@@ -285,7 +286,7 @@ export class CalendarComponent implements OnInit {
       originalIndex: this.displayEvents$.length
     }
     this.displayEvents$.push(temp)
-    this.addCounter += 1
+    
     //Add to events
     this.events = [
       ...this.events,
@@ -302,6 +303,7 @@ export class CalendarComponent implements OnInit {
 
       },
     ];
+    this.addCounter += 1
       }
       else{
         //Adding the incoming task to events.
@@ -378,7 +380,7 @@ export class CalendarComponent implements OnInit {
     this.events = this.events.filter((event) => event !== eventToDelete);
     //remove from database
     this.tasks$.forEach(async element => {
-      await this.taskService.delete(element[taskIndex].idOrgTasks).toPromise()
+      await this.rest_service.delete(`http://localhost:3000/${element[taskIndex].idOrgTasks}/${this.loginInfo.CompanyName}`).toPromise()
   }); 
   }
 
@@ -405,7 +407,7 @@ export class CalendarComponent implements OnInit {
 
     update(event, index, eventMoved=false, alertValue=""): any {
       //Event is the changed event, index is the index that event is located at in several arrays (the indices match between arrays)
-      //given a NEW/Different event, update events/tasks/ DB accordingly
+      //given a NEW/Different event, update events/task/ DB accordingly
       let temp;
       console.log("displayed list test : " , this.displayEvents$)
       console.log("display list no sort : " , this.displayListNoSort)
@@ -462,7 +464,7 @@ export class CalendarComponent implements OnInit {
         temp = element[index]
 
         //Post updated task to database ()
-        await this.taskService.update(temp).toPromise().then(value=>{this.reloadData()})
+        await this.rest_service.update(`http://localhost:3000/task/${this.loginInfo.CompanyName}`,temp).toPromise().then(value=>{this.reloadData()})
         return 1
       });
 
@@ -476,7 +478,7 @@ export class CalendarComponent implements OnInit {
       //clear lists
       this.displayEvents$ = []
       this.events = []
-      this.tasks$ = this.taskService.fetchAll();
+      this.tasks$ = this.rest_service.get(`http://localhost:3000/task/${this.loginInfo.CompanyName}`);
       this.tasks$.subscribe(element => {
         let i = 0
         element.forEach(task => {

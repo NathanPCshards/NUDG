@@ -176,50 +176,84 @@
 
 
 <mat-list>
-  <div class="flexContainer">
+
     <mat-list-item class="headerRow">
-      <span class="idCol">
-        ID
-      </span>
-      <span class="nameCol">
+      <span class="listSpan">
         Name
       </span>
-      <span class="date1Col">
-        Start Date
-      </span>
-      <span class="date2Col">
-        End Date
-      </span>
-      <span class="numCol">
+      <span class="listSpan">
         Number
       </span>
+      <span class="listSpan">
+        Description
+      </span>
+      <span class="listSpan">
+        Start Date
+      </span>
+      <span class="listSpan">
+        End Date
+      </span>
+      <span class="listSpan">
+        Account Manager
+      </span>
+      <span class="listSpan">
+        Supplier Relation
+      </span>
+      <span class="listSpan">
+        Vendor Relation
+      </span>
+      <span class="listSpan">
+        Government CUI
+      </span>
+      <span class="listSpan">
+        New CUI
+      </span>
+      <span class="listSpan">
+        Modified CUI
+      </span>
     </mat-list-item>
-  </div>
+
 
   <mat-list-item *ngFor="let contract of cuicontracts$ | async">
 
-    <span class="listSpan idCol">
-    {{ contract.idCUIcontracts }}    
+    <span class="listSpan ">
+    {{ contract.CCname }}    
     </span>
-    <span class="listSpan nameCol">
-      {{contract.CCname}}
-    </span>
-    <span class="listSpan date1Col">
-      {{contract.CCstartDate}}
-    </span>
-    <span class="listSpan date2Col">
-      {{contract.CCendDate}}
-    </span>
-    <span class="listSpan numCol">
+    <span class="listSpan ">
       {{contract.CCnum}}
     </span>
-
-
+    <span class="listSpan ">
+      {{contract.CCdescription}}
+    </span>
+    <span class="listSpan ">
+      {{contract.CCstartDate}}
+    </span>
+    <span class="listSpan ">
+      {{contract.CCendDate}}
+    </span>
+    <span class="listSpan ">
+      {{contract.CCaccountManager}}
+    </span>
+    <span class="listSpan ">
+      {{contract.CCsupplierRelation}}
+    </span>
+    <span class="listSpan ">
+      {{contract.CCvendorRelation}}
+    </span>
+    <span class="listSpan ">
+      {{contract.CCgovCUI}}
+    </span>
+    <span class="listSpan ">
+      {{contract.CCnewCUI}}
+    </span>
+    <span class="listSpan ">
+      {{contract.CCmodCUI}}
+    </span>
 
    <span style="position: absolute; right: 0;">
       <button mat-icon-button>
         <mat-icon
-          (click)="update(CCname.value, CCnum.value, CCstartDate.value, CCendDate.value, CCdescription.value, contract.idCUIcontracts)"
+          (click)="update(CCname.value, CCnum.value, CCstartDate.value, CCendDate.value, CCdescription.value, CCaccountManager.value, CCsupplierRelation.value, CCvendorRelation.value, CCfileInput.value, CCurl.value, CCgovCUI.value, CCnewCUI.value, CCmodCUI.value, contract.idCUIcontracts)"
           color="primary"
         >
           edit

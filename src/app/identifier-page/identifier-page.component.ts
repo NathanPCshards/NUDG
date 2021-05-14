@@ -23,6 +23,7 @@ import { GapService } from '../services/gap.service';
 import { gap } from '../models/gap';
 import { login } from '../injectables';
 import { restAPI } from '../services/restAPI.service';
+import { Console } from 'node:console';
 
 
 //leave for now. The accordion needs these to function
@@ -180,11 +181,13 @@ export class IdentifierPageComponent implements OnInit {
     });
     //CONTROLS STUFF
     this.controls$ = this.fetchAllControls(this.id);
-    this.controlsservice.onClick.subscribe(data =>{
+    this.controlsservice.postEvent.subscribe( data =>{
+      console.log('ctrl service emit recieved ' , data)      
 
-      this.controls$ = this.controlsservice
-      .post(data, this.loginInfo.CompanyName)
-      .pipe(tap(() => (this.controls$ = this.fetchAllControls(this.id))));
+      /*
+       this.controlsservice.post(data, this.loginInfo.CompanyName)
+*/
+  
     });
   
     //WEAKNESSES STUFF

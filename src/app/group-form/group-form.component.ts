@@ -29,7 +29,7 @@ export class GroupFormComponent implements OnInit {
   ngOnInit(){  
     this.groups$ = this.fetchAll();
     this.users$ = this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
-    this.networkShares$ = this.networkShareService.fetchAll()
+    this.networkShares$ =  this.rest_service.get(`http://localhost:3000/networkshares/${this.loginInfo.CompanyName}`);
 
   }
   

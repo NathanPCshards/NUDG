@@ -54,8 +54,13 @@ mat-form-field{
     display:flexbox;
 }
 .listSpan {
-    position:relative;
-    float:1;
+  width:6%;
+  min-width: 6%;
+ // margin-left: 1%;
+  text-align: left;
+  margin-right: 1%;
+
+
 }
 .headerRow {
     position:relative;
@@ -74,22 +79,4 @@ mat-form-field{
     border: 1px solid black;
     justify-content: center;
 
-  }
-  .idCol{
-    width:60px;
-    min-width: 60px;
-    text-align: left;
-
-  }
-  .descCol{
-    width:700px;
-    min-width: 700px;
-    text-align: left;
-    margin-left: 5%;
-  }
-  .nameCol{
-    width:60px;
-    min-width: 60px;
-    text-align: left;
-    margin-left: 5%;
   }

@@ -254,40 +254,106 @@
 
 
   <mat-list>
-    <div class="flexContainer">
+  
       <mat-list-item class="headerRow">
-        <span>
+        <span class="listSpan">
           First Name
         </span>
-        <span style="margin-left: 6.5%;">
+        <span class="listSpan">
           Last Name
         </span>
-        <span style="margin-left: 6.5%;">
-          User Id
+        <span class="listSpan">
+          Employee ID
+        </span>
+        <span class="listSpan">
+          Employee Type
+        </span>
+        <span class="listSpan">
+          Job Title
+        </span>
+        <span class="listSpan">
+          Job Role
+        </span>
+        <span class="listSpan">
+          Department
+        </span>
+        <span class="listSpan">
+          Hire Date
+        </span>
+        <span class="listSpan">
+          Logon Hours
+        </span>
+        <span class="listSpan">
+          Email
+        </span>
+        <span class="listSpan">
+          Business Phone
+        </span>
+        <span class="listSpan">
+          Cell Phone
+        </span>
+        <span class="listSpan">
+          Logon Hours
         </span>
       </mat-list-item>
-    </div>
+  
 
     <mat-list-item *ngFor="let user of users$ | async">
-      <div class="flexContainer">
-      <span class="listSpan idCol" style="font-weight: bold;"
-        >{{ user.Ufname }}    </span
-      >
-      <span class="listSpan nameCol" style="font-weight: bold; margin-left: 5%;">
+
+      <span class="listSpan">
+        {{ user.Ufname }}
+      </span>
+
+      <span class="listSpan">
         {{user.Ulname }}
       </span>
-      <span class="listSpan descCol" style="font-weight: bold; margin-left: 5%;">
-        {{user.idOrgUsers }}
+
+      <span class="listSpan ">
+        {{user.Uempid }}
       </span>
-      </div>
+
+      <span class="listSpan ">
+        {{user.Uemptype }}
+      </span>
+
+      <span class="listSpan"
+      >{{ user.Ujobtitle }}
+      </span>
+
+      <span class="listSpan">
+        {{user.Ujobrole }}
+      </span>
+
+      <span class="listSpan ">
+        {{user.Udepartment }}
+      </span>
+
+      <span class="listSpan ">
+        {{user.Uhiredate }}
+      </span>
+
+      <span class="listSpan ">
+        {{user.Ulogonhours }}
+      </span>
+
+      <span class="listSpan ">
+        {{user.Uemail }}
+      </span>
+
+      <span class="listSpan ">
+        {{user.Ubusinessphone }}
+      </span>
+
+      <span class="listSpan ">
+        {{user.Ucellphone }}
+      </span>
 
 
      <span style="position: absolute; right: 0;">
         <button mat-icon-button>
           <mat-icon
             (click)="update(Ufname.value, Ulname.value, Uempid.value, Uemptype.value, Ujobtitle.value, Ujobrole.value, Udepartment.value, Uhiredate.value, Ulogonhours.value, Uadditionalinfo.value, Udocumentupload.value, Uemail.value, Ubusinessphone.value, Ucellphone.value, Uaddress.value, Ucity.value, Ustate.value, Upostal.value, Ucountry.value, Ucompany.value, Uuserid.value, Ucuidata.value, Uremoteuser.value, user.idOrgUsers)"
-            color="primary"
-          >
+            color="primary">
             edit
           </mat-icon>
         </button>

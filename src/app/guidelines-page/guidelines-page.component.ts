@@ -7,8 +7,10 @@ import { id } from 'date-fns/locale';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { IdentifierPageComponent } from '../identifier-page/identifier-page.component';
+import { login } from '../injectables';
 import { guidelines } from '../models/guidelines';
 import { GuidelinesService } from '../services/guidelines.service';
+import { restAPI } from '../services/restAPI.service';
 
 @Component({
   selector: 'app-guidelines-page',
@@ -22,7 +24,12 @@ export class GuidelinesForm implements OnInit {
   guidelines$: Observable<guidelines[]>;
 
 
-  constructor(private http:HttpClient, private formBuilder: FormBuilder, private guidelinesService : GuidelinesService, public dialog : MatDialog ) {
+  constructor(private http:HttpClient, 
+    private formBuilder: FormBuilder, 
+    private guidelinesService : GuidelinesService, 
+    public dialog : MatDialog, 
+    private rest_service : restAPI,
+    private loginInfo : login ) {
    }
 
   ngOnInit(){
@@ -30,7 +37,7 @@ export class GuidelinesForm implements OnInit {
 
   }
   fetchAll(): Observable<guidelines[]> {
-    return this.guidelinesService.fetchAll();
+    return this.rest_service.get(`http://localhost:3000/guidelines/${this.loginInfo.CompanyName}`);
   }
   
   post(inventoryItem: Partial<guidelines>): void {
@@ -39,9 +46,10 @@ export class GuidelinesForm implements OnInit {
   
 
   delete(id: any): void {
-    this.guidelines$ = this.guidelinesService
-      .delete(id)
+    let temp = this.rest_service
+      .delete(`http://localhost:3000/guidelines/${id}/${this.loginInfo.CompanyName}`)
       .pipe(tap(() => (this.guidelines$ = this.fetchAll())));
+    temp.subscribe()
       
   }
   
@@ -52,26 +60,6 @@ export class GuidelinesForm implements OnInit {
   public openGuideline(id, guideline) {
 
       this.guidelinesService.openGuideline(id,guideline)
-
-
-
-    /*
-    let dialogRef = this.dialog.open(guidelinesDialog, {
-      width: '700px',
-      height: '700px',
-      autoFocus : false,
-      data: {
-        id,
-        guideline
-      },
-
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);//returns undefined
-    });
-
-*/
   }
 }
   
@@ -92,7 +80,7 @@ export class guidelinesDialog {
   desc$;
   left$;
   top$;
- // @Input() type: string ="tesssst"
+ //this is code from back when i tried making the guideline box-popout resizable, but it didnt work out.
  @Input('width') public width: number = 590;
  @Input('height') public height: number = 450;
  @Input('left') public left: number;
@@ -171,49 +159,3 @@ closeDialog(id,guideline){
 
 }
 
-/*
-@Directive({
-  selector: '[tooltip]'
-})
-export class GuidelineDirective {
-  // We can pass string, template or component
-  @Input('tooltip') content : any;
-  
-  private componentRef : ComponentRef<guidelinesDialog>;
-
-  constructor( private element : ElementRef,
-               private renderer : Renderer2,
-               private injector: Injector,
-               private resolver : ComponentFactoryResolver,
-               private vcr : ViewContainerRef ) {
-  }
-
-}
-
-*/
-
-/*
-
-
-
-
-
-
- if ( this.componentRef ) return;
-    const factory = this.resolver.resolveComponentFactory(TooltipComponent);
-    const injector = ReflectiveInjector.resolveAndCreate([
-      {
-        provide: 'tooltipConfig',
-        useValue: {
-          host: this.element.nativeElement
-        }
-      }
-    ]);
-    this.componentRef = this.vcr.createComponent(factory, 0, injector, this.generateNgContent());
-
-
-
-
-
-
-*/

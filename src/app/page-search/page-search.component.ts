@@ -25,13 +25,12 @@ export class PageSearchComponent implements OnInit {
   options: string[] = [
   'CUIcontracts', 'Home', 'Policies',
   'Dashboard', 'Users', 'Inventory',
-  'CompanyInfo', 'Roles', 'Accordion',
-  'Suppliers', 'Vendors', 'Tasks', 'Weaknesses',
-  'GapAssessment', 'GapForm', 'ControlForm',
-  'WeaknessForm', 'SoftwareApprovalForm',
+  'CompanyInfo', 'Roles',
+  'Suppliers', 'Vendors', 'Calendar', 'GapForm',
+ 'SoftwareApprovalForm',
   'SharedResourceForm', 'SecurityLogForm', 'GuidelinesPage',
   'HelpCenterForm', 'GroupsPage',
-  'NetworkSharePage', 'ProcedurePage','AdminPanel', 'FileDrop'];
+  'NetworkSharePage', 'AdminPanel', ];
 
   
   constructor(private route : ActivatedRoute, private router:Router) {

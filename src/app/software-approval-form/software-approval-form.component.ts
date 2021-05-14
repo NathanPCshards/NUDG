@@ -5,7 +5,6 @@ import { tap } from 'rxjs/operators';
 import { login } from '../injectables';
 
 import { restAPI } from '../services/restAPI.service';
-import { softewareApprovalService } from '../services/softwareApproval';
 
 
 @Component({
@@ -24,11 +23,9 @@ panelOpenState = false;
 
     constructor(private http:HttpClient, 
       private formBuilder: FormBuilder,
-
-
       private rest_service : restAPI,
       private loginInfo : login,
-      private softwareApprovalService : softewareApprovalService) { }
+       ) { }
   
   ngOnInit(){
     //Loading Data
@@ -46,21 +43,23 @@ panelOpenState = false;
     return this.rest_service.get(`http://localhost:3000/softwareApproval/${this.loginInfo.CompanyName}`)
   }
 
-   submit(SWname , SWSupplierInformation , SWdescription , SWinstallDate , 
+   async submit(SWname , SWSupplierInformation , SWdescription , SWinstallDate , 
     SWinstallPath , SWtype , SWdateApproved , SWplatform, SWversion , SWpatchNum , SWupdateSchedule , SWmanualReviewDate , 
     SWautomaticUpdateDate , SWinternetReq , SWlegacy , SWelevatedPrivileges , SWvulnerabilities , SWusers , SWgroups , SWroles ,
      SWassetIdentifier , SWvendor ){
+
+
 
       let data = {SWname , SWSupplierInformation , SWdescription , SWinstallDate , 
         SWinstallPath , SWtype , SWdateApproved , SWplatform, SWversion , SWpatchNum , SWupdateSchedule , SWmanualReviewDate , 
         SWautomaticUpdateDate , SWinternetReq , SWlegacy , SWelevatedPrivileges , SWvulnerabilities , SWusers , SWgroups , SWroles ,
          SWassetIdentifier , SWvendor }
-
-         let temp = this.rest_service.post(`http://localhost:3000/softwareApproval/${this.loginInfo.CompanyName}`, this.loginInfo.CompanyName)
-         .pipe(tap(() => (this.software$ = this.fetchall())));
+                                            
+         let temp = await this.rest_service.post(`http://localhost:3000/softwareApproval/${this.loginInfo.CompanyName}`, data)
+      //   .pipe(tap(() => (this.software$ = this.fetchall())));
 
          temp.subscribe()
-
+         this.software$ = this.fetchall()
 
   }
 

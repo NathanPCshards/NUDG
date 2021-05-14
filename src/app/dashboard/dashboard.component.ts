@@ -9,6 +9,8 @@ import { PolicyService } from '../services/policy.service';
 import { policy } from '../models/policy';
 import { taskService } from '../services/task.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { restAPI } from '../services/restAPI.service';
+import { login } from '../injectables';
 
 
 
@@ -36,7 +38,9 @@ export class DashboardComponent implements OnInit {
   constructor(
     public policyService : PolicyService,
     public taskService : taskService,
+    private rest_service : restAPI,
     private _snackBar: MatSnackBar,
+    private loginInfo : login,
 
     ) { }
 
@@ -45,7 +49,7 @@ export class DashboardComponent implements OnInit {
 
 
   //For parsing and counting which policies are implemented
-  policyCount$: Observable<policy[]>;
+  policyCount$;
   tasks$= []
   alerts$ = []
   implemented$ = 0;
@@ -65,7 +69,7 @@ export class DashboardComponent implements OnInit {
 
 
     //pulling tasks from database
-    this.taskService.fetchAll().subscribe(e=>{
+    this.rest_service.get(`http://localhost:3000/task/${this.loginInfo.CompanyName}`).subscribe(e=>{
       e.forEach(async element => {
         await this.triggerAlert(element)
         //conditional to show only events that have not happened yet
@@ -81,10 +85,8 @@ export class DashboardComponent implements OnInit {
         })
    });
 
-
-
     //pulling every policy, checking its status and counting it
-     this.policyCount$ = this.policyService.getAll().subscribe(e=>{
+     this.policyCount$ = this.rest_service.get(`http://localhost:3000/policy/${'All'}/${this.loginInfo.CompanyName}`).subscribe(e=>{
       let allPoliciesDict = []
       e.forEach(element => {
         allPoliciesDict.push(element) 
@@ -172,10 +174,10 @@ export class DashboardComponent implements OnInit {
   }
 
   getAllPolicies(): Observable<policy[]> {
-    return this.policyService.getAll();
+    return this.rest_service.get(`http://localhost:3000/policy/${'All'}/${this.loginInfo.CompanyName}`);
   }
   getImplementedPolicies(): Observable<policy[]> {
-    return this.policyService.patch();
+    return this.rest_service.get(`http://localhost:3000/policy/${'CountImplemented'}/${this.loginInfo.CompanyName}`);
   }
 
 
