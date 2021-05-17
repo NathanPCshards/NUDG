@@ -22,10 +22,12 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView,
 } from 'angular-calendar';
-import { tap } from 'rxjs/operators';
+import { map, startWith, tap } from 'rxjs/operators';
 import { SharedService } from '../services/Shared';
 import { login } from '../injectables';
 import { restAPI } from '../services/restAPI.service';
+import { policy } from '../models/policy';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 
@@ -100,20 +102,82 @@ export class CalendarComponent implements OnInit {
     addCounter = 0
     displayListNoSort = []
     indexMap = []
+
+
+    //For Policy column/Searching
+    NidFilter$;
+    uniqueNidList$;
+    policyForm: FormGroup = this.formBuilder.group({
+      NidFilterList : []
+    });
+    NidDisplayList$;
+    NidFilterList = []
+
+    //for user column/searching
+    UserFilter$;
+    uniqueUserList$;
+    UserForm: FormGroup = this.formBuilder.group({
+      UserFilterList : []
+    });
+    searchNidArray = []
+    UserDisplayList$;
+    UserFilterList = []
+      //Form array stuff (in order for policy and users columns to work correctly. See form Group vs form array)
+      /*
+      formArray = new FormArray([
+        new FormControl('policy'), 
+        new FormControl('user')
+  
+      ])
+*/
   
     constructor(
       private modal: NgbModal,
       private sharedService : SharedService,
       private rest_service : restAPI,
-      public loginInfo : login) {
+      public loginInfo : login,
+      private formBuilder: FormBuilder,
+    ) {
   
     }
   ngOnInit(): void {
 
     console.log("-----====== onInit ======-----")
-   
-    console.log(this.loginInfo.token)
+    //pulling 
+    this.uniqueNidList$= this.rest_service.get(`http://localhost:3000/gap/${'None'}/${this.loginInfo.CompanyName}/?getUniqueNids=${true}`)
+    this.uniqueUserList$ = this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
+    //apply filter
+    this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
+    .pipe(
+      startWith(''),
+      map(value=> this._filterNid(value))
+    )
+    this.UserFilter$ = this.UserForm.get('UserFilterList')!.valueChanges
+    .pipe(
+      startWith(''),
+      map(value=> this._filterUsers(value))
+    )
 
+      //Unique Lists
+      this.uniqueNidList$.forEach(element => {
+        this.NidFilterList.push(element)
+      });
+
+      this.uniqueUserList$.forEach(element => {
+        this.UserFilterList.push(element)
+      });
+
+
+
+      //Serves as our observable subscription
+      this.NidFilter$.forEach(element => {
+      });
+
+
+
+      this.UserFilter$.forEach(element => {
+      
+      });
 
 
 
@@ -128,6 +192,38 @@ export class CalendarComponent implements OnInit {
     this.reloadData()
     this.setView(CalendarView.Month)
     this.sort('startDate')
+
+  }
+  _filterNid(value: string){
+   
+    this.NidFilterList.forEach(element => {
+        if (value){
+            
+           value = value.toLowerCase()
+          this.NidDisplayList$ = element.filter(x=>x.Nid.toLowerCase().includes(value))
+          return element.filter(x=> x.Nid.toLowerCase().includes(value))
+        }
+          this.NidDisplayList$ = element
+          return element
+    });
+
+
+
+  }
+  _filterUsers(value: string){
+
+    this.UserFilterList.forEach(element => {
+        if (value){
+            
+          value = value.toLowerCase()
+          this.UserDisplayList$ = element.filter(x=>x.Ufname.toLowerCase().includes(value))
+          return element.filter(x=> x.Ufname.toLowerCase().includes(value))
+        }
+          this.UserDisplayList$ = element
+          return element
+    });
+
+
 
   }
 
@@ -240,11 +336,15 @@ export class CalendarComponent implements OnInit {
       //this.modal.open(this.modalContent, { size: 'lg' });
     }
   
-  addEvent(optionalObject=null, firstRefresh=null)  {
+  addEvent(optionalObject=null, policy=null, user=null)  {
     //When adding a new entry, optionalObject is ignored and we just
     //add a default value task. When pulling from the DB, optionalObject is
     //a task from the Db and is added to events accordingly.
+    console.log("Object sent to add : " , policy, user)
+    
+
       if (optionalObject == null){
+
         let data = { 
           title: 'Event ' + this.addCounter,
           dateStart: startOfDay(new Date()),
@@ -257,13 +357,16 @@ export class CalendarComponent implements OnInit {
           timeStart: "1:00 AM",
           timeEnd: "1:00 PM",
           comment: "",
-          alert: "Off"
+          alert: "Off",
+          policy:"",
+          user:"",
+          CompanyName:this.loginInfo.CompanyName
      
     
     }
           this.tasks$ =  this.rest_service.post(`http://localhost:3000/task/${this.loginInfo.CompanyName}`, data)
   
-     //to instantiate the observable (so post goes through)
+     //to subscribe to the observable (so post goes through)
      this.tasks$.forEach(element => {
     });
     this.tasks$ = this.rest_service.get(`http://localhost:3000/task/${this.loginInfo.CompanyName}`)
@@ -283,8 +386,13 @@ export class CalendarComponent implements OnInit {
       timeEnd: "1:00 PM",
       comment: "",
       alert: "Off",
-      originalIndex: this.displayEvents$.length
+      originalIndex: this.displayEvents$.length,
+      user:"",
+      policy:"",
+      CompanyName : this.loginInfo.CompanyName
     }
+
+    console.log("object being added to display : " , temp)
     this.displayEvents$.push(temp)
     
     //Add to events
@@ -306,14 +414,25 @@ export class CalendarComponent implements OnInit {
     this.addCounter += 1
       }
       else{
+        //optionalObject.user = user;
+       // console.log("old policy : " , optionalObject.policy, policy)
+       /// optionalObject.policy = policy;
+       // console.log("new policy : " , optionalObject.policy, policy)
+
         //Adding the incoming task to events.
         this.events = [
           ...this.events,
           optionalObject
         ]
         //Adding to display
+        this.displayEvents$.forEach(element => {
+        //  console.log("display event before add : ", element)
+
+        });
+
         this.displayEvents$.push(optionalObject)
-        //refreshing screen.
+      //  console.log("adding : " ,optionalObject, policy, user)
+
 
         //this is a little different from the actual sort function.
         //used here to retain the sorting after the data updates
@@ -361,6 +480,8 @@ export class CalendarComponent implements OnInit {
   
   
         }
+        //refreshing screen.
+
         this.refresh.next()
 
 
@@ -371,6 +492,7 @@ export class CalendarComponent implements OnInit {
     }
   
   async deleteEvent(eventToDelete: CalendarEvent) {
+    console.log("event to delete : " , eventToDelete)
     //getting index of event to delete
     let taskIndex = getTaskIndex(this.displayEvents$, eventToDelete)
     //Remove from display list
@@ -380,7 +502,7 @@ export class CalendarComponent implements OnInit {
     this.events = this.events.filter((event) => event !== eventToDelete);
     //remove from database
     this.tasks$.forEach(async element => {
-      await this.rest_service.delete(`http://localhost:3000/${element[taskIndex].idOrgTasks}/${this.loginInfo.CompanyName}`).toPromise()
+      await this.rest_service.delete(`http://localhost:3000/task/${element[taskIndex].idOrgTasks}/${this.loginInfo.CompanyName}`).toPromise()
   }); 
   }
 
@@ -397,35 +519,43 @@ export class CalendarComponent implements OnInit {
   
   debugEvent(){
     console.log("debug button pressed")
-    console.log("display List : ", this.displayEvents$)
-    console.log("event list : " , this.events)
-    this.tasks$.forEach(element => {
-      console.log("Tasks list: ", element)
+ 
+
+    this.displayEvents$.forEach(element => {
+      console.log("Display Events : " , element)
+
     });
+
+
     this.reloadData()
   }
 
     update(event, index, eventMoved=false, alertValue=""): any {
+      console.log("update reached")
+      console.log('event : ', event)
+      console.log("displayed events", this.displayEvents$[0] )
+      console.log("original index : " , event.originalIndex)
+
+      
+
+    
       //Event is the changed event, index is the index that event is located at in several arrays (the indices match between arrays)
       //given a NEW/Different event, update events/task/ DB accordingly
       let temp;
-      console.log("displayed list test : " , this.displayEvents$)
-      console.log("display list no sort : " , this.displayListNoSort)
-      console.log("event : ", event)
-      index = getTaskIndex(this.displayEvents$,event)
-      console.log('index : ', index)
+ 
       //I needed to add originalIndex here as a way of matching up the indicies again after sorting
       index = event.originalIndex
       //the below line updates the events to reflect the users changes
       this.events[index] = this.displayEvents$[index]
-      //after sorting the display list the index here is wrong... how can i fix this
-
-      console.log("testing? : " ,this.displayListNoSort)
-
+      
+      /*TODO
+      this.displayEvents$[index].policy = event.policy
+      this.displayEvents$[index].user = event.user
+ */
 
       this.tasks$.forEach(async element => {
         //update the entry in tasks
-        
+        console.log("Tasks : " , element)
         element[index].title = event.title
         if (eventMoved){
           //if end date/time is before start
@@ -452,7 +582,8 @@ export class CalendarComponent implements OnInit {
           element[index].timeEnd = event.timeEnd
         }    
         
-
+        element[index].policy = event.policy
+        element[index].user = event.user
         //TODO This can be cleaned up to not have the conditional check (just use 1 variable)
         event.colorPrimary ?  element[index].colorPrimary = event.colorPrimary  : element[index].colorPrimary = event.color.primary
         event.colorSecondary ?  element[index].colorSecondary = event.colorSecondary  : element[index].colorSecondary = event.color.secondary
@@ -472,18 +603,28 @@ export class CalendarComponent implements OnInit {
 
   }
 
-    reloadData(){
+    async reloadData(){
       //used to pull data from DB and populate display, events and tasks arrays
       //this is called after almost every change to the calendar. 
       //clear lists
       this.displayEvents$ = []
       this.events = []
-      this.tasks$ = this.rest_service.get(`http://localhost:3000/task/${this.loginInfo.CompanyName}`);
+      this.tasks$ = await this.rest_service.get(`http://localhost:3000/task/${this.loginInfo.CompanyName}`);
+
+      this.tasks$.forEach(element => {
+       // console.log("all tasks : " , element)
+      });
+
+
+      let eventFromDB
+
       this.tasks$.subscribe(element => {
         let i = 0
+
         element.forEach(task => {
-          //template out a object to put the DB info into
-          let eventFromDB = {
+
+           //template out a object to put the DB info into
+           eventFromDB = {
             title: task.title,
             start: this.combineDateTime(task.dateStart, task.timeStart),
             end: this.combineDateTime(task.dateEnd, task.timeEnd),
@@ -500,14 +641,21 @@ export class CalendarComponent implements OnInit {
             timeEnd: task.timeEnd,
             comment: task.comment,
             alert: task.alert,
-            originalIndex:i
+            originalIndex:i,
+            user: task.user,
+            policy: task.policy
+
+          
           }
+
           i++
-          //put object in lists
+          //Add event
           this.addEvent(eventFromDB)
         });
+
       }); 
       
+      //console.log("End of reload Data : " , eventFromDB)
 
 
 
@@ -551,6 +699,10 @@ export class CalendarComponent implements OnInit {
     return item;
  }
 
+
+
+ 
+
   }
   
   function getTaskIndex(array, taskToFind, dropped=false): any{
@@ -588,3 +740,8 @@ export class CalendarComponent implements OnInit {
     var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
     return Math.floor((utc2 - utc1) / _MS_PER_DAY);
   }
+
+
+
+
+  

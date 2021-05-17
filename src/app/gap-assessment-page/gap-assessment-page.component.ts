@@ -249,9 +249,10 @@ export class GapForm implements OnInit{
     //this function is updated when Nid field is typed in.
   _filterNid(value: string){
   this.NidFilterList.forEach(element => {
+    console.log("element : " , element)
     if (value){
-      this.NidDisplayList$ = element.filter(x=>x.Nid.includes(value))
-      return element.filter(x=> x.Nid.includes(value))
+      this.NidDisplayList$ = element.filter(x=>x.Nid.toLowerCase().includes(value))
+      return element.filter(x=> x.Nid.toLowerCase().includes(value))
     }
       this.NidDisplayList$ = element
       return element
@@ -264,8 +265,8 @@ export class GapForm implements OnInit{
     this.dateField$ = value
     this.DateFilterList.forEach(element => {
       if (value){
-        this.DateDisplayList$ = element.filter(x=>x.Gdate.includes(value))
-        return element.filter(x=> x.Gdate.includes(value))
+        this.DateDisplayList$ = element.filter(x=>x.Gdate.toLowerCase().includes(value))
+        return element.filter(x=> x.Gdate.toLowerCase().includes(value))
       }
         this.DateDisplayList$ = element
         return element
