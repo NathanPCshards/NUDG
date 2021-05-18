@@ -146,11 +146,13 @@ export class CalendarComponent implements OnInit {
     //pulling 
     this.uniqueNidList$= this.rest_service.get(`http://localhost:3000/gap/${'None'}/${this.loginInfo.CompanyName}/?getUniqueNids=${true}`)
     this.uniqueUserList$ = this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
+
     //apply filter
-    this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
+   
+this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
     .pipe(
       startWith(''),
-      map(value=> this._filterNid(value))
+      map(value=> this.filterNid(value))
     )
     this.UserFilter$ = this.UserForm.get('UserFilterList')!.valueChanges
     .pipe(
@@ -180,9 +182,6 @@ export class CalendarComponent implements OnInit {
       });
 
 
-
-
-
     console.log("-----====== Done ======-----")
 
 
@@ -194,8 +193,16 @@ export class CalendarComponent implements OnInit {
     this.sort('startDate')
 
   }
-  _filterNid(value: string){
-   
+  onKeyUpPolicy(event){
+    this.filterNid(event.policy)
+  }
+
+  onKeyUpUser(event){
+
+    this._filterUsers(event.user)
+  }
+
+  filterNid(value: string){
     this.NidFilterList.forEach(element => {
         if (value){
             
@@ -206,12 +213,9 @@ export class CalendarComponent implements OnInit {
           this.NidDisplayList$ = element
           return element
     });
-
-
-
   }
-  _filterUsers(value: string){
 
+  _filterUsers(value: string){
     this.UserFilterList.forEach(element => {
         if (value){
             

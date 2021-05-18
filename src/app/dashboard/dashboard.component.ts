@@ -1,16 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CalendarView } from 'angular-calendar';
-import { PolicyBoardComponent} from '../policy-board/policy-board.component'
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import * as moment from 'moment';
 import { PolicyService } from '../services/policy.service';
 import { policy } from '../models/policy';
 import { taskService } from '../services/task.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { restAPI } from '../services/restAPI.service';
 import { login } from '../injectables';
+import { Router } from '@angular/router';
 
 
 
@@ -41,7 +40,7 @@ export class DashboardComponent implements OnInit {
     private rest_service : restAPI,
     private _snackBar: MatSnackBar,
     private loginInfo : login,
-
+    private router:Router, 
     ) { }
 
 
@@ -64,10 +63,6 @@ export class DashboardComponent implements OnInit {
   
 
   ngOnInit() {    
-
-
-
-
     //pulling tasks from database
     this.rest_service.get(`http://localhost:3000/task/${this.loginInfo.CompanyName}`).subscribe(e=>{
       e.forEach(async element => {
@@ -116,6 +111,12 @@ export class DashboardComponent implements OnInit {
 
   }
 
+
+  routePolicy(task){
+
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+    this.router.navigate(["Policy/"+task.policy]));
+  }
   convertDate(date,time){
     //converts ISO date format to mm/dd/yyyy, h:mm a
     //used for displaying date in 'upcoming tasks' box

@@ -114,7 +114,7 @@ export class FileImportComponent implements OnInit {
               
 
                 await this.gapService
-                    .post({Nid, Ganswer, Gquestion, Gcomment, Gdate, CompanyName} ).toPromise()
+                    .post({Nid, Ganswer, Gquestion, Gcomment, Gdate, CompanyName},this.loginInfo.CompanyName ).toPromise()
                  }
             }
 

@@ -12,7 +12,7 @@ import { ErrorHandlerService } from './error-handler.service';
 export class GapService {
 
   //url must match route in the app.use(...) in index.js
-private url = "http://localhost:3000/gap"
+
 onClick = new EventEmitter();
 
 httpOptions: { headers: HttpHeaders } = {
@@ -23,7 +23,7 @@ httpOptions: { headers: HttpHeaders } = {
    }
 
    emit(data : any, optionalParam : any = false) {
-
+    console.log("gap was emitted")
     this.onClick.emit({data,optionalParam});
   }
 
@@ -49,7 +49,7 @@ httpOptions: { headers: HttpHeaders } = {
 
   getUniqueDates(): any{
     let tempUrl = `http://localhost:3000/gap/?getUniqueDates=${true}`
-    console.log("get unique dates url : " , tempUrl)
+  //  console.log("get unique dates url : " , tempUrl)
     return this.http
       .get<any>(tempUrl, { responseType: "json" })
       .pipe(
@@ -62,7 +62,7 @@ httpOptions: { headers: HttpHeaders } = {
 
   getUniqueNids(): any{
     let tempUrl = `http://localhost:3000/gap/?getUniqueNids=${true}`
-    console.log("get unique nids url : " , tempUrl)
+    //console.log("get unique nids url : " , tempUrl)
     return this.http
       .get<any>(tempUrl, { responseType: "json" })
       .pipe(
@@ -73,26 +73,27 @@ httpOptions: { headers: HttpHeaders } = {
       );
   }
 
-  post(item: any): Observable<any> {
-    console.log("post gap : " , item)
-    console.log("posted to url : " , this.url)
+  post(item: any ,CompanyName : any): Observable<any> {
+    let url = `http://localhost:3000/gap/${CompanyName}`
+
+
     return this.http
-      .post(this.url, item, this.httpOptions)
+      .post(url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
-  update(item: any): Observable<any> {
-    console.log("update gap: ", item)
-    console.log("updated to url : " , this.url)
+  update(item: any, CompanyName : any): Observable<any> {
+
+   let url = `http://localhost:3000/gap/${CompanyName}`
 
     return this.http
-      .put<any>(this.url, item, this.httpOptions)
+      .put<any>(url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
   }
 
   delete(id: number): Observable<any> {
     const url = `http://localhost:3000/gap/${id}`;
-    console.log("delete called : ", url, id)
+   // console.log("delete called : ", url, id)
     return this.http
       .delete<any>(url, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("delete")));

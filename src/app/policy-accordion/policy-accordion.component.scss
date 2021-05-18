@@ -10,6 +10,7 @@ dl{
   }
   }
   dt{
+    align-items: center;
     background-color:#efefef;
     padding:5px;
     cursor:pointer;
@@ -91,4 +92,14 @@ dl{
         height:350px;
     }
 
+}
+
+.arrow{
+  vertical-align: middle;
+}
+
+.forward{
+  vertical-align: middle;
+  margin-top: .3%;
+  float:right
 }

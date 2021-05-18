@@ -141,7 +141,9 @@ submit(Cname, Coverview, Cissuedate, CsharedresourcesskRating, Curl, idOrgWeakne
 
   //This is subscribed to in identifier page oninit.
   console.log("Control service emit sent")
-  this.controlsservice.emitPostEvent(this.data)
+  this.controlsservice.emit(this.data)
+  
+
 };
 
 

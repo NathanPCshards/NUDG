@@ -49,14 +49,14 @@
         </mat-tab>
           <mat-tab label="References"> {{policy.References}}</mat-tab>
           <mat-tab label="Guidelines">      
-            <app-guidelines-page style="z-index: 99">
-            </app-guidelines-page>
+            <guidelines-dialog [id$] = "this.id" style="z-index: 99">
+            </guidelines-dialog>
   
           </mat-tab>
-          <mat-tab label="Tasks">
-            <app-calendar>
+          <mat-tab label="Comments">
+            <textarea (change)="updatePolicy(policy,Comment.value)" #Comment style="text-align: left; align-content: left; margin-left: 1%; height:300px; font-size: medium;" rows="30" cols="100">{{policy.Comments}}</textarea>
 
-            </app-calendar>
+            
           </mat-tab>
   
         </mat-tab-group>
@@ -332,29 +332,34 @@
   
   </div>
   
+  <!--GUIDELINE POPOUT HTML-->
   <ng-container *ngFor="let guideline of guidelines$">
-    <div id="box" #box class="mainDiv" 
-    style="width:500px; height:450px; z-index: 100; position: absolute; left: 100px; top: 100px;"
+    <div id="box" #box class="mainDiv"
+    style="width:600px; height:650px; z-index: 100; position: absolute; left: 100px; top: 100px;"
     popUp 
     cdkDrag 
     cdkDragRootElement=".cdk-overlay-pane" 
     ngDraggable 
     cdkDragHandle 
     >
-        <div style="background-color: black;"> 
+        <div style="background-color: black; padding-top: 2%;"> 
             <span class="idCol id" style="color:white; min-width: 300px;">
             {{guideline[0]}}
             </span>  
-         
-            <button mat-icon-button id="dButton">
-                <mat-icon (click)="closeGuideline(guideline[0], guideline[1])" color="warn">
-                close
-                </mat-icon>
-            </button>
-       
+            <button mat-icon-button>
+              <mat-icon>
+              settings
+              </mat-icon>
+          </button>  
+          <button mat-icon-button id="dButton">
+              <mat-icon (click)="closeGuideline(guideline[0], guideline[1])" color="warn">
+              close
+              </mat-icon>
+          </button>
+      
         </div>
     
-        <div style="background-color: rgb(255, 255, 255); display: inline-block; overflow: scroll; max-height: 400px; min-height: 400px; min-width: 480px;" >
+        <div style="background-color: rgb(255, 255, 255); display: inline-block; overflow: scroll; max-height: 648px; min-height: 648; min-width: 598;" >
           <span style="font-size: small; color:black; overflow:scroll;">        
                   {{guideline[1]}}
             </span>

@@ -38,6 +38,7 @@ import { RegisterFormComponent } from './register-form/register-form.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CompanyInfoModule } from './company-info-form/company-info-form.module';
 import { FirewallPortsProtocolsComponent } from './firewall-ports-protocols/firewall-ports-protocols.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -61,6 +62,7 @@ import { FirewallPortsProtocolsComponent } from './firewall-ports-protocols/fire
     CuiContractsFormComponent,
     SupplierFormComponent,
     VendorFormComponent,
+    
     
     
 
@@ -88,7 +90,7 @@ import { FirewallPortsProtocolsComponent } from './firewall-ports-protocols/fire
     CompanyInfoModule,
     IdentifierPageModule,
     SharedModule,
-    
+    FormsModule,
     
 //    PolicyAccordionModule,
 

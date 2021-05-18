@@ -124,7 +124,7 @@ fileType;
               
 
                 await this.gapService
-                    .post({Nid, Ganswer, Gquestion, Gcomment, Gdate}).toPromise()
+                    .post({Nid, Ganswer, Gquestion, Gcomment, Gdate}, this.loginInfo.CompanyName).toPromise()
                  }
             }
 

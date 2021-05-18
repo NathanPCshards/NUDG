@@ -138,7 +138,7 @@
       </thead>
   
       <tbody>
-        <tr formArrayName="formArray"  *ngFor="let event of displayEvents$; let i = index; trackBy:trackEvent; ">
+        <tr  *ngFor="let event of displayEvents$; let i = index; trackBy:trackEvent; ">
           <td>  <!--title -->
             <input
               type="text"
@@ -222,7 +222,7 @@
               [(ngModel)]="event.end" 
               matInput 
               [matDatepicker]="datepicker2"
-              (change)="update(event,i);refresh.next();"
+              (change)="update(event,i);"
               dateFormat="Y-m-dTH:i"
               placeholder="Not set"
               />
@@ -230,7 +230,7 @@
               <mat-datepicker #datepicker2>
                 <mat-datepicker-actions>
                   <button mat-button matDatepickerCancel>Cancel</button>
-                  <button mat-raised-button (click)="update(event,i);refresh.next()" color="primary"  matDatepickerApply>Apply</button>
+                  <button mat-raised-button (click)="update(event,i);" color="primary"  matDatepickerApply>Apply</button>
                 </mat-datepicker-actions>
               </mat-datepicker>
             </mat-form-field>
@@ -270,42 +270,43 @@
 
           -->
  
-            <form [formGroup]="policyForm">
+       
               <mat-form-field id="policySearch">
                 <input type="text"
+                       name="policySearch"
                        matInput
-                       formControlName='searchNidArray'
-                      
                        [(ngModel)]="event.policy" 
-                       (change) = "update(event,i)"
+                       (keyup) = "onKeyUpPolicy(event)"
+                       (change) = "update(event,i);"
                        [matAutocomplete]="autoGroup">
                   <mat-autocomplete #autoGroup="matAutocomplete">
-                    <mat-optgroup *ngFor="let entry of NidDisplayList$" | filter:searchNidArray>
-                      <mat-option >{{entry.Nid}}</mat-option>
+                    <mat-optgroup *ngFor="let entry of NidDisplayList$">
+                      <mat-option [value]="entry.Nid" (click)="update(event,i)">{{entry.Nid}}</mat-option>
                   </mat-optgroup>
                 </mat-autocomplete>
               </mat-form-field>
-            </form>
+         
           </td>
 
 
           <td> <!--Users-->
-            <form [formGroup]="UserForm">
+          
               <mat-form-field id="UserSearch">
                 <input type="text"
+                       name="userSearch"
                        matInput
                        [(ngModel)]="event.user"
-                       formControlName='UserFilterList'
-                       (change) = "update(event,i);reloadData();"
+                       (keyup) = "onKeyUpUser(event)"
+                       (change) = "update(event,i)"
 
                        [matAutocomplete]="autoGroup2">
                   <mat-autocomplete #autoGroup2="matAutocomplete">
                     <mat-optgroup *ngFor="let User of UserDisplayList$" >
-                      <mat-option  [value]="User.Ufname"  >{{User.Ufname}}</mat-option>
+                      <mat-option  [value]="User.Ufname" (click)="update(event,i)" >{{User.Ufname}}</mat-option>
                   </mat-optgroup>
                 </mat-autocomplete>
               </mat-form-field>
-            </form>
+       
 
           </td>
 

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild, ComponentFactoryResolver, ViewContainerRef, ComponentRef, ComponentFactory, ɵɵsetComponentScope } from '@angular/core';
 import { FormBuilder, FormGroup} from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { filter, map, tap, startWith } from 'rxjs/operators';
 import { controls } from '../models/controls';
 import { standards } from '../models/standards';
@@ -87,7 +87,8 @@ export class IdentifierPageComponent implements OnInit {
   //GAP
   gapList$
 
-
+  gapSubscription
+  controlSubscription
 
  
   policyForm: FormGroup = this.formBuilder.group({
@@ -181,14 +182,13 @@ export class IdentifierPageComponent implements OnInit {
     });
     //CONTROLS STUFF
     this.controls$ = this.fetchAllControls(this.id);
-    this.controlsservice.postEvent.subscribe( data =>{
-      console.log('ctrl service emit recieved ' , data)      
+    this.controlSubscription =  this.controlsservice.onClick.subscribe(async data =>{
 
-      /*
-       this.controlsservice.post(data, this.loginInfo.CompanyName)
-*/
-  
+      let temp = await this.controlsservice.post(data, this.loginInfo.CompanyName)
+       .pipe(tap(() => (this.controls$ = this.fetchAllControls(this.id))));
+      temp.subscribe()
     });
+
   
     //WEAKNESSES STUFF
     this.weaknesses$ = this.fetchAllWeaknesses(this.id);
@@ -215,30 +215,37 @@ export class IdentifierPageComponent implements OnInit {
     });
 
     //This block below handles most of the gap interactions with the database
-    this.gapservice.onClick.subscribe(async incomingData=>{
+
+ 
+    this.gapSubscription = this.gapservice.onClick.subscribe(async incomingData=>{
+      console.log("incoming gap data : ", incomingData)
       //the optional param is added when NewDate is toggled on the Gap component
       //its defualt is false, if nothing is given. This makes sure new dates are 
       //posted to, and not updated to (which would fail because it wouldnt exist)
       if (incomingData.idOrgGap && !incomingData.optionalParam){
+        console.log("updating")
         //Updates if Id exists
         this.gap$ = await this.gapservice
-        .update(incomingData.data).toPromise()
+        .update(incomingData.data,this.loginInfo.CompanyName).toPromise()
         
       }else if (incomingData.data.Gdate || incomingData.optionalParam){
+        console.log("posting")
       //Post if Id does not exist and Date exists (New Entry)
         this.gap$ = await this.gapservice
-        .post(incomingData.data).toPromise()
+        .post(incomingData.data ,this.loginInfo.CompanyName).toPromise()
         //After posting we need to refresh data in gap assessment because the new entry
         //will be assigned a Id by the DB. Without refreshing pressing submit again will
         //resubmit the entry like it doesnt already exist.
-        this.sharedService.refresh()
+       
         
       }
       else{
+        console.log("deleting")
         //when we delete we send gapservice a Nid, so data here is just "AC-N.01" or whatever.
         this.gap$ = await this.gapservice
         .delete(incomingData.data).toPromise()
       }
+
 
     })
     
@@ -270,16 +277,6 @@ export class IdentifierPageComponent implements OnInit {
     //by updating search, the html data binding updates and the filter is automatically applied.
     this.searchControls = (<HTMLInputElement>document.getElementById("searchControls")).value.toLowerCase()
   }
-  getAll(id:any, Gdate:any){
-    //calls every get request again. refreshing the backend/data
-
-    
-  }
-  
-
-
-
-
 
 
 
@@ -319,7 +316,14 @@ export class IdentifierPageComponent implements OnInit {
 
 
 
+  updatePolicy(policy,Comments){
+    console.log("update called")
+    policy.Comments = Comments
+    console.log("policy : " ,policy)
+    let temp =  this.rest_service.update(`http://localhost:3000/policy/${policy.nudgid}/${this.loginInfo.CompanyName}`,policy);
+    temp.subscribe()
 
+  }
 
 
 
@@ -374,33 +378,6 @@ export class IdentifierPageComponent implements OnInit {
       .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses(this.id))));
       
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
   fetchAllStandards(): Observable<standards[]> {
     return this.rest_service.get(`http://localhost:3000/standards/${this.id}/${this.loginInfo.CompanyName}`)
@@ -514,8 +491,8 @@ export class IdentifierPageComponent implements OnInit {
     });
   }
 
-  openGuideline(id, desc){
-    this.guidelines$.push([id,desc])
+  openGuideline(Nid, desc){
+    this.guidelines$.push([Nid,desc])
   }
 
   closeGuideline(id,desc){
@@ -553,5 +530,9 @@ export class IdentifierPageComponent implements OnInit {
     
   }
 
+  ngOnDestroy(){
+    this.gapSubscription.unsubscribe()
+    this.controlSubscription.unsubscribe()
+  }
 
 }

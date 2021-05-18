@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ComponentFactoryResolver, ComponentRef, Directive, ElementRef, EventEmitter, HostListener, inject, Inject, Injector, Input, OnInit, Output, Renderer2, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { id } from 'date-fns/locale';
 
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -57,9 +56,8 @@ export class GuidelinesForm implements OnInit {
 }
 
 
-  public openGuideline(id, guideline) {
-
-      this.guidelinesService.openGuideline(id,guideline)
+  public openGuideline(Nid, guideline) {
+      this.guidelinesService.openGuideline(Nid,guideline)
   }
 }
   
@@ -71,26 +69,19 @@ const enum Status {
 }
 
 @Component({
-  selector: 'guideline-dialog',
+  selector: 'guidelines-dialog',
   templateUrl: 'guideline-dialog.html',
   styleUrls: ['dialog.scss']
 })
 export class guidelinesDialog {
-  id$;
-  desc$;
-  left$;
-  top$;
- //this is code from back when i tried making the guideline box-popout resizable, but it didnt work out.
- @Input('width') public width: number = 590;
- @Input('height') public height: number = 450;
- @Input('left') public left: number;
- @Input('top') public top: number;
- @ViewChild("box") public box: ElementRef;
- public boxPosition: { left: number, top: number };
- public containerPos: { left: number, top: number, right: number, bottom: number };
- public mouse: {x: number, y: number}
- public status: Status = Status.OFF;
- private mouseClick: {x: number, y: number, left: number, top: number}
+
+
+ @Input('id$') public id$;
+ 
+ desc$;
+ left$;
+ top$;
+ guideline$
   @Output() output = new EventEmitter();
 
 
@@ -99,62 +90,40 @@ export class guidelinesDialog {
 
 
 
-  constructor(private guidelinesService : GuidelinesService) { 
-  
-    this.id$ 
-    this.desc$ 
+  constructor(private guidelinesService : GuidelinesService, private rest_service : restAPI, private loginInfo : login) { 
+ 
   }
 
 ngOnInit(){
 
+      this.guideline$ = this.getByID(this.id$)
+      this.guideline$.subscribe()
+      console.log("guideline : " ,this.guideline$)
+      
+
+
+
   }
   ngAfterViewInit(){
-    this.loadBox();
-    this.loadContainer();
-  }
-  private loadBox(){
-    const {left, top} = this.box.nativeElement.getBoundingClientRect();
-    this.boxPosition = {left, top};
+
   }
 
-  private loadContainer(){
-    const left = this.boxPosition.left - this.left;
-    const top = this.boxPosition.top - this.top;
-    const right = left + 600;
-    const bottom = top + 450;
-    this.containerPos = { left, top, right, bottom };
+  getByID(id){
+    return this.rest_service.get(`http://localhost:3000/guidelines/${this.loginInfo.CompanyName}?getByID=${id}`)
   }
 
-  setStatus(event: MouseEvent, status: number){
-    if(status === 1) event.stopPropagation();
-    else if(status === 2) this.mouseClick = { x: event.clientX, y: event.clientY, left: this.left, top: this.top };
-    else this.loadBox();
-    this.status = status;
+  public openGuideline(id, guideline, Nid=null) {
+
+    this.guidelinesService.openGuideline(id,guideline)
   }
 
-  @HostListener('window:mousemove', ['$event'])
-  onMouseMove(event: MouseEvent){
-    this.mouse = { x: event.clientX, y: event.clientY };
-    console.log("status " , status)
-    if(this.status === Status.RESIZE) this.resize();
+  public closeGuideline(){
+
   }
 
-  private resize(){
-    if(this.resizeCondMeet()){
-      this.width = Number(this.mouse.x > this.boxPosition.left) ? this.mouse.x - this.boxPosition.left : 0;
-      this.height = Number(this.mouse.y > this.boxPosition.top) ? this.mouse.y - this.boxPosition.top : 0;
-    }
-  }
-
-  private resizeCondMeet(){
-    return (this.mouse.x < this.containerPos.right && this.mouse.y < this.containerPos.bottom);
-  }
-
-
-
-closeDialog(id,guideline){
- // this.parentRef.closeGuideline(this.unique_key)
-};
+  closeDialog(id,guideline){
+  // this.parentRef.closeGuideline(this.unique_key)
+  };
 
 
 }

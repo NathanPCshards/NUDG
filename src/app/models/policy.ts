@@ -13,10 +13,12 @@ export interface policy {
     References : string;
     Pstatus : string;
     Subtitle : string;
+    Comments : string;
     idStandards : number;
     idWeaknesses : number;
     idControls : number;
     CompanyName : string;
+
 
  }
 

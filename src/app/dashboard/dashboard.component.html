@@ -55,7 +55,7 @@
       
       <mat-list *ngFor="let task of tasks$" role="list" style="color: white;">
         <div>
-          <mat-list-item role="listitem" style="color: white;font-size: 18px; position:relative">
+          <mat-list-item  (click)="routePolicy(task)" role="listitem" style="color: white;font-size: 18px; position:relative">
             <div style="width:49%; float:left; ">
               <span id="taskTitle">{{task.title}}</span>
 
@@ -79,32 +79,36 @@
 
 </div>
 
-<!--This div must be on top for scrolling to work properly (high Z index)-->
-  <div class="horizontal-scroll-wrapper squares" style="z-index: 99;">
-    <div #box class="mainDiv" 
-    *ngFor="let alert of alerts$; let i = index"
-    mat-dialog-title 
-    
-    [style.top.%] ="i*20 + 10"
-    [style.left.%] ="0" 
-    style="z-index: 100;" 
+<!--
 
-    >
-     
-            <span  style="color:rgb(0, 0, 0);  width:80%; float:left; margin: 3px; font-size: medium;">
-            {{toDaysFunction(alert.dateStart)}} {{alert.day}} until {{alert.title}}
-            </span>  
-            <button mat-icon-button style="bottom:5px; margin:1px; width: 10%; float:right; position: relative;">
-              <mat-icon (click)="closeAlert(i)" color="warn" >
-              close
-              </mat-icon>
-          </button>
-    
+This div must be on top for scrolling to work properly (high Z index)
+<div class="horizontal-scroll-wrapper squares" style="z-index: 99;">
+  <div #box class="mainDiv" 
+  *ngFor="let alert of alerts$; let i = index"
+  mat-dialog-title 
+  
+  [style.top.%] ="i*20 + 10"
+  [style.left.%] ="0" 
+  style="z-index: 100;" 
 
-    
-    </div>
+  >
+   
+          <span  style="color:rgb(0, 0, 0);  width:80%; float:left; margin: 3px; font-size: medium;">
+          {{toDaysFunction(alert.dateStart)}} {{alert.day}} until {{alert.title}}
+          </span>  
+          <button mat-icon-button style="bottom:5px; margin:1px; width: 10%; float:right; position: relative;">
+            <mat-icon (click)="closeAlert(i)" color="warn" >
+            close
+            </mat-icon>
+        </button>
+  
+
+  
+  </div>
 
 </div>
+-->
+
 
 
 

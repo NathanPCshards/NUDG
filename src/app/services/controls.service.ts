@@ -53,8 +53,9 @@ httpOptions: { headers: HttpHeaders } = {
 
 
   post(item: any, CompanyName: any): Observable<any> {
+    console.log("item : " , item)
     let url = `http://localhost:3000/controls/${CompanyName}`
-    console.log("post reached in control service")
+    console.log("post controls : " , url)
     return this.http
       .post(url, item, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));

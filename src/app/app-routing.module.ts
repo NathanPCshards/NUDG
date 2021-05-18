@@ -99,8 +99,8 @@ const routes: Routes = [
 
 
   { path: '404', component: NotfoundComponent},
-  //{ path: '**', redirectTo: '/404'},
-  //disabled while testing
+  { path: '**', redirectTo: '/404'},
+  //occasionally disabled while testing
 
 ];
 

@@ -137,6 +137,7 @@ export class GapForm implements OnInit{
     //Gap -- First refresh call is to initialize Gap$ and the display list
     this.refreshGapAndDisplayList();
     this.sharedService.refreshRequest.subscribe(e =>{
+      console.log("refreshing gap")
       this.refreshGapAndDisplayList();
     })
 
@@ -276,7 +277,7 @@ export class GapForm implements OnInit{
 }
   
 
-  //Maybe combine these functions later
+  //TODO Maybe combine these functions later
   public setNid(event: any, name : any, date:any)
   {
     this.id$ = name
@@ -316,6 +317,7 @@ export class GapForm implements OnInit{
         this.gapservice.emit(element,this.newDate)
     });
     this.toDeleteList.forEach(element => {
+      //we also have to emit the entries that are pending deletion
       this.gapservice.emit(element[0].idOrgGap)
     });
     this.toDeleteList = [] //We clear the 'to delete' list here because the DB is once again Synced
@@ -376,4 +378,9 @@ export class GapForm implements OnInit{
   }
   this.gapservice.emit(temp)
   }
+
+
+  ngOnDestroy(){
+    //this.sub.unsubscribe():
+ }
 }
