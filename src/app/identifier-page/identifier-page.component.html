@@ -47,7 +47,7 @@
           <p class="dditems">NIST Value: {{policy.NISTvalue}}</p>
           <br>
         </mat-tab>
-          <mat-tab label="References"> {{policy.References}}</mat-tab>
+          <mat-tab label="References"> {{policy.ReferencesP}}</mat-tab>
           <mat-tab label="Guidelines">      
             <guidelines-dialog [id$] = "this.id" style="z-index: 99">
             </guidelines-dialog>
@@ -544,7 +544,7 @@ style="width:100%; float:left"
 <label>References</label>
 
 <body>
- <span>{{policy.References}}</span>
+ <span>{{policy.ReferencesP}}</span>
 
 </body>
 </div>

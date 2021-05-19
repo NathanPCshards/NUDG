@@ -1,4 +1,23 @@
-<div >
+<div class="toolbar" style="position:relative; float:0;  background-color:rgb(255, 255, 255); color:black; box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;">
+  <div style="padding:.5%">
+
+
+
+      <mat-form-field style="margin-left: 35%; color:black; width:25%; margin-right: 50%;">
+        
+        <input type="text" matInput #search1 (change)="search(search1.value)">
+        <mat-icon matSuffix>search</mat-icon>
+        
+
+      </mat-form-field>
+      <span (click)="showAdvanced()"style="margin-left: 45%; text-decoration: underline;">Advanced Options</span>
+   
+  </div>
+</div>
+
+<div>
+
+
 
   <mat-list-item *ngFor="let entry of masterList$;let i=index;">
       <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">

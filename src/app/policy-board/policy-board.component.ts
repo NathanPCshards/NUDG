@@ -133,7 +133,17 @@ export class PolicyBoardComponent implements OnInit {
 
 
 
+      this.loadMasterList()
 
+
+    })
+
+    
+
+
+  }
+
+  loadMasterList(){
       //masterlist: [Family, [PoliciesOfFamily], [Counts/Score information]]
       //the masterlist is responsible for all information that gets displayed on screen.
       this.masterList$ = []
@@ -161,15 +171,69 @@ export class PolicyBoardComponent implements OnInit {
       this.masterList$.forEach(element => {
         element[1].sort()
       });
+  }
 
-    })
-
+  search(text){
+    //Given input text, iterate through each policy's column and it doesnt contain the text, remove that policy.
+    //This can be rewritten to be faster/more efficient (combine the removal with finding the index)
+    //
     
+    this.loadMasterList()
+    console.log("filter : " ,text)
+    console.log("master list : " ,this.masterList$)
+
+    let index = 0;
+    let toDelete = []
+    
+    //ITERATING OVER all families
+    this.masterList$.forEach(element => {
+      let family = element[1]
+      let temp = []
+      let removeIndex = 0
+      //ITERATING OVER all policies in a family
+      for (let familyIndex = 0; familyIndex < family.length; familyIndex++) {
+        const policy = family[familyIndex];
+        //ITERATING OVER Policy Columns, record the index of the policies that dont match search criteria
+        //here change how many columns are iterated over based on search settings
+        //based on range below
+        for (let index = 0; index < 1; index++) {
+          const element = policy[index].toLowerCase();
+          if (!element.includes(text.toLowerCase())){
+            console.log("element to remove : " ,element)
+            temp.push(removeIndex)
+          }
+        }
+        removeIndex++
+      }
+      toDelete.push(temp)
+      console.log("Delete list : ", toDelete)
+    });
+
+    //Iterate over the indexes that need to be removed and remove them
+    for (let famIndex = 0; famIndex < toDelete.length; famIndex++) {
+        let indexArray = toDelete[famIndex];
+        //reverse iterate while removing so the indicies stay correct
+        for (let i = indexArray.length - 1; i >= 0; i--) {
+          const indexToRemove = indexArray[i];
+          console.log("index to remove : " ,indexToRemove)
+          console.log("remove : " , this.masterList$[famIndex][1][indexToRemove])
+          this.masterList$[famIndex][1].splice(toDelete[indexToRemove], 1)
+
+        }
+      
+    }
+    console.log("master list final: " ,this.masterList$)
 
 
   }
+  showAdvanced(){
+    console.log("Debug")
+    console.log("Master List:")
+    this.masterList$.forEach(element => {
+      console.log("element : " ,element)
+    });
 
-
+  }
   onRowClicked(row): void {
 
     var configUrl = ["Policy/" + String(row).trim()];

@@ -10,7 +10,7 @@ export interface policy {
     FamilyPolicy : string;
     Discussion : string;
     Clarification : string;
-    References : string;
+    ReferencesP : string;
     Pstatus : string;
     Subtitle : string;
     Comments : string;
