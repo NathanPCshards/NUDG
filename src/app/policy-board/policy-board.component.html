@@ -1,24 +1,138 @@
 <div class="toolbar" style="position:relative; float:0;  background-color:rgb(255, 255, 255); color:black; box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;">
-  <div style="padding:.5%">
+  <div style="padding:.5%; position: relative">
 
-
-
-      <mat-form-field style="margin-left: 35%; color:black; width:25%; margin-right: 50%;">
+      <mat-form-field style="float:0; margin-left: 1%; color:black; width:25%;">
         
-        <input type="text" matInput #search1 (change)="search(search1.value)">
+        <input type="text" matInput #search1 (change)="search(search1.value, columnFilter.value)">
         <mat-icon matSuffix>search</mat-icon>
         
 
       </mat-form-field>
-      <span (click)="showAdvanced()"style="margin-left: 45%; text-decoration: underline;">Advanced Options</span>
    
+
+      <!--
+     <span (click)="showAdvanced()"style="margin-left: 15%; text-decoration: underline;">Advanced Options</span>
+      <button></button>
+      -->
+
+
+      <mat-form-field appearance="outline" color="primary" style="float:0; width: 10%; margin-left: 20%;" >
+        <mat-label >Columns included in search</mat-label>
+        <mat-select #columnFilter (selectionChange)="search(search1.value, columnFilter.value)" id="Input" multiple>
+                <mat-option value="0" >
+                    Nid
+                </mat-option>
+                <mat-option value="1" >
+                    Subtitle
+                </mat-option>
+                <mat-option value="2" >
+                    CMMC Number
+                </mat-option>
+                <mat-option value="3" >
+                    Status
+                </mat-option>
+                <mat-option value="4" >
+                    NIST Mapping
+                </mat-option>
+                <mat-option value="5" >
+                    CMMC Level
+                </mat-option>
+   
+        </mat-select>
+      </mat-form-field>     
+
+      <div style="float:0;font-size:large;width:15%; background-color: palegoldenrod; box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;" *ngIf="searchResults$.length > 0">
+        <h1>Query Results:</h1>
+        <p style="color:black">
+          {{implementedQuery$[0]}}/{{implementedQuery$[1]}} Implemented
+        </p>
+        <p style="color:black">
+          {{implementedQuery$[2]}}/{{implementedQuery$[3]}} Score
+        </p>
+  
+  
+      </div>
+
+
+
   </div>
 </div>
 
+
+
+<mat-list-item *ngIf="searchResults$.length > 0">
+
+    <mat-list>
+      <div class="flexContainer">
+        <mat-list-item class="headerRow" #Results>
+
+
+          <span class="idCol" (click)="sortResults('ByID')">
+            Nid
+          </span>
+          <span class="nameCol" (click)="sortResults('BySubtitle')">
+            Subtitle
+          </span>
+          <span class="date1Col" (click)="sortResults('ByCMMC')">
+            CMMC Number
+          </span>
+          <span class="date2Col" (click)="sortResults('ByStatus')">
+            Status
+          </span>
+          <span class="numcol" (click)="sortResults('ByNIST')">
+            NIST Mapping
+          </span>
+          <span class="numcol2" (click)="sortResults('ByLevel')">
+            CMMC Level
+          </span>
+        </mat-list-item>
+      </div>
+    
+      <mat-list-item *ngFor="let p of searchResults$" (click)="onRowClicked(row.innerHTML)">
+    
+        <span #row class="listSpan idCol">
+          {{p[0]}}
+        </span>
+        <span class="listSpan nameCol">
+          {{p[1]}}
+        </span>
+        <span class="listSpan date1Col">
+          {{p[2]}}
+        </span>
+        <span class="listSpan date2Col">
+          {{p[3]}}
+        </span>
+        <span class="listSpan numcol">
+          {{p[4]}}
+        </span>
+        <span class="listSpan numcol2">
+          {{p[5]}}
+        </span>
+    
+    
+    
+       <span style="position: absolute; right: 0;">
+          <button mat-icon-button>
+            <mat-icon color="primary">
+              arrow_forward
+            </mat-icon>
+          </button>
+    
+
+        </span> 
+      </mat-list-item>
+    </mat-list>
+    
+   
+</mat-list-item>
+
+
+
+
+
+
+
 <div>
-
-
-
   <mat-list-item *ngFor="let entry of masterList$;let i=index;">
       <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
         <mat-expansion-panel-header>

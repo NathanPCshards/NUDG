@@ -23,10 +23,12 @@ export class PolicyBoardComponent implements OnInit {
    sortType;
 
    temp$;
+   searchResults$;
    allPoliciesDict$;
    counts$: any[];
    famType$;
    routeSub: any;
+   implementedQuery$
   constructor(
     private router: Router,
     private rest_service : restAPI,
@@ -38,17 +40,19 @@ export class PolicyBoardComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.searchResults$ = []
+
     this.routeSub = this.route.params.subscribe(params => {
       this.famType$ = params['type'];
       });
 
     //Creates the list this.families$ that contains all unique family names
+    //In the case of CMMC and Nist views, this.families is changed to cmmclevel 1 2 3, and NFO/ CUI
     if (this.famType$ != "CMMC" && this.famType$ != "Nist")
     this.rest_service.get(`http://localhost:3000/Policy/${'All'}/${this.loginInfo.CompanyName}/?FamilyPolicy=${true}`).subscribe(e=>{
       this.families$ = []
       let i = 0
-      //If for some reason I does not look like its incrementing correctly. 
-      //its likely a database entry not fully filled out. 
       e.forEach(element => {
         if (String(element.FamilyPolicy) != 'null'){
           this.families$[i] = String(element.FamilyPolicy)
@@ -59,47 +63,36 @@ export class PolicyBoardComponent implements OnInit {
 
     //Getting all policies and grouping by Family.
     this.policies$ = this.rest_service.get(`http://localhost:3000/Policy/${'All'}/${this.loginInfo.CompanyName}`)
-    this.policies$.forEach(element => {
-   
-    });
+
+    //Initialize Dictionaries and lists
+    this.policyDict$ = {}
+    let allPoliciesDict = {}
+    this.counts$ = []
+
+    //iterate over returned policies
     this.policies$.subscribe(e=>{
-      this.policyDict$ = {}
-
-      let allPoliciesDict = {}
-      this.counts$ = []
       
-      //makes dictionary of {Nudg ID : Policy}
-      e.forEach(element => {
-     
+      e.forEach(policy => {
+        //makes dictionary of {Nudg ID : Policy}
+        allPoliciesDict[policy.nudgid] = policy
 
-           allPoliciesDict[element.nudgid] = element
-      });
-      //makes dictionary of {FamilyName: [policies]} format.
-      e.forEach(policy =>{
-   
-        if(policy){
-          this.policiesByFamily$ = []
-          if (String(policy.FamilyPolicy) != 'null'){
-            if (policy.nudgid){
-              this.policyDict$[policy.FamilyPolicy] += "," + policy.nudgid
-              this.policyDict$[policy.CMMClevel] += "," + policy.nudgid
-              if (String(policy.NISTmapping).includes("NFO")){
-                this.policyDict$["NFO"] += "," + policy.nudgid
-              }
-              if (String(policy.NISTmapping).includes("NIST")){
+        //makes groupings of {CMMClevels : Policy} {Family : Policy} (in same dictionary)
+        this.policyDict$[policy.FamilyPolicy] += "," + policy.nudgid
+        this.policyDict$[policy.CMMClevel] += "," + policy.nudgid
 
-                this.policyDict$["NISTCUI"] += "," + policy.nudgid
+        if (String(policy.NISTmapping).includes("NIST")){
+          //If policy is a part of the NIST, add it to the NIST group
+          this.policyDict$["NISTCUI"] += "," + policy.nudgid
 
-              }
-            }
-          }
         }
+
       })
 
+      this.policiesByFamily$ = []
       
       //TODO This is sort of hardcoded. WILL NEED TO update as DB is added to
       //But after everything is in it likely wont change
-      this.policiesByFamily$[0] = this.policyDict$['Access Control (AC)']                  .replaceAll("undefined,", "").split(',')
+      this.policiesByFamily$[0] = this.policyDict$["Access Control (AC)"]                  .replaceAll("undefined,", "").split(',')
       this.policiesByFamily$[1] = this.policyDict$["Identification and Authentication (IA)"].replaceAll("undefined,", "").split(',')
       this.policiesByFamily$[2] = this.policyDict$["Media Protection (MP)"]                      .replaceAll("undefined,", "").split(',')
       this.policiesByFamily$[3] = this.policyDict$["Physical Protection (PE)"]                   .replaceAll("undefined,", "").split(',')
@@ -131,14 +124,11 @@ export class PolicyBoardComponent implements OnInit {
       //is just an object to hold every policy so we can pull any information we want like this {{allPoliciesDict$[p].nudgid}}
       this.allPoliciesDict$ = allPoliciesDict
 
-
-
       this.loadMasterList()
 
 
     })
 
-    
 
 
   }
@@ -146,20 +136,22 @@ export class PolicyBoardComponent implements OnInit {
   loadMasterList(){
       //masterlist: [Family, [PoliciesOfFamily], [Counts/Score information]]
       //the masterlist is responsible for all information that gets displayed on screen.
+      //And is initialized dependending on the 'view' opened.
+      //Family View
       this.masterList$ = []
       if (this.famType$ != "Nist" && this.famType$ != "CMMC"){
         for (let index = 0; index < this.families$.length; index++) {
           this.masterList$[index] = [this.families$[index], this.getInfoFromId(this.policiesByFamily$[index]), this.getImplemented(this.policiesByFamily$[index])] 
         }
       }
-
+      //CMMC View
       if (this.famType$ == "CMMC"){
           this.families$ = ["CMMC Level 1", "CMMC Level 2", "CMMC Level 3"]
           for (let index = 0; index < this.families$.length; index++) {
             this.masterList$[index] = [this.families$[index], this.getInfoFromId(this.policiesByFamilyCMMC$[index]), this.getImplemented(this.policiesByFamilyCMMC$[index])] 
           }
       }
-
+      //Nist View
       if (this.famType$ == "Nist"){
            this.families$ = ["NFO", "CUI"]
             for (let index = 0; index < this.families$.length; index++) {
@@ -171,91 +163,108 @@ export class PolicyBoardComponent implements OnInit {
       this.masterList$.forEach(element => {
         element[1].sort()
       });
+
   }
 
-  search(text){
+  search(text,columnFilter){
     //Given input text, iterate through each policy's column and it doesnt contain the text, remove that policy.
     //This can be rewritten to be faster/more efficient (combine the removal with finding the index)
-    //
-    
-    this.loadMasterList()
-    console.log("filter : " ,text)
-    console.log("master list : " ,this.masterList$)
 
-    let index = 0;
-    let toDelete = []
+
+
+    //Initializing some data
+    this.loadMasterList()
     
+    this.searchResults$ = []
+    //do nothing for blank input
+    if (text){
     //ITERATING OVER all families
     this.masterList$.forEach(element => {
       let family = element[1]
-      let temp = []
-      let removeIndex = 0
       //ITERATING OVER all policies in a family
       for (let familyIndex = 0; familyIndex < family.length; familyIndex++) {
         const policy = family[familyIndex];
-        //ITERATING OVER Policy Columns, record the index of the policies that dont match search criteria
-        //here change how many columns are iterated over based on search settings
-        //based on range below
-        for (let index = 0; index < 1; index++) {
-          const element = policy[index].toLowerCase();
-          if (!element.includes(text.toLowerCase())){
-            console.log("element to remove : " ,element)
-            temp.push(removeIndex)
+        //ITERATING OVER Policy Columns
+        if(columnFilter && columnFilter.length != 0){
+          //Given a list of indicies (columnFilter), that match up to a policy column, only iterate over those given columns
+          let columnsToFilter = columnFilter
+          for (let index = 0; index < columnsToFilter.length; index++) {
+            const columnIndex = columnsToFilter[index];
+            const element = policy[columnIndex].toLowerCase()
+             if (element.includes(text.toLowerCase())){
+                //After any column matches the criteria, we add it to our results, and set index = to the end, to escape the loop
+                this.searchResults$.push(policy)
+                index = columnsToFilter.length
+            }
+          } 
+        }
+        else{
+          //Given no columns to filter by, iterate through ONLY NIDs
+          for (let index = 0; index < 1; index++) {
+
+            //TODO Currently only normalizing string by lowercase, likely should use more string methods to trim input
+            const element = policy[index].toLowerCase();
+            if (element.includes(text.toLowerCase())){
+              //After any column matches the criteria, we add it to our results, and set index = to the end, to escape the loop
+              this.searchResults$.push(policy)
+              index = policy.length
+  
+            }
           }
         }
-        removeIndex++
       }
-      toDelete.push(temp)
-      console.log("Delete list : ", toDelete)
     });
-
-    //Iterate over the indexes that need to be removed and remove them
-    for (let famIndex = 0; famIndex < toDelete.length; famIndex++) {
-        let indexArray = toDelete[famIndex];
-        //reverse iterate while removing so the indicies stay correct
-        for (let i = indexArray.length - 1; i >= 0; i--) {
-          const indexToRemove = indexArray[i];
-          console.log("index to remove : " ,indexToRemove)
-          console.log("remove : " , this.masterList$[famIndex][1][indexToRemove])
-          this.masterList$[famIndex][1].splice(toDelete[indexToRemove], 1)
-
-        }
-      
+    //Getting a list of IDs that the result returned, so we can count which ones are implemented
+    let nidList = []
+    this.searchResults$.forEach(element => {
+      nidList.push(element[0])
+    });
+    this.implementedQuery$ = this.getImplemented(nidList)
     }
-    console.log("master list final: " ,this.masterList$)
 
 
   }
+
   showAdvanced(){
+     //Currently used to help debugging might use later???
     console.log("Debug")
-    console.log("Master List:")
+    console.log("Master List: ", this.masterList$)
+    
     this.masterList$.forEach(element => {
       console.log("element : " ,element)
     });
-
+   
+    console.log("policy dict : " ,this.policyDict$)
+    console.log("all policies", this.allPoliciesDict$)
+    console.log("this.families : " ,this.families$)
+    console.log("search result : ", this.searchResults$)
   }
+
   onRowClicked(row): void {
-
-    var configUrl = ["Policy/" + String(row).trim()];
-
+     //Navigates to Policy when clicked
+     var configUrl = ["Policy/" + String(row).trim()];
      this.router.navigate(configUrl);
 
   }
   getAll(){
+    //Gets all Policies associated with a company name
     return this.rest_service.get(`http://localhost:3000/Policy/${'All'}/${this.loginInfo.CompanyName}`);
   }
   getFamilies(){
+    //Gets all unique family names associated with a Company name (although policies should be the same between companies)
     return this.rest_service.get(`http://localhost:3000/Policy/${'All'}/${this.loginInfo.CompanyName}/?FamilyPolicy=${true}`)
   }
   getPoliciesInFamily(family: any){
+    //Get all policies associated with a specific Family
     return this.rest_service.get(`http://localhost:3000/Policy/${'All'}/${this.loginInfo.CompanyName}/?Family=${true}`)
   }
-  getImplemented(family:any){
+  getImplemented(policyArray:any){
+    //takes in a list of Nids, ["AC-N.01", "AM.-N.02", ...] and returns an array of the implementation status counts
     let count = 0
     let total = 0
     let score = 0
     let potentialScore = 0
-    family.forEach(nudgid => {
+    policyArray.forEach(nudgid => {
       total += 1
       if (this.allPoliciesDict$[nudgid].NISTvalue){
         potentialScore += this.allPoliciesDict$[nudgid].NISTvalue
@@ -269,8 +278,9 @@ export class PolicyBoardComponent implements OnInit {
     });
     return [count, total, score, potentialScore]
   }
-  //takes a array of Nids, returns a list of respective objects
   getInfoFromId(id){
+      //takes a array of Nids, returns a list of respective objects
+
     let info = []
     for (let index = 0; index < id.length; index++) {
       const element = id[index];
@@ -284,6 +294,7 @@ export class PolicyBoardComponent implements OnInit {
 
   sort(family, column){    
     family = family.trim()
+    //These numbers are the alphabetical order on page
     let indexDict = {
       "Access Control (AC)" : 0,
       "Identification and Authentication (IA)" : 5,
@@ -409,6 +420,110 @@ export class PolicyBoardComponent implements OnInit {
     }
   }
 
+  sortResults(column){
+    let indexDict = 0
+    let family = 0
+    //Note slightly different than other sorting function
+    switch(String(column)){
+      case "ByID":
+        if (this.sortType == String(column)){
+          this.searchResults$.sort(function(a,b){
+            return a[0] > b[0]
+          })
+          this.sortType = ""
+        }
+        else{
+          this.searchResults$.sort(function(a,b){
+            return a[0] < b[0] })
+          this.sortType = column
+        }
+        
+        break;
+      case "BySubtitle":
+   
+
+        if (this.sortType == String(column)){
+          this.searchResults$.sort(function(a,b) {
+
+            return a[1] < b[1] 
+          })
+          this.sortType = ""
+        }
+        else{
+          this.sortType = String(column);
+          this.searchResults$.sort(function(a,b) {
+
+            return a[1] > b[1] 
+          })
+          this.sortType = column;
+        }
+
+        break;
+      case "ByCMMC":
+        if (this.sortType == String(column)){
+          this.searchResults$.sort(function(a,b) {
+            return a[2] < b[2]
+          })
+          this.sortType = ""
+        }
+        else{
+          this.searchResults$.sort(function(a,b) {
+            return a[2] > b[2]
+          })
+          this.sortType = column;
+
+        }
+
+        break;
+      case "ByStatus":
+        if (this.sortType == String(column)){
+          this.searchResults$.sort(function(a,b) {
+            return a[3] < b[3]
+          })
+          this.sortType = ""
+        }
+        else{
+          this.searchResults$.sort(function(a,b) {
+            return a[3] > b[3]
+          })
+          this.sortType = column
+        }
+
+          break;
+      case "ByNIST":
+        if (this.sortType == String(column)){
+          this.searchResults$.sort(function(a,b) {
+            return a[4] < b[4]
+          })
+          this.sortType = ""
+        }
+        else{
+          this.searchResults$.sort(function(a,b) {
+            return a[4] > b[4]
+          })
+          this.sortType = column
+        }
+
+        break;
+      case "ByLevel":
+        if (this.sortType == String(column)){
+          this.searchResults$.sort(function(a,b) {
+            return a[5] < b[5]
+          })
+          this.sortType =""
+        }
+        else{
+          this.searchResults$.sort(function(a,b) {
+            return a[5] > b[5]
+          })
+          this.sortType = column
+        }
+
+        break;
+    }
+  
+  }
+ 
 
 
 
