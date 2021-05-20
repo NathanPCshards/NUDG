@@ -44,7 +44,7 @@ export class ProcedureFormComponent implements OnInit {
         height: '550px',
         minHeight: '550px',
         autoFocus : false,
-        disableClose: true, //theres an issue here when the dialog is closed and submit is not pressed. 
+
 
         data: {
           idOrgControls:this.idOrgControls
@@ -52,10 +52,13 @@ export class ProcedureFormComponent implements OnInit {
   
       });
       dialogRef.afterClosed().subscribe(result => {
+        if (result){
 
-        this.procedures$ = this.rest_service
-        .post(`http://localhost:3000/milestones/${this.idOrgControls}/${this.loginInfo.CompanyName}`,result)
-        .pipe(tap(() => (this.procedures$ = this.fetchAll(this.idOrgControls))));
+          this.procedures$ = this.rest_service
+          .post(`http://localhost:3000/procedures/${this.idOrgControls}/${this.loginInfo.CompanyName}`,result)
+          .pipe(tap(() => (this.procedures$ = this.fetchAll(this.idOrgControls))));
+        }
+
       });
 
     }
@@ -68,15 +71,10 @@ export class ProcedureFormComponent implements OnInit {
   ngOnInit(){
  
     this.procedures$ = this.fetchAll(this.idOrgControls);
-
-    // this.milestones$ = this.fetchAll(this.idOrgWeaknesses);
-    this.procedureService.onClick.subscribe(data =>{
-      this.procedures$ = this.rest_service
-      .post(`http://localhost:3000/procedures/${this.idOrgControls}/${this.loginInfo.CompanyName}`,data)
-      .pipe(tap(() => (this.procedures$ = this.fetchAll(this.idOrgControls))));
-    })
-
   }
+
+
+
   ngAfterViewInit(){
   
   }
@@ -89,7 +87,7 @@ export class ProcedureFormComponent implements OnInit {
 
 delete(id: any): void {
   let temp =  this.rest_service.delete(`http://localhost:3000/procedures/${id}/${this.loginInfo.CompanyName}`)
-  .pipe(tap(() => (this.procedures$ = this.fetchAll(id))));
+  .pipe(tap(() => (this.procedures$ = this.fetchAll(this.idOrgControls))));
 
   temp.subscribe()
     
@@ -149,18 +147,8 @@ closeDialog( PProcedure, Pstatus, PstatusDate, Pdescription){
   this.data.idOrgControls = this.idOrgControls
 
 
-try{
-  //this works when opened as a dialog (the weakness page)
-  //but fails when used only as a form (policy/identifier page)
+  console.log("data to post : ", this.data)
   this.dialogRef.close( this.data );
-}
- 
-  catch(err){
-    //in the case that it fails, we instead emit a signal for a different component to listen to
-    //and send a post request for us. (this is received by weaknessTable in identifier-page.component.ts) 3/25
-    this.milestoneService.emit(this.data)
-  }
-
 
 };
 fetchAll(): Observable<procedures[]> {

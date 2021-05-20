@@ -29,6 +29,8 @@ export class PolicyBoardComponent implements OnInit {
    famType$;
    routeSub: any;
    implementedQuery$
+   //Sets default value of columns to search to Nid
+   selected$ = ['0']
   constructor(
     private router: Router,
     private rest_service : restAPI,
@@ -42,7 +44,7 @@ export class PolicyBoardComponent implements OnInit {
   ngOnInit() {
 
     this.searchResults$ = []
-
+    
     this.routeSub = this.route.params.subscribe(params => {
       this.famType$ = params['type'];
       });
@@ -124,6 +126,7 @@ export class PolicyBoardComponent implements OnInit {
       //is just an object to hold every policy so we can pull any information we want like this {{allPoliciesDict$[p].nudgid}}
       this.allPoliciesDict$ = allPoliciesDict
 
+      //loading information to be displayed
       this.loadMasterList()
 
 
@@ -170,8 +173,6 @@ export class PolicyBoardComponent implements OnInit {
     //Given input text, iterate through each policy's column and it doesnt contain the text, remove that policy.
     //This can be rewritten to be faster/more efficient (combine the removal with finding the index)
 
-
-
     //Initializing some data
     this.loadMasterList()
     
@@ -200,7 +201,7 @@ export class PolicyBoardComponent implements OnInit {
         }
         else{
           //Given no columns to filter by, iterate through ONLY NIDs
-          for (let index = 0; index < 1; index++) {
+          for (let index = 0; index < policy.length; index++) {
 
             //TODO Currently only normalizing string by lowercase, likely should use more string methods to trim input
             const element = policy[index].toLowerCase();

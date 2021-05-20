@@ -43,7 +43,7 @@ export class MilestoneFormComponent implements OnInit {
         height: '550px',
         minHeight: '550px',
         autoFocus : false,
-        disableClose: true, //theres an issue here when the dialog is closed and submit is not pressed. 
+    
 
         data: {
           idOrgWeaknesses:this.idOrgWeaknesses
@@ -51,15 +51,15 @@ export class MilestoneFormComponent implements OnInit {
   
       });
       dialogRef.afterClosed().subscribe(result => {
-
-        this.milestones$ = this.rest_service
-        .post(`http://localhost:3000/milestones/${this.idOrgWeaknesses}/${this.loginInfo.CompanyName}`,result)
-        .pipe(tap(() => (this.milestones$ = this.fetchAll(this.idOrgWeaknesses))));
+        console.log("posting from dialog sub")
+        //if dialog is closed without pressing submit, result comes back as undefined.
+        if(result){
+          this.milestones$ = this.rest_service
+          .post(`http://localhost:3000/milestones/${this.idOrgWeaknesses}/${this.loginInfo.CompanyName}`,result)
+          .pipe(tap(() => (this.milestones$ = this.fetchAll(this.idOrgWeaknesses))));
+        }
       });
-  
-
-
-  }
+    }
 
 
   public filterMilestone()
@@ -73,13 +73,7 @@ export class MilestoneFormComponent implements OnInit {
   ngOnInit(){
     this.milestones$ = this.fetchAll(this.idOrgWeaknesses);
 
-        // this.milestones$ = this.fetchAll(this.idOrgWeaknesses);
-        this.milestonesService.onClick.subscribe(data =>{
-          let temp = this.rest_service
-          .post(`http://localhost:3000/milestones/${this.idOrgWeaknesses}/${this.loginInfo.CompanyName}`,data)
-          .pipe(tap(() => (this.milestones$ = this.fetchAll(this.idOrgWeaknesses))));
-          temp.subscribe()
-        })
+    
   }
 
   
@@ -89,7 +83,7 @@ fetchAll(idOrgWeaknesses) {
 
 delete(id: any): void {
   let temp =  this.rest_service.delete(`http://localhost:3000/milestones/${id}/${this.loginInfo.CompanyName}`)
-  .pipe(tap(() => (this.milestones$ = this.fetchAll(id))));
+  .pipe(tap(() => (this.milestones$ = this.fetchAll(this.idOrgWeaknesses))));
 
   temp.subscribe()
 }
@@ -155,17 +149,7 @@ closeDialog( Milestones, Mstatus, MstatusDate, McompletionDate, Mchanges){
   this.data.idOrgWeaknesses = this.idOrgWeaknesses
 
 
-try{
-  //this works when opened as a dialog (the weakness page)
-  //but fails when used only as a form (policy/identifier page)
   this.dialogRef.close( this.data );
-}
- 
-  catch(err){
-    //in the case that it fails, we instead emit a signal for a different component to listen to
-    //and send a post request for us. (this is received by weaknessTable in identifier-page.component.ts) 3/25
-    this.milestoneService.emit(this.data)
-  }
 
 
 };

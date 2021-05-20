@@ -18,8 +18,8 @@
 
       <mat-form-field appearance="outline" color="primary" style="float:0; width: 10%; margin-left: 20%;" >
         <mat-label >Columns included in search</mat-label>
-        <mat-select #columnFilter (selectionChange)="search(search1.value, columnFilter.value)" id="Input" multiple>
-                <mat-option value="0" >
+        <mat-select #columnFilter [(value)]="selected$" (selectionChange)="search(search1.value, columnFilter.value)" id="Input" multiple>
+                <mat-option  value="0" checked>
                     Nid
                 </mat-option>
                 <mat-option value="1" >
