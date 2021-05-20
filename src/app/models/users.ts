@@ -23,9 +23,10 @@ export interface Users {
     Uuserid : string;
     Ucuidata : string;
     Uremoteuser : string;
-    UGRgroups : number;
-    UGRroles : number;
-    Iassetidentifier : number; 
     CompanyName : string;
+    UGRgroups : string;
+    UGRroles : string;
+    Iassetidentifier : string;
+    UcuiContract : string;
 
 }

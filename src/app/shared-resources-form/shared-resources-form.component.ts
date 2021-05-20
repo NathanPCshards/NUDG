@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { tap } from 'rxjs/operators';
 import { login } from '../injectables';
 import { restAPI } from '../services/restAPI.service';
 import { SharedResourcesService } from '../services/shared-resources.service';
@@ -42,10 +43,13 @@ export class SharedResourcesFormComponent implements OnInit {
   public submit(SRtitle,SRdescription,SRupload) {
     let data = {SRtitle,SRdescription,SRupload}
     let temp = this.rest_service.post(`http://localhost:3000/sharedResources/${this.loginInfo.CompanyName}`, data)
+    .pipe(tap(() => (this.sharedResources$ = this.fetchall())));
     temp.subscribe()
   }
   delete(id : any){
     let temp = this.rest_service.delete(`http://localhost:3000/sharedResources/${id}/${this.loginInfo.CompanyName}`)
+    .pipe(tap(() => (this.sharedResources$ = this.fetchall())));
+
     temp.subscribe()
   }
 

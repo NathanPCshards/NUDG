@@ -53,14 +53,11 @@
             type="button" 
             style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" 
             class="btn btn-primary-outline pull-right" 
-            [matMenuTriggerFor]="afterMenu3">
-            <i class="fa fa-plus"></i>Families, CMMC, NIST</button>
+      
+            (click)="rtpol('all');">
+            <i class="fa fa-plus"></i>Families</button>
    
-            <mat-menu #afterMenu3 xPosition="after">
-            <button mat-menu-item type="button" (click)="rtpol('all');" >Families</button>    
-            <button mat-menu-item type="button" (click)="rtpol('cmmc');">CMMC</button>
-            <button mat-menu-item type="button" (click)="rtpol('nist');">Nist</button>    
-            </mat-menu>
+     
 
 
 

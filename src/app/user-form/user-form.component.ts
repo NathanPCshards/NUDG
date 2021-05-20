@@ -61,8 +61,20 @@ export class UserFormComponent implements OnInit {
     return this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
   }
 
-  post(Ufname, Ulname, Uempid, Uemptype, Ujobtitle, Ujobrole, Udepartment, Uhiredate, Ulogonhours, Uadditionalinfo, Udocumentupload, Uemail, Ubusinessphone, Ucellphone, Uaddress, Ucity, Ustate, Upostal, Ucountry, Ucompany, Uuserid, Ucuidata, Uremoteuser): void {
-    let data = { Ufname, Ulname, Uempid, Uemptype, Ujobtitle, Ujobrole, Udepartment, Uhiredate, Ulogonhours, Uadditionalinfo, Udocumentupload, Uemail, Ubusinessphone, Ucellphone, Uaddress, Ucity, Ustate, Upostal, Ucountry, Ucompany, Uuserid, Ucuidata, Uremoteuser }
+  post(Ufname, Ulname, Uempid, Uemptype, Ujobtitle, Ujobrole, Udepartment, Uhiredate, Ulogonhours, Uadditionalinfo, Udocumentupload, Uemail, Ubusinessphone, Ucellphone, Uaddress, Ucity, Ustate, Upostal, Ucountry, Ucompany, Uuserid, Ucuidata, Uremoteuser, UGRgroups, UGRroles, Iassetidentifier, UcuiContract): void {
+    
+    //The mat form fields will send if no input is given. Here we initialize those fields to be empty strings so our backend doesnt crash on a empty post
+    Uemptype  = Uemptype ? Uemptype : ""
+    Uhiredate = Uhiredate ? Uhiredate : ""
+    Ucuidata  = Ucuidata ? Ucuidata : ""
+    Uremoteuser = Uremoteuser ? Uremoteuser : ""
+    UGRgroups = UGRgroups ? UGRgroups : ""
+    UGRroles  = UGRroles ? UGRroles : ""
+    Iassetidentifier  = Iassetidentifier ? Iassetidentifier : ""
+    UcuiContract  = UcuiContract ? UcuiContract : ""
+
+
+    let data = { Ufname, Ulname, Uempid, Uemptype, Ujobtitle, Ujobrole, Udepartment, Uhiredate, Ulogonhours, Uadditionalinfo, Udocumentupload, Uemail, Ubusinessphone, Ucellphone, Uaddress, Ucity, Ustate, Upostal, Ucountry, Ucompany, Uuserid, Ucuidata, Uremoteuser, UGRgroups, UGRroles, Iassetidentifier, UcuiContract }
     let temp = this.rest_service
       .post(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`, data)
       .pipe(tap(() => (this.users$ = this.fetchAll())));

@@ -47,6 +47,7 @@ export class PolicyBoardComponent implements OnInit {
     this.searchResults$ = []
     
     this.routeSub = this.route.params.subscribe(params => {
+      console.log("params : " ,params)
       this.famType$ = params['type'];
       });
 
@@ -165,6 +166,22 @@ export class PolicyBoardComponent implements OnInit {
       this.masterList$.forEach(element => {
         element[1].sort()
       });
+
+  }
+
+  viewChange(view){
+    if(view == "CMMC"){
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+      this.router.navigateByUrl('/Policies/CMMC'))
+    }
+    if(view == "Nist"){
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+      this.router.navigateByUrl('/Policies/Nist'))
+    }
+    if(view =="All"){
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+      this.router.navigateByUrl('/Policies'))
+    }
 
   }
 

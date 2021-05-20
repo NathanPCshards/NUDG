@@ -49,9 +49,9 @@ export class CuiContractsFormComponent implements OnInit {
   
   post(CCname, CCnum, CCstartDate, CCendDate, CCdescription, CCaccountManager , CCsupplierRelation , CCvendorRelation , CCfileInput , CCurl , CCgovCUI , CCnewCUI , CCmodCUI ): void {
     //because these are coming from another tables get request. these variables show up as lists, so im converting them to strings before sending the post (otherwise request fails)
-    CCsupplierRelation = String(CCsupplierRelation)
-    CCvendorRelation = String(CCvendorRelation)
-    CCaccountManager = String(CCaccountManager)
+    CCsupplierRelation = CCsupplierRelation ? String(CCsupplierRelation) : ""
+    CCvendorRelation = CCvendorRelation ? String(CCvendorRelation) : ""
+    CCaccountManager = CCaccountManager ? String(CCaccountManager) : ""
 
     let data =  { CCname, CCnum, CCstartDate, CCendDate, CCdescription, CCaccountManager , CCsupplierRelation , CCvendorRelation , CCfileInput , CCurl , CCgovCUI , CCnewCUI , CCmodCUI  }
     let temp = this.rest_service
@@ -62,9 +62,9 @@ export class CuiContractsFormComponent implements OnInit {
   
   }
   update(CCname, CCnum, CCstartDate, CCendDate, CCdescription, CCaccountManager , CCsupplierRelation , CCvendorRelation , CCfileInput , CCurl , CCgovCUI , CCnewCUI , CCmodCUI,idCUIcontracts ): void {
-    CCsupplierRelation = String(CCsupplierRelation)
-    CCvendorRelation = String(CCvendorRelation)
-    CCaccountManager = String(CCaccountManager)
+    CCsupplierRelation = CCsupplierRelation ? String(CCsupplierRelation) : ""
+    CCvendorRelation = CCvendorRelation ? String(CCvendorRelation) : ""
+    CCaccountManager = CCaccountManager ? String(CCaccountManager) : ""
     let data = { CCname, CCnum, CCstartDate, CCendDate, CCdescription, CCaccountManager , CCsupplierRelation , CCvendorRelation , CCfileInput , CCurl , CCgovCUI , CCnewCUI , CCmodCUI, idCUIcontracts }
    
    

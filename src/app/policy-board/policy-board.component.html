@@ -1,7 +1,6 @@
-<div class="doNotPrint" div class="toolbar" style="display:flex; position:relative;  padding:.5%; background-color:rgb(255, 255, 255); color:black; box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;">
+<div class="doNotPrint" div class="toolbar" style="position:relative;  padding:.5%; background-color:rgb(255, 255, 255); color:black; box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;">
 
-
-  
+  <div style="float:0; display:flex; width:100%">
  
     <mat-form-field class="doNotPrint" style="float:0; margin-left: 1%; color:black; width:20%;">
         
@@ -149,8 +148,27 @@
     
   
           </div>
+  </div>
 
- 
+    <div class="doNotPrint" style="float:1; display:inline; width:100%; height:100%; margin-left: 32%;">
+      <button (click)="viewChange('All')" style="width:10%; height:10%; color: white; background-image: linear-gradient(to top, #152c22 0%, #0d3025 100%);" ><i class="fa fa-plus"></i>
+        Family View
+      </button> 
+     
+      <button (click)="viewChange('Nist')" style="width:10%; height:10%; color: white; margin-left: 5%; background-image: linear-gradient(to top, #152c22 0%, #0d3025 100%);" ><i class="fa fa-plus"></i>
+        Nist View
+      </button>
+      
+      <button (click)="viewChange('CMMC')" style="width:10%; height:10%; color: white; margin-left: 5%;background-image: linear-gradient(to top, #152c22 0%, #0d3025 100%);" ><i class="fa fa-plus"></i>
+        CMMC View
+      </button> 
+      
+
+    </div>
+
+
+
+
 </div>
 
 

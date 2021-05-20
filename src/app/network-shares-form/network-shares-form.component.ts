@@ -46,9 +46,17 @@ fetchAll(): Observable<networkshares[]> {
 }
 
 post(NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifier,CUIdata ,GRA, GWA, URA, UWA): void {
-  let data = {NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifier,CUIdata, GRA, GWA, URA, UWA}
-   
- 
+    //The mat form fields will send if no input is given. Here we initialize those fields to be empty strings so our backend doesnt crash on a empty post
+    NSresourceType = NSresourceType ? NSresourceType : ""
+    GRA = GRA ? GRA : ""
+    GWA = GWA ? GWA : ""
+    URA = URA ? URA : ""
+    UWA = UWA ? UWA : ""
+    CUIdata = CUIdata ? CUIdata : ""
+    NShostIdentifier = NShostIdentifier ? NShostIdentifier : ""
+
+    let data = {NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifier,CUIdata, GRA, GWA, URA, UWA}
+
   let temp = this.rest_service
     .post(`http://localhost:3000/networkshares/${this.loginInfo.CompanyName}`, data)
     .pipe(tap(() => (this.networkshares$ = this.fetchAll())));
@@ -58,6 +66,14 @@ post(NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifier,
 
 
 update(NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifier,CUIdata, GRA, GWA, URA, UWA, idOrgNetworkShares): void {
+  NSresourceType = NSresourceType ? NSresourceType : ""
+  GRA = GRA ? GRA : ""
+  GWA = GWA ? GWA : ""
+  URA = URA ? URA : ""
+  UWA = UWA ? UWA : ""
+  CUIdata = CUIdata ? CUIdata : ""
+  NShostIdentifier = NShostIdentifier ? NShostIdentifier : ""
+
   let data ={NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifier,CUIdata, GRA, GWA, URA, UWA, idOrgNetworkShares}
    
  

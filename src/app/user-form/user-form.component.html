@@ -172,7 +172,7 @@
 
                               <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                                 <mat-label >CUI Contracts</mat-label>
-                                <mat-select #UcuiContracts id="Input" >
+                                <mat-select #UcuiContract id="Input" >
                                     <div *ngFor="let contract of CUIcontracts$ | async">
                                         <mat-option value={{contract.CCname}} >
                                             {{contract.CCname}}
@@ -211,7 +211,7 @@
 
                               <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                                 <mat-label >Roles</mat-label>
-                                <mat-select #UcuiContracts id="Input" >
+                                <mat-select #UGRroles id="Input" >
                                     <div *ngFor="let role of Roles$ | async">
                                         <mat-option value={{role.URGroles}} >
                                             {{role.URGroles}}
@@ -224,8 +224,8 @@
                                 <mat-label >Asset Identifier</mat-label>
                                 <mat-select #Iassetidentifier id="Input" >
                                     <div *ngFor="let inventoryEntry of Inventory$ | async">
-                                        <mat-option value={{inventoryEntry.IassetIdentifier}} >
-                                            {{inventoryEntry.IassetIdentifier}}
+                                        <mat-option value={{inventoryEntry.Iassetidentifier}} >
+                                            {{inventoryEntry.Iassetidentifier}}
                                         </mat-option>
                                     </div>
                                 </mat-select>
@@ -243,7 +243,7 @@
                       <mat-divider style="padding-top: 3px;"></mat-divider>
       
                       
-                      <button mat-raised-button  (click)="post(Ufname.value, Ulname.value, Uempid.value, Uemptype.value, Ujobtitle.value, Ujobrole.value, Udepartment.value, Uhiredate.value, Ulogonhours.value, Uadditionalinfo.value, Udocumentupload.value, Uemail.value, Ubusinessphone.value, Ucellphone.value, Uaddress.value, Ucity.value, Ustate.value, Upostal.value, Ucountry.value, Ucompany.value, Uuserid.value, Ucuidata.value, Uremoteuser.value);"  style="margin-left: 15%;width:20vw;height: 5vh; float: left;" color="primary"  >Submit</button>
+                      <button mat-raised-button  (click)="post(Ufname.value, Ulname.value, Uempid.value, Uemptype.value, Ujobtitle.value, Ujobrole.value, Udepartment.value, Uhiredate.value, Ulogonhours.value, Uadditionalinfo.value, Udocumentupload.value, Uemail.value, Ubusinessphone.value, Ucellphone.value, Uaddress.value, Ucity.value, Ustate.value, Upostal.value, Ucountry.value, Ucompany.value, Uuserid.value, Ucuidata.value, Uremoteuser.value, UGRgroups.value, UGRroles.value, Iassetidentifier.value, UcuiContract.value);"  style="margin-left: 15%;width:20vw;height: 5vh; float: left;" color="primary"  >Submit</button>
                   </div>
               </div>
           
@@ -292,9 +292,7 @@
         <span class="listSpan">
           Cell Phone
         </span>
-        <span class="listSpan">
-          Logon Hours
-        </span>
+
       </mat-list-item>
   
 

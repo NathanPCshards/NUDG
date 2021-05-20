@@ -72,6 +72,7 @@ export class RoleFormComponent implements OnInit {
   }
   async post(data){
 
+
     let temp = this.rest_service.post(`http://localhost:3000/roles/${this.loginInfo.CompanyName}`, data)
     .pipe(tap(() => (this.roles$ = this.fetchall())));
 
@@ -88,6 +89,10 @@ export class RoleFormComponent implements OnInit {
       .pipe(tap(() => (this.roles$ = this.fetchall())));
       temp.subscribe()
       
+  }
+
+  ngOnDestroy(){
+   // this.sharedService.onClick.unsubscribe()
   }
 
  
@@ -116,14 +121,21 @@ ngOnInit(){
 
 }
   async submit(URGroles, Rroletype, Rdescription, URGusers){
+    
+  //The mat form fields will send if no input is given. Here we initialize those fields to be empty strings so our backend doesnt crash on a empty post
+  URGroles = URGroles ? URGroles : ""
+  Rroletype = Rroletype ? Rroletype : ""
+  Rdescription = Rdescription ? Rdescription : ""
+  URGusers = URGusers ? URGusers : ""
+
+
   let data = {URGroles, Rroletype, Rdescription, URGusers}
-  let temp = await this.rest_service.post(`http://localhost:3000/roles/${this.loginInfo.CompanyName}`, data)
-
-  temp.subscribe()
 
 
- // this.roles$ = this.roleservice.fetchAll();
-  //this.sharedSerivce.emit(data)
+ //Since the form/table are on seperate components we emit this back to the parent to post and reload
+  this.sharedSerivce.emit(data)
+
+
 
 }
 

@@ -39,6 +39,15 @@ fetchAll() {
 }
 
 post(Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa) {
+
+
+    //The mat form fields will send if no input is given. Here we initialize those fields to be empty strings so our backend doesnt crash on a empty post
+    GcreationDate = GcreationDate ? GcreationDate : ""
+    GCUIaccess = GCUIaccess ? GCUIaccess : ""
+    UGRusers = UGRusers ? UGRusers : ""
+    GNSwa = GNSwa ? GNSwa : ""
+    GNSra = GNSra ? GNSra : ""
+    
   let data = { Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa}
 
   let temp = this.rest_service.post(`http://localhost:3000/groups/${this.loginInfo.CompanyName}`,data)
@@ -50,7 +59,12 @@ post(Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa) {
 
 
 update(Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa, idOrgGroups): void {
-
+    //The mat form fields will send if no input is given. Here we initialize those fields to be empty strings so our backend doesnt crash on a empty post
+    GcreationDate = GcreationDate ? GcreationDate : ""
+    GCUIaccess = GCUIaccess ? GCUIaccess : ""
+    UGRusers = UGRusers ? UGRusers : ""
+    GNSwa = GNSwa ? GNSwa : ""
+    GNSra = GNSra ? GNSra : ""
 
   let data = {Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa, idOrgGroups}
 

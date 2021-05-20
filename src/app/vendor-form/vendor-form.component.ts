@@ -57,7 +57,9 @@ export class VendorFormComponent implements OnInit {
   }
   
   async post(Vname, Vproduct, Vaddress, Vwebsite, VtechnicalPOCinfo, VDUNSnum, Vcagecode, VbusinessType, VSBAcertified, VcontractualPOCinfo, VcmmcAuditAgency, VcmmcAuditorInfo, VcmmcAuditDate, VNISTauditAgency, VNISTauditorInfo, VNISTauditDate): Promise<void> {
-
+    VbusinessType = VbusinessType ? VbusinessType : "" 
+    VcmmcAuditDate = VcmmcAuditDate ? VcmmcAuditDate : "" 
+    VNISTauditDate = VNISTauditDate ? VNISTauditDate : ""
     let data = {Vname, Vproduct, Vaddress, Vwebsite, VtechnicalPOCinfo, VDUNSnum, Vcagecode, VbusinessType, VSBAcertified, VcontractualPOCinfo, VcmmcAuditAgency, VcmmcAuditorInfo, VcmmcAuditDate, VNISTauditAgency, VNISTauditorInfo, VNISTauditDate, CompanyName : this.loginInfo.CompanyName}
 
     let temp = await this.rest_service.post(`http://localhost:3000/vendors/${this.loginInfo.CompanyName}`,data)
@@ -80,7 +82,7 @@ export class VendorFormComponent implements OnInit {
   
   delete(id: any): void {
     console.log("attempting to delete id : " , id)
-    let temp = this.rest_service.delete(`http://localhost:3000/CompanyInfo/${id}/${this.loginInfo.CompanyName}`)
+    let temp = this.rest_service.delete(`http://localhost:3000/vendors/${id}/${this.loginInfo.CompanyName}`)
      .pipe(tap(() => (this.vendors$ = this.fetchAll())));
      temp.subscribe()
       

@@ -51,7 +51,9 @@ export class SupplierFormComponent implements OnInit {
   }
   
   post(Sname, Sproduct, Saddress, Swebsite, StechnicalPOCinfo, SDUNSnum, Scagecode, SbusinessType, SSBAcertified, ScontractualPOCinfo, ScmmcAuditAgency, ScmmcAuditorInfo, ScmmcAuditDate, SNISTauditAgency, SNISTauditorInfo, SNISTauditDate): void {
- 
+    SbusinessType = SbusinessType ? SbusinessType : "" 
+    ScmmcAuditDate = ScmmcAuditDate ? ScmmcAuditDate : "" 
+    SNISTauditDate = SNISTauditDate ? SNISTauditDate : ""
     let data = { Sname, Sproduct, Saddress, Swebsite, StechnicalPOCinfo, SDUNSnum, Scagecode, SbusinessType, SSBAcertified, ScontractualPOCinfo, ScmmcAuditAgency, ScmmcAuditorInfo, ScmmcAuditDate, SNISTauditAgency, SNISTauditorInfo, SNISTauditDate }
     
     let temp = this.rest_service

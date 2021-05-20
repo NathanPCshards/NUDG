@@ -6,4 +6,6 @@ export class login {
   token: string;
   userId: string;
   CompanyName: string;
+  todaysDate = new Date()
+
 }

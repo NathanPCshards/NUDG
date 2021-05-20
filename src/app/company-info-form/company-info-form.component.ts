@@ -42,7 +42,16 @@ export class CompanyInfoFormComponent {
   }
 
    post(CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber){
- 
+     //The mat form fields will send if no input is given. Here we initialize those fields to be empty strings so our backend doesnt crash on a empty post
+     CIprimaryPoC = CIprimaryPoC ? CIprimaryPoC : ""
+     CISBAcertified = CISBAcertified ? CISBAcertified : ""
+     CIbusinessType = CIbusinessType ? CIbusinessType : ""
+     CIcmmcAuditDate = CIcmmcAuditDate ? CIcmmcAuditDate : ""
+     CINISTauditorDate = CINISTauditorDate ? CINISTauditorDate : ""
+
+
+
+
    let data = {CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber, CompanyName : this.loginInfo.CompanyName}
 
    let temp =  this.rest_service.post(`http://localhost:3000/CompanyInfo/${this.loginInfo.CompanyName}`,data)
@@ -52,6 +61,15 @@ export class CompanyInfoFormComponent {
 
 
    update(CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber, idCompanyInfo) {
+  
+    //The mat form fields will send if no input is given. Here we initialize those fields to be empty strings so our backend doesnt crash on a empty post
+    CIprimaryPoC = CIprimaryPoC ? CIprimaryPoC : ""
+    CISBAcertified = CISBAcertified ? CISBAcertified : ""
+    CIbusinessType = CIbusinessType ? CIbusinessType : ""
+    CIcmmcAuditDate = CIcmmcAuditDate ? CIcmmcAuditDate : ""
+    CINISTauditorDate = CINISTauditorDate ? CINISTauditorDate : ""
+
+    
     let data = {CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber, idCompanyInfo, CompanyName : this.loginInfo.CompanyName}
   
     let temp  =  this.rest_service.update(`http://localhost:3000/CompanyInfo/${this.loginInfo.CompanyName}`, data)
