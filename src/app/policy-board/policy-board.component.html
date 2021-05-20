@@ -1,24 +1,27 @@
-<div class="toolbar" style="position:relative; float:0;  background-color:rgb(255, 255, 255); color:black; box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;">
-  <div style="padding:.5%; position: relative">
+<div class="doNotPrint" div class="toolbar" style="display:flex; position:relative;  padding:.5%; background-color:rgb(255, 255, 255); color:black; box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;">
 
-      <mat-form-field style="float:0; margin-left: 1%; color:black; width:25%;">
+
+  
+ 
+    <mat-form-field class="doNotPrint" style="float:0; margin-left: 1%; color:black; width:20%;">
         
-        <input type="text" matInput #search1 (change)="search(search1.value, columnFilter.value)">
-        <mat-icon matSuffix>search</mat-icon>
-        
+      <input type="text" matInput #search1 (change)="search(search1.value, columnFilter.value); makeReport(reportFilter.value);">
+      <mat-icon matSuffix>search</mat-icon>
+      
 
-      </mat-form-field>
-   
+    </mat-form-field>
 
-      <!--
+
+     <!--
      <span (click)="showAdvanced()"style="margin-left: 15%; text-decoration: underline;">Advanced Options</span>
       <button></button>
-      -->
+    
+     -->
 
-
-      <mat-form-field appearance="outline" color="primary" style="float:0; width: 10%; margin-left: 20%;" >
+ 
+      <mat-form-field class="doNotPrint" appearance="outline" color="primary" style="float:1; width: 20%; margin-left: 1%;" >
         <mat-label >Columns included in search</mat-label>
-        <mat-select #columnFilter [(value)]="selected$" (selectionChange)="search(search1.value, columnFilter.value)" id="Input" multiple>
+        <mat-select #columnFilter [(value)]="selected$" (selectionChange)="search(search1.value, columnFilter.value); makeReport(reportFilter.value);" id="Input" multiple>
                 <mat-option  value="0" checked>
                     Nid
                 </mat-option>
@@ -41,26 +44,118 @@
         </mat-select>
       </mat-form-field>     
 
-      <div style="float:0;font-size:large;width:15%; background-color: palegoldenrod; box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;" *ngIf="searchResults$.length > 0">
-        <h1>Query Results:</h1>
-        <p style="color:black">
-          {{implementedQuery$[0]}}/{{implementedQuery$[1]}} Implemented
-        </p>
-        <p style="color:black">
-          {{implementedQuery$[2]}}/{{implementedQuery$[3]}} Score
-        </p>
+ 
+
+
+
+        <mat-form-field class="doNotPrint" appearance="outline" color="primary" style="float:1; margin-left:1%; width: 20%; " >
+          <mat-label >Include in Print Report</mat-label>
+          <mat-select #reportFilter (selectionChange)="makeReport(reportFilter.value)" id="Input" multiple >
+            <mat-option value="Query" >
+              Query Results
+            </mat-option>
+            <mat-option value="Level1" >
+              CMMC Level 1
+            </mat-option>
+            <mat-option value="Level2" >
+              CMMC Level 2
+            </mat-option>
+            <mat-option value="Level3" >
+              CMMC Level 3
+            </mat-option>
+            <mat-option value="NFO" >
+              NIST NFO
+            </mat-option>
+            <mat-option value="CUI" >
+              NIST CUI
+            </mat-option>
+            <mat-option  value="0" >
+              Access Control (AC)
+            </mat-option>
+            <mat-option value="1" >
+              Asset Management (AM)
+            </mat-option>
+            <mat-option value="2" >
+              Audit and Accountability (AU)
+            </mat-option>
+            <mat-option value="3" >
+              Awareness and Training (AT)
+            </mat-option>
+            <mat-option value="4" >
+              Configuration Management (CM)
+            </mat-option>
+            <mat-option value="5" >
+              Identification and Authentication (IA)
+            </mat-option>
+            <mat-option value="6" >
+              Incident Response (IR)
+            </mat-option>
+            <mat-option value="7" >
+              Maintenance (MA)
+            </mat-option>
+            <mat-option value="8" >
+              Media Protection (MP)
+            </mat-option>
+            <mat-option value="9" >
+              Personnel Security (PS)
+            </mat-option>
+            <mat-option value="10" >
+              Physical Protection (PE)
+            </mat-option>
+            <mat-option value="11" >
+              Recovery (RE)
+            </mat-option>
+            <mat-option value="12" >
+              Risk Management (RM)
+            </mat-option>
+            <mat-option value="13" >
+              Security Assessment (CA)
+            </mat-option>
+            <mat-option value="14" >
+              Situational Awareness (SA)
+            </mat-option>
+            <mat-option value="15" >
+              System Development (SD)
+            </mat-option>
+            <mat-option value="16" >
+              System and Communication Protection (SC)
+            </mat-option>
+            <mat-option value="16" >
+              System and Information Integrity (SI)
+            </mat-option>
+
+
+
+            </mat-select>
+
+          </mat-form-field>  
+
+     
+          <button class="doNotPrint" mat-raised-button type="button" style="color: white; margin-bottom:3%; margin-left: 1%;background-image: linear-gradient(to top, #152c22 0%, #0d3025 100%);" (click)="printPage();"><i class="fa fa-plus"></i>Print Preview</button>    
+
+    
+
+
+   
+
+          <div class="doNotPrint" style="margin-left: 1%; box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 1px; width:15%; height:18%;" >
+            <p>Query Results:</p>  <p style="color:black; " *ngIf="searchResults$.length > 0">
+              {{implementedQuery$[0]}}/{{implementedQuery$[1]}} Implemented
+            </p>
+          
+            <p style="color:black;" *ngIf="searchResults$.length > 0">
+              {{implementedQuery$[2]}}/{{implementedQuery$[3]}} Score
+            </p>
+    
   
-  
-      </div>
+          </div>
 
-
-
-  </div>
+ 
 </div>
 
 
 
-<mat-list-item *ngIf="searchResults$.length > 0">
+<mat-list-item class="doNotPrint" *ngIf="searchResults$.length > 0">
 
     <mat-list>
       <div class="flexContainer">
@@ -132,7 +227,7 @@
 
 
 
-<div>
+<div class="doNotPrint">
   <mat-list-item *ngFor="let entry of masterList$;let i=index;">
       <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
@@ -212,3 +307,78 @@
     </mat-list-item>
 </div>
 
+
+
+
+<div class="PrintSection">
+  <div  class="pMainDiv" style="background-color: white; width: 98%; height:100%">
+
+
+    <div class="div1"  style = "height:100px; width:40%; ;">
+      <img  id="logo" class="img" src="../../assets/images/nudgLogo.png" style="height: 100px; width:100px; margin-left: 65%;">
+
+    </div>
+
+
+    <div class="div1"  style ="height:50px; width:60%; ">
+      <span style="font-size: x-large; padding-top: 30px;">
+        NUDG Systems
+        </span>
+    </div>
+
+
+    <div class="div1" style ="width:60%; height:50px; ">
+      NIST Unified Data Governance
+    </div>
+
+
+   <ng-container *ngFor="let policy of printList$ ">
+
+     <h1>{{policy.Subtitle}}</h1>
+     <h2>Family Policy</h2>
+     <span>{{policy.FamilyPolicy}}</span>
+     <table class="table" style="width:100%">
+      <tr>
+        <th class="col1-2">NUDG Identifier</th>
+        <th class="col3-4">{{policy.nudgid}}</th>
+      </tr>
+      <tr>
+        <td class="col1">CMMC Number</td>
+        <td class="col2">{{policy.CMMCnumber}}</td>
+
+        <td class="col3">Status</td>
+        <td class="col4">{{policy.Pstatus}}</td>
+      </tr>
+      <tr>
+        <td class="col1">Capability Number</td>
+        <td class="col2">{{policy.Capabilitynumber}}</td>
+
+        <td class="col3">CMMC Level</td>
+        <td class="col4">{{policy.CMMClevel}}</td>
+      </tr>
+      <tr>
+        <td class="col1">NIST Mapping</td>
+        <td class="col2">{{policy.NISTmapping}}</td>
+
+        <td class="col3">NIST Value</td>
+        <td class="col4">{{policy.NISTvalue}}</td>
+      </tr>
+     </table>
+
+      <label>Practice</label>
+     <body>
+      <span>{{policy.Practice}}</span>
+
+     </body>
+     <br>
+    
+     <label>Clarification</label>
+
+     <body>
+      <span>{{policy.Clarification}}</span>
+
+     </body>
+     </ng-container>
+     </div>
+
+    </div>

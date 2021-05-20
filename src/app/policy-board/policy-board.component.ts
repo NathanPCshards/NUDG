@@ -21,6 +21,7 @@ export class PolicyBoardComponent implements OnInit {
    policiesByFamilyNist$: any[];
    masterList$;
    sortType;
+   printList$;
 
    temp$;
    searchResults$;
@@ -132,8 +133,6 @@ export class PolicyBoardComponent implements OnInit {
 
     })
 
-
-
   }
 
   loadMasterList(){
@@ -167,6 +166,79 @@ export class PolicyBoardComponent implements OnInit {
         element[1].sort()
       });
 
+  }
+
+  makeReport(reportFilter){
+    //this function takes a list of family names/indexes, adds them to a list
+    //that list is then used to make the print view in css. This is updated as the search is updated as well.
+    this.printList$ = []
+    reportFilter.forEach(async filter => {
+      if (filter == "NFO"){
+        //Iterate over NFO policies and push them
+        this.getInfoFromId(this.policiesByFamilyNist$[0]).forEach(element => {
+          this.printList$.push(this.allPoliciesDict$[element[0]])
+        });
+      }
+      else if (filter =="Query"){
+        this.searchResults$.forEach(element => {
+          this.printList$.push(this.allPoliciesDict$[element[0]])
+
+        });
+      }
+      else if (filter == "CUI"){
+        //Iterate over CUI policies and push them
+        this.getInfoFromId(this.policiesByFamilyNist$[1]).forEach(element => {
+          this.printList$.push(this.allPoliciesDict$[element[0]])
+        });
+      }
+      else if (filter == "Level1"){
+        //Iterate over cmmc level 1 policies and push them
+        this.getInfoFromId(this.policiesByFamilyCMMC$[0]).forEach(element => {
+          this.printList$.push(this.allPoliciesDict$[element[0]])
+        });
+
+      }
+      else if (filter == "Level2"){
+        //Iterate over cmmc level 2 policies and push them
+
+        this.getInfoFromId(this.policiesByFamilyCMMC$[1]).forEach(element => {
+          this.printList$.push(this.allPoliciesDict$[element[0]])
+        });
+      }
+      else if (filter == "Level3"){
+        //Iterate over cmmc level 3 policies and push them
+
+        this.getInfoFromId(this.policiesByFamilyCMMC$[2]).forEach(element => {
+          this.printList$.push(this.allPoliciesDict$[element[0]])
+        });
+      }
+      else{
+        //Iterate over specific level 2 families (based on check boxes)
+
+        let fams = [`Access Control (AC)`, `Asset Management (AM)`, `Audit and Accountability (AU)`, `Awareness and Training (AT)`, `Configuration Management (CM)`,`Identification and Authentication (IA)`, `Incident Response (IR)`,
+        `Maintenance (MA)`, `Media Protection (MP)`, `Personnel Security (PS)`, `Physical Protection (PE)`, `Recovery (RE)`, `Risk Management (RM)`,`Security Assessment (CA)`, `Situational Awareness (SA)`, `System Development (SD)`,
+      `System and Communication Protection (SC)`, `System and Information Integrity (SI)`]
+
+  
+        let temp = await this.getPoliciesInFamily(fams[filter])
+        temp.forEach(policiesInFamily => {
+          policiesInFamily.forEach(policy => {
+            this.printList$.push(policy)
+          });
+        });
+
+      }
+
+
+      
+    });
+    this.printList$.sort(function(a,b){
+      return a.nudgid > b.nudgid
+    })
+
+  }
+  printPage(){
+    window.print()
   }
 
   search(text,columnFilter){
@@ -231,12 +303,10 @@ export class PolicyBoardComponent implements OnInit {
     console.log("Debug")
     console.log("Master List: ", this.masterList$)
     
-    this.masterList$.forEach(element => {
-      console.log("element : " ,element)
-    });
+
    
-    console.log("policy dict : " ,this.policyDict$)
-    console.log("all policies", this.allPoliciesDict$)
+   // console.log("policy dict : " ,this.policyDict$)
+    console.log("pol by fam ", this.policiesByFamily$)
     console.log("this.families : " ,this.families$)
     console.log("search result : ", this.searchResults$)
   }
@@ -257,7 +327,7 @@ export class PolicyBoardComponent implements OnInit {
   }
   getPoliciesInFamily(family: any){
     //Get all policies associated with a specific Family
-    return this.rest_service.get(`http://localhost:3000/Policy/${'All'}/${this.loginInfo.CompanyName}/?Family=${true}`)
+    return this.rest_service.get(`http://localhost:3000/Policy/${'All'}/${this.loginInfo.CompanyName}/?Family=${family}`)
   }
   getImplemented(policyArray:any){
     //takes in a list of Nids, ["AC-N.01", "AM.-N.02", ...] and returns an array of the implementation status counts
@@ -291,7 +361,6 @@ export class PolicyBoardComponent implements OnInit {
 
     return info
   }
-
 
   sort(family, column){    
     family = family.trim()
