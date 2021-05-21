@@ -37,6 +37,21 @@ httpOptions: { headers: HttpHeaders } = {
       );
   }
 
+  getFile(filename) {
+    
+    return this.http.get(`http://localhost:3000/download?file=${filename}`)
+  }
+
+  upload(file){
+    var headers = new Headers()
+    headers.append('Content-Type', '"multipart/form-data"');
+
+    //let options = new RequestOptions({ headers: headers });
+    let body = new FormData()
+    body.append('file',file)
+    return this.http.post(`http://localhost:3000/upload?file`,body)
+  }
+
   post(url, data): Observable<any> {
    // console.log("Post called @ ", url)
 

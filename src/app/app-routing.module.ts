@@ -34,6 +34,7 @@ import { PolicyAccordionComponent } from './policy-accordion/policy-accordion.co
 import { FileImportComponent } from './file-import/file-import.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
+import { FirewallPortsProtocolsComponent } from './firewall-ports-protocols/firewall-ports-protocols.component';
 //https://angular.io/guide/router
 
 const routes: Routes = [
@@ -55,6 +56,8 @@ const routes: Routes = [
   { path: 'Policy', component: IdentifierPageComponent},
   { path: 'Policy/:id', component: IdentifierPageComponent },
   { path: 'Policy/:id/:Date', component: IdentifierPageComponent },
+  { path: 'Firewall', component: FirewallPortsProtocolsComponent },
+
 
 
   { path: 'Calendar', component: CalendarComponent },

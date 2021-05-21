@@ -70,7 +70,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "nudg:build"
+            "browserTarget": "nudg:build",
+            "port": 4200,
+            "host": "core.pcshards.local"
           },
           "configurations": {
             "production": {

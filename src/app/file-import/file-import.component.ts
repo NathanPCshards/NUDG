@@ -32,6 +32,7 @@ export class FileImportComponent implements OnInit {
 //just make it in 1 file and export it to the other.
     var f = (<HTMLInputElement>document.getElementById('fileDropRef')).files[0];
     let reader = new FileReader()
+
     const files = evt;
     console.log("type : " , fileType)
     if (f){

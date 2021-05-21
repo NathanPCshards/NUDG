@@ -1,1 +1,256 @@
-<p>firewall-ports-protocols works!</p>
+<mat-accordion class ="accordion">   
+    <mat-expansion-panel 
+    (closed)="panelOpenState = false" 
+    (opened)="panelOpenState = true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Add a Firewall Item
+        </mat-panel-title>
+        <mat-panel-description class="description">
+         Open panel to add a Firewall Item
+        </mat-panel-description>
+    
+      </mat-expansion-panel-header>
+        
+      
+                <div class = InputContainer>
+    
+                    <div class = "row">
+                        <div class ="col">
+                            <h1 style="margin-left: 1%;">Info</h1>
+                            <mat-form-field  appearance = "legacy" style="width:40%">
+                                <input #FWpolicyNum matInput placeholder = "Policy Number">
+                            </mat-form-field>
+                            <mat-form-field appearance = "legacy" style="width:40%">
+                                <input #FWservice matInput placeholder = "Service">
+                            </mat-form-field>
+                            <mat-form-field appearance = "legacy" style="width:80%">
+                                <input #FWdescription matInput placeholder = "Description" >
+                            </mat-form-field>
+
+
+                            <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
+                                <mat-label >Supplier Relation</mat-label>
+                                <mat-select #FWsupplierRelation id="Input" >
+                                    <div *ngFor="let supplier of suppliers$ | async">
+                                        <mat-option value={{supplier.Sname}} >
+                                            {{supplier.Sname}}
+                                        </mat-option>
+                                    </div>
+                                </mat-select>
+                              </mat-form-field>
+
+                              <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
+                                <mat-label >Vendor Relation</mat-label>
+                                <mat-select #FWvendorRelation id="Input" >
+                                    <div *ngFor="let vendor of vendors$ | async">
+                                        <mat-option value={{vendor.Vname}} >
+                                            {{vendor.Vname}}
+                                        </mat-option>
+                                    </div>
+                                </mat-select>
+                              </mat-form-field>
+
+                              <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
+                                <mat-label >CUI Contracts</mat-label>
+                                <mat-select #FWcuiContract id="Input" >
+                                    <div *ngFor="let contract of contracts$ | async">
+                                        <mat-option value={{contract.CCname}} multiple>
+                                            {{contract.CCname}}
+                                        </mat-option>
+                                    </div>
+                                </mat-select>
+                              </mat-form-field>
+
+                              <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
+                                <mat-label >Asset Identifier</mat-label>
+                                <mat-select #Iassetidentifier id="Input" >
+                                    <div *ngFor="let item of inventories$ | async">
+                                        <mat-option value={{item.IassetIdentifier}} multiple>
+                                            {{item.IassetIdentifier}}
+                                        </mat-option>
+                                    </div>
+                                </mat-select>
+                              </mat-form-field>
+
+                            <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
+                                <mat-label >Protocol</mat-label>
+                                <mat-select #FWprotocol id="Input">
+
+                                    <mat-option value="TCP" >
+                                        TCP
+                                    </mat-option>
+                        
+                                    <mat-option value="UDP" >
+                                        UDP
+                                    </mat-option>
+
+                                    <mat-option value="Both" >
+                                        Both
+                                    </mat-option>          
+
+                                </mat-select>
+                            </mat-form-field>
+
+
+                            <mat-form-field appearance = "legacy" style="width:40%">
+                                <input #FWports matInput placeholder = "Ports">
+                            </mat-form-field>
+                            <mat-form-field appearance = "legacy" style="width:40%">
+                                <input #FWsource matInput placeholder = "Source">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance = "legacy"  style="width:40%">
+                                <input #FWinbound matInput placeholder = "Inbound Interface">
+                            </mat-form-field>
+                            <mat-form-field appearance = "legacy"  style="width:40%">
+                                <input #FWoutbound matInput placeholder = "Outbound Interface">
+                            </mat-form-field>
+
+                            <mat-form-field style="width: 40%;background: transparent;" appearance="fill" class="datepicker datepicker2" id="datepicker2">
+                                <mat-label >Creation Date</mat-label>
+                                <input 
+                                #FWcreationDate 
+                                matInput 
+                                [matDatepicker]="datepicker2"
+    
+                                />
+                                <mat-datepicker-toggle matSuffix [for]="datepicker2"></mat-datepicker-toggle>
+                                <mat-datepicker #datepicker2>
+                                <mat-datepicker-actions>
+                                    <button mat-button matDatepickerCancel>Cancel</button>
+                                    <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                                </mat-datepicker-actions>
+                                </mat-datepicker>
+                            </mat-form-field>
+
+                    </div>
+                        
+                <div class = "row2">
+                    <mat-divider style="padding-top: 3px;"></mat-divider>
+    
+                    
+                    <button mat-raised-button  (click)="post(Iassetidentifier.value, FWpolicyNum.value, FWservice.value, FWdescription.value, FWprotocol.value, FWports.value, FWsource.value, FWinbound.value, FWoutbound.value, FWcreationDate.value, FWsupplierRelation.value, FWvendorRelation.value, FWcuiContract.value);"  style="margin-left: 15%;width:20vw;height: 5vh; float: left;" color="primary"  >Submit</button>
+                </div>
+                    </div>
+            
+                </div>
+    </mat-expansion-panel>
+  
+  </mat-accordion>
+  
+  
+    <mat-list>
+    
+        <mat-list-item class="headerRow">
+          <span class="listSpan">
+            Policy Number
+          </span>
+          <span class="listSpan">
+            Service
+          </span>
+          <span class="listSpan">
+            Description
+          </span>
+          <span class="listSpan">
+            Protocol
+          </span>
+          <span class="listSpan">
+            Ports
+          </span>
+          <span class="listSpan">
+            Source
+          </span>
+          <span class="listSpan">
+            Inbound Interface
+          </span>
+          <span class="listSpan">
+            Outbound Interface
+          </span>
+          <span class="listSpan">
+            Creation date
+          </span>
+          <span class="listSpan">
+            Supplier Relation
+          </span>
+          <span class="listSpan">
+            Vendor Relation
+          </span>
+          <span class="listSpan">
+            CUI Contracts
+          </span>
+  
+        </mat-list-item>
+    
+  
+      <mat-list-item *ngFor="let FW of firewalls$ | async">
+  
+        <span class="listSpan">
+          {{ FW.FWpolicyNum }}
+        </span>
+  
+        <span class="listSpan">
+          {{FW.FWservice }}
+        </span>
+  
+        <span class="listSpan ">
+          {{FW.FWdescription }}
+        </span>
+  
+        <span class="listSpan ">
+          {{FW.FWprotocol }}
+        </span>
+  
+        <span class="listSpan"
+        >{{ FW.FWports }}
+        </span>
+  
+        <span class="listSpan">
+          {{FW.FWsource }}
+        </span>
+  
+        <span class="listSpan ">
+          {{FW.FWinbound }}
+        </span>
+  
+        <span class="listSpan ">
+          {{FW.FWoutbound }}
+        </span>
+  
+        <span class="listSpan ">
+          {{FW.FWcreationDate }}
+        </span>
+  
+        <span class="listSpan ">
+          {{FW.FWsupplierRelation }}
+        </span>
+  
+        <span class="listSpan ">
+          {{FW.FWvendorRelation }}
+        </span>
+  
+        <span class="listSpan ">
+          {{FW.FWcuiContract }}
+        </span>
+  
+  
+       <span style="position: absolute; right: 0;">
+          <button mat-icon-button>
+            <mat-icon
+              (click)="update(Iassetidentifier.value, FWpolicyNum.value, FWservice.value, FWdescription.value, FWprotocol.value, FWports.value, FWsource.value, FWinbound.value, FWoutbound.value, FWcreationDate.value, FWsupplierRelation.value, FWvendorRelation.value, FWcuiContract.value)"
+              color="primary">
+              edit
+            </mat-icon>
+          </button>
+  
+      
+          <button mat-icon-button> 
+            <mat-icon (click)="delete(FW.idfirewall)" color="warn">
+              delete
+            </mat-icon>
+          </button>
+        </span> 
+      </mat-list-item>
+    </mat-list>
+  
+  

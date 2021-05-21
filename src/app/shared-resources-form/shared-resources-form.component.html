@@ -59,7 +59,7 @@
         </mat-list-item>
   
   
-      <mat-list-item *ngFor="let resource of sharedResources$ | async">
+      <mat-list-item *ngFor="let resource of sharedResources$ | async; let i = index">
   
         <span class="listSpan">
           {{ resource.SRtitle}}    
@@ -68,6 +68,11 @@
         <span class="listSpan ">
           {{resource.SRdescription}}
         </span>
+
+
+        <a id="link" [href]="url" download = "file" class="listSpan ">
+          {{resource.SRupload}}
+        </a>
 
     
        <span style="position: absolute; right: 0;">
