@@ -46,11 +46,11 @@ export class UserFormComponent implements OnInit {
  
   ngOnInit(){
     this.users$ = this.fetchAll();
-    this.CUIcontracts$ = this.rest_service.get(`http://localhost:3000/cuicontracts/${this.loginInfo.CompanyName}`);
+    this.CUIcontracts$ = this.rest_service.get(`http://192.168.0.70:3000/cuicontracts/${this.loginInfo.CompanyName}`);
 
-    this.Inventory$ = this.rest_service.get(`http://localhost:3000/inventories/${this.loginInfo.CompanyName}`);
-    this.Roles$ = this.rest_service.get(`http://localhost:3000/roles/${this.loginInfo.CompanyName}`);
-    this.Groups$ = this.rest_service.get(`http://localhost:3000/groups/${this.loginInfo.CompanyName}`)
+    this.Inventory$ = this.rest_service.get(`http://192.168.0.70:3000/inventories/${this.loginInfo.CompanyName}`);
+    this.Roles$ = this.rest_service.get(`http://192.168.0.70:3000/roles/${this.loginInfo.CompanyName}`);
+    this.Groups$ = this.rest_service.get(`http://192.168.0.70:3000/groups/${this.loginInfo.CompanyName}`)
 
     this.panelOpenState = false;
 
@@ -58,7 +58,7 @@ export class UserFormComponent implements OnInit {
  
   fetchAll(): Observable<Users[]> {
 
-    return this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
+    return this.rest_service.get(`http://192.168.0.70:3000/orgusers/${this.loginInfo.CompanyName}`);
   }
 
   post(Ufname, Ulname, Uempid, Uemptype, Ujobtitle, Ujobrole, Udepartment, Uhiredate, Ulogonhours, Uadditionalinfo, Udocumentupload, Uemail, Ubusinessphone, Ucellphone, Uaddress, Ucity, Ustate, Upostal, Ucountry, Ucompany, Uuserid, Ucuidata, Uremoteuser, UGRgroups, UGRroles, Iassetidentifier, UcuiContract): void {
@@ -76,7 +76,7 @@ export class UserFormComponent implements OnInit {
 
     let data = { Ufname, Ulname, Uempid, Uemptype, Ujobtitle, Ujobrole, Udepartment, Uhiredate, Ulogonhours, Uadditionalinfo, Udocumentupload, Uemail, Ubusinessphone, Ucellphone, Uaddress, Ucity, Ustate, Upostal, Ucountry, Ucompany, Uuserid, Ucuidata, Uremoteuser, UGRgroups, UGRroles, Iassetidentifier, UcuiContract }
     let temp = this.rest_service
-      .post(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`, data)
+      .post(`http://192.168.0.70:3000/orgusers/${this.loginInfo.CompanyName}`, data)
       .pipe(tap(() => (this.users$ = this.fetchAll())));
 
 
@@ -89,7 +89,7 @@ export class UserFormComponent implements OnInit {
     let data = { Ufname, Ulname, Uempid, Uemptype, Ujobtitle, Ujobrole, Udepartment, Uhiredate, Ulogonhours, Uadditionalinfo, Udocumentupload, Uemail, Ubusinessphone, Ucellphone, Uaddress, Ucity, Ustate, Upostal, Ucountry, Ucompany, Uuserid, Ucuidata, Uremoteuser, idOrgUsers}
 
     let temp = this.rest_service
-      .update(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}` , data)
+      .update(`http://192.168.0.70:3000/orgusers/${this.loginInfo.CompanyName}` , data)
       .pipe(tap(() => (this.users$ = this.fetchAll())));
       temp.subscribe()
   }
@@ -98,7 +98,7 @@ export class UserFormComponent implements OnInit {
   delete(Uuserid: any): void {
 
   let temp = this.rest_service
-      .delete(`http://localhost:3000/orgusers/${Uuserid}/${this.loginInfo.CompanyName}`)
+      .delete(`http://192.168.0.70:3000/orgusers/${Uuserid}/${this.loginInfo.CompanyName}`)
       .pipe(tap(() => (this.users$ = this.fetchAll())));
     temp.subscribe()
       

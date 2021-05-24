@@ -29,8 +29,8 @@
                   <mat-label> Description</mat-label>
                   <input #SRdescription matInput >
                 </mat-form-field>
-                <div class="fileInput" style="margin-left: 1%;">
-                  <input #SRupload class="ng-hide" id="input-file-id" multiple type="file" />
+                <div  style="margin-left: 1%;">
+                  <input  #SRupload class="ng-hide" id="input-file" multiple type="file" (change)="setFile(SRupload)"/>
                   <label for="input-file-id" class="md-button md-raised md-primary"></label>
               </div>
   
@@ -58,22 +58,28 @@
   
         </mat-list-item>
   
+
   
-      <mat-list-item *ngFor="let resource of sharedResources$ | async; let i = index">
-  
-        <span class="listSpan">
-          {{ resource.SRtitle}}    
+      <mat-list-item *ngFor="let resource of displayList; let i = index">
+
+
+       <span class="listSpan">
+          {{ displayList[i][0][0].SRtitle}}    
         </span>
   
         <span class="listSpan ">
-          {{resource.SRdescription}}
+          {{displayList[i][0][0].SRdescription}}
         </span>
 
 
-        <a id="link" [href]="url" download = "file" class="listSpan ">
-          {{resource.SRupload}}
+        <a id="link" [href]="urls[i]" download = "file" class="listSpan ">
+          {{displayList[i][2]}}
         </a>
 
+
+
+  
+ 
     
        <span style="position: absolute; right: 0;">
           <button mat-icon-button>
@@ -84,7 +90,7 @@
     
       
           <button mat-icon-button>
-            <mat-icon (click)="delete(resource.idSharedResources)" color="warn">
+            <mat-icon (click)="delete(displayList[i][0][0].idSharedResources, displayList[i])" color="warn">
               delete
             </mat-icon>
           </button>

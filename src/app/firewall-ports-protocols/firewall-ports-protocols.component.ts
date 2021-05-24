@@ -3,6 +3,7 @@ import { tap } from 'rxjs/operators';
 import { login } from '../injectables';
 import { restAPI } from '../services/restAPI.service';
 
+
 @Component({
   selector: 'app-firewall-ports-protocols',
   templateUrl: './firewall-ports-protocols.component.html',
@@ -57,7 +58,14 @@ export class FirewallPortsProtocolsComponent implements OnInit {
     //again call
     temp.subscribe()
 
+
+
+
   }
+
+
+
+
   update(Iassetidentifier, FWpolicyNum, FWservice, FWdescription, FWprotocol, FWports, FWsource, FWinbound, FWoutbound, FWcreationDate, FWsupplierRelation, FWvendorRelation, FWcuiContract){
     /*let data = {Iassetidentifier, FWpolicyNum, FWservice, FWdescription, FWprotocol, FWports, FWsource, FWinbound, FWoutbound, FWcreationDate, FWsupplierRelation, FWvendorRelation, FWcuiContract, idfirewall}
     let temp = this.rest_service.post(`http://localhost:3000/Firewall/${this.loginInfo.CompanyName}`, data)

@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders} from "@angular/common/http";
 import { ErrorHandler, EventEmitter, Injectable } from '@angular/core';
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { Observable } from "rxjs";
 import { catchError, publish, tap } from "rxjs/operators";
 import { login } from "../injectables";
@@ -13,12 +14,12 @@ import { ErrorHandlerService } from "./error-handler.service";
 export class restAPI {
 //url must match route in the app.use(...) in index.js
 gapEmit = new EventEmitter();
-
+uploadForm: FormGroup
 httpOptions: { headers: HttpHeaders } = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
 };
 
-  constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient,private loginInfo : login) {
+  constructor(private errorHandlerService: ErrorHandlerService,private http: HttpClient,private loginInfo : login, private formBuilder : FormBuilder) {
    }
 
    emit(data : any, optionalParam : any = false) {
@@ -38,25 +39,21 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   getFile(filename) {
-    
-    return this.http.get(`http://localhost:3000/download?file=${filename}`)
+    console.log("getting file : ", filename)
+    return this.http.get(`http://localhost:3000/download?file=${filename}`, { responseType: "blob" })
   }
 
   upload(file){
-    var headers = new Headers()
-    headers.append('Content-Type', '"multipart/form-data"');
-
-    //let options = new RequestOptions({ headers: headers });
-    let body = new FormData()
-    body.append('file',file)
-    return this.http.post(`http://localhost:3000/upload?file`,body)
+    console.log("file in service : " , file)
+    return this.http.post(`http://localhost:3000/upload`,file)
+    .pipe(catchError(this.errorHandlerService.handleError<any>("upload")));
   }
 
   post(url, data): Observable<any> {
-   // console.log("Post called @ ", url)
+    console.log("Post called @ ", url, "data : " , data)
 
     return this.http
-      .post(url, data, this.httpOptions)
+      .post(url, data, this.httpOptions, )
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 
@@ -69,11 +66,11 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   delete(url): Observable<any> {
-   // console.log("Delete called @ ", url)
+    console.log("Delete called @ ", url)
 
 
     return this.http
-      .delete<cuicontracts>(url, this.httpOptions)
+      .delete<any>(url)
       .pipe(catchError(this.errorHandlerService.handleError<any>("delete")));
   }
 
