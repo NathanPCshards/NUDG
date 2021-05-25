@@ -2,6 +2,7 @@
 import { Component, Inject, Input, OnInit, Optional, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { login } from '../injectables';
@@ -78,6 +79,9 @@ displayStandards$;
 displayResources$
 displayWeakness$
 weakness$
+files
+urls
+resourceDisplay$
 todaysDate = new Date()
 @Input()
 
@@ -92,11 +96,14 @@ constructor(
   public sharedResourceService : SharedResourcesService,
   public weaknessService : WeaknessesService,
   public rest_service : restAPI,
-  public loginInfo : login
+  public loginInfo : login,
+  private sanitizer: DomSanitizer
   ) { }
 
 ngOnInit(){
   //Getting standards
+  this.urls = []
+  this.files = []
 
   this.standards$ =  this.rest_service.get(`http://192.168.0.70:3000/standards/${this.id$}/${this.loginInfo.CompanyName}`)
 
@@ -106,14 +113,40 @@ ngOnInit(){
         this.displayStandards$.push(standard)
     });
   });
+
+
+
+ 
+
+
+  
+
+
+ 
+
+
+
+
   //Getting resources
   this.resources$ = this.rest_service.get(`http://192.168.0.70:3000/sharedResources/${this.loginInfo.CompanyName}`)
   this.displayResources$ = []
   this.resources$.forEach(resourcesArray => {
     resourcesArray.forEach(resource => {
         this.displayResources$.push(resource)
+      
+        //saving files to an array
+        this.files.push(resource.SRupload)
+        this.rest_service.getFile(resource.SRupload).subscribe(data=>{
+          this.urls.push(this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(data)))
+
+        })
     });
   });
+
+
+  console.log("urls : " , this.urls)
+  console.log("files : " ,  this.files)
+  
   //Getting weaknesses
   this.weakness$ = this.weaknessService.fetchAll(this.id$, this.loginInfo.CompanyName)
   this.displayWeakness$ = []

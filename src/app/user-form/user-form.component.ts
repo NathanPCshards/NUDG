@@ -47,7 +47,7 @@ export class UserFormComponent implements OnInit {
   ngOnInit(){
     this.users$ = this.fetchAll();
     this.CUIcontracts$ = this.rest_service.get(`http://192.168.0.70:3000/cuicontracts/${this.loginInfo.CompanyName}`);
-
+    console.log("check : " , typeof(this.CUIcontracts$))
     this.Inventory$ = this.rest_service.get(`http://192.168.0.70:3000/inventories/${this.loginInfo.CompanyName}`);
     this.Roles$ = this.rest_service.get(`http://192.168.0.70:3000/roles/${this.loginInfo.CompanyName}`);
     this.Groups$ = this.rest_service.get(`http://192.168.0.70:3000/groups/${this.loginInfo.CompanyName}`)

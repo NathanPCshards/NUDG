@@ -33,7 +33,7 @@ export class SharedResourcesFormComponent implements OnInit {
   filesOutgoing$
   fileOutgoingName
   allFiles;
-  displayList;
+  displayList$;
   test$;
 
     constructor(private http:HttpClient, 
@@ -47,42 +47,42 @@ export class SharedResourcesFormComponent implements OnInit {
 
     this.loadData()
    
-
-
-   
   }
 
    ab2str(buf) {
     return String.fromCharCode.apply(null, new Uint16Array(buf));
   }
-  async fetchall(){
-    return await this.rest_service.get(`http://192.168.0.70:3000/sharedResources/${this.loginInfo.CompanyName}`)
+   fetchall(){
+    return this.rest_service.get(`http://192.168.0.70:3000/sharedResources/${this.loginInfo.CompanyName}`)
   
   }
   loadData(){
     this.files =  [] 
-    this.displayList = []
+    this.displayList$ = []
     this.urls = []
 
     this.sharedResources$ = this.fetchall()
+    //pulling data
     this.sharedResources$.subscribe(async data =>{
       for (let index = 0; index < data.length; index++) {
        const entry = data[index];
+       //saving files to an array
        this.files.push(entry.SRupload)
-        this.displayList[index] = [entry]
+        this.displayList$[index] = [entry]
       }
 
       for (let index2 = 0; index2 < this.files.length; index2++) {
         const filename = this.files[index2];
         await this.rest_service.getFile(filename).subscribe(data=>{
-          this.displayList[index2] = [this.displayList[index2],this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(data)) , filename]
+          //pulling object data and creating download link
+          this.displayList$[index2] = [this.displayList$[index2],this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(data)) , filename]
           this.urls.push(this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(data)))
     
         })
       }
     })
-
-    console.log("display list : " , this.displayList)
+    console.log("display list : " , this.displayList$)
+    console.log("test : " , this.displayList$[0])
   }
 
   
@@ -90,9 +90,7 @@ export class SharedResourcesFormComponent implements OnInit {
 
     let data = {SRtitle,SRdescription,SRupload : this.filesOutgoing$.name}
 
-    //Post data as a new shared resource entry
-    console.log("posting : " , data)
-
+    //Post data as a new shared resource entr
     let temp2 = this.rest_service.post(`http://192.168.0.70:3000/sharedResources/${this.loginInfo.CompanyName}`, data)
     .pipe(tap(() => (this.loadData())));
     temp2.subscribe()
@@ -102,7 +100,6 @@ export class SharedResourcesFormComponent implements OnInit {
     const formData = new FormData()
     formData.append("file", this.filesOutgoing$);
     let temp = this.rest_service.upload(formData)
-    .pipe(tap(() => (this.loadData())));
 
     temp.subscribe()
   }
@@ -114,39 +111,32 @@ export class SharedResourcesFormComponent implements OnInit {
 
 
   async delete(id : any, element : any){
-    console.log("id : " , id)
-    console.log("element : " , element)
     let filename = element[2]
-    //Delete file from server, likely the hard part?
+    let temp
 
-   // let temp = await this.rest_service.delete(`http://192.168.0.70:3000/sharedResources/${id}/${this.loginInfo.CompanyName}`)
-   
+    //here query the DB for a list of filenames that are associated with more than 1 resource.\
+    let toDelete = true;
+    let notUniqueItem = await this.rest_service.get(`http://192.168.0.70:3000/sharedResources/${this.loginInfo.CompanyName}?count=true`).toPromise()
 
-   // temp.subscribe()
+    for (let index = 0; index < notUniqueItem.length; index++) {
+      const object = notUniqueItem[index];
+      console.log("srupload : " , object.SRupload, filename)
+      if (object.SRupload == filename){
+        toDelete = false;
+      }
+    }     //so if another resource needs it, we do not delete it.
+    if (toDelete){
+       temp = await this.rest_service.delete(`http://192.168.0.70:3000/sharedResources/${id}/${this.loginInfo.CompanyName}?filename=${filename}`)
+      .pipe(tap(() => (this.loadData())));
+    }
+    else{
+       temp = await this.rest_service.delete(`http://192.168.0.70:3000/sharedResources/${id}/${this.loginInfo.CompanyName}?filename=${''}`)
+      .pipe(tap(() => (this.loadData())));
+    }
 
-    let temp2 = await this.rest_service.delete(`http://192.168.0.70:3000/remove?filename=${filename}`)
- //   .pipe(tap(() => (this.loadData())));
-
-    temp2.subscribe()
-    this.loadData()
+    temp.subscribe()
 }
 
   
 
 }   
-
-
-  // console.log("test : " , test$)
-
-    /*
-    test$.forEach(element => {
-      console.log("test : " , element)
-      this.url = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(element));
-
-    });
-*/
-
-
-
-
-

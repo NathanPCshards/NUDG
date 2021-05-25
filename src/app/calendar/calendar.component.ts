@@ -144,8 +144,8 @@ export class CalendarComponent implements OnInit {
 
     console.log("-----====== onInit ======-----")
     //pulling 
-    this.uniqueNidList$= this.rest_service.get(`http://localhost:3000/gap/${'None'}/${this.loginInfo.CompanyName}/?getUniqueNids=${true}`)
-    this.uniqueUserList$ = this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
+    this.uniqueNidList$= this.rest_service.get(`http://192.168.0.70:3000/gap/${'None'}/${this.loginInfo.CompanyName}/?getUniqueNids=${true}`)
+    this.uniqueUserList$ = this.rest_service.get(`http://192.168.0.70:3000/orgusers/${this.loginInfo.CompanyName}`);
 
     //apply filter
    
@@ -193,6 +193,8 @@ this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
     this.sort('startDate')
 
   }
+
+
   onKeyUpPolicy(event){
     this.filterNid(event.policy)
   }
@@ -230,7 +232,6 @@ this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
 
 
   }
-
 
     dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
       if (isSameMonth(date, this.viewDate)) {
@@ -351,8 +352,8 @@ this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
 
         let data = { 
           title: 'Event ' + this.addCounter,
-          dateStart: startOfDay(new Date()),
-          dateEnd: endOfDay(new Date()),
+          dateStart: startOfDay(new Date()).toDateString(),
+          dateEnd: endOfDay(new Date()).toDateString(),
           colorPrimary: this.colors.red.primary,
           colorSecondary: this.colors.red.secondary,
           draggable: false,
@@ -368,12 +369,12 @@ this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
      
     
     }
-          this.tasks$ =  this.rest_service.post(`http://localhost:3000/task/${this.loginInfo.CompanyName}`, data)
+          this.tasks$ =  this.rest_service.post(`http://192.168.0.70:3000/task/${this.loginInfo.CompanyName}`, data)
   
      //to subscribe to the observable (so post goes through)
      this.tasks$.forEach(element => {
     });
-    this.tasks$ = this.rest_service.get(`http://localhost:3000/task/${this.loginInfo.CompanyName}`)
+    this.tasks$ = this.rest_service.get(`http://192.168.0.70:3000/task/${this.loginInfo.CompanyName}`)
 
     //Add to display list
     let temp = {
@@ -506,7 +507,7 @@ this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
     this.events = this.events.filter((event) => event !== eventToDelete);
     //remove from database
     this.tasks$.forEach(async element => {
-      await this.rest_service.delete(`http://localhost:3000/task/${element[taskIndex].idOrgTasks}/${this.loginInfo.CompanyName}`).toPromise()
+      await this.rest_service.delete(`http://192.168.0.70:3000/task/${element[taskIndex].idOrgTasks}/${this.loginInfo.CompanyName}`).toPromise()
   }); 
   }
 
@@ -599,7 +600,7 @@ this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
         temp = element[index]
 
         //Post updated task to database ()
-        await this.rest_service.update(`http://localhost:3000/task/${this.loginInfo.CompanyName}`,temp).toPromise().then(value=>{this.reloadData()})
+        await this.rest_service.update(`http://192.168.0.70:3000/task/${this.loginInfo.CompanyName}`,temp).toPromise().then(value=>{this.reloadData()})
         return 1
       });
 
@@ -607,14 +608,15 @@ this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
 
   }
 
-    async reloadData(){
+    async reloadData(date1='1-11-11',  date2='2030-11-11'){
       //used to pull data from DB and populate display, events and tasks arrays
       //this is called after almost every change to the calendar. 
       //clear lists
       this.displayEvents$ = []
       this.events = []
-      this.tasks$ = await this.rest_service.get(`http://localhost:3000/task/${this.loginInfo.CompanyName}`);
+      this.tasks$ = await this.rest_service.get(`http://192.168.0.70:3000/task/${this.loginInfo.CompanyName}?date1=${date1}&date2=${date2}`);
 
+      
       this.tasks$.forEach(element => {
        // console.log("all tasks : " , element)
       });

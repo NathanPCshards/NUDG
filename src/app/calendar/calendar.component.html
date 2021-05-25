@@ -1,4 +1,4 @@
-<div class="row text-center" style="background-color: white;">
+<div class="row text-center" style="background-color: white; ">
     <div class="col-md-4">
       <div class="btn-group">
         <div
@@ -105,8 +105,52 @@
   
 
   </div>
+
+
+  <div id="daterangeDiv" class="daterangeDiv">
+    <p style="margin-left: 43%;font-size: x-large; font-weight: medium;">Select a Date Range</p>
+    <mat-form-field appearance="fill" class="datepicker3" id="datepicker3">
+    
+      <input 
+      #date3
+      matInput 
+      [matDatepicker]="datepicker3"
+      />
+
+      <mat-datepicker-toggle matSuffix [for]="datepicker3"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker3>
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancel</button>
+          <button mat-raised-button color="primary" (click)="reloadData(date3.value,date4.value)" matDatepickerApply>Apply</button>
+        </mat-datepicker-actions>
+      </mat-datepicker>
+    </mat-form-field>
+
+
+
+
+
+    <mat-form-field appearance="fill" class=" datepicker4" id="datepicker4">
+
+      <input 
+      #date4
+      (change)="reloadData(date3.value, date4.value)"
+      matInput 
+      [matDatepicker]="datepicker4"
+    />
+
+      
+      <mat-datepicker-toggle matSuffix [for]="datepicker4"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker4>
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancel</button>
+          <button mat-raised-button color="primary" (click)="reloadData(date3.value,date4.value)" matDatepickerApply>Apply</button>
+        </mat-datepicker-actions>
+      </mat-datepicker>
+    </mat-form-field>
+  </div>
   
-  <!-- Everything you see below is just for the demo, you don't need to include it in your app -->
+  <!-- EVERYTHING BELOW THIS LINE, is the white box under the calendar that holds all the buttons -->
   
   <br />
   <div style="background-color: white;">

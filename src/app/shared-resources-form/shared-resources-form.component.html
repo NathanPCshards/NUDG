@@ -60,20 +60,20 @@
   
 
   
-      <mat-list-item *ngFor="let resource of displayList; let i = index">
+      <mat-list-item *ngFor="let resource of displayList$; let i = index">
 
 
        <span class="listSpan">
-          {{ displayList[i][0][0].SRtitle}}    
+          {{ resource[0][0].SRtitle}}    
         </span>
   
         <span class="listSpan ">
-          {{displayList[i][0][0].SRdescription}}
+          {{resource[0][0].SRdescription}}
         </span>
 
 
         <a id="link" [href]="urls[i]" download = "file" class="listSpan ">
-          {{displayList[i][2]}}
+          {{resource[2]}}
         </a>
 
 
@@ -90,7 +90,7 @@
     
       
           <button mat-icon-button>
-            <mat-icon (click)="delete(displayList[i][0][0].idSharedResources, displayList[i])" color="warn">
+            <mat-icon (click)="delete(displayList$[i][0][0].idSharedResources, displayList$[i])" color="warn">
               delete
             </mat-icon>
           </button>
