@@ -36,9 +36,9 @@ export class InventoryFormComponent implements OnInit {
 
   ngOnInit(){
     this.inventories$ = this.fetchAll();
-    this.CUIcontracts$ = this.rest_service.get(`http://localhost:3000/cuicontracts/${this.loginInfo.CompanyName}`);
-    this.Users$ = this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
-    this.softwares$ = this.rest_service.get(`http://localhost:3000/softwareApproval/${this.loginInfo.CompanyName}`)
+    this.CUIcontracts$ = this.rest_service.get(`http://192.168.0.70:3000/cuicontracts/${this.loginInfo.CompanyName}`);
+    this.Users$ = this.rest_service.get(`http://192.168.0.70:3000/orgusers/${this.loginInfo.CompanyName}`);
+    this.softwares$ = this.rest_service.get(`http://192.168.0.70:3000/softwareApproval/${this.loginInfo.CompanyName}`)
 
   }
   ngOnContentInit(){
@@ -55,13 +55,13 @@ export class InventoryFormComponent implements OnInit {
 
 
   fetchAll(): Observable<inventories[]> {
-    return this.rest_service.get(`http://localhost:3000/inventories/${this.loginInfo.CompanyName}`);
+    return this.rest_service.get(`http://192.168.0.70:3000/inventories/${this.loginInfo.CompanyName}`);
   }
 
   post(IassetIdentifier, Iaddress, InetworkID, Ivirtual, Ipublic, Idnsname, InetbiosName, Imacaddress, IauthenticatedScan, IbaselineConfigName, IosNameAndVersion, IphysicalLocation, IhardwareSoftwareVendor, IdateOfReceipt, Icost, IsoftwareDatabase, Ipatchlevel, Ifunction, Icomments, Iserial, Ivlan, IsystemAdmin, Iapplication, IsoftwareApproval): void {
    let data = { IassetIdentifier, Iaddress, InetworkID, Ivirtual, Ipublic, Idnsname, InetbiosName, Imacaddress, IauthenticatedScan, IbaselineConfigName, IosNameAndVersion, IphysicalLocation, IhardwareSoftwareVendor, IdateOfReceipt, Icost,  IsoftwareDatabase, Ipatchlevel, Ifunction, Icomments, Iserial, Ivlan, IsystemAdmin, Iapplication, IsoftwareApproval, CompanyInfo : this.loginInfo.CompanyName}
     let temp = this.rest_service
-      .post(`http://localhost:3000/inventories/${this.loginInfo.CompanyName}`, data)
+      .post(`http://192.168.0.70:3000/inventories/${this.loginInfo.CompanyName}`, data)
       .pipe(tap(() => (this.inventories$ = this.fetchAll())));
 
       temp.subscribe()
@@ -73,7 +73,7 @@ export class InventoryFormComponent implements OnInit {
    
    
     let temp = this.rest_service
-      .update(`http://localhost:3000/inventories/${this.loginInfo.CompanyName}`, data)
+      .update(`http://192.168.0.70:3000/inventories/${this.loginInfo.CompanyName}`, data)
       .pipe(tap(() => (this.inventories$ = this.fetchAll())));
 
       temp.subscribe()
@@ -82,7 +82,7 @@ export class InventoryFormComponent implements OnInit {
 
   delete(id: any): void {
     let temp = this.rest_service
-      .delete(`http://localhost:3000/inventories/${id}/${this.loginInfo.CompanyName}`)
+      .delete(`http://192.168.0.70:3000/inventories/${id}/${this.loginInfo.CompanyName}`)
       .pipe(tap(() => (this.inventories$ = this.fetchAll())));
       temp.subscribe()
   }

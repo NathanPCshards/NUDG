@@ -22,7 +22,7 @@ httpOptions: { headers: HttpHeaders } = {
    SignUp(user): Observable<any[]> {
     console.log("testing SignUp")
     return this.http
-      .post("http://localhost:3000/auth/signup", user, this.httpOptions)
+      .post("http://192.168.0.70:3000/auth/signup", user, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("SignUp")));
    }
 
@@ -32,7 +32,7 @@ httpOptions: { headers: HttpHeaders } = {
   Login(user): Observable<any> {
     console.log("testing login : " , user)
     return this.http
-      .post("http://localhost:3000/auth/login", user, this.httpOptions)
+      .post("http://192.168.0.70:3000/auth/login", user, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
   }
 

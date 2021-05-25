@@ -40,12 +40,12 @@ httpOptions: { headers: HttpHeaders } = {
 
   getFile(filename) {
     console.log("getting file : ", filename)
-    return this.http.get(`http://localhost:3000/download?file=${filename}`, { responseType: "blob" })
+    return this.http.get(`http://192.168.0.70:3000/download?file=${filename}`, { responseType: "blob" })
   }
 
   upload(file){
     console.log("file in service : " , file)
-    return this.http.post(`http://localhost:3000/upload`,file)
+    return this.http.post(`http://192.168.0.70:3000/upload`,file)
     .pipe(catchError(this.errorHandlerService.handleError<any>("upload")));
   }
 

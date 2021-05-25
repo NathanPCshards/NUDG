@@ -29,7 +29,7 @@ export class CompanyInfoFormComponent {
 
   ngOnInit(){
     this.companies$ = this.fetchAll();
-    this.Users$ = this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
+    this.Users$ = this.rest_service.get(`http://192.168.0.70:3000/orgusers/${this.loginInfo.CompanyName}`);
     this.Users$.subscribe()
     this.companies$.subscribe()
 
@@ -38,7 +38,7 @@ export class CompanyInfoFormComponent {
 
   fetchAll(): Observable<companyInfo[]> {
 
-    return this.rest_service.get(`http://localhost:3000/CompanyInfo/${this.loginInfo.CompanyName}`);
+    return this.rest_service.get(`http://192.168.0.70:3000/CompanyInfo/${this.loginInfo.CompanyName}`);
   }
 
    post(CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber){
@@ -54,7 +54,7 @@ export class CompanyInfoFormComponent {
 
    let data = {CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber, CompanyName : this.loginInfo.CompanyName}
 
-   let temp =  this.rest_service.post(`http://localhost:3000/CompanyInfo/${this.loginInfo.CompanyName}`,data)
+   let temp =  this.rest_service.post(`http://192.168.0.70:3000/CompanyInfo/${this.loginInfo.CompanyName}`,data)
    .pipe(tap(() => (this.companies$ = this.fetchAll())));
    temp.subscribe()
   }
@@ -72,7 +72,7 @@ export class CompanyInfoFormComponent {
     
     let data = {CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber, idCompanyInfo, CompanyName : this.loginInfo.CompanyName}
   
-    let temp  =  this.rest_service.update(`http://localhost:3000/CompanyInfo/${this.loginInfo.CompanyName}`, data)
+    let temp  =  this.rest_service.update(`http://192.168.0.70:3000/CompanyInfo/${this.loginInfo.CompanyName}`, data)
     .pipe(tap(() => (this.companies$ = this.fetchAll())));
      temp.subscribe()
   }
@@ -80,7 +80,7 @@ export class CompanyInfoFormComponent {
 
     delete(idCompanyInfo: any) {
 
-      let temp = this.rest_service.delete(`http://localhost:3000/CompanyInfo/${idCompanyInfo}/${this.loginInfo.CompanyName}`)
+      let temp = this.rest_service.delete(`http://192.168.0.70:3000/CompanyInfo/${idCompanyInfo}/${this.loginInfo.CompanyName}`)
      .pipe(tap(() => (this.companies$ = this.fetchAll())));
      temp.subscribe()
   }

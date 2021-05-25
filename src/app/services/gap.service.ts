@@ -31,10 +31,10 @@ httpOptions: { headers: HttpHeaders } = {
    fetchAll(id: any, Gdate:any = ""): Observable<any[]> {
     let tempUrl;
     if (Gdate != "") {
-      tempUrl = `http://localhost:3000/gap?Nid=${id}&Gdate=${Gdate}`
+      tempUrl = `http://192.168.0.70:3000/gap?Nid=${id}&Gdate=${Gdate}`
     }
     else{
-      tempUrl = `http://localhost:3000/gap/${id}`
+      tempUrl = `http://192.168.0.70:3000/gap/${id}`
     }
 
     return this.http
@@ -48,7 +48,7 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   getUniqueDates(): any{
-    let tempUrl = `http://localhost:3000/gap/?getUniqueDates=${true}`
+    let tempUrl = `http://192.168.0.70:3000/gap/?getUniqueDates=${true}`
   //  console.log("get unique dates url : " , tempUrl)
     return this.http
       .get<any>(tempUrl, { responseType: "json" })
@@ -61,7 +61,7 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   getUniqueNids(): any{
-    let tempUrl = `http://localhost:3000/gap/?getUniqueNids=${true}`
+    let tempUrl = `http://192.168.0.70:3000/gap/?getUniqueNids=${true}`
     //console.log("get unique nids url : " , tempUrl)
     return this.http
       .get<any>(tempUrl, { responseType: "json" })
@@ -74,7 +74,7 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   post(item: any ,CompanyName : any): Observable<any> {
-    let url = `http://localhost:3000/gap/${CompanyName}`
+    let url = `http://192.168.0.70:3000/gap/${CompanyName}`
 
 
     return this.http
@@ -84,7 +84,7 @@ httpOptions: { headers: HttpHeaders } = {
 
   update(item: any, CompanyName : any): Observable<any> {
 
-   let url = `http://localhost:3000/gap/${CompanyName}`
+   let url = `http://192.168.0.70:3000/gap/${CompanyName}`
 
     return this.http
       .put<any>(url, item, this.httpOptions)
@@ -92,7 +92,7 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   delete(id: number): Observable<any> {
-    const url = `http://localhost:3000/gap/${id}`;
+    const url = `http://192.168.0.70:3000/gap/${id}`;
    // console.log("delete called : ", url, id)
     return this.http
       .delete<any>(url, this.httpOptions)

@@ -10,7 +10,7 @@ import { ErrorHandlerService } from "./error-handler.service";
 })
 export class taskService {
 //url must match route in the app.use(...) in index.js
-private url = "http://localhost:3000/task"
+private url = "http://192.168.0.70:3000/task"
 onClick = new EventEmitter();
 
 httpOptions: { headers: HttpHeaders } = {
@@ -49,8 +49,8 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   delete(id: number): Observable<any> {
-    const url = `http://localhost:3000/task/${id}`;
-   //const url = `http://localhost:3000/users`;
+    const url = `http://192.168.0.70:3000/task/${id}`;
+   //const url = `http://192.168.0.70:3000/users`;
 
     return this.http
       .delete<any>(url, this.httpOptions)

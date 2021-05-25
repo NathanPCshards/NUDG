@@ -12,7 +12,7 @@ import { ErrorHandlerService } from "./error-handler.service";
 })
 export class PolicyService {
 //url must match route in the app.use(...) in index.js
-private url = "http://localhost:3000/policy"
+private url = "http://192.168.0.70:3000/policy"
 onClick = new EventEmitter();
 
 
@@ -31,7 +31,7 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
   //Get single
    fetchAll(id: any = null): Observable<policy[]> {
      let tempUrl;
-     id ? tempUrl = `http://localhost:3000/policy/${id}`: tempUrl = "http://localhost:3000/policy"
+     id ? tempUrl = `http://192.168.0.70:3000/policy/${id}`: tempUrl = "http://192.168.0.70:3000/policy"
      console.log("policy url : ", tempUrl)
 
     return this.http
@@ -46,7 +46,7 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
 
     //Get Everything
     getAll(): any{
-     let tempUrl = `http://localhost:3000/policy`
+     let tempUrl = `http://192.168.0.70:3000/policy`
  
      return this.http
        .get<number[]>(tempUrl, { responseType: "json" })
@@ -64,7 +64,7 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
     //Get Families
     getFamilies(): any{
       //this pulls all families, despite looking like it only pulls access control
-      let tempUrl = `http://localhost:3000/policy?FamilyPolicy=Access Control`
+      let tempUrl = `http://192.168.0.70:3000/policy?FamilyPolicy=Access Control`
       console.log("get families called")
       return this.http
         .get<any>(tempUrl, { responseType: "json" })
@@ -79,7 +79,7 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
 
     //Get Everything
     getPoliciesInFamily(family: any): any{
-      let tempUrl = `http://localhost:3000/policy?Family=${family}`
+      let tempUrl = `http://192.168.0.70:3000/policy?Family=${family}`
       console.log("get families called")
       return this.http
         .get<any>(tempUrl, { responseType: "json" })
@@ -92,7 +92,7 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
     }
 
     getUniqueNids(): any{
-      let tempUrl = `http://localhost:3000/Policy/?getUniqueNids=${true}`
+      let tempUrl = `http://192.168.0.70:3000/Policy/?getUniqueNids=${true}`
       console.log("get unique nids url : " , tempUrl)
       return this.http
         .get<any>(tempUrl, { responseType: "json" })
@@ -110,7 +110,7 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
     //We're not actually patching, this was the easiest way I could think of to do a conditional get request
     //It's going to function as a get request but the message type is a patch
     patch(): any {
-      let tempUrl = `http://localhost:3000/policy`
+      let tempUrl = `http://192.168.0.70:3000/policy`
   
       return this.http
         .patch<number[]>(tempUrl, { responseType: "json" })
@@ -142,7 +142,7 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
 
   //Delete Requests
   delete(id: number): Observable<any> {
-    const url = `http://localhost:3000/policy/${id}`;
+    const url = `http://192.168.0.70:3000/policy/${id}`;
     console.log("delete policy")
 
 

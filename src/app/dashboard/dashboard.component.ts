@@ -64,7 +64,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {    
     //pulling tasks from database
-    this.rest_service.get(`http://localhost:3000/task/${this.loginInfo.CompanyName}`).subscribe(e=>{
+    this.rest_service.get(`http://192.168.0.70:3000/task/${this.loginInfo.CompanyName}`).subscribe(e=>{
       e.forEach(async element => {
         await this.triggerAlert(element)
         //conditional to show only events that have not happened yet
@@ -81,7 +81,7 @@ export class DashboardComponent implements OnInit {
    });
 
     //pulling every policy, checking its status and counting it
-     this.policyCount$ = this.rest_service.get(`http://localhost:3000/policy/${'All'}/${this.loginInfo.CompanyName}`).subscribe(e=>{
+     this.policyCount$ = this.rest_service.get(`http://192.168.0.70:3000/policy/${'All'}/${this.loginInfo.CompanyName}`).subscribe(e=>{
       let allPoliciesDict = []
       e.forEach(element => {
         allPoliciesDict.push(element) 
@@ -175,10 +175,10 @@ export class DashboardComponent implements OnInit {
   }
 
   getAllPolicies(): Observable<policy[]> {
-    return this.rest_service.get(`http://localhost:3000/policy/${'All'}/${this.loginInfo.CompanyName}`);
+    return this.rest_service.get(`http://192.168.0.70:3000/policy/${'All'}/${this.loginInfo.CompanyName}`);
   }
   getImplementedPolicies(): Observable<policy[]> {
-    return this.rest_service.get(`http://localhost:3000/policy/${'CountImplemented'}/${this.loginInfo.CompanyName}`);
+    return this.rest_service.get(`http://192.168.0.70:3000/policy/${'CountImplemented'}/${this.loginInfo.CompanyName}`);
   }
 
 

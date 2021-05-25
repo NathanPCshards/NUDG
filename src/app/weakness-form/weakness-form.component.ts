@@ -134,9 +134,9 @@ ngOnInit(){
   //Getting standards
   this.standards$ = this.rest_service.get(this.id$)
   //Getting vendor's products
-  this.vendorsProducts$ = this.rest_service.get(`http://localhost:3000/vendors/${this.loginInfo.CompanyName}`);
+  this.vendorsProducts$ = this.rest_service.get(`http://192.168.0.70:3000/vendors/${this.loginInfo.CompanyName}`);
   //Getting Asset Identifier from inventory 
-  this.assetIdentifiers$ = this.rest_service.get(`http://localhost:3000/inventories/${this.loginInfo.CompanyName}`);
+  this.assetIdentifiers$ = this.rest_service.get(`http://192.168.0.70:3000/inventories/${this.loginInfo.CompanyName}`);
 
 }
 public onFormSubmit() {

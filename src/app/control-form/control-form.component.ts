@@ -41,7 +41,7 @@ export class ControlFormComponent implements OnInit {
       console.log("test : " , this.loginInfo.CompanyName)
 
       this.controls$ = this.rest_service
-      .post(`http://localhost:3000/controls/${this.loginInfo.CompanyName}`, result)
+      .post(`http://192.168.0.70:3000/controls/${this.loginInfo.CompanyName}`, result)
     });
 
   }
@@ -98,7 +98,7 @@ constructor(
 ngOnInit(){
   //Getting standards
 
-  this.standards$ =  this.rest_service.get(`http://localhost:3000/standards/${this.id$}/${this.loginInfo.CompanyName}`)
+  this.standards$ =  this.rest_service.get(`http://192.168.0.70:3000/standards/${this.id$}/${this.loginInfo.CompanyName}`)
 
   this.displayStandards$ = []
   this.standards$.forEach(standardarray => {
@@ -107,7 +107,7 @@ ngOnInit(){
     });
   });
   //Getting resources
-  this.resources$ = this.rest_service.get(`http://localhost:3000/sharedResources/${this.loginInfo.CompanyName}`)
+  this.resources$ = this.rest_service.get(`http://192.168.0.70:3000/sharedResources/${this.loginInfo.CompanyName}`)
   this.displayResources$ = []
   this.resources$.forEach(resourcesArray => {
     resourcesArray.forEach(resource => {

@@ -10,7 +10,7 @@ import { ErrorHandlerService } from "./error-handler.service";
 })
 export class SharedResourcesService {
 //url must match route in the app.use(...) in index.js
-private url = "http://localhost:3000/sharedResources"
+private url = "http://192.168.0.70:3000/sharedResources"
 
 httpOptions: { headers: HttpHeaders } = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -44,7 +44,7 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   delete(id: number){
-    const url = `http://localhost:3000/sharedResources/${id}`;
+    const url = `http://192.168.0.70:3000/sharedResources/${id}`;
     return this.http
       .delete<any>(url, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("delete")));

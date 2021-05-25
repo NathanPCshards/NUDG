@@ -47,7 +47,7 @@ export class SupplierFormComponent implements OnInit {
   }
 
   fetchAll(): Observable<suppliers[]> {
-    return this.rest_service.get(`http://localhost:3000/suppliers/${this.loginInfo.CompanyName}`);
+    return this.rest_service.get(`http://192.168.0.70:3000/suppliers/${this.loginInfo.CompanyName}`);
   }
   
   post(Sname, Sproduct, Saddress, Swebsite, StechnicalPOCinfo, SDUNSnum, Scagecode, SbusinessType, SSBAcertified, ScontractualPOCinfo, ScmmcAuditAgency, ScmmcAuditorInfo, ScmmcAuditDate, SNISTauditAgency, SNISTauditorInfo, SNISTauditDate): void {
@@ -57,7 +57,7 @@ export class SupplierFormComponent implements OnInit {
     let data = { Sname, Sproduct, Saddress, Swebsite, StechnicalPOCinfo, SDUNSnum, Scagecode, SbusinessType, SSBAcertified, ScontractualPOCinfo, ScmmcAuditAgency, ScmmcAuditorInfo, ScmmcAuditDate, SNISTauditAgency, SNISTauditorInfo, SNISTauditDate }
     
     let temp = this.rest_service
-      .post(`http://localhost:3000/suppliers/${this.loginInfo.CompanyName}`,data)
+      .post(`http://192.168.0.70:3000/suppliers/${this.loginInfo.CompanyName}`,data)
       .pipe(tap(() => (this.suppliers$ = this.fetchAll())));
     temp.subscribe()
   }
@@ -66,7 +66,7 @@ export class SupplierFormComponent implements OnInit {
   update(Sname, Sproduct, Saddress, Swebsite, StechnicalPOCinfo, SDUNSnum, Scagecode, SbusinessType, SSBAcertified, ScontractualPOCinfo, ScmmcAuditAgency, ScmmcAuditorInfo, ScmmcAuditDate, SNISTauditAgency, SNISTauditorInfo, SNISTauditDate, idSuppliers): void {
     let data = { Sname, Sproduct, Saddress, Swebsite, StechnicalPOCinfo, SDUNSnum, Scagecode, SbusinessType, SSBAcertified, ScontractualPOCinfo, ScmmcAuditAgency, ScmmcAuditorInfo, ScmmcAuditDate, SNISTauditAgency, SNISTauditorInfo, SNISTauditDate, idSuppliers }
     let temp = this.rest_service
-    .update(`http://localhost:3000/suppliers/${this.loginInfo.CompanyName}`,data)
+    .update(`http://192.168.0.70:3000/suppliers/${this.loginInfo.CompanyName}`,data)
     .pipe(tap(() => (this.suppliers$ = this.fetchAll())));
     temp.subscribe()
  
@@ -79,7 +79,7 @@ export class SupplierFormComponent implements OnInit {
    // console.log("attempting to delete id : " , iduseru)
   
     let temp = this.rest_service
-      .delete(`http://localhost:3000/suppliers/${id}/${this.loginInfo.CompanyName}`)
+      .delete(`http://192.168.0.70:3000/suppliers/${id}/${this.loginInfo.CompanyName}`)
       .pipe(tap(() => (this.suppliers$ = this.fetchAll())));
       temp.subscribe()  
   }

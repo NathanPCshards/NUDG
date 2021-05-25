@@ -99,7 +99,7 @@ export class FileImportComponent implements OnInit {
                       let Standard = entry[1]
 
 
-                      await this.rest_service.post(`http://localhost:3000/standards/${Nid}/${this.loginInfo.CompanyName}`,this.loginInfo.CompanyName).toPromise()
+                      await this.rest_service.post(`http://192.168.0.70:3000/standards/${Nid}/${this.loginInfo.CompanyName}`,this.loginInfo.CompanyName).toPromise()
 
                    }
             }

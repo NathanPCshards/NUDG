@@ -11,7 +11,7 @@ import { ErrorHandlerService } from "./error-handler.service";
 })
 export class inventoryService {
 //url must match route in the app.use(...) in index.js
-private url = "http://localhost:3000/inventories"
+private url = "http://192.168.0.70:3000/inventories"
 
 httpOptions: { headers: HttpHeaders } = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -45,8 +45,8 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   delete(id: number): Observable<any> {
-    const url = `http://localhost:3000/inventories/${id}`;
-   //const url = `http://localhost:3000/users`;
+    const url = `http://192.168.0.70:3000/inventories/${id}`;
+   //const url = `http://192.168.0.70:3000/users`;
 
     return this.http
       .delete<inventories>(url, this.httpOptions)

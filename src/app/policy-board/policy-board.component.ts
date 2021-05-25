@@ -54,7 +54,7 @@ export class PolicyBoardComponent implements OnInit {
     //Creates the list this.families$ that contains all unique family names
     //In the case of CMMC and Nist views, this.families is changed to cmmclevel 1 2 3, and NFO/ CUI
     if (this.famType$ != "CMMC" && this.famType$ != "Nist")
-    this.rest_service.get(`http://localhost:3000/Policy/${'All'}/${this.loginInfo.CompanyName}/?FamilyPolicy=${true}`).subscribe(e=>{
+    this.rest_service.get(`http://192.168.0.70:3000/Policy/${'All'}/${this.loginInfo.CompanyName}/?FamilyPolicy=${true}`).subscribe(e=>{
       this.families$ = []
       let i = 0
       e.forEach(element => {
@@ -66,7 +66,7 @@ export class PolicyBoardComponent implements OnInit {
     })
 
     //Getting all policies and grouping by Family.
-    this.policies$ = this.rest_service.get(`http://localhost:3000/Policy/${'All'}/${this.loginInfo.CompanyName}`)
+    this.policies$ = this.rest_service.get(`http://192.168.0.70:3000/Policy/${'All'}/${this.loginInfo.CompanyName}`)
 
     //Initialize Dictionaries and lists
     this.policyDict$ = {}
@@ -336,15 +336,15 @@ export class PolicyBoardComponent implements OnInit {
   }
   getAll(){
     //Gets all Policies associated with a company name
-    return this.rest_service.get(`http://localhost:3000/Policy/${'All'}/${this.loginInfo.CompanyName}`);
+    return this.rest_service.get(`http://192.168.0.70:3000/Policy/${'All'}/${this.loginInfo.CompanyName}`);
   }
   getFamilies(){
     //Gets all unique family names associated with a Company name (although policies should be the same between companies)
-    return this.rest_service.get(`http://localhost:3000/Policy/${'All'}/${this.loginInfo.CompanyName}/?FamilyPolicy=${true}`)
+    return this.rest_service.get(`http://192.168.0.70:3000/Policy/${'All'}/${this.loginInfo.CompanyName}/?FamilyPolicy=${true}`)
   }
   getPoliciesInFamily(family: any){
     //Get all policies associated with a specific Family
-    return this.rest_service.get(`http://localhost:3000/Policy/${'All'}/${this.loginInfo.CompanyName}/?Family=${family}`)
+    return this.rest_service.get(`http://192.168.0.70:3000/Policy/${'All'}/${this.loginInfo.CompanyName}/?Family=${family}`)
   }
   getImplemented(policyArray:any){
     //takes in a list of Nids, ["AC-N.01", "AM.-N.02", ...] and returns an array of the implementation status counts

@@ -12,7 +12,7 @@ import { ErrorHandlerService } from "./error-handler.service";
 })
 export class GuidelinesService {
   //url must match route in the app.use(...) in index.js
-  private url = `http://localhost:3000/guidelines/${this.loginInfo.CompanyName}`
+  private url = `http://192.168.0.70:3000/guidelines/${this.loginInfo.CompanyName}`
   onOpen = new EventEmitter();
   onClose = new EventEmitter();
   toComponent = new EventEmitter();
@@ -63,7 +63,7 @@ export class GuidelinesService {
     }
   
     delete(id: number): Observable<any> {
-      const url = `http://localhost:3000/guidelines/${id}/${this.loginInfo.CompanyName}`;
+      const url = `http://192.168.0.70:3000/guidelines/${id}/${this.loginInfo.CompanyName}`;
       console.log("delete guidelines")
   
       return this.http

@@ -36,7 +36,7 @@ export class GuidelinesForm implements OnInit {
 
   }
   fetchAll(): Observable<guidelines[]> {
-    return this.rest_service.get(`http://localhost:3000/guidelines/${this.loginInfo.CompanyName}`);
+    return this.rest_service.get(`http://192.168.0.70:3000/guidelines/${this.loginInfo.CompanyName}`);
   }
   
   post(inventoryItem: Partial<guidelines>): void {
@@ -46,7 +46,7 @@ export class GuidelinesForm implements OnInit {
 
   delete(id: any): void {
     let temp = this.rest_service
-      .delete(`http://localhost:3000/guidelines/${id}/${this.loginInfo.CompanyName}`)
+      .delete(`http://192.168.0.70:3000/guidelines/${id}/${this.loginInfo.CompanyName}`)
       .pipe(tap(() => (this.guidelines$ = this.fetchAll())));
     temp.subscribe()
       
@@ -109,7 +109,7 @@ ngOnInit(){
   }
 
   getByID(id){
-    return this.rest_service.get(`http://localhost:3000/guidelines/${this.loginInfo.CompanyName}?getByID=${id}`)
+    return this.rest_service.get(`http://192.168.0.70:3000/guidelines/${this.loginInfo.CompanyName}?getByID=${id}`)
   }
 
   public openGuideline(id, guideline, Nid=null) {

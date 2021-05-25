@@ -53,7 +53,7 @@ export class VendorFormComponent implements OnInit {
   
   }
   fetchAll(): Observable<vendors[]> {
-    return this.rest_service.get(`http://localhost:3000/vendors/${this.loginInfo.CompanyName}`);
+    return this.rest_service.get(`http://192.168.0.70:3000/vendors/${this.loginInfo.CompanyName}`);
   }
   
   async post(Vname, Vproduct, Vaddress, Vwebsite, VtechnicalPOCinfo, VDUNSnum, Vcagecode, VbusinessType, VSBAcertified, VcontractualPOCinfo, VcmmcAuditAgency, VcmmcAuditorInfo, VcmmcAuditDate, VNISTauditAgency, VNISTauditorInfo, VNISTauditDate): Promise<void> {
@@ -62,7 +62,7 @@ export class VendorFormComponent implements OnInit {
     VNISTauditDate = VNISTauditDate ? VNISTauditDate : ""
     let data = {Vname, Vproduct, Vaddress, Vwebsite, VtechnicalPOCinfo, VDUNSnum, Vcagecode, VbusinessType, VSBAcertified, VcontractualPOCinfo, VcmmcAuditAgency, VcmmcAuditorInfo, VcmmcAuditDate, VNISTauditAgency, VNISTauditorInfo, VNISTauditDate, CompanyName : this.loginInfo.CompanyName}
 
-    let temp = await this.rest_service.post(`http://localhost:3000/vendors/${this.loginInfo.CompanyName}`,data)
+    let temp = await this.rest_service.post(`http://192.168.0.70:3000/vendors/${this.loginInfo.CompanyName}`,data)
     .pipe(tap(() => (this.vendors$ = this.fetchAll())));
     temp.subscribe()
 
@@ -73,7 +73,7 @@ export class VendorFormComponent implements OnInit {
   async update(Vname, Vproduct, Vaddress, Vwebsite, VtechnicalPOCinfo, VDUNSnum, Vcagecode, VbusinessType, VSBAcertified, VcontractualPOCinfo, VcmmcAuditAgency, VcmmcAuditorInfo, VcmmcAuditDate, VNISTauditAgency, VNISTauditorInfo, VNISTauditDate, idVendors): Promise<void> {  
     let data = {Vname, Vproduct, Vaddress, Vwebsite, VtechnicalPOCinfo, VDUNSnum, Vcagecode, VbusinessType, VSBAcertified, VcontractualPOCinfo, VcmmcAuditAgency, VcmmcAuditorInfo, VcmmcAuditDate, VNISTauditAgency, VNISTauditorInfo, VNISTauditDate, idVendors, CompanyName : this.loginInfo.CompanyName}
 
-    let temp = await this.rest_service.update(`http://localhost:3000/vendors/${this.loginInfo.CompanyName}`,data)
+    let temp = await this.rest_service.update(`http://192.168.0.70:3000/vendors/${this.loginInfo.CompanyName}`,data)
     .pipe(tap(() => (this.vendors$ = this.fetchAll())));
     temp.subscribe()
 
@@ -82,7 +82,7 @@ export class VendorFormComponent implements OnInit {
   
   delete(id: any): void {
     console.log("attempting to delete id : " , id)
-    let temp = this.rest_service.delete(`http://localhost:3000/vendors/${id}/${this.loginInfo.CompanyName}`)
+    let temp = this.rest_service.delete(`http://192.168.0.70:3000/vendors/${id}/${this.loginInfo.CompanyName}`)
      .pipe(tap(() => (this.vendors$ = this.fetchAll())));
      temp.subscribe()
       

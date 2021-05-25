@@ -67,13 +67,13 @@ export class RoleFormComponent implements OnInit {
   }
 
   fetchall(){
-    return this.rest_service.get(`http://localhost:3000/roles/${this.loginInfo.CompanyName}`);
+    return this.rest_service.get(`http://192.168.0.70:3000/roles/${this.loginInfo.CompanyName}`);
 
   }
   async post(data){
 
 
-    let temp = this.rest_service.post(`http://localhost:3000/roles/${this.loginInfo.CompanyName}`, data)
+    let temp = this.rest_service.post(`http://192.168.0.70:3000/roles/${this.loginInfo.CompanyName}`, data)
     .pipe(tap(() => (this.roles$ = this.fetchall())));
 
     temp.subscribe()
@@ -85,7 +85,7 @@ export class RoleFormComponent implements OnInit {
   delete(id: any): void {
 
     let temp = this.rest_service
-      .delete(`http://localhost:3000/roles/${id}/${this.loginInfo.CompanyName}`)
+      .delete(`http://192.168.0.70:3000/roles/${id}/${this.loginInfo.CompanyName}`)
       .pipe(tap(() => (this.roles$ = this.fetchall())));
       temp.subscribe()
       
@@ -117,7 +117,7 @@ export class roleDialog {
 
 ngOnInit(){
     //Getting Users 
-    this.users$ = this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
+    this.users$ = this.rest_service.get(`http://192.168.0.70:3000/orgusers/${this.loginInfo.CompanyName}`);
 
 }
   async submit(URGroles, Rroletype, Rdescription, URGusers){

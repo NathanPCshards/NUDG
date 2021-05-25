@@ -104,8 +104,8 @@ export class GapForm implements OnInit{
     }
 
     //Initializing unique lists (Used for dropdown displays)
-    this.uniqueNidList$= this.rest_service.get(`http://localhost:3000/gap/${'None'}/${this.loginInfo.CompanyName}/?getUniqueNids=${true}`)
-    this.uniqueDateList$ = this.rest_service.get(`http://localhost:3000/gap/${'None'}/${this.loginInfo.CompanyName}/?getUniqueDates=${true}`)
+    this.uniqueNidList$= this.rest_service.get(`http://192.168.0.70:3000/gap/${'None'}/${this.loginInfo.CompanyName}/?getUniqueNids=${true}`)
+    this.uniqueDateList$ = this.rest_service.get(`http://192.168.0.70:3000/gap/${'None'}/${this.loginInfo.CompanyName}/?getUniqueDates=${true}`)
 
     //Applying Filters
     this.dateFilter$ = this.dateForm.get('DateFilterList')!.valueChanges
@@ -227,16 +227,16 @@ export class GapForm implements OnInit{
     let tempUrl;
     if (Gdate != "") {
       //if date is given
-      tempUrl = `http://localhost:3000/gap/${Nid}/${this.loginInfo.CompanyName}/?Gdate=${Gdate}`
+      tempUrl = `http://192.168.0.70:3000/gap/${Nid}/${this.loginInfo.CompanyName}/?Gdate=${Gdate}`
     }
     else{
-      tempUrl = `http://localhost:3000/gap/${Nid}/${this.loginInfo.CompanyName}`
+      tempUrl = `http://192.168.0.70:3000/gap/${Nid}/${this.loginInfo.CompanyName}`
     }
     return this.rest_service.get(tempUrl);
   }
 
   delete(id: any): void {
-    let tempUrl = `http://localhost:3000/gap/${id}/${this.loginInfo.CompanyName}`
+    let tempUrl = `http://192.168.0.70:3000/gap/${id}/${this.loginInfo.CompanyName}`
     let sub = this.rest_service.delete(tempUrl)
     sub.subscribe()
     //  this.gap$ = this.rest_service.delete(id)    

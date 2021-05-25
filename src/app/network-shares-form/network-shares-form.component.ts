@@ -31,9 +31,9 @@ export class networkSharesPage implements OnInit {
 
   ngOnInit(){
     this.networkshares$ = this.fetchAll();
-    this.Users$ = this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
-    this.Groups$ = this.rest_service.get(`http://localhost:3000/groups/${this.loginInfo.CompanyName}`);
-    this.assetIdentifiers$ = this.rest_service.get(`http://localhost:3000/inventories/${this.loginInfo.CompanyName}`);
+    this.Users$ = this.rest_service.get(`http://192.168.0.70:3000/orgusers/${this.loginInfo.CompanyName}`);
+    this.Groups$ = this.rest_service.get(`http://192.168.0.70:3000/groups/${this.loginInfo.CompanyName}`);
+    this.assetIdentifiers$ = this.rest_service.get(`http://192.168.0.70:3000/inventories/${this.loginInfo.CompanyName}`);
 
 
   }
@@ -42,7 +42,7 @@ export class networkSharesPage implements OnInit {
 
 
 fetchAll(): Observable<networkshares[]> {
-  return this.rest_service.get(`http://localhost:3000/networkshares/${this.loginInfo.CompanyName}`)
+  return this.rest_service.get(`http://192.168.0.70:3000/networkshares/${this.loginInfo.CompanyName}`)
 }
 
 post(NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifier,CUIdata ,GRA, GWA, URA, UWA): void {
@@ -58,7 +58,7 @@ post(NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifier,
     let data = {NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifier,CUIdata, GRA, GWA, URA, UWA}
 
   let temp = this.rest_service
-    .post(`http://localhost:3000/networkshares/${this.loginInfo.CompanyName}`, data)
+    .post(`http://192.168.0.70:3000/networkshares/${this.loginInfo.CompanyName}`, data)
     .pipe(tap(() => (this.networkshares$ = this.fetchAll())));
 
     temp.subscribe()
@@ -78,7 +78,7 @@ update(NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifie
    
  
   let temp = this.rest_service
-    .update(`http://localhost:3000/networkshares/${this.loginInfo.CompanyName}`, data)
+    .update(`http://192.168.0.70:3000/networkshares/${this.loginInfo.CompanyName}`, data)
     .pipe(tap(() => (this.networkshares$ = this.fetchAll())));
 
     temp.subscribe()
@@ -89,7 +89,7 @@ delete(id: any): void {
 
 
   let temp = this.rest_service
-    .delete(`http://localhost:3000/networkshares/${id}/${this.loginInfo.CompanyName}`)
+    .delete(`http://192.168.0.70:3000/networkshares/${id}/${this.loginInfo.CompanyName}`)
     .pipe(tap(() => (this.networkshares$ = this.fetchAll())));
     temp.subscribe()
     

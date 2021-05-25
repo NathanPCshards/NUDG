@@ -127,7 +127,7 @@ export class IdentifierPageComponent implements OnInit {
   ngOnInit(){
 
     //getting unique Nudg Id's
-    this.uniqueNidList$ = this.rest_service.get(`http://localhost:3000/Policy/${this.id}/${this.loginInfo.CompanyName}/?getUniqueNids=${true}`);
+    this.uniqueNidList$ = this.rest_service.get(`http://192.168.0.70:3000/Policy/${this.id}/${this.loginInfo.CompanyName}/?getUniqueNids=${true}`);
     this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
     .pipe(
       startWith(''),
@@ -193,7 +193,7 @@ export class IdentifierPageComponent implements OnInit {
     //WEAKNESSES STUFF
     this.weaknesses$ = this.fetchAllWeaknesses(this.id);
     this.weaknessservice.onClick.subscribe(data =>{
-      this.weaknesses$ = this.rest_service.post(`http://localhost:3000/weaknesses/${this.id}/${this.loginInfo.CompanyName}`,data)
+      this.weaknesses$ = this.rest_service.post(`http://192.168.0.70:3000/weaknesses/${this.id}/${this.loginInfo.CompanyName}`,data)
       .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses(this.id))));
       
 
@@ -298,16 +298,16 @@ export class IdentifierPageComponent implements OnInit {
 
 
   fetchPolicy(id): Observable<policy[]> {
-    return this.rest_service.get(`http://localhost:3000/policy/${id}/${this.loginInfo.CompanyName}`);
+    return this.rest_service.get(`http://192.168.0.70:3000/policy/${id}/${this.loginInfo.CompanyName}`);
   }
   
   fetchAllGap(Nid:any, Gdate:any): Observable<gap[]> {
     let tempUrl  = ""
     if (Gdate != "") {
-       tempUrl = `http://localhost:3000/gap/${this.id}/${this.loginInfo.CompanyName}/?Gdate=${Gdate}`
+       tempUrl = `http://192.168.0.70:3000/gap/${this.id}/${this.loginInfo.CompanyName}/?Gdate=${Gdate}`
     }
     else{
-       tempUrl = `http://localhost:3000/gap/${this.id}/${this.loginInfo.CompanyName}`
+       tempUrl = `http://192.168.0.70:3000/gap/${this.id}/${this.loginInfo.CompanyName}`
     }
 
     return this.rest_service.get(tempUrl);
@@ -320,7 +320,7 @@ export class IdentifierPageComponent implements OnInit {
     console.log("update called")
     policy.Comments = Comments
     console.log("policy : " ,policy)
-    let temp =  this.rest_service.update(`http://localhost:3000/policy/${policy.nudgid}/${this.loginInfo.CompanyName}`,policy);
+    let temp =  this.rest_service.update(`http://192.168.0.70:3000/policy/${policy.nudgid}/${this.loginInfo.CompanyName}`,policy);
     temp.subscribe()
 
   }
@@ -334,7 +334,7 @@ export class IdentifierPageComponent implements OnInit {
   fetchAllControls(Nid:any): Observable<controls[]> {
     let CompanyName = this.loginInfo.CompanyName
 
-    return this.rest_service.get(`http://localhost:3000/controls/${Nid}/${CompanyName}`);
+    return this.rest_service.get(`http://192.168.0.70:3000/controls/${Nid}/${CompanyName}`);
   }
   updateControls(id: number, inventoryItem: Partial<controls>): void {
 
@@ -343,7 +343,7 @@ export class IdentifierPageComponent implements OnInit {
 
     let CompanyName = this.loginInfo.CompanyName
 
-    let temp = this.rest_service.delete(`http://localhost:3000/controls/${id}/${CompanyName}`)
+    let temp = this.rest_service.delete(`http://192.168.0.70:3000/controls/${id}/${CompanyName}`)
     .pipe(tap(() => (this.controls$ = this.fetchAllControls(this.id))));
     temp.subscribe()
       
@@ -380,7 +380,7 @@ export class IdentifierPageComponent implements OnInit {
   }
   
   fetchAllStandards(): Observable<standards[]> {
-    return this.rest_service.get(`http://localhost:3000/standards/${this.id}/${this.loginInfo.CompanyName}`)
+    return this.rest_service.get(`http://192.168.0.70:3000/standards/${this.id}/${this.loginInfo.CompanyName}`)
   }
   async postStandards(standardEntry: Partial<standards>): Promise<void> {
 
@@ -388,7 +388,7 @@ export class IdentifierPageComponent implements OnInit {
     if (!Standard) return;
 
 
-    let temp = await this.rest_service.post(`http://localhost:3000/standards/${this.id}/${this.loginInfo.CompanyName}`,this.loginInfo.CompanyName)
+    let temp = await this.rest_service.post(`http://192.168.0.70:3000/standards/${this.id}/${this.loginInfo.CompanyName}`,this.loginInfo.CompanyName)
     .pipe(tap(() => (this.standards$ = this.fetchAllStandards())));
     temp.subscribe()
   }
@@ -399,7 +399,7 @@ export class IdentifierPageComponent implements OnInit {
   async deleteStandards(id: any): Promise<void> {
 
 
-    let temp = await this.rest_service.delete(`http://localhost:3000/standards/${id}/${this.loginInfo.CompanyName}`)
+    let temp = await this.rest_service.delete(`http://192.168.0.70:3000/standards/${id}/${this.loginInfo.CompanyName}`)
     .pipe(tap(() => (this.standards$ = this.fetchAllStandards())));
     temp.subscribe()
      

@@ -28,14 +28,14 @@ export class GroupFormComponent implements OnInit {
 
   ngOnInit(){  
     this.groups$ = this.fetchAll();
-    this.users$ = this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
-    this.networkShares$ =  this.rest_service.get(`http://localhost:3000/networkshares/${this.loginInfo.CompanyName}`);
+    this.users$ = this.rest_service.get(`http://192.168.0.70:3000/orgusers/${this.loginInfo.CompanyName}`);
+    this.networkShares$ =  this.rest_service.get(`http://192.168.0.70:3000/networkshares/${this.loginInfo.CompanyName}`);
 
   }
   
 
 fetchAll() {
-  return this.rest_service.get(`http://localhost:3000/groups/${this.loginInfo.CompanyName}`)
+  return this.rest_service.get(`http://192.168.0.70:3000/groups/${this.loginInfo.CompanyName}`)
 }
 
 post(Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa) {
@@ -50,7 +50,7 @@ post(Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa) {
     
   let data = { Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa}
 
-  let temp = this.rest_service.post(`http://localhost:3000/groups/${this.loginInfo.CompanyName}`,data)
+  let temp = this.rest_service.post(`http://192.168.0.70:3000/groups/${this.loginInfo.CompanyName}`,data)
   .pipe(tap(() => (this.groups$ = this.fetchAll())));
 
   temp.subscribe()
@@ -68,7 +68,7 @@ update(Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa,
 
   let data = {Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa, idOrgGroups}
 
-  let temp = this.rest_service.update(`http://localhost:3000/groups/${this.loginInfo.CompanyName}`, data)
+  let temp = this.rest_service.update(`http://192.168.0.70:3000/groups/${this.loginInfo.CompanyName}`, data)
   .pipe(tap(() => (this.groups$ = this.fetchAll())));
 
   temp.subscribe()
@@ -79,7 +79,7 @@ update(Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa,
 delete(id: any): void {
 
 
-  let temp = this.rest_service.delete(`http://localhost:3000/groups/${id}/${this.loginInfo.CompanyName}`)
+  let temp = this.rest_service.delete(`http://192.168.0.70:3000/groups/${id}/${this.loginInfo.CompanyName}`)
   .pipe(tap(() => (this.groups$ = this.fetchAll())));
 
   temp.subscribe()

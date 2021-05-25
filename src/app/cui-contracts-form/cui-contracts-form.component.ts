@@ -36,14 +36,14 @@ export class CuiContractsFormComponent implements OnInit {
   
   ngOnInit(){
     this.cuicontracts$ = this.fetchAll();
-    this.users$ = this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
-    this.inventories$ = this.rest_service.get(`http://localhost:3000/inventories/${this.loginInfo.CompanyName}`);
-    this.suppliers$ = this.rest_service.get(`http://localhost:3000/suppliers/${this.loginInfo.CompanyName}`);
-    this.vendors$ = this.rest_service.get(`http://localhost:3000/vendors/${this.loginInfo.CompanyName}`);
+    this.users$ = this.rest_service.get(`http://192.168.0.70:3000/orgusers/${this.loginInfo.CompanyName}`);
+    this.inventories$ = this.rest_service.get(`http://192.168.0.70:3000/inventories/${this.loginInfo.CompanyName}`);
+    this.suppliers$ = this.rest_service.get(`http://192.168.0.70:3000/suppliers/${this.loginInfo.CompanyName}`);
+    this.vendors$ = this.rest_service.get(`http://192.168.0.70:3000/vendors/${this.loginInfo.CompanyName}`);
   }
 
   fetchAll(): Observable<cuicontracts[]> {
-    return this.rest_service.get(`http://localhost:3000/cuicontracts/${this.loginInfo.CompanyName}`);
+    return this.rest_service.get(`http://192.168.0.70:3000/cuicontracts/${this.loginInfo.CompanyName}`);
 
   }
   
@@ -55,7 +55,7 @@ export class CuiContractsFormComponent implements OnInit {
 
     let data =  { CCname, CCnum, CCstartDate, CCendDate, CCdescription, CCaccountManager , CCsupplierRelation , CCvendorRelation , CCfileInput , CCurl , CCgovCUI , CCnewCUI , CCmodCUI  }
     let temp = this.rest_service
-    .post(`http://localhost:3000/cuicontracts/${this.loginInfo.CompanyName}`, data)
+    .post(`http://192.168.0.70:3000/cuicontracts/${this.loginInfo.CompanyName}`, data)
     .pipe(tap(() => (this.cuicontracts$ = this.fetchAll())));
 
     temp.subscribe()
@@ -69,7 +69,7 @@ export class CuiContractsFormComponent implements OnInit {
    
    
     this.cuicontracts$ = this.rest_service
-      .update(`http://localhost:3000/cuicontracts/${this.loginInfo.CompanyName}`, data)
+      .update(`http://192.168.0.70:3000/cuicontracts/${this.loginInfo.CompanyName}`, data)
       .pipe(tap(() => (this.cuicontracts$ = this.fetchAll())));
   }
   
@@ -80,7 +80,7 @@ export class CuiContractsFormComponent implements OnInit {
    // console.log("attempting to delete id : " , iduseru)
   
     this.cuicontracts$ = this.rest_service
-      .delete(`http://localhost:3000/cuicontracts/${id}/${this.loginInfo.CompanyName}`)
+      .delete(`http://192.168.0.70:3000/cuicontracts/${id}/${this.loginInfo.CompanyName}`)
       .pipe(tap(() => (this.cuicontracts$ = this.fetchAll())));
       
   }

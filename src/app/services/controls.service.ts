@@ -12,7 +12,7 @@ import { ErrorHandlerService } from './error-handler.service';
 export class ControlsService {
 
   //url must match route in the app.use(...) in index.js
-private url = "http://localhost:3000/controls"
+private url = "http://192.168.0.70:3000/controls"
 onClick = new EventEmitter();
 postEvent = new EventEmitter();
 
@@ -36,8 +36,8 @@ httpOptions: { headers: HttpHeaders } = {
 
    fetchAll(id: any, CompanyName:any, trick:any): Observable<controls[]> {
     let tempUrl;
-    id ? tempUrl = `http://localhost:3000/controls/${id}/${CompanyName}` : tempUrl = "http://localhost:3000/controls"
-    console.log("url : " , `http://localhost:3000/controls/${id}/${CompanyName}`)
+    id ? tempUrl = `http://192.168.0.70:3000/controls/${id}/${CompanyName}` : tempUrl = "http://192.168.0.70:3000/controls"
+    console.log("url : " , `http://192.168.0.70:3000/controls/${id}/${CompanyName}`)
 
     return this.http
       .get<controls[]>(tempUrl, { responseType: "json" })
@@ -54,7 +54,7 @@ httpOptions: { headers: HttpHeaders } = {
 
   post(item: any, CompanyName: any): Observable<any> {
     console.log("item : " , item)
-    let url = `http://localhost:3000/controls/${CompanyName}`
+    let url = `http://192.168.0.70:3000/controls/${CompanyName}`
     console.log("post controls : " , url)
     return this.http
       .post(url, item, this.httpOptions)
@@ -75,7 +75,7 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   delete(id: number, CompanyName: any): Observable<any> {
-    const url = `http://localhost:3000/controls/${id}/${CompanyName}`;
+    const url = `http://192.168.0.70:3000/controls/${id}/${CompanyName}`;
 
     return this.http
       .delete<controls>(url, this.httpOptions)

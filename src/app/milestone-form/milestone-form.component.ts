@@ -55,7 +55,7 @@ export class MilestoneFormComponent implements OnInit {
         //if dialog is closed without pressing submit, result comes back as undefined.
         if(result){
           this.milestones$ = this.rest_service
-          .post(`http://localhost:3000/milestones/${this.idOrgWeaknesses}/${this.loginInfo.CompanyName}`,result)
+          .post(`http://192.168.0.70:3000/milestones/${this.idOrgWeaknesses}/${this.loginInfo.CompanyName}`,result)
           .pipe(tap(() => (this.milestones$ = this.fetchAll(this.idOrgWeaknesses))));
         }
       });
@@ -78,11 +78,11 @@ export class MilestoneFormComponent implements OnInit {
 
   
 fetchAll(idOrgWeaknesses) {
-  return this.rest_service.get(`http://localhost:3000/milestones/${idOrgWeaknesses}/${this.loginInfo.CompanyName}`);
+  return this.rest_service.get(`http://192.168.0.70:3000/milestones/${idOrgWeaknesses}/${this.loginInfo.CompanyName}`);
 }
 
 delete(id: any): void {
-  let temp =  this.rest_service.delete(`http://localhost:3000/milestones/${id}/${this.loginInfo.CompanyName}`)
+  let temp =  this.rest_service.delete(`http://192.168.0.70:3000/milestones/${id}/${this.loginInfo.CompanyName}`)
   .pipe(tap(() => (this.milestones$ = this.fetchAll(this.idOrgWeaknesses))));
 
   temp.subscribe()
@@ -155,7 +155,7 @@ closeDialog( Milestones, Mstatus, MstatusDate, McompletionDate, Mchanges){
 };
 fetchAll(): Observable<milestones[]> {
 
-  return this.rest_service.get(`http://localhost:3000/milestones/${this.idOrgWeaknesses}/${this.loginInfo.CompanyName}`);
+  return this.rest_service.get(`http://192.168.0.70:3000/milestones/${this.idOrgWeaknesses}/${this.loginInfo.CompanyName}`);
 }
 
 

@@ -31,17 +31,17 @@ panelOpenState = false;
   ngOnInit(){
     //Loading Data
     this.software$ = this.fetchall()
-    this.vendors$ = this.rest_service.get(`http://localhost:3000/vendors/${this.loginInfo.CompanyName}`);
-    this.inventory$ = this.rest_service.get(`http://localhost:3000/inventories/${this.loginInfo.CompanyName}`);
-    this.users$ = this.rest_service.get(`http://localhost:3000/orgusers/${this.loginInfo.CompanyName}`);
+    this.vendors$ = this.rest_service.get(`http://192.168.0.70:3000/vendors/${this.loginInfo.CompanyName}`);
+    this.inventory$ = this.rest_service.get(`http://192.168.0.70:3000/inventories/${this.loginInfo.CompanyName}`);
+    this.users$ = this.rest_service.get(`http://192.168.0.70:3000/orgusers/${this.loginInfo.CompanyName}`);
  
-    this.roles$ = this.rest_service.get(`http://localhost:3000/roles/${this.loginInfo.CompanyName}`);
-    this.groups$ = this.rest_service.get(`http://localhost:3000/groups/${this.loginInfo.CompanyName}`);
+    this.roles$ = this.rest_service.get(`http://192.168.0.70:3000/roles/${this.loginInfo.CompanyName}`);
+    this.groups$ = this.rest_service.get(`http://192.168.0.70:3000/groups/${this.loginInfo.CompanyName}`);
 
 
   }
   fetchall(){
-    return this.rest_service.get(`http://localhost:3000/softwareApproval/${this.loginInfo.CompanyName}`)
+    return this.rest_service.get(`http://192.168.0.70:3000/softwareApproval/${this.loginInfo.CompanyName}`)
   }
 
    async submit(SWname , SWSupplierInformation , SWdescription , SWinstallDate , 
@@ -69,7 +69,7 @@ panelOpenState = false;
         SWautomaticUpdateDate , SWinternetReq , SWlegacy , SWelevatedPrivileges , SWvulnerabilities , SWusers , SWgroups , SWroles ,
          SWassetIdentifier , SWvendor }
                                             
-         let temp = await this.rest_service.post(`http://localhost:3000/softwareApproval/${this.loginInfo.CompanyName}`, data)
+         let temp = await this.rest_service.post(`http://192.168.0.70:3000/softwareApproval/${this.loginInfo.CompanyName}`, data)
        //  .pipe(tap(() => (this.software$ = this.fetchall())));
 
          temp.subscribe()
@@ -79,7 +79,7 @@ panelOpenState = false;
 
   async delete(id : any){
     //Delete Entry
-    let temp = this.rest_service.delete(`http://localhost:3000/softwareApproval/${id}/${this.loginInfo.CompanyName}`)
+    let temp = this.rest_service.delete(`http://192.168.0.70:3000/softwareApproval/${id}/${this.loginInfo.CompanyName}`)
     .pipe(tap(() => (this.software$ = this.fetchall())));
 
     temp.subscribe()

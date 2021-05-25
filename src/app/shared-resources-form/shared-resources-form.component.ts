@@ -56,7 +56,7 @@ export class SharedResourcesFormComponent implements OnInit {
     return String.fromCharCode.apply(null, new Uint16Array(buf));
   }
   async fetchall(){
-    return await this.rest_service.get(`http://localhost:3000/sharedResources/${this.loginInfo.CompanyName}`)
+    return await this.rest_service.get(`http://192.168.0.70:3000/sharedResources/${this.loginInfo.CompanyName}`)
   
   }
   loadData(){
@@ -93,7 +93,7 @@ export class SharedResourcesFormComponent implements OnInit {
     //Post data as a new shared resource entry
     console.log("posting : " , data)
 
-    let temp2 = this.rest_service.post(`http://localhost:3000/sharedResources/${this.loginInfo.CompanyName}`, data)
+    let temp2 = this.rest_service.post(`http://192.168.0.70:3000/sharedResources/${this.loginInfo.CompanyName}`, data)
     .pipe(tap(() => (this.loadData())));
     temp2.subscribe()
 
@@ -119,12 +119,12 @@ export class SharedResourcesFormComponent implements OnInit {
     let filename = element[2]
     //Delete file from server, likely the hard part?
 
-   // let temp = await this.rest_service.delete(`http://localhost:3000/sharedResources/${id}/${this.loginInfo.CompanyName}`)
+   // let temp = await this.rest_service.delete(`http://192.168.0.70:3000/sharedResources/${id}/${this.loginInfo.CompanyName}`)
    
 
    // temp.subscribe()
 
-    let temp2 = await this.rest_service.delete(`http://localhost:3000/remove?filename=${filename}`)
+    let temp2 = await this.rest_service.delete(`http://192.168.0.70:3000/remove?filename=${filename}`)
  //   .pipe(tap(() => (this.loadData())));
 
     temp2.subscribe()

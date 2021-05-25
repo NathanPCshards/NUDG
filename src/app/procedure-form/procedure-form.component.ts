@@ -55,7 +55,7 @@ export class ProcedureFormComponent implements OnInit {
         if (result){
 
           this.procedures$ = this.rest_service
-          .post(`http://localhost:3000/procedures/${this.idOrgControls}/${this.loginInfo.CompanyName}`,result)
+          .post(`http://192.168.0.70:3000/procedures/${this.idOrgControls}/${this.loginInfo.CompanyName}`,result)
           .pipe(tap(() => (this.procedures$ = this.fetchAll(this.idOrgControls))));
         }
 
@@ -80,13 +80,13 @@ export class ProcedureFormComponent implements OnInit {
   }
   
   fetchAll(idOrgControls): Observable<procedures[]> {
-    return this.rest_service.get(`http://localhost:3000/procedures/${idOrgControls}/${this.loginInfo.CompanyName}`);
+    return this.rest_service.get(`http://192.168.0.70:3000/procedures/${idOrgControls}/${this.loginInfo.CompanyName}`);
   }
 
 
 
 delete(id: any): void {
-  let temp =  this.rest_service.delete(`http://localhost:3000/procedures/${id}/${this.loginInfo.CompanyName}`)
+  let temp =  this.rest_service.delete(`http://192.168.0.70:3000/procedures/${id}/${this.loginInfo.CompanyName}`)
   .pipe(tap(() => (this.procedures$ = this.fetchAll(this.idOrgControls))));
 
   temp.subscribe()
@@ -152,7 +152,7 @@ closeDialog( PProcedure, Pstatus, PstatusDate, Pdescription){
 
 };
 fetchAll(): Observable<procedures[]> {
-  return this.rest_service.get(`http://localhost:3000/procedures/${this.idOrgControls}/${this.loginInfo.CompanyName}`);
+  return this.rest_service.get(`http://192.168.0.70:3000/procedures/${this.idOrgControls}/${this.loginInfo.CompanyName}`);
 }
 
 
