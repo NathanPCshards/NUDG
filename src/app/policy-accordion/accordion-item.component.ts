@@ -62,12 +62,9 @@ export class AccordionItemComponent  {
     ) { }
 
   async ngOnInit() {
-    console.log("parent ref in accordion : " , this.parentReference$)
 
-    console.log("id : " , this.id$)
-
-
-    this.subscription$ = await this.rest_service.get(`http://localhost:3000/Policy/${'All'}/${this.loginInfo.CompanyName}`).toPromise()
+    
+    this.subscription$ = await this.rest_service.get(`http://192.168.0.70:3000/Policy/${'All'}/${this.loginInfo.CompanyName}`).toPromise()
     this.policies = []
     this.subscription$.forEach(policy => {
       this.policies.push(policy)
@@ -87,6 +84,8 @@ export class AccordionItemComponent  {
 
 
   }
+
+
 
 //toggle for open and close appearances
   onBtnClick() {
@@ -137,7 +136,8 @@ export class AccordionItemComponent  {
     if ( this.pointer < this.policies.length){
       this.pointer += 1;
     }
-
+    let url ="Policy/"+this.policies[this.pointer].nudgid
+    console.log("url : " , url)
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
     this.router.navigate(["Policy/"+this.policies[this.pointer].nudgid]));
 

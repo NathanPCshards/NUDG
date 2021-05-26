@@ -103,45 +103,51 @@ export class GapForm implements OnInit{
       this.id$ = "AC-N.01"
     }
 
-    //Initializing unique lists (Used for dropdown displays)
-    this.uniqueNidList$= this.rest_service.get(`http://192.168.0.70:3000/gap/${'None'}/${this.loginInfo.CompanyName}/?getUniqueNids=${true}`)
-    this.uniqueDateList$ = this.rest_service.get(`http://192.168.0.70:3000/gap/${'None'}/${this.loginInfo.CompanyName}/?getUniqueDates=${true}`)
-
-    //Applying Filters
-    this.dateFilter$ = this.dateForm.get('DateFilterList')!.valueChanges
-    .pipe(
-      startWith(''),
-      map(value=> this._filterDates(value))
-    )
-    this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
-    .pipe(
-      startWith(''),
-      map(value=> this._filterNid(value))
-    )
- 
-    //leave here for some reason, its important
-    this.NidFilter$.forEach(element => {
-    });
-    this.dateFilter$.forEach(element => {
-      
-    });
-
-    //Unique Lists
-    this.uniqueNidList$.forEach(element => {
-      this.NidFilterList.push(element)
-    });
-    this.uniqueDateList$.forEach(element => {
-      this.DateFilterList.push(element)
-    });
-
-    //Gap -- First refresh call is to initialize Gap$ and the display list
-    this.refreshGapAndDisplayList();
-    this.sharedService.refreshRequest.subscribe(e =>{
-      console.log("refreshing gap")
-      this.refreshGapAndDisplayList();
-    })
+    this.loadData()
+   
 
   }
+
+  loadData(){
+     //Initializing unique lists (Used for dropdown displays)
+     this.uniqueNidList$= this.rest_service.get(`http://192.168.0.70:3000/gap/${'None'}/${this.loginInfo.CompanyName}/?getUniqueNids=${true}`)
+     this.uniqueDateList$ = this.rest_service.get(`http://192.168.0.70:3000/gap/${'None'}/${this.loginInfo.CompanyName}/?getUniqueDates=${true}`)
+ 
+     //Applying Filters
+     this.dateFilter$ = this.dateForm.get('DateFilterList')!.valueChanges
+     .pipe(
+       startWith(''),
+       map(value=> this._filterDates(value))
+     )
+     this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
+     .pipe(
+       startWith(''),
+       map(value=> this._filterNid(value))
+     )
+  
+     //leave here for some reason, its important
+     this.NidFilter$.forEach(element => {
+     });
+     this.dateFilter$.forEach(element => {
+       
+     });
+ 
+     //Unique Lists
+     this.uniqueNidList$.forEach(element => {
+       this.NidFilterList.push(element)
+     });
+     this.uniqueDateList$.forEach(element => {
+       this.DateFilterList.push(element)
+     });
+ 
+     //Gap -- First refresh call is to initialize Gap$ and the display list
+     this.refreshGapAndDisplayList();
+     this.sharedService.refreshRequest.subscribe(e =>{
+       console.log("refreshing gap")
+       this.refreshGapAndDisplayList();
+     })
+  }
+
   ngAfterViewInit(){
       //initializing edit controls to be off
       this.editing = false;
@@ -223,6 +229,18 @@ export class GapForm implements OnInit{
     }
   }
 
+  importToggle(entry,event){
+    let object = event.target
+    if (object.innerText == "check_box"){
+      object.innerText = "check_box_outline_blank"
+      entry.toImport = false
+    }
+    else{
+      object.innerText = "check_box"
+      entry.toImport = true
+    }
+  }
+
   fetchAllGap(Nid:any, Gdate: any): Observable<gap[]> {
     let tempUrl;
     if (Gdate != "") {
@@ -295,8 +313,8 @@ export class GapForm implements OnInit{
   public setDate(event: any, date:any, name : any)
   {
     if (this.parentReference$){
-      this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
-      this.router.navigate(["Policy/",String(name).trim() ,String(date).trim()]));
+     this.displayDate$ = date
+     this.loadData()
     }
     else{
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
@@ -311,10 +329,14 @@ export class GapForm implements OnInit{
       if (this.dateField$ && this.newDate){
         
         element.Gdate = this.dateField$
-      }
         //by adding newdate as a parameter, the if statment in identifier page will post instead of updating
         //regardless of what the newDate actually is (but above we update the data accordingly)
         this.gapservice.emit(element,this.newDate)
+      }
+      else{
+        this.gapservice.emit(element,false)
+      }
+
     });
     this.toDeleteList.forEach(element => {
       //we also have to emit the entries that are pending deletion
@@ -332,6 +354,7 @@ export class GapForm implements OnInit{
 
   public onAnswerChange(i:any, data:any){
     this.displayList$[i].Ganswer = data;
+    console.log(this.displayList$)
   }
   public onQuestionChange(i:any, data:any){
     this.displayList$[i].Gquestion = data;

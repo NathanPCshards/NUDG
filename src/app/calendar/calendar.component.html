@@ -40,10 +40,7 @@
         >
           Month
         </div>
-        <!--
-          //commenting out the other views because the events times do not initialize correctly.
-          //This was always an issue with this calendar, its likely fixable, but it doesnt seem worthwhile to spend time on at the moment.
-        -->
+
                   <div
           class="btn btn-primary"
           (click)="setView(CalendarView.Week)"
@@ -73,9 +70,10 @@
       [events]="events"
       [refresh]="refresh"
       [activeDayIsOpen]="activeDayIsOpen"
-      (dayClicked)="dayClicked($event.day)"
-      (eventClicked)="handleEvent('Clicked', $event.event)"
-      (eventTimesChanged)="eventTimesChanged($event)"
+
+      (dayClicked)="dayClicked($event.day); debug2($event)"
+      (eventClicked)="handleEvent('Clicked', $event.event);"
+      (eventTimesChanged)="eventTimesChanged($event);"
     >
     </mwl-calendar-month-view>
     
@@ -108,7 +106,10 @@
 
 
   <div id="daterangeDiv" class="daterangeDiv">
+
     <p style="margin-left: 43%;font-size: x-large; font-weight: medium;">Select a Date Range</p>
+
+
     <mat-form-field appearance="fill" class="datepicker3" id="datepicker3">
     
       <input 
@@ -125,10 +126,6 @@
         </mat-datepicker-actions>
       </mat-datepicker>
     </mat-form-field>
-
-
-
-
 
     <mat-form-field appearance="fill" class=" datepicker4" id="datepicker4">
 
@@ -147,8 +144,23 @@
           <button mat-raised-button color="primary" (click)="reloadData(date3.value,date4.value)" matDatepickerApply>Apply</button>
         </mat-datepicker-actions>
       </mat-datepicker>
+
+      
     </mat-form-field>
+
+  
+        <span style="font-size: medium;">
+          Toggle Filter 
+      </span>
+      <button mat-icon-button>
+          <mat-icon id="hToggleIcon" color="primary" (click)="toggleHighlighting(date3.value,date4.value)">
+              check_box
+          </mat-icon>
+      </button>
+  
+
   </div>
+
   
   <!-- EVERYTHING BELOW THIS LINE, is the white box under the calendar that holds all the buttons -->
   

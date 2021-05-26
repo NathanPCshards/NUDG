@@ -1,8 +1,11 @@
-<div class="container1 " style="height:600px;">
+<div class="container1 " style="height:600px; resize: both;">
+
  
         <h2 style=" font-size: 32px;color: white;">
             Gap Assessment
         </h2>
+        <span style="margin-left:52%">Delete</span>
+        <span style="margin-left:1.5%">Import</span>
         
         <div class="col" style="width:20%">
             <div class ="colSmall" style=" background-color: palegoldenrod; box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; margin-top: 15px;">
@@ -34,6 +37,7 @@
                         matInput
                         required
                         [matAutocomplete]="auto"
+                        (change)="toggleNewDate()"
                          >
                     <mat-autocomplete #auto="matAutocomplete">
                     <mat-optgroup >
@@ -123,6 +127,8 @@
             <br>
             <span>*Changes are not saved until 'Submit' is pressed!*</span>
 
+ 
+
         </div>
             <div class ="col" style="width:80%; overflow: scroll;  height:550px" >
                 <div *ngFor="let entry of displayList$; let i = index" [attr.data-index]="i">        
@@ -135,19 +141,41 @@
                     </tr>
                     <tr>
                         <td>
-                            <mat-form-field  class= "col2" appearance = "legacy" style="width:100%; float:left">
-                                <input class="editToggle" (change)="onAnswerChange(i, Ganswer.value)"#Ganswer matInput value="{{entry.Ganswer}}">
-                            </mat-form-field>
+
+
+
+                            <mat-form-field class= "col2" appearance="legacy" color="primary" style="width: 20%; float:left" >
+                                <mat-label >Answer</mat-label>
+                                <mat-select (selectionChange)="onAnswerChange(i, Ganswer.value)" #Ganswer value="{{entry.Ganswer}}" id="Input">
+                                    <mat-option #Ganswer value="Yes" >
+                                        Yes
+                                    </mat-option>
+                                    <mat-option #Ganswer value="Partial" >
+                                        Partial
+                                    </mat-option>
+                                    <mat-option #Ganswer value="Weakness" >
+                                        Weakness
+                                    </mat-option>
+                                </mat-select>
+                              </mat-form-field>
                             
                         <div id="comments" class="comment" class="editToggle">
                             <textarea #Gcomment [ngStyle]="showComments?{'visibility': 'visible'} : {'visibility': 'hidden'}" class="comment"  class="editToggle" value="{{entry.Gcomment}}" (change)="onCommentChange(i, Gcomment.value)" id="comment" style="float:left; text-align: left; align-content: left; margin-left: 20%; height:50px; " rows="2" cols="70"></textarea>
                         </div>
 
-                        <button mat-icon-button class="editToggle">
+                        <button mat-icon-button class="editToggle" style="margin-left: 2%;">
                             <mat-icon [ngStyle]="editing?{'color': 'red'} : {'color': 'grey'}" class="editToggle" (click)="deleteEntry(i)" color="warn">
                               delete
                             </mat-icon>
                           </button>
+
+                        <button mat-icon-button class="editToggle" style="margin-left: 2%;">
+                        <mat-icon id="importQuestionToggle"[ngStyle]="editing?{'color': 'black'} : {'color': 'grey'}" class="editToggle" (click)="importToggle(entry,$event)">
+                            check_box_outline_blank
+                        </mat-icon>
+                        </button>
+
+                        
 
                         </td>
                     </tr>

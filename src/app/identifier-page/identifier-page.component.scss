@@ -212,7 +212,7 @@ div.item2{
   }
   .dditems{
     text-align: left;
-
+    white-space: pre-wrap;
 
 }
 
@@ -293,21 +293,18 @@ div.item2{
 @keyframes policyShrink {
     //start big
     0% {
-      box-sizing: border-box;
-      position: relative;
       width:49%;
-      float:left;
-      background-color: white;
-
-      overflow-y: scroll;
-      overflow-x: hidden;
       margin-top: 10px;
       margin-left: 10px;
       margin-bottom: 10px;
       margin-right: 3px;
-      display:block;
-      min-height: 44%;
-      height:44%;
+      float: left;
+      background-color: white;
+      overflow:auto;
+      padding: 20px;
+      min-height: 45%;
+      height:45%;
+      display: inline;
     }
     //get small
     100%{
@@ -346,6 +343,25 @@ div.item2{
     }
     //get big
     100%{
+
+      //new
+      width:49%;
+      margin-top: 10px;
+      margin-left: 10px;
+      margin-bottom: 10px;
+      margin-right: 3px;
+      float: left;
+      background-color: white;
+      overflow:auto;
+      padding: 20px;
+      min-height: 45%;
+      height:45%;
+      display: inline;
+
+
+
+
+      /*old
       box-sizing: border-box;
       position: relative;
       width:49%;
@@ -360,7 +376,7 @@ div.item2{
       margin-right: 3px;
       display:block;
       min-height: 44%;
-      height:44%;
+      height:44%;*/
     }
 }
 
@@ -592,19 +608,6 @@ div.item2{
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //DRAG AND DROP Styling
 
   .cdk-drag-preview {
@@ -779,4 +782,53 @@ div.item2{
       float:left;
       height:10%
     }
+  }
+
+
+
+  //Guideline POPOUT styling
+
+  .resizableDiv{
+    //having scroll enabled but hiding the bar
+    overflow-y: scroll;
+    scrollbar-width: none; /* Hiding bar for Firefox */
+    -ms-overflow-style: none;  /* Hiding bar for Internet Explorer 10+ */
+    background-color: rgb(255, 255, 255); 
+    display: inline-block;
+    margin-left:auto;
+    margin-right: auto;
+    
+
+    height:90%;
+    width:94%;
+    
+    text-align: left; 
+    padding:3%;
+    cursor:initial;
+   
+  }
+
+  .guidelineText{
+    font-size: small; 
+    color:black; 
+    overflow:scroll;
+  }
+  .dragHandle{
+    cursor:all-scroll;
+    
+  }
+
+  .box{
+    width:30%; 
+    height:60%; 
+    z-index: 100;
+    //TODO to get resize working, position cannot be absolute, need to come up with a work around later
+    position: absolute; 
+    left: 15%; 
+    top: 15%;
+    white-space: pre-wrap; 
+    resize: both; 
+    cursor:initial;
+    display:inline-block;
+
   }

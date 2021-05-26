@@ -23,6 +23,9 @@ export class PolicyAccordionComponent implements OnInit {
   constructor(private service: PolicyAccordionService ) { }
   
   ngOnInit() {
+
+
+
     this.entries = accordionEntries
     this.service.onAccordionClick.subscribe(data =>{
       console.log("data : " , data)

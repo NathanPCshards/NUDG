@@ -28,6 +28,8 @@ import { login } from '../injectables';
 import { restAPI } from '../services/restAPI.service';
 import { policy } from '../models/policy';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { WeekDay } from 'calendar-utils';
+import { Console } from 'node:console';
 
 
 
@@ -44,6 +46,8 @@ export class CalendarComponent implements OnInit {
     lastSort;
     mwlFlatPicker: any;
     view: CalendarView = CalendarView.Month;
+    dayArray
+    showHighlight = true
   
     //color template that came with the calendar. (used for event instantiation)
     colors: any = {
@@ -141,11 +145,13 @@ export class CalendarComponent implements OnInit {
   
     }
   ngOnInit(): void {
-
+    this.dayArray = []
     console.log("-----====== onInit ======-----")
     //pulling 
     this.uniqueNidList$= this.rest_service.get(`http://192.168.0.70:3000/gap/${'None'}/${this.loginInfo.CompanyName}/?getUniqueNids=${true}`)
     this.uniqueUserList$ = this.rest_service.get(`http://192.168.0.70:3000/orgusers/${this.loginInfo.CompanyName}`);
+
+
 
     //apply filter
    
@@ -191,6 +197,10 @@ this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
     this.reloadData()
     this.setView(CalendarView.Month)
     this.sort('startDate')
+
+  }
+
+  ngAfterViewInit(){
 
   }
 
@@ -524,6 +534,7 @@ this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
   
   debugEvent(){
     console.log("debug button pressed")
+    console.log("day array :"  , this.dayArray)
  
 
     this.displayEvents$.forEach(element => {
@@ -608,14 +619,44 @@ this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
 
   }
 
-    async reloadData(date1='1-11-11',  date2='2030-11-11'){
+    async reloadData(date1='1-11-11',  date2='12-31-2030'){
       //used to pull data from DB and populate display, events and tasks arrays
       //this is called after almost every change to the calendar. 
       //clear lists
       this.displayEvents$ = []
       this.events = []
+      if (!this.showHighlight){
+        //If highlight is turned off/false, set query to everything
+        date1='1-11-11'
+        date2='12-31-2050'
+      }
       this.tasks$ = await this.rest_service.get(`http://192.168.0.70:3000/task/${this.loginInfo.CompanyName}?date1=${date1}&date2=${date2}`);
 
+      //Pulling days from calendar by css class, formatting the data, and putting it into an array
+      var daysInMonth = Array.from(document.getElementsByClassName("cal-day-cell"))
+      daysInMonth.forEach(element => {
+        let chunks = element.innerHTML.match(/(?:[^\s"]+|"[^"]*")+/g)
+        let tempDate = String(chunks[2].replace("\n", " ").slice(12,-7).trim())
+        //when a day has an event on it, the aria-label changes to include it, we so trim it more.
+        if (tempDate.includes("event")){
+          tempDate = tempDate.split(",")[0]
+        }
+        this.dayArray.push([this.customConvertStringToDate(tempDate), element])
+      });
+
+      //iterate over the array of days, if their date is in the filter range, change their color
+      //TODO There is likely an issue here of the correct days being pulled and added to the list (buggy behavior near end of year?)
+      this.dayArray.forEach(element => {
+          let date = element[0]
+          let object = element[1]
+          //had to convert everything to dates for comparison to work.
+          if (new Date(date1) <= new Date(date) && new Date(date) <= new Date(date2) &&  this.showHighlight==true){
+            object.style.backgroundColor="cyan"
+          }else
+          {
+            object.style.backgroundColor="white"
+          }
+      });
       
       this.tasks$.forEach(element => {
        // console.log("all tasks : " , element)
@@ -667,6 +708,26 @@ this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
 
 
     }
+
+
+    toggleHighlighting(date1,date2){
+      if (document.getElementById("hToggleIcon").innerText == "check_box"){
+        document.getElementById("hToggleIcon").innerText = "check_box_outline_blank"
+        this.showHighlight = false
+      }
+      else{
+        document.getElementById("hToggleIcon").innerText = "check_box"
+        this.showHighlight = true
+  
+      }
+      this.reloadData(date1,date2)
+    }
+
+
+
+    debug2(whatever){
+      console.log('whatever : ' ,  whatever)
+    }
     
    combineDateTime(date, time){
      //takes ISO date format (although would probably work for other formats), and combines it with 'hh:mm a' formatted Time.
@@ -704,6 +765,32 @@ this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
 
     return item;
  }
+
+  customConvertStringToDate(input){      
+    let monthMap = {
+    January : "1",  
+    February : "2",
+    March : "3",
+    April : "4",
+    May : "5",
+    June : "6",
+    July : "7",
+    August : "8",
+    September : "9",
+    October : "10",
+    November : "11",
+    December :"12"
+  }
+
+    //converts "sunday april 5" to a date string and returns it "ddd mmm dd yyyy"
+      let arr = input.split(" ")
+      let month = monthMap[arr[1]]
+      let day = arr[2]
+      let year = this.viewDate.getFullYear()
+      let dateStr = month+"/"+day+"/"+year
+      return new Date(dateStr).toDateString()
+  }
+
 
 
 

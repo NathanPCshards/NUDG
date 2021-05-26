@@ -14,11 +14,11 @@
 
   <mat-list-item *ngFor="let guideline of guidelines$ | async" style="height:auto; padding:3px">
 
-    <span class="listSpan idCol" style=""
+    <span class="listSpan idCol" 
       >{{ guideline.Nid }}    </span
     >
 
-    <span class="listSpan descCol" style=" overflow:auto; padding: 5px;">
+    <span class="listSpan descCol" style=" overflow:auto; padding: 5px; white-space: pre-wrap;">
       {{ guideline.Guidelines }}
     </span>
 

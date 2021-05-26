@@ -33,8 +33,11 @@ export class GuidelinesForm implements OnInit {
 
   ngOnInit(){
     this.guidelines$ = this.fetchAll();
+ 
 
   }
+
+
   fetchAll(): Observable<guidelines[]> {
     return this.rest_service.get(`http://192.168.0.70:3000/guidelines/${this.loginInfo.CompanyName}`);
   }

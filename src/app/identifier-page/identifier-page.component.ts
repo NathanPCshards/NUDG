@@ -101,6 +101,8 @@ export class IdentifierPageComponent implements OnInit {
   uniqueNidList$;
   currentPolicy;
 
+
+
   
 
   
@@ -157,6 +159,8 @@ export class IdentifierPageComponent implements OnInit {
 
     //ACCORDION STUFF
     this.entries = accordionEntries
+    let temp = document.getElementById("accordionToolbar")
+    console.log("temp : ", temp)
     this.service.onAccordionClick.subscribe(data =>{
       if (data == "shrink"){
 
@@ -218,11 +222,12 @@ export class IdentifierPageComponent implements OnInit {
 
  
     this.gapSubscription = this.gapservice.onClick.subscribe(async incomingData=>{
-      console.log("incoming gap data : ", incomingData)
+      console.log("incoming gap data : ", incomingData, !incomingData.optionalParam)
+      console.log("test : ", incomingData.optionalParam )
       //the optional param is added when NewDate is toggled on the Gap component
       //its defualt is false, if nothing is given. This makes sure new dates are 
       //posted to, and not updated to (which would fail because it wouldnt exist)
-      if (incomingData.idOrgGap && !incomingData.optionalParam){
+      if (incomingData.data.idOrgGap && !incomingData.optionalParam){
         console.log("updating")
         //Updates if Id exists
         this.gap$ = await this.gapservice
@@ -236,8 +241,6 @@ export class IdentifierPageComponent implements OnInit {
         //After posting we need to refresh data in gap assessment because the new entry
         //will be assigned a Id by the DB. Without refreshing pressing submit again will
         //resubmit the entry like it doesnt already exist.
-       
-        
       }
       else{
         console.log("deleting")
@@ -245,9 +248,25 @@ export class IdentifierPageComponent implements OnInit {
         this.gap$ = await this.gapservice
         .delete(incomingData.data).toPromise()
       }
+      //The below block will execute on data that was checked to be imported to controls/weaknesses
+      if (incomingData.data.toImport){
+        console.log("Importing")
+        
+        //here need to make control object to be posted
 
 
+
+
+/*
+
+        let temp = await this.controlsservice.post(data, this.loginInfo.CompanyName)
+        .pipe(tap(() => (this.controls$ = this.fetchAllControls(this.id))));
+       temp.subscribe()
+*/
+
+      }
     })
+
     
 
     //GUIDELINES STUFF
@@ -279,20 +298,9 @@ export class IdentifierPageComponent implements OnInit {
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  debug(){
+    console.log(this.guidelines$)
+  }
 
 
 

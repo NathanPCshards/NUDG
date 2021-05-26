@@ -129,19 +129,26 @@ ngOnInit(){
 
   //Getting resources
   this.resources$ = this.rest_service.get(`http://192.168.0.70:3000/sharedResources/${this.loginInfo.CompanyName}`)
+
+
+
+
+
+ 
   this.displayResources$ = []
   this.resources$.forEach(resourcesArray => {
     resourcesArray.forEach(resource => {
         this.displayResources$.push(resource)
-      
+       //TODO was working on getting links showing on the resources menu
+          /*
         //saving files to an array
         this.files.push(resource.SRupload)
         this.rest_service.getFile(resource.SRupload).subscribe(data=>{
           this.urls.push(this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(data)))
-
+            */
         })
     });
-  });
+ 
 
 
   console.log("urls : " , this.urls)

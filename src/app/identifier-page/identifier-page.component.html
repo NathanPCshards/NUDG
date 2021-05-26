@@ -36,20 +36,20 @@
             <br>
             <p class="dditems">Capability Number: {{policy.Capabilitynumber}}</p>
             <br>
-            <p class="dditems">Practice: {{policy.Practice}}</p>
+            <p class="dditems" >Practice: {{policy.Practice}}</p>
             <br>
             <p class="dditems">Clarification: {{policy.Clarification}}</p>
           </mat-tab>
   
           <mat-tab label="NIST Information" style="overflow: none;">
-          <p style="margin-top: 1%;" class="dditems">NIST Mapping: {{policy.NISTmapping}}</p>
+          <p style="margin-top: 1%; font-size: medium;" class="dditems">NIST Mapping: {{policy.NISTmapping}}</p>
           <br>
-          <p class="dditems">NIST Value: {{policy.NISTvalue}}</p>
+          <p class="dditems" style="font-size: medium;">NIST Value: {{policy.NISTvalue}}</p>
           <br>
         </mat-tab>
-          <mat-tab label="References"> {{policy.ReferencesP}}</mat-tab>
+          <mat-tab label="References" > <p style="white-space: pre-wrap; font-size: medium;"> {{policy.ReferencesP}}</p></mat-tab>
           <mat-tab label="Guidelines">      
-            <guidelines-dialog [id$] = "this.id" style="z-index: 99">
+            <guidelines-dialog [id$] = "this.id" style="z-index: 99; ">
             </guidelines-dialog>
   
           </mat-tab>
@@ -113,7 +113,7 @@
     
   
     <div class ="editBar">
-      <app-accordion-item [id$]="id" [Gdate$] = "Gdate$" [parentReference$] = "urlAdjuster" *ngFor="let item of entries" 
+      <app-accordion-item id="accordionToolbar" [id$]="id" [Gdate$] = "Gdate$" [parentReference$] = "urlAdjuster" *ngFor="let item of entries" 
         [entry]="item">
       </app-accordion-item> 
     </div>
@@ -247,6 +247,9 @@
             <span class="idCol">
               Control ID
             </span>
+            <button (click)="debug()">
+              Debug
+            </button>
             <span class="nameCol">
               Name
             </span>
@@ -333,40 +336,44 @@
   </div>
   
   <!--GUIDELINE POPOUT HTML-->
-  <ng-container *ngFor="let guideline of guidelines$">
-    <div id="box" #box class="mainDiv"
-    style="width:600px; height:650px; z-index: 100; position: absolute; left: 100px; top: 100px;"
-    popUp 
-    cdkDrag 
-    cdkDragRootElement=".cdk-overlay-pane" 
-    ngDraggable 
-    cdkDragHandle 
-    >
-        <div style="background-color: black; padding-top: 2%;"> 
-            <span class="idCol id" style="color:white; min-width: 300px;">
-            {{guideline[0]}}
-            </span>  
-            <button mat-icon-button>
-              <mat-icon>
-              settings
-              </mat-icon>
-          </button>  
-          <button mat-icon-button id="dButton">
-              <mat-icon (click)="closeGuideline(guideline[0], guideline[1])" color="warn">
-              close
-              </mat-icon>
-          </button>
+  <ng-container *ngFor="let guideline of guidelines$;">
+    <div style="width:50%; height:50%;">
+      <div id="box" #box 
+      class ="box"
+      popUp 
+      cdkDrag 
+      cdkDragRootElement=".cdk-overlay-pane" 
+      ngDraggable 
       
-        </div>
-    
-        <div style="background-color: rgb(255, 255, 255); display: inline-block; overflow: scroll; max-height: 648px; min-height: 648; min-width: 598;" >
-          <span style="font-size: small; color:black; overflow:scroll;">        
-                  {{guideline[1]}}
-            </span>
-        </div>
-    
-        
+      >
+          <div 
+          class="dragHandle"
+          style="background-color: black; padding-top: 2%;"
+          cdkDragHandle 
+          > 
+              <span style="color:white; min-width: 300px;">
+              {{guideline[0]}}
+              </span>  
+              <button mat-icon-button>
+                <mat-icon>
+                settings
+                </mat-icon>
+            </button>  
+            <button mat-icon-button id="dButton">
+                <mat-icon (click)="closeGuideline(guideline[0], guideline[1])" color="warn">
+                    close
+                </mat-icon>
+            </button>
+          </div>
+          <!--The below div holds the text-->
+          <div class="resizableDiv">
+            <span class="guidelineText">        
+                    {{guideline[1]}}
+              </span>
+          </div>
+      </div>
     </div>
+
     
   </ng-container>
 </div>
