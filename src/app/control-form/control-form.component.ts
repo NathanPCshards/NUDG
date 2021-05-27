@@ -151,8 +151,6 @@ ngOnInit(){
  
 
 
-  console.log("urls : " , this.urls)
-  console.log("files : " ,  this.files)
   
   //Getting weaknesses
   this.weakness$ = this.weaknessService.fetchAll(this.id$, this.loginInfo.CompanyName)
@@ -180,7 +178,6 @@ submit(Cname, Coverview, Cissuedate, CsharedresourcesskRating, Curl, idOrgWeakne
  
 
   //This is subscribed to in identifier page oninit.
-  console.log("Control service emit sent")
   this.controlsservice.emit(this.data)
   
 

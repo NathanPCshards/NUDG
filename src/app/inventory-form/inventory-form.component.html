@@ -25,18 +25,18 @@
                         <div class ="col">
 
                             <mat-form-field appearance = "legacy" style="width: 40%;" >
-                                <input #IassetIdentifier matInput placeholder = "Asset Identifier">
+                                <input id="IassetIdentifier" #IassetIdentifier matInput placeholder = "Asset Identifier">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width: 40%;" >
-                                <input #Iaddress matInput placeholder = "IPv4 or IPv6 Address">
-                            </mat-form-field>
-    
-                            <mat-form-field appearance = "legacy" style="width: 40%;" >
-                                <input #Imacaddress matInput placeholder = "MAC Adress">
+                                <input id="Iaddress" #Iaddress matInput placeholder = "IPv4 or IPv6 Address">
                             </mat-form-field>
     
                             <mat-form-field appearance = "legacy" style="width: 40%;" >
-                                <input #InetworkID matInput placeholder = "Subnet ID/ Network ID">
+                                <input id="Imacaddress" #Imacaddress matInput placeholder = "MAC Adress">
+                            </mat-form-field>
+    
+                            <mat-form-field appearance = "legacy" style="width: 40%;" >
+                                <input id="InetworkID" #InetworkID matInput placeholder = "Subnet ID/ Network ID">
                             </mat-form-field>
                 
     
@@ -46,14 +46,14 @@
                        
                             <div class="cards">
                                 <h1 style="margin:0px;font-size: 15px;">Virtual</h1>                                
-                                <mat-radio-group class="radio-groupPublic" appearance = "legacy" aria-label="Select an option">
-                                    <mat-radio-button color="primary" class="qs" value="1">Yes</mat-radio-button>
-                                    <mat-radio-button  class="qs" value="2">No</mat-radio-button>
+                                <mat-radio-group id="Ivirtual" class="radio-groupPublic" appearance = "legacy" aria-label="Select an option">
+                                    <mat-radio-button #Ivirtual color="primary" class="qs" value="1">Yes</mat-radio-button>
+                                    <mat-radio-button #Ivirtual class="qs" value="2">No</mat-radio-button>
                                 </mat-radio-group>                                             
                                 <h1 style="margin: 0px; font-size: 15px;">Public</h1>                                
-                                <mat-radio-group class="radio-groupVirtual"  appearance = "legacy" aria-label="Select an option">
-                                    <mat-radio-button #Ivirtual color="primary" class="qs"  value="1">Yes</mat-radio-button>
-                                    <mat-radio-button #Ivirtual class="qs" value="2">No</mat-radio-button>
+                                <mat-radio-group id="Ipublic" Iclass="radio-groupVirtual"  appearance = "legacy" aria-label="Select an option">
+                                    <mat-radio-button #Ipublic color="primary" class="qs"  value="1">Yes</mat-radio-button>
+                                    <mat-radio-button #Ipublic class="qs" value="2">No</mat-radio-button>
                                 </mat-radio-group>
                             </div>
                                 <br>
@@ -62,30 +62,28 @@
     
     
                             <mat-form-field style="padding-top: 15px;" appearance = "legacy" style="width: 40%;" >
-                                <input #IsystemAdmin matInput placeholder = "System Administrator">
+                                <input id="IsystemAdmin" #IsystemAdmin matInput placeholder = "System Administrator">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width: 40%;" >
-                                <input #Iapplication matInput placeholder = "Application Admin/Owner">
+                                <input id="Iapplication" #Iapplication matInput placeholder = "Application Admin/Owner">
                             </mat-form-field>
     
     
                             <mat-form-field appearance = "legacy" style="width: 80%;">
-                                <input #Idnsname matInput placeholder = "DNS Name or URL">
+                                <input id="Idnsname" #Idnsname matInput placeholder = "DNS Name or URL">
                             </mat-form-field>
+            
                             <mat-form-field appearance = "legacy" style="width: 40%;">
-                                <input #IlogonHours matInput placeholder = "Logon Hours">
-                            </mat-form-field>
-                            <mat-form-field appearance = "legacy" style="width: 40%;">
-                                <input #InetbiosName matInput placeholder = "NetBIOS Name">
+                                <input id="InetbiosName" #InetbiosName matInput placeholder = "NetBIOS Name">
                             </mat-form-field>
     
     
 
                             <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                                 <mat-label >CUI Contracts - Contract Name</mat-label>
-                                <mat-select #UcuiContracts id="Input" >
+                                <mat-select  #UcuiContracts  multiple>
                                     <div *ngFor="let contract of CUIcontracts$ | async">
-                                        <mat-option value={{contract.CCname}} multiple>
+                                        <mat-option value={{contract.CCname}} >
                                             {{contract.CCname}}
                                         </mat-option>
                                     </div>
@@ -95,7 +93,7 @@
                               
                             <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                                 <mat-label >Users Associated with this device</mat-label>
-                                <mat-select #UcuiContracts id="Input" multiple>
+                                <mat-select #UcuiContracts  multiple>
                                     <div *ngFor="let user of Users$ | async">
                                         <mat-option value={{user.Ufname}} >
                                             {{user.Ufname}}
@@ -107,7 +105,7 @@
                               
                             <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                                 <mat-label >Software installed on this device.</mat-label>
-                                <mat-select #UcuiContracts id="Input" multiple>
+                                <mat-select #UcuiContracts multiple>
                                     <div *ngFor="let software of softwares$ | async">
                                         <mat-option value={{software.SWname}} >
                                             {{software.SWname}} 
@@ -126,12 +124,12 @@
                         <div class = "col">
     
                             <mat-form-field style="padding-top: 46px; width:80%" appearance = "legacy">
-                                <input #IsoftwareDatabase matInput placeholder = "Software/Database Name">
+                                <input id="IsoftwareDatabase" #IsoftwareDatabase matInput placeholder = "Software/Database Name">
                             </mat-form-field>
     
                             
                             <mat-form-field style="width:80%;"appearance = "legacy">
-                                <input #IbaselineConfigName matInput placeholder = "Baseline Configuration Name">
+                                <input id="IbaselineConfigName" #IbaselineConfigName matInput placeholder = "Baseline Configuration Name">
                             </mat-form-field>
     
     
@@ -140,25 +138,25 @@
     
     
                             <mat-form-field  appearance = "legacy" style="width: 80%;">
-                                <input #IsoftwareApproval matInput placeholder = "Software Approval List - Software Name">
+                                <input id="IsoftwareApproval" #IsoftwareApproval matInput placeholder = "Software Approval List - Software Name">
                             </mat-form-field>
                             
                             <mat-form-field appearance = "legacy"style="width: 40%;">
-                                <input #Icost matInput placeholder = "Cost">
+                                <input id="Icost" #Icost matInput placeholder = "Cost">
                             </mat-form-field>
      
                             <mat-form-field appearance = "legacy">
-                                <input #Ipatchlevel matInput placeholder = "Patch Level">
+                                <input id="Ipatchlevel" #Ipatchlevel matInput placeholder = "Patch Level">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width: 80%;">
-                                <input #Ifunction matInput placeholder = "Function">
+                                <input id="Ifunction" #Ifunction matInput placeholder = "Function">
                             </mat-form-field>
     
                             <mat-form-field appearance = "legacy" style="width: 80%;">
-                                <input #Ivlan matInput placeholder = "VLAN/Identifier">
+                                <input id="Ivlan" #Ivlan matInput placeholder = "VLAN/Identifier">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width: 80%;">
-                                <input #Iserial matInput placeholder = "Serial#/Asset Tag#">
+                                <input id="Iserial" #Iserial matInput placeholder = "Serial#/Asset Tag#">
                             </mat-form-field>
     
     
@@ -178,7 +176,7 @@
                             <div class="cards" style="margin-bottom: 10px;">
                                 <h1 style="margin: 0px; font-size:15px">Authenticatied Scan</h1>
                                
-                                <mat-radio-group class="radio-groupVirtual"  appearance = "legacy" aria-label="Select an option">
+                                <mat-radio-group id="IauthenticatedScan" class="radio-groupVirtual"  appearance = "legacy" aria-label="Select an option">
                                     <mat-radio-button #IauthenticatedScan color="primary" class="qs"  value="1">Yes</mat-radio-button>
                                     <mat-radio-button #IauthenticatedScan class="qs" value="2">No</mat-radio-button> 
                                 </mat-radio-group>
@@ -192,28 +190,28 @@
     
                         <div class ="col">
                             <mat-form-field appearance = "legacy" style = "padding-top: 46px; width: 80%;">
-                                <input #IosNameAndVersion matInput placeholder = "OS Name and Version">
+                                <input id="IosNameAndVersion" #IosNameAndVersion matInput placeholder = "OS Name and Version">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width: 80%;">
-                                <input #IphysicalLocation matInput placeholder = "Physical Location">
+                                <input id="IphysicalLocation" #IphysicalLocation matInput placeholder = "Physical Location">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width: 40%;">
-                                <input #IassetType matInput placeholder = "Asset Type">
+                                <input id="IassetType" #IassetType matInput placeholder = "Asset Type">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy">
-                                <input #Imodel matInput placeholder = "Hardware Make/ Model" style="width: 34%;">
+                                <input id="IhardwareMakeModel" #IhardwareMakeModel matInput placeholder = "Hardware Make/ Model" style="width: 34%;">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width: 80%;">
-                                <input #IdateOfReceipt matInput placeholder = "Date of Receipt">
+                                <input id="IdateOfReceipt" #IdateOfReceipt matInput placeholder = "Date of Receipt">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width: 80%;">
-                                <input #IhardwareSoftwareVendor matInput placeholder = "Hardware/Software Vendor">
+                                <input id="IhardwareSoftwareVendor" #IhardwareSoftwareVendor matInput placeholder = "Hardware/Software Vendor">
                             </mat-form-field>
                             <mat-form-field style= "width:80%" appearance = "legacy" style="width: 80%;">
-                                <input #IsupplierInformation matInput placeholder = "Supplier Information">
+                                <input id="IsupplierInfo" #IsupplierInfo matInput placeholder = "Supplier Information">
                             </mat-form-field>
                                 <h3>Comments</h3>
-                            <textarea #Icomments id="comments" style="text-align: left; align-content: left; margin-left: 1%; " rows="4" cols="38"></textarea>
+                            <textarea id="Icomments" #Icomments  style="text-align: left; align-content: left; margin-left: 1%; " rows="4" cols="38"></textarea>
  
                         </div>
     
@@ -230,7 +228,7 @@
                     <button mat-raised-button (click)="post(IassetIdentifier.value, Iaddress.value, InetworkID.value, Ivirtual.value, Ipublic.value, Idnsname.value,
                     InetbiosName.value, Imacaddress.value, IauthenticatedScan.value, IbaselineConfigName.value, IosNameAndVersion.value, IphysicalLocation.value, 
                     IhardwareSoftwareVendor.value, IdateOfReceipt.value, Icost.value, IsoftwareDatabase.value, Ipatchlevel.value, Ifunction.value, Icomments.value,
-                    Iserial.value, Ivlan.value, IsystemAdmin.value, Iapplication.value, IsoftwareApproval.value)" style="width:20vw;height: 5vh; float: left;margin-left: 15%;"   type ="Submit" color="primary"  >Submit</button>
+                    Iserial.value, Ivlan.value, IsystemAdmin.value, Iapplication.value, IsoftwareApproval.value, IassetType.value, IhardwareMakeModel.value, IsupplierInfo.value)" style="width:20vw;height: 5vh; float: left;margin-left: 15%;"   type ="Submit" color="primary"  >Submit</button>
                     
                     <button mat-raised-button (click) = "onFormReset()"  style="width:20vw;height: 5vh; float: right;margin-right: 15%;"  type="Reset" color="primary"  >Reset</button>
                 </div>
@@ -291,7 +289,7 @@
       </mat-list-item>
 
 
-    <mat-list-item *ngFor="let inventory of inventories$ | async">
+    <mat-list-item *ngFor="let inventory of inventories$ | async" (click)="populateForm(inventory);$event.stopPropagation();">
 
       <span class="listSpan">
         {{inventory.IassetIdentifier}}
@@ -344,7 +342,7 @@
             (click)="update(IassetIdentifier.value, Iaddress.value, InetworkID.value, Ivirtual.value, Ipublic.value, Idnsname.value,
             InetbiosName.value, Imacaddress.value, IauthenticatedScan.value, IbaselineConfigName.value, IosNameAndVersion.value, IphysicalLocation.value, 
             IhardwareSoftwareVendor.value, IdateOfReceipt.value, Icost.value, IsoftwareDatabase.value, Ipatchlevel.value, Ifunction.value, Icomments.value,
-            Iserial.value, Ivlan.value, IsystemAdmin.value, Iapplication.value, IsoftwareApproval.value, inventory.idOrgInventory)"
+            Iserial.value, Ivlan.value, IsystemAdmin.value, Iapplication.value, IsoftwareApproval.value, IassetType.value, IhardwareMakeModel.value, IsupplierInfo.value, inventory.idOrgInventory)"
             color="primary"
           >
             edit

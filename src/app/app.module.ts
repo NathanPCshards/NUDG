@@ -8,7 +8,7 @@ import { CompanyInfoFormComponent } from './company-info-form/company-info-form.
 import { InventoryFormComponent } from './inventory-form/inventory-form.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { GroupFormComponent } from './group-form/group-form.component';
-import { roleDialog, RoleFormComponent } from './role-form/role-form.component';
+import {  RoleFormComponent } from './role-form/role-form.component';
 import { Bar3dDatasetComponent, chartSimple, DashboardComponent } from './dashboard/dashboard.component';
 import { PolicyBoardComponent } from './policy-board/policy-board.component';
 import { UserFormComponent } from './user-form/user-form.component';
@@ -54,7 +54,7 @@ import { FormsModule } from '@angular/forms';
     DashboardComponent,
     PolicyBoardComponent,
     NotfoundComponent,
-    roleDialog,
+  
     chartSimple,
     Bar3dDatasetComponent,
     VendorFormComponent,

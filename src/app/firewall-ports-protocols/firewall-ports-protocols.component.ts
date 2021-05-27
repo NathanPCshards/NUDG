@@ -50,7 +50,7 @@ export class FirewallPortsProtocolsComponent implements OnInit {
     FWcreationDate = FWcreationDate ? FWcreationDate : ""
     let data = {Iassetidentifier, FWpolicyNum, FWservice, FWdescription, FWprotocol, FWports, FWsource, FWinbound, FWoutbound, FWcreationDate, FWsupplierRelation, FWvendorRelation, FWcuiContract}
 
-    console.log("data")
+  
 
     let temp = this.rest_service.post(`http://192.168.0.70:3000/Firewall/${this.loginInfo.CompanyName}`, data)
     .pipe(tap(() => (this.firewalls$ = this.fetchall())));

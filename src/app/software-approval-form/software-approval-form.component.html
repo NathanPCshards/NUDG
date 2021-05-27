@@ -20,25 +20,20 @@
 
                                         
                                             <mat-form-field  appearance = "legacy" style="width:40%">
-                                                <input #SWname matInput placeholder = "Software Name">
+                                                <input id="SWname" #SWname matInput placeholder = "Software Name">
                                             </mat-form-field>
                                             <mat-form-field appearance = "legacy" style="width:40%">
-                                                <input #SWvendor matInput placeholder = "Software Vendor">
+                                                <input id="SWvendor" #SWvendor matInput placeholder = "Software Vendor">
                                             </mat-form-field>
-                
-                
-                
-                
-                                            
-                
+            
                                             <h3 style="margin-left: 8px;">Supplier Information</h3>
-                                            <textarea #SWSupplierInformation style="text-align: left; align-content: left; margin-left: 1%; margin-bottom: 1%;" rows="2" cols="65"></textarea>
+                                            <textarea id="SWSupplierInformation" #SWSupplierInformation style="text-align: left; align-content: left; margin-left: 1%; margin-bottom: 1%;" rows="2" cols="65"></textarea>
                 
                                             <h3 style="margin-left: 8px;">Description/Purpose</h3>
-                                            <textarea #SWdescription id="comments" style="text-align: left; align-content: left; margin-left: 1%; margin-bottom: 1%;" rows="2" cols="65"></textarea>
+                                            <textarea id="SWdescription" #SWdescription  style="text-align: left; align-content: left; margin-left: 1%; margin-bottom: 1%;" rows="2" cols="65"></textarea>
                 
                                             <mat-form-field appearance = "legacy" style="width:40%">
-                                                <input  #SWinstallPath  matInput placeholder = "Install Path">
+                                                <input  id="SWinstallPath" #SWinstallPath  matInput placeholder = "Install Path">
                                             </mat-form-field>
                 
                       
@@ -50,6 +45,7 @@
                                                 <input 
                                                 #SWinstallDate  
                                                 matInput 
+                                                id="SWinstallDate"
                                                 [matDatepicker]="datepicker1"
                     
                                                 />
@@ -65,7 +61,7 @@
                             
                                             <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
                                                 <mat-label >Software Type</mat-label>
-                                                <mat-select #SWtype   id="Input" >
+                                                <mat-select [(value)]="SWtype$" #SWtype   id="Input" >
                                                   
                                                         <mat-option value="Service" >
                                                             Service
@@ -79,7 +75,7 @@
                 
                                               <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
                                                 <mat-label >Platform</mat-label>
-                                                <mat-select #SWplatform id="Input" >
+                                                <mat-select [(value)]="SWplatform$" #SWplatform id="Input" >
                                                   
                                                         <mat-option value="Windows" >
                                                             Windows
@@ -94,17 +90,17 @@
                     
                                         <div class ="col">
                                             <mat-form-field appearance = "legacy" style="margin-top:8%; width:80%">
-                                                <input #SWversion matInput placeholder = "Version">
+                                                <input id="SWversion" #SWversion matInput placeholder = "Version">
                                             </mat-form-field>
                                             <mat-form-field appearance = "legacy" style="width:40%" >
-                                                <input #SWpatchNum matInput placeholder = "Patch #">
+                                                <input id="SWpatchNum" #SWpatchNum matInput placeholder = "Patch #">
                                             </mat-form-field>
                 
                 
                            
                                             <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
                                                 <mat-label >Update Schedule</mat-label>
-                                                <mat-select #SWupdateSchedule>
+                                                <mat-select [(value)]="SWupdateSchedule$" #SWupdateSchedule>
                                                   
                                                     <mat-option value="Windows" >
                                                         Manual
@@ -132,6 +128,7 @@
                                                 <input 
                                                 #SWmanualReviewDate  
                                                 matInput 
+                                                id="SWmanualReviewDate"
                                                 [matDatepicker]="datepicker2"
                     
                                                 />
@@ -151,6 +148,7 @@
                                                 <input 
                                                 #SWautomaticUpdateDate  
                                                 matInput 
+                                                id="SWautomaticUpdateDate"
                                                 [matDatepicker]="datepicker3"
                     
                                                 />
@@ -168,6 +166,7 @@
                                                 <input 
                                                 #SWdateApproved  
                                                 matInput 
+                                                id="SWdateApproved"
                                                 [matDatepicker]="datepicker6"
                     
                                                 />
@@ -206,7 +205,7 @@
                                             </div>
                     
                                             <h3 style="margin-left: 8px; margin-top: 1%;">Vulnerabilities</h3>
-                                            <textarea #SWvulnerabilities style="text-align: left; align-content: left; margin-left: 1%; " rows="2" cols="58"></textarea>
+                                            <textarea id="SWvulnerabilities" #SWvulnerabilities style="text-align: left; align-content: left; margin-left: 1%; " rows="2" cols="58"></textarea>
                 
                                         </div>
                     
@@ -216,7 +215,7 @@
                                             
                                             <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                                                 <mat-label >Users</mat-label>
-                                                <mat-select #SWusers id="Input" >
+                                                <mat-select #SWusers  multiple>
                                                     <div *ngFor="let user of users$ | async">
                                                         <mat-option value={{user.Ufname}} >
                                                             {{user.Ufname}}
@@ -229,7 +228,7 @@
                                             
                                               <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                                                 <mat-label >Groups</mat-label>
-                                                <mat-select #SWgroups id="Input" >
+                                                <mat-select #SWgroups  multiple>
                                                     <div *ngFor="let group of groups$ | async">
                                                         <mat-option value={{group.Gnames}} >
                                                             {{group.Gnames}}
@@ -243,7 +242,7 @@
                 
                                               <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                                                 <mat-label >Roles</mat-label>
-                                                <mat-select #SWroles id="Input" >
+                                                <mat-select #SWroles id="Input" multiple>
                                                     <div *ngFor="let role of roles$ | async">
                                                         <mat-option value={{role.URGroles}} >
                                                             {{role.URGroles}}
@@ -256,7 +255,7 @@
                     
                                               <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                                                 <mat-label >Asset Identifier</mat-label>
-                                                <mat-select #SWassetIdentifier id="Input" >
+                                                <mat-select #SWassetIdentifier id="Input" multiple>
                                                     <div *ngFor="let invItem of inventory$ | async">
                                                         <mat-option value={{invItem.IassetIdentifier}} >
                                                             {{invItem.IassetIdentifier}}
@@ -337,7 +336,7 @@
     </mat-list-item>
 </div>
 
-<mat-list-item *ngFor="let software of software$ | async" style="position: relative;">
+<mat-list-item *ngFor="let software of software$ | async" (click)="populateForm(software);$event.stopPropagation();"style="position: relative;">
 
     <span class="listSpan nameCol"
     >{{software.SWname}}    </span>

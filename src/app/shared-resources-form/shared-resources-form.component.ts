@@ -36,6 +36,9 @@ export class SharedResourcesFormComponent implements OnInit {
   displayList$;
   test$;
 
+
+
+
     constructor(private http:HttpClient, 
       private formBuilder: FormBuilder,
       private sharedResourceService : SharedResourcesService,
@@ -56,6 +59,15 @@ export class SharedResourcesFormComponent implements OnInit {
     return this.rest_service.get(`http://192.168.0.70:3000/sharedResources/${this.loginInfo.CompanyName}`)
   
   }
+
+  populateForm(data){
+    console.log("user : " , data)
+    //Normal fields
+    let temp = (<HTMLInputElement>document.getElementById("SRtitle")).value = data.SRtitle
+    temp = (<HTMLInputElement>document.getElementById("SRdescription")).value = data.SRdescription
+  }
+
+
   loadData(){
     this.files =  [] 
     this.displayList$ = []

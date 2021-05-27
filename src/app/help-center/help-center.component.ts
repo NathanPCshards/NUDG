@@ -54,7 +54,7 @@ public submit() {
 
 
 public onFormReset() {
-  console.log("FORM WAS Reset");
+
 
 this.submitted = false;
 

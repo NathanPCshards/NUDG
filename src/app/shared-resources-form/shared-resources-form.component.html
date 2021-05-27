@@ -20,14 +20,14 @@
                 
                 <mat-form-field appearance="outline" color="primary" style="width: 40%;">
                   <mat-label >Title</mat-label>
-                  <input #SRtitle matInput  id="Input">
+                  <input id="SRtitle" #SRtitle matInput >
                   </mat-form-field>
         
                   <br>
                   <mat-form-field color="primary" appearance="outline" id="descriptionBox" style="width: 40%;">
                   
                   <mat-label> Description</mat-label>
-                  <input #SRdescription matInput >
+                  <input id="SRdescription" #SRdescription matInput >
                 </mat-form-field>
                 <div  style="margin-left: 1%;">
                   <input  #SRupload class="ng-hide" id="input-file" multiple type="file" (change)="setFile(SRupload)"/>
@@ -60,7 +60,7 @@
   
 
   
-      <mat-list-item *ngFor="let resource of displayList$; let i = index">
+      <mat-list-item *ngFor="let resource of displayList$; let i = index" (click)="populateForm(resource[0][0]);$event.stopPropagation()">
 
 
        <span class="listSpan">

@@ -32,16 +32,17 @@
                       <div class ="col">
                           <h1 style="margin-left: 1%;">Info</h1>
                           <mat-form-field  appearance = "legacy" style="width:40%">
-                              <input #Gnames matInput placeholder = "Group Name">
+                              <input id="Gnames" #Gnames matInput placeholder = "Group Name">
                           </mat-form-field>
                           <mat-form-field appearance = "legacy" style="width:40%">
-                              <input #Gdescriptions matInput placeholder = "Group Description">
+                              <input id="Gdescriptions" #Gdescriptions matInput placeholder = "Group Description">
                           </mat-form-field>
 
                           <mat-form-field style="width: 80%;background: transparent;" appearance="fill" class="datepicker datepicker2" id="datepicker2">
                             <mat-label >Creation Date</mat-label>
                             <input 
                             #GcreationDate 
+                            id="GcreationDate"
                             matInput 
                             [matDatepicker]="datepicker2"
 
@@ -58,7 +59,7 @@
 
                           <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
                             <mat-label >CUI Data</mat-label>
-                            <mat-select #GCUIaccess  id="Input">
+                            <mat-select [(value)]="GCUIaccess$" #GCUIaccess  id="Input">
               
                                 <mat-option value="Yes" >
                                     Yes 
@@ -78,7 +79,7 @@
                                   
                           <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                             <mat-label >Users Associated with this device</mat-label>
-                            <mat-select #UGRusers id="Input" multiple>
+                            <mat-select  #UGRusers id="Input" multiple>
                                 <div *ngFor="let user of users$ | async">
                                     <mat-option value={{user.Ufname}} >
                                         {{user.Ufname}}
@@ -90,7 +91,7 @@
 
                           <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                             <mat-label >Network Shares - Read Access</mat-label>
-                            <mat-select #GNSra id="Input" >
+                            <mat-select [(value)]="GNSra$" #GNSra id="Input" >
                                 <div *ngFor="let share of networkShares$ | async">
                                     <mat-option value={{share.NSshareName}} >
                                         {{share.NSshareName}}
@@ -101,7 +102,7 @@
 
                           <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                             <mat-label >Network Shares - Write Access</mat-label>
-                            <mat-select #GNSwa id="Input" >
+                            <mat-select [(value)]="GNSwa$" #GNSwa id="Input" >
                                 <div *ngFor="let share of networkShares$ | async">
                                     <mat-option value={{share.NSshareName}} >
                                         {{share.NSshareName}}
@@ -164,7 +165,7 @@
     </mat-list-item>
 
 
-  <mat-list-item *ngFor="let group of groups$ | async">
+  <mat-list-item *ngFor="let group of groups$ | async" (click)="populateForm(group); $event.stopPropagation()">
 
     <span class="listSpan" class="listSpan" >
       {{ group.Gnames }}    

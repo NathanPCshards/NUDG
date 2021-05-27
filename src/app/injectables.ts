@@ -9,3 +9,7 @@ export class login {
   todaysDate = new Date()
 
 }
+export class AccordionState {
+  open: boolean = false;
+  currentPage: String = "controls";
+}

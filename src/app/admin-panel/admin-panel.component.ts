@@ -33,10 +33,8 @@ export class AdminPanelComponent implements OnInit {
 
 
   onRowClicked(row): void {
-    console.log("Row clicked: ", row);
     this.rowSelected = true;
     var configUrl = 'http://localhost:4200' + "/" + row.Title;
-    console.log(configUrl)
    // this.router.navigate(configUrl.concat("/",row.Title))
   }
 

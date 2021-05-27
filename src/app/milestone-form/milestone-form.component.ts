@@ -51,7 +51,6 @@ export class MilestoneFormComponent implements OnInit {
   
       });
       dialogRef.afterClosed().subscribe(result => {
-        console.log("posting from dialog sub")
         //if dialog is closed without pressing submit, result comes back as undefined.
         if(result){
           this.milestones$ = this.rest_service

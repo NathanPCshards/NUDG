@@ -21,6 +21,16 @@ export class networkSharesPage implements OnInit {
   Users$;
   Groups$;
 
+  GRA$
+  GWA$
+  URA$
+  UWA$
+  NSresourceType$
+  WassetID$
+  CUIdata$
+  NShostIdentifier$
+
+
   networkshares$: Observable<networkshares[]>;
 
   constructor(private http:HttpClient, private formBuilder: FormBuilder, 
@@ -83,6 +93,32 @@ update(NSshareName, NSresourceType, NSdescription, NSfolderPath, NShostIdentifie
 
     temp.subscribe()
 }
+
+
+populateForm(data){
+  console.log("user : " , data)
+  //Normal fields
+  let temp = (<HTMLInputElement>document.getElementById("NSshareName")).value = data.NSshareName
+
+  temp = (<HTMLInputElement>document.getElementById("NSfolderPath")).value = data.NSfolderPath
+  temp = (<HTMLInputElement>document.getElementById("NSdescription")).value = data.NSdescription
+
+  //Mat Selects
+  this.GRA$ = data.GRA
+  this.GWA$ = data.GWA
+  this.URA$ = data.URA
+  this.UWA$ = data.UWA
+  this.NShostIdentifier$ = data.NShostIdentifier
+
+  this.NSresourceType$ = data.NSresourceType
+  this.CUIdata$ = data.CUIdata
+
+
+
+
+
+}
+
 
 
 delete(id: any): void {

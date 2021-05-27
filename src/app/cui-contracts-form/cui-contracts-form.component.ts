@@ -75,7 +75,7 @@ export class CuiContractsFormComponent implements OnInit {
   
   
   delete(id: any): void {
-    console.log("attempting to delete id : " , id)
+ 
    // iduseru = 15
    // console.log("attempting to delete id : " , iduseru)
   

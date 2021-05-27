@@ -34,14 +34,14 @@ export class FileImportComponent implements OnInit {
     let reader = new FileReader()
 
     const files = evt;
-    console.log("type : " , fileType)
+
     if (f){
        if (this.isCSVfile(f)){
          reader.readAsText(f)
          reader.onload = async () =>{
            let csvData = reader.result
            let dataArray = String(csvData).replace("\r","").split('\n')
-           console.log("dataArray : " , dataArray)
+           
            let CompanyName = this.loginInfo.CompanyName
             if (fileType == "Control"){
                     //TODO this part of code is bound to change at some point.

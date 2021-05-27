@@ -63,7 +63,7 @@ export class IdentifierPageComponent implements OnInit {
   entries: any[]; 
   grow;
   shrink;
-  uncollapsed = false;
+  uncollapsed$ = false;
   collapse = true;
   //Database obeservables
   weaknesses$: Observable<weaknesses[]>;
@@ -159,12 +159,11 @@ export class IdentifierPageComponent implements OnInit {
 
     //ACCORDION STUFF
     this.entries = accordionEntries
-    let temp = document.getElementById("accordionToolbar")
-    console.log("temp : ", temp)
+ 
     this.service.onAccordionClick.subscribe(data =>{
       if (data == "shrink"){
 
-       this.uncollapsed = true;
+       this.uncollapsed$ = true;
 
       document.getElementById('control').className = 'Cshrink'
       document.getElementById('standard3').className = 'Sshrink'
@@ -174,7 +173,7 @@ export class IdentifierPageComponent implements OnInit {
 
       }
       if (data == "grow"){
-         this.uncollapsed = false;
+         this.uncollapsed$ = false;
         document.getElementById('weakness').className = 'Wgrow'
         document.getElementById('control').className = 'Cgrow'
         document.getElementById('policy').className = 'Pgrow'
@@ -182,7 +181,7 @@ export class IdentifierPageComponent implements OnInit {
 
 
       }
-
+      console.log("sending currently : " , this.uncollapsed$)
     });
     //CONTROLS STUFF
     this.controls$ = this.fetchAllControls(this.id);
@@ -222,8 +221,6 @@ export class IdentifierPageComponent implements OnInit {
 
  
     this.gapSubscription = this.gapservice.onClick.subscribe(async incomingData=>{
-      console.log("incoming gap data : ", incomingData, !incomingData.optionalParam)
-      console.log("test : ", incomingData.optionalParam )
       //the optional param is added when NewDate is toggled on the Gap component
       //its defualt is false, if nothing is given. This makes sure new dates are 
       //posted to, and not updated to (which would fail because it wouldnt exist)
@@ -251,18 +248,74 @@ export class IdentifierPageComponent implements OnInit {
       //The below block will execute on data that was checked to be imported to controls/weaknesses
       if (incomingData.data.toImport){
         console.log("Importing")
-        
-        //here need to make control object to be posted
+        console.log("inc : " , incomingData)
+        //Import the gap question as a control
+        if(incomingData.data.Ganswer == "Yes"){
+          let object ={
+            Nid:this.id,
+            idStandards : "",
+            Cname : "FromGap",
+            Coverview : incomingData.data.Gquestion +" -"+incomingData.data.Ganswer,
+            Cissuedate : incomingData.data.Gdate,
+            Csharedresources : "",
+            Curl : "",
+            CProcedure : "",
+            idOrgWeaknesses : "",
+            CompanyName : this.loginInfo.CompanyName
+  
+          }
+            let temp = await this.controlsservice.post(object, this.loginInfo.CompanyName)
+            .pipe(tap(() => (this.controls$ = this.fetchAllControls(this.id))));
+            temp.subscribe()
+          
+
+        }
+        //Import the gap question as a weakness
+        if(incomingData.data.Ganswer =="Weakness"){
+          
+          let object ={
+  
+            Nid : this.id,
+            Wname : "From Gap",
+            WdetectionDate : incomingData.data.Gdate,
+            WvendorDependency: "",
+            WriskRating : "",
+            WriskAdjustment : "",
+            WadjustedRiskRating : "",
+            Standards : "",
+            WdetectionSource : "",
+            WcompletionDate : "",
+            WremediationPlan : "",
+            WvendorsProduct : "",
+            WautoApprove: "",
+            WoperationReq : "Pending",
+            Wstatus : "Incomplete",
+            WassetID : "",
+            WlastChange : incomingData.data.Gdate,
+            Wdescription : incomingData.data.Gquestion +" -No",
+            WlastVendorCheck : "",
+            WdeviationRationale : "",
+            WfalsePositive : "Pending",
+            WpointOfContact : "",
+            WresourceReq : "",
+            WsupportingDoc : "",
+            Milestones : "",
+            idOrgControls : "",
+            CompanyName : this.loginInfo.CompanyName
+  
+          }
+          let temp = await this.rest_service.post(`http://192.168.0.70:3000/weaknesses/${this.id}/${this.loginInfo.CompanyName}`,object)
+          .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses(this.id))));
+          temp.subscribe()
+        }
 
 
 
 
-/*
 
-        let temp = await this.controlsservice.post(data, this.loginInfo.CompanyName)
-        .pipe(tap(() => (this.controls$ = this.fetchAllControls(this.id))));
-       temp.subscribe()
-*/
+
+
+
 
       }
     })
@@ -291,6 +344,13 @@ export class IdentifierPageComponent implements OnInit {
     //by updating search, the html data binding updates and the filter is automatically applied.
     this.searchWeaknesses = (<HTMLInputElement>document.getElementById("searchWeaknesses")).value.toLowerCase()
   }
+
+  public populateControlForm(){
+     let temp = document.getElementById("")
+  }
+
+
+
   public filterControls()
   {
     //by updating search, the html data binding updates and the filter is automatically applied.
@@ -517,10 +577,11 @@ export class IdentifierPageComponent implements OnInit {
 
     //Setup the exact same as the gap assessment's. See line 229 in its component.ts for comment.
     _filterNid(value: string){
+      value = value.toLowerCase()
       this.NidFilterList.forEach(element => {
         if (value){
-          this.NidDisplayList$ = element.filter(x=>x.nudgid.includes(value))
-          return element.filter(x=> x.nudgid.includes(value))
+          this.NidDisplayList$ = element.filter(x=>x.nudgid.toLowerCase().includes(value))
+          return element.filter(x=> x.nudgid.toLowerCase().includes(value))
         }
           this.NidDisplayList$ = element
           return element

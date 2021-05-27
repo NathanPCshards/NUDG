@@ -143,7 +143,7 @@ export class GapForm implements OnInit{
      //Gap -- First refresh call is to initialize Gap$ and the display list
      this.refreshGapAndDisplayList();
      this.sharedService.refreshRequest.subscribe(e =>{
-       console.log("refreshing gap")
+     
        this.refreshGapAndDisplayList();
      })
   }
@@ -267,8 +267,9 @@ export class GapForm implements OnInit{
     //and thats linked to be shown in the html
     //this function is updated when Nid field is typed in.
   _filterNid(value: string){
+    value = value.toLowerCase()
   this.NidFilterList.forEach(element => {
-    console.log("element : " , element)
+   
     if (value){
       this.NidDisplayList$ = element.filter(x=>x.Nid.toLowerCase().includes(value))
       return element.filter(x=> x.Nid.toLowerCase().includes(value))
@@ -281,6 +282,7 @@ export class GapForm implements OnInit{
   }
 
   _filterDates(value: string){
+    value = value.toLowerCase()
     this.dateField$ = value
     this.DateFilterList.forEach(element => {
       if (value){
@@ -387,10 +389,10 @@ export class GapForm implements OnInit{
 
     });
 
-    console.log("display list for gap : " , this.displayList$)
+  
   }
   public addDate(){
-    console.log("add date")
+ 
     let temp = {
       Nid:  this.id$,
       Gdate: this.dateField$,

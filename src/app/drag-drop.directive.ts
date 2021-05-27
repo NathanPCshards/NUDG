@@ -26,15 +26,12 @@ fileType;
   @HostListener('dragover', ['$event'] ) public ondragover(evt){
     evt.preventDefault();
     evt.stopPropagation();
-   // console.log('drag over')
   }
   @HostListener('dragleave', ['$event']) public onDragLeave(evt){
     evt.preventDefault();
     evt.stopPropagation();
-    //console.log('drag leave')
   }
   @HostListener('drop', ['$event']) public ondrop(evt) {
-   console.log("check 2 :" ,  this.fileType)
     evt.preventDefault();
     evt.stopPropagation();
     this.fileOver = false;
@@ -42,7 +39,6 @@ fileType;
     let reader = new FileReader()
     if (files.length > 0 ){
      // emit the files through a service to be used somewhere else.
-    //  console.log('you dropped ',files.length,' files')
 
       if (this.isCSVfile(files[0])){
         reader.readAsText(files[0])
@@ -54,7 +50,6 @@ fileType;
             //whatever template we decide on for imports, just follow the pattern below to match it, Assign variables, then async + post
             for (let index = 1; index < dataArray.length; index++) {
               const entry = dataArray[index].split(",");
-              //console.log("entry :" ,  entry)
               let Nid = entry[0].replace("\r","")  
               let Cname = entry[1].replace("\r","")  
               let Coverview = entry[2].replace("\r","")  
@@ -115,7 +110,6 @@ fileType;
             if (this.fileType == "Gap Assessment"){
               for (let index = 1; index < dataArray.length; index++) {
                 const entry = dataArray[index].split(",");
-                //console.log("entry :" ,  entry)
                 let Nid = entry[0].replace("\r","")  
                 let Ganswer = entry[1].replace("\r","")  
                 let Gquestion = entry[2].replace("\r","")  

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { login } from '../injectables';
 import { NetworksharesService } from '../services/networkshares.service';
@@ -17,12 +18,19 @@ export class GroupFormComponent implements OnInit {
   networkShares$
   groups$;
   users$;
-  panelOpenState = false;;
+  panelOpenState = false;
+  GNSwa$
+  GNSra$
+  GCUIaccess$
+  UGRusers$
+
+
 
   constructor(
     private rest_service : restAPI,
     private loginInfo : login,
-    private networkShareService : NetworksharesService) { 
+    private networkShareService : NetworksharesService,
+   ) { 
 
   }
 
@@ -66,12 +74,34 @@ update(Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa,
     GNSwa = GNSwa ? GNSwa : ""
     GNSra = GNSra ? GNSra : ""
 
+
+
+
+
   let data = {Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa, idOrgGroups}
 
   let temp = this.rest_service.update(`http://192.168.0.70:3000/groups/${this.loginInfo.CompanyName}`, data)
   .pipe(tap(() => (this.groups$ = this.fetchAll())));
 
   temp.subscribe()
+
+}
+
+populateForm(data){
+  console.log("user : " , data)
+  //Normal fields
+  let temp = (<HTMLInputElement>document.getElementById("Gnames")).value = data.Gnames
+  temp = (<HTMLInputElement>document.getElementById("Gdescriptions")).value = data.Gdescriptions
+  temp = (<HTMLInputElement>document.getElementById("GcreationDate")).value = data.GcreationDate
+  //Mat Selects
+  this.GNSwa$ = data.GNSwa
+  this.GNSra$ = data.GNSra
+  this.GCUIaccess$ = data.GCUIaccess
+  //TODO Mat Select Multiple: cant figure out a way to select checkboxes. Tried using formgroup/passing array to set function
+  //maybe target the html element and set it that way
+  this.UGRusers$ = data.UGRusers[0]
+
+
 
 }
 

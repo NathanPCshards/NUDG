@@ -20,6 +20,12 @@ groups$;
 software$
 vendors$
 
+SWupdateSchedule$
+SWtype$
+SWplatform$
+
+
+
 panelOpenState = false;
 
     constructor(private http:HttpClient, 
@@ -43,6 +49,37 @@ panelOpenState = false;
   fetchall(){
     return this.rest_service.get(`http://192.168.0.70:3000/softwareApproval/${this.loginInfo.CompanyName}`)
   }
+
+  populateForm(data){
+    console.log("user : " , data)
+    //Normal fields
+    let temp = (<HTMLInputElement>document.getElementById("SWname")).value = data.SWname
+    temp = (<HTMLInputElement>document.getElementById("SWvendor")).value = data.SWvendor
+    temp = (<HTMLInputElement>document.getElementById("SWSupplierInformation")).value = data.SWSupplierInformation
+    temp = (<HTMLInputElement>document.getElementById("SWdescription")).value = data.SWdescription
+    temp = (<HTMLInputElement>document.getElementById("SWinstallPath")).value = data.SWinstallPath
+    temp = (<HTMLInputElement>document.getElementById("SWinstallDate")).value = data.SWinstallDate
+    temp = (<HTMLInputElement>document.getElementById("SWversion")).value = data.SWversion
+    temp = (<HTMLInputElement>document.getElementById("SWpatchNum")).value = data.SWpatchNum
+    temp = (<HTMLInputElement>document.getElementById("SWmanualReviewDate")).value = data.SWmanualReviewDate
+    temp = (<HTMLInputElement>document.getElementById("SWautomaticUpdateDate")).value = data.SWautomaticUpdateDate
+    temp = (<HTMLInputElement>document.getElementById("SWdateApproved")).value = data.SWdateApproved
+    temp = (<HTMLInputElement>document.getElementById("SWvulnerabilities")).value = data.SWvulnerabilities
+
+    //Mat Selects
+    this.SWupdateSchedule$ = data.SWupdateSchedule
+    this.SWtype$ = data.SWtype
+    this.SWplatform$ = data.SWplatform
+
+    //TODO Mat Select Multiple: cant figure out a way to select checkboxes. Tried using formgroup/passing array to set function
+    //maybe target the html element and set it that way
+    //this.UGRusers$ = data.UGRusers[0]
+  
+  
+  
+  }
+
+
 
    async submit(SWname , SWSupplierInformation , SWdescription , SWinstallDate , 
     SWinstallPath , SWtype , SWdateApproved , SWplatform, SWversion , SWpatchNum , SWupdateSchedule , SWmanualReviewDate , 

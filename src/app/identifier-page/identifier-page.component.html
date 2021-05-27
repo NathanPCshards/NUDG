@@ -115,6 +115,7 @@
     <div class ="editBar">
       <app-accordion-item id="accordionToolbar" [id$]="id" [Gdate$] = "Gdate$" [parentReference$] = "urlAdjuster" *ngFor="let item of entries" 
         [entry]="item">
+        
       </app-accordion-item> 
     </div>
   
@@ -133,24 +134,20 @@
       <mat-list>
         <div class="flexContainer">
           <mat-list-item class="headerRow">
-            <span class="idCol">
-              Weakness ID
-            </span>
+
             <span class="nameCol">
               Name
             </span>
-            <span class="descCol">
+            <span class="mediumCol">
               Description
             </span>
             <span class="dateCol">
               Status
             </span>
-            <span class="dateCol2">
+            <span class="smallCol">
               Completion Date
             </span>
-            <span class="dateCol3">
-              Cid
-            </span>
+
             <input class="searchBox"  type="text" #searchWeaknesses id='searchWeaknesses' (keyup)="filterWeaknesses()" placeholder="search" />
   
           </mat-list-item>
@@ -160,16 +157,13 @@
     
         <mat-list-item class="dragdropbox"  cdkDrag [cdkDragData]="weaknessElement" *ngFor="let weaknessElement of weaknesses$ | async">
             <!--The below ngIf is what applies the searchbar to the list-->
-          <ng-container  *ngIf="weaknessElement.Wname.toLowerCase().indexOf(searchWeaknesses.value)!== -1 || weaknessElement.Wstatus.toLowerCase().indexOf(searchWeaknesses.value)!== -1|| weaknessElement.Wdescription.toLowerCase().indexOf(searchWeaknesses.value)!== -1 ">
-           
-            <span class="listSpan idCol" style="font-weight: bold;">
-                {{ weaknessElement.idOrgWeaknesses }} 
-              </span>
+          <ng-container  *ngIf="weaknessElement.Wname.toLowerCase().indexOf(searchWeaknesses.value.toLowerCase())!== -1 || weaknessElement.Wstatus.toLowerCase().indexOf(searchWeaknesses.value.toLowerCase())!== -1|| weaknessElement.Wdescription.toLowerCase().indexOf(searchWeaknesses.value.toLowerCase())!== -1 ">
+
             <span class="listSpan nameCol" style="font-weight: bold;" >
               {{weaknessElement.Wname}}
             </span>
       
-            <span class="listSpan descCol" style="font-weight: bold;">
+            <span class="listSpan mediumCol" style="font-weight: bold;">
               {{weaknessElement.Wdescription}}
             </span>
       
@@ -177,13 +171,11 @@
               {{weaknessElement.Wstatus}}
             </span>
     
-            <span class="listSpan dateCol2" style="font-weight: bold;">
+            <span class="listSpan smallCol" style="font-weight: bold;">
               {{weaknessElement.WcompletionDate | date:'M/d/yy'}}
             </span>
   
-            <span class="listSpan dateCol3" style="font-weight: bold; ">
-              {{weaknessElement.idOrgControls}}
-            </span>
+  
     
           <span class="listSpan dateCol4">
             <button mat-icon-button>
@@ -196,8 +188,7 @@
             </button>
     
     
-    <!--
-    
+ 
               <button mat-icon-button>
                 <mat-icon
          
@@ -207,8 +198,7 @@
                 </mat-icon>
               </button>
       
-    -->
-
+ 
           
               <button mat-icon-button>
                 <mat-icon (click)="deleteWeaknesses(weaknessElement.idOrgWeaknesses)" color="warn">
@@ -244,12 +234,6 @@
       <mat-list>
         <div class="flexContainer">
           <mat-list-item class="headerRow">
-            <span class="idCol">
-              Control ID
-            </span>
-            <button (click)="debug()">
-              Debug
-            </button>
             <span class="nameCol">
               Name
             </span>
@@ -259,9 +243,7 @@
             <span class="dateCol">
               Date
             </span>
-            <span class="dateCol2" style="margin-left: 6.5%;">
-              Wid
-            </span>
+
             <input class="searchBox" style="margin-left: 3px;" type="text" #searchControls id='searchControls' (keyup)="filterControls()" placeholder="search" />
   
           </mat-list-item>
@@ -276,11 +258,8 @@
         [cdkDragData]="controlElement"
   
         >
-          <ng-container style="display: flex;" *ngIf="controlElement.Cname.toLowerCase().indexOf(searchControls.value)!== -1 || controlElement.Coverview.toLowerCase().indexOf(searchControls.value)!== -1 ">
+          <ng-container style="display: flex;" *ngIf="controlElement.Cname.toLowerCase().indexOf(searchControls.value.toLowerCase())!== -1 || controlElement.Coverview.toLowerCase().indexOf(searchControls.value.toLowerCase())!== -1 ">
   
-          <span class=" idCol" style="font-weight: bold;"
-            >{{ controlElement.idOrgControls }}    </span
-          >
           <span class=" nameCol" style="font-weight: bold;">
             {{controlElement.Cname}}
           </span>
@@ -290,9 +269,7 @@
           <span class=" dateCol" style="font-weight: bold;">
             {{controlElement.Cissuedate}}
           </span>
-          <span class=" dateCol2" style="font-weight: bold; margin-left: 8%;">
-            {{controlElement.idOrgWeaknesses}}
-          </span>
+
   
   
   

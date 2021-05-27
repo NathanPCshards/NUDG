@@ -101,7 +101,7 @@ ngOnInit(){
 
       this.guideline$ = this.getByID(this.id$)
       this.guideline$.subscribe()
-      console.log("guideline : " ,this.guideline$)
+  
       
 
 

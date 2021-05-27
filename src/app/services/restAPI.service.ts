@@ -58,10 +58,10 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   update(url, data): Observable<any> {
-    //console.log("Update called @ ", url)
+    console.log("Update called @ ", url)
 
     return this.http
-      .put(url, data, this.httpOptions)
+      .put(url, data)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
   }
 

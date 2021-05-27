@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { login } from '../injectables';
+import { AccordionState, login } from '../injectables';
 import { PolicyAccordionService } from '../services/policy-accordion.service';
 import { restAPI } from '../services/restAPI.service';
 
@@ -11,7 +11,7 @@ import { restAPI } from '../services/restAPI.service';
   {{entry.title}} 
   <mat-icon  class="arrow back"(click)="routeBackward();$event.stopPropagation()">arrow_back_ios</mat-icon>
 
-  <button mat-raised-button type="button" style="color: white;margin-left:35%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="accordionButton" (click)="showControl();$event.stopPropagation()"><i class="fa fa-plus"></i> Control</button>    
+  <button mat-raised-button type="button"     style="color: white;margin-left:35%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="accordionButton" (click)="showControl();$event.stopPropagation()"><i class="fa fa-plus"></i> Control</button>    
   <button mat-raised-button type="button" style="color: white;margin-left: 3%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="accordionButton" (click)="showWeakness();$event.stopPropagation();"><i class="fa fa-plus"></i>Weakness</button>
   <button mat-raised-button type="button" style="color: white;margin-left: 3%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="accordionButton" (click)="showFileUpload();$event.stopPropagation();"><i class="fa fa-plus"></i>Import</button>    
   <button mat-raised-button type="button" style="color: white;margin-left: 3%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="accordionButton" (click)="printPage();$event.stopPropagation();"><i class="fa fa-plus"></i>Print</button>    
@@ -43,6 +43,7 @@ export class AccordionItemComponent  {
   collapse = true;
   //grow = false;
   shrink = false;
+
   @Input() 
   id$;
   @Input()
@@ -57,13 +58,19 @@ export class AccordionItemComponent  {
     private service: PolicyAccordionService,
     private rest_service : restAPI ,
     private loginInfo : login,
+    private state : AccordionState,
     private router:Router, 
 
     ) { }
 
   async ngOnInit() {
-
     
+    this.uncollapsed = this.state.open
+    this.collapse = !this.state.open
+
+   console.log("this.state : " , this.state)
+
+  
     this.subscription$ = await this.rest_service.get(`http://192.168.0.70:3000/Policy/${'All'}/${this.loginInfo.CompanyName}`).toPromise()
     this.policies = []
     this.subscription$.forEach(policy => {
@@ -85,21 +92,45 @@ export class AccordionItemComponent  {
 
   }
 
+  ngAfterViewInit(){
+    var that = this;
+    console.log(this.state.currentPage == "weaknesses")
+      //this code opens the page that was previously left opened when the page is initialized, but there is a delay
+    setTimeout(function(){
+      switch(that.state.currentPage){
+        case "controls":
+            that.showControl()
+            break;
+        case "weaknesses":
+          console.log("so this actually happens")
+            that.showWeakness()
+            break;
+        case "fileUpload":
+            that.showFileUpload()
+            break;
+        case "gap":
+            that.showGap()
+            break;
+  
+    }
+    }, 10);
 
+  }
 
 //toggle for open and close appearances
   onBtnClick() {
     switch(this.uncollapsed){
         case true:
             this.uncollapsed = false;
+            this.state.open = false
             this.service.emit("grow")
             break;
         case false:
             this.uncollapsed = true;
+            this.state.open = true
             this.service.emit("shrink")
             break;
     }
-  //  this.grow=true;
     
   }
 
@@ -108,14 +139,17 @@ export class AccordionItemComponent  {
     document.getElementById("weakness").style.display="none"
     document.getElementById("gapForm").style.display="none"
     document.getElementById("fileUpload").style.display="none"
+    this.state.currentPage = "controls"
 
 
   }
   showWeakness(){
+    console.log("showing weaknesses now")
     document.getElementById("control").style.display="none"
     document.getElementById("weakness").style.display="flex"
     document.getElementById("fileUpload").style.display="none"
     document.getElementById("gapForm").style.display="none"
+    this.state.currentPage = "weaknesses"
 
   }
   showFileUpload(){
@@ -123,12 +157,14 @@ export class AccordionItemComponent  {
     document.getElementById("weakness").style.display="none"
     document.getElementById("gapForm").style.display="none"
     document.getElementById("fileUpload").style.display="inline"
+    this.state.currentPage = "fileUpload"
   }
   showGap(){
     document.getElementById("control").style.display="none"
     document.getElementById("weakness").style.display="none"
     document.getElementById("gapForm").style.display="flex"
     document.getElementById("fileUpload").style.display="none"
+    this.state.currentPage = "gap"
   }
 
   routeForward(){
@@ -137,7 +173,6 @@ export class AccordionItemComponent  {
       this.pointer += 1;
     }
     let url ="Policy/"+this.policies[this.pointer].nudgid
-    console.log("url : " , url)
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
     this.router.navigate(["Policy/"+this.policies[this.pointer].nudgid]));
 

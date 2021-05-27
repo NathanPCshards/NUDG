@@ -21,15 +21,26 @@ for (let i = 0; i < 1; i++) {
 export class PolicyAccordionComponent implements OnInit {
   entries: any[];  
   constructor(private service: PolicyAccordionService ) { }
-  
+  test
   ngOnInit() {
 
-
+    
+    var style = document.documentElement.style;
+    //@ts-ignore
+    style.setProperty('--test',0);
+    
+    setTimeout(function(){
+      console.log("tick")
+      var style = document.documentElement.style;
+      //@ts-ignore
+      style.setProperty('--test',1);
+    },10000);
 
     this.entries = accordionEntries
     this.service.onAccordionClick.subscribe(data =>{
       console.log("data : " , data)
       if (data == "shrink"){
+        console.log("test : " , style.getPropertyValue("--test"))
         document.getElementById('div1').className = 'shrink'
         document.getElementById('div2').className = 'shrink'
 

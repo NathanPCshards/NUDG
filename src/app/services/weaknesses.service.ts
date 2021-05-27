@@ -48,7 +48,6 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
 
   //Post Requests
   post(item: any, CompanyName : any): Observable<any> {
-    console.log("post weaknesses", item, CompanyName);
     let url  = `http://192.168.0.70:3000/weaknesses/${item.Nid}/${CompanyName}`
     return this.http
       .post(url, item)
@@ -57,7 +56,6 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
 
   //Put Requests
   update(item: any, CompanyName : any): Observable<any> {
-    console.log("update weaknesses", item);
     let url  = `http://192.168.0.70:3000/weaknesses/${item.Nid}/${CompanyName}`
 
     return this.http

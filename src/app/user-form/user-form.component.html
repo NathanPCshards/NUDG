@@ -16,26 +16,24 @@
                   Users
               </h2>
                   <div class = InputContainer>
-                    <!--
-                      
-                    -->
+
                       <div class = "row">
                           <div class ="col">
                               <h1 style="margin-left: 1%;">Info</h1>
                               <mat-form-field  appearance = "legacy" style="width:40%">
-                                  <input #Ufname matInput placeholder = "First Name">
+                                  <input id="Ufname" #Ufname matInput placeholder = "First Name">
                               </mat-form-field>
                               <mat-form-field appearance = "legacy" style="width:40%">
-                                  <input #Ulname matInput placeholder = "Last Name">
+                                  <input id="Ulname" #Ulname matInput placeholder = "Last Name">
                               </mat-form-field>
                               <mat-form-field appearance = "legacy" style="width:80%">
-                                  <input #Uempid matInput placeholder = "Employee Number" >
+                                  <input id="Uempid" #Uempid matInput placeholder = "Employee Number" >
                               </mat-form-field>
 
 
                               <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
                                 <mat-label >Employee Type</mat-label>
-                                <mat-select #Uemptype id="Input">
+                                <mat-select [(value)]="Uemptype$" id="Uemptype" #Uemptype>
                     
                                     <mat-option value="Full time" >
                                         Full time
@@ -54,16 +52,17 @@
 
 
                               <mat-form-field appearance = "legacy" style="width:40%">
-                                  <input #Ujobtitle matInput placeholder = "Job Title">
+                                  <input id="Ujobtitle" #Ujobtitle matInput placeholder = "Job Title">
                               </mat-form-field>
                               <mat-form-field appearance = "legacy" style="width:40%">
-                                  <input #Ujobrole matInput placeholder = "Job Role">
+                                  <input id="Ujobrole" #Ujobrole matInput placeholder = "Job Role">
                               </mat-form-field>
       
 
                             <mat-form-field style="width: 40%;background: transparent;" appearance="fill" class="datepicker datepicker2" id="datepicker2">
                                 <mat-label >Hire Date</mat-label>
                                 <input 
+                                id="Uhiredate"
                                 #Uhiredate 
                                 matInput 
                                 [matDatepicker]="datepicker2"
@@ -81,17 +80,17 @@
 
 
                               <mat-form-field appearance = "legacy"  style="width:40%">
-                                  <input #Ulogonhours matInput placeholder = "Logon Hours">
+                                  <input id="Ulogonhours" #Ulogonhours matInput placeholder = "Logon Hours">
                               </mat-form-field>
 
                               <mat-form-field appearance = "legacy" style="width:40%" >
-                                <input #Udepartment matInput placeholder = "Department">
+                                <input id="Udepartment" #Udepartment matInput placeholder = "Department">
                             </mat-form-field>
 
                             <h3>Additional Info </h3>
-                            <textarea #Uadditionalinfo id="comments" style="text-align: left; align-content: left; margin-left: 1%; " rows="4" cols="38"></textarea>
+                            <textarea id="Uadditionalinfo" #Uadditionalinfo  style="text-align: left; align-content: left; margin-left: 1%; " rows="4" cols="38"></textarea>
                             <div class="fileInput" style="margin-left: 1%;">
-                              <input #Udocumentupload  class="ng-hide" id="input-file-id" multiple type="file" />
+                              <input id="Udocumentupload" #Udocumentupload  class="ng-hide" multiple type="file" />
                               <label for="input-file-id" class="md-button md-raised md-primary"> Upload Image</label>
                           </div>
 
@@ -101,13 +100,13 @@
                           <div class ="col">
                               <h1 style="margin-left: 1%;"> Contact</h1>
                               <mat-form-field appearance = "legacy" style="width:80%">
-                                  <input #Uemail matInput placeholder = "Email Address">
+                                  <input id="Uemail" #Uemail matInput placeholder = "Email Address">
                               </mat-form-field>
                               <mat-form-field appearance = "legacy" style="width:40%" >
-                                  <input #Ubusinessphone matInput placeholder = "Business Phone">
+                                  <input id="Ubusinessphone" #Ubusinessphone matInput placeholder = "Business Phone">
                               </mat-form-field>
                               <mat-form-field appearance = "legacy" style="width:40%" >
-                                  <input #Ucellphone matInput placeholder = "Cell Phone">
+                                  <input id="Ucellphone" #Ucellphone matInput placeholder = "Cell Phone">
                               </mat-form-field>
       
       
@@ -116,23 +115,23 @@
                               <h1 style="margin-left: 1%;">Address</h1>
       
                               <mat-form-field appearance = "legacy" style="width:80%">
-                                  <input #Uaddress matInput placeholder = "Address">
+                                  <input id="Uaddress" #Uaddress matInput placeholder = "Address">
                               </mat-form-field>
       
                               <mat-form-field  appearance = "legacy" style="width:40%">
-                                  <input #Ucity matInput placeholder = "City">
+                                  <input id="Ucity" #Ucity matInput placeholder = "City">
                               </mat-form-field>
       
                               <mat-form-field appearance = "legacy" style="width:40%">
-                                  <input #Ustate  matInput placeholder = "State">
+                                  <input id="Ustate" #Ustate  matInput placeholder = "State">
                               </mat-form-field>
       
                               <mat-form-field appearance = "legacy" style="width:40%">
-                                  <input #Upostal matInput placeholder = "Zip Code">
+                                  <input id="Upostal" #Upostal matInput placeholder = "Zip Code">
                               </mat-form-field>
       
                               <mat-form-field  appearance = "legacy" style="width:40%">
-                                  <input #Ucountry matInput placeholder = "Country">
+                                  <input id="Ucountry" #Ucountry matInput placeholder = "Country">
                               </mat-form-field>
       
       
@@ -143,7 +142,7 @@
       
       
                               <mat-form-field appearance = "legacy"  style="width:80%">
-                                  <input #Ucompany matInput placeholder = "Company Name">
+                                  <input id="Ucompany" #Ucompany matInput placeholder = "Company Name">
                               </mat-form-field>
                           </div>
       
@@ -151,13 +150,13 @@
                               <h1 style="margin-left: 1%;">Assignments</h1>
           
                               <mat-form-field appearance = "legacy" style="width:80%">
-                                  <input #Uuserid matInput placeholder = "User id">
+                                  <input id="Uuserid" #Uuserid matInput placeholder = "User id">
                               </mat-form-field>
       
 
                               <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
                                 <mat-label >CUI Data</mat-label>
-                                <mat-select #Ucuidata  id="Input">
+                                <mat-select [(value)]="Ucuidata$" id="Ucuidata" #Ucuidata  >
                   
                                     <mat-option value="Yes" >
                                         Yes 
@@ -172,7 +171,7 @@
 
                               <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                                 <mat-label >CUI Contracts</mat-label>
-                                <mat-select #UcuiContract id="Input" >
+                                <mat-select [(value)]="UcuiContract$" id="UcuiContract" #UcuiContract  >
                                     <div *ngFor="let contract of CUIcontracts$ | async">
                                         <mat-option value={{contract.CCname}} >
                                             {{contract.CCname}}
@@ -183,8 +182,7 @@
                               
                               <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
                                 <mat-label >Remote User</mat-label>
-                                <mat-select #Uremoteuser  id="Input">
-                  
+                                <mat-select [(value)]="Uremoteuser$" id="Uremoteuser" #Uremoteuser >
                                     <mat-option value="Yes" >
                                         Yes 
                                     </mat-option>
@@ -199,7 +197,7 @@
 
                               <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                                 <mat-label >Groups</mat-label>
-                                <mat-select #UGRgroups id="Input" >
+                                <mat-select [(value)]="UGRgroups$" id="UGRgroups" #UGRgroups  >
                                     <div *ngFor="let group of Groups$ | async">
                                         <mat-option value={{group.Gnames}} >
                                             {{group.Gnames}}
@@ -211,7 +209,7 @@
 
                               <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                                 <mat-label >Roles</mat-label>
-                                <mat-select #UGRroles id="Input" >
+                                <mat-select [(value)]="UGRroles$" id="UGRroles" #UGRroles  >
                                     <div *ngFor="let role of Roles$ | async">
                                         <mat-option value={{role.URGroles}} >
                                             {{role.URGroles}}
@@ -222,7 +220,7 @@
 
                               <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                                 <mat-label >Asset Identifier</mat-label>
-                                <mat-select #Iassetidentifier id="Input" >
+                                <mat-select [(value)]="Iassetidentifier$" id="Iassetidentifier" #Iassetidentifier >
                                     <div *ngFor="let inventoryEntry of Inventory$ | async">
                                         <mat-option value={{inventoryEntry.Iassetidentifier}} >
                                             {{inventoryEntry.Iassetidentifier}}
@@ -296,7 +294,7 @@
       </mat-list-item>
   
 
-    <mat-list-item *ngFor="let user of users$ | async">
+    <mat-list-item *ngFor="let user of users$ | async" (click)="populateForm(user)">
 
       <span class="listSpan">
         {{ user.Ufname }}
@@ -346,11 +344,12 @@
         {{user.Ucellphone }}
       </span>
 
-
+<!--            -->
      <span style="position: absolute; right: 0;">
         <button mat-icon-button>
           <mat-icon
-            (click)="update(Ufname.value, Ulname.value, Uempid.value, Uemptype.value, Ujobtitle.value, Ujobrole.value, Udepartment.value, Uhiredate.value, Ulogonhours.value, Uadditionalinfo.value, Udocumentupload.value, Uemail.value, Ubusinessphone.value, Ucellphone.value, Uaddress.value, Ucity.value, Ustate.value, Upostal.value, Ucountry.value, Ucompany.value, Uuserid.value, Ucuidata.value, Uremoteuser.value, user.idOrgUsers)"
+          (click)="update(Ufname.value, Ulname.value, Uempid.value, Uemptype.value, Ujobtitle.value, Ujobrole.value, Udepartment.value, Uhiredate.value, Ulogonhours.value, Uadditionalinfo.value, Udocumentupload.value, Uemail.value, Ubusinessphone.value, Ucellphone.value, Uaddress.value, Ucity.value, Ustate.value, Upostal.value, Ucountry.value, Ucompany.value, Uuserid.value, Ucuidata.value, Uremoteuser.value, UGRgroups.value, UGRroles.value, Iassetidentifier.value, UcuiContract.value, user.idOrgUsers)"
+
             color="primary">
             edit
           </mat-icon>

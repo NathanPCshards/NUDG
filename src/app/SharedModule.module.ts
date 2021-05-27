@@ -52,7 +52,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { PrintPageComponent } from './print-page/print-page.component';
 
 import { MatMenuModule} from '@angular/material/menu';
-import { login } from './injectables';
+import { AccordionState, login } from './injectables';
 
 
 
@@ -118,7 +118,7 @@ import { login } from './injectables';
     
 ],
 
-  providers: [MatDatepickerModule, login],
+  providers: [MatDatepickerModule, login, AccordionState],
 
 })
 export class SharedModule { }
