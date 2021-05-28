@@ -79,6 +79,32 @@ panelOpenState = false;
   
   }
 
+  async update(SWname , SWSupplierInformation , SWdescription , SWinstallDate , SWinstallPath , SWtype , SWdateApproved , SWplatform, SWversion , SWpatchNum , SWupdateSchedule , SWmanualReviewDate ,   SWautomaticUpdateDate , SWinternetReq , SWlegacy , SWelevatedPrivileges , SWvulnerabilities , SWusers , SWgroups , SWroles , SWassetIdentifier , SWvendor, idOrgSoftwareApproval){
+
+          //The mat form fields will send if no input is given. Here we initialize those fields to be empty strings so our backend doesnt crash on a empty post
+          SWinstallDate    = SWinstallDate ? SWinstallDate : ""
+          SWtype           = SWtype ? SWtype : ""
+          SWplatform       = SWplatform ? SWplatform : ""
+          SWupdateSchedule = SWupdateSchedule ? SWupdateSchedule : ""
+          SWmanualReviewDate= SWmanualReviewDate ? SWmanualReviewDate : ""
+          SWautomaticUpdateDate= SWautomaticUpdateDate ? SWautomaticUpdateDate : ""
+          SWdateApproved    = SWdateApproved ? SWdateApproved : ""
+          SWusers          = SWusers ? SWusers : ""
+          SWgroups         = SWgroups ? SWgroups : ""
+          SWroles          = SWroles ? SWroles: ""
+          SWassetIdentifier= SWassetIdentifier ? SWassetIdentifier : ""
+
+          let data = {SWname , SWSupplierInformation , SWdescription , SWinstallDate , 
+            SWinstallPath , SWtype , SWdateApproved , SWplatform, SWversion , SWpatchNum , SWupdateSchedule , SWmanualReviewDate , 
+            SWautomaticUpdateDate , SWinternetReq , SWlegacy , SWelevatedPrivileges , SWvulnerabilities , SWusers , SWgroups , SWroles ,
+             SWassetIdentifier , SWvendor, idOrgSoftwareApproval}
+                                            
+             let temp = await this.rest_service.update(`http://192.168.0.70:3000/softwareApproval/${this.loginInfo.CompanyName}`, data)
+             .pipe(tap(() => (this.software$ = this.fetchall())));
+    
+             temp.subscribe()
+  }
+
 
 
    async submit(SWname , SWSupplierInformation , SWdescription , SWinstallDate , 
@@ -99,18 +125,16 @@ panelOpenState = false;
       SWroles          = SWroles ? SWroles: ""
       SWassetIdentifier= SWassetIdentifier ? SWassetIdentifier : ""
 
-
-
       let data = {SWname , SWSupplierInformation , SWdescription , SWinstallDate , 
         SWinstallPath , SWtype , SWdateApproved , SWplatform, SWversion , SWpatchNum , SWupdateSchedule , SWmanualReviewDate , 
         SWautomaticUpdateDate , SWinternetReq , SWlegacy , SWelevatedPrivileges , SWvulnerabilities , SWusers , SWgroups , SWroles ,
          SWassetIdentifier , SWvendor }
                                             
          let temp = await this.rest_service.post(`http://192.168.0.70:3000/softwareApproval/${this.loginInfo.CompanyName}`, data)
-       //  .pipe(tap(() => (this.software$ = this.fetchall())));
+         .pipe(tap(() => (this.software$ = this.fetchall())));
 
          temp.subscribe()
-         this.software$ = this.fetchall()
+
 
   }
 

@@ -57,6 +57,7 @@ export class GapForm implements OnInit{
   routeSub
   nudgid;
 
+
   //For filtering and Drop down menus
   NidFilter$;
   uniqueNidList$;
@@ -66,6 +67,13 @@ export class GapForm implements OnInit{
   DateDisplayList$;
   NidFilterList = []
   DateFilterList = []
+
+  counts = []
+  gapStatus = null
+
+
+  
+
   
   policyForm: FormGroup = this.formBuilder.group({
     NidFilterList : []
@@ -108,11 +116,17 @@ export class GapForm implements OnInit{
 
   }
 
-  loadData(){
+  async loadData(){
      //Initializing unique lists (Used for dropdown displays)
      this.uniqueNidList$= this.rest_service.get(`http://192.168.0.70:3000/gap/${'None'}/${this.loginInfo.CompanyName}/?getUniqueNids=${true}`)
      this.uniqueDateList$ = this.rest_service.get(`http://192.168.0.70:3000/gap/${'None'}/${this.loginInfo.CompanyName}/?getUniqueDates=${true}`)
- 
+
+     this.counts = []
+     await this.getCounts().then( data =>{
+      this.rest_service.update(`http://192.168.0.70:3000/policy/${this.id$}/${this.loginInfo.CompanyName}?UpdateGapStatus=true`,{GapStatus : this.gapStatus}).subscribe()
+     })
+    
+
      //Applying Filters
      this.dateFilter$ = this.dateForm.get('DateFilterList')!.valueChanges
      .pipe(
@@ -147,6 +161,7 @@ export class GapForm implements OnInit{
        this.refreshGapAndDisplayList();
      })
   }
+  
 
   ngAfterViewInit(){
       //initializing edit controls to be off
@@ -160,6 +175,56 @@ export class GapForm implements OnInit{
 
   getid$(): string { return this.id$; }
   setid$(id$: string) { this.id$ = (id$);}
+
+
+  async getCounts(){
+   //Determining and updating policy's gap status by getting counts of it's gap question's answers
+    this.gapStatus = null
+    var sub1;
+    var sub2;
+    var sub3;
+
+    sub1 = await this.rest_service.get(`http://192.168.0.70:3000/gap/${this.id$}/${this.loginInfo.CompanyName}/?CountWeaknesses=${true}`).forEach(data=>{
+      data.forEach(dataArray => {
+        this.counts.push(["Weaknesses",dataArray['COUNT(Ganswer)']])  
+      });
+    })
+   sub2 = await this.rest_service.get(`http://192.168.0.70:3000/gap/${this.id$}/${this.loginInfo.CompanyName}/?CountPartial=${true}`).forEach(data=>{
+   data.forEach(dataArray => {  
+     this.counts.push(["Partial",dataArray['COUNT(Ganswer)']])  
+    });
+  })
+   sub3 = await this.rest_service.get(`http://192.168.0.70:3000/gap/${this.id$}/${this.loginInfo.CompanyName}/?CountYes=${true}`).forEach(data=>{
+   data.forEach(dataArray => {  
+     this.counts.push(["Yes",dataArray['COUNT(Ganswer)']])  
+    });
+  })
+  
+  this.counts.forEach(element => {
+     let key = element[0]
+     let value = element[1]
+   //Rules here
+   //Any answer weakness : Weakness
+   //Any answer Partial : Partial
+   //All answers 'Yes' : Ready
+   if (key =="Yes" && value >= 1 && this.gapStatus == null){
+     this.gapStatus = "Ready"
+   }
+   if (key =="Partial" && value >= 1 && this.gapStatus == null){
+     this.gapStatus = "In Progress"
+
+   }
+   if (key =="Weaknesses" && value >= 1 && this.gapStatus == null){
+     this.gapStatus = "Deficient"
+   }
+
+  });
+
+     return this.counts
+  }
+
+
+
 
   toggleWeaknessImport(){
     if (document.getElementById("wToggleIcon").innerText == "check_box"){
@@ -230,15 +295,18 @@ export class GapForm implements OnInit{
   }
 
   importToggle(entry,event){
-    let object = event.target
-    if (object.innerText == "check_box"){
-      object.innerText = "check_box_outline_blank"
-      entry.toImport = false
+    if (this.editing){
+      let object = event.target
+      if (object.innerText == "check_box"){
+        object.innerText = "check_box_outline_blank"
+        entry.toImport = false
+      }
+      else{
+        object.innerText = "check_box"
+        entry.toImport = true
+      }
     }
-    else{
-      object.innerText = "check_box"
-      entry.toImport = true
-    }
+
   }
 
   fetchAllGap(Nid:any, Gdate: any): Observable<gap[]> {
@@ -327,7 +395,15 @@ export class GapForm implements OnInit{
   public submitGap(){
     //When submit button is pressed
     //This goes to identifier page ngOnInit, where gapservice post, update and delete are processed.
+    let submitCount = {}
+    submitCount["Yes"] = 0
+    submitCount["Partial"] = 0
+    submitCount["Weakness"] = 0
+
     this.displayList$.forEach(element => {
+      
+      submitCount[element.Ganswer] += 1
+      
       if (this.dateField$ && this.newDate){
         
         element.Gdate = this.dateField$
@@ -345,6 +421,22 @@ export class GapForm implements OnInit{
       this.gapservice.emit(element[0].idOrgGap)
     });
     this.toDeleteList = [] //We clear the 'to delete' list here because the DB is once again Synced
+
+  
+    if (submitCount["Weakness"] >= 1){
+      this.gapStatus = "Weakness"
+    }
+    else if(submitCount["Partial"] >= 1){
+      this.gapStatus = "In Progress"
+    }
+    else{
+      this.gapStatus = "Ready"
+    }
+ 
+  
+   console.log("Ending with a : " , this.gapStatus)
+
+    
   }
 
   public deleteEntry(index:any){
@@ -386,13 +478,17 @@ export class GapForm implements OnInit{
         this.displayList$.push(element2)
         this.Greference$ = element2.Greference
       });
-
     });
 
-  
   }
+
   public addDate(){
- 
+
+
+
+
+
+
     let temp = {
       Nid:  this.id$,
       Gdate: this.dateField$,
@@ -405,7 +501,6 @@ export class GapForm implements OnInit{
   }
 
 
-  ngOnDestroy(){
-    //this.sub.unsubscribe():
- }
+
 }
+

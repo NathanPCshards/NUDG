@@ -136,7 +136,7 @@
           <mat-list-item class="headerRow">
 
             <span class="nameCol">
-              Name
+              Weakness Name
             </span>
             <span class="mediumCol">
               Description
@@ -159,19 +159,19 @@
             <!--The below ngIf is what applies the searchbar to the list-->
           <ng-container  *ngIf="weaknessElement.Wname.toLowerCase().indexOf(searchWeaknesses.value.toLowerCase())!== -1 || weaknessElement.Wstatus.toLowerCase().indexOf(searchWeaknesses.value.toLowerCase())!== -1|| weaknessElement.Wdescription.toLowerCase().indexOf(searchWeaknesses.value.toLowerCase())!== -1 ">
 
-            <span class="listSpan nameCol" style="font-weight: bold;" >
+            <span class="listSpan nameCol" >
               {{weaknessElement.Wname}}
             </span>
       
-            <span class="listSpan mediumCol" style="font-weight: bold;">
+            <span class="listSpan mediumCol" >
               {{weaknessElement.Wdescription}}
             </span>
       
-            <span class="listSpan dateCol" style="font-weight: bold;">
+            <span class="listSpan dateCol">
               {{weaknessElement.Wstatus}}
             </span>
     
-            <span class="listSpan smallCol" style="font-weight: bold;">
+            <span class="listSpan smallCol" >
               {{weaknessElement.WcompletionDate | date:'M/d/yy'}}
             </span>
   
@@ -235,7 +235,7 @@
         <div class="flexContainer">
           <mat-list-item class="headerRow">
             <span class="nameCol">
-              Name
+              Control Name
             </span>
             <span class="descCol">
               Description
@@ -260,13 +260,13 @@
         >
           <ng-container style="display: flex;" *ngIf="controlElement.Cname.toLowerCase().indexOf(searchControls.value.toLowerCase())!== -1 || controlElement.Coverview.toLowerCase().indexOf(searchControls.value.toLowerCase())!== -1 ">
   
-          <span class=" nameCol" style="font-weight: bold;">
+          <span class=" nameCol">
             {{controlElement.Cname}}
           </span>
-          <span class=" descCol" style="font-weight: bold;">
+          <span class=" descCol" >
             {{controlElement.Coverview}}
           </span>
-          <span class=" dateCol" style="font-weight: bold;">
+          <span class=" dateCol" >
             {{controlElement.Cissuedate}}
           </span>
 

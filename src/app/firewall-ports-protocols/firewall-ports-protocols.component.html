@@ -19,19 +19,19 @@
                         <div class ="col">
                             <h1 style="margin-left: 1%;">Info</h1>
                             <mat-form-field  appearance = "legacy" style="width:40%">
-                                <input #FWpolicyNum matInput placeholder = "Policy Number">
+                                <input id="FWpolicyNum" #FWpolicyNum matInput placeholder = "Policy Number">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input #FWservice matInput placeholder = "Service">
+                                <input id="FWservice" #FWservice matInput placeholder = "Service">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:80%">
-                                <input #FWdescription matInput placeholder = "Description" >
+                                <input id="FWdescription" #FWdescription matInput placeholder = "Description" >
                             </mat-form-field>
 
 
                             <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
                                 <mat-label >Supplier Relation</mat-label>
-                                <mat-select #FWsupplierRelation id="Input" >
+                                <mat-select [(value)]="FWsupplierRelation$" #FWsupplierRelation id="Input" >
                                     <div *ngFor="let supplier of suppliers$ | async">
                                         <mat-option value={{supplier.Sname}} >
                                             {{supplier.Sname}}
@@ -42,7 +42,7 @@
 
                               <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
                                 <mat-label >Vendor Relation</mat-label>
-                                <mat-select #FWvendorRelation id="Input" >
+                                <mat-select [(value)]="FWvendorRelation$" #FWvendorRelation id="Input" >
                                     <div *ngFor="let vendor of vendors$ | async">
                                         <mat-option value={{vendor.Vname}} >
                                             {{vendor.Vname}}
@@ -53,7 +53,7 @@
 
                               <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
                                 <mat-label >CUI Contracts</mat-label>
-                                <mat-select #FWcuiContract id="Input" >
+                                <mat-select [(value)]="FWcuiContract$" #FWcuiContract id="Input" >
                                     <div *ngFor="let contract of contracts$ | async">
                                         <mat-option value={{contract.CCname}} multiple>
                                             {{contract.CCname}}
@@ -64,7 +64,7 @@
 
                               <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
                                 <mat-label >Asset Identifier</mat-label>
-                                <mat-select #Iassetidentifier id="Input" >
+                                <mat-select [(value)]="Iassetidentifier$" #Iassetidentifier id="Input" >
                                     <div *ngFor="let item of inventories$ | async">
                                         <mat-option value={{item.IassetIdentifier}} multiple>
                                             {{item.IassetIdentifier}}
@@ -75,7 +75,7 @@
 
                             <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
                                 <mat-label >Protocol</mat-label>
-                                <mat-select #FWprotocol id="Input">
+                                <mat-select [(value)]="FWprotocol$" #FWprotocol id="Input">
 
                                     <mat-option value="TCP" >
                                         TCP
@@ -94,23 +94,24 @@
 
 
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input #FWports matInput placeholder = "Ports">
+                                <input id="FWports" #FWports matInput placeholder = "Ports">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input #FWsource matInput placeholder = "Source">
+                                <input id="FWsource" #FWsource matInput placeholder = "Source">
                             </mat-form-field>
     
                             <mat-form-field appearance = "legacy"  style="width:40%">
-                                <input #FWinbound matInput placeholder = "Inbound Interface">
+                                <input id="FWinbound" #FWinbound matInput placeholder = "Inbound Interface">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy"  style="width:40%">
-                                <input #FWoutbound matInput placeholder = "Outbound Interface">
+                                <input id="FWoutbound" #FWoutbound matInput placeholder = "Outbound Interface">
                             </mat-form-field>
 
                             <mat-form-field style="width: 40%;background: transparent;" appearance="fill" class="datepicker datepicker2" id="datepicker2">
                                 <mat-label >Creation Date</mat-label>
                                 <input 
                                 #FWcreationDate 
+                                id="FWcreationDate"
                                 matInput 
                                 [matDatepicker]="datepicker2"
     
@@ -183,7 +184,7 @@
         </mat-list-item>
     
   
-      <mat-list-item *ngFor="let FW of firewalls$ | async">
+      <mat-list-item *ngFor="let FW of firewalls$ | async" (click)="populateForm(FW);$event.stopPropagation();">
   
         <span class="listSpan">
           {{ FW.FWpolicyNum }}
@@ -237,7 +238,7 @@
        <span style="position: absolute; right: 0;">
           <button mat-icon-button>
             <mat-icon
-              (click)="update(Iassetidentifier.value, FWpolicyNum.value, FWservice.value, FWdescription.value, FWprotocol.value, FWports.value, FWsource.value, FWinbound.value, FWoutbound.value, FWcreationDate.value, FWsupplierRelation.value, FWvendorRelation.value, FWcuiContract.value)"
+              (click)="update(Iassetidentifier.value, FWpolicyNum.value, FWservice.value, FWdescription.value, FWprotocol.value, FWports.value, FWsource.value, FWinbound.value, FWoutbound.value, FWcreationDate.value, FWsupplierRelation.value, FWvendorRelation.value, FWcuiContract.value, FW.idfirewall)"
               color="primary">
               edit
             </mat-icon>

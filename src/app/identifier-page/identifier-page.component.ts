@@ -75,6 +75,8 @@ export class IdentifierPageComponent implements OnInit {
   weaknessesDataSource;
   searchWeaknesses;
   searchControls
+
+
   //Used to bring up correct policy when opening page
   state$: Observable<object>;
   routeSub
@@ -86,11 +88,11 @@ export class IdentifierPageComponent implements OnInit {
   guidelines$ = []
   //GAP
   gapList$
-
+  GapPolicyStatus$;
   gapSubscription
+
   controlSubscription
 
- 
   policyForm: FormGroup = this.formBuilder.group({
     NidFilterList : []
   });
@@ -199,28 +201,13 @@ export class IdentifierPageComponent implements OnInit {
       this.weaknesses$ = this.rest_service.post(`http://192.168.0.70:3000/weaknesses/${this.id}/${this.loginInfo.CompanyName}`,data)
       .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses(this.id))));
       
-
-  
-      
   });
     //STANDARDS STUFF
     this.standards$ = this.fetchAllStandards();
 
-   //GAP STUFF
-   //TODO Idea for later, sort dates chronologically and defualt to most recent date
-
-    this.gap$ = this.fetchAllGap(this.id, this.Gdate$);
-    this.gap$.forEach(element => {
-      this.gapList$ = []
-      element.forEach(element2 => {
-        this.gapList$.push(element2)
-      });
-    });
 
     //This block below handles most of the gap interactions with the database
-
- 
-    this.gapSubscription = this.gapservice.onClick.subscribe(async incomingData=>{
+    this.gapSubscription = this.gapservice.onClick.forEach(async incomingData=>{
       //the optional param is added when NewDate is toggled on the Gap component
       //its defualt is false, if nothing is given. This makes sure new dates are 
       //posted to, and not updated to (which would fail because it wouldnt exist)
@@ -308,14 +295,6 @@ export class IdentifierPageComponent implements OnInit {
           .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses(this.id))));
           temp.subscribe()
         }
-
-
-
-
-
-
-
-
 
       }
     })
@@ -600,7 +579,7 @@ export class IdentifierPageComponent implements OnInit {
   }
 
   ngOnDestroy(){
-    this.gapSubscription.unsubscribe()
+   // this.gapSubscription.unsubscribe()
     this.controlSubscription.unsubscribe()
   }
 

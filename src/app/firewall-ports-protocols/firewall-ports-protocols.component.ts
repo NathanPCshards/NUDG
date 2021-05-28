@@ -17,6 +17,13 @@ export class FirewallPortsProtocolsComponent implements OnInit {
   contracts$
   inventories$;
 
+  FWsupplierRelation$
+  FWvendorRelation$
+  FWcuiContract$
+  Iassetidentifier$
+  FWprotocol$
+
+
   constructor(
     private rest_service : restAPI,
     private loginInfo : login
@@ -63,16 +70,44 @@ export class FirewallPortsProtocolsComponent implements OnInit {
 
   }
 
+  populateForm(data){
+    console.log("user : " , data)
+    //Normal fields
+    let temp = (<HTMLInputElement>document.getElementById("FWpolicyNum")).value = data.FWpolicyNum
+    temp = (<HTMLInputElement>document.getElementById("FWservice")).value = data.FWservice
+    temp = (<HTMLInputElement>document.getElementById("FWdescription")).value = data.FWdescription
+    temp = (<HTMLInputElement>document.getElementById("FWports")).value = data.FWports
+    temp = (<HTMLInputElement>document.getElementById("FWsource")).value = data.FWsource
+    temp = (<HTMLInputElement>document.getElementById("FWoutbound")).value = data.FWoutbound
+    temp = (<HTMLInputElement>document.getElementById("FWinbound")).value = data.FWinbound
+    temp = (<HTMLInputElement>document.getElementById("FWcreationDate")).value = data.FWcreationDate
+
+    //Mat Selects
+     this.FWsupplierRelation$ = data.FWsupplierRelation
+     this.FWvendorRelation$ = data.FWvendorRelation
+     this.FWcuiContract$ = data.FWcuiContract
+     this.Iassetidentifier$ = data.Iassetidentifier
+     this.FWprotocol$ = data.FWprotocol
+    //TODO Mat Select Multiple: cant figure out a way to select checkboxes. Tried using formgroup/passing array to set function
+    //maybe target the html element and set it that way
+  
+  
+  
+  
+  }
 
 
 
-  update(Iassetidentifier, FWpolicyNum, FWservice, FWdescription, FWprotocol, FWports, FWsource, FWinbound, FWoutbound, FWcreationDate, FWsupplierRelation, FWvendorRelation, FWcuiContract){
-    /*let data = {Iassetidentifier, FWpolicyNum, FWservice, FWdescription, FWprotocol, FWports, FWsource, FWinbound, FWoutbound, FWcreationDate, FWsupplierRelation, FWvendorRelation, FWcuiContract, idfirewall}
-    let temp = this.rest_service.post(`http://192.168.0.70:3000/Firewall/${this.loginInfo.CompanyName}`, data)
+  update(Iassetidentifier, FWpolicyNum, FWservice, FWdescription, FWprotocol, FWports, FWsource, FWinbound, FWoutbound, FWcreationDate, FWsupplierRelation, FWvendorRelation, FWcuiContract, idfirewall){
+  
+    console.log("company name : " , this.loginInfo.CompanyName)
+  
+    let data = {Iassetidentifier, FWpolicyNum, FWservice, FWdescription, FWprotocol, FWports, FWsource, FWinbound, FWoutbound, FWcreationDate, FWsupplierRelation, FWvendorRelation, FWcuiContract, idfirewall}
+    let temp = this.rest_service.update(`http://192.168.0.70:3000/Firewall/${this.loginInfo.CompanyName}`, data)
         .pipe(tap(() => (this.firewalls$ = this.fetchall())));
 
-    //again call
-    temp.subscribe()*/
+ 
+    temp.subscribe()
 
   }
 

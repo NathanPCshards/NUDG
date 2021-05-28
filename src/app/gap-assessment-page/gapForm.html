@@ -4,9 +4,18 @@
         <h2 style=" font-size: 32px;color: white;">
             Gap Assessment
         </h2>
-        <span style="margin-left:52%">Delete</span>
-        <span style="margin-left:1.5%">Import</span>
-        
+
+
+
+
+
+
+        <span style="margin-left: 30%;font-size: 32px;">Status: {{gapStatus}}</span>
+
+        <button class ="colSmall" (click)="submitGap()" class="editToggle"  style=" background-color: palegoldenrod; box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; margin-left: 14%; margin-top: 1%;">
+            Submit
+        </button>
+
         <div class="col" style="width:20%">
             <div class ="colSmall" style=" background-color: palegoldenrod; box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; margin-top: 15px;">
                 <form [formGroup]="policyForm">
@@ -48,45 +57,14 @@
                 </mat-autocomplete>
                 </mat-form-field>
             </form>
-            <!--
-            <button mat-icon-button>
-                Add Date
-                <mat-icon id="wToggleIcon" color="green" (click)="addDate()">
-                    add
-                </mat-icon>
-            </button>
-    
-
-            -->
 
             </div>
 
-            <div class ="colSmall" style=" background-color: palegoldenrod; box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; margin-top: 30px;">
-                <span>
-                    Autofill Weaknesses
-                </span>
-                <button mat-icon-button>
-                <mat-icon id="wToggleIcon" color="primary" (click)="toggleWeaknessImport()">
-                    check_box_outline_blank
-                </mat-icon>
-                </button>
-                <span>
-                    Autofill Controls
-                </span>
-                <button mat-icon-button>
-                    <mat-icon id="cToggleIcon" color="primary" (click)="toggleControlImport()">
-                        check_box_outline_blank
-                    </mat-icon>
-                </button>
-                
-    
-  
 
-        </div>
     
         <div class ="colSmall" style=" background-color: palegoldenrod; box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; margin-top: 30px;">
             <span style="font-size: small;">
-                Edit Questions 
+                Enable Editing
             </span>
             <button mat-icon-button>
                 <mat-icon id="qToggleIcon" color="primary" (click)="toggleQuestionEdit()">
@@ -103,23 +81,13 @@
                 </mat-icon>
             </button>
 
-            <span style="font-size: small;">
-                New Date?
-            </span>
-            <button mat-icon-button>
-                <mat-icon id="dateToggleIcon" color="primary" (click)="toggleNewDate()">
-                    check_box_outline_blank
-                </mat-icon>
-            </button>
 
         </div>
             <button class ="colSmall" (click)="addQuestion()" class="editToggle" style=" background-color: palegoldenrod; box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; margin-top: 30px; margin-left: 25%;">
                 Add Question
             </button>
             
-            <button class ="colSmall" (click)="submitGap()" class="editToggle"  style=" background-color: palegoldenrod; box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset; margin-top: 30px; margin-left: 25%;">
-                Submit
-            </button>
+
             <br>
             <br>
             <br>
@@ -135,18 +103,27 @@
 
                 <table class="table" style="width:100%;">
                     <tr>
-                        <input #Gquestion class="editToggle" matInput value="{{entry.Gquestion}}" (change)="onQuestionChange(i, Gquestion.value)">
+                        <input [disabled]="!editing" #Gquestion class="editToggle" matInput value="{{entry.Gquestion}}" (change)="onQuestionChange(i, Gquestion.value)">
+                        <!--
+                        <span style="margin-left:1.5%">Status: {}</span>
+                        <span style="margin-left:1.5%">Import</span>
 
+                        -->
+    
 
                     </tr>
                     <tr>
                         <td>
-
+                            <!-- Below ternary statement translates to : If answer is yes, show "import as control".
+                                                            If answer is Weakness, show "import as weakness"
+                                                            Otherwise nothing
+                            -->
+                            <span [ngStyle]="editing?{'color': 'black'} : {'color': 'grey'}" *ngIf="entry.Ganswer == 'Yes' || entry.Ganswer == 'Weakness' " style="margin-left: 63.5%;"> {{entry.Ganswer == 'Yes' ? "Import as Control" : entry.Ganswer == "Weakness" ?  "Import as Weakness" : ""}}</span>
 
 
                             <mat-form-field class= "col2" appearance="legacy" color="primary" style="width: 20%; float:left" >
                                 <mat-label >Answer</mat-label>
-                                <mat-select (selectionChange)="onAnswerChange(i, Ganswer.value)" #Ganswer value="{{entry.Ganswer}}" id="Input">
+                                <mat-select [disabled]="!editing" (selectionChange)="onAnswerChange(i, Ganswer.value)" #Ganswer value="{{entry.Ganswer}}" id="Input">
                                     <mat-option #Ganswer value="Yes" >
                                         Yes
                                     </mat-option>
@@ -160,7 +137,7 @@
                               </mat-form-field>
                             
                         <div id="comments" class="comment" class="editToggle">
-                            <textarea #Gcomment [ngStyle]="showComments?{'visibility': 'visible'} : {'visibility': 'hidden'}" class="comment"  class="editToggle" value="{{entry.Gcomment}}" (change)="onCommentChange(i, Gcomment.value)" id="comment" style="float:left; text-align: left; align-content: left; margin-left: 20%; height:50px; " rows="2" cols="70"></textarea>
+                            <textarea [disabled]="!editing" #Gcomment [ngStyle]="showComments?{'visibility': 'visible'} : {'visibility': 'hidden'}" class="comment"  class="editToggle" value="{{entry.Gcomment}}" (change)="onCommentChange(i, Gcomment.value)" id="comment" style="float:left; text-align: left; align-content: left; margin-left: 20%; height:50px; " rows="2" cols="70"></textarea>
                         </div>
 
                         <button mat-icon-button class="editToggle" style="margin-left: 2%;">
@@ -169,7 +146,7 @@
                             </mat-icon>
                           </button>
 
-                        <button mat-icon-button class="editToggle" style="margin-left: 2%;">
+                        <button [disabled]="!editing" *ngIf="entry.Ganswer == 'Yes' || entry.Ganswer == 'Weakness'" mat-icon-button class="editToggle" style="margin-left: 4%;">
                         <mat-icon id="importQuestionToggle"[ngStyle]="editing?{'color': 'black'} : {'color': 'grey'}" class="editToggle" (click)="importToggle(entry,$event)">
                             check_box_outline_blank
                         </mat-icon>
