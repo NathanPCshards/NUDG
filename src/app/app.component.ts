@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Router } from '@angular/router';
 import { MatSelect } from '@angular/material/select';
+import { login } from './injectables';
 
 @Component({
   selector: 'app-root',
@@ -37,11 +38,14 @@ export class AppComponent implements OnInit {
   }
 
 
-  constructor(private http: HttpClient, private router: Router){
+  constructor(private http: HttpClient, private router: Router, private loginInfo:login){
 
   }
 
   ngOnInit(){
+    //Setting the default to always be PCshards
+    //Remove this later/ When you want to test login/instancing 
+    this.loginInfo.CompanyName = "PCshards"
 
   }
 

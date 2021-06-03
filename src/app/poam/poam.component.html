@@ -1,0 +1,186 @@
+<div class="doNotPrint">
+  
+  <mat-expansion-panel>
+
+  
+  </mat-expansion-panel>
+
+  <mat-list-item *ngFor="let entry of weaknesses$ | async; let i=index;">
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        
+        <mat-expansion-panel-header>
+        <mat-panel-title #familyName>
+          {{entry.Nid}}
+        </mat-panel-title>
+        <mat-panel-title >
+          {{entry.Wname}}
+        </mat-panel-title>
+        <mat-panel-title class="listSpan">
+          {{entry.Wstatus}}
+        </mat-panel-title>
+        <mat-panel-title class="listSpan">
+          {{entry.WcompletionDate | date:'MM/dd/yyyy'}}
+        </mat-panel-title>
+
+
+
+        </mat-expansion-panel-header>
+        <!--
+
+        this.Nid = Nid;
+        this.Wname = Wname;
+        this.Wdescription = Wdescription;
+
+        this.WdetectionSource = WdetectionSource;
+        this.WdetectionDate = WdetectionDate;
+        this.WcompletionDate = WcompletionDate;
+   
+
+        this.WdeviationRationale = WdeviationRationale;
+        this.WresourceReq = WresourceReq;
+        this.WsupportingDoc = WsupportingDoc;
+
+
+
+        this.WriskRating = WriskRating;
+        this.WriskAdjustment = WriskAdjustment;
+        this.WadjustedRiskRating = WadjustedRiskRating;
+
+        this.WvendorDependency = WvendorDependency;
+        this.WlastVendorCheck = WlastVendorCheck;
+        this.WvendorsProduct = WvendorsProduct;
+
+        this.Standards = Standards;
+        this.idOrgControls = idOrgControls;
+        this.Milestones = Milestones;
+
+
+        this.WautoApprove = WautoApprove;
+        this.WremediationPlan = WremediationPlan;
+        this.WoperationReq = WoperationReq;
+
+        this.Wstatus = Wstatus;
+        this.WassetID = WassetID;
+         this.WfalsePositive = WfalsePositive;
+
+        this.WlastChange = WlastChange;
+        this.WpointOfContact = WpointOfContact;
+        -->
+
+     
+          <table class="table" style="width:100%;">
+            <tr style="width:50%;">
+              <td class="col1">NUDG Identifier</td>
+              <td class="col2">{{entry.Nid}}</td>
+
+              <td class="col3">Risk Adjustment</td>
+              <td class="col4">{{entry.WriskAdjustment}}</td>
+            </tr>
+            <tr style="width:50%;">
+              <td class="col1">Weakness Name</td>
+              <td class="col2">{{entry.Wname}}</td>
+      
+              <td class="col3">Risk Rating </td>
+              <td class="col4">{{entry.WriskRating}}</td>
+            </tr>
+            <tr style="width:50%;">
+              <td class="col1">Detection Date</td>
+              <td class="col2">{{entry.WdetectionDate}}</td>
+      
+              <td class="col3">Resources Required</td>
+              <td class="col4">{{entry.WresourceReq}}</td>
+            </tr>
+            <tr style="width:50%;">
+              <td class="col1">Weakness Source Identifier</td>
+              <td class="col2">{{entry.WdetectionSource}}</td>
+      
+              <td class="col3">Supporting Documents</td>
+              <td class="col4">{{entry.WsupportingDoc}}</td>
+            </tr>
+            <tr style="width:50%;">
+              <td class="col1">Vendor Dependency</td>
+              <td class="col2">{{entry.WvendorDependency}}</td>
+      
+              <td class="col3">Standards</td>
+              <td class="col4">{{entry.Standards}}</td>
+            </tr>
+            <tr style="width:50%;">
+              <td class="col1">Point of Contact</td>
+              <td class="col2">{{entry.WpointOfContact}}</td>
+      
+              <td class="col3">Weakness Detector Source</td>
+              <td class="col4">{{entry.WdetectionSource}}</td>
+            </tr>
+            </table>
+            <table class="table" style="width:100%">
+            
+            <tr style="width:50%;">
+              <td class="col1">Completion Date </td>
+              <td class="col2">{{entry.WcompletionDate}}</td>
+
+              <td class="col3">Status</td>
+              <td class="col4">{{entry.Wstatus}}</td>
+
+
+            </tr>
+            <tr style="width:50%;">
+              <td class="col1">Overall Remediation Plan</td>
+              <td class="col2">{{entry.WremediationPlan}}</td>
+      
+              <td class="col3">Asset Identifier</td>
+              <td class="col4">{{entry.WassetID}}</td>
+
+            </tr>
+            <tr style="width:50%;">
+              <td class="col1">Vendors Product</td>
+              <td class="col2">{{entry.WvendorsProduct}}</td>
+      
+              <td class="col3">Last Change</td>
+              <td class="col4">{{entry.WlastChange}}</td>
+
+            </tr>
+            <tr style="width:50%;">
+              <td class="col1">Adjusted Risk Rating</td>
+              <td class="col2">{{entry.WadjustedRiskRating}}</td>
+      
+              <td class="col3">Weakness Description</td>
+              <td class="col4">{{entry.Wdescription}}</td>
+
+            </tr>
+            <tr style="width:50%;">
+              <td class="col1">Auto Approve</td>
+              <td class="col2">{{entry.WautoApprove}}</td>
+      
+              <td class="col3">Last Vendor Check in</td>
+              <td class="col4">{{entry.WlastVendorCheck}}</td>
+
+            </tr>
+            <tr style="width:50%;">
+              <td class="col1">Operational Requirement</td>
+              <td class="col2">{{entry.WoperationReq}}</td>
+      
+              <td class="col3">Deviation Rationale</td>
+              <td class="col4">{{entry.WdeviationRationale}}</td>
+
+            </tr>
+            <tr style="width:50%;">
+              <td class="col1">Comments</td>
+              <td class="col2">{{entry.Wcomment}}</td>
+      
+              <td class="col3">False Positive</td>
+              <td class="col4">{{entry.WfalsePositive}}</td>
+
+            </tr>
+
+           </table>
+
+ 
+        <div>
+    
+        </div>
+
+        
+        </mat-expansion-panel>
+
+    </mat-list-item>
+</div>

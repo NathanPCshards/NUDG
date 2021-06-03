@@ -306,7 +306,6 @@ export class GapForm implements OnInit{
         entry.toImport = true
       }
     }
-
   }
 
   fetchAllGap(Nid:any, Gdate: any): Observable<gap[]> {

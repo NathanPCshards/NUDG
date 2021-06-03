@@ -39,6 +39,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CompanyInfoModule } from './company-info-form/company-info-form.module';
 import { FirewallPortsProtocolsComponent } from './firewall-ports-protocols/firewall-ports-protocols.component';
 import { FormsModule } from '@angular/forms';
+import { POAMComponent } from './poam/poam.component';
 
 
 
@@ -54,6 +55,7 @@ import { FormsModule } from '@angular/forms';
     DashboardComponent,
     PolicyBoardComponent,
     NotfoundComponent,
+    POAMComponent,
   
     chartSimple,
     Bar3dDatasetComponent,
@@ -91,6 +93,7 @@ import { FormsModule } from '@angular/forms';
     IdentifierPageModule,
     SharedModule,
     FormsModule,
+
     
 //    PolicyAccordionModule,
 

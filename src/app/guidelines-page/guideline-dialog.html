@@ -3,14 +3,11 @@
 <div style="padding:5px; resize: both;">
 <ng-container *ngFor="let guideline of guideline$ | async">
 
-    <button mat-icon-button disabled aria-label="Example icon button with a open in new tab icon">
-        <mat-icon 
-        (click)="openGuideline(guideline.Nid,guideline.Guidelines)"
-        color="primary"
-        >
+    <button mat-icon-button disabled style="margin-left: 80%;">
+        <mat-icon (click)="openGuideline(guideline.Nid,guideline.Guidelines)" color="primary">
         open_in_new
         </mat-icon>
-        </button>
+    </button>
    
     <p class="listSpan descCol" style="font-size: medium; white-space: pre-wrap;">
     {{ guideline.Guidelines }}

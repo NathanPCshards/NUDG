@@ -30,7 +30,7 @@ import { restAPI } from '../services/restAPI.service';
   <weakness-dialog [id$]="id$" id="weakness" style="width:100%; position:absolute; display:none">
   </weakness-dialog>
 
-  <control-dialog [id$]="id$" id="control" style="position:absolute; width:100%;  display:none">
+  <control-dialog [id$]="id$" id="control" style="position:absolute; width:100%; display:none">
   </control-dialog>
 
   <app-file-import id="fileUpload" style="left:30%; position:absolute; display:none;"> </app-file-import>

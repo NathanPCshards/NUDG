@@ -1,0 +1,124 @@
+table{
+    width: 100%;
+
+   }
+.mat-header-cell{
+    background-color: rgb(63,81,181) ;
+    color:white;
+}
+
+.mat-row:nth-child(even){
+    background-color: rgb(225, 225, 225);
+}
+        
+.mat-row:nth-child(odd){
+    background-color: rgb(240, 240, 240);
+}
+
+
+.mat-expansion-panel:nth-child(even){
+    background-color: rgb(225, 225, 225);
+   
+}
+.mat-expansion-panel:nth-child(odd){
+    background-color: rgb(240, 240, 240);
+}
+
+
+.mat-panel-title{
+    width:30px;
+}
+
+.mat-form-field + .mat-form-field {
+    margin-left: 8px;
+  }
+
+ .mat-expansion-panel-header-title{
+     flex-grow: 0; //flex is turned off to align title/descriptions
+     width: 400px;
+     justify-content: flex-start;
+ }
+ .mat-expansion-panel{
+    overflow: hidden;
+    justify-content: flex-start;
+
+    
+}
+
+.accordion{
+    //color doesnt exists here i guess
+    color: red;
+    background-color: red;
+    background: red;
+}
+
+.ui-accordion .ui-accordion-content{
+    border-top: 0 none;
+    margin-bottom: 2px;
+    margin-top: -2px;
+    overflow: auto;
+    padding: 0;
+    position: relative;
+    top: 1px;
+}
+
+
+
+//CSS for LIST
+.flexContainer{
+    display:flexbox;
+}
+.listSpan {
+    width:200px;
+    min-width: 200px;
+    text-align: left;
+    margin-left: 5%;
+}
+.headerRow {
+    position:relative;
+    background-color: rgb(122, 149, 236);
+}
+
+.mat-list >  .mat-list-item:nth-child(2n+1){
+
+    background-color:white;
+  }
+  .mat-list >  .mat-list-item:nth-child(2n){
+
+    background-color:rgb(230, 228, 228);
+  }
+
+  .mat-list > .mat-list-item{
+    border: 1px solid black;
+    justify-content: center;
+
+  }
+
+  .col1{
+      background-color: wheat;
+  }
+  .col2{
+      background-color: wheat;
+  }
+  .col3 {
+      width: 33%;
+      background-color: rgb(220, 255, 255);
+  }
+  .col4{
+    background-color:rgb(220, 255, 255);
+  }
+  .col5{
+      background-color: rgb(240, 174, 174);
+  }
+  .col6{
+    background-color: rgb(240, 174, 174);
+}
+
+
+  .doNotPrint{
+    visibility: visible;
+  }
+  .PrintSection{
+    display:none;
+    visibility: hidden;
+  }
