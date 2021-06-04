@@ -25,10 +25,12 @@ export class LoginFormComponent{
 
   ngOnInit(){
     //clearing global vars
+    //Commented out because it is annoying to sign in while working
+    /*
     this.loginInfo.token = ""
     this.loginInfo.userId = ""
     this.loginInfo.CompanyName = ""
-
+*/
 
   }
 
