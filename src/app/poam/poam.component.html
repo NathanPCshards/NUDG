@@ -194,12 +194,10 @@
       <mat-panel-title class="listSpan">
         {{entry.Wstatus}}
       </mat-panel-title>
-      <mat-panel-title class="listSpan">
-        {{entry.WcompletionDate | date:'MM/dd/yyyy'}}
-      </mat-panel-title>
+
   
    
-      <mat-icon routerLink="/Policy/{{entry.Nid}}" routerLinkActive="active">
+      <mat-icon class="arrow" routerLink="/Policy/{{entry.Nid}}" routerLinkActive="active">
         forward
       </mat-icon>
   
@@ -359,12 +357,10 @@
         <mat-panel-title class="listSpan">
           {{entry.Wstatus}}
         </mat-panel-title>
-        <mat-panel-title class="listSpan">
-          {{entry.WcompletionDate | date:'MM/dd/yyyy'}}
-        </mat-panel-title>
+
 
      
-        <mat-icon routerLink="/Policy/{{entry.Nid}}" routerLinkActive="active">
+        <mat-icon class="arrow" routerLink="/Policy/{{entry.Nid}}" routerLinkActive="active">
           forward
         </mat-icon>
 

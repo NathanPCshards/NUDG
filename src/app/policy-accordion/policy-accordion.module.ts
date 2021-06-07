@@ -8,6 +8,7 @@ import { fileImportModule } from '../file-import/file-import.module';
 import { GapForm } from '../gap-assessment-page/gap-assessment-page.component';
 import { GapModule } from '../gap-assessment-page/gap.module';
 import { SharedModule } from '../SharedModule.module';
+import { StandardModule } from '../standards-form/standards-form.module';
 import { WeaknessModule } from '../weakness-form/weakness.module';
 import { AccordionItemComponent } from './accordion-item.component';
 //import { PolicyAccordionService } from '../services/policy-accordion.service';
@@ -19,6 +20,7 @@ import { PolicyAccordionComponent } from './policy-accordion.component';
     SharedModule,
     ControlModule,
     WeaknessModule,
+    StandardModule,
     fileImportModule,
     GapModule
 

@@ -196,7 +196,8 @@ export class POAMComponent implements OnInit {
     console.log("printlist : " , this.printList$)
   }
   printPage(){
-    window.print()
+   window.print()
+   
   }
 
 

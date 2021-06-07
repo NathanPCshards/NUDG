@@ -66,9 +66,7 @@ export class WeaknessFormComponent implements OnInit {
 
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log("result : " , result);
-  
+
       this.weaknesses$ = this.weaknessservice
       .post(result,this.loginInfo.CompanyName)
      // .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));
@@ -132,11 +130,15 @@ assetIdentifiers$
 
 ngOnInit(){
   //Getting standards
-  this.standards$ = this.rest_service.get(this.id$)
+  this.standards$ = this.rest_service.get(`http://192.168.0.70:3000/standards/${this.id$}/${this.loginInfo.CompanyName}`)
   //Getting vendor's products
   this.vendorsProducts$ = this.rest_service.get(`http://192.168.0.70:3000/vendors/${this.loginInfo.CompanyName}`);
   //Getting Asset Identifier from inventory 
   this.assetIdentifiers$ = this.rest_service.get(`http://192.168.0.70:3000/inventories/${this.loginInfo.CompanyName}`);
+
+  this.standards$.forEach(element => {
+    console.log("element : " , element)
+  });
 
 }
 public onFormSubmit() {
@@ -150,30 +152,36 @@ this.submitted = false;
 
 }
 
-closeDialog(Nid , Wname, WdetectionDate, WvendorDependency, WriskRating, WriskAdjustment, WadjustedRiskRating, WdetectionSource, WcompletionDate, WremediationPlan, WautoApprove, WoperationReq, Wstatus, WassetID, WlastChange, Wdescription, WlastVendorCheck, WdeviationRationale, WfalsePositive, WpointOfContact, WresourceReq, WsupportingDoc ){
+closeDialog(Nid , Wname, WdetectionDate, WvendorDependency, WriskRating, WriskAdjustment, WadjustedRiskRating, WdetectionSource, WcompletionDate, WremediationPlan, WautoApprove, WoperationReq, Wstatus, WassetID, WlastChange, Wdescription, WlastVendorCheck, WdeviationRationale, WfalsePositive, WpointOfContact, WresourceReq, WsupportingDoc, Standards, WvendorsProduct, Wcomment, WsourceIdentifier ){
   this.data.Nid = this.id$
-  this.data.Wname = Wname;
-  this.data.WdetectionDate = WdetectionDate;
-  this.data.WvendorDependency = WvendorDependency;
-  this.data.WriskRating = WriskRating;
-  this.data.WriskAdjustment = WriskAdjustment;
-  this.data.WadjustedRiskRating = WadjustedRiskRating;
-  this.data.WdetectionSource = WdetectionSource;
-  this.data.WcompletionDate = WcompletionDate;
+  this.data.Wname = Wname ? Wname : "";
+  this.data.WdetectionDate = WdetectionDate ? WdetectionDate : "";
+  this.data.WvendorDependency = WvendorDependency ? WvendorDependency : "" ;
+  this.data.WriskRating = WriskRating ? WriskRating : "";
+  this.data.WriskAdjustment = WriskAdjustment ? WriskAdjustment : "";
+  this.data.WadjustedRiskRating = WadjustedRiskRating ? WadjustedRiskRating : "";
+  this.data.WdetectionSource = WdetectionSource ? WdetectionSource : "";
+  this.data.WcompletionDate = WcompletionDate ? WcompletionDate : "";
   this.data.WremediationPlan = WremediationPlan;
-  this.data.WautoApprove = WautoApprove;
+  this.data.WautoApprove = WautoApprove ? WautoApprove : "";
   this.data.WoperationReq = WoperationReq;
-  this.data.Wstatus = Wstatus;
+  this.data.Wstatus = Wstatus ? Wstatus : "";
   this.data.WassetID = WassetID;
-  this.data.WlastChange = WlastChange;
+  this.data.WlastChange = WlastChange ? WlastChange : "";
   this.data.Wdescription = Wdescription;
-  this.data.WlastVendorCheck = WlastVendorCheck;
+  this.data.WlastVendorCheck = WlastVendorCheck ? WlastVendorCheck : "";
   this.data.WdeviationRationale = WdeviationRationale;
-  this.data.WfalsePositive = WfalsePositive;
-  this.data.WpointOfContact = WpointOfContact;
-  this.data.WresourceReq = WresourceReq;
-  this.data.WsupportingDoc = WsupportingDoc;
+  this.data.WfalsePositive = WfalsePositive ? WfalsePositive : "";
+  this.data.WpointOfContact = WpointOfContact  ? WpointOfContact : "";
+  this.data.WresourceReq = WresourceReq ? WresourceReq : "";
+  this.data.WsupportingDoc = WsupportingDoc ? WsupportingDoc : "" ;
   this.data.CompanyName = this.loginInfo.CompanyName
+  this.data.Standards = Standards ? Standards : ""
+  this.data.WvendorsProduct = WvendorsProduct ? WvendorsProduct : ""
+  this.data.Wcomment = Wcomment ? Wcomment : ""
+  this.data.WsourceIdentifier = WsourceIdentifier ? WsourceIdentifier : ""
+  
+
 
 try{
   //this works when opened as a dialog (the weakness page)

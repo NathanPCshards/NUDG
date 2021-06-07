@@ -62,6 +62,10 @@ table{
     top: 1px;
 }
 
+.arrow{
+    margin-left: 15%;
+}
+
 
 
 //CSS for LIST
@@ -140,7 +144,7 @@ table{
 }
 
 .PrintSection{
-    display:none
+    display:none;
 }
 
 @media print {

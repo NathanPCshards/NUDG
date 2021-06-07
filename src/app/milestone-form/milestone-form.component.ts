@@ -24,6 +24,8 @@ export class MilestoneFormComponent implements OnInit {
   searchMilestones
   rowSelected = false;
 
+  milestoneList
+  Nid
   
     constructor(
       private http:HttpClient, 
@@ -35,9 +37,11 @@ export class MilestoneFormComponent implements OnInit {
       private dialogRef : MatDialogRef<MilestoneFormComponent>, 
       @Inject(MAT_DIALOG_DATA) public data : any) { 
         this.idOrgWeaknesses = data.idOrgWeaknesses;
+        this.Nid = data.Nid
 
     }
     public openDialog(event) {
+
       let dialogRef = this.dialog.open(milestoneDialog, {
         width: '1200px',
         height: '550px',
@@ -46,16 +50,61 @@ export class MilestoneFormComponent implements OnInit {
     
 
         data: {
-          idOrgWeaknesses:this.idOrgWeaknesses
+          idOrgWeaknesses:this.idOrgWeaknesses,
+  
         },
   
       });
-      dialogRef.afterClosed().subscribe(result => {
+      this.milestoneList = []
+
+      dialogRef.afterClosed().subscribe(async result => {
         //if dialog is closed without pressing submit, result comes back as undefined.
         if(result){
+
           this.milestones$ = this.rest_service
           .post(`http://192.168.0.70:3000/milestones/${this.idOrgWeaknesses}/${this.loginInfo.CompanyName}`,result)
           .pipe(tap(() => (this.milestones$ = this.fetchAll(this.idOrgWeaknesses))));
+
+          this.milestones$.forEach(response => {
+          //@ts-ignore, For some reason the compiler doesnt think the element has this insert property, but it does in fact have it
+            let id = response.insertId
+            //get list of existing milestones,
+            //add to list
+            //post back to weaknesses
+
+           
+              console.log("get called at : " , (`http://192.168.0.70:3000/milestones/${this.idOrgWeaknesses}/${this.loginInfo.CompanyName}`))
+              let tempSub = this.rest_service.get(`http://192.168.0.70:3000/milestones/${this.idOrgWeaknesses}/${this.loginInfo.CompanyName}`);
+              tempSub.subscribe(dataArray=>{
+                dataArray.forEach(milestone => {
+                    this.milestoneList.push(milestone.idMilestones)
+                    console.log("milestone list : " , this.milestoneList)
+                });
+              })
+          
+          
+              let index = this.milestoneList.indexOf(id)
+              if (index != -1){
+                this.milestoneList.splice(this.milestoneList.indexOf(id), 1)
+              }
+          
+            });
+            
+
+
+
+
+            //TODO The milestone list IS getting all the correct information pushed to it.
+            //but by time we send it its empty.... something with scope of where the list is declared... look into it...
+
+
+            console.log("milestone list FINAL: " , this.milestoneList)
+
+            let temp2 = await this.rest_service.update(`http://192.168.0.70:3000/weaknesses/${this.Nid}/${this.loginInfo.CompanyName}?UpdateMilestones=True`,{"nudgid":this.Nid, "data" :this.milestoneList})
+            temp2.subscribe();
+          
+
+
         }
       });
     }
@@ -80,11 +129,45 @@ fetchAll(idOrgWeaknesses) {
   return this.rest_service.get(`http://192.168.0.70:3000/milestones/${idOrgWeaknesses}/${this.loginInfo.CompanyName}`);
 }
 
-delete(id: any): void {
+  async delete(id: any): Promise<void> {
   let temp =  this.rest_service.delete(`http://192.168.0.70:3000/milestones/${id}/${this.loginInfo.CompanyName}`)
   .pipe(tap(() => (this.milestones$ = this.fetchAll(this.idOrgWeaknesses))));
 
-  temp.subscribe()
+  temp.subscribe(response=>{
+    let id = response.insertId
+      
+    this.milestoneList = []
+    let tempSub = this.rest_service.get(`http://192.168.0.70:3000/milestones/${this.idOrgWeaknesses}/${this.loginInfo.CompanyName}`);
+    tempSub.subscribe(dataArray=>{
+      dataArray.forEach(milestone => {
+          this.milestoneList.push(milestone.idMilestones)
+      });
+    })
+
+
+    let index = this.milestoneList.indexOf(id)
+    if (index != -1){
+      this.milestoneList.splice(this.milestoneList.indexOf(id), 1)
+    }
+
+    console.log("milestone list : " , this.milestoneList)
+  })
+
+
+ 
+
+  let temp2 = await this.rest_service.update(`http://192.168.0.70:3000/weaknesses/${this.Nid}/${this.loginInfo.CompanyName}?UpdateMilestones=${this.milestoneList}`,{"nudgid":this.Nid, "data" :this.milestoneList})
+  temp2.subscribe();
+
+
+
+
+
+
+
+
+
+
 }
 
 
@@ -121,6 +204,7 @@ submitted= false;
 
 ngOnInit(){
   this.idOrgWeaknesses = this.data.idOrgWeaknesses.idOrgWeaknesses;
+  console.log("incoming data : " , this.data)
 }
 
 

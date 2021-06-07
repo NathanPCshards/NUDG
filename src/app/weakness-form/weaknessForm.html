@@ -1,52 +1,7 @@
 
-<style>
-    div.container1{
-      
-        background: linear-gradient(to bottom, rgb(63,81,181) 8%, white 0%);
-        overflow:hidden;
-          
-      }
-    mat-grid-tile{
-        width: 98px;
-        margin:auto;
-    }
-    mat-form-field{
-        margin-left: 1%;
-    }
-    
-    .col{
-        float:left;
-        width: 33%;
-        padding:1%;
-      
-    }
-    
-    .row2{
-        width:100%;
-        align-items: center;
-        display: flexbox;
-        clear:both;
-        padding-left: 2px;
-        padding-right: 2px;
-    }
-    .mat-raised-button{
-        margin-top: 1%;
-        margin-bottom: 15px;
-    }
-    
-    .mat-toolbar{
-        padding: 0px;
-    }
-    ::ng-deep.mat-dialog-container {
-        padding: 0px !important;
-        margin-bottom: 0px;
-    }
-    
-    
-    </style>
 
 <div class="container1" style="margin:0px;padding: 0px;">
-            <h2 style="margin-left: 1%; margin-top: 1%; font-size: 32px;color: white;">
+            <h2 style="margin-left: 1%; margin-top: .3%; font-size: 32px;color: white;">
                 Weaknesses
             </h2>
     
@@ -88,7 +43,7 @@
 
 
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input matInput placeholder = "Weakness Source Identifier">
+                                <input #WsourceIdentifier matInput placeholder = "Weakness Source Identifier">
                             </mat-form-field>
                             <div class="cards" style="margin-left: 1%; margin-bottom: 10px;">
                                 <h1 style="margin: 0px; font-size:15px">Vendor Dependency</h1>
@@ -163,10 +118,10 @@
 
                             <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                                 <mat-label >Standards</mat-label>
-                                <mat-select #Standards id="Input" >
+                                <mat-select #Standards id="Input" multiple>
                                     <div *ngFor="let standard of standards$ | async">
-                                        <mat-option value="Incomplete" >
-                                            {{standard.idStandards}}
+                                        <mat-option value={{standard.idStandards}} >
+                                            {{standard.idStandards}}:   {{standard.Standard}}
                                         </mat-option>
                                     </div>
                            
@@ -205,7 +160,7 @@
         
                             <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
                                 <mat-label>Vendor's Product</mat-label>
-                                <mat-select #idOrgWeaknesses id="Input">
+                                <mat-select #WvendorsProduct id="Input">
                                     <div *ngFor="let product of vendorsProducts$ | async">
                                         <mat-option value={{product.Vproduct}} >
                                             {{product.Vproduct}}
@@ -338,11 +293,11 @@
                     </div>
                         
                 <div class = "row2">
-                    <mat-divider style="padding-top: 3px;"></mat-divider>
+                    <mat-divider style="padding-top: 1px;"></mat-divider>
     
-                    <button mat-raised-button (click)="closeDialog(Nid.value, Wname.value, WdetectionDate.value, WvendorDependency.value, WriskRating.value, WriskAdjustment.value, WadjustedRiskRating.value, WdetectionSource.value, WcompletionDate.value, WremediationPlan.value, WautoApprove.value, WoperationReq.value, Wstatus.value, WassetID.value, WlastChange.value, Wdescription.value, WlastVendorCheck.value, WdeviationRationale.value, WfalsePositive.value, WpointOfContact.value, WresourceReq.value, WsupportingDoc.value )" style="margin-left: 15%;width:20vw;height: 3vh; float: left;" color="primary"  >Submit</button>
+                    <button id="btn1" mat-raised-button (click)="closeDialog(Nid.value, Wname.value, WdetectionDate.value, WvendorDependency.value, WriskRating.value, WriskAdjustment.value, WadjustedRiskRating.value, WdetectionSource.value, WcompletionDate.value, WremediationPlan.value, WautoApprove.value, WoperationReq.value, Wstatus.value, WassetID.value, WlastChange.value, Wdescription.value, WlastVendorCheck.value, WdeviationRationale.value, WfalsePositive.value, WpointOfContact.value, WresourceReq.value, WsupportingDoc.value, Standards.value, WvendorsProduct.value, Wcomment.value, WsourceIdentifier.value )" color="primary"  >Submit</button>
                     
-                    <button mat-raised-button  (click)="onFormReset();" style="margin-right: 15%;width:20vw;height: 3vh;float: right;" type="reset"  color="primary"  >Reset</button>
+                    <button id="btn2" mat-raised-button  (click)="onFormReset();"  type="reset"  color="primary"  >Reset</button>
                 </div>
 
 

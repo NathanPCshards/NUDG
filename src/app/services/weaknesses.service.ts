@@ -31,7 +31,7 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
  
 
   //Get Requests
-   fetchAll(id: any = null, CompanyName): Observable<weaknesses[]> {
+   fetchAll(id: any = null, CompanyName) {
      let tempUrl;
      id ? tempUrl = `http://192.168.0.70:3000/weaknesses/${id}/${CompanyName}`: tempUrl = "http://192.168.0.70:3000/weaknesses"
      console.log("weaknesses url : ", tempUrl)
@@ -47,7 +47,7 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
   }
 
   //Post Requests
-  post(item: any, CompanyName : any): Observable<any> {
+  post(item: any, CompanyName : any){
     let url  = `http://192.168.0.70:3000/weaknesses/${item.Nid}/${CompanyName}`
     return this.http
       .post(url, item)
@@ -55,7 +55,7 @@ constructor(private errorHandlerService: ErrorHandlerService,private http: HttpC
   }
 
   //Put Requests
-  update(item: any, CompanyName : any): Observable<any> {
+  update(item: any, CompanyName : any) {
     let url  = `http://192.168.0.70:3000/weaknesses/${item.Nid}/${CompanyName}`
 
     return this.http

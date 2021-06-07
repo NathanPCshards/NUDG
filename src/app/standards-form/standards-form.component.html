@@ -1,0 +1,28 @@
+<div class="container1" style="margin:0px;padding: 0px;">
+    <div style="margin:0px;padding: 0px;"></div>
+            <h2 style="margin-left: 1%; margin-top: 1%; font-size: 32px;color: white; ;">
+                Standards
+            </h2>
+                <div class = InputContainer>
+                    <div class = "row">
+                        <div class ="col">
+                            <mat-form-field  appearance = "legacy" style="width:40%">
+                                <input #standard matInput placeholder="Standard">
+                            </mat-form-field>
+
+
+                        </div>
+
+
+                    </div>
+                        
+                <div class = "row2">
+                    <mat-divider style="padding-top: 3px;"></mat-divider>
+                    <button
+                     mat-raised-button (click)="submit(standard.value)" 
+                     style="margin-left: 15%;width:20vw;height: 5vh; float: left;" 
+                     color="primary">Submit
+                    </button>
+                </div>
+            </div>      
+

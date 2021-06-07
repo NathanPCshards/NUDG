@@ -24,6 +24,7 @@ import { gap } from '../models/gap';
 import { login } from '../injectables';
 import { restAPI } from '../services/restAPI.service';
 import { Console } from 'node:console';
+import { controlDialog } from '../control-form/control-form.component';
 
 
 //leave for now. The accordion needs these to function
@@ -104,8 +105,10 @@ export class IdentifierPageComponent implements OnInit {
   currentPolicy;
 
 
-
-  
+  //these three lists are used temporarily during functions that add/remove these entries to the policy.
+  ctrlList
+  weaknessList
+  standardsList
 
   
   constructor(
@@ -128,8 +131,16 @@ export class IdentifierPageComponent implements OnInit {
 
     ) { }
 
-  ngOnInit(){
-
+  async ngOnInit(){
+    //Sets defualt page to be AC-N.01
+    //Pulling correct policy.
+    this.routeSub = this.route.params.subscribe(params => {
+      this.id = params['id'];
+      this.Gdate$ = params['Gdate$']
+      });
+    this.id ? true : this.id = "AC-N.01"
+    this.Gdate$ ? true : this.Gdate$ = "1/1/2021"
+    
     //getting unique Nudg Id's
     this.uniqueNidList$ = this.rest_service.get(`http://192.168.0.70:3000/Policy/${this.id}/${this.loginInfo.CompanyName}/?getUniqueNids=${true}`);
     this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
@@ -146,16 +157,6 @@ export class IdentifierPageComponent implements OnInit {
       this.NidFilterList.push(element)
     });
 
-    //Pulling correct policy.
-    this.routeSub = this.route.params.subscribe(params => {
-      this.id = params['id'];
-      this.Gdate$ = params['Gdate$']
-      });
-    
-
-    //Sets defualt page to be AC-N.01
-    this.id ? true : this.id = "AC-N.01"
-    this.Gdate$ ? true : this.Gdate$ = "1/1/2021"
     //POLICY STUFF
     this.policy$ = this.fetchPolicy(this.id);
 
@@ -187,23 +188,102 @@ export class IdentifierPageComponent implements OnInit {
     });
     //CONTROLS STUFF
     this.controls$ = this.fetchAllControls(this.id);
+
     this.controlSubscription =  this.controlsservice.onClick.subscribe(async data =>{
+      this.ctrlList = []
 
       let temp = await this.controlsservice.post(data, this.loginInfo.CompanyName)
        .pipe(tap(() => (this.controls$ = this.fetchAllControls(this.id))));
-      temp.subscribe()
+      temp.subscribe(async element=> {
+        //Adding Control that was just created.
+        this.ctrlList.push(element.insertId)
+        //Getting idControl field of current policy.
+        let ctrlSub = await this.rest_service.get(`http://192.168.0.70:3000/policy/${this.id}/${this.loginInfo.CompanyName}?GetOneColumn=idControls`)
+        ctrlSub.forEach(async dataArray => {
+          dataArray.forEach(element => {
+            //Converting String of "[id1,id2,id3]" to a real array
+            let control_ids =  element.idControls.trim().replace("\[","").replace("\]","").split(",")
+            control_ids.forEach(id => {
+              //Adding ids from policy to temp array
+              this.ctrlList.push(Number(id))
+            });
+          });
+          //Updating the policy with the new control id that was made
+          let temp2 = await this.rest_service.update(`http://192.168.0.70:3000/policy/${this.id}/${this.loginInfo.CompanyName}?UpdateOneColumn=idControls`,{"nudgid":this.id, "data" :this.ctrlList})
+          temp2.subscribe();
+        });
+
+      });
+      
     });
 
   
     //WEAKNESSES STUFF
     this.weaknesses$ = this.fetchAllWeaknesses(this.id);
-    this.weaknessservice.onClick.subscribe(data =>{
-      this.weaknesses$ = this.rest_service.post(`http://192.168.0.70:3000/weaknesses/${this.id}/${this.loginInfo.CompanyName}`,data)
+    this.weaknessservice.onClick.subscribe(async data =>{
+      let temp2 = await this.rest_service.post(`http://192.168.0.70:3000/weaknesses/${this.id}/${this.loginInfo.CompanyName}`,data)
       .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses(this.id))));
+      this.weaknessList = []
+      temp2.subscribe(async element=> {
+        //Adding weakness that was just created.
+
+        //@ts-ignore, For some reason the compiler doesnt think the element has this insert property, but it does in fact have it
+        this.weaknessList.push(element.insertId)
+
+       // this.ctrlList.push(element.insertId)
+        //Getting idWeakness field of current policy.
+        let weaknessSub = await this.rest_service.get(`http://192.168.0.70:3000/policy/${this.id}/${this.loginInfo.CompanyName}?GetOneColumn=idWeaknesses`)
+        weaknessSub.forEach(async dataArray => {
+          dataArray.forEach(element2 => {
+            //Converting String of "[id1,id2,id3]" to a real array
+            let weakness_ids =  element2.idWeaknesses.trim().replace("\[","").replace("\]","").split(",")
+            weakness_ids.forEach(id => {
+              //Adding ids from policy to temp array
+              this.weaknessList.push(Number(id))
+            });
+          });
+          //Updating the policy with the new weakness id that was made
+          let temp2 = await this.rest_service.update(`http://192.168.0.70:3000/policy/${this.id}/${this.loginInfo.CompanyName}?UpdateOneColumn=idWeaknesses`,{"nudgid":this.id, "data" :this.weaknessList})
+          temp2.subscribe();
+
+
+
+          
+        });
+
+      });
       
   });
     //STANDARDS STUFF
     this.standards$ = this.fetchAllStandards();
+    this.rest_service.standardEmit.subscribe(element => {
+
+      let temp = this.rest_service.post(`http://192.168.0.70:3000/standards/${this.id}/${this.loginInfo.CompanyName}`, {"Standard" : element})
+      .pipe(tap(() => (this.standards$ = this.fetchAllStandards())));
+      temp.subscribe(async element=> {
+        this.standardsList = []
+
+        //Adding Control that was just created.
+        this.standardsList.push(element.insertId)
+        //Getting idControl field of current policy.
+        let ctrlSub = await this.rest_service.get(`http://192.168.0.70:3000/policy/${this.id}/${this.loginInfo.CompanyName}?GetOneColumn=idStandards`)
+        ctrlSub.forEach(async dataArray => {
+          dataArray.forEach(element => {
+            //Converting String of "[id1,id2,id3]" to a real array
+            let control_ids =  element.idStandards.trim().replace("\[","").replace("\]","").split(",")
+            control_ids.forEach(id => {
+              //Adding ids from policy to temp array
+              this.standardsList.push(Number(id))
+            });
+          });
+          //Updating the policy with the new control id that was made
+          console.log("list being sent : " , this.standardsList)
+          let temp2 = await this.rest_service.update(`http://192.168.0.70:3000/policy/${this.id}/${this.loginInfo.CompanyName}?UpdateOneColumn=idStandards`,{"nudgid":this.id, "data" :this.standardsList})
+          temp2.subscribe();
+        });
+
+      });
+    });
 
 
     //This block below handles most of the gap interactions with the database
@@ -364,9 +444,7 @@ export class IdentifierPageComponent implements OnInit {
 
 
   updatePolicy(policy,Comments){
-    console.log("update called")
     policy.Comments = Comments
-    console.log("policy : " ,policy)
     let temp =  this.rest_service.update(`http://192.168.0.70:3000/policy/${policy.nudgid}/${this.loginInfo.CompanyName}`,policy);
     temp.subscribe()
 
@@ -386,14 +464,38 @@ export class IdentifierPageComponent implements OnInit {
   updateControls(id: number, inventoryItem: Partial<controls>): void {
 
   }
-  deleteControls(id: any): void {
+  async deleteControls(id: any): Promise<void> {
 
     let CompanyName = this.loginInfo.CompanyName
+    this.ctrlList = []
 
     let temp = this.rest_service.delete(`http://192.168.0.70:3000/controls/${id}/${CompanyName}`)
     .pipe(tap(() => (this.controls$ = this.fetchAllControls(this.id))));
     temp.subscribe()
-      
+
+    
+    let ctrlSub = await this.rest_service.get(`http://192.168.0.70:3000/policy/${this.id}/${this.loginInfo.CompanyName}?GetOneColumn=idControls`)
+    ctrlSub.forEach(async dataArray => {
+      dataArray.forEach(element => {
+        //Converting String of "[id1,id2,id3]" to a real array
+        let control_ids =  element.idControls.trim().replace("\[","").replace("\]","").split(",")
+        control_ids.forEach(id => {
+          //Adding ids from policy to temp array
+          this.ctrlList.push(Number(id))
+        });
+      });
+      //Remove the correct control
+
+      let index = this.ctrlList.indexOf(id)
+      if (index != -1){
+        this.ctrlList.splice(this.ctrlList.indexOf(id), 1)
+      }
+
+
+      let temp2 = await this.rest_service.update(`http://192.168.0.70:3000/policy/${this.id}/${this.loginInfo.CompanyName}?UpdateOneColumn=idControls`,{"nudgid":this.id, "data" :this.ctrlList})
+      temp2.subscribe();
+    });
+
   }
   
 
@@ -408,8 +510,7 @@ export class IdentifierPageComponent implements OnInit {
 
 
 
-
-  fetchAllWeaknesses(Nid: any): Observable<weaknesses[]> {
+  fetchAllWeaknesses(Nid: any) {
     return this.weaknessservice.fetchAll(Nid, this.loginInfo.CompanyName);
   }
 
@@ -419,10 +520,37 @@ export class IdentifierPageComponent implements OnInit {
       .update(newWeakness)
       .pipe(tap(() => (this.weaknesses$ = this.fetchAll())));*/
   }
-  deleteWeaknesses(id: any): void {
+  async deleteWeaknesses(id: any): Promise<void> {
+    let CompanyName = this.loginInfo.CompanyName
+    this.weaknessList = []
+
     this.weaknesses$ = this.weaknessservice
       .delete(id,this.loginInfo.CompanyName)
       .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses(this.id))));
+
+      let weaknessSub = await this.rest_service.get(`http://192.168.0.70:3000/policy/${this.id}/${this.loginInfo.CompanyName}?GetOneColumn=idWeaknesses`)
+      weaknessSub.forEach(async dataArray => {
+        dataArray.forEach(element => {
+          //Converting String of "[id1,id2,id3]" to a real array
+          let control_ids =  element.idWeaknesses.trim().replace("\[","").replace("\]","").split(",")
+          control_ids.forEach(id => {
+            //Adding ids from policy to temp array
+            this.weaknessList.push(Number(id))
+          });
+        });
+        //Remove the correct control
+
+        let index = this.weaknessList.indexOf(id)
+        if (index != -1){
+          this.weaknessList.splice(this.weaknessList.indexOf(id), 1)
+        }
+  
+  
+        let temp2 = await this.rest_service.update(`http://192.168.0.70:3000/policy/${this.id}/${this.loginInfo.CompanyName}?UpdateOneColumn=idWeaknesses`,{"nudgid":this.id, "data" :this.weaknessList})
+        temp2.subscribe();
+      });
+
+
       
   }
   
@@ -449,6 +577,29 @@ export class IdentifierPageComponent implements OnInit {
     let temp = await this.rest_service.delete(`http://192.168.0.70:3000/standards/${id}/${this.loginInfo.CompanyName}`)
     .pipe(tap(() => (this.standards$ = this.fetchAllStandards())));
     temp.subscribe()
+
+    this.standardsList = []
+
+    let standardSub = await this.rest_service.get(`http://192.168.0.70:3000/policy/${this.id}/${this.loginInfo.CompanyName}?GetOneColumn=idStandards`)
+    standardSub.forEach(async dataArray => {
+      dataArray.forEach(element => {
+        //Converting String of "[id1,id2,id3]" to a real array
+        let standard_ids =  element.idStandards.trim().replace("\[","").replace("\]","").split(",")
+        standard_ids.forEach(id => {
+          //Adding ids from policy to temp array
+          this.standardsList.push(Number(id))
+        });
+      });
+      //Remove the correct control
+      let index = this.standardsList.indexOf(id)
+      if (index != -1){
+        this.standardsList.splice(this.standardsList.indexOf(id), 1)
+      }
+
+
+      let temp2 = await this.rest_service.update(`http://192.168.0.70:3000/policy/${this.id}/${this.loginInfo.CompanyName}?UpdateOneColumn=idStandards`,{"nudgid":this.id, "data" :this.standardsList})
+      temp2.subscribe();
+    });
      
   }
 
@@ -507,13 +658,14 @@ export class IdentifierPageComponent implements OnInit {
     return true;
   }
 
-  openMilestones(idOrgWeaknesses){
+  openMilestones(idOrgWeaknesses,Nid){
     let dialogRef = this.dialog.open(MilestoneFormComponent, {
       width: '2400px',
       height: '800px',
       autoFocus : false,
       data: {
-        idOrgWeaknesses
+        idOrgWeaknesses,
+        Nid
       },
 
     });
@@ -576,6 +728,15 @@ export class IdentifierPageComponent implements OnInit {
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
       this.router.navigate(["Policy/",name]));
     
+  }
+
+  stringToArray(input){
+    //console.log("input : " ,  input)
+    // "[123,646,2,25]"
+    let temp = input.trim().replace("\[","").replace("\]","").split(",")
+
+    return input
+
   }
 
   ngOnDestroy(){

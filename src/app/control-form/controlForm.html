@@ -16,10 +16,10 @@
 
                             <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                                 <mat-label >Standard</mat-label>
-                                <mat-select #Mstatus id="Input" >
+                                <mat-select #Standards id="Input" multiple>
                                     <div *ngFor="let standard of displayStandards$">
                                         <mat-option value={{standard.idStandards}} >
-                                            {{standard.idStandards}}
+                                            {{standard.idStandards}}:   {{standard.Standard}}
                                         </mat-option>
                                     </div>
                            
@@ -109,7 +109,7 @@
                                 <mat-select #idOrgWeaknesses id="Input">
                                     <div *ngFor="let weakness of displayWeakness$">
                                         <mat-option value={{weakness.idOrgWeaknesses}} >
-                                            {{weakness.idOrgWeaknesses}}
+                                            {{weakness.Wname}}
                                         </mat-option>
                                     </div>
                            
@@ -123,7 +123,7 @@
                 <div class = "row2">
                     <mat-divider style="padding-top: 3px;"></mat-divider>
                     <button
-                     mat-raised-button (click)="submit(Cname.value,Coverview.value,Cissuedate.value,Csharedresources.value,Curl.value, idOrgWeaknesses.value)" 
+                     mat-raised-button (click)="submit(Cname.value,Coverview.value,Cissuedate.value,Csharedresources.value,Curl.value, idOrgWeaknesses.value, Standards.value)" 
                      style="margin-left: 15%;width:20vw;height: 5vh; float: left;" 
                      color="primary">Submit
                     </button>

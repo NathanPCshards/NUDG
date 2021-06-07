@@ -116,25 +116,10 @@ ngOnInit(){
 
 
 
- 
-
-
-  
-
-
- 
-
-
-
-
   //Getting resources
   this.resources$ = this.rest_service.get(`http://192.168.0.70:3000/sharedResources/${this.loginInfo.CompanyName}`)
 
 
-
-
-
- 
   this.displayResources$ = []
   this.resources$.forEach(resourcesArray => {
     resourcesArray.forEach(resource => {
@@ -166,7 +151,7 @@ ngOnInit(){
 }
 
 
-submit(Cname, Coverview, Cissuedate, CsharedresourcesskRating, Curl, idOrgWeaknesses){
+submit(Cname, Coverview, Cissuedate, CsharedresourcesskRating, Curl, idOrgWeaknesses, Standards){
   this.data.Nid = this.id$ 
   this.data.Cname = Cname;
   this.data.Coverview = Coverview;
@@ -175,6 +160,7 @@ submit(Cname, Coverview, Cissuedate, CsharedresourcesskRating, Curl, idOrgWeakne
   this.data.Curl = Curl;
   this.data.idOrgWeaknesses = idOrgWeaknesses
   this.data.CompanyName = this.loginInfo.CompanyName
+  this.data.Standards = Standards
  
 
   //This is subscribed to in identifier page oninit.

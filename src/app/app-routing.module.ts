@@ -36,6 +36,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { FirewallPortsProtocolsComponent } from './firewall-ports-protocols/firewall-ports-protocols.component';
 import { POAMComponent } from './poam/poam.component';
+import { StandardsFormComponent } from './standards-form/standards-form.component';
 //https://angular.io/guide/router
 
 const routes: Routes = [
@@ -59,6 +60,9 @@ const routes: Routes = [
   { path: 'Policy/:id/:Date', component: IdentifierPageComponent },
   { path: 'Firewall', component: FirewallPortsProtocolsComponent },
   { path: 'POAM', component: POAMComponent },
+  { path: 'Standards', component: StandardsFormComponent },
+
+
 
 
 

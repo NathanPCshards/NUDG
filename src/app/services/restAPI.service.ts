@@ -14,6 +14,8 @@ import { ErrorHandlerService } from "./error-handler.service";
 export class restAPI {
 //url must match route in the app.use(...) in index.js
 gapEmit = new EventEmitter();
+standardEmit = new EventEmitter();
+
 uploadForm: FormGroup
 httpOptions: { headers: HttpHeaders } = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -23,12 +25,15 @@ httpOptions: { headers: HttpHeaders } = {
    }
 
    emit(data : any, optionalParam : any = false) {
-     console.log("gap was emitted")
      this.gapEmit.emit({data,optionalParam});
+   }
+
+   standardsEmit(data : any){
+     this.standardEmit.emit(data)
    }
    
    get(url): Observable<any> {
-   // console.log("Get called @ ", url)
+    console.log("Get called @ ", url)
     return this.http
       .get<any>(url, { responseType: "json" })
       .pipe(
@@ -59,6 +64,7 @@ httpOptions: { headers: HttpHeaders } = {
 
   update(url, data): Observable<any> {
     console.log("Update called @ ", url)
+    console.log("updated called with data : " , data)
 
     return this.http
       .put(url, data)
