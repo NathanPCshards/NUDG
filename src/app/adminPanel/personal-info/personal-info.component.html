@@ -1,0 +1,165 @@
+<mat-sidenav-container class="example-container" >
+    <mat-sidenav style="width:20%; padding: 1%; color:black; background-color: rgb(255, 255, 255);" #sidenav mode="side" [(opened)]="opened" (opened)="events.push('open!')"
+                >
+                <!-- (closed)="events.push('close!');"-->
+                 <!--THIS IS INSIDE OF SIDE NAV -->
+                 <div style="padding: 1%; margin:1%;">
+                    <mat-icon class="icon">
+                        account_circle
+                    </mat-icon>
+                    <span routerLink="/Account" routerLinkActive="active" style="font-size: 16px">Home</span>
+                    <br>
+                    <mat-icon class="icon">
+                        face
+                    </mat-icon>
+                    <span routerLink="/PersonalInfo" routerLinkActive="active" style="font-size: 16px">Personal Info</span>
+                    <br>
+                    <mat-icon class="icon">
+                        color_lens
+                    </mat-icon>
+                    <span routerLink="/Personalization" routerLinkActive="active" style="font-size: 16px">Personalization</span>
+                    <br>
+                    <mat-icon class="icon">
+                        credit_card
+                    </mat-icon>
+                    <span routerLink="/Payment" routerLinkActive="active" style="font-size: 16px">Payments & subscriptions</span>
+                    <br>
+                </div>
+    </mat-sidenav>
+  
+    <mat-sidenav-content style="padding-left: 1%; padding-right: 1%; padding-top: 1%; background-color: white; color: black; ">
+        <h1 style="font-size: 32px; margin-left: 45%;">
+            Personal Info
+        </h1>
+        <h3 style="margin-left: 45%;">
+            Explanation Text
+        </h3>
+ 
+     <div id="basicInfo" class="basicInfo" #basicInfo>
+         <h1>
+            Basic Info
+         </h1>
+
+         <table class="tables">
+            <tr>
+                <div style="margin-bottom: 3%;" class="span1">
+                    <span>
+                        Name
+                    </span>
+                    <span style="margin-left: 50%;">
+                        {{name}}
+                    </span>
+
+                </div>
+
+            </tr>
+
+            <tr>
+                <div style="margin-bottom: 3%;" class="span1">
+                    <span>
+                        Password
+                    </span>
+                    <span style="margin-left: 50%;">
+                        {{passwordLength}}
+                    </span>
+
+                </div>
+            </tr>
+        </table>
+     </div>
+     <div id="contactInfo" class="contactInfo" #contactInfo>
+        <h1>
+           Contact Info
+        </h1>
+
+        <table class="tables">
+            <tr>
+                <div style="margin-bottom: 3%;" class="span1">
+                    <span>
+                        Email
+                    </span>
+                    <span style="margin-left: 50%;" class="span2">
+                        {{email}}
+                    </span>
+                    <mat-icon>
+                        arrow
+                    </mat-icon>
+
+                </div>
+            </tr>
+
+            <tr>
+                <div style="margin-bottom: 3%;">
+                    <span class="span1">
+                        Phone
+                    </span>
+                    <span style="margin-left: 50%;" class="span2">
+                        {{phone}}
+                    </span>
+
+                </div>
+            </tr>
+        </table>
+    </div>
+    <div  id="missingSomething" class="missingSomething" #missingSomething>
+        <h1>
+           Missing Something?
+        </h1>
+
+        <table class="tables">
+            <tr>
+                <div style="margin-bottom: 3%;" class="span1">
+                    <span>
+                        Help Center
+                    </span>
+                    <span style="margin-left: 50%;" class="span2">
+                        Link to Something
+                    </span>
+                </div>
+            </tr>
+            <tr>
+                <div style="margin-bottom: 3%;" class="span1">
+                    <span>
+                        Website Page?
+                    </span>
+                    <span style="margin-left: 50%;" class="span2">
+                        Link to Something
+                    </span>
+                </div>
+                <div style="margin-bottom: 3%;" class="span1">
+                    <span>
+                        Link to some .Gov site?
+                    </span>
+                    <span style="margin-left: 50%;" class="span2">
+                        Link to Something
+                    </span>
+                </div>
+            </tr>
+
+            <tr>
+                <div style="margin-bottom: 3%;">
+                    <span class="span1">
+                        Search
+                    </span>
+                    <app-page-search style="margin-left: 50%;">
+
+                    </app-page-search>
+                    This box is tinted to show search thing above this text... I cant change the color of it right now.
+
+
+                </div>
+            </tr>
+        </table>
+    </div>
+        <div   style="height:80%; margin-bottom:1%; margin-top: 1%; padding:.5%; display:block; width: 98%;  color:black; background-color: rgb(190, 190, 190); box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px; border-radius: 2px;">
+        </div>
+
+
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+
+
+
+

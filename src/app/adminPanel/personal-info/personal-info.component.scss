@@ -1,0 +1,140 @@
+table{
+    width: 100%;
+
+   }
+.mat-header-cell{
+    background-color: rgb(63,81,181) ;
+    color:white;
+}
+
+.mat-row:nth-child(even){
+    background-color: rgb(225, 225, 225);
+}
+        
+.mat-row:nth-child(odd){
+    background-color: rgb(240, 240, 240);
+}
+
+
+.mat-expansion-panel:nth-child(even){
+    background-color: rgb(225, 225, 225);
+   
+}
+.mat-expansion-panel:nth-child(odd){
+    background-color: rgb(240, 240, 240);
+}
+
+
+.mat-panel-title{
+    width:30px;
+}
+
+.mat-form-field + .mat-form-field {
+    margin-left: 8px;
+  }
+
+ .mat-expansion-panel-header-title{
+     flex-grow: 0; //flex is turned off to align title/descriptions
+     width: 400px;
+     justify-content: flex-start;
+ }
+ .mat-expansion-panel{
+    overflow: hidden;
+    justify-content: flex-start;
+
+    
+}
+
+.icon{
+    margin-right: 5%;
+}
+
+
+//CSS for LIST
+.flexContainer{
+    display:flexbox;
+}
+.listSpan {
+
+    width:200px;
+    min-width: 200px;
+    text-align: left;
+    margin-left: 2%;
+}
+.headerRow {
+    position:relative;
+    background-color: rgb(122, 149, 236);
+}
+
+.mat-list >  .mat-list-item:nth-child(2n+1){
+
+    background-color:white;
+  }
+  .mat-list >  .mat-list-item:nth-child(2n){
+
+    background-color:rgb(230, 228, 228);
+  }
+
+  .mat-list > .mat-list-item{
+    border: 1px solid black;
+    justify-content: center;
+
+  }
+
+
+
+.basicInfo{
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 3%;
+    border-radius: 10px;
+    padding: 1%;
+    margin-top: 1%;
+    border: 2px groove #1C6EA4;
+
+}
+.contactInfo{
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 3%;
+    border-radius: 10px;
+    padding: 1%;
+    margin-top: 1%;
+    border: 2px groove #1C6EA4;
+
+}
+.missingSomething{
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 3%;
+    border-radius: 10px;
+    padding: 1%;
+    margin-top: 1%;
+    border: 2px groove #1C6EA4;
+    background-color: rgb(223, 199, 245);
+}
+
+.tables{
+    width:75%;
+    font-size: larger;
+   // margin: auto;
+    margin-left: 15%;
+
+}
+
+.span1{
+    min-width: 500px;
+    width:500px;
+    margin-right: 5%;
+ 
+    text-align: left;
+
+
+}
+.span2{
+    min-width: 30%;
+    width:30%;
+    margin-left: 50%;
+}
+
+

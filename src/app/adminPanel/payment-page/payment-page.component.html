@@ -1,0 +1,48 @@
+<mat-sidenav-container class="example-container" >
+    <mat-sidenav style="width:20%; padding: 1%; color:black; background-color: rgb(255, 255, 255);" #sidenav mode="side" [(opened)]="opened" (opened)="events.push('open!')"
+                >
+                <!-- (closed)="events.push('close!');"-->
+                 <!--THIS IS INSIDE OF SIDE NAV -->
+                 <div style="padding: 1%; margin:1%;">
+                    <mat-icon class="icon">
+                        account_circle
+                    </mat-icon>
+                    <span routerLink="/Account" routerLinkActive="active" style="font-size: 16px">Home</span>
+                    <br>
+                    <mat-icon class="icon">
+                        face
+                    </mat-icon>
+                    <span routerLink="/PersonalInfo" routerLinkActive="active" style="font-size: 16px">Personal Info</span>
+                    <br>
+                    <mat-icon class="icon">
+                        color_lens
+                    </mat-icon>
+                    <span routerLink="/Personalization" routerLinkActive="active" style="font-size: 16px">Personalization</span>
+                    <br>
+                    <mat-icon class="icon">
+                        credit_card
+                    </mat-icon>
+                    <span routerLink="/Payment" routerLinkActive="active" style="font-size: 16px">Payments & subscriptions</span>
+                    <br>
+                </div>
+    </mat-sidenav>
+  
+    <mat-sidenav-content style="padding: 1%; background-color: white; color: black; ">
+
+     <button mat-button style="font-size: 32px;" >Payment and subscriptions</button>
+        <p>Hello {{name}}</p>
+    
+   
+   
+        <div   style="height:80%; margin-bottom:1%; margin-top: 1%; padding:.5%; display:block; width: 98%;  color:black; background-color: rgb(190, 190, 190); box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px; border-radius: 2px;">
+        </div>
+
+
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+
+
+
+

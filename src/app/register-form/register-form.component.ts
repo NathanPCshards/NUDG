@@ -11,6 +11,7 @@ import { LoginService } from '../services/loginService';
 })
 export class RegisterFormComponent{
   test;
+  worked;
 
   constructor(private http: HttpClient, 
     private loginservice : LoginService
@@ -24,8 +25,25 @@ export class RegisterFormComponent{
 
   register(name, Username, Phone, Email, CompanyName, password){
     this.test = this.loginservice.SignUp({name, Username, Email, password, Phone, CompanyName})
-    this.test.subscribe()
+    this.test.subscribe(result=>{
+      if(result !== undefined){
+        this.worked = true
+        window.alert(result.message)
+
+      }
+      else{
+        this.worked = false
+
+      }
+   
+    })
   
+    if (!this.worked){
+      window.alert(`
+      Failed to Register user. Check that: 
+      Your password is at least 8 Characters in length
+      Your Email is valid`)
+    }
 
   }
 

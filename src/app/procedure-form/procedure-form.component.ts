@@ -22,9 +22,12 @@ import { login } from '../injectables';
 })
 export class ProcedureFormComponent implements OnInit {
   procedures$: Observable<procedures[]>;
+  procedureList;
   idOrgControls;
   rowSelected = false;
   searchProcedures
+  
+
     constructor(
       private http:HttpClient, 
       private formBuilder: FormBuilder,  
@@ -51,7 +54,9 @@ export class ProcedureFormComponent implements OnInit {
         },
   
       });
+      this.procedureList = []
       dialogRef.afterClosed().subscribe(result => {
+        /*
         if (result){
 
           this.procedures$ = this.rest_service
@@ -61,6 +66,36 @@ export class ProcedureFormComponent implements OnInit {
 
       });
 
+    }*/ 
+        //if dialog is closed without pressing submit, result comes back as undefined.
+        if(result){
+          this.procedures$ = this.rest_service
+          .post(`http://192.168.0.70:3000/procedures/${this.idOrgControls}/${this.loginInfo.CompanyName}`,result)
+          .pipe(tap(() => (this.procedures$ = this.fetchAll(this.idOrgControls))));
+          
+          this.procedures$.forEach(async response => {
+    
+            console.log('response : ' , response)
+
+          //@ts-ignore, For some reason the compiler doesnt think the element has this insert property, but it does in fact have it
+            let id = response.insertId
+            this.procedureList.push(id)
+            //get list of existing milestones,
+            //add to list
+            //post back to weaknesses
+              let tempSub = this.rest_service.get(`http://192.168.0.70:3000/procedures/${this.idOrgControls}/${this.loginInfo.CompanyName}`);
+              tempSub.subscribe(dataArray=>{
+                dataArray.forEach(async procedure => {
+                    this.procedureList.push(procedure.idOrgProcedure)
+                    //TODO Not most efficient way, we really only need to call update once.
+                    //but was having scope issues and this works also I dont see an issue where we have enough milestones for this to matter. (tested with 15)
+                    let temp2 = await this.rest_service.update(`http://192.168.0.70:3000/controls/${this.loginInfo.CompanyName}/${this.idOrgControls}?UpdateProcedures=true`,this.procedureList)
+                    temp2.subscribe();
+                });
+              })
+            });
+        }
+      });
     }
     public filterprocedure()
     {
@@ -89,13 +124,25 @@ delete(id: any): void {
   let temp =  this.rest_service.delete(`http://192.168.0.70:3000/procedures/${id}/${this.loginInfo.CompanyName}`)
   .pipe(tap(() => (this.procedures$ = this.fetchAll(this.idOrgControls))));
 
-  temp.subscribe()
-    
+  temp.subscribe(response=>{
+    //store its id
+    let id = response.insertId
+      
+    this.procedureList = []
+    let tempSub = this.rest_service.get(`http://192.168.0.70:3000/procedures/${this.idOrgControls}/${this.loginInfo.CompanyName}`);
+              tempSub.subscribe(dataArray=>{
+                dataArray.forEach(async procedure => {
+                    this.procedureList.push(procedure.idOrgProcedure)
+                    //TODO Not most efficient way, we really only need to call update once.
+                    //but was having scope issues and this works also I dont see an issue where we have enough milestones for this to matter. (tested with 15)
+                    let temp2 = await this.rest_service.update(`http://192.168.0.70:3000/controls/${this.loginInfo.CompanyName}/${this.idOrgControls}?UpdateProcedures=true`,this.procedureList)
+                    temp2.subscribe();
+          });
+        })
+      })
+    }
+        
 }
-
-}
-
-
 
 @Component({
   selector: 'procedure-dialog',
@@ -135,19 +182,18 @@ this.submitted = false;
 
 
 closeDialog( PProcedure, Pstatus, PstatusDate, Pdescription){
-  this.data.PProcedure = PProcedure;
-  this.data.Pstatus = Pstatus;
+  this.data.PProcedure = PProcedure ? PProcedure : "";
+  this.data.Pstatus = Pstatus ? Pstatus : "";
 
-  this.data.PstatusDate = PstatusDate;
-  if (!PstatusDate){
-    this.data.PstatusDate = this.todaysDate
+  this.data.PstatusDate = PstatusDate ? PstatusDate : "";
+  if (!PstatusDate){ 
+    this.data.PstatusDate = this.todaysDate 
   }
-  this.data.Pdescription = Pdescription;
+  this.data.Pdescription = Pdescription ? Pdescription : ""
 
-  this.data.idOrgControls = this.idOrgControls
+  this.data.idOrgControls = this.idOrgControls ? this.idOrgControls : ""
 
 
-  console.log("data to post : ", this.data)
   this.dialogRef.close( this.data );
 
 };

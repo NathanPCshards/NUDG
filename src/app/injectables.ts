@@ -6,7 +6,11 @@ export class login {
   token: string;
   userId: string;
   CompanyName: string;
-  todaysDate = new Date()
+  todaysDate = new Date();
+  name: string;
+  passwordLength: number;
+  phone: string;
+  email: string;
 
 }
 export class AccordionState {

@@ -22,7 +22,7 @@ import { SoftwareApprovalFormComponent } from './software-approval-form/software
 import { SharedResourcesFormComponent } from './shared-resources-form/shared-resources-form.component';
 import { SecurityLogFormComponent } from './security-log-form/security-log-form.component';
 import { HelpCenterComponent, helpCenterForm } from './help-center/help-center.component';
-import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { AdminPanelComponent } from '../app/adminPanel/admin-panel/admin-panel.component';
 
 
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -40,6 +40,10 @@ import { CompanyInfoModule } from './company-info-form/company-info-form.module'
 import { FirewallPortsProtocolsComponent } from './firewall-ports-protocols/firewall-ports-protocols.component';
 import { FormsModule } from '@angular/forms';
 import { POAMComponent } from './poam/poam.component';
+import { AccountPageComponent } from '../app/adminPanel/account-page/account-page.component';
+import { PersonalizationComponent } from './adminPanel/personalization/personalization.component';
+import { PersonalInfoComponent } from './adminPanel/personal-info/personal-info.component';
+import { PaymentPageComponent } from './adminPanel/payment-page/payment-page.component';
 
 
 
@@ -80,9 +84,11 @@ import { POAMComponent } from './poam/poam.component';
    
 
     RegisterFormComponent,
-   
-
-    FirewallPortsProtocolsComponent
+    FirewallPortsProtocolsComponent,
+    AccountPageComponent,
+    PersonalizationComponent,
+    PersonalInfoComponent,
+    PaymentPageComponent
     
 
     

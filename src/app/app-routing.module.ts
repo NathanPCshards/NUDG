@@ -27,7 +27,7 @@ import { SecurityLogFormComponent } from './security-log-form/security-log-form.
 import { helpCenterForm } from './help-center/help-center.component';
 import { ProcedureFormComponent } from './procedure-form/procedure-form.component';
 import { MilestoneFormComponent } from './milestone-form/milestone-form.component';
-import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { AdminPanelComponent } from '../app/adminPanel/admin-panel/admin-panel.component';
 
 import { IdentifierPageRoutingModule } from './identifier-page/identifier-page.routing.module'
 import { PolicyAccordionComponent } from './policy-accordion/policy-accordion.component';
@@ -37,6 +37,10 @@ import { RegisterFormComponent } from './register-form/register-form.component';
 import { FirewallPortsProtocolsComponent } from './firewall-ports-protocols/firewall-ports-protocols.component';
 import { POAMComponent } from './poam/poam.component';
 import { StandardsFormComponent } from './standards-form/standards-form.component';
+import { AccountPageComponent } from './adminPanel/account-page/account-page.component';
+import { PersonalizationComponent } from './adminPanel/personalization/personalization.component';
+import { PaymentPageComponent } from './adminPanel/payment-page/payment-page.component';
+import { PersonalInfoComponent } from './adminPanel/personal-info/personal-info.component';
 //https://angular.io/guide/router
 
 const routes: Routes = [
@@ -61,6 +65,12 @@ const routes: Routes = [
   { path: 'Firewall', component: FirewallPortsProtocolsComponent },
   { path: 'POAM', component: POAMComponent },
   { path: 'Standards', component: StandardsFormComponent },
+  { path: 'Account', component: AccountPageComponent },
+  { path: 'Personalization', component: PersonalizationComponent },
+  { path: 'Payment', component: PaymentPageComponent },
+  { path: 'PersonalInfo', component: PersonalInfoComponent },
+
+
 
 
 

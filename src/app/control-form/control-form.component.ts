@@ -152,15 +152,15 @@ ngOnInit(){
 
 
 submit(Cname, Coverview, Cissuedate, CsharedresourcesskRating, Curl, idOrgWeaknesses, Standards){
-  this.data.Nid = this.id$ 
-  this.data.Cname = Cname;
-  this.data.Coverview = Coverview;
-  this.data.Cissuedate = Cissuedate;
-  this.data.Csharedresources = CsharedresourcesskRating;
-  this.data.Curl = Curl;
-  this.data.idOrgWeaknesses = idOrgWeaknesses
-  this.data.CompanyName = this.loginInfo.CompanyName
-  this.data.Standards = Standards
+  this.data.Nid = this.id$ ? this.id$ : ""
+  this.data.Cname = Cname ? Cname : ""
+  this.data.Coverview = Coverview ? Coverview : ""
+  this.data.Cissuedate = Cissuedate ? Cissuedate : ""
+  this.data.Csharedresources = CsharedresourcesskRating ? CsharedresourcesskRating : ""
+  this.data.Curl = Curl ? Curl : ""
+  this.data.idOrgWeaknesses = idOrgWeaknesses ? idOrgWeaknesses : ""
+  this.data.CompanyName = this.loginInfo.CompanyName ? this.loginInfo.CompanyName : ""
+  this.data.Standards = Standards ? Standards: ""
  
 
   //This is subscribed to in identifier page oninit.

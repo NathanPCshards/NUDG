@@ -12,7 +12,7 @@ import { LoginService } from '../services/loginService';
 })
 export class LoginFormComponent{
   test$;
-
+  displayText;
 
   constructor(private http: HttpClient, 
     private formBuilder: FormBuilder,
@@ -36,6 +36,7 @@ export class LoginFormComponent{
 
   loginSkip(){
     this.loginInfo.CompanyName = `PCshards`
+    this.loginInfo.name = "Skipped Login"
   }
 
 
@@ -44,10 +45,24 @@ export class LoginFormComponent{
     this.test$.subscribe()
     this.test$.forEach(element => {
       //setting global vars (this is in providers for shared Module, and is imported to each component in their own module [providers])
-      this.loginInfo.token = element.token
-      this.loginInfo.userId = element.userId
-      this.loginInfo.CompanyName = element.CompanyName
-
+      if(element === undefined){
+        window.alert("Login Failed")
+      }
+      else{
+     
+        this.loginInfo.token = element.token
+        this.loginInfo.userId = element.userId
+        this.loginInfo.CompanyName = element.CompanyName
+        this.loginInfo.name = element.name
+        this.loginInfo.passwordLength = password.length
+        this.loginInfo.email = element.email
+        this.loginInfo.phone = element.phone
+  
+  
+        window.alert("Account Sucessfully Logged Into")
+        console.log("Login info : " , this.loginInfo)
+      }
+    
 
     });
 

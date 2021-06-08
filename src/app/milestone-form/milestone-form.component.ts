@@ -60,51 +60,31 @@ export class MilestoneFormComponent implements OnInit {
       dialogRef.afterClosed().subscribe(async result => {
         //if dialog is closed without pressing submit, result comes back as undefined.
         if(result){
-
           this.milestones$ = this.rest_service
           .post(`http://192.168.0.70:3000/milestones/${this.idOrgWeaknesses}/${this.loginInfo.CompanyName}`,result)
           .pipe(tap(() => (this.milestones$ = this.fetchAll(this.idOrgWeaknesses))));
+          
+          this.milestones$.forEach(async response => {
+    
+            console.log('response : ' , response)
 
-          this.milestones$.forEach(response => {
           //@ts-ignore, For some reason the compiler doesnt think the element has this insert property, but it does in fact have it
             let id = response.insertId
+            this.milestoneList.push(id)
             //get list of existing milestones,
             //add to list
             //post back to weaknesses
-
-           
-              console.log("get called at : " , (`http://192.168.0.70:3000/milestones/${this.idOrgWeaknesses}/${this.loginInfo.CompanyName}`))
               let tempSub = this.rest_service.get(`http://192.168.0.70:3000/milestones/${this.idOrgWeaknesses}/${this.loginInfo.CompanyName}`);
               tempSub.subscribe(dataArray=>{
-                dataArray.forEach(milestone => {
+                dataArray.forEach(async milestone => {
                     this.milestoneList.push(milestone.idMilestones)
-                    console.log("milestone list : " , this.milestoneList)
+                    //TODO Not most efficient way, we really only need to call update once.
+                    //but was having scope issues and this works also I dont see an issue where we have enough milestones for this to matter. (tested with 15)
+                    let temp2 = await this.rest_service.update(`http://192.168.0.70:3000/weaknesses/${this.idOrgWeaknesses}/${this.loginInfo.CompanyName}?UpdateMilestones=true`,this.milestoneList)
+                    temp2.subscribe();
                 });
               })
-          
-          
-              let index = this.milestoneList.indexOf(id)
-              if (index != -1){
-                this.milestoneList.splice(this.milestoneList.indexOf(id), 1)
-              }
-          
             });
-            
-
-
-
-
-            //TODO The milestone list IS getting all the correct information pushed to it.
-            //but by time we send it its empty.... something with scope of where the list is declared... look into it...
-
-
-            console.log("milestone list FINAL: " , this.milestoneList)
-
-            let temp2 = await this.rest_service.update(`http://192.168.0.70:3000/weaknesses/${this.Nid}/${this.loginInfo.CompanyName}?UpdateMilestones=True`,{"nudgid":this.Nid, "data" :this.milestoneList})
-            temp2.subscribe();
-          
-
-
         }
       });
     }
@@ -132,42 +112,22 @@ fetchAll(idOrgWeaknesses) {
   async delete(id: any): Promise<void> {
   let temp =  this.rest_service.delete(`http://192.168.0.70:3000/milestones/${id}/${this.loginInfo.CompanyName}`)
   .pipe(tap(() => (this.milestones$ = this.fetchAll(this.idOrgWeaknesses))));
-
+  //Delete the milestone
+  
   temp.subscribe(response=>{
+    //store its id
     let id = response.insertId
       
     this.milestoneList = []
     let tempSub = this.rest_service.get(`http://192.168.0.70:3000/milestones/${this.idOrgWeaknesses}/${this.loginInfo.CompanyName}`);
     tempSub.subscribe(dataArray=>{
-      dataArray.forEach(milestone => {
+      dataArray.forEach(async milestone => {
           this.milestoneList.push(milestone.idMilestones)
+          let temp2 = await this.rest_service.update(`http://192.168.0.70:3000/weaknesses/${this.idOrgWeaknesses}/${this.loginInfo.CompanyName}?UpdateMilestones=true`,this.milestoneList)
+          temp2.subscribe();
       });
     })
-
-
-    let index = this.milestoneList.indexOf(id)
-    if (index != -1){
-      this.milestoneList.splice(this.milestoneList.indexOf(id), 1)
-    }
-
-    console.log("milestone list : " , this.milestoneList)
   })
-
-
- 
-
-  let temp2 = await this.rest_service.update(`http://192.168.0.70:3000/weaknesses/${this.Nid}/${this.loginInfo.CompanyName}?UpdateMilestones=${this.milestoneList}`,{"nudgid":this.Nid, "data" :this.milestoneList})
-  temp2.subscribe();
-
-
-
-
-
-
-
-
-
-
 }
 
 

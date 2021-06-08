@@ -2,7 +2,7 @@
 
 <form class="example-form">
   
-    <input  type="text"  style ="width: 85%;color: white; background: transparent; border-top: transparent;border-left: transparent; border-right: transparent; border-bottom: 1px solid white;"
+    <input class="searchComponent" type="text"  style ="width: 85%;color: rgb(0, 0, 0); background: transparent; border-top: transparent;border-left: transparent; border-right: transparent; border-bottom: 1px solid white;"
            placeholder="Search Pages"
            
            [formControl]="myControl"
@@ -16,7 +16,12 @@
   </form>
   
 <!--
-  <input placeholder="Enter some text" name="name"/>
+  <input placeholder="Enter some text" name="name"/>::placeholder{
+    color: white;
+}
+input:focus{
+    border: transparent;
+}
 <p id="values"></p>
 
 
