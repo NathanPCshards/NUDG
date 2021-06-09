@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./personalization.component.scss']
 })
 export class PersonalizationComponent implements OnInit {
-
+  events: string[] = [];
+  opened: boolean;
   constructor() { }
 
   ngOnInit(): void {
+    this.opened = true
+
   }
 
 }

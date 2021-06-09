@@ -27,13 +27,109 @@
                 </div>
     </mat-sidenav>
   
-    <mat-sidenav-content style="padding: 1%; background-color: white; color: black; ">
+    <mat-sidenav-content style="padding-left: 1%; padding-right: 1%; padding-top: 1%; background-color: white; color: black; ">
+        <h1 style="font-size: 32px; margin-left: 38%;">
+            Payments & subscriptions
+        </h1>
+        <h3 style="margin-left: 45%;">
+            Description Text
+        </h3>
+ 
+     <div id="basicInfo" class="basicInfo" #basicInfo>
+         <h1>
+            Payment methods
+         </h1>
 
-     <button mat-button style="font-size: 32px;" >Payment and subscriptions</button>
-        <p>Hello {{name}}</p>
-    
-   
-   
+         <table class="tables">
+            <tr>
+                <div style="margin-bottom: 3%;" >
+                    link to payment page/image of something here
+                </div>
+
+            </tr>
+
+            <tr>
+                <div style="margin-bottom: 3%;" >
+ 
+
+
+                </div>
+            </tr>
+        </table>
+     </div>
+     <div id="contactInfo" class="contactInfo" #contactInfo>
+        <h1>
+           Services
+        </h1>
+
+        <table class="tables">
+            <tr>
+                <div style="margin-bottom: 3%;" >
+                   
+                    link to page that shows all purchases/whatever /image of something here
+
+
+                </div>
+            </tr>
+
+            <tr>
+                <div style="margin-bottom: 3%;">
+
+
+                </div>
+            </tr>
+        </table>
+    </div>
+    <div  id="missingSomething" class="missingSomething" #missingSomething>
+        <h1>
+           Missing Something?
+        </h1>
+
+        <table class="tables">
+            <tr>
+                <div style="margin-bottom: 3%;" class="span1">
+                    <span>
+                        Help Center
+                    </span>
+                    <span  class="span2">
+                        Link to Something
+                    </span>
+                </div>
+            </tr>
+            <tr>
+                <div style="margin-bottom: 3%;" class="span1">
+                    <span>
+                        Website Page?
+                    </span>
+                    <span  class="span2">
+                        Link to Something
+                    </span>
+                </div>
+                <div style="margin-bottom: 3%;" class="span1">
+                    <span>
+                        Link to some .Gov site?
+                    </span>
+                    <span class="span2">
+                        Link to Something
+                    </span>
+                </div>
+            </tr>
+
+            <tr>
+                <div style="margin-bottom: 3%;">
+                    <span class="span1">
+                        Search
+                    </span>
+                    <app-page-search >
+
+                    </app-page-search>
+                    This box is tinted to show search thing above this text... I cant change the color of it right now.
+
+
+                </div>
+            </tr>
+        </table>
+    </div>
         <div   style="height:80%; margin-bottom:1%; margin-top: 1%; padding:.5%; display:block; width: 98%;  color:black; background-color: rgb(190, 190, 190); box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px; border-radius: 2px;">
         </div>
 

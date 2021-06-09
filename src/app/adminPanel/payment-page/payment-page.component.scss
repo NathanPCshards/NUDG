@@ -80,18 +80,61 @@ table{
     justify-content: center;
 
   }
-  .mat-drawer-inner-container::-webkit-scrollbar {
-    display: none;
-}
-
-mat-sidenav{
-    //having scroll enabled but hiding the bar
-    overflow-y: scroll;
-    scrollbar-width: none; /* Hiding bar for Firefox */
-    -ms-overflow-style: none;  /* Hiding bar for Internet Explorer 10+ */
-}
 
 
-.mat-drawer-inner-container::-webkit-scrollbar {
-    display: none;
+
+.basicInfo{
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 3%;
+    border-radius: 10px;
+    padding: 1%;
+    margin-top: 1%;
+    border: 2px groove #1C6EA4;
+
 }
+.contactInfo{
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 3%;
+    border-radius: 10px;
+    padding: 1%;
+    margin-top: 1%;
+    border: 2px groove #1C6EA4;
+
+}
+.missingSomething{
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 3%;
+    border-radius: 10px;
+    padding: 1%;
+    margin-top: 1%;
+    border: 2px groove #1C6EA4;
+    background-color: rgb(223, 199, 245);
+}
+
+.tables{
+    width:75%;
+    font-size: larger;
+   // margin: auto;
+    margin-left: 15%;
+
+}
+
+.span1{
+    min-width: 500px;
+    width:500px;
+    margin-right: 5%;
+
+    text-align: left;
+
+
+}
+.span2{
+    min-width: 30%;
+    width:30%;
+    margin-left: 30%;
+}
+
+

@@ -28,7 +28,7 @@
     </mat-sidenav>
   
     <mat-sidenav-content style="padding-left: 1%; padding-right: 1%; padding-top: 1%; background-color: white; color: black; ">
-        <h1 style="font-size: 32px; margin-left: 45%;">
+        <h1 style="font-size: 32px; margin-left: 43%;">
             Personal Info
         </h1>
         <h3 style="margin-left: 45%;">
@@ -46,9 +46,15 @@
                     <span>
                         Name
                     </span>
-                    <span style="margin-left: 50%;">
+                    <span class="span2">
                         {{name}}
                     </span>
+                           
+                    <mat-icon>
+                        forward
+                    </mat-icon>
+        
+
 
                 </div>
 
@@ -59,9 +65,15 @@
                     <span>
                         Password
                     </span>
-                    <span style="margin-left: 50%;">
+                    <span class="span2">
                         {{passwordLength}}
                     </span>
+                           
+                    <mat-icon>
+                        forward
+                    </mat-icon>
+        
+
 
                 </div>
             </tr>
@@ -78,12 +90,15 @@
                     <span>
                         Email
                     </span>
-                    <span style="margin-left: 50%;" class="span2">
+                    <span  class="span2">
                         {{email}}
                     </span>
+       
                     <mat-icon>
-                        arrow
+                        forward
                     </mat-icon>
+        
+
 
                 </div>
             </tr>
@@ -93,9 +108,14 @@
                     <span class="span1">
                         Phone
                     </span>
-                    <span style="margin-left: 50%;" class="span2">
+                    <span  class="span2">
                         {{phone}}
                     </span>
+       
+                    <mat-icon>
+                        forward
+                    </mat-icon>
+        
 
                 </div>
             </tr>
@@ -112,7 +132,7 @@
                     <span>
                         Help Center
                     </span>
-                    <span style="margin-left: 50%;" class="span2">
+                    <span  class="span2">
                         Link to Something
                     </span>
                 </div>
@@ -122,7 +142,7 @@
                     <span>
                         Website Page?
                     </span>
-                    <span style="margin-left: 50%;" class="span2">
+                    <span  class="span2">
                         Link to Something
                     </span>
                 </div>
@@ -130,7 +150,7 @@
                     <span>
                         Link to some .Gov site?
                     </span>
-                    <span style="margin-left: 50%;" class="span2">
+                    <span class="span2">
                         Link to Something
                     </span>
                 </div>
@@ -141,7 +161,7 @@
                     <span class="span1">
                         Search
                     </span>
-                    <app-page-search style="margin-left: 50%;">
+                    <app-page-search >
 
                     </app-page-search>
                     This box is tinted to show search thing above this text... I cant change the color of it right now.
