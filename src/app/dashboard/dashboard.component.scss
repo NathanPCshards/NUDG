@@ -27,14 +27,11 @@
   .chartB {
     
     
-    box-shadow: 1px 1px 15px -1px black;
+   // box-shadow: 1px 1px 15px -1px black;
     border-radius: 5px;
     width: 100%;
     height: 100%;
-    background-color: #b0bec5;
-background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cg stroke='%23455a64' stroke-width='66.7' stroke-opacity='0.05' %3E%3Ccircle fill='%23b0bec5' cx='0' cy='0' r='1800'/%3E%3Ccircle fill='%23abbac1' cx='0' cy='0' r='1700'/%3E%3Ccircle fill='%23a6b6be' cx='0' cy='0' r='1600'/%3E%3Ccircle fill='%23a2b2ba' cx='0' cy='0' r='1500'/%3E%3Ccircle fill='%239daeb7' cx='0' cy='0' r='1400'/%3E%3Ccircle fill='%2398aab4' cx='0' cy='0' r='1300'/%3E%3Ccircle fill='%2393a7b0' cx='0' cy='0' r='1200'/%3E%3Ccircle fill='%238fa3ad' cx='0' cy='0' r='1100'/%3E%3Ccircle fill='%238a9fa9' cx='0' cy='0' r='1000'/%3E%3Ccircle fill='%23859ba6' cx='0' cy='0' r='900'/%3E%3Ccircle fill='%238197a2' cx='0' cy='0' r='800'/%3E%3Ccircle fill='%237c939f' cx='0' cy='0' r='700'/%3E%3Ccircle fill='%2377909c' cx='0' cy='0' r='600'/%3E%3Ccircle fill='%23738c98' cx='0' cy='0' r='500'/%3E%3Ccircle fill='%236e8895' cx='0' cy='0' r='400'/%3E%3Ccircle fill='%23698492' cx='0' cy='0' r='300'/%3E%3Ccircle fill='%2365818e' cx='0' cy='0' r='200'/%3E%3Ccircle fill='%23607d8b' cx='0' cy='0' r='100'/%3E%3C/g%3E%3C/svg%3E");
-background-attachment: fixed;
-background-size: cover;
+    background-color: #fffffe;
   }
  
   ::ng-deep .mat-tab-list .mat-tab-labels {
@@ -119,23 +116,23 @@ background-size: cover;
 }
 
 .sc {
-background-color: #b0bec5;
-background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cg stroke='%23455a64' stroke-width='66.7' stroke-opacity='0.05' %3E%3Ccircle fill='%23b0bec5' cx='0' cy='0' r='1800'/%3E%3Ccircle fill='%23abbac1' cx='0' cy='0' r='1700'/%3E%3Ccircle fill='%23a6b6be' cx='0' cy='0' r='1600'/%3E%3Ccircle fill='%23a2b2ba' cx='0' cy='0' r='1500'/%3E%3Ccircle fill='%239daeb7' cx='0' cy='0' r='1400'/%3E%3Ccircle fill='%2398aab4' cx='0' cy='0' r='1300'/%3E%3Ccircle fill='%2393a7b0' cx='0' cy='0' r='1200'/%3E%3Ccircle fill='%238fa3ad' cx='0' cy='0' r='1100'/%3E%3Ccircle fill='%238a9fa9' cx='0' cy='0' r='1000'/%3E%3Ccircle fill='%23859ba6' cx='0' cy='0' r='900'/%3E%3Ccircle fill='%238197a2' cx='0' cy='0' r='800'/%3E%3Ccircle fill='%237c939f' cx='0' cy='0' r='700'/%3E%3Ccircle fill='%2377909c' cx='0' cy='0' r='600'/%3E%3Ccircle fill='%23738c98' cx='0' cy='0' r='500'/%3E%3Ccircle fill='%236e8895' cx='0' cy='0' r='400'/%3E%3Ccircle fill='%23698492' cx='0' cy='0' r='300'/%3E%3Ccircle fill='%2365818e' cx='0' cy='0' r='200'/%3E%3Ccircle fill='%23607d8b' cx='0' cy='0' r='100'/%3E%3C/g%3E%3C/svg%3E");
-background-attachment: fixed;
-background-size: cover;
-box-shadow: 1px 1px 15px -1px black;
+background-color: #fffffe;
+
+//box-shadow: 1px 1px 15px -1px black;
     border-radius: 5px;
 width: 500px;
 max-height: 400px;
 height: 100%;
-overflow:auto
+overflow:hidden;
 
 }
 
 .sci {
     margin: 10px;
+    margin-top: 20px;
     color: white;
 }
+
 .taskDate{
     width:100px;
   

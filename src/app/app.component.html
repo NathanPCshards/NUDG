@@ -1,25 +1,25 @@
 <div class="doNotPrint">
     <mat-toolbar class = "toolbar" id="toolbar" style="background-color: transparent;">
-        <mat-toolbar-row class="tbRow" style="color: white;" > 
+        <mat-toolbar-row class="tbRow" style="color: #094067;" > 
     
     
     
             <span routerLink="/Home" routerLinkActive="active" style="margin-left: 1%;"> NUDG 3.0 </span>
     
-            <app-page-search style="margin-left: 3%;">
+            <app-page-search style="margin-left: 3%;color: #094067;">
     
             </app-page-search>
             
             <div class="routes">
                 
-            <button mat-raised-button type="button" routerLink="/AdminPanel" routerLinkActive="active" style="color: white;margin-left:27%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right"><i class="fa fa-plus"></i> Admin Panel</button>    
+            <button mat-button type="button" routerLink="/AdminPanel" routerLinkActive="active" style="color: #094067;margin-left:27%;" class="btn btn-primary-outline pull-right"><i class="fa fa-plus"></i> Admin Panel</button>    
 
-            <button mat-raised-button type="button" routerLink="/Dashboard" routerLinkActive="active" style="color: white;margin-left:3%;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right"><i class="fa fa-plus"></i> Dashboard</button>    
+            <button mat-button type="button" routerLink="/Dashboard" routerLinkActive="active" style="color: #094067;margin-left:3%;" class="btn btn-primary-outline pull-right"><i class="fa fa-plus"></i> Dashboard</button>    
             
             <button 
-            mat-raised-button 
+            mat-button 
             type="button" 
-            style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" 
+            style="color: #094067;margin-left: 10px;" 
             class="btn btn-primary-outline pull-right" 
             [matMenuTriggerFor]="afterMenu3" 
             #menuTrigger3="matMenuTrigger" (mouseenter)="menuTimer($event); menuTrigger4.closeMenu(); menuTrigger3.openMenu(); menuTrigger2.closeMenu()" 
@@ -35,12 +35,12 @@
 
             </mat-menu>
 
-            <button mat-raised-button type="button" routerLink="/CompanyInfo" routerLinkActive="active" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" ><i class="fa fa-plus"></i>Company Info</button>    
+            <button mat-button type="button" routerLink="/CompanyInfo" routerLinkActive="active" style="color: #094067;margin-left: 10px;" class="btn btn-primary-outline pull-right" ><i class="fa fa-plus"></i>Company Info</button>    
 
             <button 
-            mat-raised-button 
+            mat-button 
             type="button" 
-            style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" 
+            style="color: #094067;margin-left: 10px;" 
             class="btn btn-primary-outline pull-right" 
             [matMenuTriggerFor]="afterMenu"
             #menuTrigger="matMenuTrigger" (mouseenter)="menuTrigger.openMenu(); menuTrigger2.closeMenu();menuTrigger3.closeMenu(); menuTrigger4.closeMenu()">
@@ -63,10 +63,10 @@
 
             <!--https://stackblitz.com/edit/mat-nested-menu-yclrmd?embed=1&file=app/nested-menu-example.html-->
             <button 
-            mat-raised-button 
+            mat-button 
             
             type="button" 
-            style="color: white;margin-left: 10px; z-index:1050; background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" 
+            style="color: #094067;margin-left: 10px; z-index:1050;" 
             class="btn btn-primary-outline pull-right" 
             [matMenuTriggerFor]="afterMenu2" 
             #menuTrigger2="matMenuTrigger" (mouseenter)="menuTimer($event); menuTrigger2.openMenu();menuTrigger3.closeMenu()" 
@@ -85,9 +85,9 @@
 
 
             <button 
-            mat-raised-button 
+            mat-button 
             type="button" 
-            style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" 
+            style="color: #094067;margin-left: 10px;" 
             class="btn btn-primary-outline pull-right" 
             [matMenuTriggerFor]="afterMenu4" 
             #menuTrigger4="matMenuTrigger" (mouseenter)="menuTimer($event); menuTrigger4.openMenu(); menuTrigger2.closeMenu(); menuTrigger3.closeMenu()" 
@@ -106,9 +106,9 @@
 
 
             <button 
-            mat-raised-button 
+            mat-button 
             type="button" 
-            style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" 
+            style="color: #094067;margin-left: 10px;" 
             class="btn btn-primary-outline pull-right" 
             [matMenuTriggerFor]="afterMenu5"
             #menuTrigger5="matMenuTrigger" (mouseenter)="menuTrigger5.openMenu(); menuTrigger.closeMenu();menuTrigger2.closeMenu();menuTrigger3.closeMenu(); menuTrigger4.closeMenu()">
@@ -128,7 +128,7 @@
             </mat-menu>
 
             
-            <button mat-raised-button type="button" routerLink="/Calendar" routerLinkActive="active" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right"><i class="fa fa-plus"></i>Tasks</button>    
+            <button mat-button type="button" routerLink="/Calendar" routerLinkActive="active" style="color: #094067;margin-left: 10px;" class="btn btn-primary-outline pull-right"><i class="fa fa-plus"></i>Tasks</button>    
 
 
 
@@ -136,12 +136,12 @@
 
 
 
-            <button mat-raised-button type="button" routerLink="/POAM" routerLinkActive="active" style="color: white;margin-left:10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right"><i class="fa fa-plus"></i> POAM</button>    
+            <button mat-button type="button" routerLink="/POAM" routerLinkActive="active" style="color: #094067;margin-left:10px;" class="btn btn-primary-outline pull-right"><i class="fa fa-plus"></i> POAM</button>    
 
 
 
 
-            <button mat-raised-button type="button" routerLink="/Policy" routerLinkActive="active" style="color: white;margin-left: 10px;background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);" class="btn btn-primary-outline pull-right" ><i class="fa fa-plus"></i> Policy</button>    
+            <button mat-button type="button" routerLink="/Policy" routerLinkActive="active" style="color: #094067;margin-left: 10px;" class="btn btn-primary-outline pull-right" ><i class="fa fa-plus"></i> Policy</button>    
     
         </div>
     
