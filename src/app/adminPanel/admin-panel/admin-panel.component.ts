@@ -34,7 +34,7 @@ export class AdminPanelComponent implements OnInit {
 
   onRowClicked(row): void {
     this.rowSelected = true;
-    var configUrl = 'http://localhost:4200' + "/" + row.Title;
+    var configUrl = 'http://192.168.0.70:3000' + "/" + row.Title;
    // this.router.navigate(configUrl.concat("/",row.Title))
   }
 

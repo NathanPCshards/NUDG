@@ -26,7 +26,7 @@ export interface Users {
     CompanyName : string;
     UGRgroups : string;
     UGRroles : string;
-    Iassetidentifier : string;
+    IassetIdentifier : string;
     UcuiContract : string;
 
 }

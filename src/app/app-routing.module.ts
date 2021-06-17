@@ -41,6 +41,10 @@ import { AccountPageComponent } from './adminPanel/account-page/account-page.com
 import { PersonalizationComponent } from './adminPanel/personalization/personalization.component';
 import { PaymentPageComponent } from './adminPanel/payment-page/payment-page.component';
 import { PersonalInfoComponent } from './adminPanel/personal-info/personal-info.component';
+import { ChangeNameFormComponent } from './changeNameForm/change-name-form/change-name-form.component';
+import { ChangePhoneFormComponent } from './changePhoneForm/change-phone-form/change-phone-form.component';
+import { ChangeEmailFormComponent } from './changeEmailForm/change-email-form/change-email-form.component';
+import { ChangePasswordFormComponent } from './changePasswordForm/change-password-form/change-password-form.component';
 //https://angular.io/guide/router
 
 const routes: Routes = [
@@ -69,6 +73,10 @@ const routes: Routes = [
   { path: 'Personalization', component: PersonalizationComponent },
   { path: 'Payment', component: PaymentPageComponent },
   { path: 'PersonalInfo', component: PersonalInfoComponent },
+  { path: 'ChangeName', component: ChangeNameFormComponent },
+  { path: 'ChangePhone', component: ChangePhoneFormComponent },
+  { path: 'ChangeEmail', component: ChangeEmailFormComponent },
+  { path: 'ChangePassword', component: ChangePasswordFormComponent },
 
 
 

@@ -42,7 +42,7 @@ export class PolicyBoardComponent implements OnInit {
     
   }
 
-  ngOnInit() {
+  async ngOnInit() {
 
     this.searchResults$ = []
     
@@ -54,7 +54,7 @@ export class PolicyBoardComponent implements OnInit {
     //Creates the list this.families$ that contains all unique family names
     //In the case of CMMC and Nist views, this.families is changed to cmmclevel 1 2 3, and NFO/ CUI
     if (this.famType$ != "CMMC" && this.famType$ != "Nist")
-    this.rest_service.get(`http://localhost:3000/Policy/${'All'}/${this.loginInfo.CompanyName}/?FamilyPolicy=${true}`).subscribe(e=>{
+    this.rest_service.get(`http://192.168.0.70:3000/Policy/${'All'}/${this.loginInfo.CompanyName}/?FamilyPolicy=${true}`).subscribe(e=>{
       this.families$ = []
       let i = 0
       e.forEach(element => {
@@ -66,7 +66,7 @@ export class PolicyBoardComponent implements OnInit {
     })
 
     //Getting all policies and grouping by Family.
-    this.policies$ = this.rest_service.get(`http://localhost:3000/Policy/${'All'}/${this.loginInfo.CompanyName}`)
+    this.policies$ = await this.rest_service.get(`http://192.168.0.70:3000/Policy/${'All'}/${this.loginInfo.CompanyName}`)
 
     //Initialize Dictionaries and lists
     this.policyDict$ = {}
@@ -74,9 +74,9 @@ export class PolicyBoardComponent implements OnInit {
     this.counts$ = []
 
     //iterate over returned policies
-    this.policies$.subscribe(e=>{
+    await this.policies$.subscribe(async e=>{
       
-      e.forEach(policy => {
+       e.forEach(policy => {
         //makes dictionary of {Nudg ID : Policy}
         allPoliciesDict[policy.nudgid] = policy
 

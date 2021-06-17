@@ -44,6 +44,10 @@ import { AccountPageComponent } from '../app/adminPanel/account-page/account-pag
 import { PersonalizationComponent } from './adminPanel/personalization/personalization.component';
 import { PersonalInfoComponent } from './adminPanel/personal-info/personal-info.component';
 import { PaymentPageComponent } from './adminPanel/payment-page/payment-page.component';
+import { ChangeNameFormComponent } from './changeNameForm/change-name-form/change-name-form.component';
+import { ChangePasswordFormComponent } from './changePasswordForm/change-password-form/change-password-form.component';
+import { ChangeEmailFormComponent } from './changeEmailForm/change-email-form/change-email-form.component';
+import { ChangePhoneFormComponent } from './changePhoneForm/change-phone-form/change-phone-form.component';
 
 
 
@@ -88,7 +92,11 @@ import { PaymentPageComponent } from './adminPanel/payment-page/payment-page.com
     AccountPageComponent,
     PersonalizationComponent,
     PersonalInfoComponent,
-    PaymentPageComponent
+    PaymentPageComponent,
+    ChangeNameFormComponent,
+    ChangePasswordFormComponent,
+    ChangeEmailFormComponent,
+    ChangePhoneFormComponent
     
 
     

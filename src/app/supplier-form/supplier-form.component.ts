@@ -87,7 +87,7 @@ export class SupplierFormComponent implements OnInit {
   public onFormSubmit() {
     console.log("FORM WAS SUBMITTED");
     this.submitted = true;
-    const configUrl = 'http://localhost:4200/home'; 
+    const configUrl = 'http://192.168.0.70:3000/home'; 
 
   }
   

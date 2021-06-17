@@ -20,7 +20,7 @@ export class FirewallPortsProtocolsComponent implements OnInit {
   FWsupplierRelation$
   FWvendorRelation$
   FWcuiContract$
-  Iassetidentifier$
+  IassetIdentifier$
   FWprotocol$
 
 
@@ -48,14 +48,14 @@ export class FirewallPortsProtocolsComponent implements OnInit {
 
 
 
-  post(Iassetidentifier, FWpolicyNum, FWservice, FWdescription, FWprotocol, FWports, FWsource, FWinbound, FWoutbound, FWcreationDate, FWsupplierRelation, FWvendorRelation, FWcuiContract){
+  post(IassetIdentifier, FWpolicyNum, FWservice, FWdescription, FWprotocol, FWports, FWsource, FWinbound, FWoutbound, FWcreationDate, FWsupplierRelation, FWvendorRelation, FWcuiContract){
     FWsupplierRelation = FWsupplierRelation ? FWsupplierRelation : ""
     FWvendorRelation = FWvendorRelation ? FWvendorRelation : ""
     FWcuiContract = FWcuiContract ? FWcuiContract : ""
-    Iassetidentifier = Iassetidentifier ? Iassetidentifier : ""
+    IassetIdentifier = IassetIdentifier ? IassetIdentifier : ""
     FWprotocol = FWprotocol ? FWprotocol : ""
     FWcreationDate = FWcreationDate ? FWcreationDate : ""
-    let data = {Iassetidentifier, FWpolicyNum, FWservice, FWdescription, FWprotocol, FWports, FWsource, FWinbound, FWoutbound, FWcreationDate, FWsupplierRelation, FWvendorRelation, FWcuiContract}
+    let data = {IassetIdentifier, FWpolicyNum, FWservice, FWdescription, FWprotocol, FWports, FWsource, FWinbound, FWoutbound, FWcreationDate, FWsupplierRelation, FWvendorRelation, FWcuiContract}
 
   
 
@@ -86,7 +86,7 @@ export class FirewallPortsProtocolsComponent implements OnInit {
      this.FWsupplierRelation$ = data.FWsupplierRelation
      this.FWvendorRelation$ = data.FWvendorRelation
      this.FWcuiContract$ = data.FWcuiContract
-     this.Iassetidentifier$ = data.Iassetidentifier
+     this.IassetIdentifier$ = data.IassetIdentifier
      this.FWprotocol$ = data.FWprotocol
     //TODO Mat Select Multiple: cant figure out a way to select checkboxes. Tried using formgroup/passing array to set function
     //maybe target the html element and set it that way
@@ -98,11 +98,11 @@ export class FirewallPortsProtocolsComponent implements OnInit {
 
 
 
-  update(Iassetidentifier, FWpolicyNum, FWservice, FWdescription, FWprotocol, FWports, FWsource, FWinbound, FWoutbound, FWcreationDate, FWsupplierRelation, FWvendorRelation, FWcuiContract, idfirewall){
+  update(IassetIdentifier, FWpolicyNum, FWservice, FWdescription, FWprotocol, FWports, FWsource, FWinbound, FWoutbound, FWcreationDate, FWsupplierRelation, FWvendorRelation, FWcuiContract, idfirewall){
   
     console.log("company name : " , this.loginInfo.CompanyName)
   
-    let data = {Iassetidentifier, FWpolicyNum, FWservice, FWdescription, FWprotocol, FWports, FWsource, FWinbound, FWoutbound, FWcreationDate, FWsupplierRelation, FWvendorRelation, FWcuiContract, idfirewall}
+    let data = {IassetIdentifier, FWpolicyNum, FWservice, FWdescription, FWprotocol, FWports, FWsource, FWinbound, FWoutbound, FWcreationDate, FWsupplierRelation, FWvendorRelation, FWcuiContract, idfirewall}
     let temp = this.rest_service.update(`http://192.168.0.70:3000/Firewall/${this.loginInfo.CompanyName}`, data)
         .pipe(tap(() => (this.firewalls$ = this.fetchall())));
 

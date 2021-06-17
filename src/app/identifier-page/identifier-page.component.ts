@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild, ComponentFactoryResolver, ViewContainerRef, ComponentRef, ComponentFactory, ɵɵsetComponentScope } from '@angular/core';
 import { FormBuilder, FormGroup} from '@angular/forms';
-import { MatSort } from '@angular/material/sort';
 import { Observable, Subject } from 'rxjs';
 import { filter, map, tap, startWith } from 'rxjs/operators';
 import { controls } from '../models/controls';
@@ -23,8 +22,7 @@ import { GapService } from '../services/gap.service';
 import { gap } from '../models/gap';
 import { login } from '../injectables';
 import { restAPI } from '../services/restAPI.service';
-import { Console } from 'node:console';
-import { controlDialog } from '../control-form/control-form.component';
+
 
 
 //leave for now. The accordion needs these to function
@@ -121,11 +119,8 @@ export class IdentifierPageComponent implements OnInit {
     private controlsservice: ControlsService,
     private guidelinesService: GuidelinesService,
     private gapservice : GapService,
-    private activatedRoute : ActivatedRoute,
     public dialog : MatDialog,
     private sharedService : SharedService,
-    private _formBuilder : FormBuilder,
-    private CFR:ComponentFactoryResolver,
     private loginInfo: login,
     private rest_service : restAPI
 
@@ -602,26 +597,6 @@ export class IdentifierPageComponent implements OnInit {
     });
      
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

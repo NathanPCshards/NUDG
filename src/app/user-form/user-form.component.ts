@@ -33,7 +33,7 @@ export class UserFormComponent implements OnInit {
 
   Uremoteuser$
   UGRroles$
-  Iassetidentifier$ 
+  IassetIdentifier$ 
   UGRgroups$
   Uemptype$
   Ucuidata$
@@ -58,13 +58,17 @@ export class UserFormComponent implements OnInit {
 
     ){  }
  
-  ngOnInit(){
+  async ngOnInit(){
     this.users$ = this.fetchAll();
     this.CUIcontracts$ = this.rest_service.get(`http://192.168.0.70:3000/cuicontracts/${this.loginInfo.CompanyName}`);
     console.log("check : " , typeof(this.CUIcontracts$))
-    this.Inventory$ = this.rest_service.get(`http://192.168.0.70:3000/inventories/${this.loginInfo.CompanyName}`);
+    this.Inventory$ = await this.rest_service.get(`http://192.168.0.70:3000/inventories/${this.loginInfo.CompanyName}`);
     this.Roles$ = this.rest_service.get(`http://192.168.0.70:3000/roles/${this.loginInfo.CompanyName}`);
     this.Groups$ = this.rest_service.get(`http://192.168.0.70:3000/groups/${this.loginInfo.CompanyName}`)
+
+    this.Inventory$.forEach(element => {
+      console.log("element : " , element)
+    });
 
     this.panelOpenState = false;
 
@@ -75,7 +79,7 @@ export class UserFormComponent implements OnInit {
     return this.rest_service.get(`http://192.168.0.70:3000/orgusers/${this.loginInfo.CompanyName}`);
   }
 
-  post(Ufname, Ulname, Uempid, Uemptype, Ujobtitle, Ujobrole, Udepartment, Uhiredate, Ulogonhours, Uadditionalinfo, Udocumentupload, Uemail, Ubusinessphone, Ucellphone, Uaddress, Ucity, Ustate, Upostal, Ucountry, Ucompany, Uuserid, Ucuidata, Uremoteuser, UGRgroups, UGRroles, Iassetidentifier, UcuiContract): void {
+  post(Ufname, Ulname, Uempid, Uemptype, Ujobtitle, Ujobrole, Udepartment, Uhiredate, Ulogonhours, Uadditionalinfo, Udocumentupload, Uemail, Ubusinessphone, Ucellphone, Uaddress, Ucity, Ustate, Upostal, Ucountry, Ucompany, Uuserid, Ucuidata, Uremoteuser, UGRgroups, UGRroles, IassetIdentifier, UcuiContract): void {
     
     //The mat form fields will not send if no input is given. Here we initialize those fields to be empty strings so our backend doesnt crash on a empty post
     Uemptype  = Uemptype ? Uemptype : ""
@@ -84,11 +88,11 @@ export class UserFormComponent implements OnInit {
     Uremoteuser = Uremoteuser ? Uremoteuser : ""
     UGRgroups = UGRgroups ? UGRgroups : ""
     UGRroles  = UGRroles ? UGRroles : ""
-    Iassetidentifier  = Iassetidentifier ? Iassetidentifier : ""
+    IassetIdentifier  = IassetIdentifier ? IassetIdentifier : ""
     UcuiContract  = UcuiContract ? UcuiContract : ""
 
 
-    let data = { Ufname, Ulname, Uempid, Uemptype, Ujobtitle, Ujobrole, Udepartment, Uhiredate, Ulogonhours, Uadditionalinfo, Udocumentupload, Uemail, Ubusinessphone, Ucellphone, Uaddress, Ucity, Ustate, Upostal, Ucountry, Ucompany, Uuserid, Ucuidata, Uremoteuser, UGRgroups, UGRroles, Iassetidentifier, UcuiContract }
+    let data = { Ufname, Ulname, Uempid, Uemptype, Ujobtitle, Ujobrole, Udepartment, Uhiredate, Ulogonhours, Uadditionalinfo, Udocumentupload, Uemail, Ubusinessphone, Ucellphone, Uaddress, Ucity, Ustate, Upostal, Ucountry, Ucompany, Uuserid, Ucuidata, Uremoteuser, UGRgroups, UGRroles, IassetIdentifier, UcuiContract }
     let temp = this.rest_service
       .post(`http://192.168.0.70:3000/orgusers/${this.loginInfo.CompanyName}`, data)
       .pipe(tap(() => (this.users$ = this.fetchAll())));
@@ -99,17 +103,17 @@ export class UserFormComponent implements OnInit {
       }
 
 
-  update(Ufname, Ulname, Uempid, Uemptype, Ujobtitle, Ujobrole, Udepartment, Uhiredate, Ulogonhours, Uadditionalinfo, Udocumentupload, Uemail, Ubusinessphone, Ucellphone, Uaddress, Ucity, Ustate, Upostal, Ucountry, Ucompany, Uuserid, Ucuidata, Uremoteuser, UGRgroups, UGRroles, Iassetidentifier, UcuiContract, idOrgUsers): void {
+  update(Ufname, Ulname, Uempid, Uemptype, Ujobtitle, Ujobrole, Udepartment, Uhiredate, Ulogonhours, Uadditionalinfo, Udocumentupload, Uemail, Ubusinessphone, Ucellphone, Uaddress, Ucity, Ustate, Upostal, Ucountry, Ucompany, Uuserid, Ucuidata, Uremoteuser, UGRgroups, UGRroles, IassetIdentifier, UcuiContract, idOrgUsers): void {
     Uemptype  = Uemptype ? Uemptype : ""
     Uhiredate = Uhiredate ? Uhiredate : ""
     Ucuidata  = Ucuidata ? Ucuidata : ""
     Uremoteuser = Uremoteuser ? Uremoteuser : ""
     UGRgroups = UGRgroups ? UGRgroups : ""
     UGRroles  = UGRroles ? UGRroles : ""
-    Iassetidentifier  = Iassetidentifier ? Iassetidentifier : ""
+    IassetIdentifier  = IassetIdentifier ? IassetIdentifier : ""
     UcuiContract  = UcuiContract ? UcuiContract : ""
     
-    let data = { Ufname, Ulname, Uempid, Uemptype, Ujobtitle, Ujobrole, Udepartment, Uhiredate, Ulogonhours, Uadditionalinfo, Udocumentupload, Uemail, Ubusinessphone, Ucellphone, Uaddress, Ucity, Ustate, Upostal, Ucountry, Ucompany, Uuserid, Ucuidata, Uremoteuser, UGRgroups, UGRroles, Iassetidentifier, UcuiContract, idOrgUsers}
+    let data = { Ufname, Ulname, Uempid, Uemptype, Ujobtitle, Ujobrole, Udepartment, Uhiredate, Ulogonhours, Uadditionalinfo, Udocumentupload, Uemail, Ubusinessphone, Ucellphone, Uaddress, Ucity, Ustate, Upostal, Ucountry, Ucompany, Uuserid, Ucuidata, Uremoteuser, UGRgroups, UGRroles, IassetIdentifier, UcuiContract, idOrgUsers}
     let temp = this.rest_service
       .update(`http://192.168.0.70:3000/orgusers/${this.loginInfo.CompanyName}` , data)
       .pipe(tap(() => (this.users$ = this.fetchAll())));
@@ -135,8 +139,9 @@ export class UserFormComponent implements OnInit {
 
     temp = (<HTMLInputElement>document.getElementById("Uemptype")).value = user.Uemptype
     this.Uemptype$ = user.Uemptype
+    console.log("roles : " , user.UGRroles)
     this.UGRroles$ = user.UGRroles 
-    this.Iassetidentifier$ = user.Iassetidentifier 
+    this.IassetIdentifier$ = user.IassetIdentifier 
     this.UGRgroups$ = user.UGRgroups 
     this.Ucuidata$ = user.Ucuidata 
     this.UcuiContract$ = user.UcuiContract
@@ -158,6 +163,7 @@ export class UserFormComponent implements OnInit {
     temp = (<HTMLInputElement>document.getElementById("Upostal")).value = user.Upostal
     temp = (<HTMLInputElement>document.getElementById("Ucountry")).value = user.Ucountry
 
+    temp = (<HTMLInputElement>document.getElementById("UGRroles")).value = user.Ucountry
     temp = (<HTMLInputElement>document.getElementById("Ucompany")).value = user.Ucompany
     temp = (<HTMLInputElement>document.getElementById("Uuserid")).value = user.Uuserid
     temp = (<HTMLInputElement>document.getElementById("Uremoteuser")).value = user.Uremoteuser
