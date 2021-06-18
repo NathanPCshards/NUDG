@@ -194,7 +194,7 @@
    <span style="position: absolute; right: 0;">
       <button mat-icon-button>
         <mat-icon
-          (click)="update(Gnames.value, Gdescriptions.value, GcreationDate.value, GCUIaccess.value, UGRusers.value, GNSra.value, GNSwa.value, group.idOrgGroups)"
+          (click)="update(Gnames.value, Gdescriptions.value, GcreationDate.value, GCUIaccess.value, UGRusers.value, GNSra.value, GNSwa.value, group.idOrgGroups);$event.stopPropagation();"
           color="primary"
         >
           edit
@@ -203,7 +203,7 @@
 
   
       <button mat-icon-button>
-        <mat-icon (click)="delete(group.idOrgGroups)" color="warn">
+        <mat-icon (click)="delete(group.idOrgGroups);$event.stopPropagation();" color="warn">
           delete
         </mat-icon>
       </button>

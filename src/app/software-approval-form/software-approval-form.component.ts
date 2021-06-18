@@ -123,7 +123,7 @@ panelOpenState = false;
       SWusers          = SWusers ? SWusers : ""
       SWgroups         = SWgroups ? SWgroups : ""
       SWroles          = SWroles ? SWroles: ""
-      SWassetIdentifier= SWassetIdentifier ? SWassetIdentifier : ""
+      SWassetIdentifier= SWassetIdentifier ? SWassetIdentifier.toString() : ""
 
       let data = {SWname , SWSupplierInformation , SWdescription , SWinstallDate , 
         SWinstallPath , SWtype , SWdateApproved , SWplatform, SWversion , SWpatchNum , SWupdateSchedule , SWmanualReviewDate , 

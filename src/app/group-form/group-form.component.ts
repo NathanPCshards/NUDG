@@ -36,6 +36,9 @@ export class GroupFormComponent implements OnInit {
 
   ngOnInit(){  
     this.groups$ = this.fetchAll();
+    this.groups$.forEach(element => {
+      console.log("element: ", element)
+    });
     this.users$ = this.rest_service.get(`http://192.168.0.70:3000/orgusers/${this.loginInfo.CompanyName}`);
     this.networkShares$ =  this.rest_service.get(`http://192.168.0.70:3000/networkshares/${this.loginInfo.CompanyName}`);
 
@@ -66,7 +69,7 @@ post(Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa) {
 }
 
 
-update(Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa, idOrgGroups): void {
+  async update(Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa, idOrgGroups): Promise<void> {
     //The mat form fields will send if no input is given. Here we initialize those fields to be empty strings so our backend doesnt crash on a empty post
     GcreationDate = GcreationDate ? GcreationDate : ""
     GCUIaccess = GCUIaccess ? GCUIaccess : ""
@@ -75,15 +78,19 @@ update(Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa,
     GNSra = GNSra ? GNSra : ""
 
 
-
-
-
   let data = {Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa, idOrgGroups}
 
-  let temp = this.rest_service.update(`http://192.168.0.70:3000/groups/${this.loginInfo.CompanyName}`, data)
-  .pipe(tap(() => (this.groups$ = this.fetchAll())));
+  let temp = await this.rest_service.update(`http://192.168.0.70:3000/groups/${this.loginInfo.CompanyName}`, data)
+  temp.subscribe(result=>{  
+    //TODO For update calls, I could not get .pipe(get call for data) to work because the api does return anything at all, so doing a call after .1 seconds. (not sure how to return status from multiple/nested query)
+  })
+  let that = this
+  setTimeout(function(){ that.groups$ = that.fetchAll(); console.log("fetchall called : " , that.groups$)}, 1000);
 
-  temp.subscribe()
+
+
+
+ 
 
 }
 
@@ -110,9 +117,11 @@ delete(id: any): void {
 
 
   let temp = this.rest_service.delete(`http://192.168.0.70:3000/groups/${id}/${this.loginInfo.CompanyName}`)
-  .pipe(tap(() => (this.groups$ = this.fetchAll())));
-
-  temp.subscribe()
+  temp.subscribe(result=>{  
+    //TODO For update calls, I could not get .pipe(get call for data) to work because the api does return anything at all, so doing a call after .1 seconds. (not sure how to return status from multiple/nested query)
+  })
+  let that = this
+  setTimeout(function(){ that.groups$ = that.fetchAll(); console.log("fetchall called : " , that.groups$)}, 1000);
 }
 
 }

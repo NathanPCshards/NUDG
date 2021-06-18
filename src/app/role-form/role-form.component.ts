@@ -79,7 +79,6 @@ export class RoleFormComponent implements OnInit {
 
   update(URGroles, Rroletype, Rdescription, URGusers, idOrgRoles){
     
-    let data = {URGroles, Rroletype, Rdescription, URGusers, idOrgRoles}
 
     //The mat form fields will not send if no input is given. Here we initialize those fields to be empty strings so our backend doesnt crash on a empty post
     URGroles = URGroles ? URGroles : ""
@@ -88,10 +87,15 @@ export class RoleFormComponent implements OnInit {
     URGusers = URGusers ? URGusers : ""
     idOrgRoles = idOrgRoles ? idOrgRoles : ""
 
-    let temp =  this.rest_service.update(`http://192.168.0.70:3000/roles/${this.loginInfo.CompanyName}`, data)
-    .pipe(tap(() => (this.roles$ = this.fetchall())));
+    let data = {URGroles, Rroletype, Rdescription, URGusers, idOrgRoles}
 
-    temp.subscribe()
+    console.log("URGusers : " ,URGusers)
+    let temp =  this.rest_service.update(`http://192.168.0.70:3000/roles/${this.loginInfo.CompanyName}`, data)
+    temp.subscribe(result=>{  
+      //TODO For update calls, I could not get .pipe(get call for data) to work because the api does return anything at all, so doing a call after .1 seconds. (not sure how to return status from multiple/nested query)
+    })
+    let that = this
+    setTimeout(function(){ that.roles$ = that.fetchall();}, 100);
   }
 
 
@@ -104,9 +108,6 @@ export class RoleFormComponent implements OnInit {
     this.Rroletype$ = data.Rroletype
     this.URGusers$ = data.URGusers
 
-
-    
-
   }
 
 
@@ -114,8 +115,11 @@ export class RoleFormComponent implements OnInit {
 
     let temp = this.rest_service
       .delete(`http://192.168.0.70:3000/roles/${id}/${this.loginInfo.CompanyName}`)
-      .pipe(tap(() => (this.roles$ = this.fetchall())));
-      temp.subscribe()
+      temp.subscribe(result=>{  
+        //TODO For update calls, I could not get .pipe(get call for data) to work because the api does return anything at all, so doing a call after .1 seconds. (not sure how to return status from multiple/nested query)
+      })
+      let that = this
+      setTimeout(function(){ that.roles$ = that.fetchall();}, 100);
       
   }
 
