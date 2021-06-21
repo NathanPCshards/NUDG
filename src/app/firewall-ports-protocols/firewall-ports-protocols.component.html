@@ -33,7 +33,7 @@
                                 <mat-label >Supplier Relation</mat-label>
                                 <mat-select [(value)]="FWsupplierRelation$" #FWsupplierRelation id="Input" >
                                     <div *ngFor="let supplier of suppliers$ | async">
-                                        <mat-option value={{supplier.Sname}} >
+                                        <mat-option value={{supplier.idSuppliers}} >
                                             {{supplier.Sname}}
                                         </mat-option>
                                     </div>
@@ -44,7 +44,7 @@
                                 <mat-label >Vendor Relation</mat-label>
                                 <mat-select [(value)]="FWvendorRelation$" #FWvendorRelation id="Input" >
                                     <div *ngFor="let vendor of vendors$ | async">
-                                        <mat-option value={{vendor.Vname}} >
+                                        <mat-option value={{vendor.idVendors}} >
                                             {{vendor.Vname}}
                                         </mat-option>
                                     </div>
@@ -55,7 +55,7 @@
                                 <mat-label >CUI Contracts</mat-label>
                                 <mat-select [(value)]="FWcuiContract$" #FWcuiContract id="Input" >
                                     <div *ngFor="let contract of contracts$ | async">
-                                        <mat-option value={{contract.CCname}} multiple>
+                                        <mat-option value={{contract.idCUIcontracts}} multiple>
                                             {{contract.CCname}}
                                         </mat-option>
                                     </div>
@@ -66,7 +66,7 @@
                                 <mat-label >Asset Identifier</mat-label>
                                 <mat-select [(value)]="IassetIdentifier$" #IassetIdentifier id="Input" >
                                     <div *ngFor="let item of inventories$ | async">
-                                        <mat-option value={{item.IassetIdentifier}} multiple>
+                                        <mat-option value={{item.idOrgInventory}} multiple>
                                             {{item.IassetIdentifier}}
                                         </mat-option>
                                     </div>

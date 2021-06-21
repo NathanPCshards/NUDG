@@ -30,10 +30,10 @@
                               <input matInput placeholder = "Contract ID">
                           </mat-form-field>
                           <mat-form-field appearance = "legacy" style="width:40%">
-                              <input #CCname matInput placeholder = "Contract Name">
+                              <input id="CCname" #CCname matInput placeholder = "Contract Name">
                           </mat-form-field>
                           <mat-form-field appearance = "legacy" style="width:80%">
-                              <input #CCnum matInput placeholder = "Contract Number" >
+                              <input id="CCnum" #CCnum matInput placeholder = "Contract Number" >
                           </mat-form-field>
 
 
@@ -101,7 +101,7 @@
                             <mat-label >Supplier Relation</mat-label>
                             <mat-select #CCsupplierRelation id="Input" multiple>
                                 <div *ngFor="let supplier of suppliers$ | async">
-                                    <mat-option value={{supplier.Sname}} >
+                                    <mat-option value={{supplier.idSuppliers}} >
                                         {{supplier.Sname}}
                                     </mat-option>
                                 </div>
@@ -112,7 +112,7 @@
                             <mat-label >Vendor Relation</mat-label>
                             <mat-select #CCvendorRelation id="Input" multiple>
                                 <div *ngFor="let vendor of vendors$ | async">
-                                    <mat-option value={{vendor.Vname}}>
+                                    <mat-option value={{vendor.idVendors}}>
                                         {{vendor.Vname}}
                                     </mat-option>
                                 </div>
@@ -123,7 +123,7 @@
                             <mat-label >Account Manager</mat-label>
                             <mat-select #CCaccountManager id="Input" multiple>
                                 <div *ngFor="let user of users$ | async">
-                                    <mat-option value={{user.Ufname}}>
+                                    <mat-option value={{user.idOrgUsers}}>
                                         {{user.Ufname}}
                                     </mat-option>
                                 </div>
@@ -134,7 +134,7 @@
                             <mat-label >Network devices that store, or have access to, information in this CUI contract</mat-label>
                             <mat-select #CCvendorRelation id="Input" multiple>
                                 <div *ngFor="let item of inventories$ | async">
-                                    <mat-option value={{item.IassetIdentifier}}>
+                                    <mat-option value={{item.idOrgInventory}}>
                                         {{item.IassetIdentifier}}
                                     </mat-option>
                                 </div>
@@ -145,7 +145,7 @@
                             <mat-label >Personnel that have access to this CUI contract's information Manager</mat-label>
                             <mat-select #CCusers id="Input" multiple>
                                 <div *ngFor="let user of users$ | async">
-                                    <mat-option value={{user.Ufname}}>
+                                    <mat-option value={{user.idOrgUsers}}>
                                         {{user.Ufname}}
                                     </mat-option>
                                 </div>
@@ -214,7 +214,7 @@
     </mat-list-item>
 
 
-  <mat-list-item *ngFor="let contract of cuicontracts$ | async">
+  <mat-list-item *ngFor="let contract of cuicontracts$ | async" (click)="populateForm(contract);$event.stopPropagation();">
 
     <span class="listSpan ">
     {{ contract.CCname }}    
@@ -253,10 +253,10 @@
    <span style="position: absolute; right: 0;">
       <button mat-icon-button>
         <mat-icon
-          (click)="update(CCname.value, CCnum.value, CCstartDate.value, CCendDate.value, CCdescription.value, CCaccountManager.value, CCsupplierRelation.value, CCvendorRelation.value, CCfileInput.value, CCurl.value, CCgovCUI.value, CCnewCUI.value, CCmodCUI.value, contract.idCUIcontracts)"
+          (click)="update(CCname.value, CCnum.value, CCstartDate.value, CCendDate.value, CCdescription.value, CCaccountManager.value, CCsupplierRelation.value, CCvendorRelation.value, CCfileInput.value, CCurl.value, CCgovCUI.value, CCnewCUI.value, CCmodCUI.value, contract.idCUIcontracts);$event.stopPropagation();"
           color="primary"
         >
-          edit
+          edit 
         </mat-icon>
       </button>
 

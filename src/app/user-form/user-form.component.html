@@ -211,7 +211,7 @@
                                 <mat-label >Roles</mat-label>
                                 <mat-select [(value)]="UGRroles$" id="UGRroles" #UGRroles  >
                                     <div *ngFor="let role of Roles$ | async">
-                                        <mat-option value={{role.URGroles}} >
+                                        <mat-option value={{role.idOrgRoles}} >
                                             {{role.URGroles}}
                                         </mat-option>
                                     </div>
@@ -220,9 +220,9 @@
 
                               <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                                 <mat-label >Asset Identifier</mat-label>
-                                <mat-select [(value)]="IassetIdentifier$" id="IassetIdentifier" #IassetIdentifier >
+                                <mat-select [(value)]="Iassetidentifier$" id="Iassetidentifier" #Iassetidentifier >
                                     <div *ngFor="let inventoryEntry of Inventory$ | async">
-                                        <mat-option value={{inventoryEntry.IassetIdentifier}} >
+                                        <mat-option value={{inventoryEntry.Iassetidentifier}} >
                                             {{inventoryEntry.IassetIdentifier}}
                                         </mat-option>
                                     </div>
@@ -241,7 +241,7 @@
                       <mat-divider style="padding-top: 3px;"></mat-divider>
       
                       
-                      <button mat-raised-button  (click)="post(Ufname.value, Ulname.value, Uempid.value, Uemptype.value, Ujobtitle.value, Ujobrole.value, Udepartment.value, Uhiredate.value, Ulogonhours.value, Uadditionalinfo.value, Udocumentupload.value, Uemail.value, Ubusinessphone.value, Ucellphone.value, Uaddress.value, Ucity.value, Ustate.value, Upostal.value, Ucountry.value, Ucompany.value, Uuserid.value, Ucuidata.value, Uremoteuser.value, UGRgroups.value, UGRroles.value, IassetIdentifier.value, UcuiContract.value);"  style="margin-left: 15%;width:20vw;height: 5vh; float: left;" color="primary"  >Submit</button>
+                      <button mat-raised-button  (click)="post(Ufname.value, Ulname.value, Uempid.value, Uemptype.value, Ujobtitle.value, Ujobrole.value, Udepartment.value, Uhiredate.value, Ulogonhours.value, Uadditionalinfo.value, Udocumentupload.value, Uemail.value, Ubusinessphone.value, Ucellphone.value, Uaddress.value, Ucity.value, Ustate.value, Upostal.value, Ucountry.value, Ucompany.value, Uuserid.value, Ucuidata.value, Uremoteuser.value, UGRgroups.value, UGRroles.value, Iassetidentifier.value, UcuiContract.value);"  style="margin-left: 15%;width:20vw;height: 5vh; float: left;" color="primary"  >Submit</button>
                   </div>
               </div>
           
@@ -348,7 +348,7 @@
      <span style="position: absolute; right: 0;">
         <button mat-icon-button>
           <mat-icon
-          (click)="update(Ufname.value, Ulname.value, Uempid.value, Uemptype.value, Ujobtitle.value, Ujobrole.value, Udepartment.value, Uhiredate.value, Ulogonhours.value, Uadditionalinfo.value, Udocumentupload.value, Uemail.value, Ubusinessphone.value, Ucellphone.value, Uaddress.value, Ucity.value, Ustate.value, Upostal.value, Ucountry.value, Ucompany.value, Uuserid.value, Ucuidata.value, Uremoteuser.value, UGRgroups.value, UGRroles.value, IassetIdentifier.value, UcuiContract.value, user.idOrgUsers)"
+          (click)="update(Ufname.value, Ulname.value, Uempid.value, Uemptype.value, Ujobtitle.value, Ujobrole.value, Udepartment.value, Uhiredate.value, Ulogonhours.value, Uadditionalinfo.value, Udocumentupload.value, Uemail.value, Ubusinessphone.value, Ucellphone.value, Uaddress.value, Ucity.value, Ustate.value, Upostal.value, Ucountry.value, Ucompany.value, Uuserid.value, Ucuidata.value, Uremoteuser.value, UGRgroups.value, UGRroles.value, Iassetidentifier.value, UcuiContract.value, user.idOrgUsers)"
 
             color="primary">
             edit

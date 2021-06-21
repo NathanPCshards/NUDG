@@ -81,7 +81,7 @@
                             <mat-label >Users Associated with this device</mat-label>
                             <mat-select  #UGRusers id="Input" multiple>
                                 <div *ngFor="let user of users$ | async">
-                                    <mat-option value={{user.Ufname}} >
+                                    <mat-option value={{user.idOrgUsers}} >
                                         {{user.Ufname}}
                                     </mat-option>
                                 </div>
@@ -93,7 +93,7 @@
                             <mat-label >Network Shares - Read Access</mat-label>
                             <mat-select [(value)]="GNSra$" #GNSra id="Input" >
                                 <div *ngFor="let share of networkShares$ | async">
-                                    <mat-option value={{share.NSshareName}} >
+                                    <mat-option value={{share.idOrgNetworkShares}} >
                                         {{share.NSshareName}}
                                     </mat-option>
                                 </div>
@@ -104,7 +104,7 @@
                             <mat-label >Network Shares - Write Access</mat-label>
                             <mat-select [(value)]="GNSwa$" #GNSwa id="Input" >
                                 <div *ngFor="let share of networkShares$ | async">
-                                    <mat-option value={{share.NSshareName}} >
+                                    <mat-option value={{share.idOrgNetworkShares}} >
                                         {{share.NSshareName}}
                                     </mat-option>
                                 </div>
@@ -180,13 +180,13 @@
       {{group.GCUIaccess}}
     </span>
     <span class="listSpan">
-      {{group.UGRusers}}
+      {{userDict[group.UGRusers].Ufname}}
     </span>
     <span class="listSpan">
-      {{group.GNSra}}
+      {{networkDict[group.GNSra].NSshareName}}
     </span>
     <span class="listSpan">
-      {{group.GNSwa}}
+      {{networkDict[group.GNSwa].NSshareName}}
     </span>
 
 

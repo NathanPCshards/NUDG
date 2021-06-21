@@ -79,7 +79,7 @@
                                 <mat-label >Shared Resource</mat-label>
                                 <mat-select #Csharedresources id="Input" multiple>
                                     <div *ngFor="let resource of displayResources$ ; let i = index; ">
-                                        <mat-option value={{resource.SRtitle}} >
+                                        <mat-option value={{resource.idSharedResorces}} >
                                           <!--    <a [href]="url">     </a>              let file of files; let url of urls   --> 
                                             
                                                 {{resource.SRtitle}}

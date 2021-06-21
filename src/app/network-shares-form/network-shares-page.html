@@ -67,7 +67,7 @@
                                   <mat-label>Asset/Host Identifier</mat-label>
                                   <mat-select [(value)]="NShostIdentifier$" #NShostIdentifier id="Input">
                                       <div *ngFor="let inventoryEntry of assetIdentifiers$ | async">
-                                          <mat-option value={{inventoryEntry.IassetIdentifier}} >
+                                          <mat-option value={{inventoryEntry.idOrgInventory}} >
                                               {{inventoryEntry.IassetIdentifier}}
                                           </mat-option>
                                       </div>
@@ -101,7 +101,7 @@
                                   <mat-label >Groups Read Access</mat-label>
                                   <mat-select [(value)]="GRA$" #GRA id="Input" >
                                       <div *ngFor="let group of Groups$ | async">
-                                          <mat-option value={{group.Gnames}} >
+                                          <mat-option value={{group.idOrgGroups}} >
                                               {{group.Gnames}}
                                           </mat-option>
                                       </div>
@@ -112,7 +112,7 @@
                                   <mat-label >Groups Write Access</mat-label>
                                   <mat-select [(value)]="GWA$" #GWA id="Input" >
                                       <div *ngFor="let group of Groups$ | async">
-                                          <mat-option value={{group.Gnames}} >
+                                          <mat-option value={{group.idOrgGroups}} >
                                               {{group.Gnames}}
                                           </mat-option>
                                       </div>
@@ -123,7 +123,7 @@
                                   <mat-label >Users Read Access</mat-label>
                                   <mat-select [(value)]="URA$" #URA id="Input" >
                                       <div *ngFor="let user of Users$ | async">
-                                          <mat-option value={{user.Ufname}} >
+                                          <mat-option value={{user.idOrgUsers}} >
                                               {{user.Ufname}}
                                           </mat-option>
                                       </div>
@@ -135,7 +135,7 @@
                                   <mat-label >Users Write Access</mat-label>
                                   <mat-select [(value)]="UWA$" #UWA id="Input" >
                                       <div *ngFor="let user of Users$ | async">
-                                          <mat-option value={{user.Ufname}} >
+                                          <mat-option value={{user.idOrgUsers}} >
                                               {{user.Ufname}}
                                           </mat-option>
                                       </div>
@@ -222,16 +222,16 @@
         {{networkshare.CUIdata}}
       </span>
       <span class="listSpan ">
-        {{networkshare.GRA}}
+        {{groupDict[networkshare.GRA].Gnames}}
       </span>
       <span class="listSpan ">
-        {{networkshare.GWA}}
+        {{groupDict[networkshare.GWA].Gnames}}
       </span>
       <span class="listSpan ">
-        {{networkshare.URA}}
+        {{userDict[networkshare.URA].Ufname}}
       </span>
       <span class="listSpan ">
-        {{networkshare.UWA}}
+        {{userDict[networkshare.UWA].Ufname}}
       </span>
 
   

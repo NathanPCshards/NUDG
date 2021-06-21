@@ -217,7 +217,7 @@
                                                 <mat-label >Users</mat-label>
                                                 <mat-select #SWusers  multiple>
                                                     <div *ngFor="let user of users$ | async">
-                                                        <mat-option value={{user.Ufname}} >
+                                                        <mat-option value={{user.idOrgUsers}} >
                                                             {{user.Ufname}}
                                                         </mat-option>
                                                     </div>
@@ -230,7 +230,7 @@
                                                 <mat-label >Groups</mat-label>
                                                 <mat-select #SWgroups  multiple>
                                                     <div *ngFor="let group of groups$ | async">
-                                                        <mat-option value={{group.Gnames}} >
+                                                        <mat-option value={{group.idOrgGroups}} >
                                                             {{group.Gnames}}
                                                         </mat-option>
                                                     </div>
@@ -244,7 +244,7 @@
                                                 <mat-label >Roles</mat-label>
                                                 <mat-select #SWroles id="Input" multiple>
                                                     <div *ngFor="let role of roles$ | async">
-                                                        <mat-option value={{role.URGroles}} >
+                                                        <mat-option value={{role.idOrgRoles}} >
                                                             {{role.URGroles}}
                                                         </mat-option>
                                                     </div>
@@ -256,8 +256,8 @@
                                               <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                                                 <mat-label >Asset Identifier</mat-label>
                                                 <mat-select #SWassetIdentifier id="Input" multiple>
-                                                    <div *ngFor="let invItem of inventory$ | async">
-                                                        <mat-option value={{invItem.IassetIdentifier}} >
+                                                    <div *nFFor="let invItem of inventory$ | async">
+                                                        <mat-option value={{invItem.idOrFInventory}} >
                                                             {{invItem.IassetIdentifier}}
                                                         </mat-option>
                                                     </div>

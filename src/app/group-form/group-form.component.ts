@@ -24,7 +24,8 @@ export class GroupFormComponent implements OnInit {
   GCUIaccess$
   UGRusers$
 
-
+  networkDict = {}
+  userDict = {}
 
   constructor(
     private rest_service : restAPI,
@@ -40,8 +41,17 @@ export class GroupFormComponent implements OnInit {
       console.log("element: ", element)
     });
     this.users$ = this.rest_service.get(`http://192.168.0.70:3000/orgusers/${this.loginInfo.CompanyName}`);
+    this.users$.forEach(array => {
+      array.forEach(element => {
+          this.userDict[element.idOrgUsers] = element
+      });
+    });
     this.networkShares$ =  this.rest_service.get(`http://192.168.0.70:3000/networkshares/${this.loginInfo.CompanyName}`);
-
+    this.networkShares$.forEach(array => {
+      array.forEach(element => {
+          this.networkDict[element.idOrgNetworkShares] = element
+      });
+    });
   }
   
 

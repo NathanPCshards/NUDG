@@ -69,7 +69,7 @@
                   <mat-label>Users</mat-label>
                   <mat-select [(value)]="URGusers$" #URGusers  multiple>
                       <div *ngFor="let user of users$ | async">
-                          <mat-option value={{user.Ufname}} >
+                          <mat-option value={{user.idOrgUsers}} >
                               {{user.Ufname}}
                           </mat-option>
                       </div>

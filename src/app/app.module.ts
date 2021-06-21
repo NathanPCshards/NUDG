@@ -48,6 +48,8 @@ import { ChangeNameFormComponent } from './changeNameForm/change-name-form/chang
 import { ChangePasswordFormComponent } from './changePasswordForm/change-password-form/change-password-form.component';
 import { ChangeEmailFormComponent } from './changeEmailForm/change-email-form/change-email-form.component';
 import { ChangePhoneFormComponent } from './changePhoneForm/change-phone-form/change-phone-form.component';
+import { PolicyEditorComponent } from './adminPanel/policy-editor/policy-editor.component';
+import { PolicyEditorModule } from './adminPanel/policy-editor/policy-editor.module';
 
 
 
@@ -96,7 +98,8 @@ import { ChangePhoneFormComponent } from './changePhoneForm/change-phone-form/ch
     ChangeNameFormComponent,
     ChangePasswordFormComponent,
     ChangeEmailFormComponent,
-    ChangePhoneFormComponent
+    ChangePhoneFormComponent,
+    
     
 
     
@@ -105,6 +108,8 @@ import { ChangePhoneFormComponent } from './changePhoneForm/change-phone-form/ch
   imports: [
     CompanyInfoModule,
     IdentifierPageModule,
+    PolicyEditorModule,
+
     SharedModule,
     FormsModule,
 
@@ -132,3 +137,13 @@ NoopAnimationsModule,
   bootstrap: [AppComponent],
 })
 export class AppModule { }
+
+/* Not a known element checklist - https://stackoverflow.com/questions/44429996/angular-2-component-is-not-a-known-element
+These are the 5 steps I perform when I got such an error.
+
+    Are you sure the name is correct? (also check the selector defined in the component)
+    Declare the component in a module?
+    If it is in another module, export the component?
+    If it is in another module, import that module?
+    Restart the cli?
+*/

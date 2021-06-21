@@ -61,7 +61,11 @@ const routes: Routes = [
   { path: 'CompanyInfo', component: CompanyInfoFormComponent },
   { path: 'Roles', component: RoleFormComponent },
   { path: 'GroupsPage', component: GroupFormComponent },
+
   { path: 'AdminPanel', component: AdminPanelComponent },
+  { path: 'AdminPanel/PolicyEditor', component: AdminPanelComponent },
+
+
   { path: 'Accordion', component: PolicyAccordionComponent },
   { path: 'Policy', component: IdentifierPageComponent},
   { path: 'Policy/:id', component: IdentifierPageComponent },
@@ -77,12 +81,6 @@ const routes: Routes = [
   { path: 'ChangePhone', component: ChangePhoneFormComponent },
   { path: 'ChangeEmail', component: ChangeEmailFormComponent },
   { path: 'ChangePassword', component: ChangePasswordFormComponent },
-
-
-
-
-
-
 
 
   { path: 'Calendar', component: CalendarComponent },

@@ -46,8 +46,14 @@ export class InventoryFormComponent implements OnInit {
     return this.rest_service.get(`http://192.168.0.70:3000/inventories/${this.loginInfo.CompanyName}`);
   }
 
-  post(IassetIdentifier, Iaddress, InetworkID, Ivirtual, Ipublic, Idnsname, InetbiosName, Imacaddress, IauthenticatedScan, IbaselineConfigName, IosNameAndVersion, IphysicalLocation, IhardwareSoftwareVendor, IdateOfReceipt, Icost, IsoftwareDatabase, Ipatchlevel, Ifunction, Icomments, Iserial, Ivlan, IsystemAdmin, Iapplication, IsoftwareApproval, IassetType, IhardwareMakeModel, IsupplierInfo): void {
-   let data = { IassetIdentifier, Iaddress, InetworkID, Ivirtual, Ipublic, Idnsname, InetbiosName, Imacaddress, IauthenticatedScan, IbaselineConfigName, IosNameAndVersion, IphysicalLocation, IhardwareSoftwareVendor, IdateOfReceipt, Icost,  IsoftwareDatabase, Ipatchlevel, Ifunction, Icomments, Iserial, Ivlan, IsystemAdmin, Iapplication, IsoftwareApproval, CompanyInfo : this.loginInfo.CompanyName, IassetType, IhardwareMakeModel, IsupplierInfo}
+  post(IassetIdentifier, Iaddress, InetworkID, Ivirtual, Ipublic, Idnsname, InetbiosName, Imacaddress, IauthenticatedScan, IbaselineConfigName, IosNameAndVersion, IphysicalLocation, IhardwareSoftwareVendor, IdateOfReceipt, Icost, IsoftwareDatabase, Ipatchlevel, Ifunction, Icomments, Iserial, Ivlan, IsystemAdmin, Iapplication, IsoftwareApproval, IassetType, IhardwareMakeModel, IsupplierInfo, IcuiContracts, Iusers, Isoftwares): void {
+
+    IcuiContracts = IcuiContracts  ?  IcuiContracts : "" 
+    Iusers = Iusers  ?  Iusers : "" 
+    Isoftwares = Isoftwares  ?  Isoftwares : "" 
+
+  
+    let data = { IassetIdentifier, Iaddress, InetworkID, Ivirtual, Ipublic, Idnsname, InetbiosName, Imacaddress, IauthenticatedScan, IbaselineConfigName, IosNameAndVersion, IphysicalLocation, IhardwareSoftwareVendor, IdateOfReceipt, Icost,  IsoftwareDatabase, Ipatchlevel, Ifunction, Icomments, Iserial, Ivlan, IsystemAdmin, Iapplication, IsoftwareApproval, CompanyInfo : this.loginInfo.CompanyName, IassetType, IhardwareMakeModel, IsupplierInfo, IcuiContracts, Iusers, Isoftwares}
     let temp = this.rest_service
       .post(`http://192.168.0.70:3000/inventories/${this.loginInfo.CompanyName}`, data)
       .pipe(tap(() => (this.inventories$ = this.fetchAll())));
@@ -108,10 +114,18 @@ export class InventoryFormComponent implements OnInit {
   }
 
 
-  update(IassetIdentifier, Iaddress, InetworkID, Ivirtual, Ipublic, Idnsname, InetbiosName, Imacaddress, IauthenticatedScan, IbaselineConfigName, IosNameAndVersion, IphysicalLocation, IhardwareSoftwareVendor, IdateOfReceipt, Icost, IsoftwareDatabase, Ipatchlevel, Ifunction, Icomments, Iserial, Ivlan, IsystemAdmin, Iapplication, IsoftwareApproval, IassetType, IhardwareMakeModel, IsupplierInfo, idOrgInventory): void {
-   let data = {IassetIdentifier, Iaddress, InetworkID, Ivirtual, Ipublic, Idnsname, InetbiosName, Imacaddress, IauthenticatedScan, IbaselineConfigName, IosNameAndVersion, IphysicalLocation, IhardwareSoftwareVendor, IdateOfReceipt, Icost,  IsoftwareDatabase, Ipatchlevel, Ifunction, Icomments, Iserial, Ivlan, IsystemAdmin, Iapplication, IsoftwareApproval, IassetType, IhardwareMakeModel, IsupplierInfo, idOrgInventory, CompanyInfo : this.loginInfo.CompanyName}
+  update(IassetIdentifier, Iaddress, InetworkID, Ivirtual, Ipublic, Idnsname, InetbiosName, Imacaddress, IauthenticatedScan, IbaselineConfigName, IosNameAndVersion, IphysicalLocation, IhardwareSoftwareVendor, IdateOfReceipt, Icost, IsoftwareDatabase, Ipatchlevel, Ifunction, Icomments, Iserial, Ivlan, IsystemAdmin, Iapplication, IsoftwareApproval, IassetType, IhardwareMakeModel, IsupplierInfo, idOrgInventory, IcuiContracts, Iusers, Isoftwares): void {
    
    
+   IcuiContracts = IcuiContracts?.toString()  ?  IcuiContracts : "" 
+   Iusers = Iusers  ?  Iusers : "" 
+   Isoftwares = Isoftwares  ?  Isoftwares : "" 
+
+
+    console.log("IcuiContracts : " , IcuiContracts)
+
+   let data = {IassetIdentifier, Iaddress, InetworkID, Ivirtual, Ipublic, Idnsname, InetbiosName, Imacaddress, IauthenticatedScan, IbaselineConfigName, IosNameAndVersion, IphysicalLocation, IhardwareSoftwareVendor, IdateOfReceipt, Icost,  IsoftwareDatabase, Ipatchlevel, Ifunction, Icomments, Iserial, Ivlan, IsystemAdmin, Iapplication, IsoftwareApproval, IassetType, IhardwareMakeModel, IsupplierInfo, idOrgInventory, CompanyInfo : this.loginInfo.CompanyName, IcuiContracts, Iusers, Isoftwares}
+
     let temp = this.rest_service
       .update(`http://192.168.0.70:3000/inventories/${this.loginInfo.CompanyName}`, data)
       temp.subscribe(result=>{  

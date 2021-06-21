@@ -30,7 +30,8 @@ export class networkSharesPage implements OnInit {
   CUIdata$
   NShostIdentifier$
 
-
+  groupDict = {}
+  userDict = {}
   networkshares$: Observable<networkshares[]>;
 
   constructor(private http:HttpClient, private formBuilder: FormBuilder, 
@@ -39,11 +40,23 @@ export class networkSharesPage implements OnInit {
  ) {
    }
 
-  ngOnInit(){
+  async ngOnInit(){
     this.networkshares$ = this.fetchAll();
     this.Users$ = this.rest_service.get(`http://192.168.0.70:3000/orgusers/${this.loginInfo.CompanyName}`);
     this.Groups$ = this.rest_service.get(`http://192.168.0.70:3000/groups/${this.loginInfo.CompanyName}`);
     this.assetIdentifiers$ = this.rest_service.get(`http://192.168.0.70:3000/inventories/${this.loginInfo.CompanyName}`);
+
+    await this.Groups$.forEach(array => {
+      array.forEach(element => {
+        this.groupDict[element.idOrgGroups] = element
+      });
+    });
+
+    await this.Users$.forEach(array => {
+      array.forEach(element => {
+        this.userDict[element.idOrgUsers] = element
+      });
+    });
 
 
   }

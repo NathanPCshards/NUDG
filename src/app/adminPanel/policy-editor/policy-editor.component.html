@@ -1,0 +1,65 @@
+<div class="doNotPrint">
+    <div class="wrapper" id="wrapper" >
+      <div id="policy" class="policy2" *ngFor="let policy of policy$ | async">
+          <div class="row1">
+            <form [formGroup]="policyForm">
+              <mat-form-field id="policySearch">
+                <mat-label>{{this.id}}</mat-label>
+                <input type="text"
+                       matInput
+                       formControlName='NidFilterList'
+                       required
+                       [matAutocomplete]="autoGroup">
+                  <mat-autocomplete #autoGroup="matAutocomplete">
+                    <mat-optgroup *ngFor="let entry of NidDisplayList$ " >
+                      <mat-option  [value]="entry.nudgid"  [value]="entry.nudgid" routerLink="/Policy/{{entry.nudgid}}" (click)="policySearch($event, entry.nudgid)" routerLinkActive="active">{{entry.nudgid}}</mat-option>
+                  </mat-optgroup>
+                </mat-autocomplete>
+              </mat-form-field>
+            </form>
+            
+    
+            <div class="item2" style="flex: 1; ">
+              <p id="title" style="font-size: 20px;"> {{policy.Subtitle}}</p>
+            </div>    
+    
+            <div class="item2" style="flex: 1; ">
+              <p id="title" style="font-size: 20px;color: #06d6a0;">{{policy.Pstatus}}</p>
+            </div>
+          </div>
+    
+          <mat-tab-group >
+            <mat-tab label="CMMC Information" style="overflow: none;">
+              <p style="margin-top: 1%;" class="dditems">CMMC Number: {{policy.CMMCnumber}}</p>
+              <br>
+              <p class="dditems">Capability Name: {{policy.nudgid}}</p>
+              <br>
+              <p class="dditems">Capability Number: {{policy.Capabilitynumber}}</p>
+              <br>
+              <p class="dditems" >Practice: {{policy.Practice}}</p>
+              <br>
+              <p class="dditems">Clarification: {{policy.Clarification}}</p>
+            </mat-tab>
+    
+            <mat-tab label="NIST Information" style="overflow: none;">
+            <p style="margin-top: 1%; font-size: medium;" class="dditems">NIST Mapping: {{policy.NISTmapping}}</p>
+            <br>
+            <p class="dditems" style="font-size: medium;">NIST Value: {{policy.NISTvalue}}</p>
+            <br>
+          </mat-tab>
+            <mat-tab label="References" > <p style="white-space: pre-wrap; font-size: medium;"> {{policy.ReferencesP}}</p></mat-tab>
+            <mat-tab label="Guidelines">      
+              <guidelines-dialog [id$] = "this.id" style="z-index: 99; ">
+              </guidelines-dialog>
+    
+            </mat-tab>
+            <mat-tab label="Comments">
+              <textarea (change)="updatePolicy(policy,Comment.value)" #Comment style="text-align: left; align-content: left; margin-left: 1%; height:300px; font-size: medium;" rows="30" cols="100">{{policy.Comments}}</textarea>
+  
+              
+            </mat-tab>
+    
+          </mat-tab-group>
+      </div>
+    </div>
+</div>

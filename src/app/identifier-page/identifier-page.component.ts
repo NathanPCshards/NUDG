@@ -705,15 +705,6 @@ export class IdentifierPageComponent implements OnInit {
     
   }
 
-  stringToArray(input){
-    //console.log("input : " ,  input)
-    // "[123,646,2,25]"
-    let temp = input.trim().replace("\[","").replace("\]","").split(",")
-
-    return input
-
-  }
-
   ngOnDestroy(){
    // this.gapSubscription.unsubscribe()
     this.controlSubscription.unsubscribe()

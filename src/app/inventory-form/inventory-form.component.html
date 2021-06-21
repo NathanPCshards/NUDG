@@ -81,9 +81,9 @@
 
                             <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                                 <mat-label >CUI Contracts - Contract Name</mat-label>
-                                <mat-select  #UcuiContracts  multiple>
+                                <mat-select  #IcuiContracts  multiple>
                                     <div *ngFor="let contract of CUIcontracts$ | async">
-                                        <mat-option value={{contract.CCname}} >
+                                        <mat-option value={{contract.idCUIcontracts}} >
                                             {{contract.CCname}}
                                         </mat-option>
                                     </div>
@@ -93,9 +93,9 @@
                               
                             <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                                 <mat-label >Users Associated with this device</mat-label>
-                                <mat-select #UcuiContracts  multiple>
+                                <mat-select #Iusers  multiple>
                                     <div *ngFor="let user of Users$ | async">
-                                        <mat-option value={{user.Ufname}} >
+                                        <mat-option value={{user.idOrgUsers}} >
                                             {{user.Ufname}}
                                         </mat-option>
                                     </div>
@@ -105,9 +105,9 @@
                               
                             <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                                 <mat-label >Software installed on this device.</mat-label>
-                                <mat-select #UcuiContracts multiple>
+                                <mat-select #Isoftwares multiple>
                                     <div *ngFor="let software of softwares$ | async">
-                                        <mat-option value={{software.SWname}} >
+                                        <mat-option value={{software.idOrgSoftwareApproval}} >
                                             {{software.SWname}} 
                                         </mat-option>
                                     </div>
@@ -214,10 +214,6 @@
                             <textarea id="Icomments" #Icomments  style="text-align: left; align-content: left; margin-left: 1%; " rows="4" cols="38"></textarea>
  
                         </div>
-    
-    
-    
-    
                     </div>
                     
               <!--  </div>--> 
@@ -228,7 +224,7 @@
                     <button mat-raised-button (click)="post(IassetIdentifier.value, Iaddress.value, InetworkID.value, Ivirtual.value, Ipublic.value, Idnsname.value,
                     InetbiosName.value, Imacaddress.value, IauthenticatedScan.value, IbaselineConfigName.value, IosNameAndVersion.value, IphysicalLocation.value, 
                     IhardwareSoftwareVendor.value, IdateOfReceipt.value, Icost.value, IsoftwareDatabase.value, Ipatchlevel.value, Ifunction.value, Icomments.value,
-                    Iserial.value, Ivlan.value, IsystemAdmin.value, Iapplication.value, IsoftwareApproval.value, IassetType.value, IhardwareMakeModel.value, IsupplierInfo.value)" style="width:20vw;height: 5vh; float: left;margin-left: 15%;"   type ="Submit" color="primary"  >Submit</button>
+                    Iserial.value, Ivlan.value, IsystemAdmin.value, Iapplication.value, IsoftwareApproval.value, IassetType.value, IhardwareMakeModel.value, IsupplierInfo.value, IcuiContracts.value, Iusers.value, Isoftwares.value)" style="width:20vw;height: 5vh; float: left;margin-left: 15%;"   type ="Submit" color="primary"  >Submit</button>
                     
                     <button mat-raised-button (click) = "onFormReset()"  style="width:20vw;height: 5vh; float: right;margin-right: 15%;"  type="Reset" color="primary"  >Reset</button>
                 </div>
@@ -342,7 +338,7 @@
             (click)="update(IassetIdentifier.value, Iaddress.value, InetworkID.value, Ivirtual.value, Ipublic.value, Idnsname.value,
             InetbiosName.value, Imacaddress.value, IauthenticatedScan.value, IbaselineConfigName.value, IosNameAndVersion.value, IphysicalLocation.value, 
             IhardwareSoftwareVendor.value, IdateOfReceipt.value, Icost.value, IsoftwareDatabase.value, Ipatchlevel.value, Ifunction.value, Icomments.value,
-            Iserial.value, Ivlan.value, IsystemAdmin.value, Iapplication.value, IsoftwareApproval.value, IassetType.value, IhardwareMakeModel.value, IsupplierInfo.value, inventory.idOrgInventory)"
+            Iserial.value, Ivlan.value, IsystemAdmin.value, Iapplication.value, IsoftwareApproval.value, IassetType.value, IhardwareMakeModel.value, IsupplierInfo.value, inventory.idOrgInventory, IcuiContracts.value, Iusers.value, Isoftwares.value)"
             color="primary"
           >
             edit
