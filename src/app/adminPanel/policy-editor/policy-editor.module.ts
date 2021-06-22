@@ -1,7 +1,4 @@
 import { NgModule }       from '@angular/core';
-import { IdentifierPageRoutingModule } from '../../identifier-page/identifier-page.routing.module';
-
-import {  IdentifierPageComponent, } from '../../identifier-page/identifier-page.component';
 import { SharedModule } from '../../SharedModule.module';
 import { ControlModule } from '../../control-form/control.module';
 import { PolicyAccordionModule } from '../../policy-accordion/policy-accordion.module';
@@ -10,6 +7,8 @@ import { myCalendarModule } from '../../calendar/calendar.module';
 import { login } from '../../injectables';
 import { GuidelinesModule } from 'src/app/guidelines-page/guidelines.module';
 import { PolicyEditorComponent } from './policy-editor.component';
+import { StandardModule } from 'src/app/standards-form/standards-form.module';
+import { PolicyFormComponent } from '../policy-form/policy-form.component';
 
  
 
@@ -20,15 +19,20 @@ import { PolicyEditorComponent } from './policy-editor.component';
     PolicyAccordionModule,
     ControlModule,
     fileImportModule,
-    myCalendarModule
+    myCalendarModule,
+    StandardModule
  
   ],
   declarations: [
-      PolicyEditorComponent
+      PolicyEditorComponent,
+      PolicyFormComponent
   ],
   providers : [
     login
   ],
+  exports:[
+    PolicyFormComponent
+  ]
 
 })
 export class PolicyEditorModule {}

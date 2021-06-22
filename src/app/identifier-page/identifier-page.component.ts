@@ -130,9 +130,21 @@ export class IdentifierPageComponent implements OnInit {
     //Sets defualt page to be AC-N.01
     //Pulling correct policy.
     this.routeSub = this.route.params.subscribe(params => {
+  
       this.id = params['id'];
-      this.Gdate$ = params['Gdate$']
+      this.Gdate$ = params['Date'] 
       });
+
+
+
+      //pulling date values from date string, removing any leading zeros
+
+      let dd = this.Gdate$.slice(0,2).replace(/^0+/, '');
+      let mm = this.Gdate$.slice(2,4).replace(/^0+/, '');
+      let yyyy = this.Gdate$.slice(4).replace(/^0+/, '');
+
+      this.Gdate$ = mm + '\\' + dd + '\\' + yyyy
+
     this.id ? true : this.id = "AC-N.01"
     this.Gdate$ ? true : this.Gdate$ = "1/1/2021"
     
@@ -287,13 +299,13 @@ export class IdentifierPageComponent implements OnInit {
       //its defualt is false, if nothing is given. This makes sure new dates are 
       //posted to, and not updated to (which would fail because it wouldnt exist)
       if (incomingData.data.idOrgGap && !incomingData.optionalParam){
-        console.log("updating")
+        console.log("updating", incomingData)
         //Updates if Id exists
         this.gap$ = await this.gapservice
         .update(incomingData.data,this.loginInfo.CompanyName).toPromise()
         
       }else if (incomingData.data.Gdate || incomingData.optionalParam){
-        console.log("posting")
+        console.log("posting", incomingData)
       //Post if Id does not exist and Date exists (New Entry)
         this.gap$ = await this.gapservice
         .post(incomingData.data ,this.loginInfo.CompanyName).toPromise()

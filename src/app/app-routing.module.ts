@@ -45,6 +45,7 @@ import { ChangeNameFormComponent } from './changeNameForm/change-name-form/chang
 import { ChangePhoneFormComponent } from './changePhoneForm/change-phone-form/change-phone-form.component';
 import { ChangeEmailFormComponent } from './changeEmailForm/change-email-form/change-email-form.component';
 import { ChangePasswordFormComponent } from './changePasswordForm/change-password-form/change-password-form.component';
+import { PolicyEditorComponent } from './adminPanel/policy-editor/policy-editor.component';
 //https://angular.io/guide/router
 
 const routes: Routes = [
@@ -62,9 +63,9 @@ const routes: Routes = [
   { path: 'Roles', component: RoleFormComponent },
   { path: 'GroupsPage', component: GroupFormComponent },
 
-  { path: 'AdminPanel', component: AdminPanelComponent },
-  { path: 'AdminPanel/PolicyEditor', component: AdminPanelComponent },
+  { path: 'AdminPanel', component: AdminPanelComponent, },
 
+  {path:'PolicyEditor/:id/:date', component: PolicyEditorComponent},
 
   { path: 'Accordion', component: PolicyAccordionComponent },
   { path: 'Policy', component: IdentifierPageComponent},
@@ -125,7 +126,7 @@ const routes: Routes = [
 
 
   { path: '404', component: NotfoundComponent},
-  { path: '**', redirectTo: '/404'},
+ // { path: '**', redirectTo: '/404'},
   //occasionally disabled while testing
 
 ];

@@ -1,0 +1,107 @@
+<div class="wrapper" id="wrapper" style="display:flex">
+
+    <div id="policy" class="policy2" *ngFor="let policy of policy$ | async">
+        <div class="row1">
+
+        
+            <span>Placeholder</span>
+
+  
+          <div class="item2" style="flex: 1; ">
+            <mat-form-field  appearance = "legacy" style="width:60%">
+              <input #subtitle matInput value= {{policy.Subtitle}}>
+            </mat-form-field>
+          </div>    
+  
+          <div class="item2" style="flex: 1; ">
+            <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
+
+              <mat-select #Pstatus id="Pstatus" value={{policy.Pstatus}}>
+               
+                  <mat-option value='Implemented' >
+                      Implemented
+                  </mat-option>
+                  <mat-option value='In Progress' >
+                      In Progress
+                  </mat-option>                      
+                    <mat-option value='Deficient' >
+                     Deficient
+                  </mat-option>
+            
+              </mat-select>
+            </mat-form-field> 
+          </div>
+        </div>
+  
+        <mat-tab-group style="overflow: hidden;">
+          <mat-tab label="CMMC Information" style="overflow: hidden; display:flex;">
+            <div style="overflow: hidden;">
+              <span style="margin: 1%; ">CMMC Number: </span>
+              <mat-form-field  appearance = "legacy" style="width:40%">
+                <input #CMMCnumber matInput value= {{policy.CMMCnumber}}>
+              </mat-form-field>
+              <br>
+              <span style="margin: 1%;">Nudg id: </span>
+              <mat-form-field  appearance = "legacy" style="width:40%">
+                <input 
+                
+                #nudgid 
+                matInput 
+                value= {{policy.nudgid}}>
+              </mat-form-field>
+
+              <br>
+              <span style="margin: 1%;">Capability Number: </span>
+              <mat-form-field  appearance = "legacy" style="width:40%">
+                <input  matInput #Capabilitynumber value= {{policy.Capabilitynumber}}>
+              </mat-form-field>
+
+              <br>
+              <span style="margin: 1%;">Practice: </span>
+              <mat-form-field  appearance = "legacy" style="width:40%">
+                <input  #Practice matInput value= {{policy.Practice}}>
+              </mat-form-field>
+
+              <br>
+              <span style="margin: 1%;">Clarification: </span> 
+              <br>
+              <br>
+
+                <textarea  #Clarification style="text-align: left;padding:1%; " rows="18" cols="103"  value= {{policy.Clarification}}></textarea>
+            </div>
+           
+          </mat-tab>
+  
+          <mat-tab label="NIST Information" style="overflow: none;">
+            <div style="overflow: hidden;">
+              <span style="margin: 1%; ">NIST Mapping: </span>
+              <mat-form-field  appearance = "legacy" style="width:40%">
+                <input  #NISTmapping matInput value= {{policy.NISTmapping}}>
+              </mat-form-field>
+              <br>
+              <span style="margin: 1%;">NIST Value: </span>
+              <mat-form-field  appearance = "legacy" style="width:40%">
+                <input  #NISTvalue matInput value= {{policy.NISTvalue}}>
+              </mat-form-field>
+            </div>
+
+        </mat-tab>
+          <mat-tab label="References" > <textarea rows="20" cols="90" #References  style="white-space: pre-wrap; font-size: medium; padding:1%;"> {{policy.ReferencesP}}</textarea></mat-tab>
+          <mat-tab label="Guidelines" *ngFor="let guideline of guideline$ | async" >      
+            <textarea rows="40" cols="90" style="font-size: medium; white-space: pre-wrap; padding:1%;">
+              {{ guideline.Guidelines }}
+              </textarea>
+  
+          </mat-tab>
+          <mat-tab label="Comments">
+            <textarea  #Comment style="text-align: left; align-content: left; margin-left: 1%; height:300px; font-size: medium;" rows="30" cols="90">{{policy.Comments}}</textarea>
+
+            
+          </mat-tab>
+  
+        </mat-tab-group>
+    </div>
+
+
+
+  </div>

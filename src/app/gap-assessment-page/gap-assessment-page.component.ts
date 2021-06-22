@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -97,11 +98,19 @@ export class GapForm implements OnInit{
     //Pulling id and date from URL parameters
     this.routeSub = this.route.params.subscribe(params => {
       this.id$ = params['id'];
-      this.displayDate$ = params['Date']
-  
-      });
+      let temp = params['Date'].split("\\")
+      console.log("date fresh : " , temp)
+      this.displayDate$ = new Date(temp[2],temp[0]-1,temp[1])
 
-    
+      });
+      let pipe = new DatePipe('en-US'); // Use your own locale
+
+      console.log("display date : " , this.displayDate$)
+
+      this.displayDate$ = pipe.transform(this.displayDate$, 'M/d/yyyy')
+
+      console.log("after transform : " , this.displayDate$)
+
    //If no date is given set date to defualt : 1/1/2021
    //otherwise Gdate is initialized through input parameters (passed from identifier page to accordion to here)
     if(!this.displayDate$){
@@ -117,6 +126,7 @@ export class GapForm implements OnInit{
   }
 
   async loadData(){
+    
      //Initializing unique lists (Used for dropdown displays)
      this.uniqueNidList$= this.rest_service.get(`http://192.168.0.70:3000/gap/${'None'}/${this.loginInfo.CompanyName}/?getUniqueNids=${true}`)
      this.uniqueDateList$ = this.rest_service.get(`http://192.168.0.70:3000/gap/${'None'}/${this.loginInfo.CompanyName}/?getUniqueDates=${true}`)
@@ -184,17 +194,17 @@ export class GapForm implements OnInit{
     var sub2;
     var sub3;
 
-    sub1 = await this.rest_service.get(`http://192.168.0.70:3000/gap/${this.id$}/${this.loginInfo.CompanyName}/?CountWeaknesses=${true}`).forEach(data=>{
+    sub1 = await this.rest_service.get(`http://192.168.0.70:3000/gap/${this.id$}/${this.loginInfo.CompanyName}/?CountWeaknesses=${this.displayDate$}`).forEach(data=>{
       data.forEach(dataArray => {
         this.counts.push(["Weaknesses",dataArray['COUNT(Ganswer)']])  
       });
     })
-   sub2 = await this.rest_service.get(`http://192.168.0.70:3000/gap/${this.id$}/${this.loginInfo.CompanyName}/?CountPartial=${true}`).forEach(data=>{
+   sub2 = await this.rest_service.get(`http://192.168.0.70:3000/gap/${this.id$}/${this.loginInfo.CompanyName}/?CountPartial=${this.displayDate$}`).forEach(data=>{
    data.forEach(dataArray => {  
      this.counts.push(["Partial",dataArray['COUNT(Ganswer)']])  
     });
   })
-   sub3 = await this.rest_service.get(`http://192.168.0.70:3000/gap/${this.id$}/${this.loginInfo.CompanyName}/?CountYes=${true}`).forEach(data=>{
+   sub3 = await this.rest_service.get(`http://192.168.0.70:3000/gap/${this.id$}/${this.loginInfo.CompanyName}/?CountYes=${this.displayDate$}`).forEach(data=>{
    data.forEach(dataArray => {  
      this.counts.push(["Yes",dataArray['COUNT(Ganswer)']])  
     });
@@ -236,16 +246,16 @@ export class GapForm implements OnInit{
     }
   }
 
-  toggleNewDate(){
-    if (document.getElementById("dateToggleIcon").innerText == "check_box"){
-      this.newDate = false;
-      document.getElementById("dateToggleIcon").innerText = "check_box_outline_blank"
-    }
-    else{
+  toggleNewDate(data){
+
+    if (data != this.displayDate$){
       this.newDate = true;
-      document.getElementById("dateToggleIcon").innerText = "check_box"
 
     }
+    else{
+      this.newDate = false;
+    }
+
   }
 
   toggleQuestionEdit(){
@@ -309,6 +319,7 @@ export class GapForm implements OnInit{
   }
 
   fetchAllGap(Nid:any, Gdate: any): Observable<gap[]> {
+    console.log("Gdate checking : " , Gdate)
     let tempUrl;
     if (Gdate != "") {
       //if date is given
@@ -398,11 +409,17 @@ export class GapForm implements OnInit{
     submitCount["Yes"] = 0
     submitCount["Partial"] = 0
     submitCount["Weakness"] = 0
+    if (this.newDate){
 
+    }
+    else{
+
+    }
     this.displayList$.forEach(element => {
       
       submitCount[element.Ganswer] += 1
-      
+      console.log('datefield : ' , this.dateField$)
+      console.log("new date :"  , this.newDate)
       if (this.dateField$ && this.newDate){
         
         element.Gdate = this.dateField$
@@ -469,6 +486,8 @@ export class GapForm implements OnInit{
   }
 
   public async refreshGapAndDisplayList(){
+    console.log("date in refresh: " , this.displayDate$)
+
     //this function does what it says
     this.gap$ = await this.fetchAllGap(this.id$, this.displayDate$);
     this.gap$.forEach(element => {
