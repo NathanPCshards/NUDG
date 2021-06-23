@@ -135,7 +135,7 @@ export class IdentifierPageComponent implements OnInit {
       this.Gdate$ = params['Date'] 
       });
 
-
+      this.Gdate$ ? true : this.Gdate$ = "1/1/2021"
 
       //pulling date values from date string, removing any leading zeros
 
@@ -146,7 +146,7 @@ export class IdentifierPageComponent implements OnInit {
       this.Gdate$ = mm + '\\' + dd + '\\' + yyyy
 
     this.id ? true : this.id = "AC-N.01"
-    this.Gdate$ ? true : this.Gdate$ = "1/1/2021"
+
     
     //getting unique Nudg Id's
     this.uniqueNidList$ = this.rest_service.get(`http://192.168.0.70:3000/Policy/${this.id}/${this.loginInfo.CompanyName}/?getUniqueNids=${true}`);

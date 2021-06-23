@@ -1,107 +1,112 @@
 <div class="wrapper" id="wrapper" style="display:flex">
 
-    <div id="policy" class="policy2" *ngFor="let policy of policy$ | async">
-        <div class="row1">
+  <div class="col">
+    <div>
+      <span class="label">Nudg Id</span>
+      <mat-form-field  appearance = "legacy" class="input" >
+        <input #nudgid matInput >
+      </mat-form-field>
+    </div>
 
-        
-            <span>Placeholder</span>
+    <span class="label">Subtitle: </span>
+    <mat-form-field  appearance = "legacy" class="input">
+      <input  #Subtitle matInput>
+    </mat-form-field>
+   
 
-  
-          <div class="item2" style="flex: 1; ">
-            <mat-form-field  appearance = "legacy" style="width:60%">
-              <input #subtitle matInput value= {{policy.Subtitle}}>
-            </mat-form-field>
-          </div>    
-  
-          <div class="item2" style="flex: 1; ">
-            <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
+    <span class="label">Family Policy: </span>
+    <mat-form-field  appearance = "legacy" class="input">
+      <input  #FamilyPolicy matInput>
+    </mat-form-field>
 
-              <mat-select #Pstatus id="Pstatus" value={{policy.Pstatus}}>
-               
-                  <mat-option value='Implemented' >
-                      Implemented
-                  </mat-option>
-                  <mat-option value='In Progress' >
-                      In Progress
-                  </mat-option>                      
-                    <mat-option value='Deficient' >
-                     Deficient
-                  </mat-option>
-            
-              </mat-select>
-            </mat-form-field> 
-          </div>
-        </div>
-  
-        <mat-tab-group style="overflow: hidden;">
-          <mat-tab label="CMMC Information" style="overflow: hidden; display:flex;">
-            <div style="overflow: hidden;">
-              <span style="margin: 1%; ">CMMC Number: </span>
-              <mat-form-field  appearance = "legacy" style="width:40%">
-                <input #CMMCnumber matInput value= {{policy.CMMCnumber}}>
-              </mat-form-field>
-              <br>
-              <span style="margin: 1%;">Nudg id: </span>
-              <mat-form-field  appearance = "legacy" style="width:40%">
-                <input 
-                
-                #nudgid 
-                matInput 
-                value= {{policy.nudgid}}>
-              </mat-form-field>
 
-              <br>
-              <span style="margin: 1%;">Capability Number: </span>
-              <mat-form-field  appearance = "legacy" style="width:40%">
-                <input  matInput #Capabilitynumber value= {{policy.Capabilitynumber}}>
-              </mat-form-field>
 
-              <br>
-              <span style="margin: 1%;">Practice: </span>
-              <mat-form-field  appearance = "legacy" style="width:40%">
-                <input  #Practice matInput value= {{policy.Practice}}>
-              </mat-form-field>
 
-              <br>
-              <span style="margin: 1%;">Clarification: </span> 
-              <br>
-              <br>
+      <br>
+      <span class="label" style="margin-top: 12%;">Practice: </span>
+      <div>
+        <textarea rows="5" cols="70" #Practice style="white-space: pre-wrap; font-size: medium; padding:1%; margin-top: 3%;"></textarea>
 
-                <textarea  #Clarification style="text-align: left;padding:1%; " rows="18" cols="103"  value= {{policy.Clarification}}></textarea>
-            </div>
-           
-          </mat-tab>
-  
-          <mat-tab label="NIST Information" style="overflow: none;">
-            <div style="overflow: hidden;">
-              <span style="margin: 1%; ">NIST Mapping: </span>
-              <mat-form-field  appearance = "legacy" style="width:40%">
-                <input  #NISTmapping matInput value= {{policy.NISTmapping}}>
-              </mat-form-field>
-              <br>
-              <span style="margin: 1%;">NIST Value: </span>
-              <mat-form-field  appearance = "legacy" style="width:40%">
-                <input  #NISTvalue matInput value= {{policy.NISTvalue}}>
-              </mat-form-field>
-            </div>
+      </div>
 
-        </mat-tab>
-          <mat-tab label="References" > <textarea rows="20" cols="90" #References  style="white-space: pre-wrap; font-size: medium; padding:1%;"> {{policy.ReferencesP}}</textarea></mat-tab>
-          <mat-tab label="Guidelines" *ngFor="let guideline of guideline$ | async" >      
-            <textarea rows="40" cols="90" style="font-size: medium; white-space: pre-wrap; padding:1%;">
-              {{ guideline.Guidelines }}
-              </textarea>
-  
-          </mat-tab>
-          <mat-tab label="Comments">
-            <textarea  #Comment style="text-align: left; align-content: left; margin-left: 1%; height:300px; font-size: medium;" rows="30" cols="90">{{policy.Comments}}</textarea>
+      <br>
+      <span class="label" style="margin-top: 1%;">Clarification: </span> 
+      <div>
+        <textarea rows="5" cols="70" #Clarification style="white-space: pre-wrap; font-size: medium; padding:1%; margin-top: 3%;"></textarea>
+      </div>
 
-            
-          </mat-tab>
-  
-        </mat-tab-group>
+
+    </div>
+
+  <div class="col">
+    <div style="overflow: hidden;">
+      <span class="label">NIST Mapping: </span>
+      <mat-form-field  appearance = "legacy" class="input">
+        <input  #NISTmapping matInput>
+      </mat-form-field>
+      <br>
+      <span class="label">NIST Value: </span>
+      <mat-form-field  appearance = "legacy" class="input">
+        <input  #NISTvalue matInput>
+      </mat-form-field>
+      <br>
+      <span class="label">Status: </span>
+      <mat-form-field  appearance = "legacy" class="input">
+        <input  #Pstatus matInput>
+      </mat-form-field>
+
+
+
+    </div>
+    <span class="label" style="margin-top: 12%;">Discussion: </span>
+    <div>
+      <textarea rows="5" cols="70" #Discussion style="white-space: pre-wrap; font-size: medium; padding:1%; margin-top: 3%;"></textarea>
+    </div>
+
+    <span class="label">References: </span>
+    <div>
+      <textarea rows="5" cols="70" #ReferencesP style="white-space: pre-wrap; font-size: medium; padding:1%; margin-top: 3%;"></textarea>
     </div>
 
 
+    <button (click)="submit(nudgid.value, CMMCnumber.value, CMMClevel.value, NISTmapping.value, NISTvalue.value, Capabilitynumber.value, Practice.value, FamilyPolicy.value, Discussion.value, Clarification.value, ReferencesP.value, Pstatus.value, Subtitle.value, Comments.value, Guidelines.value)" style="left: 47%; position: sticky; top: 60%; width: 20%;">Submit</button>
 
   </div>
+  
+  <div class="col">
+
+    <span class="label"  >CMMC Number: </span>
+    <mat-form-field  appearance = "legacy" class="input">
+      <input #CMMCnumber matInput >
+    </mat-form-field>
+
+    <br>
+    <span class="label" >CMMC Level: </span>
+    <mat-form-field  appearance = "legacy" class="input">
+      <input 
+      #CMMClevel 
+      matInput 
+      >
+    </mat-form-field>
+
+    <br>
+    <span class="label">Capability Number: </span>
+    <mat-form-field  appearance = "legacy" class="input">
+      <input  matInput #Capabilitynumber>
+    </mat-form-field>
+
+
+
+
+    <span class="label" style="margin-top: 12%;">Guidelines: </span>
+    <textarea #Guidelines rows="5" cols="70" style="font-size: medium; white-space: pre-wrap; padding:1%; margin-top: 3%;"></textarea>
+    <span class="label">Comments: </span>
+    <textarea #Comments rows="5" cols="70" style="font-size: medium; white-space: pre-wrap; padding:1%; margin-top: 3%;"></textarea>
+
+  </div>
+      
+
+    
+          
+</div>
+

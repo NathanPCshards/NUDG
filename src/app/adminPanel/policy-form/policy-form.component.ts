@@ -40,6 +40,10 @@ export class PolicyFormComponent implements OnInit {
     //POLICY STUFF
     this.policy$ = this.fetchAllPolicies();
 
+    this.policy$.forEach(element => {
+        console.log("element : " , element)
+    });
+
     /*
   this.guideline$ = this.getByID(this.id)
   this.guideline$.subscribe(res=>{
@@ -51,6 +55,31 @@ export class PolicyFormComponent implements OnInit {
   }
 
   fetchAllPolicies(): Observable<policy[]> {
-    return this.rest_service.get(`http://192.168.0.70:3000/policy/'All'/${this.loginInfo.CompanyName}`);
+    return this.rest_service.get(`http://192.168.0.70:3000/policy/All/${this.loginInfo.CompanyName}`);
+  }
+
+  submit(nudgid, CMMCnumber, CMMClevel, NISTmapping, NISTvalue, Capabilitynumber, Practice, FamilyPolicy, Discussion, Clarification, ReferencesP, Pstatus, Subtitle, Comments, Guidelines){
+ 
+
+    let data = {nudgid, CMMCnumber, CMMClevel, NISTmapping, NISTvalue, Capabilitynumber, Practice, FamilyPolicy, Discussion, Clarification, ReferencesP, Pstatus, Subtitle, Comments, CompanyName: this.loginInfo.CompanyName}
+  
+
+    let temp = this.rest_service.post(`http://192.168.0.70:3000/policy/`,data)
+    temp.subscribe(res=>{
+      console.log("res : " ,res)
+    })
+
+
+
+
+    let temp2 = this.rest_service.post(`http://192.168.0.70:3000/Guidelines/${this.loginInfo.CompanyName}`,{Nid:nudgid, Guidelines})
+    temp2.subscribe(res=>{
+      console.log("res2 : " ,res)
+    })
+
+
+
+ 
+ 
   }
 }

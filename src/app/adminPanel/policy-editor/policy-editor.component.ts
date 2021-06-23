@@ -28,13 +28,14 @@ export class PolicyEditorComponent implements OnInit {
   date
   standardsList
   policy$
+  allPolicies$;
   routeSub
   uniqueNidList$
   NidDisplayList$;
   NidFilter$;
   gapMatTabIndex
   gapStatus
-
+  viewIndex
   policyForm: FormGroup = this.formBuilder.group({
     NidFilterList : []
   });
@@ -43,6 +44,10 @@ export class PolicyEditorComponent implements OnInit {
   gapTableData
   viewGapData
   gapDates
+
+  XCountForHTML
+  YCountforHTML
+
   constructor(
 
 
@@ -71,6 +76,7 @@ export class PolicyEditorComponent implements OnInit {
        //Sets defualt page to be AC-N.01
     //Pulling correct policy.
     this.routeSub = this.route.params.subscribe(params => {
+      console.log("params : " , params)
       this.id = params['id'];
       this.date = params['date']
       });
@@ -80,8 +86,14 @@ export class PolicyEditorComponent implements OnInit {
      // to pull data from the route information
 
 
-   
+      console.log("current id:  " , this.date)
+    if (this.date != 1){
+      this.setView(1)
+    }
+    else{
+      this.setView(0)
 
+    }
 
 
     //getting unique Nudg Id's
@@ -102,6 +114,7 @@ export class PolicyEditorComponent implements OnInit {
 
     //POLICY STUFF
     this.policy$ = this.fetchPolicy(this.id);
+    this.allPolicies$ = await this.rest_service.get(`http://192.168.0.70:3000/policy/All/${this.loginInfo.CompanyName}`).toPromise();
 
     this.rest_service.standardEmit.subscribe(element => {
 
@@ -142,7 +155,7 @@ export class PolicyEditorComponent implements OnInit {
   })
 
 
-  this.gapDates = await this.rest_service.get(`http://192.168.0.70:3000/gap/${this.id}/${this.loginInfo.CompanyName}/?getUniqueDates=True`)
+  this.gapDates = await this.rest_service.get(`http://192.168.0.70:3000/gap/${this.id}/${this.loginInfo.CompanyName}/?getUniqueDatesSpecific=True`)
   this.gapDates.forEach(array => {
     console.log("dates : " , array)
     this.setGapView(array[0].Gdate,0)
@@ -152,7 +165,8 @@ export class PolicyEditorComponent implements OnInit {
   });
 
 
-
+  this.initHtmlArrays()
+  console.log(this.allPolicies$)
 }
 
 
@@ -160,10 +174,32 @@ getByID(id){
   return this.rest_service.get(`http://192.168.0.70:3000/guidelines/${this.loginInfo.CompanyName}?getByID=${id}`)
 }
 
+setView(index){
+  console.log("setting view")
+  this.viewIndex = index
+}
+
+deletePolicy(policy){
+
+  let temp = this.rest_service.delete(`http://192.168.0.70:3000/Policy/${this.id}/${this.loginInfo.CompanyName}/?getUniqueNids=${true}`);
 
 
+  //remove the policy from policies :nudgid
+  //delete any controls             : Nid
+  //weaknesses                      : Nid
+  //standards                       : Nid
+  //gap questions                   : Nid
+  //guidelines                      : Nid
+
+  //procedures associated with the controls
+  //milestones associated with the weaknesses
+
+
+
+}
 
 setGapView(row, index){
+  console.log("index : " , index)
   //get date from row clicked
   //call 
   let pipe = new DatePipe('en-US'); // Use your own locale
@@ -186,6 +222,12 @@ setGapView(row, index){
 debug(){
   console.log(this.viewGapData)
   console.log(this.gapTableData)
+  this.policy$.forEach(element => {
+      console.log("element : " , element)
+  });
+  this.allPolicies$.forEach(element => {
+      console.log("allpolicies : " , element)
+  });
 }
 
 
@@ -328,7 +370,7 @@ _filterNid(value: string){
   {
       console.log(event, name)
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
-      this.router.navigate(["PolicyEditor/"+name+"/1"]));
+      this.router.navigate(["PolicyEditor/"+name,"/2"]));
     
   }
 
@@ -337,7 +379,63 @@ _filterNid(value: string){
     return this.rest_service.get(`http://192.168.0.70:3000/policy/${id}/${this.loginInfo.CompanyName}`);
   }
 
+  displayPolicy(nudgid){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+    this.router.navigate(["PolicyEditor/",String(nudgid).trim(),"/2"]));
+  }
 
+
+  initHtmlArrays(){   
+    
+    //TODO need to sort these somehow.
+
+    console.log("all policies : ", this.allPolicies$)
+      this.allPolicies$ = this.allPolicies$.sort((a,b)=>{
+
+        return a.nudgid > b.nudgid
+      })
+      let amountInRow = 5
+      let numRows = Math.ceil(this.allPolicies$.length/amountInRow-1)
+      console.log("num rows : " , numRows)
+      this.XCountForHTML = Array(5).fill(amountInRow)
+      this.YCountforHTML = []
+
+
+    console.log("before : " , this.allPolicies$)
+    let temp = []
+    this.allPolicies$.map((element,index)=>{
+      if (index%numRows == 0 && index != 0){
+        console.log('real index  : ' , index)
+        console.log("index : " , this.YCountforHTML.length)
+        this.YCountforHTML[this.YCountforHTML.length] = temp
+        this.YCountforHTML.sort()
+        temp = []
+      }
+      temp.push(element)
+    })
+
+    console.log("after : " , this.YCountforHTML)
+
+
+    if (temp != []){
+      this.YCountforHTML[this.YCountforHTML.length] = temp
+      this.YCountforHTML.sort()
+
+    }
+
+    /*
+
+       let policyCount = result.length
+        console.log('policyCount1 : ', policyCount)
+        console.log("policy count : ", policyCount)
+        numRows = Math.ceil(policyCount/amountInRow)
+        console.log('temp : ' , temp)
+        this.XCountForHTML
+        this.YCountforHTML 
+*/
+ 
+
+  }
 
 
 
