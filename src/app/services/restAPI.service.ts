@@ -33,7 +33,7 @@ httpOptions: { headers: HttpHeaders } = {
    }
    
    get(url): Observable<any> {
-    console.log("Get called @ ", url)
+    //console.log("Get called @ ", url)
     return this.http
       .get<any>(url, { responseType: "json" })
       .pipe(
@@ -44,18 +44,18 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   getFile(filename) {
-    console.log("getting file : ", filename)
+  //  console.log("getting file : ", filename)
     return this.http.get(`http://192.168.0.70:3000/download?file=${filename}`, { responseType: "blob" })
   }
 
   upload(file){
-    console.log("file in service : " , file)
+    //console.log("file in service : " , file)
     return this.http.post(`http://192.168.0.70:3000/upload`,file)
     .pipe(catchError(this.errorHandlerService.handleError<any>("upload")));
   }
 
   post(url, data): Observable<any> {
-    console.log("Post called @ ", url, "data : " , data)
+   // console.log("Post called @ ", url, "data : " , data)
 
     return this.http
       .post(url, data, this.httpOptions, )
@@ -63,8 +63,8 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   update(url, data): Observable<any> {
-    console.log("Update called @ ", url)
-    console.log("updated called with data : " , data)
+ //   console.log("Update called @ ", url)
+  //  console.log("updated called with data : " , data)
 
     return this.http
       .put(url, data)
@@ -72,7 +72,7 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
   delete(url): Observable<any> {
-    console.log("Delete called @ ", url)
+ //   console.log("Delete called @ ", url)
 
 
     return this.http

@@ -1,16 +1,37 @@
 <div class="doNotPrint">
 
-  <mat-tab-group animationDuration="50ms"  [(selectedIndex)]= viewIndex>
+  <mat-tab-group animationDuration="50ms"  [(selectedIndex)]= viewIndex (selectedTabChange)="tabSwitched($event)">
 
-    <mat-tab label="All Policies">
+    <mat-tab label="All Policies" >
+
+      <button (click)="debug()">debug</button>
+      
+      <form [formGroup]="policyForm">
+        <mat-form-field id="policySearch">
+          <mat-label>Search by Nudg id</mat-label>
+          <input type="text"
+                 matInput
+                 formControlName='NidFilterList'
+                 required
+                 id="searchAll"
+                 [matAutocomplete]="autoGroup">
+            <mat-autocomplete #autoGroup="matAutocomplete">
+              <mat-optgroup *ngFor="let entry of NidDisplayList$ " >
+                <mat-option  [value]="entry.nudgid" >{{entry.nudgid}}</mat-option>
+            </mat-optgroup>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+
+
       <div style="display:flex;  margin:1%; overflow-y: hidden;">
         <ng-container id="wrap" *ngFor="let y of YCountforHTML; let i = index">
-          <div class="column" [ngStyle]="i==0?{'margin-left': '0%'} : {'margin-left': '3%'}">
+         <div class="column" [ngStyle]="i==0?{'margin-left': '0%'} : {'margin-left': '3%'}">
             <ng-container *ngFor="let policy of y; let j = index">
               <div style="width:50vh; height:40vh; overflow-y: hidden;">
                 <div class="card">
                         <div>
-                          <mat-icon  (click)="displayPolicy(policy.nudgid)" style="vertical-align: middle;">remove_red_eye</mat-icon><span style="margin-left:26%; font-size: large; ">{{ policy.nudgid }}</span>  <mat-icon (click)="deletePolicy(policy)" style="vertical-align: middle;float:right">close</mat-icon>
+                          <mat-icon  (click)="displayPolicy(policy.nudgid)" style="vertical-align: middle;">remove_red_eye</mat-icon><span style="margin-left:26%; font-size: large; ">{{policy.nudgid}}</span>  <mat-icon (click)="deletePolicy(policy)" style="vertical-align: middle;float:right">close</mat-icon>
 
                         </div>
                         <h2>{{ policy.Subtitle}}</h2>
@@ -29,22 +50,23 @@
     </mat-tab>
 
 
-    <mat-tab label="Edit Existing Policy">
+    <mat-tab label="Edit Existing Policy"  >
       <div class="wrapper" id="wrapper" style="display:flex">
 
         <div id="policy" class="policy2" *ngFor="let policy of policy$ | async">
             <div class="row1">
               <form [formGroup]="policyForm">
-                <mat-form-field id="policySearch">
-                  <mat-label>{{this.id}}</mat-label>
+                <mat-form-field >
+                  <mat-label style="width:50%;">{{this.id}}</mat-label>
                   <input type="text"
                          matInput
                          formControlName='NidFilterList'
                          required
-                         [matAutocomplete]="autoGroup">
-                    <mat-autocomplete #autoGroup="matAutocomplete">
+                         id="searchRouting"
+                         [matAutocomplete]="autoGroup2">
+                    <mat-autocomplete #autoGroup2="matAutocomplete">
                       <mat-optgroup *ngFor="let entry of NidDisplayList$ " >
-                        <mat-option  [value]="entry.nudgid"  [value]="entry.nudgid" routerLink="/Policy/{{entry.nudgid}}"  (click)="policySearch($event, entry.nudgid)" routerLinkActive="active">{{entry.nudgid}}</mat-option>
+                        <mat-option  [value]="entry.nudgid"   routerLink="/Policy/{{entry.nudgid}}"  (click)="policySearch($event, entry.nudgid)" routerLinkActive="active">{{entry.nudgid}}</mat-option>
                     </mat-optgroup>
                   </mat-autocomplete>
                 </mat-form-field>
@@ -286,7 +308,6 @@
         
               </mat-tab-group>
   
-              <button (click)="debug()">debug</button>
         </div>
   
   
@@ -294,14 +315,14 @@
       </mat-tab>
 
 
-      <mat-tab label="Add Policies">
+      <mat-tab label="Add Policies" >
         <app-policy-form>
           
         </app-policy-form>
 
       </mat-tab>
 
-      <mat-tab (click)="debug()" label="debug"></mat-tab>
+   
 
       </mat-tab-group>
 

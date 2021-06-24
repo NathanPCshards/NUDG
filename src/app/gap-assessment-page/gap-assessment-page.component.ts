@@ -95,21 +95,26 @@ export class GapForm implements OnInit{
     ) { }
   
   ngOnInit(){
+    console.log("Date test : " , new Date(2021,0,0))
     //Pulling id and date from URL parameters
     this.routeSub = this.route.params.subscribe(params => {
       this.id$ = params['id'];
       let temp = params['Date'].split("\\")
-      console.log("date fresh : " , temp)
       this.displayDate$ = new Date(temp[2],temp[0]-1,temp[1])
 
       });
       let pipe = new DatePipe('en-US'); // Use your own locale
 
-      console.log("display date : " , this.displayDate$)
+
+      if(this.displayDate$.includes('\\')){
+        
+        let temp = this.displayDate$.split("\\")
+
+        this.displayDate$ = new Date(Number(temp[2]),temp[0].replaceAll("/" , "")-1,temp[1].replaceAll("/",""))
+      }
 
       this.displayDate$ = pipe.transform(this.displayDate$, 'M/d/yyyy')
 
-      console.log("after transform : " , this.displayDate$)
 
    //If no date is given set date to defualt : 1/1/2021
    //otherwise Gdate is initialized through input parameters (passed from identifier page to accordion to here)
@@ -124,6 +129,7 @@ export class GapForm implements OnInit{
    
 
   }
+
 
   async loadData(){
     
@@ -149,11 +155,10 @@ export class GapForm implements OnInit{
        map(value=> this._filterNid(value))
      )
   
-     //leave here for some reason, its important
+     //serves as observable subscription
      this.NidFilter$.forEach(element => {
      });
      this.dateFilter$.forEach(element => {
-       
      });
  
      //Unique Lists
@@ -346,9 +351,11 @@ export class GapForm implements OnInit{
     //this function is updated when Nid field is typed in.
   _filterNid(value: string){
     value = value.toLowerCase()
+    console.log("Nid Filter1 : " , this.NidFilterList)
   this.NidFilterList.forEach(element => {
-   
+    
     if (value){
+      console.log("element : " , element)
       this.NidDisplayList$ = element.filter(x=>x.Nid.toLowerCase().includes(value))
       return element.filter(x=> x.Nid.toLowerCase().includes(value))
     }
@@ -522,3 +529,7 @@ export class GapForm implements OnInit{
 
 }
 
+function isValidDate(d) {
+  //@ts-ignore
+  return d instanceof Date && !isNaN(d);
+}

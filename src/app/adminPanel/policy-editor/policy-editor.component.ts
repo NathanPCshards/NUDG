@@ -36,10 +36,13 @@ export class PolicyEditorComponent implements OnInit {
   gapMatTabIndex
   gapStatus
   viewIndex
+
   policyForm: FormGroup = this.formBuilder.group({
     NidFilterList : []
   });
+
   NidFilterList = []
+
   guideline$ 
   gapTableData
   viewGapData
@@ -47,6 +50,9 @@ export class PolicyEditorComponent implements OnInit {
 
   XCountForHTML
   YCountforHTML
+
+
+
 
   constructor(
 
@@ -95,25 +101,8 @@ export class PolicyEditorComponent implements OnInit {
 
     }
 
-
-    //getting unique Nudg Id's
-    this.uniqueNidList$ = this.rest_service.get(`http://192.168.0.70:3000/Policy/${this.id}/${this.loginInfo.CompanyName}/?getUniqueNids=${true}`);
-    this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
-    .pipe(
-      startWith(''),
-      map(value=> this._filterNid(value))
-    )
-
-    this.NidFilter$.forEach(element => {
-    });
-
-    //Unique Lists
-    this.uniqueNidList$.forEach(element => {
-      this.NidFilterList.push(element)
-    });
-
     //POLICY STUFF
-    this.policy$ = this.fetchPolicy(this.id);
+    this.policy$ = await this.fetchPolicy(this.id);
     this.allPolicies$ = await this.rest_service.get(`http://192.168.0.70:3000/policy/All/${this.loginInfo.CompanyName}`).toPromise();
 
     this.rest_service.standardEmit.subscribe(element => {
@@ -146,44 +135,123 @@ export class PolicyEditorComponent implements OnInit {
     });
 
 
-  this.standards$ = this.fetchAllStandards();
+    this.standards$ = this.fetchAllStandards();
 
 
-  this.guideline$ = this.getByID(this.id)
-  this.guideline$.subscribe(res=>{
-    console.log('result : ' , res)
-  })
+    this.guideline$ = this.getByID(this.id)
+    this.guideline$.subscribe(res=>{
+      console.log('result : ' , res)
+    })
 
 
-  this.gapDates = await this.rest_service.get(`http://192.168.0.70:3000/gap/${this.id}/${this.loginInfo.CompanyName}/?getUniqueDatesSpecific=True`)
-  this.gapDates.forEach(array => {
-    console.log("dates : " , array)
-    this.setGapView(array[0].Gdate,0)
-    array.forEach(element => {
-      this.getCounts(element.Gdate)
+    this.gapDates = await this.rest_service.get(`http://192.168.0.70:3000/gap/${this.id}/${this.loginInfo.CompanyName}/?getUniqueDatesSpecific=True`)
+    await this.gapDates.forEach(array => {
+      console.log("dates : " , array)
+      this.setGapView(array[0].Gdate,0)
+      array.forEach(element => {
+        this.getCounts(element.Gdate)
+      });
     });
-  });
 
 
-  this.initHtmlArrays()
-  console.log(this.allPolicies$)
+    console.log(this.allPolicies$)
+
+    //getting unique Nudg Id's
+    this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
+    .pipe(
+      startWith(''),
+      map(value=> this._filterNid(value))
+    )
+
+    this.NidFilter$.forEach(element => {
+    });
+
+
+
+     //Applying Filters
+     this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
+     .pipe(
+       startWith(''),
+       map(value=> this._filterNid(value))
+     )
+
+
+    //serves as observable subscription
+     this.NidFilter$.forEach(element => {
+    });
+
+    //Unique Lists
+
+    
+    this.NidFilterList.push(this.allPolicies$)
+
+    console.log("nid filter : ", this.NidFilterList)
+    
+    this.NidFilterList = this.NidFilterList.sort((a,b)=>{
+
+      return a.nudgid > b.nudgid ? 1 : 0 
+    })
+    this.initHtmlArrays()
+
 }
 
+tabSwitched(event){
+  console.log("tab switched")
+  console.log("event : " , event)
+  if (event.index == 0){
+    let temp = (<HTMLInputElement>document.getElementById("searchAll"))
+    temp.value = ""
+  }
+  else if (event.index == 1){
+    let temp2 = (<HTMLInputElement>document.getElementById("searchRouting"))
+    temp2.value = ""
+  }
+
+
+  this.NidFilterList = []
+  this.NidFilterList.push(this.allPolicies$)
+  this.NidDisplayList$ = this.allPolicies$
+}
+
+_filterNid(value: string){
+  //input is text to filter by
+  value = value.toLowerCase()
+  this.NidFilterList = []
+  this.NidFilterList.push(this.allPolicies$)
+this.NidFilterList.forEach(element => {
+  if (value){
+    this.NidDisplayList$ = element.filter(x=>x.nudgid.toLowerCase().includes(value))
+
+    return element.filter(x=> x.nudgid.toLowerCase().includes(value)) 
+  }
+    this.NidDisplayList$ = element
+    return element
+
+});
+
+
+this.initHtmlArrays(this.NidDisplayList$)
+
+}
 
 getByID(id){
   return this.rest_service.get(`http://192.168.0.70:3000/guidelines/${this.loginInfo.CompanyName}?getByID=${id}`)
 }
 
 setView(index){
-  console.log("setting view")
+
   this.viewIndex = index
 }
 
 deletePolicy(policy){
+  
+  let temp = this.rest_service.delete(`http://192.168.0.70:3000/Policy/${policy.idPolicy}/${this.loginInfo.CompanyName}`);
 
-  let temp = this.rest_service.delete(`http://192.168.0.70:3000/Policy/${this.id}/${this.loginInfo.CompanyName}/?getUniqueNids=${true}`);
-
-
+  temp.subscribe(result=>{
+    if(result){
+      console.log("result : " , result[0].info)
+    }
+  })
   //remove the policy from policies :nudgid
   //delete any controls             : Nid
   //weaknesses                      : Nid
@@ -199,17 +267,12 @@ deletePolicy(policy){
 }
 
 setGapView(row, index){
-  console.log("index : " , index)
+
   //get date from row clicked
   //call 
   let pipe = new DatePipe('en-US'); // Use your own locale
   let gapDate = pipe.transform(row, 'M/d/yyyy')
 
-
-
- 
-  console.log('row :  ' , row)
-  console.log("index : " ,index)
   
   let temp = this.rest_service.get(`http://192.168.0.70:3000/gap/${this.id}/${this.loginInfo.CompanyName}/?Gdate=${gapDate}`)
   temp.subscribe(res=>{
@@ -220,14 +283,16 @@ setGapView(row, index){
 }
 
 debug(){
+  console.log("check")
+
   console.log(this.viewGapData)
   console.log(this.gapTableData)
   this.policy$.forEach(element => {
       console.log("element : " , element)
   });
-  this.allPolicies$.forEach(element => {
-      console.log("allpolicies : " , element)
-  });
+  console.log("all policies : " , this.allPolicies$)
+console.log('Nid display : ' , this.NidDisplayList$)
+
 }
 
 
@@ -293,7 +358,6 @@ async getCounts(date){
  var timeZoneDifference = (tempdate.getTimezoneOffset() / 60 )*-1
  //when converting a date to string, angular doesnt account for timezone and the date changes, so we have to do math to get the offset.
  tempdate.setTime(tempdate.getTime() + (timeZoneDifference+8 * 60) * 60 * 1000);
- console.log("tempdate after:" ,tempdate.toLocaleDateString().replace("/", "").replace("/", ""))
 
  //this object is getting a little weird here...
  //its structured like [Date for routing, Status, Date for display]
@@ -345,27 +409,6 @@ async deleteStandards(id: any): Promise<void> {
    
 }
 
-
-
-
-
-_filterNid(value: string){
-  value = value.toLowerCase()
-  this.NidFilterList.forEach(element => {
-    if (value){
-      this.NidDisplayList$ = element.filter(x=>x.nudgid.toLowerCase().includes(value))
-      return element.filter(x=> x.nudgid.toLowerCase().includes(value))
-    }
-      this.NidDisplayList$ = element
-      return element
-
-  });
-  
-  }
-
-
-
-
   public policySearch(event: any, name : any)
   {
       console.log(event, name)
@@ -385,55 +428,84 @@ _filterNid(value: string){
   }
 
 
-  initHtmlArrays(){   
-    
-    //TODO need to sort these somehow.
 
-    console.log("all policies : ", this.allPolicies$)
-      this.allPolicies$ = this.allPolicies$.sort((a,b)=>{
 
-        return a.nudgid > b.nudgid
+  initHtmlArrays(optionalArray=[]){   
+    //If an array is sent as input, make the 2d array from that.
+    //if an array is not sent, make the 2d array from the policy list
+    //an array is sent from the search filter results
+    let amountInRow = 5
+    let numRows 
+    let temp
+    if (optionalArray.length > 0){
+      optionalArray = optionalArray.sort((a,b)=>{
+
+        return a.nudgid > b.nudgid ? 1 : 0 
       })
-      let amountInRow = 5
-      let numRows = Math.ceil(this.allPolicies$.length/amountInRow-1)
-      console.log("num rows : " , numRows)
+
+      numRows = Math.ceil(optionalArray.length/amountInRow-1)
       this.XCountForHTML = Array(5).fill(amountInRow)
       this.YCountforHTML = []
+      temp = []
+      optionalArray.map((element,index)=>{
+        if (index%amountInRow == 0 && index != 0){
 
-
-    console.log("before : " , this.allPolicies$)
-    let temp = []
-    this.allPolicies$.map((element,index)=>{
-      if (index%numRows == 0 && index != 0){
-        console.log('real index  : ' , index)
-        console.log("index : " , this.YCountforHTML.length)
-        this.YCountforHTML[this.YCountforHTML.length] = temp
-        this.YCountforHTML.sort()
+        this.YCountforHTML[this.YCountforHTML.length] = temp.sort()
+        //this.YCountforHTML.sort()
         temp = []
       }
       temp.push(element)
     })
 
-    console.log("after : " , this.YCountforHTML)
 
 
     if (temp != []){
       this.YCountforHTML[this.YCountforHTML.length] = temp
-      this.YCountforHTML.sort()
+    }
+
+    }
+    else{
+      this.allPolicies$ = this.allPolicies$.sort((a,b)=>{
+
+        return a.nudgid > b.nudgid
+      })
+      let amountInRow = 5
+      numRows = Math.ceil(this.allPolicies$.length/amountInRow-1)
+     
+      this.XCountForHTML = Array(5).fill(amountInRow)
+      this.YCountforHTML = []
+
+
+    temp = []
+    this.allPolicies$.map((element,index)=>{
+      if (index%amountInRow == 0 && index != 0){
+
+        this.YCountforHTML[this.YCountforHTML.length] = temp.sort()
+        //this.YCountforHTML.sort()
+        temp = []
+      }
+      temp.push(element)
+    })
+
+
+
+    if (temp != []){
+      this.YCountforHTML[this.YCountforHTML.length] = temp
+    }
 
     }
 
-    /*
+   
+    //Transpose the 2d array here to display in more coherent order.
+    let temp3 = this.YCountforHTML[0].map((_, colIndex) =>  this.YCountforHTML.map(row => row[colIndex]));
+    this.YCountforHTML = temp3
 
-       let policyCount = result.length
-        console.log('policyCount1 : ', policyCount)
-        console.log("policy count : ", policyCount)
-        numRows = Math.ceil(policyCount/amountInRow)
-        console.log('temp : ' , temp)
-        this.XCountForHTML
-        this.YCountforHTML 
-*/
- 
+  
+    for (let index = 0; index < this.YCountforHTML.length; index++) { //for every colum
+      this.YCountforHTML[index] = this.YCountforHTML[index].filter(x=>{
+        return x !== undefined
+      })
+    }
 
   }
 
