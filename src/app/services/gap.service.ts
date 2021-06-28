@@ -91,6 +91,17 @@ httpOptions: { headers: HttpHeaders } = {
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
   }
 
+  updateTemplate(item: any, CompanyName : any): Observable<any> {
+
+    let url = `http://192.168.0.70:3000/gap/${CompanyName}?Template=True`
+ 
+     return this.http
+       .put<any>(url, item, this.httpOptions)
+       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
+   }
+
+
+
   delete(id: number): Observable<any> {
     const url = `http://192.168.0.70:3000/gap/${id}`;
    // console.log("delete called : ", url, id)

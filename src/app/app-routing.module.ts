@@ -46,6 +46,7 @@ import { ChangePhoneFormComponent } from './changePhoneForm/change-phone-form/ch
 import { ChangeEmailFormComponent } from './changeEmailForm/change-email-form/change-email-form.component';
 import { ChangePasswordFormComponent } from './changePasswordForm/change-password-form/change-password-form.component';
 import { PolicyEditorComponent } from './adminPanel/policy-editor/policy-editor.component';
+import { GapConfigComponent } from './adminPanel/GapConfig/gap-config.component';
 //https://angular.io/guide/router
 
 const routes: Routes = [
@@ -82,6 +83,7 @@ const routes: Routes = [
   { path: 'ChangePhone', component: ChangePhoneFormComponent },
   { path: 'ChangeEmail', component: ChangeEmailFormComponent },
   { path: 'ChangePassword', component: ChangePasswordFormComponent },
+  { path: 'GapConfig', component: GapConfigComponent },
 
 
   { path: 'Calendar', component: CalendarComponent },

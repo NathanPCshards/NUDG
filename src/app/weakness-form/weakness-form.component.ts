@@ -129,6 +129,10 @@ assetIdentifiers$
     ) { }
 
 ngOnInit(){
+  if (this.data.Nid){
+    this.id$ = this.data.Nid
+  }
+  
   //Getting standards
   this.standards$ = this.rest_service.get(`http://192.168.0.70:3000/standards/${this.id$}/${this.loginInfo.CompanyName}`)
   //Getting vendor's products
@@ -153,7 +157,7 @@ this.submitted = false;
 }
 
 closeDialog(Nid , Wname, WdetectionDate, WvendorDependency, WriskRating, WriskAdjustment, WadjustedRiskRating, WdetectionSource, WcompletionDate, WremediationPlan, WautoApprove, WoperationReq, Wstatus, WassetID, WlastChange, Wdescription, WlastVendorCheck, WdeviationRationale, WfalsePositive, WpointOfContact, WresourceReq, WsupportingDoc, Standards, WvendorsProduct, Wcomment, WsourceIdentifier ){
-  this.data.Nid = this.id$
+  this.data.Nid = this.id$ ? this.id$ : Nid ? Nid : ""
   this.data.Wname = Wname ? Wname : "";
   this.data.WdetectionDate = WdetectionDate ? WdetectionDate : "";
   this.data.WvendorDependency = WvendorDependency ? WvendorDependency : "" ;
@@ -166,7 +170,7 @@ closeDialog(Nid , Wname, WdetectionDate, WvendorDependency, WriskRating, WriskAd
   this.data.WautoApprove = WautoApprove ? WautoApprove : "";
   this.data.WoperationReq = WoperationReq;
   this.data.Wstatus = Wstatus ? Wstatus : "";
-  this.data.WassetID = WassetID;
+  this.data.WassetID = WassetID ? WassetID : "";
   this.data.WlastChange = WlastChange ? WlastChange : "";
   this.data.Wdescription = Wdescription;
   this.data.WlastVendorCheck = WlastVendorCheck ? WlastVendorCheck : "";

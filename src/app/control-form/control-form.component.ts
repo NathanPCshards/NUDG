@@ -100,13 +100,16 @@ constructor(
   private sanitizer: DomSanitizer
   ) { }
 
-ngOnInit(){
+  async ngOnInit(){
   //Getting standards
   this.urls = []
   this.files = []
+  if (this.data.Nid){
+    this.id$ = this.data.Nid
+  }
 
-  this.standards$ =  this.rest_service.get(`http://192.168.0.70:3000/standards/${this.id$}/${this.loginInfo.CompanyName}`)
-
+  this.standards$ =  await this.rest_service.get(`http://192.168.0.70:3000/standards/${this.id$}/${this.loginInfo.CompanyName}`)
+  
   this.displayStandards$ = []
   this.standards$.forEach(standardarray => {
     standardarray.forEach(standard => {
@@ -117,11 +120,11 @@ ngOnInit(){
 
 
   //Getting resources
-  this.resources$ = this.rest_service.get(`http://192.168.0.70:3000/sharedResources/${this.loginInfo.CompanyName}`)
+  this.resources$ = await this.rest_service.get(`http://192.168.0.70:3000/sharedResources/${this.loginInfo.CompanyName}`)
 
 
   this.displayResources$ = []
-  this.resources$.forEach(resourcesArray => {
+  await this.resources$.forEach(resourcesArray => {
     resourcesArray.forEach(resource => {
         this.displayResources$.push(resource)
        //TODO was working on getting links showing on the resources menu
@@ -148,11 +151,23 @@ ngOnInit(){
     });
   });
 
+
+
+
+
+
+
+
+
+  console.log("debug : " , this.displayWeakness$)
+  console.log("debug : " , this.standards$)
+
+
 }
 
 
-submit(Cname, Coverview, Cissuedate, CsharedresourcesskRating, Curl, idOrgWeaknesses, Standards){
-  this.data.Nid = this.id$ ? this.id$ : ""
+submit(Nid, Cname, Coverview, Cissuedate, CsharedresourcesskRating, Curl, idOrgWeaknesses, Standards){
+  this.data.Nid = this.id$ ? this.id$ : Nid ? Nid : ""
   this.data.Cname = Cname ? Cname : ""
   this.data.Coverview = Coverview ? Coverview : ""
   this.data.Cissuedate = Cissuedate ? Cissuedate : ""
@@ -162,10 +177,23 @@ submit(Cname, Coverview, Cissuedate, CsharedresourcesskRating, Curl, idOrgWeakne
   this.data.CompanyName = this.loginInfo.CompanyName ? this.loginInfo.CompanyName : ""
   this.data.Standards = Standards ? Standards: ""
  
+  console.log("data : " , this.data)
 
-  //This is subscribed to in identifier page oninit.
-  this.controlsservice.emit(this.data)
+
+
+  try{
+    //this works when opened as a dialog (the weakness page)
+    //but fails when used only as a form (policy/identifier page)
+    this.dialogRef.close( this.data );
+  }
+   
+    catch(err){
+      //in the case that it fails, we instead emit a signal for a different component to listen to
+      //and send a post request for us. (this is received in identifier-page.component.ts, by subscribe in INIT) 3/25
+      this.controlsservice.emit(this.data)
+    }
   
+
 
 };
 

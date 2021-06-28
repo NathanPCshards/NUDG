@@ -48,8 +48,8 @@ import { ChangeNameFormComponent } from './changeNameForm/change-name-form/chang
 import { ChangePasswordFormComponent } from './changePasswordForm/change-password-form/change-password-form.component';
 import { ChangeEmailFormComponent } from './changeEmailForm/change-email-form/change-email-form.component';
 import { ChangePhoneFormComponent } from './changePhoneForm/change-phone-form/change-phone-form.component';
-import { PolicyEditorComponent } from './adminPanel/policy-editor/policy-editor.component';
 import { PolicyEditorModule } from './adminPanel/policy-editor/policy-editor.module';
+import { GapConfigModule } from './adminPanel/GapConfig/gap-config.module';
 
 
 
@@ -109,7 +109,7 @@ import { PolicyEditorModule } from './adminPanel/policy-editor/policy-editor.mod
     CompanyInfoModule,
     IdentifierPageModule,
     PolicyEditorModule,
-
+    GapConfigModule,
     SharedModule,
     FormsModule,
 
