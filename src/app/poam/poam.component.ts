@@ -16,9 +16,15 @@ export class POAMComponent implements OnInit {
   searchResults$
   printList$
   checkedList$;
+  gap
+
+
+  currentComment = "Weakness Comments"
+
+
   constructor(public rest_service : restAPI, public loginInfo : login) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.searchResults$ = []
     this.printList$ = []
     this.checkedList$ = []
@@ -31,8 +37,6 @@ export class POAMComponent implements OnInit {
     this.policies$.forEach(dataArray => {
       dataArray.forEach(policy => {
 
-        let temp = this.displayInformation["All"]
-        temp.push(policy)
         temp = []
 
         if (this.displayInformation[policy.FamilyPolicy]){
@@ -96,6 +100,36 @@ export class POAMComponent implements OnInit {
       });
     });
 
+
+    let temp = []
+    let date
+     await this.weaknesses$.forEach(async array => {//making a list of Nids to use to pull gap
+      temp = []
+       array.forEach(async element => {
+        if (element.Nid && element.Nid != "" && !temp.includes(`'${element.Nid}'`)){
+          console.log("pushing : " , element.Nid)
+          temp.push(`\'${element.Nid}\'`)
+        }
+      });
+         
+      let maxDate = await this.rest_service.get(`http://192.168.0.70:3000/gap/Any/${this.loginInfo.CompanyName}?maxDate='Ok`).toPromise()
+      console.log("maxDate : " , maxDate, maxDate["Max(Gdate)"])
+      for(const property in maxDate){
+         date = maxDate[property]['Max(Gdate)']
+      }
+      console.log("date ", date)
+      console.log("date : ", date)
+      console.log("temp : " , temp, temp.toString())
+      this.gap = await this.rest_service.get(`http://192.168.0.70:3000/gap/Any/${this.loginInfo.CompanyName}?getFromList=${temp.toString()}&date=${date}`).toPromise()
+     
+   
+
+    })
+
+
+
+    console.log("gap  : " , this.gap)
+
   }
 
   fetchAllWeaknesses(){
@@ -145,6 +179,18 @@ export class POAMComponent implements OnInit {
       //No text input given, nothing to do.
     }
  
+  }
+
+
+
+  swapComments(){
+    if (this.currentComment == "Weakness Comments"){
+      this.currentComment = "Gap Comments"
+    }
+    else{
+      this.currentComment = "Weakness Comments"
+    }
+
   }
 
   makeReport(reportFilter){

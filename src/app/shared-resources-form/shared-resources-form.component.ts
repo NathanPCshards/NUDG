@@ -86,6 +86,7 @@ export class SharedResourcesFormComponent implements OnInit {
       for (let index2 = 0; index2 < this.files.length; index2++) {
         const filename = this.files[index2];
         await this.rest_service.getFile(filename).subscribe(data=>{
+          console.log("data sent to sanitizer  " , data)
           //pulling object data and creating download link
           this.displayList$[index2] = [this.displayList$[index2],this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(data)) , filename]
           this.urls.push(this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(data)))
@@ -95,6 +96,7 @@ export class SharedResourcesFormComponent implements OnInit {
     })
     console.log("display list : " , this.displayList$)
     console.log("test : " , this.displayList$[0])
+    console.log("urls : " ,this.urls)
   }
 
   

@@ -124,7 +124,6 @@ assetIdentifiers$
     @Inject(MAT_DIALOG_DATA) public data : any,
     public weaknessservice : WeaknessesService,
     private rest_service : restAPI,
-    private inventoryService : inventoryService,
     private loginInfo : login
     ) { }
 
@@ -132,7 +131,7 @@ ngOnInit(){
   if (this.data.Nid){
     this.id$ = this.data.Nid
   }
-  
+
   //Getting standards
   this.standards$ = this.rest_service.get(`http://192.168.0.70:3000/standards/${this.id$}/${this.loginInfo.CompanyName}`)
   //Getting vendor's products

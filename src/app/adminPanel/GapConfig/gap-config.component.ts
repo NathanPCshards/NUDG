@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { dataTool } from 'echarts';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { controlDialog } from 'src/app/control-form/control-form.component';

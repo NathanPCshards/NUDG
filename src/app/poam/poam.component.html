@@ -347,8 +347,6 @@
           </mat-panel-title>
 
         <mat-panel-title>
-
-
           {{entry.Nid}}
         </mat-panel-title>
         <mat-panel-title >
@@ -368,6 +366,7 @@
         </mat-expansion-panel-header>
     
         <div style="display:flex;">
+
           <table class="table" style="width:48%; margin-left: 1%; ">
             <tr style="width:50%;">
               <td class="col1 one">NUDG Identifier</td>
@@ -465,23 +464,27 @@
 
             </tr>
             <tr style="width:50%;">
-              <td class="col1 one">Comments</td>
-              <td class="col1 two">{{entry.Wcomment}}</td>
-      
-              <td class="col2 three">False Positive</td>
-              <td class="col2 four">{{entry.WfalsePositive}}</td>
-
+              <td class="col1 one">False Positive</td>
+              <td class="col1 two">{{entry.WfalsePositive}}</td>
+              <td class="col2 three">a </td>
+              <td class="col2 four"> a</td>
             </tr>
 
+
            </table>
-        </div>
      
-
-
- 
-        <div>
-    
         </div>
+        <div class="comment">
+          
+          <h1>{{currentComment}}<mat-icon style="vertical-align: middle; float:right"(click)="swapComments()">remove_red_eye</mat-icon><span style="float:right; font-size: large;">Swap Comments</span></h1>
+          <span *ngIf="currentComment == 'Weakness Comments'">{{entry.Wcomment}}</span> 
+          <span *ngIf="currentComment !='Weakness Comments'">
+            test
+          </span>
+
+         </div>
+  
+     
 
         
         </mat-expansion-panel>
