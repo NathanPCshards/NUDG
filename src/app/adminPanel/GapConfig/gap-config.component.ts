@@ -63,7 +63,8 @@ export class GapConfigComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(async result => {
       if (result){
-        result.isTemplate = 1
+        
+        result.isTemplate = this.selectedGapEntry.idOrgGap
         result.Nid = this.selectedPolicy.nudgid
         let insertId
         console.log("result check : " , result)
@@ -99,7 +100,8 @@ export class GapConfigComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(async result => {
       if (result){
-        result.isTemplate = 1
+        console.log("selectedGapEntry : " , this.selectedGapEntry)
+        result.isTemplate = this.selectedGapEntry.idOrgGap
         result.Nid = this.selectedPolicy.nudgid
         let tempControls = this.selectedGapEntry.idControlTemplates.split(",")
         tempControls.push()

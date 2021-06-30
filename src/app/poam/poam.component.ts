@@ -16,7 +16,7 @@ export class POAMComponent implements OnInit {
   searchResults$
   printList$
   checkedList$;
-  gap
+  gap = []
 
 
   currentComment = "Weakness Comments"
@@ -29,11 +29,36 @@ export class POAMComponent implements OnInit {
     this.printList$ = []
     this.checkedList$ = []
 
+    //this.gap = this.rest_service.get(`http://192.168.0.70:3000/gap/`)
+
+
+    /*
+
+
+
+
+  fetchAllGap(Nid:any, Gdate: any): Observable<gap[]> {
+    console.log("Gdate checking : " , Gdate)
+    let tempUrl;
+    if (Gdate != "") {
+      //if date is given
+      tempUrl = `http://192.168.0.70:3000/gap/${Nid}/${this.loginInfo.CompanyName}/?Gdate=${Gdate}`
+    }
+    else{
+      tempUrl = `http://192.168.0.70:3000/gap/${Nid}/${this.loginInfo.CompanyName}`
+    }
+    return this.rest_service.get(tempUrl);
+
+    */
+
+    //for a 
+
     this.weaknesses$ = this.fetchAllWeaknesses()
     this.weaknesses$.subscribe()
     //Getting all policies and grouping in several ways. All data is held in displayInformation
     this.policies$ = this.rest_service.get(`http://192.168.0.70:3000/Policy/${'All'}/${this.loginInfo.CompanyName}`)
     this.displayInformation["All"] = []
+    this.gap = []
     this.policies$.forEach(dataArray => {
       dataArray.forEach(policy => {
 
@@ -108,6 +133,8 @@ export class POAMComponent implements OnInit {
        array.forEach(async element => {
         if (element.Nid && element.Nid != "" && !temp.includes(`'${element.Nid}'`)){
           console.log("pushing : " , element.Nid)
+          //this.rest_service.get(most recent, individual gap)
+          let singleGap = this.rest_service.get(`http://192.168.0.2:3000/gap/${element.Nid}/${this.loginInfo.CompanyName}`)
           temp.push(`\'${element.Nid}\'`)
         }
       });
@@ -129,6 +156,9 @@ export class POAMComponent implements OnInit {
 
 
     console.log("gap  : " , this.gap)
+    this.gap.forEach(element => {
+      
+    });
 
   }
 
