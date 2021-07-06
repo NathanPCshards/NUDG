@@ -347,47 +347,15 @@ export class IdentifierPageComponent implements OnInit {
         }
         //Import the gap question as a weakness
         if(incomingData.data.Ganswer =="Weakness"){
-          //TODO change this 6/28 6/29 , instead here you would query the weaknesses by id (from gap property)
-          //then post it
-          //Also, change the 'defualt' get requests on backend for controls and weaknesses to 
-          //not include the isTemplate column = true things
           let weaknessTemplates = await this.rest_service.get(`http://192.168.0.70:3000/gap/${incomingData.data.Nid}/${this.loginInfo.CompanyName}?weaknesses=${incomingData.data.idWeaknessTemplates}`).toPromise()
 
-        /*  let object ={
-  
-            Nid : this.id,
-            Wname : "From Gap",
-            WdetectionDate : incomingData.data.Gdate,
-            WvendorDependency: "",
-            WriskRating : "",
-            WriskAdjustment : "",
-            WadjustedRiskRating : "",
-            Standards : "",
-            WdetectionSource : "",
-            WcompletionDate : "",
-            WremediationPlan : "",
-            WvendorsProduct : "",
-            WautoApprove: "",
-            WoperationReq : "Pending",
-            Wstatus : "Incomplete",
-            WassetID : "",
-            WlastChange : incomingData.data.Gdate,
-            Wdescription : incomingData.data.Gquestion +" -No",
-            WlastVendorCheck : "",
-            WdeviationRationale : "",
-            WfalsePositive : "Pending",
-            WpointOfContact : "",
-            WresourceReq : "",
-            WsupportingDoc : "",
-            Milestones : "",
-            idOrgControls : "",
-            CompanyName : this.loginInfo.CompanyName
-  
-          }*/
           weaknessTemplates.forEach(async element => {
+            element.isTemplate = null
             let temp = await this.rest_service.post(`http://192.168.0.70:3000/weaknesses/${this.id}/${this.loginInfo.CompanyName}`,element)
             .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses(this.id))));
-            temp.subscribe()
+            temp.subscribe(res=>{
+              console.log('result from template import : ' , res)
+            })
           });
 
         }

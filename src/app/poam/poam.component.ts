@@ -29,30 +29,6 @@ export class POAMComponent implements OnInit {
     this.printList$ = []
     this.checkedList$ = []
 
-    //this.gap = this.rest_service.get(`http://192.168.0.70:3000/gap/`)
-
-
-    /*
-
-
-
-
-  fetchAllGap(Nid:any, Gdate: any): Observable<gap[]> {
-    console.log("Gdate checking : " , Gdate)
-    let tempUrl;
-    if (Gdate != "") {
-      //if date is given
-      tempUrl = `http://192.168.0.70:3000/gap/${Nid}/${this.loginInfo.CompanyName}/?Gdate=${Gdate}`
-    }
-    else{
-      tempUrl = `http://192.168.0.70:3000/gap/${Nid}/${this.loginInfo.CompanyName}`
-    }
-    return this.rest_service.get(tempUrl);
-
-    */
-
-    //for a 
-
     this.weaknesses$ = this.fetchAllWeaknesses()
     this.weaknesses$.subscribe()
     //Getting all policies and grouping in several ways. All data is held in displayInformation
@@ -62,7 +38,7 @@ export class POAMComponent implements OnInit {
     this.policies$.forEach(dataArray => {
       dataArray.forEach(policy => {
 
-        temp = []
+      let temp = []
 
         if (this.displayInformation[policy.FamilyPolicy]){
           temp = this.displayInformation[policy.FamilyPolicy]
@@ -126,16 +102,17 @@ export class POAMComponent implements OnInit {
     });
 
 
-    let temp = []
+    let temp2 = []
     let date
      await this.weaknesses$.forEach(async array => {//making a list of Nids to use to pull gap
-      temp = []
+      temp2 = []
        array.forEach(async element => {
-        if (element.Nid && element.Nid != "" && !temp.includes(`'${element.Nid}'`)){
+        if (element.Nid && element.Nid != "" && !temp2.includes(`'${element.Nid}'`)){
           console.log("pushing : " , element.Nid)
           //this.rest_service.get(most recent, individual gap)
           let singleGap = this.rest_service.get(`http://192.168.0.2:3000/gap/${element.Nid}/${this.loginInfo.CompanyName}`)
-          temp.push(`\'${element.Nid}\'`)
+          temp2.push(`\'${element.Nid}\'`)
+          console.log("temp : " , temp2)
         }
       });
          
@@ -144,30 +121,47 @@ export class POAMComponent implements OnInit {
       for(const property in maxDate){
          date = maxDate[property]['Max(Gdate)']
       }
-      console.log("date ", date)
       console.log("date : ", date)
-      console.log("temp : " , temp, temp.toString())
-      this.gap = await this.rest_service.get(`http://192.168.0.70:3000/gap/Any/${this.loginInfo.CompanyName}?getFromList=${temp.toString()}&date=${date}`).toPromise()
-     
-   
+      console.log("temp : " ,  temp2.toString())
+      let temp3  = await this.rest_service.get(`http://192.168.0.70:3000/gap/Any/${this.loginInfo.CompanyName}?getFromList=${temp2.toString()}&date=${date}`)
+      //Pulling the most recent gap
+      //TODO this looks good, need to finish the display part in the html
+      
+      temp3.subscribe(res=>{
+        res.forEach(element => {
+          if (element.Gcomment != null){
+            console.log("element g comment : " , element.Nid, element.Gcomment)
+
+            if (element.Nid in this.gap && this.gap[element.Nid] != 'No Comments Made'){
+              console.log("existing element and not blank", element)
+              this.gap[element.Nid].push(element)
+            }
+            else{
+              console.log("new, element added for first time : " , element)
+              this.gap[element.Nid] = [element]
+
+            }
+        }
+        else if (!(element.Nid in this.gap)){
+          console.log("Entry has no comment and is not in gap : " ,  element)
+          this.gap[element.Nid] = 'No Comments Made'
+
+        }
+
+        });
+
+      })
 
     })
 
 
 
-    console.log("gap  : " , this.gap)
-    this.gap.forEach(element => {
-      
-    });
+    console.log("gap : " , this.gap)
 
   }
 
   fetchAllWeaknesses(){
     return this.rest_service.get(`http://192.168.0.70:3000/weaknesses/All/${this.loginInfo.CompanyName}`)
-  }
-
-  filterWeaknesses(){
-
   }
 
 
@@ -213,7 +207,9 @@ export class POAMComponent implements OnInit {
 
 
 
-  swapComments(){
+  swapComments(entry){
+    console.log("entry : " , entry)
+
     if (this.currentComment == "Weakness Comments"){
       this.currentComment = "Gap Comments"
     }
@@ -264,10 +260,6 @@ export class POAMComponent implements OnInit {
 
       });
     });
-
-
-
-  
 
     console.log("printlist : " , this.printList$)
   }

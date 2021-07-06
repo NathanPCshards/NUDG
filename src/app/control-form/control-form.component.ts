@@ -167,6 +167,7 @@ constructor(
 
 
 submit(Nid, Cname, Coverview, Cissuedate, CsharedresourcesskRating, Curl, idOrgWeaknesses, Standards){
+  
   this.data.Nid = this.id$ ? this.id$ : Nid ? Nid : ""
   this.data.Cname = Cname ? Cname : ""
   this.data.Coverview = Coverview ? Coverview : ""

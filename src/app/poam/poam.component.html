@@ -476,11 +476,21 @@
         </div>
         <div class="comment">
           
-          <h1>{{currentComment}}<mat-icon style="vertical-align: middle; float:right"(click)="swapComments()">remove_red_eye</mat-icon><span style="float:right; font-size: large;">Swap Comments</span></h1>
-          <span *ngIf="currentComment == 'Weakness Comments'">{{entry.Wcomment}}</span> 
-          <span *ngIf="currentComment !='Weakness Comments'">
-            test
-          </span>
+          <h1>{{currentComment}}<mat-icon style="vertical-align: middle; float:right" (click)="swapComments(entry)">remove_red_eye</mat-icon><span style="float:right; font-size: large;">Swap Comments</span></h1>
+          <div *ngIf="currentComment == 'Weakness Comments'">{{entry.Wcomment}}</div> 
+          <div *ngIf="currentComment !='Weakness Comments'">
+            <mat-tab-group animationDuration="50ms">  
+              <ng-container *ngFor="let gapEntry of gap">
+                <ng-container *ngIf="gapEntry.Gcomment">
+                  {{gapEntry.Gquestion}}
+                  {{gapEntry.Gcomment}}
+                </ng-container>
+
+              </ng-container>
+   
+              </mat-tab-group>
+
+          </div>
 
          </div>
   

@@ -11,6 +11,7 @@ import { GapService } from 'src/app/services/gap.service';
 import { restAPI } from 'src/app/services/restAPI.service';
 import { WeaknessesService } from 'src/app/services/weaknesses.service';
 import { weaknessDialog } from 'src/app/weakness-form/weakness-form.component';
+import { __await } from 'tslib';
 
 @Component({
   selector: 'app-gap-config',
@@ -70,7 +71,7 @@ export class GapConfigComponent implements OnInit {
         console.log("result check : " , result)
 
           let sub4 = this.weaknessservice.post(result,this.loginInfo.CompanyName)
-          .pipe(tap(() => (this.setQuestion(this.selectedPolicy,this.selectedGapEntry))));
+          .pipe(tap(async () => (this.weaknesses = await this.fetchWeaknesses(this.selectedPolicy))));
           sub4.subscribe(async res=>{
           insertId = res.insertId
           let tempWeaknesses  = []
@@ -83,7 +84,8 @@ export class GapConfigComponent implements OnInit {
           this.selectedGapEntry.idWeaknessTemplates = tempWeaknesses.toString()
 
           let sub5 = await this.gapservice.updateTemplate(this.selectedGapEntry,this.loginInfo.CompanyName)
-          sub5.subscribe(res=>{
+          sub5.subscribe(async res=>{
+            this.weaknesses = await this.fetchWeaknesses(this.selectedPolicy)
           })
         })
 
@@ -100,42 +102,34 @@ export class GapConfigComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(async result => {
       if (result){
-        console.log("selectedGapEntry : " , this.selectedGapEntry)
+        
         result.isTemplate = this.selectedGapEntry.idOrgGap
         result.Nid = this.selectedPolicy.nudgid
-        let tempControls = this.selectedGapEntry.idControlTemplates.split(",")
-        tempControls.push()
-        this.selectedGapEntry.idControlTemplates = tempControls.toString()
-
-          
-
-
-        let sub5 = await this.controlservice.post(result,this.loginInfo.CompanyName)
         let insertId
-        sub5.subscribe(async res=>{
-          console.log("res : " , res)
-            insertId = res.insertId
-            let tempControls  = []
+        console.log("result check : " , result)
 
-            if (this.selectedGapEntry.idControlTemplates != ""){
-              tempControls = this.selectedGapEntry.idControlTemplates.split(",")
-            }
+          let sub4 = this.controlservice.post(result,this.loginInfo.CompanyName)
+          .pipe(tap(async () => (this.controls = await this.fetchControlTemplates(this.selectedPolicy))));
+          sub4.subscribe(async res=>{
+          insertId = res.insertId
+          let tempControls  = []
 
-            tempControls.push(insertId) 
-            this.selectedGapEntry.idControlTemplates = tempControls.toString()
-            console.log("entry : " ,this.selectedGapEntry)
-            let sub5 = await this.gapservice.updateTemplate(this.selectedGapEntry,this.loginInfo.CompanyName)
-            sub5.subscribe(res=>{
-              console.log("result2 : " , res)
-            })
-      })
+          if (this.selectedGapEntry.idControlTemplates != "" && this.selectedGapEntry.idControlTemplates != null){
+            tempControls = this.selectedGapEntry.idControlTemplates.split(",")
+          }
+
+          tempControls.push(insertId) 
+          this.selectedGapEntry.idControlTemplates = tempControls.toString()
+
+          let sub5 = await this.gapservice.updateTemplate(this.selectedGapEntry,this.loginInfo.CompanyName)
+          sub5.subscribe(async res=>{
+                      this.controls = await this.fetchControlTemplates(this.selectedPolicy)
+
+          })
+        })
 
       }
-
     });
-
-
-
   }
 
     async setQuestion(policy,gap){
@@ -150,18 +144,45 @@ export class GapConfigComponent implements OnInit {
 
 
         //TODO these need to be specific to each question
-      this.weaknesses = await this.rest_service.get(`http://192.168.0.70:3000/gap/${policy.nudgid}/${this.loginInfo.CompanyName}?weaknesses=${this.selectedGapEntry.idWeaknessTemplates}`).toPromise()
-      this.controls = await this.rest_service.get(`http://192.168.0.70:3000/gap/${policy.nudgid}/${this.loginInfo.CompanyName}?controls=${this.selectedGapEntry.idControlTemplates}`).toPromise()
+      this.weaknesses = await this.fetchWeaknesses(policy);
+      this.controls = await this.fetchControlTemplates(policy);
       console.log("weaknesses : " ,this.weaknesses)
       console.log("controls : " ,this.controls)
 
 
     }
 
-  
-    loadTables(){
 
+     fetchWeaknesses(policy){
+      return  this.rest_service.get(`http://192.168.0.70:3000/gap/${policy.nudgid}/${this.loginInfo.CompanyName}?weaknesses=${this.selectedGapEntry.idWeaknessTemplates}`).toPromise()
     }
+    fetchControlTemplates(policy){
+      return this.rest_service.get(`http://192.168.0.70:3000/gap/${policy.nudgid}/${this.loginInfo.CompanyName}?controls=${this.selectedGapEntry.idControlTemplates}`).toPromise()
+    }
+
+    
+    deleteWeakness(weakness){
+      console.log("delete weakness")
+        let sub = this.weaknessservice
+          .delete(weakness.idOrgWeaknesses,this.loginInfo.CompanyName)
+          .pipe(tap(async () => (this.weaknesses = await this.fetchWeaknesses(this.selectedPolicy))));
+          sub.subscribe(res =>{
+
+          })
+
+   }
+
+  
+   deleteControl(control){
+     console.log("control :  " , control)
+    let sub  = this.controlservice
+    .delete(control.idOrgControls,this.loginInfo.CompanyName)
+    .pipe(tap(async () => (this.controls = await this.fetchControlTemplates(this.selectedPolicy))));
+    sub.subscribe(res =>{
+      console.log("res : " , res)
+    })
+  }
+
 
 
     fetchPolicy(id): Observable<policy[]> {
@@ -177,42 +198,7 @@ export class GapConfigComponent implements OnInit {
       return this.rest_service.get(`http://192.168.0.70:3000/controls/${Nid}/${CompanyName}`);
     }
 
-    updateControls(id: number, inventoryItem: Partial<controls>): void {
 
-    }
-    async deleteControls(id: any): Promise<void> {
-      /*
-      let CompanyName = this.loginInfo.CompanyName
-      this.ctrlList = []
-  
-      let temp = this.rest_service.delete(`http://192.168.0.70:3000/controls/${id}/${CompanyName}`)
-      .pipe(tap(() => (this.controls$ = this.fetchAllControls(this.id))));
-      temp.subscribe()
-  
-      
-      let ctrlSub = await this.rest_service.get(`http://192.168.0.70:3000/policy/${this.id}/${this.loginInfo.CompanyName}?GetOneColumn=idControls`)
-      ctrlSub.forEach(async dataArray => {
-        dataArray.forEach(element => {
-          //Converting String of "[id1,id2,id3]" to a real array
-          let control_ids =  element.idControls.trim().replace("\[","").replace("\]","").split(",")
-          control_ids.forEach(id => {
-            //Adding ids from policy to temp array
-            this.ctrlList.push(Number(id))
-          });
-        });
-        //Remove the correct control
-  
-        let index = this.ctrlList.indexOf(id)
-        if (index != -1){
-          this.ctrlList.splice(this.ctrlList.indexOf(id), 1)
-        }
-  
-  
-        let temp2 = await this.rest_service.update(`http://192.168.0.70:3000/policy/${this.id}/${this.loginInfo.CompanyName}?UpdateOneColumn=idControls`,{"nudgid":this.id, "data" :this.ctrlList})
-        temp2.subscribe();
-      });
-     */
-    }
 
 
 
