@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map, startWith, tap } from 'rxjs/operators';
 import { login } from '../injectables';
 import { companyInfo } from '../models/companyInfo';
 import { restAPI } from '../services/restAPI.service';
@@ -19,19 +19,47 @@ export class CompanyInfoFormComponent {
   panelOpenState = false;
   companies$: Observable<companyInfo[]>;
   Users$;
+  allCompanies
+  YCountforHTML
+  XCountForHTML
+  loadedCompany
+  companyFilterList
+  CompanyFilter$
 
+  companyForm: FormGroup = this.formBuilder.group({
+    CompanyFilterList : []
+  });
+  
   constructor(  
 
     private rest_service : restAPI,
-    private loginInfo : login
+    private loginInfo : login,
+    private formBuilder: FormBuilder,
+
 
   ) { }
 
-  ngOnInit(){
+  async ngOnInit(){
     this.companies$ = this.fetchAll();
+    this.allCompanies =  await this.rest_service.get(`http://192.168.0.70:3000/CompanyInfo/${this.loginInfo.CompanyName}`).toPromise()
     this.Users$ = this.rest_service.get(`http://192.168.0.70:3000/orgusers/${this.loginInfo.CompanyName}`);
     this.Users$.subscribe()
     this.companies$.subscribe()
+    this.initHtmlArrays();
+    this.loadedCompany = this.allCompanies[0]
+
+
+
+
+  this.CompanyFilter$ = this.companyForm.get('NidFilterList')!.valueChanges
+  .pipe(
+    startWith(''),
+    map(value=> this._filterCompany(value))
+  )
+
+  //serves as observable subscription
+  this.CompanyFilter$.forEach(element => {
+  });
 
 
   }
@@ -39,6 +67,31 @@ export class CompanyInfoFormComponent {
   fetchAll(): Observable<companyInfo[]> {
 
     return this.rest_service.get(`http://192.168.0.70:3000/CompanyInfo/${this.loginInfo.CompanyName}`);
+  }
+
+  loadCompany(company){
+    console.log("loading company : " , company)
+    this.loadedCompany = company
+  }
+
+
+  _filterCompany(value){
+
+      value = value.toLowerCase()
+      console.log("Nid Filter1 : " , this.CompanyFilter$)
+    this.companyFilterList.forEach(element => {
+      
+      if (value){
+        console.log("element : " , element)
+        this.allCompanies = element.filter(x=>x.Nid.toLowerCase().includes(value))
+        return element.filter(x=> x.Nid.toLowerCase().includes(value))
+      }
+        this.allCompanies = element
+        return element
+  
+    });
+    
+
   }
 
    post(CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber){
@@ -133,4 +186,100 @@ export class CompanyInfoFormComponent {
   
   
   }
+
+  async initHtmlArrays(optionalArray = []){   
+    this.allCompanies = await this.rest_service.get(`http://192.168.0.70:3000/CompanyInfo/${this.loginInfo.CompanyName}`).toPromise()
+
+    console.log("optional array : " , this.allCompanies)
+    for(const property in this.allCompanies){
+      console.log("property check : " ,  property)
+      console.log("value check : ",  this.allCompanies[property])
+    }
+    //If an array is sent as input, make the 2d array from that.
+    //if an array is not sent, make the 2d array from the policy list
+    //an array is sent from the search filter results
+    let amountInRow = 5
+    let numRows 
+    let temp
+    if (optionalArray.length > 0){
+      optionalArray = optionalArray.sort((a,b)=>{
+
+        return a.nudgid > b.nudgid ? 1 : 0 
+      })
+
+      numRows = Math.ceil(optionalArray.length/amountInRow-1)
+      this.XCountForHTML = Array(5).fill(amountInRow)
+      this.YCountforHTML = []
+      temp = []
+      optionalArray.map((element,index)=>{
+        if (index%amountInRow == 0 && index != 0){
+
+        this.YCountforHTML[this.YCountforHTML.length] = temp.sort()
+        //this.YCountforHTML.sort()
+        temp = []
+      }
+      temp.push(element)
+    })
+
+
+
+    if (temp != []){
+      this.YCountforHTML[this.YCountforHTML.length] = temp
+    }
+
+    }
+    else{
+      this.allCompanies = this.allCompanies.sort((a,b)=>{
+
+        return a.nudgid > b.nudgid
+      })
+      let amountInRow = 5
+      numRows = Math.ceil(this.allCompanies.length/amountInRow-1)
+     
+      this.XCountForHTML = Array(5).fill(amountInRow)
+      this.YCountforHTML = []
+
+
+    temp = []
+    this.allCompanies.map((element,index)=>{
+      if (index%amountInRow == 0 && index != 0){
+
+        this.YCountforHTML[this.YCountforHTML.length] = temp.sort()
+        //this.YCountforHTML.sort()
+        temp = []
+      }
+      temp.push(element)
+    })
+
+
+
+    if (temp != []){
+      this.YCountforHTML[this.YCountforHTML.length] = temp
+    }
+
+    }
+
+   
+    //Transpose the 2d array here to display in more coherent order.
+    let temp3 = this.YCountforHTML[0].map((_, colIndex) =>  this.YCountforHTML.map(row => row[colIndex]));
+    this.YCountforHTML = temp3
+
+  
+    for (let index = 0; index < this.YCountforHTML.length; index++) { //for every colum
+      this.YCountforHTML[index] = this.YCountforHTML[index].filter(x=>{
+        return x !== undefined
+      })
+    }
+
+    console.log("html arrays : " ,  this.YCountforHTML, this.XCountForHTML)
+  }
+
+
+  tabSwitched(event){
+    console.log("tab switched")
+    console.log("event : " , event)
+
+  
+  }
+
 }

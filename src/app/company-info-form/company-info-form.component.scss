@@ -9,6 +9,58 @@ div.container1{
     overflow: hidden;
       
   }
+
+
+.dataDiv{
+  display: flex;
+  padding: 1vh;
+  margin:2%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  background-color: rgba(248, 248, 248, 0.815);
+}
+.dataDiv:nth-child(odd) {background-color: rgb(224, 224, 224); }
+
+
+
+.dataDiv2{
+  display: flex;
+  padding: 1vh;
+  margin:2.3%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  background-color: rgba(248, 248, 248, 0.815); ;
+}
+.dataDiv2:nth-child(odd) {background-color: rgb(224, 224, 224); }
+
+.spanRight{
+  width:25%;
+  min-width: 25%;
+
+}
+
+
+  
+.spanLeft{
+  width:25%;
+  min-width: 25%;
+
+}
+
+.leftdiv{
+  
+  float:left;
+  width:49%;
+  padding:1%;
+  margin:1%;
+  
+}
+  .rightdiv{
+    
+    float:right;
+    width:49%;
+    padding:1%;
+    margin:1%;
+
+  }
 mat-grid-tile{
     width: 98px;
     margin:auto;
@@ -120,3 +172,273 @@ mat-form-field{
     margin-left: 5%;
 
   }
+
+  //the four corners + middle bar
+.wrapper{
+  //this is a specific number to remove the scroll bar on the side
+  height:100vh;
+  padding-left: .5%;
+  padding-right: 1%;
+}
+mat-tab-body-content{
+  overflow:hidden;
+}
+.column{
+width:18%;
+
+}
+.card{
+display: flex;
+background-color:white; 
+box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+width:75%; 
+height:95%; 
+margin-top:2%; 
+margin-left:2%; 
+margin-right:2%; 
+margin-bottom:10%; 
+padding:1%
+}
+
+.policy2 {
+  width:50%;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  margin-right: 3px;
+  float: left;
+  overflow: hidden;
+  background-color: white;
+//  overflow: scroll;
+
+  padding: 20px;
+  min-height: 45%;
+  height:100%;
+  display: inline;
+}
+//CSS for LIST
+.flexContainer{
+  display:flexbox;
+}
+.listSpan {
+  position:relative;
+  float:1;
+}
+.headerRow {
+  position:relative;
+  background-color: rgb(122, 149, 236);
+}
+
+.mat-list >  .mat-list-item:nth-child(2n+1){
+  background-color:white;
+}
+.mat-list >  .mat-list-item:nth-child(2n){
+
+  background-color:rgb(230, 228, 228);
+}
+
+.mat-list > .mat-list-item{
+  border: 1px solid black;
+  justify-content: left;
+
+}
+.standard4{
+  height:50%;
+  width:99%;
+  float:right;
+  align-content: stretch;
+ // background-color: orange;
+   overflow:auto;   
+}
+.idCol{
+  width:75px;
+  min-width: 75px;
+  text-align: left;
+
+}
+.nameCol{
+  margin-left: 10px;
+  width:150px;
+  min-width: 150px;
+  text-align: left;
+
+}
+.smallCol{
+  width:13%;
+  min-width:13%;
+  text-align: left;
+  margin-left: 8%;
+}
+
+.mediumCol{
+  width:42%;
+  min-width:42%;
+  text-align: left;
+  margin-left: 2%;
+}
+.descCol{
+  width:85%;
+  min-width: 85%;
+  text-align: left;
+  margin-left: 10px;
+}
+
+.dateCol{
+  width:60px;
+  min-width: 60px;
+  text-align: left;
+  margin-left:  10px;
+}
+
+.dateCol2{
+  width:20%;
+  min-width: 20%;
+  text-align: left;
+  margin-left:  10px
+}
+.dateCol3{
+  width:75px;
+  min-width: 75px;
+  text-align: left;
+  margin-left:  10px
+}
+//inside policy box
+div.row1{
+  display: flex; 
+}
+div.item2{
+  overflow: hidden;
+  text-align: center;
+  margin: 1%;
+}
+
+
+//some objects inside of the policy box
+dt{
+  background-color:#efefef;
+  padding:5px;
+  cursor:pointer;
+  overflow:hidden;
+  &:hover{
+      background-color:#8f8f8f;
+
+  }
+}
+dd{
+  flex-direction: column;
+  background-color: white;
+  padding-top:0;
+  padding-bottom:0;
+
+
+}
+.dditems{
+  text-align: left;
+  white-space: pre-wrap;
+
+}
+
+
+
+//Policy search
+::ng-deep #policySearch .mat-form-field-underline  {
+  display:none
+}
+#policySearch{
+padding:1%;
+margin:1%;
+width:15%;
+
+
+font-size: 24px;
+}
+
+
+
+
+.dButton {
+width: 90px;
+height: 36px;
+font-weight: 100;
+margin-left: 40%;
+}
+
+
+//some styling for guideline popout
+[popUp] {
+// padding: 10px;
+background: #369;
+color: #fff;
+cursor: move;
+text-align: center;
+}
+.mainDiv{
+//  width:300px;  
+//  height:300px;
+  position: relative;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  left: 100px;
+  top:100px;  
+  background-color: rgba(255, 166, 0);
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.doNotPrint{
+  visibility: visible;
+}
+.PrintSection{
+  display:none;
+  visibility: hidden;
+}
+
+
+
+
+
+//Guideline POPOUT styling
+
+.resizableDiv{
+  //having scroll enabled but hiding the bar
+  overflow-y: scroll;
+  scrollbar-width: none; /* Hiding bar for Firefox */
+  -ms-overflow-style: none;  /* Hiding bar for Internet Explorer 10+ */
+  background-color: rgb(255, 255, 255); 
+  display: inline-block;
+  margin-left:auto;
+  margin-right: auto;
+  
+
+  height:90%;
+  width:94%;
+  
+  text-align: left; 
+  padding:3%;
+  cursor:initial;
+ 
+}
+
+.guidelineText{
+  font-size: small; 
+  color:black; 
+  overflow:scroll;
+}
+.dragHandle{
+  cursor:all-scroll;
+  
+}
+
+.box{
+  width:30%; 
+  height:60%; 
+  z-index: 100;
+  //TODO to get resize working, position cannot be absolute, need to come up with a work around later
+  position: absolute; 
+  left: 15%; 
+  top: 15%;
+  white-space: pre-wrap; 
+  resize: both; 
+  cursor:initial;
+  display:inline-block;
+
+}

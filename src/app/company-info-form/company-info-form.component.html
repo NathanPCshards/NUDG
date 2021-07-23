@@ -1,18 +1,255 @@
-<mat-accordion class ="accordion">
+<!--
+     <span style="position: absolute; right: 0;">
+        <button mat-icon-button>
+          <mat-icon
+            (click)="update(CIcompanyinformation.value, CIdescription.value, CIname.value, CIDBA.value, CIphone.value, CIwebsite.value, CIaddress.value, CIprimaryPoC.value, CISBAcertified.value, CIbusinessType.value, CItechnicalPOCinformation.value, CIDUNSnum.value, CIcagecode.value, CIcmmcAuditAgency.value, CIcmmcAuditorInfo.value, CIcmmcAuditDate.value, CIcmmcNISTauditAgency.value, CINISTauditorInfo.value, CINISTauditorDate.value, CInumber.value, company.idCompanyInfo)"
+            color="primary"
+          >
+            edit
+          </mat-icon>
+        </button>
 
-      
-    <mat-expansion-panel (opened)="panelOpenState = true"
-                         (closed)="panelOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Add a Company
-        </mat-panel-title>
-        <mat-panel-description class="description">
-         Open panel to add a Company
-        </mat-panel-description>
-      </mat-expansion-panel-header>
     
-        <div class="container1">
+        <button mat-icon-button>
+          <mat-icon (click)="delete(company.idCompanyInfo)" color="warn">
+            delete
+          </mat-icon>
+        </button>
+      </span> 
+    </mat-list-item>
+  </mat-list>
+
+
+
+
+
+
+
+
+
+-->
+
+
+
+
+
+
+
+
+
+
+  <div class="doNotPrint">
+<!-- [(selectedIndex)]= viewIndex  to set a defualt value-->
+    <mat-tab-group animationDuration="50ms" (selectedTabChange)="tabSwitched($event)">
+  
+      <mat-tab label="All Companies" >
+  
+        <div style="display:flex;  margin:1%; overflow-y: hidden;">
+          <ng-container id="wrap" *ngFor="let y of YCountforHTML; let i = index">
+           <div class="column" [ngStyle]="i==0?{'margin-left': '0%'} : {'margin-left': '3%'}">
+              <ng-container *ngFor="let company of y; let j = index">
+                <div style="width:50vh; height:40vh; overflow-y: hidden;">
+                  <div class="card">
+                          <div>
+                            <mat-icon   style="vertical-align: middle;">remove_red_eye</mat-icon><span style="margin-left:26%; font-size: large; ">{{company.CIname}}</span>  <mat-icon style="vertical-align: middle;float:right">close</mat-icon>
+  
+                          </div>
+                          <h2>{{ company.CIphone}}</h2>
+                          <h3>{{ company.CIwebsite }}</h3>
+        
+                          
+                  </div>
+                </div>
+  
+              </ng-container>
+            </div>
+  
+          </ng-container>
+        </div>
+  
+      </mat-tab>
+        
+      <mat-tab label="Edit Existing Company" style="height:95vh">
+        <button style="float:right;   position: -webkit-sticky; position: sticky; top:0;">Save Changes</button>
+
+        <div style="margin:1%; ">
+          <form [formGroup]="companyForm" >
+            <mat-form-field id="companySearch">
+              <mat-label>Placeholder</mat-label>
+              <input type="text"
+                     matInput
+                     formControlName='CompanyFilterList'
+                     required
+                     [matAutocomplete]="autoGroup">
+                <mat-autocomplete #autoGroup="matAutocomplete">
+                  <mat-optgroup *ngFor="let entry of allCompanies " >
+                    <mat-option  [value]="entry.CIname" (click)="loadCompany(entry)">{{entry.CIname}}</mat-option>
+                </mat-optgroup>
+              </mat-autocomplete>
+            </mat-form-field>
+
+
+          </form>
+
+
+
+        </div>
+
+
+
+
+
+        <div class="wrapper" id="wrapper" style="display:flex">
+          <div class="leftdiv">
+            <h1>Current Company Information</h1>
+            <div class="dataDiv2">
+              <span class="spanLeft">Company Information: </span>{{loadedCompany.CIcompanyinformation}}
+            </div>
+
+            <div class="dataDiv2">
+              <span class="spanLeft"> Description: </span> {{loadedCompany.CIdescription }}
+
+            </div >
+            <div class="dataDiv2">
+              <span class="spanLeft"> Name : {{loadedCompany.CIname}} </span>
+
+            </div>
+            <div class="dataDiv2">
+              <span class="spanLeft"> CIDBA: {{loadedCompany.CIDBA}}  </span>
+            </div>
+            <div class="dataDiv2">
+              <span class="spanLeft"> Phone: {{loadedCompany.CIphone}} </span>
+            </div>
+            <div class="dataDiv2">
+              <span class="spanLeft">  Website: {{loadedCompany.CIwebsite}} </span>
+            </div>
+            <div class="dataDiv2">
+              <span class="spanLeft"> Address: {{loadedCompany.CIaddress}} </span>
+            </div>
+            <div class="dataDiv2">
+              <span class="spanLeft"> Primary PoC : {{loadedCompany.CIprimaryPoC}}</span>
+            </div>
+            <div class="dataDiv2">
+              <span class="spanLeft"> CISBA Certified : {{loadedCompany.CISBAcertified}} </span>
+            </div>
+            <div class="dataDiv2">
+              <span class="spanLeft"> Business Type : {{loadedCompany.CIbusinessType}} </span>
+            </div>
+            <div class="dataDiv2">
+              <span class="spanLeft"> Technical PoC Information: {{loadedCompany.CItechnicalPOCinformation}} </span>
+            </div>
+            <div class="dataDiv2">
+              <span class="spanLeft">  DUNS Number: {{loadedCompany.CIDUNSnum}} </span>
+            </div>
+            <div class="dataDiv2">
+              <span class="spanLeft"> CAGE Code: {{loadedCompany.CIcagecode}} </span>
+            </div>
+            <div class="dataDiv2">
+              <span class="spanLeft"> CMMC Audit Agency: {{loadedCompany.CIcmmcAuditAgency}} </span>
+            </div>
+
+            <div class="dataDiv2">
+              <span class="spanLeft"> CMMC Auditor Info: {{loadedCompany.CIcmmcAuditorInfo}} </span>
+            </div>
+            <div class="dataDiv2">
+              <span class="spanLeft">  CMMC Audit Date: {{loadedCompany.CIcmmcAuditDate}} </span>
+
+            </div>
+            <div class="dataDiv2">
+              <span class="spanLeft"> NIST Audit Agency: {{CIcmmcNISTauditAgency}} </span>
+
+            </div>
+            <div class="dataDiv2">
+              <span class="spanLeft"> NIST Auditor Info: {{CINISTauditorInfo}} </span>
+
+            </div>
+            <div class="dataDiv2">
+              <span class="spanLeft">  NIST Audit Date: {{CINISTauditorDate}} </span>
+
+            </div>
+
+          </div> 
+
+          <div class="rightdiv">
+            <h1>New Company Information</h1>
+            <div class="dataDiv">
+              <span class="spanRight">Company Information:</span>  <input id="CIcompanyinformation" #CIcompanyinformation>
+            </div>
+
+            <div class="dataDiv">
+              <span class="spanRight"> Description: </span><input id="CIdescription" #CIdescription> 
+
+            </div >
+            <div class="dataDiv">
+              <span class="spanRight"> Name :</span> <input id="CIname" #CIname>
+
+            </div>
+            <div class="dataDiv">
+              <span class="spanRight">  CIDBA:</span>  <input id="CIDBA" #CIDBA>
+            
+            </div>
+            <div class="dataDiv">
+              <span class="spanRight">  Phone: </span> <input id="CIphone" #CIphone>
+ 
+            </div>
+            <div class="dataDiv">
+
+              <span class="spanRight"> Website:</span> <input matInput id="CIwebsite" #CIwebsite> 
+            </div>
+            <div class="dataDiv">
+              <span class="spanRight"> Address: </span> <input id="CIaddress" #CIaddress>
+            </div>
+            <div class="dataDiv">
+              <span class="spanRight"> Primary PoC :</span> <input id="CIprimaryPoC" #CIprimaryPoC>
+            </div>
+            <div class="dataDiv">
+              <span class="spanRight">CISBA Certified : </span> <input id="CISBAcertified" #CISBAcertified>
+            </div>
+            <div class="dataDiv">
+              <span class="spanRight"> Business Type :</span> <input id="CIbusinessType" #CIbusinessType> 
+            </div>
+            <div class="dataDiv">
+              <span class="spanRight"> Technical PoC Information: </span> <input id="CItechnicalPOCinformation" #CItechnicalPOCinformation>
+            </div>
+            <div class="dataDiv">
+              <span class="spanRight"> DUNS Number: </span><input id="CIDUNSnum" #CIDUNSnum>
+            </div>
+            <div class="dataDiv">
+              <span class="spanRight"> CAGE Code: </span> <input id="CIcagecode" #CIcagecode>
+            </div>
+            <div class="dataDiv">
+              <span class="spanRight">CMMC Audit Agency: </span><input id="CIcmmcAuditAgency" #CIcmmcAuditAgency>
+            </div>
+
+            <div class="dataDiv">
+              <span class="spanRight"> CMMC Auditor Info: </span> <input id="CIcmmcAuditorInfo" #CIcmmcAuditorInfo>
+            </div>
+            <div class="dataDiv">
+              <span class="spanRight">CMMC Audit Date:</span> <input id="CIcmmcAuditDate" #CIcmmcAuditDate>
+
+            </div>
+            <div class="dataDiv">
+              <span class="spanRight">NIST Audit Agency:</span> <input id="CIcmmcNISTauditAgency" #CIcmmcNISTauditAgency>
+
+            </div>
+            <div class="dataDiv">
+              <span class="spanRight">NIST Auditor Info:</span> <input id ="CINISTauditorInfo" #CINISTauditorInfo>
+
+            </div>
+            <div class="dataDiv">
+              <span class="spanRight">NIST Audit Date:</span> <input id="CINISTauditorDate" #CINISTauditorDate>
+
+            </div>
+          </div>
+
+  
+
+        </div>
+        </mat-tab>
+  
+  
+        <mat-tab label="Add Company" >
+          <div class="container1">
             <h2>
                 Company Info
             </h2>
@@ -223,74 +460,17 @@
     
                     <button mat-raised-button (click) = "post(CIcompanyinformation.value, CIdescription.value, CIname.value, CIDBA.value, CIphone.value, CIwebsite.value, CIaddress.value, CIprimaryPoC.value, CISBAcertified.value, CIbusinessType.value, CItechnicalPOCinformation.value, CIDUNSnum.value, CIcagecode.value, CIcmmcAuditAgency.value, CIcmmcAuditorInfo.value, CIcmmcAuditDate.value, CIcmmcNISTauditAgency.value, CINISTauditorInfo.value, CINISTauditorDate.value, CInumber.value)"   style="margin-left: 30%;width:30vw;height: 4vh;" type ="Submit" color="primary"  >Submit</button>
                 </div>
-            </div>
-       
-        
+          </div>
+  
+        </mat-tab>
+  
 
-        
-    </mat-expansion-panel>
-
-  </mat-accordion>
-
-  <mat-list>
-
-      <mat-list-item class="headerRow">
-
-        <span class="listSpan idCol">
-          ID
-        </span>
-        <span class="listSpan nameCol">
-          Name
-        </span>
-        <span class="listSpan phoneCol">
-          Phone
-        </span>
-        <span class="listSpan descCol">
-          Description
-        </span>
-        <span class="listSpan addressCol">
-          Address
-        </span>
-      </mat-list-item>
-
-
-    <mat-list-item *ngFor="let company of companies$ | async">
-
-      <span class="listSpan idCol">
-        {{ company.idCompanyInfo }}    
-      </span>
-      <span class="listSpan nameCol">
-        {{company.CIname}}
-      </span>
-      <span class="listSpan phoneCol">
-        {{company.CIphone}}
-      </span>
-      <span class="listSpan descCol">
-        {{company.CIdescription}}
-      </span>
-      <span class="listSpan addressCol">
-        {{company.CIaddress}}
-      </span>
-
-
-
-     <span style="position: absolute; right: 0;">
-        <button mat-icon-button>
-          <mat-icon
-            (click)="update(CIcompanyinformation.value, CIdescription.value, CIname.value, CIDBA.value, CIphone.value, CIwebsite.value, CIaddress.value, CIprimaryPoC.value, CISBAcertified.value, CIbusinessType.value, CItechnicalPOCinformation.value, CIDUNSnum.value, CIcagecode.value, CIcmmcAuditAgency.value, CIcmmcAuditorInfo.value, CIcmmcAuditDate.value, CIcmmcNISTauditAgency.value, CINISTauditorInfo.value, CINISTauditorDate.value, CInumber.value, company.idCompanyInfo)"
-            color="primary"
-          >
-            edit
-          </mat-icon>
-        </button>
-
-    
-        <button mat-icon-button>
-          <mat-icon (click)="delete(company.idCompanyInfo)" color="warn">
-            delete
-          </mat-icon>
-        </button>
-      </span> 
-    </mat-list-item>
-  </mat-list>
-
+  
+     
+  
+        </mat-tab-group>
+  
+  </div>
+  
+  
+  
