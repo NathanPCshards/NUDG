@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
+import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { login } from '../injectables';
 import { LoginService } from '../services/loginService';
 
@@ -17,7 +19,8 @@ export class LoginFormComponent{
   constructor(private http: HttpClient, 
     private formBuilder: FormBuilder,
     private loginservice : LoginService,
-    public loginInfo : login
+    public loginInfo : login,
+    private router : Router
 
     ){
 
@@ -60,6 +63,12 @@ export class LoginFormComponent{
   
   
         window.alert("Account Sucessfully Logged Into")
+
+
+        this.router.navigateByUrl('/Dashboard', {skipLocationChange: true})
+    
+
+
         console.log("Login info : " , this.loginInfo)
       }
     

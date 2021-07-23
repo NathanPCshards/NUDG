@@ -85,6 +85,52 @@ export class CompanyInfoFormComponent {
      temp.subscribe()
   }
 
+  populateForm(data){
+    console.log("user : " , data)
+    //Normal fields
+
+    /* TODO finish this. (copy pasted a bunch but not changed to work 7/22/2021)
+    let temp = (<HTMLInputElement>document.getElementById("CIcompanyinformation")).value = data.FWpolicyNum
+    temp = (<HTMLInputElement>document.getElementById("CIdescription")).value = data.FWservice
+    temp = (<HTMLInputElement>document.getElementById("CIname")).value = data.FWdescription
+    temp = (<HTMLInputElement>document.getElementById("CIDBA")).value = data.FWports
+    temp = (<HTMLInputElement>document.getElementById("CIphone")).value = data.FWsource
+    temp = (<HTMLInputElement>document.getElementById("CIwebsite")).value = data.FWoutbound
+    temp = (<HTMLInputElement>document.getElementById("CIaddress")).value = data.FWinbound
+    temp = (<HTMLInputElement>document.getElementById("CIprimaryPoC")).value = data.FWcreationDate
+    
+    temp = (<HTMLInputElement>document.getElementById("CISBAcertified")).value = data.FWcreationDate
+    temp = (<HTMLInputElement>document.getElementById("CIbusinessType")).value = data.FWcreationDate
+    temp = (<HTMLInputElement>document.getElementById("CItechnicalPOCinformation")).value = data.FWcreationDate
+    temp = (<HTMLInputElement>document.getElementById("CIDUNSnum")).value = data.FWcreationDate
+    temp = (<HTMLInputElement>document.getElementById("CIcagecode")).value = data.FWcreationDate
+
+    temp = (<HTMLInputElement>document.getElementById("CIcmmcAuditAgency")).value = data.FWcreationDate
+    temp = (<HTMLInputElement>document.getElementById("CIcmmcAuditorInfo")).value = data.FWcreationDate
+    temp = (<HTMLInputElement>document.getElementById("CIcmmcAuditDate")).value = data.FWcreationDate
+    temp = (<HTMLInputElement>document.getElementById("CIcmmcNISTauditAgency")).value = data.FWcreationDate
+    temp = (<HTMLInputElement>document.getElementById("CINISTauditorInfo")).value = data.FWcreationDate
+    temp = (<HTMLInputElement>document.getElementById("CIcagecode")).value = data.FWcreationDate
+    temp = (<HTMLInputElement>document.getElementById("CIcagecode")).value = data.FWcreationDate
+
+    */
+    //Mat Selects
 
 
+    /*
+     this.FWsupplierRelation$ = data.FWsupplierRelation
+     this.FWvendorRelation$ = data.FWvendorRelation
+     this.FWcuiContract$ = data.FWcuiContract
+     this.IassetIdentifier$ = data.IassetIdentifier
+     this.FWprotocol$ = data.FWprotocol*/
+
+
+
+    //TODO Mat Select Multiple: cant figure out a way to select checkboxes. Tried using formgroup/passing array to set function
+    //maybe target the html element and set it that way
+  
+  
+  
+  
+  }
 }

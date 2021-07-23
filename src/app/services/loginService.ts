@@ -37,4 +37,22 @@ httpOptions: { headers: HttpHeaders } = {
   }
 
 
+  changePassword(user){
+    console.log(" for change password : " , user)
+    return this.http
+      .post("http://192.168.0.70:3000/auth/changePassword", user, this.httpOptions)
+      .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
+  }
+
+  changeEmail(user){
+
+    return this.http
+      .post("http://192.168.0.70:3000/auth/changeEmail", user, this.httpOptions)
+      .pipe(catchError(this.errorHandlerService.handleError<any>("post")));
+  }
+
+  update 
+
+
+
 }

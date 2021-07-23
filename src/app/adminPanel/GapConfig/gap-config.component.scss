@@ -35,13 +35,16 @@
     padding: 1%;
   }
 
-
-  .question{
+  .question {     
     margin-bottom: 2%;
-    background-color: rgb(224, 224, 224);
-  }
+    padding:2%;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    background-color: rgba(248, 248, 248, 0.815); 
+   }
+  .question:nth-child(odd) {background-color: rgb(224, 224, 224); }
 
 
+    
   //CSS for LIST
   .flexContainer{
       display:flexbox;

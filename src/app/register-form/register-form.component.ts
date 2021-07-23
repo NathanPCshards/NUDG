@@ -26,7 +26,7 @@ export class RegisterFormComponent{
   register(name, Username, Phone, Email, CompanyName, password){
     this.test = this.loginservice.SignUp({name, Username, Email, password, Phone, CompanyName})
     this.test.subscribe(result=>{
-      if(result !== undefined){
+      if(result != undefined){
         this.worked = true
         window.alert(result.message)
 

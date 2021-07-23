@@ -67,7 +67,7 @@ export class PageSearchComponent implements OnInit {
 
       if (event.key == "Enter")
       {
-        this.router.navigate([page], { relativeTo: this.route });
+        this.router.navigate([page]);
         }      
 
   }
