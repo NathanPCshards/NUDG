@@ -25,6 +25,7 @@ export class CompanyInfoFormComponent {
   loadedCompany
   companyFilterList
   CompanyFilter$
+  imageOrganizer
 
   companyForm: FormGroup = this.formBuilder.group({
     CompanyFilterList : []
@@ -35,11 +36,12 @@ export class CompanyInfoFormComponent {
     private rest_service : restAPI,
     private loginInfo : login,
     private formBuilder: FormBuilder,
-
+     
 
   ) { }
 
   async ngOnInit(){
+    this.imageOrganizer = {}
     this.companies$ = this.fetchAll();
     this.allCompanies =  await this.rest_service.get(`http://192.168.0.70:3000/CompanyInfo/${this.loginInfo.CompanyName}`).toPromise()
     this.Users$ = this.rest_service.get(`http://192.168.0.70:3000/orgusers/${this.loginInfo.CompanyName}`);
@@ -49,6 +51,12 @@ export class CompanyInfoFormComponent {
     this.loadedCompany = this.allCompanies[0]
 
 
+
+    this.allCompanies.forEach(element => {
+      if (element.imageUrl){
+          this.imageOrganizer[element.imageUrl] = element
+      }
+    });
 
 
   this.CompanyFilter$ = this.companyForm.get('NidFilterList')!.valueChanges
@@ -95,7 +103,8 @@ export class CompanyInfoFormComponent {
   }
 
    post(CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber){
-     //The mat form fields will send if no input is given. Here we initialize those fields to be empty strings so our backend doesnt crash on a empty post
+    
+    //The mat form fields will send if no input is given. Here we initialize those fields to be empty strings so our backend doesnt crash on a empty post
      CIprimaryPoC = CIprimaryPoC ? CIprimaryPoC : ""
      CISBAcertified = CISBAcertified ? CISBAcertified : ""
      CIbusinessType = CIbusinessType ? CIbusinessType : ""
@@ -103,17 +112,31 @@ export class CompanyInfoFormComponent {
      CINISTauditorDate = CINISTauditorDate ? CINISTauditorDate : ""
 
 
+    let uploaded = (<HTMLInputElement>document.getElementById("files")).files[0]
+ 
 
+    //save file to folder
+    const formData = new FormData()
+    formData.append("file", uploaded);
+    let temp2 = this.rest_service.upload(formData)
 
-   let data = {CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber, CompanyName : this.loginInfo.CompanyName}
+    temp2.subscribe(result=>{
+      console.log("result : " , result)
+    })
 
+   let data = {CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber, CompanyName : this.loginInfo.CompanyName, imageUrl : uploaded.name }
+    
+   console.log("posting :  ",   data)
    let temp =  this.rest_service.post(`http://192.168.0.70:3000/CompanyInfo/${this.loginInfo.CompanyName}`,data)
    .pipe(tap(() => (this.companies$ = this.fetchAll())));
    temp.subscribe()
   }
 
+  debug(){
+    console.log("selected company : " , this.loadedCompany)
+  }
 
-   update(CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber, idCompanyInfo) {
+   update(CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, idCompanyInfo) {
   
     //The mat form fields will send if no input is given. Here we initialize those fields to be empty strings so our backend doesnt crash on a empty post
     CIprimaryPoC = CIprimaryPoC ? CIprimaryPoC : ""
@@ -123,8 +146,10 @@ export class CompanyInfoFormComponent {
     CINISTauditorDate = CINISTauditorDate ? CINISTauditorDate : ""
 
     
-    let data = {CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber, idCompanyInfo, CompanyName : this.loginInfo.CompanyName}
+    let data = {CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, idCompanyInfo, CompanyName : this.loginInfo.CompanyName}
   
+    this.loadedCompany = data;
+
     let temp  =  this.rest_service.update(`http://192.168.0.70:3000/CompanyInfo/${this.loginInfo.CompanyName}`, data)
     .pipe(tap(() => (this.companies$ = this.fetchAll())));
      temp.subscribe()

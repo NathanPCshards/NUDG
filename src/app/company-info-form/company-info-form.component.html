@@ -49,6 +49,20 @@
            <div class="column" [ngStyle]="i==0?{'margin-left': '0%'} : {'margin-left': '3%'}">
               <ng-container *ngFor="let company of y; let j = index">
                 <div style="width:50vh; height:40vh; overflow-y: hidden;">
+
+
+
+
+                  <!--Here the image is getting like... http://localhost:4200/image.jpg-->
+                  <!--instead of the backends address                   -->
+                  <!--maybe try a full address <img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="W3Schools.com"> -->
+                  <img id="image{{i}}{{j}}" src=imageOrganizer[company.imageUrl]>
+                  <!-- TODO here add a image or canvas thing to have a background image cover the whole card -->
+
+
+
+
+
                   <div class="card">
                           <div>
                             <mat-icon   style="vertical-align: middle;">remove_red_eye</mat-icon><span style="margin-left:26%; font-size: large; ">{{company.CIname}}</span>  <mat-icon style="vertical-align: middle;float:right">close</mat-icon>
@@ -69,8 +83,8 @@
   
       </mat-tab>
         
-      <mat-tab label="Edit Existing Company" style="height:95vh">
-        <button style="float:right;   position: -webkit-sticky; position: sticky; top:0;">Save Changes</button>
+      <mat-tab label="Edit Existing Company" style="height:95vh ">
+        <button (click)="update(CIcompanyinformation.value, CIdescription.value, CIname.value, CIDBA.value, CIphone.value, CIwebsite.value, CIaddress.value, CIprimaryPoC.value, CISBAcertified.value, CIbusinessType.value, CItechnicalPOCinformation.value, CIDUNSnum.value, CIcagecode.value, CIcmmcAuditAgency.value, CIcmmcAuditorInfo.value, CIcmmcAuditDate.value, CIcmmcNISTauditAgency.value, CINISTauditorInfo.value, CINISTauditorDate.value, loadedCompany.idCompanyInfo)"  style="float:right;   position: -webkit-sticky; position: sticky; top:0;">Save Changes</button>
 
         <div style="margin:1%; ">
           <form [formGroup]="companyForm" >
@@ -156,15 +170,15 @@
 
             </div>
             <div class="dataDiv2">
-              <span class="spanLeft"> NIST Audit Agency: {{CIcmmcNISTauditAgency}} </span>
+              <span class="spanLeft"> NIST Audit Agency: {{loadedCompany.CIcmmcNISTauditAgency}} </span>
 
             </div>
             <div class="dataDiv2">
-              <span class="spanLeft"> NIST Auditor Info: {{CINISTauditorInfo}} </span>
+              <span class="spanLeft"> NIST Auditor Info: {{loadedCompany.CINISTauditorInfo}} </span>
 
             </div>
             <div class="dataDiv2">
-              <span class="spanLeft">  NIST Audit Date: {{CINISTauditorDate}} </span>
+              <span class="spanLeft">  NIST Audit Date: {{loadedCompany.CINISTauditorDate}} </span>
 
             </div>
 
@@ -194,7 +208,7 @@
             </div>
             <div class="dataDiv">
 
-              <span class="spanRight"> Website:</span> <input matInput id="CIwebsite" #CIwebsite> 
+              <span class="spanRight"> Website:</span> <input id="CIwebsite" #CIwebsite> 
             </div>
             <div class="dataDiv">
               <span class="spanRight"> Address: </span> <input id="CIaddress" #CIaddress>
@@ -259,22 +273,22 @@
                         <div class ="col">
                             <h1>Info</h1>
                             <mat-form-field appearance = "legacy" style="width:80%">
-                                <input #CIcompanyinformation id="companyinformation" matInput placeholder = "Company Information" style="padding-left: 2px;">
+                                <input #CIcompanyinformation2 id="companyinformation" matInput placeholder = "Company Information" style="padding-left: 2px;">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input #CIname id="name" matInput placeholder = "Company Name">
+                                <input #CIname2 id="name" matInput placeholder = "Company Name">
                             </mat-form-field>
     
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input #CIphone id="phone" matInput placeholder = "Phone">
+                                <input #CIphone2 id="phone" matInput placeholder = "Phone">
                             </mat-form-field>
     
                             <mat-form-field appearance = "legacy" style="width:80%">
-                                <input #CIDBA id="dba" matInput placeholder = "DBA">
+                                <input #CIDBA2 id="dba" matInput placeholder = "DBA">
                             </mat-form-field>
     
                             <mat-form-field appearance = "legacy" style="width:80%">
-                                <input #CIwebsite id="website" matInput placeholder = "Website">
+                                <input #CIwebsite2 id="website" matInput placeholder = "Website">
                             </mat-form-field>
     
 
@@ -282,7 +296,7 @@
                             <h1 style="margin-left: 1%;">Address</h1>
     
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input #CIaddress id="address" matInput placeholder = "Address Line 1">
+                                <input #CIaddress2 id="address" matInput placeholder = "Address Line 1">
                             </mat-form-field>
     
                             <mat-form-field appearance = "legacy" style="width:40%">
@@ -304,7 +318,7 @@
                                 <input matInput placeholder = "Country">
                             </mat-form-field>
                             <div class="fileInput" style="margin-left: 1%;">
-                                <input  class="ng-hide" id="input-file-id" multiple type="file" />
+                                <input #files2 class="ng-hide" id="files" multiple type="file" />
                                 <label for="input-file-id" class="md-button md-raised md-primary"> Upload Image</label>
                             </div>
                         </div>
@@ -315,7 +329,7 @@
 
                             <mat-form-field appearance="outline" color="primary" style="width: 80%;" >
                               <mat-label >Primary Point of Contact</mat-label>
-                              <mat-select #CIprimaryPoC id="Input" >
+                              <mat-select #CIprimaryPoC2 id="Input" >
                                   <div *ngFor="let user of Users$ | async">
                                       <mat-option value={{user.Ufname}} >
                                           {{user.Ufname}}
@@ -329,14 +343,14 @@
 
 
                             <mat-form-field appearance = "legacy" style="width:80%">
-                                <input #CIdescription matInput placeholder = "Description">
+                                <input #CIdescription2 matInput placeholder = "Description">
                             </mat-form-field>
      
 
 
                             <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
                               <mat-label >SBA Certified</mat-label>
-                              <mat-select #CISBAcertified  id="Input">
+                              <mat-select #CISBAcertified2  id="Input">
                 
                                   <mat-option value="Yes" >
                                       Yes 
@@ -353,7 +367,7 @@
 
                             <mat-form-field appearance="outline" color="primary" style="width: 40%;" >
                               <mat-label >Business Type</mat-label>
-                              <mat-select #CIbusinessType  id="Input">
+                              <mat-select #CIbusinessType2  id="Input">
                               <mat-option value="WOSB" >
                                   WOSB 
                               </mat-option>
@@ -375,23 +389,23 @@
                             </mat-form-field>
  
                             <h3 style="margin-top: 10px;">Technical POC Info</h3>
-                            <textarea #CItechnicalPOCinformation id="techPOC" style="text-align: left; margin-bottom: 20px;" rows="4" cols="55"></textarea>
+                            <textarea #CItechnicalPOCinformation2 id="techPOC" style="text-align: left; margin-bottom: 20px;" rows="4" cols="55"></textarea>
             
                             <mat-form-field appearance = "legacy" style="width:40%">
-                                <input #CIDUNSnum id="duns" matInput placeholder = "DUNS Number">
+                                <input #CIDUNSnum2 id="duns" matInput placeholder = "DUNS Number">
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:40%; margin-bottom: 10px;">
-                                <input #CIcagecode id="cage" matInput placeholder = "CAGE Code">
+                                <input #CIcagecode2 id="cage" matInput placeholder = "CAGE Code">
                             </mat-form-field>
                         </div>
     
                         <div class ="col">
                             <h1 style="margin-left: 1%;">Audit Information</h1>
                             <mat-form-field appearance = "legacy" style="width:80%;">
-                                <input #CIcmmcAuditAgency id="cmmcAgency" matInput placeholder = "CMMC Audit Agency" >
+                                <input #CIcmmcAuditAgency2 id="cmmcAgency" matInput placeholder = "CMMC Audit Agency" >
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:80%;">
-                                <input #CIcmmcAuditorInfo id= "cmmcInfo" matInput placeholder = "CMMC Auditor Information">
+                                <input #CIcmmcAuditorInfo2 id= "cmmcInfo" matInput placeholder = "CMMC Auditor Information">
                             </mat-form-field>
 
 
@@ -399,7 +413,7 @@
                             <mat-form-field style="width: 80%;background: transparent;" appearance="fill" class="datepicker datepicker5" id="datepicker5">
                                 <mat-label >CMMC Auditor Date</mat-label>
                                 <input 
-                                #CIcmmcAuditDate  
+                                #CIcmmcAuditDate2 
                                 matInput 
                                 [matDatepicker]="datepicker5"
                                 />
@@ -415,10 +429,10 @@
 
          
                             <mat-form-field appearance = "legacy" style="width:80%;">
-                                <input #CIcmmcNISTauditAgency id="nistAgency" matInput placeholder = "NIST Audit Agency"> 
+                                <input #CIcmmcNISTauditAgency2 id="nistAgency" matInput placeholder = "NIST Audit Agency"> 
                             </mat-form-field>
                             <mat-form-field appearance = "legacy" style="width:80%;">
-                                <input #CINISTauditorInfo id="nistInfo" matInput placeholder = "NIST Audit Auditor Information">
+                                <input #CINISTauditorInfo2 id="nistInfo" matInput placeholder = "NIST Audit Auditor Information">
                             </mat-form-field>
 
 
@@ -427,7 +441,7 @@
                             <mat-form-field style="width: 80%;background: transparent;" appearance="fill" class="datepicker datepicker2" id="datepicker2">
                               <mat-label >NIST Audit Date</mat-label>
                               <input 
-                              #CINISTauditorDate 
+                              #CINISTauditorDate2 
                               matInput 
                               [matDatepicker]="datepicker2"
   
@@ -445,7 +459,7 @@
 
 
                             <mat-form-field appearance = "legacy" style="width:80%;">
-                                <input #CInumber id="num" matInput placeholder = "Number">
+                                <input #CInumber2 id="num" matInput placeholder = "Number">
                             </mat-form-field>
     
                     
@@ -458,7 +472,7 @@
                 <div class = "row2">
                     <mat-divider style="padding-top: 3px; padding-bottom: 3px;"></mat-divider>
     
-                    <button mat-raised-button (click) = "post(CIcompanyinformation.value, CIdescription.value, CIname.value, CIDBA.value, CIphone.value, CIwebsite.value, CIaddress.value, CIprimaryPoC.value, CISBAcertified.value, CIbusinessType.value, CItechnicalPOCinformation.value, CIDUNSnum.value, CIcagecode.value, CIcmmcAuditAgency.value, CIcmmcAuditorInfo.value, CIcmmcAuditDate.value, CIcmmcNISTauditAgency.value, CINISTauditorInfo.value, CINISTauditorDate.value, CInumber.value)"   style="margin-left: 30%;width:30vw;height: 4vh;" type ="Submit" color="primary"  >Submit</button>
+                    <button mat-raised-button (click) = "post(CIcompanyinformation2.value, CIdescription2.value, CIname2.value, CIDBA2.value, CIphone2.value, CIwebsite2.value, CIaddress2.value, CIprimaryPoC2.value, CISBAcertified2.value, CIbusinessType2.value, CItechnicalPOCinformation2.value, CIDUNSnum2.value, CIcagecode2.value, CIcmmcAuditAgency2.value, CIcmmcAuditorInfo2.value, CIcmmcAuditDate2.value, CIcmmcNISTauditAgency2.value, CINISTauditorInfo2.value, CINISTauditorDate2.value, CInumber2.value)"   style="margin-left: 30%;width:30vw;height: 4vh;" type ="Submit" color="primary"  >Submit</button>
                 </div>
           </div>
   
@@ -473,4 +487,4 @@
   </div>
   
   
-  
+  <button (click)="debug()" >Debug</button>
