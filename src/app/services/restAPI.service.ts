@@ -38,7 +38,7 @@ httpOptions: { headers: HttpHeaders } = {
       .get<any>(url, { responseType: "json" })
       .pipe(
         catchError(
-          this.errorHandlerService.handleError<cuicontracts[]>("get", [])
+          this.errorHandlerService.handleError<any[]>("get", [])
         )
       );
   }

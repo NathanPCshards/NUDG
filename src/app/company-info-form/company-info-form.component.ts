@@ -54,7 +54,9 @@ export class CompanyInfoFormComponent {
 
     this.allCompanies.forEach(element => {
       if (element.imageUrl){
-          this.imageOrganizer[element.imageUrl] = element
+          this.imageOrganizer[element.imageUrl] = element.imageUrl
+          console.log("imageOrganizer : " , this.imageOrganizer)
+
       }
     });
 
