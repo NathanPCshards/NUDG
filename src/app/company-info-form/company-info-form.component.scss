@@ -17,6 +17,7 @@ div.container1{
   margin:2%;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   background-color: rgba(248, 248, 248, 0.815);
+  width:100%;
 }
 .dataDiv:nth-child(odd) {background-color: rgb(224, 224, 224); }
 
@@ -32,8 +33,8 @@ div.container1{
 .dataDiv2:nth-child(odd) {background-color: rgb(224, 224, 224); }
 
 .spanRight{
-  width:25%;
-  min-width: 25%;
+  width:20%;
+  min-width: 20%;
 
 }
 
@@ -91,6 +92,21 @@ mat-form-field{
     margin-bottom: 1%;
 
 }
+.imageWrapper{
+  justify-content: center;
+  align-items: center;
+  overflow:hidden;
+
+
+  flex-direction: column;
+
+  z-index: 1;
+  margin: auto;
+  display: flex;
+  text-align: center;
+  position: absolute;
+  top:3vh;
+}
 .mat-raised-button{
     margin-bottom: 15px;
 }
@@ -104,7 +120,9 @@ mat-form-field{
 
  
 
-
+.dataDivforImage{
+  height:10%;
+}
 
 
 

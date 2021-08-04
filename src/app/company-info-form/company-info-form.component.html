@@ -40,7 +40,7 @@
 
   <div class="doNotPrint">
 <!-- [(selectedIndex)]= viewIndex  to set a defualt value-->
-    <mat-tab-group animationDuration="50ms" (selectedTabChange)="tabSwitched($event)">
+    <mat-tab-group animationDuration="50ms" [(selectedIndex)]= viewIndex (selectedTabChange)="tabSwitched($event)">
   
       <mat-tab label="All Companies" >
   
@@ -50,29 +50,29 @@
               <ng-container *ngFor="let company of y; let j = index">
                 <div style="width:50vh; height:40vh; overflow-y: hidden;">
 
-
-
-
                   <!--Here the image is getting like... http://localhost:4200/image.jpg-->
                   <!--instead of the backends address                   -->
                   <!--maybe try a full address <img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="W3Schools.com"> -->
-                  {{company.imageUrl}}
-                  <img id="image{{i}}{{j}}" src="{{imageOrganizer[company.imageUrl]}}" style="width:200px; height:200px;">
+                  
+                  
                   <!-- TODO here add a image or canvas thing to have a background image cover the whole card -->
 
-
-
-
-
                   <div class="card">
-                          <div>
-                            <mat-icon   style="vertical-align: middle;">remove_red_eye</mat-icon><span style="margin-left:26%; font-size: large; ">{{company.CIname}}</span>  <mat-icon style="vertical-align: middle;float:right">close</mat-icon>
-  
+                    <div class="imageWrapper"> 
+                      <img id="image{{i}}{{j}}" src="{{imageOrganizer[company.imageUrl]}}" style="margin-top:4%; margin-left:1%; opacity: .5; max-width:80%;" >
+
+                    </div>
+                          <div >
+                            <mat-icon (click)="loadCompanyToEdit(company)">remove_red_eye</mat-icon><span style="vertical-align: middle; margin-left:26%; font-size: large; ">{{company.CIname}}</span>  <mat-icon style="vertical-align: middle;float:right">close</mat-icon>
                           </div>
-                          <h2>{{ company.CIphone}}</h2>
-                          <h3>{{ company.CIwebsite }}</h3>
-        
-                          
+
+                          <div style="display:flex; margin-top:82%; vertical-align: middle;">
+                      
+                            <span style="vertical-align: middle; margin-right: auto;">{{company.CIphone}}</span>
+                            <br>
+                            <span style="vertical-align: middle; ">{{company.CIwebsite }}</span>
+                          </div>
+
                   </div>
                 </div>
   
@@ -111,6 +111,7 @@
         </div>
 
 
+        
 
 
 
@@ -119,67 +120,72 @@
             <h1>Current Company Information</h1>
             <div class="dataDiv2">
               <span class="spanLeft">Company Information: </span>{{loadedCompany.CIcompanyinformation}}
-            </div>
 
-            <div class="dataDiv2">
-              <span class="spanLeft"> Description: </span> {{loadedCompany.CIdescription }}
+              <span class="spanLeft" style="margin-left:15%;"> Description: </span> {{loadedCompany.CIdescription }}
 
             </div >
+
             <div class="dataDiv2">
               <span class="spanLeft"> Name : {{loadedCompany.CIname}} </span>
 
-            </div>
-            <div class="dataDiv2">
-              <span class="spanLeft"> CIDBA: {{loadedCompany.CIDBA}}  </span>
-            </div>
-            <div class="dataDiv2">
-              <span class="spanLeft"> Phone: {{loadedCompany.CIphone}} </span>
-            </div>
-            <div class="dataDiv2">
-              <span class="spanLeft">  Website: {{loadedCompany.CIwebsite}} </span>
-            </div>
-            <div class="dataDiv2">
-              <span class="spanLeft"> Address: {{loadedCompany.CIaddress}} </span>
-            </div>
-            <div class="dataDiv2">
-              <span class="spanLeft"> Primary PoC : {{loadedCompany.CIprimaryPoC}}</span>
-            </div>
-            <div class="dataDiv2">
-              <span class="spanLeft"> CISBA Certified : {{loadedCompany.CISBAcertified}} </span>
-            </div>
-            <div class="dataDiv2">
-              <span class="spanLeft"> Business Type : {{loadedCompany.CIbusinessType}} </span>
-            </div>
-            <div class="dataDiv2">
-              <span class="spanLeft"> Technical PoC Information: {{loadedCompany.CItechnicalPOCinformation}} </span>
-            </div>
-            <div class="dataDiv2">
-              <span class="spanLeft">  DUNS Number: {{loadedCompany.CIDUNSnum}} </span>
-            </div>
-            <div class="dataDiv2">
-              <span class="spanLeft"> CAGE Code: {{loadedCompany.CIcagecode}} </span>
-            </div>
-            <div class="dataDiv2">
-              <span class="spanLeft"> CMMC Audit Agency: {{loadedCompany.CIcmmcAuditAgency}} </span>
+
+              <span class="spanLeft" style="margin-left:15%;"> Logo : <img src="{{imageOrganizer[loadedCompany.imageUrl]}}" style="opacity: 1; max-width:80%;;  width:10%;" > </span>
+
             </div>
 
             <div class="dataDiv2">
-              <span class="spanLeft"> CMMC Auditor Info: {{loadedCompany.CIcmmcAuditorInfo}} </span>
+              <span class="spanLeft"> CIDBA: {{loadedCompany.CIDBA}}  </span>
+
+              <span class="spanLeft" style="margin-left:15%;"> Phone: {{loadedCompany.CIphone}} </span>
             </div>
+
+            <div class="dataDiv2">
+              <span class="spanLeft">  Website: {{loadedCompany.CIwebsite}} </span>
+
+              <span class="spanLeft" style="margin-left:15%;"> Address: {{loadedCompany.CIaddress}} </span>
+            </div>
+
+            <div class="dataDiv2">
+              <span class="spanLeft"> Primary PoC : {{loadedCompany.CIprimaryPoC}}</span>
+
+              <span class="spanLeft" style="margin-left:15%;"> CISBA Certified : {{loadedCompany.CISBAcertified}} </span>
+            </div>
+
+            <div class="dataDiv2">
+              <span class="spanLeft"> Business Type : {{loadedCompany.CIbusinessType}} </span>
+
+              <span class="spanLeft" style="margin-left:15%;"> Technical PoC Information: {{loadedCompany.CItechnicalPOCinformation}} </span>
+
+              
+            </div>
+
+            <div class="dataDiv2">
+              <span class="spanLeft">  DUNS Number: {{loadedCompany.CIDUNSnum}} </span>
+              <span class="spanLeft" style="margin-left:15%;"> CAGE Code: {{loadedCompany.CIcagecode}} </span>
+
+              
+            </div>
+
+            <div class="dataDiv2">
+              <span class="spanLeft"> CMMC Audit Agency: {{loadedCompany.CIcmmcAuditAgency}} </span>
+              <span class="spanLeft" style="margin-left:15%;"> CMMC Auditor Info: {{loadedCompany.CIcmmcAuditorInfo}} </span>
+
+
+            </div>
+
             <div class="dataDiv2">
               <span class="spanLeft">  CMMC Audit Date: {{loadedCompany.CIcmmcAuditDate}} </span>
 
-            </div>
-            <div class="dataDiv2">
-              <span class="spanLeft"> NIST Audit Agency: {{loadedCompany.CIcmmcNISTauditAgency}} </span>
+              <span class="spanLeft" style="margin-left:15%;"> NIST Audit Agency: {{loadedCompany.CIcmmcNISTauditAgency}} </span>
+
+
 
             </div>
+
             <div class="dataDiv2">
               <span class="spanLeft"> NIST Auditor Info: {{loadedCompany.CINISTauditorInfo}} </span>
 
-            </div>
-            <div class="dataDiv2">
-              <span class="spanLeft">  NIST Audit Date: {{loadedCompany.CINISTauditorDate}} </span>
+              <span class="spanLeft" style="margin-left:15%;">  NIST Audit Date: {{loadedCompany.CINISTauditorDate}} </span>
 
             </div>
 
@@ -189,66 +195,57 @@
             <h1>New Company Information</h1>
             <div class="dataDiv">
               <span class="spanRight">Company Information:</span>  <input id="CIcompanyinformation" #CIcompanyinformation>
-            </div>
+            
 
-            <div class="dataDiv">
-              <span class="spanRight"> Description: </span><input id="CIdescription" #CIdescription> 
+              <span class="spanRight"  style="margin-left: 15%;"> Description: </span><input id="CIdescription" #CIdescription> 
 
-            </div >
+        </div>
             <div class="dataDiv">
               <span class="spanRight"> Name :</span> <input id="CIname" #CIname>
 
-            </div>
-            <div class="dataDiv">
-              <span class="spanRight">  CIDBA:</span>  <input id="CIDBA" #CIDBA>
+              <span class="spanRight" style="margin-left:15%;">  CIDBA:</span>  <input id="CIDBA" #CIDBA>
             
             </div>
             <div class="dataDiv">
               <span class="spanRight">  Phone: </span> <input id="CIphone" #CIphone>
- 
-            </div>
-            <div class="dataDiv">
 
-              <span class="spanRight"> Website:</span> <input id="CIwebsite" #CIwebsite> 
+              <span class="spanRight" style="margin-left:15%;"> Website:</span> <input id="CIwebsite" #CIwebsite> 
             </div>
+            
             <div class="dataDiv">
               <span class="spanRight"> Address: </span> <input id="CIaddress" #CIaddress>
+
+              <span class="spanRight" style="margin-left:15%;"> Primary PoC :</span> <input id="CIprimaryPoC" #CIprimaryPoC>
             </div>
-            <div class="dataDiv">
-              <span class="spanRight"> Primary PoC :</span> <input id="CIprimaryPoC" #CIprimaryPoC>
-            </div>
+
+          
             <div class="dataDiv">
               <span class="spanRight">CISBA Certified : </span> <input id="CISBAcertified" #CISBAcertified>
-            </div>
-            <div class="dataDiv">
-              <span class="spanRight"> Business Type :</span> <input id="CIbusinessType" #CIbusinessType> 
+
+              <span class="spanRight" style="margin-left:15%;"> Business Type :</span> <input id="CIbusinessType" #CIbusinessType> 
             </div>
             <div class="dataDiv">
               <span class="spanRight"> Technical PoC Information: </span> <input id="CItechnicalPOCinformation" #CItechnicalPOCinformation>
-            </div>
-            <div class="dataDiv">
-              <span class="spanRight"> DUNS Number: </span><input id="CIDUNSnum" #CIDUNSnum>
+
+              <span class="spanRight" style="margin-left:15%;"> DUNS Number: </span><input id="CIDUNSnum" #CIDUNSnum>
             </div>
             <div class="dataDiv">
               <span class="spanRight"> CAGE Code: </span> <input id="CIcagecode" #CIcagecode>
-            </div>
-            <div class="dataDiv">
-              <span class="spanRight">CMMC Audit Agency: </span><input id="CIcmmcAuditAgency" #CIcmmcAuditAgency>
+
+              <span class="spanRight" style="margin-left:15%;">CMMC Audit Agency: </span><input id="CIcmmcAuditAgency" #CIcmmcAuditAgency>
             </div>
 
             <div class="dataDiv">
               <span class="spanRight"> CMMC Auditor Info: </span> <input id="CIcmmcAuditorInfo" #CIcmmcAuditorInfo>
-            </div>
-            <div class="dataDiv">
-              <span class="spanRight">CMMC Audit Date:</span> <input id="CIcmmcAuditDate" #CIcmmcAuditDate>
+
+              <span class="spanRight" style="margin-left:15%;">CMMC Audit Date:</span> <input id="CIcmmcAuditDate" #CIcmmcAuditDate>
 
             </div>
             <div class="dataDiv">
               <span class="spanRight">NIST Audit Agency:</span> <input id="CIcmmcNISTauditAgency" #CIcmmcNISTauditAgency>
 
-            </div>
-            <div class="dataDiv">
-              <span class="spanRight">NIST Auditor Info:</span> <input id ="CINISTauditorInfo" #CINISTauditorInfo>
+
+              <span class="spanRight" style="margin-left:15%;">NIST Auditor Info:</span> <input id ="CINISTauditorInfo" #CINISTauditorInfo>
 
             </div>
             <div class="dataDiv">

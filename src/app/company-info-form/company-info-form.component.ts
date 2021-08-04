@@ -1,14 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { Observable } from 'rxjs';
 import { map, startWith, tap } from 'rxjs/operators';
 import { login } from '../injectables';
 import { companyInfo } from '../models/companyInfo';
 import { restAPI } from '../services/restAPI.service';
-import { UserServiceService } from '../services/user-service.service';
 
 @Component({
   selector: 'app-company-info-form',
@@ -26,6 +22,7 @@ export class CompanyInfoFormComponent {
   companyFilterList
   CompanyFilter$
   imageOrganizer
+  viewIndex
 
   companyForm: FormGroup = this.formBuilder.group({
     CompanyFilterList : []
@@ -83,7 +80,12 @@ export class CompanyInfoFormComponent {
     console.log("loading company : " , company)
     this.loadedCompany = company
   }
+  loadCompanyToEdit(Company){
+    console.log("Company clicked to load : " ,  Company)
+    this.viewIndex = 1;
+    this.loadedCompany = Company
 
+  }
 
   _filterCompany(value){
 
@@ -126,7 +128,7 @@ export class CompanyInfoFormComponent {
       console.log("result : " , result)
     })
 
-   let data = {CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber, CompanyName : this.loginInfo.CompanyName, imageUrl : uploaded.name }
+   let data = {CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, CInumber, CompanyName : this.loginInfo.CompanyName, imageUrl : "assets/images/"+uploaded.name }
     
    console.log("posting :  ",   data)
    let temp =  this.rest_service.post(`http://192.168.0.70:3000/CompanyInfo/${this.loginInfo.CompanyName}`,data)
@@ -137,6 +139,9 @@ export class CompanyInfoFormComponent {
   debug(){
     console.log("selected company : " , this.loadedCompany)
   }
+
+ 
+
 
    update(CIcompanyinformation, CIdescription, CIname, CIDBA, CIphone, CIwebsite, CIaddress, CIprimaryPoC, CISBAcertified, CIbusinessType, CItechnicalPOCinformation, CIDUNSnum, CIcagecode, CIcmmcAuditAgency, CIcmmcAuditorInfo, CIcmmcAuditDate, CIcmmcNISTauditAgency, CINISTauditorInfo, CINISTauditorDate, idCompanyInfo) {
   
