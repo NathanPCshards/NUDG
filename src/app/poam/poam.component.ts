@@ -139,7 +139,6 @@ export class POAMComponent implements OnInit {
       //pulling most recent gap data based on the date above
       let temp3  = await this.rest_service.get(`http://192.168.0.70:3000/gap/Any/${this.loginInfo.CompanyName}?getFromList=${temp2.toString()}&date=${date}`)
   
-      //TODO this looks good, need to finish the display part in the html
       temp3.subscribe(res=>{
         res.forEach(element => {
           if (element.Gcomment != null){

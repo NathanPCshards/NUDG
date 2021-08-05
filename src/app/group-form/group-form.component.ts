@@ -92,7 +92,6 @@ post(Gnames, Gdescriptions, GcreationDate, GCUIaccess, UGRusers, GNSra, GNSwa) {
 
   let temp = await this.rest_service.update(`http://192.168.0.70:3000/groups/${this.loginInfo.CompanyName}`, data)
   temp.subscribe(result=>{  
-    //TODO For update calls, I could not get .pipe(get call for data) to work because the api does return anything at all, so doing a call after .1 seconds. (not sure how to return status from multiple/nested query)
   })
   let that = this
   setTimeout(function(){ that.groups$ = that.fetchAll(); console.log("fetchall called : " , that.groups$)}, 1000);
