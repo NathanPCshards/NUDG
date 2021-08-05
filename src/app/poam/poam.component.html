@@ -239,7 +239,9 @@
             <td class="col1 two">{{entry.WvendorDependency}}</td>
     
             <td class="col2 three">Standards</td>
-            <td class="col2 four">{{entry.Standards}}</td>
+            <td class="col2 four">
+              {{entry.Standards}}
+          </td>
           </tr>
           <tr style="width:50%;">
             <td class="col3 one">Point of Contact</td>
@@ -401,7 +403,15 @@
               <td class="col1 two">{{entry.WvendorDependency}}</td>
       
               <td class="col2 three">Standards</td>
-              <td class="col2 four">{{entry.Standards}}</td>
+              <td class="col2 four">
+                
+                <div *ngFor="let standardId of entry.Standards.split(',')" style="margin-top:5%;"> <!--standardId here is like "[123"-->
+                  <!--removing all extra garbage and giving id to the standard dict to look up the standard-->
+                  {{standardDict[standardId.replaceAll("\"", "").replaceAll("\[", "").replaceAll("\]", "")].Standard}} 
+                </div>
+
+
+              </td>
             </tr>
             <tr style="width:50%;">
               <td class="col3 one">Point of Contact</td>
@@ -479,16 +489,12 @@
           <h1>{{currentComment}}<mat-icon style="vertical-align: middle; float:right" (click)="swapComments(entry)">remove_red_eye</mat-icon><span style="float:right; font-size: large;">Swap Comments</span></h1>
           <div *ngIf="currentComment == 'Weakness Comments'">{{entry.Wcomment}}</div> 
           <div *ngIf="currentComment !='Weakness Comments'">
-            <mat-tab-group animationDuration="50ms">  
-              <ng-container *ngFor="let gapEntry of gap">
-                <ng-container *ngIf="gapEntry.Gcomment">
-                  {{gapEntry.Gquestion}}
-                  {{gapEntry.Gcomment}}
-                </ng-container>
+            <ng-container *ngIf="gap.hasOwnProperty(entry.Nid)"> <!--Need a check before accessing the property otherwise html crashes-->
+              {{gap[entry.Nid].Gcomment}}
+            </ng-container>
+    
 
-              </ng-container>
-   
-              </mat-tab-group>
+           
 
           </div>
 

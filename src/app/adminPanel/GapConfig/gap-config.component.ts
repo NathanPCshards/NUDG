@@ -141,9 +141,6 @@ export class GapConfigComponent implements OnInit {
       this.selectedGapEntry = gap
       this.selectedPolicy = policy
 
-
-
-        //TODO these need to be specific to each question
       this.weaknesses = await this.fetchWeaknesses(policy);
       this.controls = await this.fetchControlTemplates(policy);
       console.log("weaknesses : " ,this.weaknesses)

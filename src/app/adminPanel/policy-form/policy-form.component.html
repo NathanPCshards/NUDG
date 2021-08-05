@@ -16,10 +16,13 @@
 
     <span class="label">Family Policy: </span>
     <mat-form-field  appearance = "legacy" class="input">
-      <input  #FamilyPolicy matInput>
+      <input id="FamilyPolicy" #FamilyPolicy matInput>
+
     </mat-form-field>
-
-
+ 
+    <div style="position:absolute; z-index: 5; height:15vh; overflow-y:scroll; left:10%; top: 20%;">
+      <mat-option *ngFor="let element of families" (click)="setFamily(element.FamilyPolicy)">{{element.FamilyPolicy}}</mat-option>
+    </div>
 
 
       <br>

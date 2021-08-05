@@ -19,6 +19,7 @@ export class PolicyFormComponent implements OnInit {
 
   guideline$ 
   policy$
+  families;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,14 +30,14 @@ export class PolicyFormComponent implements OnInit {
     private rest_service : restAPI
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     //TODO
     //get a list of families, put in mat select to chose from. but also give option to make new family?
     //Also likely need to recomend a name for the policy based on existing ones...
     //(picking family Account Control should default to name AC-N(something))
 
-
-
+    this.families = await this.rest_service.get(`http://192.168.0.70:3000/policy/All/${this.loginInfo.CompanyName}?FamilyPolicy=ok`).toPromise()
+    console.log("Families : ",  this.families)
     //POLICY STUFF
     this.policy$ = this.fetchAllPolicies();
 
@@ -52,6 +53,11 @@ export class PolicyFormComponent implements OnInit {
 
 */
 
+  }
+
+  setFamily(value){
+    //@ts-ignore
+    document.getElementById("FamilyPolicy").value = value
   }
 
   fetchAllPolicies(): Observable<policy[]> {

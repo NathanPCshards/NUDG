@@ -563,11 +563,6 @@ this.NidFilter$ = this.policyForm.get('NidFilterList')!.valueChanges
       index = event.originalIndex
       //the below line updates the events to reflect the users changes
       this.events[index] = this.displayEvents$[index]
-      
-      /*TODO
-      this.displayEvents$[index].policy = event.policy
-      this.displayEvents$[index].user = event.user
- */
 
       this.tasks$.forEach(async element => {
         //update the entry in tasks

@@ -10,12 +10,14 @@ import { restAPI } from '../services/restAPI.service';
 export class POAMComponent implements OnInit {
   panelOpenState = false
   weaknesses$
+  standards$ 
   selected$
   policies$
   displayInformation = {}
   searchResults$
   printList$
   checkedList$;
+  standardDict = {}
   gap = []
 
 
@@ -25,19 +27,31 @@ export class POAMComponent implements OnInit {
   constructor(public rest_service : restAPI, public loginInfo : login) { }
 
   async ngOnInit(): Promise<void> {
+    //Init some stuff
     this.searchResults$ = []
     this.printList$ = []
     this.checkedList$ = []
 
+    //getting list of all standards
+    await this.rest_service.get(`http://192.168.0.70:3000/standards/All/${this.loginInfo.CompanyName}`).toPromise().then(res=>{
+       console.log("res : ", res)
+      this.standards$ = res
+    })
+    //organize standards in an object by their ids
+    this.standards$.forEach(element => {
+        this.standardDict[element.idStandards] = element
+    });
+    //getting list of weaknessess (that are not a template)
     this.weaknesses$ = this.fetchAllWeaknesses()
-    this.weaknesses$.subscribe()
+    this.weaknesses$.subscribe(result=>{
+    })
+
     //Getting all policies and grouping in several ways. All data is held in displayInformation
     this.policies$ = this.rest_service.get(`http://192.168.0.70:3000/Policy/${'All'}/${this.loginInfo.CompanyName}`)
     this.displayInformation["All"] = []
     this.gap = []
     this.policies$.forEach(dataArray => {
       dataArray.forEach(policy => {
-
       let temp = []
 
         if (this.displayInformation[policy.FamilyPolicy]){
@@ -104,48 +118,40 @@ export class POAMComponent implements OnInit {
 
     let temp2 = []
     let date
-     await this.weaknesses$.forEach(async array => {//making a list of Nids to use to pull gap
+    //making a list of Nids to use to pull gap
+     await this.weaknesses$.forEach(async array => {
       temp2 = []
        array.forEach(async element => {
         if (element.Nid && element.Nid != "" && !temp2.includes(`'${element.Nid}'`)){
-          console.log("pushing : " , element.Nid)
-          //this.rest_service.get(most recent, individual gap)
-          let singleGap = this.rest_service.get(`http://192.168.0.2:3000/gap/${element.Nid}/${this.loginInfo.CompanyName}`)
+
           temp2.push(`\'${element.Nid}\'`)
-          console.log("temp : " , temp2)
+
         }
       });
          
+      //Getting the most recent gap's date
       let maxDate = await this.rest_service.get(`http://192.168.0.70:3000/gap/Any/${this.loginInfo.CompanyName}?maxDate='Ok`).toPromise()
       console.log("maxDate : " , maxDate, maxDate["Max(Gdate)"])
       for(const property in maxDate){
          date = maxDate[property]['Max(Gdate)']
       }
-      console.log("date : ", date)
-      console.log("temp : " ,  temp2.toString())
-      let temp3  = await this.rest_service.get(`http://192.168.0.70:3000/gap/Any/${this.loginInfo.CompanyName}?getFromList=${temp2.toString()}&date=${date}`)
-      //Pulling the most recent gap
-      //TODO this looks good, need to finish the display part in the html
       
+      //pulling most recent gap data based on the date above
+      let temp3  = await this.rest_service.get(`http://192.168.0.70:3000/gap/Any/${this.loginInfo.CompanyName}?getFromList=${temp2.toString()}&date=${date}`)
+  
+      //TODO this looks good, need to finish the display part in the html
       temp3.subscribe(res=>{
         res.forEach(element => {
           if (element.Gcomment != null){
-            console.log("element g comment : " , element.Nid, element.Gcomment)
-
             if (element.Nid in this.gap && this.gap[element.Nid] != 'No Comments Made'){
-              console.log("existing element and not blank", element)
               this.gap[element.Nid].push(element)
             }
             else{
-              console.log("new, element added for first time : " , element)
-              this.gap[element.Nid] = [element]
-
+              this.gap[element.Nid] = element
             }
         }
         else if (!(element.Nid in this.gap)){
-          console.log("Entry has no comment and is not in gap : " ,  element)
           this.gap[element.Nid] = 'No Comments Made'
-
         }
 
         });
@@ -155,8 +161,8 @@ export class POAMComponent implements OnInit {
     })
 
 
-
-    console.log("gap : " , this.gap)
+    console.log("standard dict : " , this.standardDict["1650"])
+    console.log("Gap : " , this.gap)
 
   }
 
