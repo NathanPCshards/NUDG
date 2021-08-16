@@ -59,6 +59,9 @@ export class networkSharesPage implements OnInit {
     });
 
 
+
+
+    console.log("Group dict : " , this.groupDict)
   }
 
 

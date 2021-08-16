@@ -295,6 +295,7 @@ export class IdentifierPageComponent implements OnInit {
 
     //This block below handles most of the gap interactions with the database
     this.gapSubscription = this.gapservice.onClick.forEach(async incomingData=>{
+      console.log("gap data in identifier page 298 : ", incomingData)
       //the optional param is added when NewDate is toggled on the Gap component
       //its defualt is false, if nothing is given. This makes sure new dates are 
       //posted to, and not updated to (which would fail because it wouldnt exist)
@@ -346,41 +347,17 @@ export class IdentifierPageComponent implements OnInit {
         }
         //Import the gap question as a weakness
         if(incomingData.data.Ganswer =="Weakness"){
-          
-          let object ={
-  
-            Nid : this.id,
-            Wname : "From Gap",
-            WdetectionDate : incomingData.data.Gdate,
-            WvendorDependency: "",
-            WriskRating : "",
-            WriskAdjustment : "",
-            WadjustedRiskRating : "",
-            Standards : "",
-            WdetectionSource : "",
-            WcompletionDate : "",
-            WremediationPlan : "",
-            WvendorsProduct : "",
-            WautoApprove: "",
-            WoperationReq : "Pending",
-            Wstatus : "Incomplete",
-            WassetID : "",
-            WlastChange : incomingData.data.Gdate,
-            Wdescription : incomingData.data.Gquestion +" -No",
-            WlastVendorCheck : "",
-            WdeviationRationale : "",
-            WfalsePositive : "Pending",
-            WpointOfContact : "",
-            WresourceReq : "",
-            WsupportingDoc : "",
-            Milestones : "",
-            idOrgControls : "",
-            CompanyName : this.loginInfo.CompanyName
-  
-          }
-          let temp = await this.rest_service.post(`http://192.168.0.70:3000/weaknesses/${this.id}/${this.loginInfo.CompanyName}`,object)
-          .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses(this.id))));
-          temp.subscribe()
+          let weaknessTemplates = await this.rest_service.get(`http://192.168.0.70:3000/gap/${incomingData.data.Nid}/${this.loginInfo.CompanyName}?weaknesses=${incomingData.data.idWeaknessTemplates}`).toPromise()
+
+          weaknessTemplates.forEach(async element => {
+            element.isTemplate = null
+            let temp = await this.rest_service.post(`http://192.168.0.70:3000/weaknesses/${this.id}/${this.loginInfo.CompanyName}`,element)
+            .pipe(tap(() => (this.weaknesses$ = this.fetchAllWeaknesses(this.id))));
+            temp.subscribe(res=>{
+              console.log('result from template import : ' , res)
+            })
+          });
+
         }
 
       }

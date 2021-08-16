@@ -10,30 +10,49 @@ import { restAPI } from '../services/restAPI.service';
 export class POAMComponent implements OnInit {
   panelOpenState = false
   weaknesses$
+  standards$ 
   selected$
   policies$
   displayInformation = {}
   searchResults$
   printList$
   checkedList$;
+  standardDict = {}
+  gap = []
+
+
+  currentComment = "Weakness Comments"
+
+
   constructor(public rest_service : restAPI, public loginInfo : login) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    //Init some stuff
     this.searchResults$ = []
     this.printList$ = []
     this.checkedList$ = []
 
+    //getting list of all standards
+    await this.rest_service.get(`http://192.168.0.70:3000/standards/All/${this.loginInfo.CompanyName}`).toPromise().then(res=>{
+       console.log("res : ", res)
+      this.standards$ = res
+    })
+    //organize standards in an object by their ids
+    this.standards$.forEach(element => {
+        this.standardDict[element.idStandards] = element
+    });
+    //getting list of weaknessess (that are not a template)
     this.weaknesses$ = this.fetchAllWeaknesses()
-    this.weaknesses$.subscribe()
+    this.weaknesses$.subscribe(result=>{
+    })
+
     //Getting all policies and grouping in several ways. All data is held in displayInformation
     this.policies$ = this.rest_service.get(`http://192.168.0.70:3000/Policy/${'All'}/${this.loginInfo.CompanyName}`)
     this.displayInformation["All"] = []
+    this.gap = []
     this.policies$.forEach(dataArray => {
       dataArray.forEach(policy => {
-
-        let temp = this.displayInformation["All"]
-        temp.push(policy)
-        temp = []
+      let temp = []
 
         if (this.displayInformation[policy.FamilyPolicy]){
           temp = this.displayInformation[policy.FamilyPolicy]
@@ -96,14 +115,58 @@ export class POAMComponent implements OnInit {
       });
     });
 
+
+    let temp2 = []
+    let date
+    //making a list of Nids to use to pull gap
+     await this.weaknesses$.forEach(async array => {
+      temp2 = []
+       array.forEach(async element => {
+        if (element.Nid && element.Nid != "" && !temp2.includes(`'${element.Nid}'`)){
+
+          temp2.push(`\'${element.Nid}\'`)
+
+        }
+      });
+         
+      //Getting the most recent gap's date
+      let maxDate = await this.rest_service.get(`http://192.168.0.70:3000/gap/Any/${this.loginInfo.CompanyName}?maxDate='Ok`).toPromise()
+      console.log("maxDate : " , maxDate, maxDate["Max(Gdate)"])
+      for(const property in maxDate){
+         date = maxDate[property]['Max(Gdate)']
+      }
+      
+      //pulling most recent gap data based on the date above
+      let temp3  = await this.rest_service.get(`http://192.168.0.70:3000/gap/Any/${this.loginInfo.CompanyName}?getFromList=${temp2.toString()}&date=${date}`)
+  
+      temp3.subscribe(res=>{
+        res.forEach(element => {
+          if (element.Gcomment != null){
+            if (element.Nid in this.gap && this.gap[element.Nid] != 'No Comments Made'){
+              this.gap[element.Nid].push(element)
+            }
+            else{
+              this.gap[element.Nid] = element
+            }
+        }
+        else if (!(element.Nid in this.gap)){
+          this.gap[element.Nid] = 'No Comments Made'
+        }
+
+        });
+
+      })
+
+    })
+
+
+    console.log("standard dict : " , this.standardDict["1650"])
+    console.log("Gap : " , this.gap)
+
   }
 
   fetchAllWeaknesses(){
     return this.rest_service.get(`http://192.168.0.70:3000/weaknesses/All/${this.loginInfo.CompanyName}`)
-  }
-
-  filterWeaknesses(){
-
   }
 
 
@@ -147,6 +210,20 @@ export class POAMComponent implements OnInit {
  
   }
 
+
+
+  swapComments(entry){
+    console.log("entry : " , entry)
+
+    if (this.currentComment == "Weakness Comments"){
+      this.currentComment = "Gap Comments"
+    }
+    else{
+      this.currentComment = "Weakness Comments"
+    }
+
+  }
+
   makeReport(reportFilter){
     //this function takes a list of family names/indexes, adds them to a list
     //that list is then used to make the print view in css. This is updated as the search is updated as well.
@@ -188,10 +265,6 @@ export class POAMComponent implements OnInit {
 
       });
     });
-
-
-
-  
 
     console.log("printlist : " , this.printList$)
   }

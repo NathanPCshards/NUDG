@@ -69,8 +69,12 @@ httpOptions: { headers: HttpHeaders } = {
 
   
   update(user: controls, CompanyName: any): Observable<any> {
+    let url = `http://192.168.0.70:3000/controls/${CompanyName}`
+
+    console.log("update being called")
+
     return this.http
-      .put<controls>(this.url, user, this.httpOptions)
+      .put<controls>(url, user, this.httpOptions)
       .pipe(catchError(this.errorHandlerService.handleError<any>("update")));
   }
 

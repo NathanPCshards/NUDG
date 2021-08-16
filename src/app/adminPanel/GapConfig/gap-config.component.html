@@ -1,0 +1,180 @@
+<div class="main">
+    <div class="left">
+        <div *ngFor="let element of policies" class="card">
+            <h1>{{element.nudgid}}</h1>
+            <div  *ngFor="let question of dataDictionary[element.nudgid]; " class = "question">
+                    <span (click)="setQuestion(element,question)">{{question.Gquestion}}</span>
+            </div>
+ 
+        </div>
+    </div>
+    <div class="right">
+        <h1  *ngIf="selectedPolicy">{{selectedPolicy.nudgid}}</h1>
+        <h2  *ngIf="selectedGapEntry">{{selectedGapEntry.Gquestion}}</h2>
+        <h1  *ngIf="!selectedPolicy">Click a Question to load it's weaknesses and controls</h1>
+        <div *ngIf="selectedPolicy">
+            <button (click)="openWeakness()">
+                Add Weakness Template
+            </button>
+            <button (click)="openControl()">
+                Add Control Template
+            </button>
+
+        </div>
+
+
+        <mat-list>
+            <div class="flexContainer">
+              <mat-list-item class="headerRow">
+    
+                <span class="nameCol">
+                  Weakness Name
+                </span>
+                <span class="mediumCol">
+                  Description
+                </span>
+                <span class="dateCol">
+                  Status
+                </span>
+                <span class="smallCol">
+                  Risk Rating
+                </span>
+
+
+    
+      
+              </mat-list-item>
+      
+      
+            </div>
+        
+            <mat-list-item *ngFor="let weaknessElement of weaknesses" > <!-- *ngFor="let weaknessElement of weaknesses$-->
+                <!--The below ngIf is what applies the searchbar to the list-->
+              <ng-container >
+    
+                <span class="listSpan nameCol" >
+                    {{weaknessElement.Wname}}
+                </span>
+          
+                <span class="listSpan mediumCol" >
+                    {{weaknessElement.Wdescription}}
+                </span>
+          
+                <span class="listSpan dateCol">
+                    {{weaknessElement.Wstatus}}
+                </span>
+        
+                <span class="listSpan smallCol" >
+                    {{weaknessElement.WriskRating}}
+                </span>
+      
+      
+        
+                  <button mat-icon-button>
+                    <mat-icon
+                      color="primary"
+                    >
+                      edit
+                    </mat-icon>
+                  </button>
+          
+     
+              
+                  <button mat-icon-button (click)="deleteWeakness(weaknessElement)">
+                    <mat-icon color="warn">
+                      delete
+                    </mat-icon>
+                  </button>
+          
+      
+              </ng-container>
+      
+          
+               
+             
+               
+            </mat-list-item>
+          </mat-list>
+
+
+          <mat-list>
+            <div class="flexContainer">
+              <mat-list-item class="headerRow">
+    
+                <span class="nameCol">
+                  Control Name
+                </span>
+                <span class="mediumCol">
+                  Overview
+                </span>
+
+    
+      
+              </mat-list-item>
+      
+      
+            </div>
+        
+            <mat-list-item *ngFor="let controlElement of controls"> <!-- *ngFor="let weaknessElement of weaknesses$-->
+                <!--The below ngIf is what applies the searchbar to the list-->
+              <ng-container >
+    
+                <span class="listSpan nameCol" >
+                  {{controlElement.Cname}}
+                </span>
+          
+                <span class="listSpan mediumCol" >
+                    {{controlElement.Coverview}}
+                </span>
+          
+
+      
+      
+        
+          
+                <button mat-icon-button>
+                    <mat-icon
+                  
+                    color="primary"
+                    >
+                    assignment
+                  </mat-icon>
+                </button>
+        
+        
+     
+                  <button mat-icon-button>
+                    <mat-icon
+                    (click)="openControl()"
+                      color="primary"
+                    >
+                      edit
+                    </mat-icon>
+                  </button>
+          
+     
+              
+                  <button mat-icon-button (click)="deleteControl(controlElement)">
+                    <mat-icon color="warn">
+                      delete
+                    </mat-icon>
+                  </button>
+          
+      
+              </ng-container>
+      
+          
+               
+             
+               
+            </mat-list-item>
+          </mat-list>
+    </div>
+</div>
+
+<!--
+
+<div *ngFor="let element of gap$">
+    <span>{{element.Gquestion}}</span>
+</div>
+-->

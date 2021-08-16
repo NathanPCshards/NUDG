@@ -239,7 +239,9 @@
             <td class="col1 two">{{entry.WvendorDependency}}</td>
     
             <td class="col2 three">Standards</td>
-            <td class="col2 four">{{entry.Standards}}</td>
+            <td class="col2 four">
+              {{entry.Standards}}
+          </td>
           </tr>
           <tr style="width:50%;">
             <td class="col3 one">Point of Contact</td>
@@ -347,8 +349,6 @@
           </mat-panel-title>
 
         <mat-panel-title>
-
-
           {{entry.Nid}}
         </mat-panel-title>
         <mat-panel-title >
@@ -368,6 +368,7 @@
         </mat-expansion-panel-header>
     
         <div style="display:flex;">
+
           <table class="table" style="width:48%; margin-left: 1%; ">
             <tr style="width:50%;">
               <td class="col1 one">NUDG Identifier</td>
@@ -402,7 +403,15 @@
               <td class="col1 two">{{entry.WvendorDependency}}</td>
       
               <td class="col2 three">Standards</td>
-              <td class="col2 four">{{entry.Standards}}</td>
+              <td class="col2 four">
+                
+                <div *ngFor="let standardId of entry.Standards.split(',')" style="margin-top:5%;"> <!--standardId here is like "[123"-->
+                  <!--removing all extra garbage and giving id to the standard dict to look up the standard-->
+                  {{standardDict[standardId.replaceAll("\"", "").replaceAll("\[", "").replaceAll("\]", "")].Standard}} 
+                </div>
+
+
+              </td>
             </tr>
             <tr style="width:50%;">
               <td class="col3 one">Point of Contact</td>
@@ -465,23 +474,33 @@
 
             </tr>
             <tr style="width:50%;">
-              <td class="col1 one">Comments</td>
-              <td class="col1 two">{{entry.Wcomment}}</td>
-      
-              <td class="col2 three">False Positive</td>
-              <td class="col2 four">{{entry.WfalsePositive}}</td>
-
+              <td class="col1 one">False Positive</td>
+              <td class="col1 two">{{entry.WfalsePositive}}</td>
+              <td class="col2 three">a </td>
+              <td class="col2 four"> a</td>
             </tr>
 
+
            </table>
-        </div>
      
-
-
- 
-        <div>
-    
         </div>
+        <div class="comment">
+          
+          <h1>{{currentComment}}<mat-icon style="vertical-align: middle; float:right" (click)="swapComments(entry)">remove_red_eye</mat-icon><span style="float:right; font-size: large;">Swap Comments</span></h1>
+          <div *ngIf="currentComment == 'Weakness Comments'">{{entry.Wcomment}}</div> 
+          <div *ngIf="currentComment !='Weakness Comments'">
+            <ng-container *ngIf="gap.hasOwnProperty(entry.Nid)"> <!--Need a check before accessing the property otherwise html crashes-->
+              {{gap[entry.Nid].Gcomment}}
+            </ng-container>
+    
+
+           
+
+          </div>
+
+         </div>
+  
+     
 
         
         </mat-expansion-panel>

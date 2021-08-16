@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   enteredButton = false;
   isMatMenuOpen = false;
   isMatMenu2Open = false;
+  
   rtpol= function (famType)  {
     if (famType == "all"){
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
@@ -30,7 +31,6 @@ export class AppComponent implements OnInit {
     if (famType == "nist"){
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
       this.router.navigateByUrl('/Policies/Nist'))
-
 
     }
     if (famType == "cmmc"){
@@ -50,11 +50,13 @@ export class AppComponent implements OnInit {
     //Setting the default login
     //Remove this later/ When you want to test login/instancing 
     this.loginInfo.CompanyName = "PCshards"
-    this.loginInfo.name = "NewAccount"
+    this.loginInfo.name = "test"
     this.loginInfo.passwordLength = 8
-    this.loginInfo.userId = "NewAccount123"
-    this.loginInfo.phone =  "123 456 7890"
-    this.loginInfo.email = "newaccount@gmail.com"
+    this.loginInfo.userId = "abc"
+    this.loginInfo.phone =  "111 111 1111"
+    this.loginInfo.email = "abc@gmail.com"
+    this.loginInfo.password = "12341234"
+
 
   }
 

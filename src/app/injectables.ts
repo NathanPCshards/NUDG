@@ -11,7 +11,7 @@ export class login {
   passwordLength: number;
   phone: string;
   email: string;
-
+  password: string;
 }
 export class AccordionState {
   open: boolean = false;
