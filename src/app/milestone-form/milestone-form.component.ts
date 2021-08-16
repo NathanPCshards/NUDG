@@ -28,13 +28,10 @@ export class MilestoneFormComponent implements OnInit {
   Nid
   
     constructor(
-      private http:HttpClient, 
-      private formBuilder: FormBuilder,  
       public dialog: MatDialog, 
       private loginInfo : login,
       private rest_service : restAPI,
-      private milestonesService : MilestonesService,
-      private dialogRef : MatDialogRef<MilestoneFormComponent>, 
+
       @Inject(MAT_DIALOG_DATA) public data : any) { 
         this.idOrgWeaknesses = data.idOrgWeaknesses;
         this.Nid = data.Nid

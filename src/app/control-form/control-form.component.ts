@@ -1,65 +1,16 @@
 
 import { Component, Inject, Input, OnInit, Optional, ViewChild } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { login } from '../injectables';
 import { controls } from '../models/controls';
 import { ControlsService } from '../services/controls.service';
 import { restAPI } from '../services/restAPI.service';
-import { SharedService } from '../services/Shared';
 import { SharedResourcesService } from '../services/shared-resources.service';
 import { WeaknessesService } from '../services/weaknesses.service';
 import { weaknessDialog } from '../weakness-form/weakness-form.component';
 
-
-@Component({
-  selector: 'app-control-form',
-  templateUrl: './control-form.component.html',
-  styleUrls: ['./control-form.component.scss']
-})
-export class ControlFormComponent implements OnInit {
-  panelOpenState = false;
-  controls$: Observable<controls[]>;
-
-  constructor(){
-  }
-
-  /*
-  public openDialog() {
-      const dialogRef =this.dialog.open(controlDialog, {
-      height: '80%',
-       width:"85%",
-       disableClose: true, 
-       data: {
-        Nid:""
-
-    }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("test : " , this.loginInfo.CompanyName)
-
-      this.controls$ = this.rest_service
-      .post(`http://192.168.0.70:3000/controls/${this.loginInfo.CompanyName}`, result)
-    });
-
-  }
-*/
-  ngOnInit(){
-
-  }
-
-  /*
-  delete(id: any): void {
-    this.controls$ = this.controlssservice
-      .delete(id,this.loginInfo.CompanyName)
-     // .pipe(tap(() => (this.controls$ = this.fetchAll())));
-      
-  }*/
-
-}
 
 @Component({
   selector: 'control-dialog',

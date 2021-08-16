@@ -1,13 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { login } from '../injectables';
 import { NetworksharesService } from '../services/networkshares.service';
 import { restAPI } from '../services/restAPI.service';
-
-
-
-
 
 @Component({
   selector: 'app-group-form',

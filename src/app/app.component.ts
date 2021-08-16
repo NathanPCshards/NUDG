@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MatSelect } from '@angular/material/select';
 import { login } from './injectables';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { ThemeService } from './core/services/ThemeService.service';
 
 @Component({
   selector: 'app-root',
@@ -20,13 +21,11 @@ export class AppComponent implements OnInit {
   enteredButton = false;
   isMatMenuOpen = false;
   isMatMenu2Open = false;
-  
+  isDarkTheme
   rtpol= function (famType)  {
     if (famType == "all"){
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
       this.router.navigateByUrl('/Policies'))
-
-
     }
     if (famType == "nist"){
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
@@ -36,14 +35,11 @@ export class AppComponent implements OnInit {
     if (famType == "cmmc"){
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
       this.router.navigateByUrl('/Policies/CMMC'))
-
     }
     
   }
-
-
-  constructor(private http: HttpClient, private router: Router, private loginInfo:login){
-
+  
+  constructor(private http: HttpClient, private router: Router, private loginInfo:login, private themeService: ThemeService){
   }
 
   ngOnInit(){
@@ -57,6 +53,7 @@ export class AppComponent implements OnInit {
     this.loginInfo.email = "abc@gmail.com"
     this.loginInfo.password = "12341234"
 
+    this.isDarkTheme = this.themeService.isDarkTheme;
 
   }
 

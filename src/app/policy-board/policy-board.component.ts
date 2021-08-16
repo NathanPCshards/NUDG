@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable } from 'rxjs';
 import { login } from '../injectables';
-import { policy } from '../models/policy';
 import { restAPI } from '../services/restAPI.service';
 
 @Component({

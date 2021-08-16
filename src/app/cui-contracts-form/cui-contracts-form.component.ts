@@ -27,7 +27,6 @@ export class CuiContractsFormComponent implements OnInit {
 
   constructor(
     private rest_service : restAPI,
-
     private loginInfo : login
 
     ){

@@ -110,9 +110,6 @@ export class ProcedureFormComponent implements OnInit {
 
 
 
-  ngAfterViewInit(){
-  
-  }
   
   fetchAll(idOrgControls): Observable<procedures[]> {
     return this.rest_service.get(`http://192.168.0.70:3000/procedures/${idOrgControls}/${this.loginInfo.CompanyName}`);

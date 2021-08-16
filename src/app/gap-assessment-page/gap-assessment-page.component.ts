@@ -12,20 +12,8 @@ import { GapService } from '../services/gap.service';
 import { restAPI } from '../services/restAPI.service';
 import { SharedService } from '../services/Shared';
 
-@Component({
-  selector: 'app-gap-assessment-page',
-  templateUrl: './gap-assessment-page.component.html',
-  styleUrls: ['./gap-assessment-page.component.scss']
-})
-export class GapAssessmentPageComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
-
+//TODO delete this component above
 
 
 @Component({
@@ -416,12 +404,7 @@ export class GapForm implements OnInit{
     submitCount["Yes"] = 0
     submitCount["Partial"] = 0
     submitCount["Weakness"] = 0
-    if (this.newDate){
 
-    }
-    else{
-
-    }
     this.displayList$.forEach(element => {
       
       submitCount[element.Ganswer] += 1
@@ -455,11 +438,7 @@ export class GapForm implements OnInit{
     else{
       this.gapStatus = "Ready"
     }
- 
-  
-   console.log("Ending with a : " , this.gapStatus)
 
-    
   }
 
   public deleteEntry(index:any){
@@ -493,7 +472,6 @@ export class GapForm implements OnInit{
   }
 
   public async refreshGapAndDisplayList(){
-    console.log("date in refresh: " , this.displayDate$)
 
     //this function does what it says
     this.gap$ = await this.fetchAllGap(this.id$, this.displayDate$);
@@ -508,11 +486,6 @@ export class GapForm implements OnInit{
   }
 
   public addDate(){
-
-
-
-
-
 
     let temp = {
       Nid:  this.id$,

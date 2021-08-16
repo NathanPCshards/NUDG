@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { PolicyBoardComponent } from './policy-board/policy-board.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginFormComponent } from './login-form/login-form.component';
@@ -17,9 +16,9 @@ import { SupplierFormComponent } from './supplier-form/supplier-form.component';
 import { VendorFormComponent } from './vendor-form/vendor-form.component';
 
 import { GuidelinesForm } from './guidelines-page/guidelines-page.component';
-import { GapAssessmentPageComponent, GapForm } from './gap-assessment-page/gap-assessment-page.component';
-import { weaknessDialog, WeaknessFormComponent } from './weakness-form/weakness-form.component';
-import { controlDialog, ControlFormComponent } from './control-form/control-form.component';
+import { GapForm } from './gap-assessment-page/gap-assessment-page.component';
+import { weaknessDialog } from './weakness-form/weakness-form.component';
+import { controlDialog  } from './control-form/control-form.component';
 import { networkSharesPage } from './network-shares-form/network-shares-form.component';
 import { SoftwareApprovalFormComponent } from './software-approval-form/software-approval-form.component';
 import { SharedResourcesFormComponent } from './shared-resources-form/shared-resources-form.component';
@@ -29,7 +28,6 @@ import { ProcedureFormComponent } from './procedure-form/procedure-form.componen
 import { MilestoneFormComponent } from './milestone-form/milestone-form.component';
 import { AdminPanelComponent } from '../app/adminPanel/admin-panel/admin-panel.component';
 
-import { IdentifierPageRoutingModule } from './identifier-page/identifier-page.routing.module'
 import { PolicyAccordionComponent } from './policy-accordion/policy-accordion.component';
 import { FileImportComponent } from './file-import/file-import.component';
 import { CalendarComponent } from './calendar/calendar.component';
@@ -88,17 +86,12 @@ const routes: Routes = [
 
   { path: 'Calendar', component: CalendarComponent },
 
-
   { path: 'CUIcontracts', component: CuiContractsFormComponent },
   { path: 'Suppliers', component: SupplierFormComponent },
   { path: 'Vendors', component: VendorFormComponent },
 
-  { path: 'Controls', component: ControlFormComponent },
   { path: 'GuidelinesPage', component: GuidelinesForm },
   
-  { path: 'Weaknesses', component: WeaknessFormComponent },
-  { path: 'GapAssessment', component: GapAssessmentPageComponent },
-
   { path: 'GapForm', component: GapForm },
   { path: 'GapForm/:id/:Date', component: GapForm },
 
@@ -114,18 +107,6 @@ const routes: Routes = [
   { path: 'MilestonePage', component: MilestoneFormComponent},
   { path: 'ProcedurePage', component: ProcedureFormComponent},
   { path: 'FileDrop', component: FileImportComponent},
-
-
-
-
-
-
-
-
-
-
-
-
 
   { path: '404', component: NotfoundComponent},
  // { path: '**', redirectTo: '/404'},

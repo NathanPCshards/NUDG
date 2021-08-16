@@ -4,7 +4,6 @@ import { AppComponent } from './app.component';
 
 //Forms and components
 import { LoginFormComponent } from './login-form/login-form.component';
-import { CompanyInfoFormComponent } from './company-info-form/company-info-form.component';
 import { InventoryFormComponent } from './inventory-form/inventory-form.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { GroupFormComponent } from './group-form/group-form.component';
@@ -50,6 +49,8 @@ import { ChangeEmailFormComponent } from './changeEmailForm/change-email-form/ch
 import { ChangePhoneFormComponent } from './changePhoneForm/change-phone-form/change-phone-form.component';
 import { PolicyEditorModule } from './adminPanel/policy-editor/policy-editor.module';
 import { GapConfigModule } from './adminPanel/GapConfig/gap-config.module';
+import { WeaknessModule } from './weakness-form/weakness.module';
+import { ThemeService } from './core/services/ThemeService.service';
 
 
 
@@ -100,12 +101,13 @@ import { GapConfigModule } from './adminPanel/GapConfig/gap-config.module';
     ChangeEmailFormComponent,
     ChangePhoneFormComponent,
     
-    
 
     
     
   ],
   imports: [
+    WeaknessModule,
+
     CompanyInfoModule,
     IdentifierPageModule,
     PolicyEditorModule,
@@ -133,7 +135,7 @@ NoopAnimationsModule,
   exports : [    
   ],
 
-  providers: [MatDatepickerModule],
+  providers: [MatDatepickerModule, ThemeService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

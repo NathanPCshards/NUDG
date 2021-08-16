@@ -49,21 +49,20 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatTimepickerModule } from 'mat-timepicker';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
-import { PrintPageComponent } from './print-page/print-page.component';
-
 import { MatMenuModule} from '@angular/material/menu';
 import { AccordionState, login } from './injectables';
+import { ThemePickerComponent } from './theme-picker/theme-picker.component';
 
 
 
 
 @NgModule({
     declarations : [
-      PrintPageComponent,
+      ThemePickerComponent,
+      
     ],
   exports : [   
 
-    PrintPageComponent,
     MatMenuModule,
 
     BrowserModule,
@@ -115,6 +114,7 @@ import { AccordionState, login } from './injectables';
     MatTimepickerModule,
     NgxMaterialTimepickerModule,
     DragDropModule,
+    ThemePickerComponent
     
 ],
 

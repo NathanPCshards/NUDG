@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WeaknessFormComponent } from './weakness-form.component';
+import { ThemePickerComponent } from './theme-picker.component';
 
-describe('WeaknessFormComponent', () => {
-  let component: WeaknessFormComponent;
-  let fixture: ComponentFixture<WeaknessFormComponent>;
+describe('ThemePickerComponent', () => {
+  let component: ThemePickerComponent;
+  let fixture: ComponentFixture<ThemePickerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WeaknessFormComponent ]
+      declarations: [ ThemePickerComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WeaknessFormComponent);
+    fixture = TestBed.createComponent(ThemePickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

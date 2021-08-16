@@ -1,0 +1,5 @@
+@import '../../app/app.component.scss';
+
+@mixin component-themes($theme) {
+  @include tile-theme($theme);
+}

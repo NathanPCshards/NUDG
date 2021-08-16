@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith, tap } from 'rxjs/operators';
 import { login } from 'src/app/injectables';
-import { controls } from 'src/app/models/controls';
 import { policy } from 'src/app/models/policy';
 import { standards } from 'src/app/models/standards';
 import { ControlsService } from 'src/app/services/controls.service';

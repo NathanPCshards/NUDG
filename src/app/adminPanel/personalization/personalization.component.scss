@@ -2,6 +2,12 @@ table{
     width: 100%;
 
    }
+.themeBox{
+    width:70px;
+    height:70px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+    margin-right: 9%;
+}
 .mat-header-cell{
     background-color: rgb(63,81,181) ;
     color:white;
@@ -15,11 +21,10 @@ table{
     background-color: rgb(240, 240, 240);
 }
 
-
 .mat-expansion-panel:nth-child(even){
     background-color: rgb(225, 225, 225);
-   
 }
+
 .mat-expansion-panel:nth-child(odd){
     background-color: rgb(240, 240, 240);
 }
