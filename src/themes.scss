@@ -6,6 +6,7 @@
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming'; 
 // Plus imports for other components in your app.
+@import "theme_variables.scss";
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -54,133 +55,218 @@ $nudg-theme: mat-light-theme((
 
 
 
-// Define a dark theme
-$dark-primary: mat-palette($mat-amber);
-$dark-accent: mat-palette($mat-deep-purple);
 
-$dark-theme: mat-dark-theme((
+
+/*
+$redPalette                mat-red);
+$pinkPalette                mat-pink);
+$purplePalette                mat-purple);
+$deep-purplePalette                mat-deep-purple);
+$indigoPalette                mat-indigo);
+$bluePalette                mat-blue);
+$light-bluePalette                mat-light-blue);
+$cyanPalette                mat-cyan);
+$tealPalette                mat-teal);
+$greenPalette                mat-green);
+$light-greenPalette                mat-light-green);
+$limePalette                mat-lime);
+$yellowPalette                mat-yellow);
+$amberPalette                mat-amber);
+$orangePalette                mat-orange);
+$deep-orangePalette                mat-deep-orange);
+$brownPalette                mat-brown);
+$greyPalette                mat-grey);
+$blue-greyPalette                mat-blue-grey);
+*/
+
+//<!-- THEME 4 -->
+
+
+$red-theme: mat-dark-theme((
+  color: (
+    primary: $redPalette,
+    accent: $orangePalette,
+    warn: $yellowPalette,
+    textColor : white
+
+
+  )
+));
+$dark-blue-theme: mat-light-theme((
  color: (
-   primary: $dark-primary,
-   accent: $dark-accent,
+   primary: $blue4,
+   accent: $blue2,
+   warn : $blue3,
+   themeBackground : $blue1
+ )
+));
+$green-theme: mat-light-theme((
+ color: (
+   primary: $greenPalette,
+   accent: $light-greenPalette,
+   warn : $tealPalette
+
+ )
+));
+$purple-theme: mat-dark-theme((
+ color: (
+   primary: $deep-purplePalette,
+   accent: $purplePalette,
+   warn: $bluePalette
  )
 ));
 
-
-
-
-$orange2: (
-  '50': '#e8eaf6',
-  '100': '#c5cae9',
-  '200': '#9fa8da',
-  '300': '#7986cb',
-  '400': '#5c6bc0',
-  '500': '#3f51b5',
-  '600': '#3949ab',
-  '700': '#303f9f',
-  '800': '#283593',
-  '900': '#1a237e',
-  'A100': '#8c9eff',
-  'A200': '#536dfe',
-  'A400': '#3d5afe',
-  'A700': '#304ffe',
-    contrast: (
-      '50': '#e8eaf6',
-      '100': '#c5cae9',
-      '200': '#9fa8da',
-      '300': '#7986cb',
-      '400': '#5c6bc0',
-      '500': '#3f51b5',
-      '600': '#3949ab',
-      '700': '#303f9f',
-      '800': '#283593',
-      '900': '#1a237e',
-      'A100': '#8c9eff',
-      'A200': '#536dfe',
-      'A400': '#3d5afe',
-      'A700': '#304ffe',
-    )
-);
-
-
-$orange: (
-    50: #ffffff,
-    100: #fff7f4,
-    200: #fecdbd,
-    300: #fc9977,
-    400: #fc8259,
-    500: #fb6c3b,
-    600: #fa551d,
-    700: #f44205,
-    800: #d63a04,
-    900: #b83204,
-    A100: #ffffff,
-    A200: #fff7f4,
-    A400: #fc8259,
-    A700: #f44205,
-    contrast: (
-        50: black,
-        100: black,
-        200: black,
-        300: black,
-        400: black,
-        500: white,
-        600: white,
-        700: white,
-        800: white,
-        900: white,
-        A100: black,
-        A200: black,
-        A400: black,
-        A700: white,
-    )
-);
-
-// Define a orange theme
-//$orange-primary: mat-palette($orange);
-//$orange-accent: mat-palette($orange);
-
-/*$orange-theme: mat-light-theme((
+$yellow-theme: mat-dark-theme((
  color: (
-   primary: $orange-primary,
-   accent: $orange-accent,
+   primary: $yellow1,
+   accent: $yellow2,
+   warn: $yellow3
  )
-));*/
+));
 
+$light-red-theme: mat-dark-theme((
+ color: (
+   primary: $red1,
+   accent: $red2,
+   warn: $red3,
+   textColor : black
 
-// mandatory stuff for theming
-$orangePrimary: mat-palette($orange, 900, 800, 900);
-$orangeAccent:  mat-palette($orange2, 900, 800, 900);
+ )
+ 
+));
 
-// include the custom theme components into a theme object
-$orange-theme: mat-light-theme($orangePrimary, $orangeAccent);
+$orange-theme: mat-dark-theme((
+ color: (
+   primary: $orange1,
+   accent: $orange2,
+   warn: $orange3
+ )
+));
 
+$light-green-theme: mat-dark-theme((
+ color: (
+   primary: $light-Green1,
+   accent: $light-Green2,
+   warn: $light-Green3
+ )
+));
 
+$light-blue-theme: mat-dark-theme((
+ color: (
+   primary: $lightblue1,
+   accent: $lightblue2,
+   warn: $lightblue3
+ )
+));
+
+@import 'app/policy-board/policy-board.component.scss';
 
 // Apply the nudg theme by default
 @include angular-material-theme($nudg-theme);
 
-// Apply the dark theme only when the `.my-dark-theme` CSS class is applied
-// to an ancestor element of the components (such as `body`).
-.my-dark-theme {
-  @include angular-material-theme($dark-theme);
+@mixin expansion-panel-mixin($theme, $theme-primary, $theme-accent, $theme-warn, $textColor) {
+
+  .mat-expansion-panel:nth-child(2n){
+    background-color: $theme-primary;
+   
+  }
+  .mat-expansion-panel:nth-child(2n+1){
+      background-color:  $theme-accent;
+      color: $textColor;
+  }
+
+
 }
 
-// Apply the dark theme only when the `.my-dark-theme` CSS class is applied
-// to an ancestor element of the components (such as `body`).
-.orange-theme{
-  @include angular-material-theme($orange-theme);
+@mixin list-mixin($theme, $theme-primary, $theme-accent, $theme-warn, $textColor) {
+
+  .mat-list >  .mat-list-item:nth-child(2n+1){
+    background-color:white;
+  }
+  .mat-list >  .mat-list-item:nth-child(2n){
+
+    background-color:rgb(230, 228, 228);
+  }
+
+  .mat-list > .mat-list-item{
+    color:$textColor;
+    background-color: $theme-primary;
+  }
+
+  .mat-list{
+    color:$textColor;
+    background-color: $theme-primary;
+  }
+  .headerRow{
+    background-color: $theme-primary;
+    color : $textColor;
+
+  }
+
+  .mat-list-base{
+    color:$textColor;
+  }
+  .mat-list-item{
+    color:$textColor;
+  }
+
+
 }
 
-/*
-// Apply the dark theme only when the `.my-dark-theme` CSS class is applied
-// to an ancestor element of the components (such as `body`).
-.blue-theme {
-  @include angular-material-theme($blue);
-}*/
+
+
+    @mixin custom-components-theme($theme, $theme-primary, $theme-accent, $theme-warn, $textColor ) {
+      @include expansion-panel-mixin($theme, $theme-primary, $theme-accent, $theme-warn, $textColor);
+      @include list-mixin($theme, $theme-primary, $theme-accent, $theme-warn, $textColor);
+
+      @include angular-material-theme($theme);
+    
+    }
 
 
 
+.red {
+  @include custom-components-theme($red-theme, #e68080, #b38080, #ad0000, white); //Second argument is primary color, third argument is accent color.
+}
+.darkBlue {
+  @include custom-components-theme($dark-blue-theme, #073763, #72a3d8, #1a55a4, white ); //Second argument is primary color, third argument is accent color. fourth is warn
+} 
+.green {
 
+  @include custom-components-theme($green-theme, green, #80b569, #274e13, black); //Second argument is primary color, third argument is accent color.
+
+}
+.purple {
+  @include custom-components-theme($purple-theme, #673ab7, #9c27b0, #2196f3, white); //Second argument is primary color, third argument is accent color.
+
+} 
+
+.yellow {
+
+  @include custom-components-theme($purple-theme, #ffe8ad, #f8e199, #e79f13, black); //Second argument is primary color, third argument is accent color.
+
+}
+
+.light-red {
+  @include custom-components-theme($light-red-theme, #ecadad, #db6b6b, #ad0000, black); //Second argument is primary color, third argument is accent color.
+
+
+}
+
+.orange {
+  @include custom-components-theme($orange-theme, #fad3ae, #f5ac6e, #d56217, black); //Second argument is primary color, third argument is accent color.
+}
+
+.light-green {
+@include custom-components-theme($light-green-theme, #c0dbb7, #8ebe7d, #3c7d26, black ); //Second argument is primary color, third argument is accent color.
+
+}
+
+.light-blue {
+
+  @include custom-components-theme($light-blue-theme, #b3cbd0, #467986, #467986, black); //Second argument is primary color, third argument is accent color.
+
+}
 
 //Got dark theme to apply. Careful with material angular version, 11 uses one syntax, 12 uses another. we are on 11, but I think i need to update
 //to 12 to make custom pallettes, idk see tomorrow.

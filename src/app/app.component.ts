@@ -21,7 +21,10 @@ export class AppComponent implements OnInit {
   enteredButton = false;
   isMatMenuOpen = false;
   isMatMenu2Open = false;
-  isDarkTheme
+  currentTheme
+
+  test;
+
   rtpol= function (famType)  {
     if (famType == "all"){
       this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
@@ -53,8 +56,11 @@ export class AppComponent implements OnInit {
     this.loginInfo.email = "abc@gmail.com"
     this.loginInfo.password = "12341234"
 
-    this.isDarkTheme = this.themeService.isDarkTheme;
-
+    this.currentTheme = this.themeService.currentTheme;
+    this.themeService.currentTheme.subscribe(data=>{
+      this.test = data
+      console.log("This.test : " , this.test)
+    })
   }
 
   debug(){

@@ -8,7 +8,7 @@ import {  ThemeService } from '../core/services/ThemeService.service';
   styleUrls: ['./theme-picker.component.scss']
 })
 export class ThemePickerComponent implements OnInit {
-  isDarkTheme: Observable<boolean>;
+  currentTheme: Observable<String>;
 
   constructor(
     private themeService : ThemeService
@@ -17,7 +17,7 @@ export class ThemePickerComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.isDarkTheme = this.themeService.isDarkTheme;
+    this.currentTheme = this.themeService.currentTheme;
 
   }
   
@@ -25,19 +25,18 @@ export class ThemePickerComponent implements OnInit {
 
     } 
 
-  loadTheme(theme){
-    //.setStyle('theme', `/assets/themes/${theme}.scss`); 
-    console.log("Attempting to load theme")
-    let checked = true
-    this.themeService.setDarkTheme(checked);
+    loadTheme(theme){
+
+    
+    }
   
+
+
+  setTheme(checked : String){
+  //  document.body.style.backgroundColor = "#c5cae9"
+
+    this.themeService.setTheme(checked)
   }
 
-
-
-
-  toggleDarkTheme(checked: boolean) {
-    this.themeService.setDarkTheme(checked);
-  }
 
 }

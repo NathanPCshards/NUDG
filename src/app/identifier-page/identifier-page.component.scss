@@ -1,11 +1,293 @@
 //the four corners + middle bar
-  .wrapper{
-    //this is a specific number to remove the scroll bar on the side
-    height:100vh;
+.wrapper{
+  //this is a specific number to remove the scroll bar on the side
+  height:100vh;
+}
+
+
+.policy2 {
+  width:49%;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  margin-right: 3px;
+  float: left;
+  background-color: white;
+//  overflow: scroll;
+  overflow:auto;
+  padding: 20px;
+  min-height: 45%;
+  height:45%;
+  display: inline;
+}
+
+.standard4{
+  margin-top: 7px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-left: 3px;
+  width:49.5%;
+  min-height: 45%;
+  height:45%;
+  float:right;
+  align-content: stretch;
+ // background-color: orange;
+   overflow:auto;   
+}
+
+
+.editBar{
+  width:99%;
+  float:right;
+  margin: 10px; 
+  margin-left: 30px;
+  position: relative;
+
+}
+
+
+.weakness2 {
+  //background-color: red;
+  box-sizing: border-box;
+  position: relative;
+  width:49%;
+  float:left;
+ // overflow-y: scroll;
+  overflow:auto;
+  overflow-x: hidden;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  margin-right: 3px;
+  display:block;
+  min-height: 44%;
+  height:44%;
+
+}
+
+.control2 {
+//  background-color: blue;
+  box-sizing: border-box;
+  position: relative;
+  width:49.5%;
+  min-height: 44%;
+  height:44%;
+
+  float:right;
+  overflow:auto;
+  overflow-x: hidden;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-left: 3px;
+
+  display:block;
+}
+
+//inside policy box
+div.row1{
+  display: flex; 
+}
+div.item2{
+  overflow: hidden;
+  text-align: center;
+  margin: 1%;
+}
+
+
+
+//CSS for LIST
+.flexContainer{
+  display:flexbox;
+}
+.listSpan {
+  position:relative;
+  float:1;
+}
+
+
+
+.idCol{
+  width:75px;
+  min-width: 75px;
+  text-align: left;
+
+}
+.nameCol{
+  margin-left: 10px;
+  width:150px;
+  min-width: 150px;
+  text-align: left;
+
+}
+.smallCol{
+  width:13%;
+  min-width:13%;
+  text-align: left;
+  margin-left: 8%;
+}
+
+.mediumCol{
+  width:42%;
+  min-width:42%;
+  text-align: left;
+  margin-left: 2%;
+}
+.descCol{
+  width:85%;
+  min-width: 85%;
+  text-align: left;
+  margin-left: 10px;
+}
+
+.dateCol{
+  width:60px;
+  min-width: 60px;
+  text-align: left;
+  margin-left:  10px;
+}
+
+.dateCol2{
+  width:20%;
+  min-width: 20%;
+  text-align: left;
+  margin-left:  10px
+}
+.dateCol3{
+  width:75px;
+  min-width: 75px;
+  text-align: left;
+  margin-left:  10px
+}
+.dateCol4{
+
+  text-align: left;
+
+
+}
+.searchBox{
+  width: 110px;
+  min-width: 110px;
+  
+
+}
+
+
+//CSS for Center bar and It's interactions
+dl{
+  border:1px solid #ddd;
+}
+
+:host{
+  display:flex;
+  flex-direction: column;
+  &:not(:first-of-type) {
+  border-top:1px solid #ddd;
+}
+}
+
+//some objects inside of the policy box
+dt{
+  background-color:#efefef;
+  padding:5px;
+  cursor:pointer;
+  overflow:hidden;
+  &:hover{
+      background-color:#8f8f8f;
+
   }
+}
+dd{
+  flex-direction: column;
+  background-color: white;
+  padding-top:0;
+  padding-bottom:0;
 
 
-  .policy2 {
+}
+.dditems{
+  text-align: left;
+  white-space: pre-wrap;
+
+}
+
+//animations 'states'
+.uncollapsed {
+  animation: slide-down 1s ease forwards;
+  opacity:1;
+}
+.collapsed {
+  animation: slide-up 1s ease forwards;
+  opacity:0;
+}
+.Pshrink {
+  animation: policyShrink 1s ease forwards;
+
+}
+.Pgrow {
+  animation: policyGrow 1s ease forwards;
+
+}
+.Cshrink {
+animation: controlsShrink 1s ease forwards;
+
+}
+.Cgrow {
+animation: controlsGrow 1s ease forwards;
+
+}
+.Sshrink {
+animation: standardsShrink 1s ease forwards;
+
+}
+.Sgrow {
+animation: standardsGrow 1s ease forwards;
+
+}
+.Wshrink {
+animation: weaknessesShrink 1s ease forwards;
+
+}
+.Wgrow {
+animation: weaknessesGrow 1s ease forwards;
+
+}
+
+//keyframes
+@keyframes slide-down {
+    //On Open
+  0% {
+    top:350px;
+    height: 0;
+    opacity:0;
+  }
+  100% {
+    top: 150px;
+    height: 900px;
+    min-height: 800px;
+
+    opacity:1;
+  }
+}
+
+@keyframes slide-up {
+    //On Close
+  0% {
+    height: 900px;
+    min-height: 800px;
+    opacity:1;
+  }
+  100% {
+    height: 0;
+    opacity:0;
+  }
+}
+
+
+
+@keyframes policyShrink {
+  //start big
+  0% {
     width:49%;
     margin-top: 10px;
     margin-left: 10px;
@@ -13,152 +295,435 @@
     margin-right: 3px;
     float: left;
     background-color: white;
-  //  overflow: scroll;
     overflow:auto;
     padding: 20px;
     min-height: 45%;
     height:45%;
     display: inline;
   }
- 
-  .standard4{
-    margin-top: 7px;
-    margin-right: 10px;
+  //get small
+  100%{
+    width:49%;
+    margin-top: 10px;
+    margin-left: 10px;
     margin-bottom: 10px;
-    margin-left: 3px;
-    width:49.5%;
+    margin-right: 3px;
+    float: left;
+    background-color: white;
+    padding: 20px;
+    min-height: 20%;
+    height:20%;
+    display: inline;
+    overflow: scroll;
+
+  }
+}
+
+@keyframes policyGrow {
+  //start small
+  0% {
+    width:49%;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-right: 3px;
+    float: left;
+    background-color: white;
+    padding: 20px;
+    min-height: 20%;
+    height:20%;
+    display: inline;
+    overflow: scroll;
+
+  }
+  //get big
+  100%{
+
+    //new
+    width:49%;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    margin-right: 3px;
+    float: left;
+    background-color: white;
+    overflow:auto;
+    padding: 20px;
     min-height: 45%;
     height:45%;
-    float:right;
-    align-content: stretch;
-   // background-color: orange;
-     overflow:auto;   
-  }
- 
-  .mat-list-base {
-    padding:0px;
-  }
-  .editBar{
-    width:99%;
-    float:right;
-    margin: 10px; 
-    margin-left: 30px;
-    position: relative;
-
-  }
+    display: inline;
 
 
-  .weakness2 {
-    //background-color: red;
+
+
+    /*old
     box-sizing: border-box;
     position: relative;
     width:49%;
     float:left;
-   // overflow-y: scroll;
-    overflow:auto;
+    overflow-y: scroll;
     overflow-x: hidden;
+    background-color: white;
+
     margin-top: 10px;
     margin-left: 10px;
     margin-bottom: 10px;
     margin-right: 3px;
     display:block;
     min-height: 44%;
-    height:44%;
-
+    height:44%;*/
   }
-
-  .control2 {
-  //  background-color: blue;
-    box-sizing: border-box;
-    position: relative;
-    width:49.5%;
-    min-height: 44%;
-    height:44%;
-
-    float:right;
-    overflow:auto;
-    overflow-x: hidden;
-    margin-top: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    margin-left: 3px;
-
-    display:block;
-  }
-
-//inside policy box
-div.row1{
-    display: flex; 
-}
-div.item2{
-    overflow: hidden;
-    text-align: center;
-    margin: 1%;
 }
 
+@keyframes controlsShrink {
+//start big
+0% {
+//  background-color: blue;
+box-sizing: border-box;
+position: relative;
+width:49.5%;
+min-height: 44%;
+height:44%;
 
+float:right;
+overflow-y: scroll;
+overflow-x: hidden;
+margin-top: 10px;
+margin-right: 10px;
+margin-bottom: 10px;
+margin-left: 3px;
 
-//CSS for LIST
-.flexContainer{
-    display:flexbox;
+display:block;
 }
-.listSpan {
-    position:relative;
-    float:1;
+//get small
+100%{
+ // background-color: blue;
+ box-sizing: border-box;
+ position: relative;
+ width:49.5%;
+ min-height: 20%;
+ height:20%;
+
+ float:right;
+ overflow-y: scroll;
+ overflow-x: hidden;
+ margin-top: 10px;
+ margin-right: 10px;
+ margin-bottom: 10px;
+ margin-left: 3px;
+ display:block;
+
 }
-.headerRow {
-    position:relative;
-    background-color: rgb(122, 149, 236);
 }
 
-.mat-list >  .mat-list-item:nth-child(2n+1){
-    background-color:white;
-  }
-  .mat-list >  .mat-list-item:nth-child(2n){
+@keyframes controlsGrow {
+//start small
+0% {
+ // background-color: blue;
+ box-sizing: border-box;
+ position: relative;
+ width:49.5%;
+ min-height: 20%;
+ height:20%;
 
-    background-color:rgb(230, 228, 228);
-  }
+ float:right;
+ overflow-y: scroll;
+ overflow-x: hidden;
+ margin-top: 10px;
+ margin-right: 10px;
+ margin-bottom: 10px;
+ margin-left: 3px;
+ display:block;
 
-  .mat-list > .mat-list-item{
-    border: 1px solid black;
-    justify-content: left;
+}
+//get big
+100%{
+//  background-color: blue;
+box-sizing: border-box;
+position: relative;
+width:49.5%;
+min-height: 44%;
+height:44%;
 
-  }
+float:right;
+overflow-y: scroll;
+overflow-x: hidden;
+margin-top: 10px;
+margin-right: 10px;
+margin-bottom: 10px;
+margin-left: 3px;
 
+display:block;
+}
+}
+
+
+
+
+@keyframes standardsShrink {
+//start big
+0% {
+  margin-top: 7px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-left: 3px;
+  width:49.5%;
+  min-height: 45%;
+  height:45%;
+  float:right;
+  align-content: stretch;
+ // background-color: orange;
+  overflow-y: scroll;
+ 
+}
+//get small
+100%{
+  margin-top: 7px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-left: 3px;
+  width:49.5%;
+  min-height: 20%;
+  height:20%;
+  float:right;
+
+ // background-color: black;
+  overflow-y: scroll;
+
+}
+}
+
+@keyframes standardsGrow {
+//start small
+0% {
+  margin-top: 7px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-left: 3px;
+  width:49.5%;
+  min-height: 20%;
+  height:20%;
+  float:right;
+
+ // background-color: black;
+  overflow-y: scroll;
+
+}
+//get big
+100%{
+  margin-top: 7px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-left: 3px;
+  width:49.5%;
+  min-height: 45%;
+  height:45%;
+  float:right;
+  align-content: stretch;
+ // background-color: orange;
+  overflow-y: scroll;
+ 
+}
+}
+
+
+
+@keyframes weaknessesShrink {
+//start big
+0% {
+  //background-color: red;
+  box-sizing: border-box;
+  position: relative;
+  width:49%;
+  float:left;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  margin-right: 3px;
+  display:block;
+  min-height: 44%;
+  height:44%;
+}
+//get small
+100%{
+//  background-color: red;
+box-sizing: border-box;
+position: relative;
+width:49%;
+float:left;
+overflow-y: scroll;
+overflow-x: hidden;
+margin-top: 10px;
+margin-left: 10px;
+margin-bottom: 10px;
+margin-right: 3px;
+display:block;
+min-height: 20%;
+height:20%;
+}
+}
+
+@keyframes weaknessesGrow {
+//start small
+0% {
+//  background-color: red;
+box-sizing: border-box;
+position: relative;
+width:49%;
+float:left;
+overflow-y: scroll;
+overflow-x: hidden;
+margin-top: 10px;
+margin-left: 10px;
+margin-bottom: 10px;
+margin-right: 3px;
+display:block;
+min-height: 20%;
+height:20%;
+}
+//get big
+100%{
+  //background-color: red;
+  box-sizing: border-box;
+  position: relative;
+  width:49%;
+  float:left;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  margin-right: 3px;
+  display:block;
+  min-height: 44%;
+  height:44%;
+}
+}
+
+
+//DRAG AND DROP Styling
+
+.cdk-drag-preview {
+  //this is the list element you move with the mouse
+  background-color: rgb(104, 230, 79);
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  //this is the location the element is dropped 
+  opacity: 0;
+  display: none;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.dragdropbox:last-child {
+  border: none;
+}
+
+.weaknesses-list.cdk-drop-list-dragging .dragdropbox:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}  
+.controls-list.cdk-drop-list-dragging .dragdropbox:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.dragDropboxHighlight{
+  background-color: red;
+}  
+
+
+
+//Policy search
+::ng-deep #policySearch .mat-form-field-underline  {
+  display:none
+}
+#policySearch{
+margin-left: 60%;
+bottom: 22px;
+//margin-bottom: 40%;
+font-size: 24px;
+}
+
+
+
+
+.dButton {
+width: 90px;
+height: 36px;
+font-weight: 100;
+margin-left: 40%;
+}
+
+
+//some styling for guideline popout
+[popUp] {
+// padding: 10px;
+background: #369;
+color: #fff;
+cursor: move;
+text-align: center;
+}
+.mainDiv{
+//  width:300px;  
+//  height:300px;
+  position: relative;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  left: 100px;
+  top:100px;  
+  background-color: rgba(255, 166, 0);
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.doNotPrint{
+  visibility: visible;
+}
+.PrintSection{
+  display:none;
+  visibility: hidden;
+}
+
+@media print {
+  .doNotPrint {display:none; visibility: hidden;}
+  .PrintSection {display:flex; visibility: visible;}
   .idCol{
+    font-size: small;
+
     width:75px;
     min-width: 75px;
     text-align: left;
 
   }
   .nameCol{
+    font-size: small;
+
     margin-left: 10px;
     width:150px;
     min-width: 150px;
     text-align: left;
 
   }
-  .smallCol{
-    width:13%;
-    min-width:13%;
-    text-align: left;
-    margin-left: 8%;
-  }
-
-  .mediumCol{
-    width:42%;
-    min-width:42%;
-    text-align: left;
-    margin-left: 2%;
-  }
   .descCol{
-    width:85%;
-    min-width: 85%;
+    font-size: small;
+
+    width:150px;
+    min-width: 250px;
     text-align: left;
     margin-left: 10px;
   }
   
   .dateCol{
+    font-size: small;
+
     width:60px;
     min-width: 60px;
     text-align: left;
@@ -166,8 +731,9 @@ div.item2{
   }
 
   .dateCol2{
-    width:20%;
-    min-width: 20%;
+    font-size: small;
+    width:100px;
+    min-width: 100px;
     text-align: left;
     margin-left:  10px
   }
@@ -183,664 +749,80 @@ div.item2{
 
 
   }
-  .searchBox{
-    width: 110px;
-    min-width: 110px;
-    
 
-  }
-
-
-  //CSS for Center bar and It's interactions
-  dl{
-    border:1px solid #ddd;
+  #table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
   }
   
-:host{
-    display:flex;
-    flex-direction: column;
-    &:not(:first-of-type) {
-    border-top:1px solid #ddd;
+  #table td, #table th {
+    border: 1px solid rgb(0, 0, 0);
+    padding: 8px;
   }
-  }
-
-  //some objects inside of the policy box
-  dt{
-    background-color:#efefef;
-    padding:5px;
-    cursor:pointer;
-    overflow:hidden;
-    &:hover{
-        background-color:#8f8f8f;
-
-    }
-  }
-  dd{
-    flex-direction: column;
-    background-color: white;
-    padding-top:0;
-    padding-bottom:0;
-
-
-  }
-  .dditems{
+  
+  #table tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #table tr:hover {background-color: #ddd;}
+  
+  #table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
     text-align: left;
-    white-space: pre-wrap;
-
-}
-
-//animations 'states'
-  .uncollapsed {
-    animation: slide-down 1s ease forwards;
-    opacity:1;
+    background-color: #4CAF50;
+    color: white;
   }
-  .collapsed {
-    animation: slide-up 1s ease forwards;
-    opacity:0;
-  }
-  .Pshrink {
-    animation: policyShrink 1s ease forwards;
-
-  }
-  .Pgrow {
-    animation: policyGrow 1s ease forwards;
-
-}
-.Cshrink {
-  animation: controlsShrink 1s ease forwards;
-
-}
-.Cgrow {
-  animation: controlsGrow 1s ease forwards;
-
-}
-.Sshrink {
-  animation: standardsShrink 1s ease forwards;
-
-}
-.Sgrow {
-  animation: standardsGrow 1s ease forwards;
-
-}
-.Wshrink {
-  animation: weaknessesShrink 1s ease forwards;
-
-}
-.Wgrow {
-  animation: weaknessesGrow 1s ease forwards;
-
-}
-  
-//keyframes
-  @keyframes slide-down {
-      //On Open
-    0% {
-      top:350px;
-      height: 0;
-      opacity:0;
-    }
-    100% {
-      top: 150px;
-      height: 900px;
-      min-height: 800px;
-
-      opacity:1;
-    }
-  }
-  
-  @keyframes slide-up {
-      //On Close
-    0% {
-      height: 900px;
-      min-height: 800px;
-      opacity:1;
-    }
-    100% {
-      height: 0;
-      opacity:0;
-    }
-  }
-
-
-
-@keyframes policyShrink {
-    //start big
-    0% {
-      width:49%;
-      margin-top: 10px;
-      margin-left: 10px;
-      margin-bottom: 10px;
-      margin-right: 3px;
-      float: left;
-      background-color: white;
-      overflow:auto;
-      padding: 20px;
-      min-height: 45%;
-      height:45%;
-      display: inline;
-    }
-    //get small
-    100%{
-      width:49%;
-      margin-top: 10px;
-      margin-left: 10px;
-      margin-bottom: 10px;
-      margin-right: 3px;
-      float: left;
-      background-color: white;
-      padding: 20px;
-      min-height: 20%;
-      height:20%;
-      display: inline;
-      overflow: scroll;
-
-    }
-}
-
-@keyframes policyGrow {
-    //start small
-    0% {
-      width:49%;
-      margin-top: 10px;
-      margin-left: 10px;
-      margin-bottom: 10px;
-      margin-right: 3px;
-      float: left;
-      background-color: white;
-      padding: 20px;
-      min-height: 20%;
-      height:20%;
-      display: inline;
-      overflow: scroll;
-
-    }
-    //get big
-    100%{
-
-      //new
-      width:49%;
-      margin-top: 10px;
-      margin-left: 10px;
-      margin-bottom: 10px;
-      margin-right: 3px;
-      float: left;
-      background-color: white;
-      overflow:auto;
-      padding: 20px;
-      min-height: 45%;
-      height:45%;
-      display: inline;
-
-
-
-
-      /*old
-      box-sizing: border-box;
-      position: relative;
-      width:49%;
-      float:left;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      background-color: white;
-
-      margin-top: 10px;
-      margin-left: 10px;
-      margin-bottom: 10px;
-      margin-right: 3px;
-      display:block;
-      min-height: 44%;
-      height:44%;*/
-    }
-}
-
-@keyframes controlsShrink {
-  //start big
-  0% {
-  //  background-color: blue;
-  box-sizing: border-box;
-  position: relative;
-  width:49.5%;
-  min-height: 44%;
-  height:44%;
-
-  float:right;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  margin-top: 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  margin-left: 3px;
-
-  display:block;
-  }
-  //get small
-  100%{
-   // background-color: blue;
-   box-sizing: border-box;
-   position: relative;
-   width:49.5%;
-   min-height: 20%;
-   height:20%;
-
-   float:right;
-   overflow-y: scroll;
-   overflow-x: hidden;
-   margin-top: 10px;
-   margin-right: 10px;
-   margin-bottom: 10px;
-   margin-left: 3px;
-   display:block;
-
-  }
-}
-
-@keyframes controlsGrow {
-  //start small
-  0% {
-   // background-color: blue;
-   box-sizing: border-box;
-   position: relative;
-   width:49.5%;
-   min-height: 20%;
-   height:20%;
-
-   float:right;
-   overflow-y: scroll;
-   overflow-x: hidden;
-   margin-top: 10px;
-   margin-right: 10px;
-   margin-bottom: 10px;
-   margin-left: 3px;
-   display:block;
-
-  }
-  //get big
-  100%{
-  //  background-color: blue;
-  box-sizing: border-box;
-  position: relative;
-  width:49.5%;
-  min-height: 44%;
-  height:44%;
-
-  float:right;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  margin-top: 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  margin-left: 3px;
-
-  display:block;
-  }
-}
-
-
-
-
-@keyframes standardsShrink {
-  //start big
-  0% {
-    margin-top: 7px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    margin-left: 3px;
-    width:49.5%;
-    min-height: 45%;
-    height:45%;
-    float:right;
-    align-content: stretch;
-   // background-color: orange;
-    overflow-y: scroll;
-   
-  }
-  //get small
-  100%{
-    margin-top: 7px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    margin-left: 3px;
-    width:49.5%;
-    min-height: 20%;
-    height:20%;
-    float:right;
-
-   // background-color: black;
-    overflow-y: scroll;
-
-  }
-}
-
-@keyframes standardsGrow {
-  //start small
-  0% {
-    margin-top: 7px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    margin-left: 3px;
-    width:49.5%;
-    min-height: 20%;
-    height:20%;
-    float:right;
-
-   // background-color: black;
-    overflow-y: scroll;
-
-  }
-  //get big
-  100%{
-    margin-top: 7px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    margin-left: 3px;
-    width:49.5%;
-    min-height: 45%;
-    height:45%;
-    float:right;
-    align-content: stretch;
-   // background-color: orange;
-    overflow-y: scroll;
-   
-  }
-}
-
-
-
-@keyframes weaknessesShrink {
-  //start big
-  0% {
-    //background-color: red;
-    box-sizing: border-box;
-    position: relative;
-    width:49%;
+  .div1{
+    width:33.3%;
     float:left;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-bottom: 10px;
-    margin-right: 3px;
-    display:block;
-    min-height: 44%;
-    height:44%;
+    height:10%
   }
-  //get small
-  100%{
-  //  background-color: red;
-  box-sizing: border-box;
-  position: relative;
-  width:49%;
-  float:left;
+}
+
+
+
+//Guideline POPOUT styling
+
+.resizableDiv{
+  //having scroll enabled but hiding the bar
   overflow-y: scroll;
-  overflow-x: hidden;
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-bottom: 10px;
-  margin-right: 3px;
-  display:block;
-  min-height: 20%;
-  height:20%;
-  }
+  scrollbar-width: none; /* Hiding bar for Firefox */
+  -ms-overflow-style: none;  /* Hiding bar for Internet Explorer 10+ */
+  background-color: rgb(255, 255, 255); 
+  display: inline-block;
+  margin-left:auto;
+  margin-right: auto;
+  
+
+  height:90%;
+  width:94%;
+  
+  text-align: left; 
+  padding:3%;
+  cursor:initial;
+ 
 }
 
-@keyframes weaknessesGrow {
-  //start small
-  0% {
-  //  background-color: red;
-  box-sizing: border-box;
-  position: relative;
-  width:49%;
-  float:left;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-bottom: 10px;
-  margin-right: 3px;
-  display:block;
-  min-height: 20%;
-  height:20%;
-  }
-  //get big
-  100%{
-    //background-color: red;
-    box-sizing: border-box;
-    position: relative;
-    width:49%;
-    float:left;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-bottom: 10px;
-    margin-right: 3px;
-    display:block;
-    min-height: 44%;
-    height:44%;
-  }
+.guidelineText{
+  font-size: small; 
+  color:black; 
+  overflow:scroll;
+}
+.dragHandle{
+  cursor:all-scroll;
+  
 }
 
+.box{
+  width:30%; 
+  height:60%; 
+  z-index: 100;
+  position: absolute; 
+  left: 15%; 
+  top: 15%;
+  white-space: pre-wrap; 
+  resize: both; 
+  cursor:initial;
+  display:inline-block;
 
-//DRAG AND DROP Styling
-
-  .cdk-drag-preview {
-    //this is the list element you move with the mouse
-    background-color: rgb(104, 230, 79);
-    box-sizing: border-box;
-    border-radius: 4px;
-    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-                0 8px 10px 1px rgba(0, 0, 0, 0.14),
-                0 3px 14px 2px rgba(0, 0, 0, 0.12);
-  }
-  
-  .cdk-drag-placeholder {
-    //this is the location the element is dropped 
-    opacity: 0;
-    display: none;
-  }
-  
-  .cdk-drag-animating {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-  }
-  
-  .dragdropbox:last-child {
-    border: none;
-  }
-
-  .weaknesses-list.cdk-drop-list-dragging .dragdropbox:not(.cdk-drag-placeholder) {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-  }  
-  .controls-list.cdk-drop-list-dragging .dragdropbox:not(.cdk-drag-placeholder) {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-  }
-
-  .dragDropboxHighlight{
-    background-color: red;
-  }  
-  
-  
-  
-  //Policy search
-::ng-deep #policySearch .mat-form-field-underline  {
-    display:none
 }
-#policySearch{
-  margin-left: 60%;
-  bottom: 22px;
-  //margin-bottom: 40%;
-  font-size: 24px;
-}
-
-
-
-
-.dButton {
-  width: 90px;
-  height: 36px;
-  font-weight: 100;
-  margin-left: 40%;
-}
-
-
-//some styling for guideline popout
-[popUp] {
- // padding: 10px;
-  background: #369;
-  color: #fff;
-  cursor: move;
-  text-align: center;
-}
-  .mainDiv{
-  //  width:300px;  
-  //  height:300px;
-    position: relative;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    left: 100px;
-    top:100px;  
-    background-color: rgba(255, 166, 0);
-    border-radius: 10px;
-    display: inline-block;
-  }
-
-  .doNotPrint{
-    visibility: visible;
-  }
-  .PrintSection{
-    display:none;
-    visibility: hidden;
-  }
-
-  @media print {
-    .doNotPrint {display:none; visibility: hidden;}
-    .PrintSection {display:flex; visibility: visible;}
-    .idCol{
-      font-size: small;
-
-      width:75px;
-      min-width: 75px;
-      text-align: left;
-  
-    }
-    .nameCol{
-      font-size: small;
-
-      margin-left: 10px;
-      width:150px;
-      min-width: 150px;
-      text-align: left;
-  
-    }
-    .descCol{
-      font-size: small;
-
-      width:150px;
-      min-width: 250px;
-      text-align: left;
-      margin-left: 10px;
-    }
-    
-    .dateCol{
-      font-size: small;
-
-      width:60px;
-      min-width: 60px;
-      text-align: left;
-      margin-left:  10px;
-    }
-  
-    .dateCol2{
-      font-size: small;
-      width:100px;
-      min-width: 100px;
-      text-align: left;
-      margin-left:  10px
-    }
-    .dateCol3{
-      width:75px;
-      min-width: 75px;
-      text-align: left;
-      margin-left:  10px
-    }
-    .dateCol4{
-  
-      text-align: left;
-  
-  
-    }
-
-    #table {
-      font-family: Arial, Helvetica, sans-serif;
-      border-collapse: collapse;
-      width: 100%;
-    }
-    
-    #table td, #table th {
-      border: 1px solid rgb(0, 0, 0);
-      padding: 8px;
-    }
-    
-    #table tr:nth-child(even){background-color: #f2f2f2;}
-    
-    #table tr:hover {background-color: #ddd;}
-    
-    #table th {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      text-align: left;
-      background-color: #4CAF50;
-      color: white;
-    }
-    .div1{
-      width:33.3%;
-      float:left;
-      height:10%
-    }
-  }
-
-
-
-  //Guideline POPOUT styling
-
-  .resizableDiv{
-    //having scroll enabled but hiding the bar
-    overflow-y: scroll;
-    scrollbar-width: none; /* Hiding bar for Firefox */
-    -ms-overflow-style: none;  /* Hiding bar for Internet Explorer 10+ */
-    background-color: rgb(255, 255, 255); 
-    display: inline-block;
-    margin-left:auto;
-    margin-right: auto;
-    
-
-    height:90%;
-    width:94%;
-    
-    text-align: left; 
-    padding:3%;
-    cursor:initial;
-   
-  }
-
-  .guidelineText{
-    font-size: small; 
-    color:black; 
-    overflow:scroll;
-  }
-  .dragHandle{
-    cursor:all-scroll;
-    
-  }
-
-  .box{
-    width:30%; 
-    height:60%; 
-    z-index: 100;
-    position: absolute; 
-    left: 15%; 
-    top: 15%;
-    white-space: pre-wrap; 
-    resize: both; 
-    cursor:initial;
-    display:inline-block;
-
-  }

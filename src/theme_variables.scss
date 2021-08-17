@@ -1,0 +1,936 @@
+@import '~@angular/material/theming';
+//<!-- THEME 3 -->
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+
+$redPalette: mat-palette($mat-red);
+$pinkPalette: mat-palette($mat-pink);
+$purplePalette: mat-palette($mat-purple);
+$deep-purplePalette: mat-palette($mat-deep-purple);
+$indigoPalette: mat-palette($mat-indigo);
+$bluePalette: mat-palette($mat-blue);
+$light-bluePalette: mat-palette($mat-light-blue);
+$cyanPalette: mat-palette($mat-cyan);
+$tealPalette: mat-palette($mat-teal);
+$greenPalette: mat-palette($mat-green);
+$light-greenPalette: mat-palette($mat-light-green);
+$limePalette: mat-palette($mat-lime);
+$yellowPalette: mat-palette($mat-yellow);
+$amberPalette: mat-palette($mat-amber);
+$orangePalette: mat-palette($mat-orange);
+$deep-orangePalette: mat-palette($mat-deep-orange);
+$brownPalette: mat-palette($mat-brown);
+$greyPalette: mat-palette($mat-grey);
+$blue-greyPalette: mat-palette($mat-blue-grey);
+
+// Custom Sass colors vars (will be available in all the project)
+
+$pink: mat-color($pinkPalette);
+$purple: mat-color($purplePalette);
+$deep-purple: mat-color($deep-purplePalette);
+$indigo: mat-color($indigoPalette);
+$blue: mat-color($bluePalette);
+$light-blue: mat-color($light-bluePalette);
+$cyan: mat-color($cyanPalette);
+$teal: mat-color($tealPalette);
+$green: mat-color($greenPalette);
+$light-green: mat-color($light-greenPalette);
+$lime: mat-color($limePalette);
+$yellow: mat-color($yellowPalette);
+$amber: mat-color($amberPalette);
+$orange: mat-color($orangePalette);
+$deep-orange: mat-color($mat-deep-orange);
+$brown: mat-color($mat-brown);
+$grey: mat-color($mat-grey);
+$blue-grey: mat-color($mat-blue-grey);
+
+/* For use in src/lib/core/theming/_palette.scss */
+/* For use in src/lib/core/theming/_palette.scss */
+$md-blue1: (
+    50 : #f9fcfe,
+    100 : #f1f6fb,
+    200 : #e7f1f9,
+    300 : #ddebf7,
+    400 : #d6e6f5,
+    500 : #cfe2f3,
+    600 : #cadff1,
+    700 : #c3daef,
+    800 : #bdd6ed,
+    900 : #b2cfea,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #ffffff,
+    A700 : #ffffff,
+    contrast: (
+        50 : #ffffff,
+        100 : #ffffff,
+        200 : #ffffff,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #ffffff,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-blue2: (
+    50 : #f3f8fc,
+    100 : #e2eef8,
+    200 : #cfe2f4,
+    300 : #bcd6ef,
+    400 : #adceeb,
+    500 : #9fc5e8,
+    600 : #97bfe5,
+    700 : #8db8e2,
+    800 : #83b0de,
+    900 : #72a3d8,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #eef6ff,
+    A700 : #d4e9ff,
+    contrast: (
+        50 : #ffffff,
+        100 : #ffffff,
+        200 : #ffffff,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #ffffff,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-blue3: (
+    50 : #e8f0f8,
+    100 : #c5daee,
+    200 : #9ec2e3,
+    300 : #77aad7,
+    400 : #5a97cf,
+    500 : #3d85c6,
+    600 : #377dc0,
+    700 : #2f72b9,
+    800 : #2768b1,
+    900 : #1a55a4,
+    A100 : #dae9ff,
+    A200 : #a7caff,
+    A400 : #74abff,
+    A700 : #5b9cff,
+    contrast: (
+        50 : #ffffff,
+        100 : #ffffff,
+        200 : #ffffff,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #ffffff,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-blue4: (
+    50 : #e1e7ec,
+    100 : #b5c3d0,
+    200 : #839bb1,
+    300 : #517392,
+    400 : #2c557a,
+    500 : #073763,
+    600 : #06315b,
+    700 : #052a51,
+    800 : #042347,
+    900 : #021635,
+    A100 : #6d97ff,
+    A200 : #3a73ff,
+    A400 : #074fff,
+    A700 : #0044ec,
+    contrast: (
+        50 : #ffffff,
+        100 : #ffffff,
+        200 : #ffffff,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #ffffff,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-yellow1: (
+    50 : #fffdf9,
+    100 : #fffbf0,
+    200 : #fff9e6,
+    300 : #fff6db,
+    400 : #fff4d4,
+    500 : #fff2cc,
+    600 : #fff0c7,
+    700 : #ffeec0,
+    800 : #ffecb9,
+    900 : #ffe8ad,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #ffffff,
+    A700 : #ffffff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+/* For use in src/lib/core/theming/_palette.scss */
+$md-yellow2: (
+    50 : #fffcf3,
+    100 : #fff7e0,
+    200 : #fff2cc,
+    300 : #ffedb8,
+    400 : #ffe9a8,
+    500 : #ffe599,
+    600 : #ffe291,
+    700 : #ffde86,
+    800 : #ffda7c,
+    900 : #ffd36b,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #ffffff,
+    A700 : #fffbf3,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-yellow3: (
+    50 : #fdf8e6,
+    100 : #fbedc2,
+    200 : #f8e199,
+    300 : #f5d470,
+    400 : #f3cb51,
+    500 : #f1c232,
+    600 : #efbc2d,
+    700 : #edb426,
+    800 : #ebac1f,
+    900 : #e79f13,
+    A100 : #ffffff,
+    A200 : #fff4e2,
+    A400 : #ffe2af,
+    A700 : #ffd896,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-yellow4: (
+    50 : #fdf8e6,
+    100 : #fbedc2,
+    200 : #f8e199,
+    300 : #f5d470,
+    400 : #f3cb51,
+    500 : #f1c232,
+    600 : #efbc2d,
+    700 : #edb426,
+    800 : #ebac1f,
+    900 : #e79f13,
+    A100 : #ffffff,
+    A200 : #fff4e2,
+    A400 : #ffe2af,
+    A700 : #ffd896,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-red1: (
+    50 : #fef9f9,
+    100 : #fcf0f0,
+    200 : #fae6e6,
+    300 : #f7dbdb,
+    400 : #f6d4d4,
+    500 : #f4cccc,
+    600 : #f3c7c7,
+    700 : #f1c0c0,
+    800 : #efb9b9,
+    900 : #ecadad,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #ffffff,
+    A700 : #ffffff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-red2: (
+    50 : #fcf3f3,
+    100 : #f9e0e0,
+    200 : #f5cccc,
+    300 : #f0b8b8,
+    400 : #eda8a8,
+    500 : #ea9999,
+    600 : #e79191,
+    700 : #e48686,
+    800 : #e17c7c,
+    900 : #db6b6b,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #ffeaea,
+    A700 : #ffd0d0,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-red3: (
+    50 : #f9e0e0,
+    100 : #f0b3b3,
+    200 : #e68080,
+    300 : #db4d4d, 
+    400 : #d42626,
+    500 : #cc0000,
+    600 : #c70000,
+    700 : #c00000,
+    800 : #b90000,
+    900 : #ad0000,
+    A100 : #ffd7d7,
+    A200 : #ffa4a4,
+    A400 : #ff7171,
+    A700 : #ff5858,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-red4: (
+    50 : #ede0e0,
+    100 : #d1b3b3,
+    200 : #b38080,
+    300 : #944d4d,
+    400 : #7d2626,
+    500 : #660000,
+    600 : #5e0000,
+    700 : #530000,
+    800 : #490000,
+    900 : #380000,
+    A100 : #ff6e6e,
+    A200 : #ff3b3b,
+    A400 : #ff0808,
+    A700 : #ee0000,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-orange1: (
+    50 : #fffcf9,
+    100 : #fef7f0,
+    200 : #fef2e6,
+    300 : #fdeddc,
+    400 : #fce9d5,
+    500 : #fce5cd,
+    600 : #fce2c8,
+    700 : #fbdec1,
+    800 : #fbdaba,
+    900 : #fad3ae,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #ffffff,
+    A700 : #ffffff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-orange2: (
+    50 : #fef9f3,
+    100 : #fdefe1,
+    200 : #fce5ce,
+    300 : #fbdbba,
+    400 : #fad3ab,
+    500 : #f9cb9c,
+    600 : #f8c694,
+    700 : #f7be8a,
+    800 : #f6b880,
+    900 : #f5ac6e,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #ffffff,
+    A700 : #fff5ec,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-orange3: (
+    50 : #fcf2e7,
+    100 : #f8dec3,
+    200 : #f3c89c,
+    300 : #eeb274,
+    400 : #eaa256,
+    500 : #e69138,
+    600 : #e38932,
+    700 : #df7e2b,
+    800 : #db7424,
+    900 : #d56217,
+    A100 : #ffffff,
+    A200 : #ffe3d4,
+    A400 : #ffc3a1,
+    A700 : #ffb287,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-orange4: (
+    50 : #efe8e1,
+    100 : #d7c5b4,
+    200 : #bc9f82,
+    300 : #a1794f,
+    400 : #8c5c2a,
+    500 : #783f04,
+    600 : #703903,
+    700 : #653103,
+    800 : #5b2902,
+    900 : #481b01,
+    A100 : #ff9f7c,
+    A200 : #ff7a49,
+    A400 : #ff5416,
+    A700 : #fc4300,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #ffffff,
+    )
+);
+
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-lightgreen1: (
+    50 : #fafcfa,
+    100 : #f4f9f2,
+    200 : #ecf5e9,
+    300 : #e4f0e0,
+    400 : #dfedda,
+    500 : #d9ead3,
+    600 : #d5e7ce,
+    700 : #cfe4c8,
+    800 : #cae1c2,
+    900 : #c0dbb7,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #ffffff,
+    A700 : #ffffff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-lightgreen2: (
+    50 : #f6faf5,
+    100 : #e9f3e5,
+    200 : #dbebd4,
+    300 : #cce3c2,
+    400 : #c1ddb5,
+    500 : #b6d7a8,
+    600 : #afd3a0,
+    700 : #a6cd97,
+    800 : #9ec78d,
+    900 : #8ebe7d,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #e7ffde,
+    A700 : #d4ffc4,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-lightgreen3: (
+    50 : #edf5ea,
+    100 : #d2e5ca,
+    200 : #b5d4a7,
+    300 : #97c284,
+    400 : #80b569,
+    500 : #6aa84f,
+    600 : #62a048,
+    700 : #57973f,
+    800 : #4d8d36,
+    900 : #3c7d26,
+    A100 : #cdffbe,
+    A200 : #a6ff8b,
+    A400 : #7fff58,
+    A700 : #6cff3f,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-lightgreen4: (
+    50 : #e5eae3,
+    100 : #becab8,
+    200 : #93a789,
+    300 : #68835a,
+    400 : #476936,
+    500 : #274e13,
+    600 : #234711,
+    700 : #1d3d0e,
+    800 : #17350b,
+    900 : #0e2506,
+    A100 : #7dff61,
+    A200 : #53ff2e,
+    A400 : #2cfa00,
+    A700 : #27e100,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-lightblue1: (
+    50 : #f9fbfc,
+    100 : #f1f6f7,
+    200 : #e8f0f1,
+    300 : #dee9eb,
+    400 : #d7e5e7,
+    500 : #d0e0e3,
+    600 : #cbdce0,
+    700 : #c4d8dc,
+    800 : #bed3d8,
+    900 : #b3cbd0,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #ffffff,
+    A700 : #ffffff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-lightblue2: (
+    50 : #f4f8f9,
+    100 : #e3edef,
+    200 : #d1e2e4,
+    300 : #bed6d9,
+    400 : #b0cdd1,
+    500 : #a2c4c9,
+    600 : #9abec3,
+    700 : #90b6bc,
+    800 : #86afb5,
+    900 : #75a2a9,
+    A100 : #ffffff,
+    A200 : #f6feff,
+    A400 : #c3f6ff,
+    A700 : #aaf3ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-lightblue3: (
+    50 : #eff4f5,
+    100 : #d6e4e7,
+    200 : #bbd2d7,
+    300 : #9fc0c7,
+    400 : #8bb3bb,
+    500 : #76a5af,
+    600 : #6e9da8,
+    700 : #63939f,
+    800 : #598a96,
+    900 : #467986,
+    A100 : #e0f9ff,
+    A200 : #adeeff,
+    A400 : #7ae3ff,
+    A700 : #61ddff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+/* For use in src/lib/core/theming/_palette.scss */
+$md-lightblue4: (
+    50 : #e9f0f1,
+    100 : #c7d9dd,
+    200 : #a2c0c7,
+    300 : #7da7b0,
+    400 : #61949f,
+    500 : #45818e,
+    600 : #3e7986,
+    700 : #366e7b,
+    800 : #2e6471,
+    900 : #1f515f,
+    A100 : #9fe9ff,
+    A200 : #6cddff,
+    A400 : #39d2ff,
+    A700 : #1fccff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+/* For use in src/lib/core/theming/_palette.scss */
+$md-lightblue5: (
+    50 : #e2e7e8,
+    100 : #b6c2c5,
+    200 : #869a9e,
+    300 : #557177,
+    400 : #30525a,
+    500 : #0c343d,
+    600 : #0a2f37,
+    700 : #08272f,
+    800 : #062127,
+    900 : #03151a,
+    A100 : #58cfff,
+    A200 : #25c1ff,
+    A400 : #00acf1,
+    A700 : #009ad8,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #ffffff,
+    )
+);
+
+
+
+/* For use in src/lib/core/theming/_palette.scss */
+
+
+
+$blue1: mat-palette($md-blue1);
+$blue2: mat-palette($md-blue2);
+$blue3: mat-palette($md-blue3);
+$blue4: mat-palette($md-blue4);
+
+$yellow1: mat-palette($md-yellow1);
+$yellow2: mat-palette($md-yellow2);
+$yellow3: mat-palette($md-yellow3);
+$yellow4: mat-palette($md-yellow4);
+
+$red1: mat-palette($md-red1);
+$red2: mat-palette($md-red2);
+$red3: mat-palette($md-red3);
+$red4: mat-palette($md-red4);
+
+$orange1: mat-palette($md-orange1);
+$orange2: mat-palette($md-orange2);
+$orange3: mat-palette($md-orange3);
+$orange4: mat-palette($md-orange4);
+
+
+$light-Green1: mat-palette($md-lightgreen1);
+$light-Green2: mat-palette($md-lightgreen2);
+$light-Green3: mat-palette($md-lightgreen3);
+$light-Green4: mat-palette($md-lightgreen4);
+
+
+$lightblue1: mat-palette($md-lightblue1);
+$lightblue2: mat-palette($md-lightblue2);
+$lightblue3: mat-palette($md-lightblue3);
+$lightblue4: mat-palette($md-lightblue4);

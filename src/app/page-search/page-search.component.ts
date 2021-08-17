@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { ThemeService } from '../core/services/ThemeService.service';
 
 
 
@@ -18,7 +19,9 @@ export class PageSearchComponent implements OnInit {
   toHighlight: string = '';
   input = document.querySelector('input')!;
   log = document.getElementById('values')!;
-
+  currentTheme
+  test
+  
   //As long as these match a path in app-routing.module.ts
   //your good to go.
   
@@ -33,7 +36,7 @@ export class PageSearchComponent implements OnInit {
   'NetworkSharePage', 'AdminPanel', 'Standards'];
 
   
-  constructor(private route : ActivatedRoute, private router:Router) {
+  constructor(private route : ActivatedRoute, private router:Router, private themeService : ThemeService) {
     this.options.sort();
     this.myControl = new FormControl();
     this.filteredPages = this.myControl.valueChanges
@@ -42,6 +45,12 @@ export class PageSearchComponent implements OnInit {
         //@ts-ignore
         map(page => page ? this.filteredPages(page) : this.options.slice())
       );
+      this.currentTheme = this.themeService.currentTheme;
+      this.themeService.currentTheme.subscribe(data=>{
+        this.test = data
+        console.log("This.test : " , this.test)
+      })
+
   }
 
   private _filter(value: string): string[] {

@@ -1,157 +1,184 @@
-<div [ngClass]="{'my-dark-theme': isDarkTheme | async}">
-    <div class="doNotPrint" class="mat-app-background">
-        <mat-toolbar class = "toolbar" id="toolbar" style="background-color: transparent;">
-            <mat-toolbar-row class="tbRow" style="color: #094067;" > 
-        
-        
-        
-                <span routerLink="/Home" routerLinkActive="active" style="margin-left: 1%;"> NUDG 3.0 </span>
-        
-                <app-page-search style="margin-left: 3%;color: #094067;">
-        
-                </app-page-search>
-                
-                <div class="routes">
+
+<!-- THEME 2 -->
+<div [ngClass]="{'yellow': test == 'yellow' }">
+    <div [ngClass]="{'light-red': test == 'light-red' }">
+        <div [ngClass]="{'orange': test == 'orange'  }">
+            <div [ngClass]="{'light-green': test == 'light-green' }">
+                <div [ngClass]="{'light-blue': test == 'light-blue'}">
+
+                    <div [ngClass]="{'red': test == 'red' }">
+                        <div [ngClass]="{'darkBlue': test == 'dark-blue'  }">
+                            <div [ngClass]="{'green': test == 'green' }">
+                                <div [ngClass]="{'purple': test == 'purple'}">
+                                        <span style="font-size: xx-large" color="primary" >{{test}}</span>    
                     
-                <button mat-button type="button" routerLink="/AdminPanel" routerLinkActive="active" style="color: #094067;margin-left:8%;" class="btn btn-primary-outline pull-right"><i class="fa fa-plus"></i> Admin Panel</button>    
-    
-                <button mat-button type="button" routerLink="/Dashboard" routerLinkActive="active" style="color: #094067;margin-left:3%;" class="btn btn-primary-outline pull-right"><i class="fa fa-plus"></i> Dashboard</button>    
-                
-                <button 
-                mat-button 
-                type="button" 
-                style="color: #094067;margin-left: 10px;" 
-                class="btn btn-primary-outline pull-right" 
-                [matMenuTriggerFor]="afterMenu3" 
-                #menuTrigger3="matMenuTrigger" (mouseenter)="menuTimer($event); menuTrigger4.closeMenu(); menuTrigger3.openMenu(); menuTrigger2.closeMenu()" 
-                >
-                <i class="fa fa-plus"></i>Families</button>
-                <mat-menu id="afterMenu2" #afterMenu3 xPosition="after"  [overlapTrigger]="false">
-                    <div (mouseleave)="menuTrigger3.closeMenu()" >
-                        <span mat-menu-item type="button" (click)="rtpol('all');" >All Policies</span>    
-                        <span mat-menu-item type="button" (click)="rtpol('cmmc');" routerLinkActive="active">CMMC</span>
-                        <span mat-menu-item type="button" (click)="rtpol('nist');" routerLinkActive="active" >NIST</span>    
-            
+                                        <button style="width:25%; height:15%; font-size: xx-large;" mat-button color="primary">Primary</button>
+                                        <button style="width:25%; height:15%; font-size: xx-large;" mat-button color="accent">Accent</button>
+                                        <button style="width:25%; height:15%; font-size: xx-large;" mat-button color="warn">Warn</button>
+                    
+                    
+                                        <div class="doNotPrint" class="mat-app-background"  >
+                                            <mat-toolbar class = "toolbar" id="toolbar" color="primary" >
+                                                <mat-toolbar-row class="tbRow"  > 
+                                            
+                                
+                                                    <p routerLink="/Home" routerLinkActive="active" style="margin-left: 1%;" > NUDG 3.0 </p>
+                                            
+                                                    <app-page-search style="margin-left: 3%;" > <!--Old color value #094067;-->
+                                            
+                                                    </app-page-search>
+                                                    
+                                                    <div class="routes">
+                                                                      
+                                                    <button mat-button type="button" routerLink="/AdminPanel" routerLinkActive="active" style="margin-left:8%;" class="btn btn-primary-outline pull-right"><i class="fa fa-plus"></i>Admin Panel</button>    
+                                        
+                                                    <button mat-button type="button" routerLink="/Dashboard" routerLinkActive="active" style="margin-left:3%;" class="btn btn-primary-outline pull-right"><i class="fa fa-plus"></i> Dashboard</button>    
+                                                    
+                                                    <button 
+                                                    mat-button 
+                                                    type="button" 
+                                                    style="margin-left: 10px;" 
+                                                    class="btn btn-primary-outline pull-right" 
+                                                    [matMenuTriggerFor]="afterMenu3" 
+                                                    #menuTrigger3="matMenuTrigger" (mouseenter)="menuTimer($event); menuTrigger4.closeMenu(); menuTrigger3.openMenu(); menuTrigger2.closeMenu()" 
+                                                    >
+                                                    <i class="fa fa-plus"></i>Families</button>
+                                                    <mat-menu id="afterMenu2" #afterMenu3 xPosition="after"  [overlapTrigger]="false">
+                                                        <div (mouseleave)="menuTrigger3.closeMenu()" >
+                                                            <span mat-menu-item type="button" (click)="rtpol('all');" >All Policies</span>    
+                                                            <span mat-menu-item type="button" (click)="rtpol('cmmc');" routerLinkActive="active">CMMC</span>
+                                                            <span mat-menu-item type="button" (click)="rtpol('nist');" routerLinkActive="active" >NIST</span>    
+                                                
+                                                        </div>
+                                        
+                                                    </mat-menu>
+                                                    
+                                                    <button 
+                                                    mat-button 
+                                                    type="button" 
+                                                    style=" margin-left: 10px;" 
+                                                    class="btn btn-primary-outline pull-right" 
+                                                    [matMenuTriggerFor]="afterMenu"
+                                                    #menuTrigger="matMenuTrigger" (mouseenter)="menuTrigger.openMenu(); menuTrigger2.closeMenu();menuTrigger3.closeMenu(); menuTrigger4.closeMenu()">
+                                                    <i class="fa fa-plus"></i>Inventories</button>
+                                        
+                                                    <mat-menu #afterMenu="matMenu" xPosition="after">
+                                                        <div (mouseleave)="menuTrigger.closeMenu()">
+                                                            <button mat-menu-item routerLink="/Inventory" routerLinkActive="active">Inventory</button>
+                                                            <button mat-menu-item routerLink="/NetworkSharePage" routerLinkActive="active">Network Shares</button>
+                                                            <button mat-menu-item routerLink="/SharedResourceForm" routerLinkActive="active">Shared Resources</button>
+                                                            <button mat-menu-item routerLink="/SoftwareApprovalForm" routerLinkActive="active">Software Approval</button>
+                                                            <button mat-menu-item routerLink="/Firewall" routerLinkActive="active">Firewall Ports and Protocols</button>
+                                                
+                                                        </div>
+                                                    </mat-menu>
+                                        
+                                        
+                                        
+                                                
+                                        
+                                                    <!--https://stackblitz.com/edit/mat-nested-menu-yclrmd?embed=1&file=app/nested-menu-example.html-->
+                                                    <button 
+                                                    mat-button 
+                                                    
+                                                    type="button" 
+                                                    style=" margin-left: 10px; z-index:1050;" 
+                                                    class="btn btn-primary-outline pull-right" 
+                                                    [matMenuTriggerFor]="afterMenu2" 
+                                                    #menuTrigger2="matMenuTrigger" (mouseenter)="menuTimer($event); menuTrigger2.openMenu();menuTrigger3.closeMenu()" 
+                                                    >
+                                                    <i class="fa fa-plus"></i>Users, Roles and Groups</button>
+                                        
+                                                    <mat-menu id="afterMenu2" #afterMenu2 xPosition="after"  [overlapTrigger]="false">
+                                                        <div (mouseleave)="menuTrigger2.closeMenu()" >
+                                                            <span mat-menu-item type="button" routerLink="/Users" routerLinkActive="active" >Users</span>    
+                                                            <span mat-menu-item type="button" routerLink="/Roles" routerLinkActive="active">Roles</span>
+                                                            <span mat-menu-item type="button" routerLink="/GroupsPage" routerLinkActive="active" >Groups</span>    
+                                                
+                                                        </div>
+                                        
+                                                    </mat-menu>
+                                        
+                                        
+                                                    <button 
+                                                    mat-button 
+                                                    type="button" 
+                                                    style=" margin-left: 10px;" 
+                                                    class="btn btn-primary-outline pull-right" 
+                                                    [matMenuTriggerFor]="afterMenu4" 
+                                                    #menuTrigger4="matMenuTrigger" (mouseenter)="menuTimer($event); menuTrigger4.openMenu(); menuTrigger2.closeMenu(); menuTrigger3.closeMenu()" 
+                                                    >
+                                                    <i class="fa fa-plus"></i>Partners</button>
+                                                    <mat-menu id="afterMenu4" #afterMenu4 xPosition="after"  [overlapTrigger]="false">
+                                                        <div (mouseleave)="menuTrigger4.closeMenu()" >
+                                                            <span mat-menu-item type="button" routerLink="/Vendors" routerLinkActive="active">Vendors</span>    
+                                                            <span mat-menu-item type="button" routerLink="/Suppliers" routerLinkActive="active">Suppliers</span>
+                                                
+                                                        </div>
+                                        
+                                                    </mat-menu>
+                                        
+                                        
+                                        
+                                        
+                                                    <button 
+                                                    mat-button 
+                                                    type="button" 
+                                                    style=" margin-left: 10px;" 
+                                                    class="btn btn-primary-outline pull-right" 
+                                                    [matMenuTriggerFor]="afterMenu5"
+                                                    #menuTrigger5="matMenuTrigger" (mouseenter)="menuTrigger5.openMenu(); menuTrigger.closeMenu();menuTrigger2.closeMenu();menuTrigger3.closeMenu(); menuTrigger4.closeMenu()">
+                                                    <i class="fa fa-plus"></i>Resources</button>
+                                        
+                                                    <mat-menu #afterMenu5="matMenu" xPosition="after">
+                                                        <div (mouseleave)="menuTrigger5.closeMenu()">
+                                                            <button mat-menu-item routerLink="/SharedResourceForm" routerLinkActive="active">Shared Resources</button>
+                                                            <button mat-menu-item routerLink="/SecurityLogForm" routerLinkActive="active">Security Log</button>
+                                                            <!--
+                                                            <button mat-menu-item routerLinkActive="active">Incident Handling Scenarios</button>
+                                                            <button mat-menu-item routerLinkActive="active">Incident Reports</button>
+                                                            -->
+                                        
+                                                
+                                                        </div>
+                                                    </mat-menu>
+                                        
+                                                    
+                                                    <button mat-button type="button" routerLink="/Calendar" routerLinkActive="active" style=" margin-left: 10px;" class="btn btn-primary-outline pull-right"><i class="fa fa-plus"></i>Tasks</button>    
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                                    <button mat-button type="button" routerLink="/POAM" routerLinkActive="active" style=" margin-left:10px;" class="btn btn-primary-outline pull-right"><i class="fa fa-plus"></i> POAM</button>    
+                                        
+                                        
+                                        
+                                        
+                                                    <button mat-button type="button" routerLink="/Policy" routerLinkActive="active" style=" margin-left: 10px;" class="btn btn-primary-outline pull-right" ><i class="fa fa-plus"></i> Policy</button>    
+                                            
+                                                </div>
+                                            
+                                                </mat-toolbar-row>
+                                                
+                                            </mat-toolbar>
+                                        </div>
+                                    
+                                    
+                                    
+                                    <div class="cdk-overlay-container"></div>
+                                    <!-- The routed views render in the <router-outlet>-->
+                                    <router-outlet></router-outlet>
+                        
+                            
+                                </div>
+                            </div>
+                        </div>
                     </div>
-    
-                </mat-menu>
-                
-                <button 
-                mat-button 
-                type="button" 
-                style="color: #094067;margin-left: 10px;" 
-                class="btn btn-primary-outline pull-right" 
-                [matMenuTriggerFor]="afterMenu"
-                #menuTrigger="matMenuTrigger" (mouseenter)="menuTrigger.openMenu(); menuTrigger2.closeMenu();menuTrigger3.closeMenu(); menuTrigger4.closeMenu()">
-                <i class="fa fa-plus"></i>Inventories</button>
-       
-                <mat-menu #afterMenu="matMenu" xPosition="after">
-                    <div (mouseleave)="menuTrigger.closeMenu()">
-                        <button mat-menu-item routerLink="/Inventory" routerLinkActive="active">Inventory</button>
-                        <button mat-menu-item routerLink="/NetworkSharePage" routerLinkActive="active">Network Shares</button>
-                        <button mat-menu-item routerLink="/SharedResourceForm" routerLinkActive="active">Shared Resources</button>
-                        <button mat-menu-item routerLink="/SoftwareApprovalForm" routerLinkActive="active">Software Approval</button>
-                        <button mat-menu-item routerLink="/Firewall" routerLinkActive="active">Firewall Ports and Protocols</button>
-            
                     </div>
-                </mat-menu>
-    
-    
-    
-            
-    
-                <!--https://stackblitz.com/edit/mat-nested-menu-yclrmd?embed=1&file=app/nested-menu-example.html-->
-                <button 
-                mat-button 
-                
-                type="button" 
-                style="color: #094067;margin-left: 10px; z-index:1050;" 
-                class="btn btn-primary-outline pull-right" 
-                [matMenuTriggerFor]="afterMenu2" 
-                #menuTrigger2="matMenuTrigger" (mouseenter)="menuTimer($event); menuTrigger2.openMenu();menuTrigger3.closeMenu()" 
-                >
-                <i class="fa fa-plus"></i>Users, Roles and Groups</button>
-       
-                <mat-menu id="afterMenu2" #afterMenu2 xPosition="after"  [overlapTrigger]="false">
-                    <div (mouseleave)="menuTrigger2.closeMenu()" >
-                        <span mat-menu-item type="button" routerLink="/Users" routerLinkActive="active" >Users</span>    
-                        <span mat-menu-item type="button" routerLink="/Roles" routerLinkActive="active">Roles</span>
-                        <span mat-menu-item type="button" routerLink="/GroupsPage" routerLinkActive="active" >Groups</span>    
-            
-                    </div>
-    
-                </mat-menu>
-    
-    
-                <button 
-                mat-button 
-                type="button" 
-                style="color: #094067;margin-left: 10px;" 
-                class="btn btn-primary-outline pull-right" 
-                [matMenuTriggerFor]="afterMenu4" 
-                #menuTrigger4="matMenuTrigger" (mouseenter)="menuTimer($event); menuTrigger4.openMenu(); menuTrigger2.closeMenu(); menuTrigger3.closeMenu()" 
-                >
-                <i class="fa fa-plus"></i>Partners</button>
-                <mat-menu id="afterMenu4" #afterMenu4 xPosition="after"  [overlapTrigger]="false">
-                    <div (mouseleave)="menuTrigger4.closeMenu()" >
-                        <span mat-menu-item type="button" routerLink="/Vendors" routerLinkActive="active">Vendors</span>    
-                        <span mat-menu-item type="button" routerLink="/Suppliers" routerLinkActive="active">Suppliers</span>
-            
-                    </div>
-    
-                </mat-menu>
-    
-    
-    
-    
-                <button 
-                mat-button 
-                type="button" 
-                style="color: #094067;margin-left: 10px;" 
-                class="btn btn-primary-outline pull-right" 
-                [matMenuTriggerFor]="afterMenu5"
-                #menuTrigger5="matMenuTrigger" (mouseenter)="menuTrigger5.openMenu(); menuTrigger.closeMenu();menuTrigger2.closeMenu();menuTrigger3.closeMenu(); menuTrigger4.closeMenu()">
-                <i class="fa fa-plus"></i>Resources</button>
-       
-                <mat-menu #afterMenu5="matMenu" xPosition="after">
-                    <div (mouseleave)="menuTrigger5.closeMenu()">
-                        <button mat-menu-item routerLink="/SharedResourceForm" routerLinkActive="active">Shared Resources</button>
-                        <button mat-menu-item routerLink="/SecurityLogForm" routerLinkActive="active">Security Log</button>
-                        <!--
-                        <button mat-menu-item routerLinkActive="active">Incident Handling Scenarios</button>
-                        <button mat-menu-item routerLinkActive="active">Incident Reports</button>
-                        -->
-    
-            
-                    </div>
-                </mat-menu>
-    
-                
-                <button mat-button type="button" routerLink="/Calendar" routerLinkActive="active" style="color: #094067;margin-left: 10px;" class="btn btn-primary-outline pull-right"><i class="fa fa-plus"></i>Tasks</button>    
-    
-    
-    
-    
-    
-    
-    
-                <button mat-button type="button" routerLink="/POAM" routerLinkActive="active" style="color: #094067;margin-left:10px;" class="btn btn-primary-outline pull-right"><i class="fa fa-plus"></i> POAM</button>    
-    
-    
-    
-    
-                <button mat-button type="button" routerLink="/Policy" routerLinkActive="active" style="color: #094067;margin-left: 10px;" class="btn btn-primary-outline pull-right" ><i class="fa fa-plus"></i> Policy</button>    
-        
+                </div>
             </div>
-        
-            </mat-toolbar-row>
-            
-        </mat-toolbar>
-    </div>
-
-
-
-<div class="cdk-overlay-container"></div>
-<!-- The routed views render in the <router-outlet>-->
-<router-outlet></router-outlet>
+        </div>
 </div>

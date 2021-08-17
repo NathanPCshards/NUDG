@@ -1,3 +1,5 @@
+<app-theme-picker style="width:100%;"> </app-theme-picker>
+
 <div class="doNotPrint">
   <div class="wrapper" id="wrapper" >
     <div id="policy" class="policy2" *ngFor="let policy of policy$ | async">
@@ -18,7 +20,7 @@
             </mat-form-field>
           </form>
           
-  
+
           <div class="item2" style="flex: 1; ">
             <p id="title" style="font-size: 20px;"> {{policy.Subtitle}}</p>
           </div>    
@@ -439,7 +441,7 @@
      <div id="standard3" class="standard4 " style="width:100%; float:left">
       <mat-list>
         <div class="flexContainer">
-          <mat-list-item class="headerRow">
+          <mat-list-item id="headerRow" class="headerRow">
             <span class="listSpan idCol">
               Standard ID
             </span>

@@ -1,3 +1,4 @@
+
 <div class="doNotPrint" div class="toolbar" style="position:relative;  padding:.5%; background-color:#fffffe; color:black;width: 80%;margin-left: 10%;">
 
   <div style="float:0; display:flex; width:100%">
@@ -246,9 +247,10 @@
 
 
 <div class="doNotPrint">
-  <mat-list-item *ngFor="let entry of masterList$;let i=index;">
-      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
+
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngFor="let entry of masterList$;let i=index;" color="primary" >
+    
+        <mat-expansion-panel-header >
           <mat-panel-title #familyName>
           {{entry[0]}}
           </mat-panel-title>
@@ -322,7 +324,7 @@
         
         </mat-expansion-panel>
 
-    </mat-list-item>
+  
 </div>
 
 

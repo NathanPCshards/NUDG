@@ -114,6 +114,7 @@ import { ThemePickerComponent } from './theme-picker/theme-picker.component';
     MatTimepickerModule,
     NgxMaterialTimepickerModule,
     DragDropModule,
+    
     ThemePickerComponent
     
 ],

@@ -1,20 +1,44 @@
 
+<div [ngClass]="{'yellow': test == 'yellow' }">
+  <div [ngClass]="{'light-red': test == 'light-red' }">
+      <div [ngClass]="{'orange': test == 'orange'  }">
+          <div [ngClass]="{'light-green': test == 'light-green' }">
+              <div [ngClass]="{'light-blue': test == 'light-blue'}">
 
-<form class="example-form">
+                  <div [ngClass]="{'red': test == 'red' }">
+                      <div [ngClass]="{'darkBlue': test == 'dark-blue'  }">
+                          <div [ngClass]="{'green': test == 'green' }">
+                              <div [ngClass]="{'purple': test == 'purple'}">
+                                <mat-form-field class="example-form" appearance = "legacy" >
+                                    <!--style ="width: 85%; background: transparent; border-top: transparent;border-left: transparent; border-right: transparent; border-bottom: 1px solid #ffffff;"-->
+                                  <input class="searchComponent" type="text" 
+                                         placeholder="Search Pages"
+                                         
+                                         matInput
+                                         [formControl]="myControl"
+                                         [matAutocomplete]="auto">
+                                    
+                                  <mat-autocomplete #auto="matAutocomplete" >
+                                    <mat-option  id="options" *ngFor="let page of filteredPages | async" [value]="page" routerLink="{{page}}" (keydown)="handleKeyDown($event, page)" routerLinkActive="active">
+                                      {{page}}
+                                    </mat-option>
+                                  </mat-autocomplete>
+                                </mat-form-field>
+                              </div>  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
   
-    <input class="searchComponent" type="text"  style ="width: 85%;color: rgb(0, 0, 0); background: transparent; border-top: transparent;border-left: transparent; border-right: transparent; border-bottom: 1px solid #094067;"
-           placeholder="Search Pages"
-           
-           [formControl]="myControl"
-           [matAutocomplete]="auto">
-      
-    <mat-autocomplete #auto="matAutocomplete" >
-      <mat-option  id="options" *ngFor="let page of filteredPages | async" [value]="page" routerLink="{{page}}" (keydown)="handleKeyDown($event, page)" routerLinkActive="active">
-        {{page}}
-      </mat-option>
-    </mat-autocomplete>
-  </form>
-  
+
+
 <!--
   <input placeholder="Enter some text" name="name"/>::placeholder{
     color: white;
