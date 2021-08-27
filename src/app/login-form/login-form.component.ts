@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { HttpClient } from '@angular/common/http';
 import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit } from '@angular/core';
@@ -15,6 +16,20 @@ import { LoginService } from '../services/loginService';
 export class LoginFormComponent{
   test$;
   displayText;
+  todo = [
+    'Get to work',
+    'Pick up groceries',
+    'Go home',
+    'Fall asleep'
+  ];
+
+  done = [
+    'Get up',
+    'Brush teeth',
+    'Take a shower',
+    'Check e-mail',
+    'Walk dog'
+  ];
 
   constructor(private http: HttpClient, 
     private formBuilder: FormBuilder,
@@ -37,6 +52,8 @@ export class LoginFormComponent{
 
   }
 
+
+  
   loginSkip(){
     this.loginInfo.CompanyName = `PCshards`
     this.loginInfo.name = "Skipped Login"

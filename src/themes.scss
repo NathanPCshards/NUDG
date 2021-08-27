@@ -1,6 +1,9 @@
 
 //delete anything that gets duplicated above this line
 
+$theme-ignore-duplication-warnings: true; //ignore warnings
+
+
 
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
@@ -97,8 +100,13 @@ $dark-blue-theme: mat-light-theme((
    primary: $blue4,
    accent: $blue2,
    warn : $blue3,
-   themeBackground : $blue1
- )
+   themeBackground : $blue1,
+   textColor : define-palette(white),
+ ),
+ textColor : define-palette(white),
+
+
+
 ));
 $green-theme: mat-light-theme((
  color: (
@@ -129,9 +137,10 @@ $light-red-theme: mat-dark-theme((
    primary: $red1,
    accent: $red2,
    warn: $red3,
-   textColor : black
+   textColor : define-palette(black),
+ ),
 
- )
+ textColor:black
  
 ));
 
@@ -159,6 +168,17 @@ $light-blue-theme: mat-dark-theme((
  )
 ));
 
+//@include custom-components-theme($light-red-theme, #ecadad, #db6b6b, #ad0000, black); //Second argument is primary color, third argument is accent color.
+
+
+@mixin applyWhiteForeground($theme){
+  $custom-foreground-color: #ffffff;
+
+  $foreground: map-get($theme, foreground);
+  $foreground: map_merge($foreground, (foreground: $custom-foreground-color));
+  $theme: map_merge($theme, (foreground: $foreground));
+}
+
 @import 'app/policy-board/policy-board.component.scss';
 
 // Apply the nudg theme by default
@@ -180,36 +200,19 @@ $light-blue-theme: mat-dark-theme((
 
 @mixin list-mixin($theme, $theme-primary, $theme-accent, $theme-warn, $textColor) {
 
-  .mat-list >  .mat-list-item:nth-child(2n+1){
-    background-color:white;
-  }
-  .mat-list >  .mat-list-item:nth-child(2n){
 
-    background-color:rgb(230, 228, 228);
-  }
-
-  .mat-list > .mat-list-item{
+  .notHeaderRow{
     color:$textColor;
-    background-color: $theme-primary;
   }
 
-  .mat-list{
-    color:$textColor;
-    background-color: $theme-primary;
-  }
   .headerRow{
     background-color: $theme-primary;
     color : $textColor;
-
   }
 
-  .mat-list-base{
-    color:$textColor;
-  }
-  .mat-list-item{
-    color:$textColor;
-  }
-
+  .mat-list-base .mat-list-item {
+    color: $textColor
+}
 
 }
 
@@ -218,18 +221,24 @@ $light-blue-theme: mat-dark-theme((
     @mixin custom-components-theme($theme, $theme-primary, $theme-accent, $theme-warn, $textColor ) {
       @include expansion-panel-mixin($theme, $theme-primary, $theme-accent, $theme-warn, $textColor);
       @include list-mixin($theme, $theme-primary, $theme-accent, $theme-warn, $textColor);
-
       @include angular-material-theme($theme);
     
     }
 
-
+    @mixin second-custom-thing($theme, $theme-primary, $theme-accent, $theme-warn, $textColor ) {
+      @include expansion-panel-mixin($theme, $theme-primary, $theme-accent, $theme-warn, $textColor);
+      @include list-mixin($theme, $theme-primary, $theme-accent, $theme-warn, $textColor);
+      @include applyWhiteForeground($theme);
+      @include angular-material-theme($theme);
+    }
 
 .red {
   @include custom-components-theme($red-theme, #e68080, #b38080, #ad0000, white); //Second argument is primary color, third argument is accent color.
 }
 .darkBlue {
-  @include custom-components-theme($dark-blue-theme, #073763, #72a3d8, #1a55a4, white ); //Second argument is primary color, third argument is accent color. fourth is warn
+
+  //#1a55a4
+  @include second-custom-thing($dark-blue-theme, #073763, #72a3d8, #ffffff, white ); //Second argument is primary color, third argument is accent color. fourth is warn
 } 
 .green {
 
@@ -248,7 +257,8 @@ $light-blue-theme: mat-dark-theme((
 }
 
 .light-red {
-  @include custom-components-theme($light-red-theme, #ecadad, #db6b6b, #ad0000, black); //Second argument is primary color, third argument is accent color.
+  //ad0000
+  @include custom-components-theme($light-red-theme, #ecadad, #db6b6b, black, black); //Second argument is primary color, third argument is accent color.
 
 
 }
